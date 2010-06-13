@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly manifestVersion="1.0" xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <asmv1:assemblyIdentity name="BusaECUeditor.exe" version="1.0.0.65" publicKeyToken="186e54e4900f7997" language="en" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="ecueditor.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="BusaECUeditor" version="1.0.0.0" publicKeyToken="887BC6C162681CF2" language="neutral" processorArchitecture="msil" />
+    <commandLine file="BusaECUeditor.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet class="System.Security.PermissionSet" version="1" Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="4" minorVersion="10" buildNumber="0" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="2.0.50727.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AxInterop.MTSSDKLib.dll" size="9216">
+      <assemblyIdentity name="AxInterop.MTSSDKLib" version="1.0.0.0" publicKeyToken="887BC6C162681CF2" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>M21SbXoZbMCXhHhpTpwTw4X2L14=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AxInterop.OPCOMLib.dll" size="8192">
+      <assemblyIdentity name="AxInterop.OPCOMLib" version="1.0.0.0" publicKeyToken="887BC6C162681CF2" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>RNHwwu9s6ugCb0wla/ajaDa0E6w=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AxInterop.PGMFILib.dll" size="5120">
+      <assemblyIdentity name="AxInterop.PGMFILib" version="1.0.0.0" publicKeyToken="887BC6C162681CF2" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>HjFiMxJwzKVvm65xcKOVZH8hGiI=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AxInterop.VDEVCTRLLib.dll" size="5632">
+      <assemblyIdentity name="AxInterop.VDEVCTRLLib" version="1.0.0.0" publicKeyToken="887BC6C162681CF2" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>ut6au1TQ9yFI6ULQm/Q4lDn02yw=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AxInterop.XEDECTRLLib.dll" size="5632">
+      <assemblyIdentity name="AxInterop.XEDECTRLLib" version="1.0.0.0" publicKeyToken="887BC6C162681CF2" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>yrNmRPlCKRstxiwQjIXilCVKe84=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BusaECUeditor.exe" size="925696">
+      <assemblyIdentity name="BusaECUeditor" version="1.0.0.0" publicKeyToken="887BC6C162681CF2" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>PAFEFla+APRZm9bKOsdDDNiV+YI=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Interop.MTSSDKLib.dll" size="10752">
+      <assemblyIdentity name="Interop.MTSSDKLib" version="1.0.0.0" publicKeyToken="887BC6C162681CF2" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>jcLrLc7voQcjfPhKy0rsqCshckw=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Interop.OPCOMLib.dll" size="9216">
+      <assemblyIdentity name="Interop.OPCOMLib" version="1.0.0.0" publicKeyToken="887BC6C162681CF2" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>2maSxJYv0YIMv83YVlfLaYQ3SPY=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Interop.PGMFILib.dll" size="6144">
+      <assemblyIdentity name="Interop.PGMFILib" version="1.0.0.0" publicKeyToken="887BC6C162681CF2" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>JEiLvwqrm9qIgEmTd0naYjnOhmI=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Interop.VDEVCTRLLib.dll" size="6656">
+      <assemblyIdentity name="Interop.VDEVCTRLLib" version="1.0.0.0" publicKeyToken="887BC6C162681CF2" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>cnxFYU+6HJ7FCbF9uahkUiqYMTc=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Interop.XEDECTRLLib.dll" size="6656">
+      <assemblyIdentity name="Interop.XEDECTRLLib" version="1.0.0.0" publicKeyToken="887BC6C162681CF2" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>HIn1vs4KhFL2JfNdqt2iiD2wGAc=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Lxsoft.Controls.LedControl.dll" size="417792">
+      <assemblyIdentity name="Lxsoft.Controls.LedControl" version="1.0.2755.28697" publicKeyToken="AB1B2A8E4BFF52AD" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>lfGpO8CxE9D563bcBnSLRHgMh14=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="BusaECUeditor.exe.config" size="2516">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>cGaiPRN7UKWLqvgfYFnMG6nEIAk=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="ecueditor.ico" size="11854">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>DlJaYP4uahO880O/mL18SPBx8WE=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=BASWARE\petrika" issuerKeyHash="3f60db285ffdcaa984940416e34232b13ef95041" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>x9BkOuhIIlFu0H1L4XRvBx1SrJY=</DigestValue></Reference></SignedInfo><SignatureValue>Y3I4ZrN5Fis2Ff/cHQ9JfF8PMnAlF+2nZLROQ2dJCxQYR67pzHGQAKyDTPcGkusiAxRrb30ZJR/O0lCLGpbvNbHw4l8kJETK+fTY6SrIi4CAw8t9PVkOZ8Mgqmd4kYuQi0fgCFTDB44kryGdBsx4QYWi/R3zKOisyjYLfGSuNS8=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>pQF7F/d/UM4OU5x+qxFSxMTIiZ0uv4T1epW6aTqHST5Clpa05uheCR4QB2wOi3OheLSqmvVmpqPp9Kb/0I355/naXTyoPFk1jqy7AzeJFkxGVEiPyYwRGDcvShn518lV5sg3PMIpCl8RvQwkgkZyUA9NzbwghEc0UT0qvEVCWJk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="96ac521d076f74e14b7dd06e512248e83a64d0c7" Description="" Url=""><as:assemblyIdentity name="BusaECUeditor.exe" version="1.0.0.65" publicKeyToken="186e54e4900f7997" language="en" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=BASWARE\petrika</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>qiC4xPv3jwbdGF86FyZgr3V1wGg=</DigestValue></Reference></SignedInfo><SignatureValue>OP5cdD/cjdCnxhHgLdRDJDll2AEXpM8ZhGmzPvWaVpljaS5wZCBu9zKPoWlcAavQWv+nv40MuvOeNmE+1LFY52ImLZixBtOQMXzJ/5luvpZ03DoT9IPC+EJzoXLV43T/z7jyxl/WSepJ8At1V9VCeZtRe+j9hxQpq1uG9Dwv8hk=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>pQF7F/d/UM4OU5x+qxFSxMTIiZ0uv4T1epW6aTqHST5Clpa05uheCR4QB2wOi3OheLSqmvVmpqPp9Kb/0I355/naXTyoPFk1jqy7AzeJFkxGVEiPyYwRGDcvShn518lV5sg3PMIpCl8RvQwkgkZyUA9NzbwghEc0UT0qvEVCWJk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIBzTCCATqgAwIBAgIQuzVkH3Qn3YtKAsezv9L6sTAJBgUrDgMCHQUAMCkxJzAlBgNVBAMeHgBCAEEAUwBXAEEAUgBFAFwAcABlAHQAcgBpAGsAYTAeFw0wODAyMTEyMjAxMDBaFw0wOTAyMTEwNDAxMDBaMCkxJzAlBgNVBAMeHgBCAEEAUwBXAEEAUgBFAFwAcABlAHQAcgBpAGsAYTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEApQF7F/d/UM4OU5x+qxFSxMTIiZ0uv4T1epW6aTqHST5Clpa05uheCR4QB2wOi3OheLSqmvVmpqPp9Kb/0I355/naXTyoPFk1jqy7AzeJFkxGVEiPyYwRGDcvShn518lV5sg3PMIpCl8RvQwkgkZyUA9NzbwghEc0UT0qvEVCWJkCAwEAATAJBgUrDgMCHQUAA4GBAEzIGqLAPG+g5VufyCDqC9pKTVxpT/kpsS2078TadR4R6sdgmcYxB+kzfl344uoA5bTx/YA6W3JATmOlrHr9oaUoR8gTVhfTWqrAWnk8a/6AenMMW/LuNfWxe5elIjWG+V9nd1m6qHXMc/iSmhNxVohTzVNyx8+pOW995YHYmjML</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

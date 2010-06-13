@@ -1,0 +1,41 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+HayabusaECUeditor
+</name>
+</assembly>
+<members>
+<member name="P:BusaECUeditor.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:BusaECUeditor.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:BusaECUeditor.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="F:BusaECUeditor.ldGuage.ldGuage.components">
+	<summary>
+ Required designer variable.
+ </summary>
+</member><member name="M:BusaECUeditor.ldGuage.ldGuage.Dispose(System.Boolean)">
+	<summary>
+ Clean up any resources being used.
+ </summary>
+</member><member name="M:BusaECUeditor.ldGuage.ldGuage.InitializeComponent">
+	<summary>
+ Required method for Designer support - do not modify 
+ the contents of this method with the code editor.
+ </summary>
+</member><member name="T:BusaECUeditor.ldGuage.ldGuage">
+	<summary>
+ Summary description for UserControl1.
+ </summary>
+</member>
+</members>
+</doc>

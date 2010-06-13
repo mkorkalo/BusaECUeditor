@@ -1,0 +1,135 @@
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\Hayabusa ECUeditor.exe
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\Hayabusa ECUeditor.xml
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\Hayabusa ECUeditor.pdb
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\bin\Debug\default.bin
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\bin\Debug\shifter2.bin
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\bin\Debug\Interop.Graph.dll
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\bin\Debug\Interop.ECHARTCONTROLLib.dll
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\bin\Debug\Interop.NTGRAPH3DLib.dll
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\bin\Debug\Interop.MTSSDKLib.dll
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\bin\Debug\stdole.dll
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.vbproj.ResolveComReference.cache
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.AboutBox.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Datastream.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.ldGuage.ldGuage.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.updatebox.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Fuelmapediting.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.ECUnotsupported.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Dialog_Error.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.main.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Fuelmap.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Resources.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.filesavenotice.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Limiters.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.AcceptTerms.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Datalogger.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Interfacedlg.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Shifter_Instructions.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.mapsharing.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.shifter.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Advsettings.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Ignitionmap.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.ProgramHomepage.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.userbikeinfo.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.vbproj.GenerateResource.Cache
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\bin\Debug\K8.bin
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8Limiters.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8Datastream.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8Fuelmap.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8Ignitionmap.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\bin\Debug\gpl.txt
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\bin\Debug\Hayabusa_ECUeditor.exe.config
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\bin\Debug\Hayabusa_ECUeditor.exe.manifest
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\bin\Debug\Hayabusa_ECUeditor.application
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\bin\Debug\Hayabusa_ECUeditor.exe
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\bin\Debug\Hayabusa_ECUeditor.pdb
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\bin\Debug\Hayabusa_ECUeditor.xml
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\Hayabusa_ECUeditor.TrustInfo.xml
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\Hayabusa_ECUeditor.exe.manifest
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\Hayabusa_ECUeditor.application
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\Hayabusa_ECUeditor.exe
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\Hayabusa_ECUeditor.xml
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\Hayabusa_ECUeditor.pdb
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8FlashStatus.resources
+C:\Documents and Settings\petrik\My Documents\Visual Studio 2008\Projects\ECUeditor\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8Advsettings.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\Hayabusa_ECUeditor.exe
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\Hayabusa_ECUeditor.xml
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\Hayabusa_ECUeditor.pdb
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\default.bin
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\K8.bin
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\shifter2.bin
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\gpl.txt
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\Hayabusa_ECUeditor.exe.config
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\Hayabusa_ECUeditor.exe.manifest
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\Hayabusa_ECUeditor.application
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\Hayabusa_ECUeditor.exe
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\Hayabusa_ECUeditor.pdb
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\Hayabusa_ECUeditor.xml
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\Interop.Graph.dll
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\Interop.ECHARTCONTROLLib.dll
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\Interop.NTGRAPH3DLib.dll
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\Interop.MTSSDKLib.dll
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\stdole.dll
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.vbproj.ResolveComReference.cache
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.AboutBox.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Datastream.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.ldGuage.ldGuage.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.updatebox.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Fuelmapediting.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.ECUnotsupported.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Dialog_Error.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.main.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Fuelmap.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Resources.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.filesavenotice.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Limiters.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.AcceptTerms.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8Advsettings.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8FlashStatus.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8Ignitionmap.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8Fuelmap.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8Datastream.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8Limiters.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Datalogger.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Interfacedlg.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Shifter_Instructions.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.mapsharing.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.shifter.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Advsettings.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Ignitionmap.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.ProgramHomepage.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.userbikeinfo.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.vbproj.GenerateResource.Cache
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\Hayabusa_ECUeditor.TrustInfo.xml
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\Hayabusa_ECUeditor.exe.manifest
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\Hayabusa_ECUeditor.application
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8shifter.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\shiftergen2.bin
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Verifyinprogress.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\AquaGauge.dll
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\AGauge.dll
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\SpPerfChart.dll
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8enginedatalog.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\FTDI_CDM_2.04.16.exe
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8setupcomport.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8boostfuel.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\boostfuel.bin
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.gen2printsummary.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.BkingLimiters.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\Bking.bin
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.BkingAdvsettings.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.BKingFuelmap.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8STPmap.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\BkingUS.bin
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8nitrouscontrol.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\bin\Debug\nitrouscontrol.bin
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8ramair.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8injectorbalancemap.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.BkingSTPmap.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.Bkinginjectorbalancemap.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.LoginForm.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.K8dwellignition.resources
+C:\Users\PetriK\Documents\Visual Studio 2008\Projects\BusaECUeditor\BusaECUeditor\obj\Debug\BusaECUeditor.BKingIgnitionmap.resources
