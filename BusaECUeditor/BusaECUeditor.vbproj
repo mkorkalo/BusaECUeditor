@@ -698,14 +698,12 @@
     <Content Include="dlls\AxInterop.MTSSDKLib.dll" />
     <Content Include="dlls\AxInterop.NTGRAPH3DLib.dll" />
     <Content Include="dlls\AxInterop.XEDECTRLLib.dll" />
-    <Content Include="dlls\FTDI_CDM_2.04.16.exe" />
     <Content Include="dlls\Interop.Graph.dll" />
     <Content Include="dlls\Interop.MTSSDKLib.dll" />
     <Content Include="dlls\Interop.NTGRAPH3DLib.dll" />
     <Content Include="dlls\Interop.XEDECTRLLib.dll" />
     <Content Include="dlls\Lxsoft.Controls.LedControl.dll" />
     <Content Include="dlls\SpPerfChart.dll" />
-    <Content Include="dlls\stdole.dll" />
     <Content Include="gpl.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
