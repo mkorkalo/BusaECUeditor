@@ -1,0 +1,19 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PublishUrlHistory>\\amd\wwwroot\Ecueditor2.3\|\\amd\wwwroot\Ecueditor2.2\|\\amd\wwwroot\Ecueditor2.1\|\\amd\wwwroot\Ecueditor21\|\\amd\wwwroot\Ecueditor2.0\</PublishUrlHistory>
+    <InstallUrlHistory>http://macmadigan.no-ip.com/ecueditor2.3/|http://macmadigan.no-ip.com/ecueditor2.2/|http://macmadigan.no-ip.com/ecueditor2.1/|http://macmadigan.no-ip.com/ecueditor21/|http://macmadigan.no-ip.com/ecueditor2.0/</InstallUrlHistory>
+    <SupportUrlHistory>http://www.ecueditor.com|http://www.activeboard.com/forum.spark%3fforumID=99460|http://www.busanistit.org</SupportUrlHistory>
+    <UpdateUrlHistory>http://macmadigan.no-ip.com/ecueditor2.2/|http://macmadigan.no-ip.com/ecueditor2.1/|http://macmadigan.no-ip.com/ecueditor2.0/|http://macmadigan.no-ip.com/Public/ECU/ecueditor/|http://localhost/Hayabusa ECUeditor/</UpdateUrlHistory>
+    <BootstrapperUrlHistory>
+    </BootstrapperUrlHistory>
+    <FallbackCulture>en-US</FallbackCulture>
+    <VerifyUploadedFiles>true</VerifyUploadedFiles>
+    <ProjectView>ShowAllFiles</ProjectView>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
+    <ErrorReportUrlHistory>
+    </ErrorReportUrlHistory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
+  </PropertyGroup>
+</Project>
