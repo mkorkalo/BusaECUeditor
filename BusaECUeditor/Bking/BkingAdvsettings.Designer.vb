@@ -234,7 +234,7 @@ Partial Class BkingAdvsettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(419, 147)
+        Me.ClientSize = New System.Drawing.Size(415, 139)
         Me.Controls.Add(Me.GroupBox9)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.GroupBox1)
