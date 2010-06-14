@@ -80,20 +80,39 @@
       <HintPath>..\AGauge.dll</HintPath>
     </Reference>
     <Reference Include="AquaGauge, Version=1.0.2800.27798, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>.\AquaGauge.dll</HintPath>
+      <HintPath>dlls\AquaGauge.dll</HintPath>
     </Reference>
-    <Reference Include="AxInterop.ECHARTCONTROLLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL" />
-    <Reference Include="AxInterop.Graph, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL" />
-    <Reference Include="AxInterop.MTSSDKLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL" />
-    <Reference Include="AxInterop.NTGRAPH3DLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL" />
-    <Reference Include="Lxsoft.Controls.LedControl, Version=1.0.2755.28697, Culture=neutral, PublicKeyToken=ab1b2a8e4bff52ad, processorArchitecture=MSIL" />
+    <Reference Include="AxInterop.ECHARTCONTROLLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
+      <HintPath>dlls\AxInterop.ECHARTCONTROLLib.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.Graph, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
+      <HintPath>dlls\AxInterop.Graph.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.MTSSDKLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
+      <HintPath>dlls\AxInterop.MTSSDKLib.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.NTGRAPH3DLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
+      <HintPath>dlls\AxInterop.NTGRAPH3DLib.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.XEDECTRLLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL" />
+    <Reference Include="Interop.Graph, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL" />
+    <Reference Include="Interop.MTSSDKLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL" />
+    <Reference Include="Interop.NTGRAPH3DLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL" />
+    <Reference Include="Interop.XEDECTRLLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL" />
+    <Reference Include="Lxsoft.Controls.LedControl, Version=1.0.2755.28697, Culture=neutral, PublicKeyToken=ab1b2a8e4bff52ad, processorArchitecture=MSIL">
+      <HintPath>dlls\Lxsoft.Controls.LedControl.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="SpPerfChart, Version=1.0.2595.43101, Culture=neutral, PublicKeyToken=5f66223a893f5e2f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\SpPerfChart.dll</HintPath>
+      <HintPath>dlls\SpPerfChart.dll</HintPath>
+    </Reference>
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dlls\stdole.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Design" />
@@ -672,6 +691,21 @@
     <Content Include="Common\FTDI_CDM_2.04.16.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="dlls\AGauge.dll" />
+    <Content Include="dlls\AquaGauge.dll" />
+    <Content Include="dlls\AxInterop.ECHARTCONTROLLib.dll" />
+    <Content Include="dlls\AxInterop.Graph.dll" />
+    <Content Include="dlls\AxInterop.MTSSDKLib.dll" />
+    <Content Include="dlls\AxInterop.NTGRAPH3DLib.dll" />
+    <Content Include="dlls\AxInterop.XEDECTRLLib.dll" />
+    <Content Include="dlls\FTDI_CDM_2.04.16.exe" />
+    <Content Include="dlls\Interop.Graph.dll" />
+    <Content Include="dlls\Interop.MTSSDKLib.dll" />
+    <Content Include="dlls\Interop.NTGRAPH3DLib.dll" />
+    <Content Include="dlls\Interop.XEDECTRLLib.dll" />
+    <Content Include="dlls\Lxsoft.Controls.LedControl.dll" />
+    <Content Include="dlls\SpPerfChart.dll" />
+    <Content Include="dlls\stdole.dll" />
     <Content Include="gpl.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
