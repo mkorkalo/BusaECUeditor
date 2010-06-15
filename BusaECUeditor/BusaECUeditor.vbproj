@@ -299,10 +299,10 @@
     <Compile Include="G1\LoginForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Common\Shifter_Instructions.Designer.vb">
+    <Compile Include="G1\Shifter_Instructions.Designer.vb">
       <DependentUpon>Shifter_Instructions.vb</DependentUpon>
     </Compile>
-    <Compile Include="Common\Shifter_Instructions.vb">
+    <Compile Include="G1\Shifter_Instructions.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Common\mapsharing.Designer.vb">
@@ -311,10 +311,10 @@
     <Compile Include="Common\mapsharing.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Common\Shifter.Designer.vb">
+    <Compile Include="G1\Shifter.Designer.vb">
       <DependentUpon>Shifter.vb</DependentUpon>
     </Compile>
-    <Compile Include="Common\Shifter.vb">
+    <Compile Include="G1\Shifter.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="G1\Advsettings.Designer.vb">
@@ -498,10 +498,10 @@
     <Content Include="G2\nitrouscontrol.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Common\shiftergen2.bin">
+    <Content Include="G2\shiftergen2.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Common\shifter2.bin">
+    <Content Include="G1\shifter2.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -592,7 +592,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>Interfacedlg.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Common\Shifter_Instructions.resx">
+    <EmbeddedResource Include="G1\Shifter_Instructions.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Shifter_Instructions.vb</DependentUpon>
     </EmbeddedResource>
@@ -600,7 +600,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>mapsharing.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Common\Shifter.resx">
+    <EmbeddedResource Include="G1\Shifter.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Shifter.vb</DependentUpon>
     </EmbeddedResource>
