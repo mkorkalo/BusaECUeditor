@@ -707,10 +707,6 @@
     <Content Include="gpl.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="obj\mts.dll" />
-    <Content Include="obj\mtssdk.ocx" />
-    <Content Include="obj\NTGraph3D.dll" />
-    <Content Include="obj\SmartGraph.dll" />
     <EmbeddedResource Include="G1\LoginForm.resx">
       <DependentUpon>LoginForm.vb</DependentUpon>
     </EmbeddedResource>
