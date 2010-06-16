@@ -130,7 +130,7 @@ Public Class BkingShifter
 
         Dim i As Integer
         Dim fs As FileStream
-        Dim path As String = My.Application.Info.DirectoryPath & "\Bking\shifterbking.bin"
+        Dim path As String = My.Application.Info.DirectoryPath & "\ecu.bin\shifterbking.bin"
 
         Dim b(1) As Byte
 
