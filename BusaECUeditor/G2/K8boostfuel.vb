@@ -28,7 +28,7 @@ Public Class K8boostfuel
     Public ADJ As Integer = &H55800 '&HFF if boostfuel inactive, no code present else boostfuel active
     Dim BOOSTFUELCODE As Integer = &H55A00
     Dim IDTAG As Integer = &H55800
-    Dim BOOSTFUELVERSION As Integer = 110
+    Dim BOOSTFUELVERSION As Integer = 112
     Dim boostfuelcodelenght As Integer = &H1000 'lenght of the boostfuel code in bytes for clearing the memory
 
     Dim rowheading_map As Integer = &H55854
@@ -91,7 +91,7 @@ Public Class K8boostfuel
             i = readflashword(IDTAG)
 
             If (readflashword(IDTAG) <> BOOSTFUELVERSION) Then
-                MsgBox("boostfuel code incompatible with this version, please reactivate the boostfuel on this map")
+                MsgBox("boostfuel code incompatible with this version, please reactivate the boostfuel on this map " & Str(readflashword(IDTAG)))
                 C_boostfuel_activation.Checked = False
                 hide_boostfuel_settings()
             End If
@@ -275,10 +275,10 @@ Public Class K8boostfuel
 
         If readflashbyte(&H559D3) = &H0 Then 'Solenoidtype
             C_bleed.Checked = True
-            C_bleed.Text = "Normally Closed"
+            C_bleed.Text = "Normally Open"
         Else
             C_bleed.Checked = False
-            C_bleed.Text = "Normally Open"
+            C_bleed.Text = "Normally Closed"
         End If
     End Sub
 
@@ -427,11 +427,11 @@ Public Class K8boostfuel
                     ' D_duty.Item(c, r).Value = Int(((((readflashword((i * 2) + &H559A4) / 50.5) * 9.2) - 14.7)))
                 End If
             Else
-                If Not ((C_bleed.Checked) And (r = 2)) Then
-                    writeflashword((i * 2) + &H559A0, (D_duty.Item(c, r).Value))
-                Else
-                    writeflashword((i * 2) + &H559A0, (100 - D_duty.Item(c, r).Value))
-                End If
+                'if Not ((C_bleed.Checked) And (r = 2)) Then
+                writeflashword((i * 2) + &H559A0, (D_duty.Item(c, r).Value))
+                'Else
+                'writeflashword((i * 2) + &H559A0, (100 - D_duty.Item(c, r).Value))
+                'End If
 
 
             End If
@@ -766,9 +766,9 @@ Public Class K8boostfuel
         '
         D_duty.RowCount = 4
 
-        D_duty.RowHeadersWidth = 90
-        D_duty.Rows.Item(0).HeaderCell.Value = "100% over"
-        D_duty.Rows.Item(1).HeaderCell.Value = "0% below"
+        D_duty.RowHeadersWidth = 110
+        D_duty.Rows.Item(0).HeaderCell.Value = "0% over"
+        D_duty.Rows.Item(1).HeaderCell.Value = "100% below"
         D_duty.Rows.Item(2).HeaderCell.Value = "Duty%"
         D_duty.Rows.Item(3).HeaderCell.Value = "Ign ret"
 
@@ -788,11 +788,11 @@ Public Class K8boostfuel
                     D_duty.Item(c, r).Value = Int(((((readflashword((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7)))
                 End If
             Else
-                If Not ((C_bleed.Checked) And (r = 2)) Then
-                    D_duty.Item(c, r).Value = Int((readflashword((i * 2) + &H559A0)))
-                Else
-                    D_duty.Item(c, r).Value = 100 - Int((readflashword((i * 2) + &H559A0)))
-                End If
+                'If Not ((C_bleed.Checked) And (r = 2)) Then
+                D_duty.Item(c, r).Value = Int((readflashword((i * 2) + &H559A0)))
+                'Else
+                'D_duty.Item(c, r).Value = 100 - Int((readflashword((i * 2) + &H559A0)))
+                ' End If
                 'D_duty.Item(c, r).Value = Int((readflashword((i * 2) + &H559A0)))
             End If
 
@@ -849,10 +849,10 @@ Public Class K8boostfuel
   
     Private Sub C_bleed_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_bleed.CheckedChanged
         If C_bleed.Checked = True Then
-            C_bleed.Text = "Normally Closed"
+            C_bleed.Text = "Normally Open"
             writeflashbyte(&H559D3, &H0)
         Else
-            C_bleed.Text = "Normally Open"
+            C_bleed.Text = "Normally Closed"
             writeflashbyte(&H559D3, &HFF)
         End If
         generate_duty_table()
@@ -907,5 +907,114 @@ Public Class K8boostfuel
             writeflashbyte(&H559D1, &H10)
         End If
 
+    End Sub
+
+
+    Private Sub D_boostfuel_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles D_boostfuel.KeyDown
+
+        If (e.Control = True And e.KeyCode = Keys.V) Then
+            Dim rowIndex As Integer
+            Dim lines As String()
+
+            Dim columnStartIndex As Integer
+
+            rowIndex = Integer.MaxValue
+            columnStartIndex = Integer.MaxValue
+
+            For Each cell As DataGridViewCell In D_boostfuel.SelectedCells()
+                If cell.RowIndex < rowIndex Then
+                    rowIndex = cell.RowIndex
+                End If
+
+                If cell.ColumnIndex < columnStartIndex Then
+                    columnStartIndex = cell.ColumnIndex
+                End If
+            Next
+
+
+
+            rowIndex = D_boostfuel.CurrentCell.RowIndex
+
+            lines = Clipboard.GetText().Split(ControlChars.CrLf)
+
+            For Each line As String In lines
+                Dim columnIndex As Integer
+                Dim values As String()
+
+                values = line.Split(ControlChars.Tab)
+                columnIndex = columnStartIndex
+
+                For Each value As String In values
+                    If columnIndex < D_boostfuel.ColumnCount And rowIndex < D_boostfuel.RowCount Then
+                        If IsNumeric(value) Then
+                            D_boostfuel(columnIndex, rowIndex).Value = value
+                            'SetFlashItem(columnIndex, rowIndex)
+                        End If
+                    End If
+
+                    columnIndex = columnIndex + 1
+                Next
+
+                rowIndex = rowIndex + 1
+            Next
+
+        End If
+        writemaptoflash()
+
+    End Sub
+    Private Sub D_duty_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles D_duty.KeyDown
+
+        If (e.Control = True And e.KeyCode = Keys.V) Then
+            Dim rowIndex As Integer
+            Dim lines As String()
+
+            Dim columnStartIndex As Integer
+
+            rowIndex = Integer.MaxValue
+            columnStartIndex = Integer.MaxValue
+
+            For Each cell As DataGridViewCell In D_duty.SelectedCells()
+                If cell.RowIndex < rowIndex Then
+                    rowIndex = cell.RowIndex
+                End If
+
+                If cell.ColumnIndex < columnStartIndex Then
+                    columnStartIndex = cell.ColumnIndex
+                End If
+            Next
+
+
+
+            rowIndex = D_duty.CurrentCell.RowIndex
+
+            lines = Clipboard.GetText().Split(ControlChars.CrLf)
+
+            For Each line As String In lines
+                Dim columnIndex As Integer
+                Dim values As String()
+
+                values = line.Split(ControlChars.Tab)
+                columnIndex = columnStartIndex
+
+                For Each value As String In values
+                    If columnIndex < D_boostfuel.ColumnCount And rowIndex < D_duty.RowCount Then
+                        If IsNumeric(value) Then
+                            D_duty(columnIndex, rowIndex).Value = value
+                        End If
+                    End If
+
+                    columnIndex = columnIndex + 1
+                Next
+
+                rowIndex = rowIndex + 1
+            Next
+
+        End If
+        duty_writemaptoflash()
+
+    End Sub
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        K8BoostControlDiagram.Show()
     End Sub
 End Class

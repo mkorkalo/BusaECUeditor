@@ -1117,6 +1117,55 @@ Public Class BKingFuelmap
         End Select
     End Function
 
+    Private Sub Fuelmapgrid_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Fuelmapgrid.KeyDown
 
+        If (e.Control = True And e.KeyCode = Keys.V) Then
+            Dim rowIndex As Integer
+            Dim lines As String()
+            Dim columnStartIndex As Integer
+
+            rowIndex = Integer.MaxValue
+            columnStartIndex = Integer.MaxValue
+
+            For Each cell As DataGridViewCell In Fuelmapgrid.SelectedCells()
+                If cell.RowIndex < rowIndex Then
+                    rowIndex = cell.RowIndex
+                End If
+
+                If cell.ColumnIndex < columnStartIndex Then
+                    columnStartIndex = cell.ColumnIndex
+                End If
+            Next
+
+
+
+            rowIndex = Fuelmapgrid.CurrentCell.RowIndex
+
+            lines = Clipboard.GetText().Split(ControlChars.CrLf)
+
+            For Each line As String In lines
+                Dim columnIndex As Integer
+                Dim values As String()
+
+                values = line.Split(ControlChars.Tab)
+                columnIndex = columnStartIndex
+
+                For Each value As String In values
+                    If columnIndex < map_number_of_columns And rowIndex < map_number_of_rows Then
+                        If IsNumeric(value) Then
+                            Fuelmapgrid(columnIndex, rowIndex).Value = value
+                            SetFlashItem(columnIndex, rowIndex)
+                            setCellColour(columnIndex, rowIndex)
+                        End If
+                    End If
+
+                    columnIndex = columnIndex + 1
+                Next
+
+                rowIndex = rowIndex + 1
+            Next
+
+        End If
+    End Sub
 
 End Class

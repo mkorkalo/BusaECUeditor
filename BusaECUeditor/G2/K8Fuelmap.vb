@@ -340,6 +340,29 @@ Public Class K8Fuelmap
         ' All maps will be now flashed with the same map value from the screen
         ' first converted to ecu value
         '
+        If Me.Text.Contains("Fuel MS IAP/RPM") Then
+            mapsel = True
+            cylinder = 0        ' 0,1,2,3
+            ms01 = 0            ' 0,1
+            number_of_columns = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+            For cylinder = 0 To 3
+                For ms01 = 1 To 1
+                    For modeabc = setmode To setmode
+                        '
+                        ' This is normal on gear idle map
+                        '
+                        copy_to_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        writeflashword(copy_to_map + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
+                        '
+                        ' Need to write the values also to idle neutral map
+                        '
+                        copy_to_map2 = readflashlongword(readflashlongword((&H522A4 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        writeflashword(copy_to_map2 + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
+
+                    Next
+                Next
+            Next
+        End If
         If Me.Text.Contains("Fuel IAP/RPM") Then
             mapsel = True
             cylinder = 0        ' 0,1,2,3
@@ -417,6 +440,10 @@ Public Class K8Fuelmap
             Case 2
                 map_structure_table = &H52244 ' &H52244 on gear, &H522A4 on neutral
                 Me.Text = "ECUeditor - Fuel IAP/RPM map"
+                ms01 = 0            ' 0,1
+            Case 3
+                map_structure_table = &H52244 ' &H52244 on gear, &H522A4 on neutral
+                Me.Text = "ECUeditor - Fuel MS IAP/RPM map"
                 ms01 = 0            ' 0,1
             Case 4
                 map_structure_table = &H52304
@@ -1179,9 +1206,56 @@ Public Class K8Fuelmap
         End Select
     End Function
 
+    Private Sub Fuelmapgrid_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Fuelmapgrid.KeyDown
+
+        If (e.Control = True And e.KeyCode = Keys.V) Then
+            Dim rowIndex As Integer
+            Dim lines As String()
+            Dim columnStartIndex As Integer
+
+            rowIndex = Integer.MaxValue
+            columnStartIndex = Integer.MaxValue
+
+            For Each cell As DataGridViewCell In Fuelmapgrid.SelectedCells()
+                If cell.RowIndex < rowIndex Then
+                    rowIndex = cell.RowIndex
+                End If
+
+                If cell.ColumnIndex < columnStartIndex Then
+                    columnStartIndex = cell.ColumnIndex
+                End If
+            Next
+
+
+
+            rowIndex = Fuelmapgrid.CurrentCell.RowIndex
+
+            lines = Clipboard.GetText().Split(ControlChars.CrLf)
+
+            For Each line As String In lines
+                Dim columnIndex As Integer
+                Dim values As String()
+
+                values = line.Split(ControlChars.Tab)
+                columnIndex = columnStartIndex
+
+                For Each value As String In values
+                    If columnIndex < map_number_of_columns And rowIndex < map_number_of_rows Then
+                        If IsNumeric(value) Then
+                            Fuelmapgrid(columnIndex, rowIndex).Value = value
+                            SetFlashItem(columnIndex, rowIndex)
+                            setCellColour(columnIndex, rowIndex)
+                        End If
+                    End If
+
+                    columnIndex = columnIndex + 1
+                Next
+
+                rowIndex = rowIndex + 1
+            Next
+
+        End If
+    End Sub
 
    
-    Private Sub T_RPM_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_RPM.TextChanged
-
-    End Sub
 End Class

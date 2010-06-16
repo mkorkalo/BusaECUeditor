@@ -44,6 +44,7 @@ Partial Class K8boostfuel
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Label7 = New System.Windows.Forms.Label
         Me.C_fueladd = New System.Windows.Forms.CheckBox
+        Me.Button1 = New System.Windows.Forms.Button
         Me.K8boostfuelBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.D_boostfuel, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_BOOST, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -269,6 +270,15 @@ Partial Class K8boostfuel
         Me.C_fueladd.Text = "Adding to fuelpulse"
         Me.C_fueladd.UseVisualStyleBackColor = True
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(616, 460)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(53, 22)
+        Me.Button1.TabIndex = 86
+        Me.Button1.Text = "Help"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'K8boostfuelBindingSource
         '
         Me.K8boostfuelBindingSource.DataSource = GetType(BusaECUeditor.K8boostfuel)
@@ -278,6 +288,7 @@ Partial Class K8boostfuel
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(703, 655)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.C_fueladd)
         Me.Controls.Add(Me.T_overboost)
         Me.Controls.Add(Me.Label7)
@@ -333,5 +344,6 @@ Partial Class K8boostfuel
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
     Friend WithEvents C_fueladd As System.Windows.Forms.CheckBox
     Friend WithEvents Label7 As System.Windows.Forms.Label
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 
 End Class
