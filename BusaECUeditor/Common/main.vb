@@ -206,7 +206,7 @@ Public Class main
                         setecutype()
                     End If
                     block_pgm = True
-
+                    close_child_windows()
                 Case (262144)
                     ECUversion = "gen1"
                     FlashToolStripMenuItem.Visible = False
@@ -632,6 +632,9 @@ Public Class main
             Case "gen2"
                 K8shifter.Show()
                 K8shifter.Select()
+            Case "bking"
+                BkingShifter.Show()
+                BkingShifter.Select()
             Case Else
                 MsgBox("Feature not yet implemented")
         End Select
@@ -660,7 +663,7 @@ Public Class main
         Dim defpath As String ' this is for this subroutine only
 
         ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\" & "default.bin"
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\default.bin"
 
         L_File.Text = ""
         L_Comparefile.Text = ""
@@ -734,9 +737,10 @@ Public Class main
 
     Private Sub NewK8ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewK8ToolStripMenuItem.Click
         Dim defpath As String ' this is for this subroutine only
+        close_child_windows()
 
         ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\" & "k8.bin"
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\k8.bin"
 
         L_File.Text = ""
         L_Comparefile.Text = ""
@@ -3935,7 +3939,7 @@ Public Class main
         Dim defpath As String ' this is for this subroutine only
 
         ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\" & "Bking.bin"
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\bking.bin"
 
         L_File.Text = ""
         L_Comparefile.Text = ""
@@ -3999,7 +4003,7 @@ Public Class main
         Dim defpath As String ' this is for this subroutine only
 
         ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\" & "BkingUS.bin"
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\BkingUS.bin"
 
         L_File.Text = ""
         L_Comparefile.Text = ""
@@ -4068,7 +4072,7 @@ Public Class main
         strPublish = "Publisher"
         strTitle = "DisplayName"
 
-        strEditor = "HKCU\Software\Microsoft\Windows\currentVersion\Uninstall\0683c2c1208fabf1\"
+        strEditor = "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\dde589b887ecb332\"
 
         objShell = CreateObject("WScript.Shell")
 
@@ -4087,7 +4091,18 @@ Public Class main
         System.Diagnostics.Process.Start("http://www.ecueditor.com")
     End Sub
 
-  
+    Private Sub close_child_windows()
+        K8Advsettings.Close()
+        K8boostfuel.Close()
+        K8Fuelmap.Close()
+        K8Datastream.Close()
+        K8Ignitionmap.Close()
+        K8shifter.Close()
+        K8nitrouscontrol.Close()
+        K8injectorbalancemap.Close()
+        K8dwellignition.Close()
+        K8STPmap.Close()
+    End Sub
 End Class
 
 

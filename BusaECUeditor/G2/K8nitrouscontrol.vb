@@ -265,7 +265,7 @@ Public Class K8nitrouscontrol
     Private Sub nitrouscontrol_code_in_memory(ByVal method As Boolean, ByVal lenght As Integer)
         Dim i As Integer
         Dim fs As FileStream
-        Dim path As String = My.Application.Info.DirectoryPath & "\nitrouscontrol.bin"
+        Dim path As String = My.Application.Info.DirectoryPath & "\ecu.bin\nitrouscontrol.bin"
         Dim b(1) As Byte
 
         If Not File.Exists(path) Then

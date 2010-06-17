@@ -28,7 +28,7 @@ Public Class K8boostfuel
     Public ADJ As Integer = &H55800 '&HFF if boostfuel inactive, no code present else boostfuel active
     Dim BOOSTFUELCODE As Integer = &H55A00
     Dim IDTAG As Integer = &H55800
-    Dim BOOSTFUELVERSION As Integer = 110
+    Dim BOOSTFUELVERSION As Integer = 112
     Dim boostfuelcodelenght As Integer = &H1000 'lenght of the boostfuel code in bytes for clearing the memory
 
     Dim rowheading_map As Integer = &H55854
@@ -91,7 +91,7 @@ Public Class K8boostfuel
             i = readflashword(IDTAG)
 
             If (readflashword(IDTAG) <> BOOSTFUELVERSION) Then
-                MsgBox("boostfuel code incompatible with this version, please reactivate the boostfuel on this map")
+                MsgBox("boostfuel code incompatible with this version, please reactivate the boostfuel on this map " & Str(readflashword(IDTAG)))
                 C_boostfuel_activation.Checked = False
                 hide_boostfuel_settings()
             End If
@@ -205,7 +205,7 @@ Public Class K8boostfuel
     Private Sub boostfuel_code_in_memory(ByVal method As Boolean, ByVal lenght As Integer)
         Dim i As Integer
         Dim fs As FileStream
-        Dim path As String = My.Application.Info.DirectoryPath & "\boostfuel.bin"
+        Dim path As String = My.Application.Info.DirectoryPath & "\ecu.bin\boostfuel.bin"
         Dim b(1) As Byte
 
         If Not File.Exists(path) Then
@@ -275,10 +275,10 @@ Public Class K8boostfuel
 
         If readflashbyte(&H559D3) = &H0 Then 'Solenoidtype
             C_bleed.Checked = True
-            C_bleed.Text = "Normally Closed"
+            C_bleed.Text = "Normally Open"
         Else
             C_bleed.Checked = False
-            C_bleed.Text = "Normally Open"
+            C_bleed.Text = "Normally Closed"
         End If
     End Sub
 
@@ -427,11 +427,11 @@ Public Class K8boostfuel
                     ' D_duty.Item(c, r).Value = Int(((((readflashword((i * 2) + &H559A4) / 50.5) * 9.2) - 14.7)))
                 End If
             Else
-                If Not ((C_bleed.Checked) And (r = 2)) Then
-                    writeflashword((i * 2) + &H559A0, (D_duty.Item(c, r).Value))
-                Else
-                    writeflashword((i * 2) + &H559A0, (100 - D_duty.Item(c, r).Value))
-                End If
+                'if Not ((C_bleed.Checked) And (r = 2)) Then
+                writeflashword((i * 2) + &H559A0, (D_duty.Item(c, r).Value))
+                'Else
+                'writeflashword((i * 2) + &H559A0, (100 - D_duty.Item(c, r).Value))
+                'End If
 
 
             End If
@@ -766,9 +766,9 @@ Public Class K8boostfuel
         '
         D_duty.RowCount = 4
 
-        D_duty.RowHeadersWidth = 90
-        D_duty.Rows.Item(0).HeaderCell.Value = "100% over"
-        D_duty.Rows.Item(1).HeaderCell.Value = "0% below"
+        D_duty.RowHeadersWidth = 110
+        D_duty.Rows.Item(0).HeaderCell.Value = "0% over"
+        D_duty.Rows.Item(1).HeaderCell.Value = "100% below"
         D_duty.Rows.Item(2).HeaderCell.Value = "Duty%"
         D_duty.Rows.Item(3).HeaderCell.Value = "Ign ret"
 
@@ -788,11 +788,11 @@ Public Class K8boostfuel
                     D_duty.Item(c, r).Value = Int(((((readflashword((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7)))
                 End If
             Else
-                If Not ((C_bleed.Checked) And (r = 2)) Then
-                    D_duty.Item(c, r).Value = Int((readflashword((i * 2) + &H559A0)))
-                Else
-                    D_duty.Item(c, r).Value = 100 - Int((readflashword((i * 2) + &H559A0)))
-                End If
+                'If Not ((C_bleed.Checked) And (r = 2)) Then
+                D_duty.Item(c, r).Value = Int((readflashword((i * 2) + &H559A0)))
+                'Else
+                'D_duty.Item(c, r).Value = 100 - Int((readflashword((i * 2) + &H559A0)))
+                ' End If
                 'D_duty.Item(c, r).Value = Int((readflashword((i * 2) + &H559A0)))
             End If
 
@@ -849,10 +849,10 @@ Public Class K8boostfuel
   
     Private Sub C_bleed_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_bleed.CheckedChanged
         If C_bleed.Checked = True Then
-            C_bleed.Text = "Normally Closed"
+            C_bleed.Text = "Normally Open"
             writeflashbyte(&H559D3, &H0)
         Else
-            C_bleed.Text = "Normally Open"
+            C_bleed.Text = "Normally Closed"
             writeflashbyte(&H559D3, &HFF)
         End If
         generate_duty_table()
@@ -905,6 +905,213 @@ Public Class K8boostfuel
         Else
             C_fueladd.Text = "% of TPS"
             writeflashbyte(&H559D1, &H10)
+        End If
+
+    End Sub
+
+
+    Private Sub D_boostfuel_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles D_boostfuel.KeyDown
+
+        If (e.Control = True And e.KeyCode = Keys.V) Then
+            Dim rowIndex As Integer
+            Dim lines As String()
+
+            Dim columnStartIndex As Integer
+
+            rowIndex = Integer.MaxValue
+            columnStartIndex = Integer.MaxValue
+
+            For Each cell As DataGridViewCell In D_boostfuel.SelectedCells()
+                If cell.RowIndex < rowIndex Then
+                    rowIndex = cell.RowIndex
+                End If
+
+                If cell.ColumnIndex < columnStartIndex Then
+                    columnStartIndex = cell.ColumnIndex
+                End If
+            Next
+
+
+
+            rowIndex = D_boostfuel.CurrentCell.RowIndex
+
+            lines = Clipboard.GetText().Split(ControlChars.CrLf)
+
+            For Each line As String In lines
+                Dim columnIndex As Integer
+                Dim values As String()
+
+                values = line.Split(ControlChars.Tab)
+                columnIndex = columnStartIndex
+
+                For Each value As String In values
+                    If columnIndex < D_boostfuel.ColumnCount And rowIndex < D_boostfuel.RowCount Then
+                        If IsNumeric(value) Then
+                            D_boostfuel(columnIndex, rowIndex).Value = value
+                            'SetFlashItem(columnIndex, rowIndex)
+                        End If
+                    End If
+
+                    columnIndex = columnIndex + 1
+                Next
+
+                rowIndex = rowIndex + 1
+            Next
+
+        End If
+        writemaptoflash()
+
+    End Sub
+    Private Sub D_duty_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles D_duty.KeyDown
+
+        If (e.Control = True And e.KeyCode = Keys.V) Then
+            Dim rowIndex As Integer
+            Dim lines As String()
+
+            Dim columnStartIndex As Integer
+
+            rowIndex = Integer.MaxValue
+            columnStartIndex = Integer.MaxValue
+
+            For Each cell As DataGridViewCell In D_duty.SelectedCells()
+                If cell.RowIndex < rowIndex Then
+                    rowIndex = cell.RowIndex
+                End If
+
+                If cell.ColumnIndex < columnStartIndex Then
+                    columnStartIndex = cell.ColumnIndex
+                End If
+            Next
+
+
+
+            rowIndex = D_duty.CurrentCell.RowIndex
+
+            lines = Clipboard.GetText().Split(ControlChars.CrLf)
+
+            For Each line As String In lines
+                Dim columnIndex As Integer
+                Dim values As String()
+
+                values = line.Split(ControlChars.Tab)
+                columnIndex = columnStartIndex
+
+                For Each value As String In values
+                    If columnIndex < D_boostfuel.ColumnCount And rowIndex < D_duty.RowCount Then
+                        If IsNumeric(value) Then
+                            D_duty(columnIndex, rowIndex).Value = value
+                        End If
+                    End If
+
+                    columnIndex = columnIndex + 1
+                Next
+
+                rowIndex = rowIndex + 1
+            Next
+
+        End If
+        duty_writemaptoflash()
+
+    End Sub
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        K8BoostControlDiagram.Show()
+    End Sub
+
+    Private Sub B_Apply_Map_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Apply_Map.Click
+        ' Lets use OpenFileDialog to open a new flash image file
+        Dim fdlg As OpenFileDialog = New OpenFileDialog()
+        Dim fs As FileStream
+        Dim path As String
+        Dim pcv(&HA90)
+        Dim bz(&H205)
+        Dim bin((262144 * 4) + 1)
+        Dim rp, cp, noc, nor As Integer
+        Dim b(1) As Byte
+        Dim i As Integer
+        Dim filetype As String
+        Dim em As Integer
+
+
+        MsgBox("Note: This feature is currently for testing. Only apply once for each map.")
+        '
+        ' remember also to make a note not to apply the pc maps twice...
+        '
+
+        fdlg.InitialDirectory = ""
+        fdlg.Title = "Open a map file"
+        fdlg.Filter = "bin (*.bin)|*.bin"
+        fdlg.FilterIndex = 1
+        fdlg.RestoreDirectory = True
+
+        '
+        ' Apply changes to the TPS map
+        '
+        noc = 16
+        nor = 16
+
+
+        If fdlg.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            path = fdlg.FileName
+
+            filetype = ""
+
+            If fdlg.FileName.Contains("bin") Then
+                filetype = "bin"
+            End If
+
+
+            Select Case filetype
+                Case "bin"
+                    '
+                    ' ECCeditor or other type .bin file
+                    '
+
+                    '
+                    ' First lets get the file to the memory and check that it can be applied
+                    '
+                    fs = File.OpenRead(path)
+                    i = 0
+                    Do While fs.Read(b, 0, 1) > 0
+                        If i > (262144 * 4) Then
+                            MsgBox("not a gen2 .bin file, program aborts")
+                            Return
+                        End If
+                        bin(i) = b(0)
+                        i = i + 1
+                    Loop
+                    fs.Close()
+                    If i <> (262144 * 4) Then
+                        MsgBox("not a gen2 .bin file, program aborts")
+                        Return
+                    End If
+
+                    rp = 0
+                    cp = 0
+                    ' 
+                    ' Lets process the table, we use ecueditor table as its bigger in size
+                    '
+                    For rp = 0 To nor - 1
+                        For cp = 0 To noc - 1
+
+                            '
+                            ' Now lets copy the fuelmap information to the table
+                            '
+                            i = (rp * noc) + cp
+
+                            em = &H55874
+                            D_boostfuel.Item(cp, rp).Value = bin(em + i)
+
+                            '
+                            ' Set value on map to ecu flash
+                            '
+                        Next
+                    Next
+                Case Else
+                    MsgBox("Unsupported filetype")
+            End Select
+            writemaptoflash()
+
         End If
 
     End Sub

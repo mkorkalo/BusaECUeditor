@@ -48,7 +48,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>ecueditor_prerelease.htm</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>18</ApplicationRevision>
+    <ApplicationRevision>38</ApplicationRevision>
     <ApplicationVersion>2.3.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -111,6 +111,21 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bking\BKingFuelmap.Designer.vb">
+      <DependentUpon>BKingFuelmap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Bking\BKingFuelmap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bking\BkingShifter.Designer.vb">
+      <DependentUpon>BkingShifter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Bking\BkingShifter.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bking\BkingSTPmap.Designer.vb">
+      <DependentUpon>BkingSTPmap.vb</DependentUpon>
+    </Compile>
     <Compile Include="Common\AboutBox.Designer.vb">
       <DependentUpon>AboutBox.vb</DependentUpon>
     </Compile>
@@ -124,20 +139,11 @@
     <Compile Include="Bking\BkingLimiters.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Bking\BkingAdvsettings.Designer.vb">
-      <DependentUpon>BkingAdvsettings.vb</DependentUpon>
+    <Compile Include="Bking\BkingAdvSettings.Designer.vb">
+      <DependentUpon>BkingAdvSettings.vb</DependentUpon>
     </Compile>
-    <Compile Include="Bking\BkingAdvsettings.vb">
+    <Compile Include="Bking\BkingAdvSettings.vb">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Bking\BKingFuelmap.Designer.vb">
-      <DependentUpon>BKingFuelmap.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Bking\BKingFuelmap.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Bking\BkingSTPmap.Designer.vb">
-      <DependentUpon>BkingSTPmap.vb</DependentUpon>
     </Compile>
     <Compile Include="Bking\BkingSTPmap.vb">
       <SubType>Form</SubType>
@@ -152,6 +158,12 @@
       <DependentUpon>BKingIgnitionmap.vb</DependentUpon>
     </Compile>
     <Compile Include="Bking\BKingIgnitionmap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8boostdiagram.Designer.vb">
+      <DependentUpon>K8boostdiagram.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8boostdiagram.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="G2\K8dwellignition.Designer.vb">
@@ -280,10 +292,10 @@
     <Compile Include="G1\LoginForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Common\Shifter_Instructions.Designer.vb">
+    <Compile Include="G1\Shifter_Instructions.Designer.vb">
       <DependentUpon>Shifter_Instructions.vb</DependentUpon>
     </Compile>
-    <Compile Include="Common\Shifter_Instructions.vb">
+    <Compile Include="G1\Shifter_Instructions.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Common\mapsharing.Designer.vb">
@@ -292,10 +304,10 @@
     <Compile Include="Common\mapsharing.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Common\Shifter.Designer.vb">
+    <Compile Include="G1\Shifter.Designer.vb">
       <DependentUpon>Shifter.vb</DependentUpon>
     </Compile>
-    <Compile Include="Common\Shifter.vb">
+    <Compile Include="G1\Shifter.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="G1\Advsettings.Designer.vb">
@@ -447,23 +459,26 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ecu.bin\shifterbking.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Common\app.config" />
     <BaseApplicationManifest Include="My Project\app.manifest" />
     <None Include="Common\assemblykey.snk" />
-    <Content Include="G2\boostfuel.bin">
+    <Content Include="ecu.bin\boostfuel.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bking\Bking.bin">
+    <Content Include="ecu.bin\Bking.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bking\BkingUS.bin">
+    <Content Include="ecu.bin\BkingUS.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Common\ClassDiagram1.cd" />
-    <Content Include="G1\default.bin">
+    <Content Include="ecu.bin\default.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="G2\K8.bin">
+    <Content Include="ecu.bin\K8.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="My Project\Application.myapp">
@@ -476,13 +491,13 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <Content Include="G2\nitrouscontrol.bin">
+    <Content Include="ecu.bin\nitrouscontrol.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Common\shiftergen2.bin">
+    <Content Include="ecu.bin\shiftergen2.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Common\shifter2.bin">
+    <Content Include="ecu.bin\shifter2.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -528,9 +543,6 @@
       <SubType>Designer</SubType>
       <DependentUpon>Limiters.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Common\Lxsoft.Controls.LedControl.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Common\AcceptTerms.resx">
@@ -573,7 +585,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>Interfacedlg.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Common\Shifter_Instructions.resx">
+    <EmbeddedResource Include="G1\Shifter_Instructions.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Shifter_Instructions.vb</DependentUpon>
     </EmbeddedResource>
@@ -581,7 +593,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>mapsharing.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Common\Shifter.resx">
+    <EmbeddedResource Include="G1\Shifter.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Shifter.vb</DependentUpon>
     </EmbeddedResource>
@@ -606,18 +618,15 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Common\AquaGauge.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\AGauge.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <EmbeddedResource Include="Bking\BkingShifter.resx">
+      <DependentUpon>BkingShifter.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Bking\BkingLimiters.resx">
       <DependentUpon>BkingLimiters.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Bking\BkingAdvsettings.resx">
-      <DependentUpon>BkingAdvsettings.vb</DependentUpon>
+    <EmbeddedResource Include="Bking\BkingAdvSettings.resx">
+      <DependentUpon>BkingAdvSettings.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Bking\BKingFuelmap.resx">
@@ -635,6 +644,9 @@
     <EmbeddedResource Include="Bking\BKingIgnitionmap.resx">
       <DependentUpon>BKingIgnitionmap.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8boostdiagram.resx">
+      <DependentUpon>K8boostdiagram.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8dwellignition.resx">
       <DependentUpon>K8dwellignition.vb</DependentUpon>
@@ -667,23 +679,28 @@
     <EmbeddedResource Include="G2\K8enginedatalog.resx">
       <DependentUpon>K8enginedatalog.vb</DependentUpon>
     </EmbeddedResource>
-    <Content Include="bin\FTDI_CDM_2.04.16.exe" />
     <Content Include="Common\ecueditor.ico" />
     <Content Include="Common\FTDI_CDM_2.04.16.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="dlls\AGauge.dll" />
+    <Content Include="dlls\AquaGauge.dll" />
+    <Content Include="dlls\AxInterop.ECHARTCONTROLLib.dll" />
+    <Content Include="dlls\AxInterop.Graph.dll" />
+    <Content Include="dlls\AxInterop.MTSSDKLib.dll" />
+    <Content Include="dlls\AxInterop.NTGRAPH3DLib.dll" />
+    <Content Include="dlls\AxInterop.XEDECTRLLib.dll" />
+    <Content Include="dlls\Interop.Graph.dll" />
+    <Content Include="dlls\Interop.MTSSDKLib.dll" />
+    <Content Include="dlls\Interop.NTGRAPH3DLib.dll" />
+    <Content Include="dlls\Interop.XEDECTRLLib.dll" />
+    <Content Include="dlls\Lxsoft.Controls.LedControl.dll" />
+    <Content Include="dlls\SpPerfChart.dll" />
     <Content Include="gpl.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="obj\mts.dll" />
-    <Content Include="obj\mtssdk.ocx" />
-    <Content Include="obj\NTGraph3D.dll" />
-    <Content Include="obj\SmartGraph.dll" />
     <EmbeddedResource Include="G1\LoginForm.resx">
       <DependentUpon>LoginForm.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\SpPerfChart.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -718,9 +735,6 @@
       <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="bin\Release\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
