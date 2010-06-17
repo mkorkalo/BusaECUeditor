@@ -24,4 +24,5 @@ glob:BusaECUeditor/bin/Debug/Hayabusa_ECUeditor.pdb
 glob:BusaECUeditor/bin/Debug/Hayabusa_ECUeditor.xml
 glob:BusaECUeditor/bin/Debug/Interop.Graph.dll
 relre:BusaECUeditor/bin/Debug/
+relre:BusaECUeditor/bin/Release/
 relre:BusaECUeditor/obj/
