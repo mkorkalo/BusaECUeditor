@@ -1017,4 +1017,102 @@ Public Class K8boostfuel
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         K8BoostControlDiagram.Show()
     End Sub
+
+    Private Sub B_Apply_Map_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Apply_Map.Click
+        ' Lets use OpenFileDialog to open a new flash image file
+        Dim fdlg As OpenFileDialog = New OpenFileDialog()
+        Dim fs As FileStream
+        Dim path As String
+        Dim pcv(&HA90)
+        Dim bz(&H205)
+        Dim bin((262144 * 4) + 1)
+        Dim rp, cp, noc, nor As Integer
+        Dim b(1) As Byte
+        Dim i As Integer
+        Dim filetype As String
+        Dim em As Integer
+
+
+        MsgBox("Note: This feature is currently for testing. Only apply once for each map.")
+        '
+        ' remember also to make a note not to apply the pc maps twice...
+        '
+
+        fdlg.InitialDirectory = ""
+        fdlg.Title = "Open a map file"
+        fdlg.Filter = "bin (*.bin)|*.bin"
+        fdlg.FilterIndex = 1
+        fdlg.RestoreDirectory = True
+
+        '
+        ' Apply changes to the TPS map
+        '
+        noc = 16
+        nor = 16
+
+
+        If fdlg.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            path = fdlg.FileName
+
+            filetype = ""
+
+            If fdlg.FileName.Contains("bin") Then
+                filetype = "bin"
+            End If
+
+
+            Select Case filetype
+                Case "bin"
+                    '
+                    ' ECCeditor or other type .bin file
+                    '
+
+                    '
+                    ' First lets get the file to the memory and check that it can be applied
+                    '
+                    fs = File.OpenRead(path)
+                    i = 0
+                    Do While fs.Read(b, 0, 1) > 0
+                        If i > (262144 * 4) Then
+                            MsgBox("not a gen2 .bin file, program aborts")
+                            Return
+                        End If
+                        bin(i) = b(0)
+                        i = i + 1
+                    Loop
+                    fs.Close()
+                    If i <> (262144 * 4) Then
+                        MsgBox("not a gen2 .bin file, program aborts")
+                        Return
+                    End If
+
+                    rp = 0
+                    cp = 0
+                    ' 
+                    ' Lets process the table, we use ecueditor table as its bigger in size
+                    '
+                    For rp = 0 To nor - 1
+                        For cp = 0 To noc - 1
+
+                            '
+                            ' Now lets copy the fuelmap information to the table
+                            '
+                            i = (rp * noc) + cp
+
+                            em = &H55874
+                            D_boostfuel.Item(cp, rp).Value = bin(em + i)
+
+                            '
+                            ' Set value on map to ecu flash
+                            '
+                        Next
+                    Next
+                Case Else
+                    MsgBox("Unsupported filetype")
+            End Select
+            writemaptoflash()
+
+        End If
+
+    End Sub
 End Class
