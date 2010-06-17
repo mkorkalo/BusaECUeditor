@@ -37,9 +37,9 @@ Partial Class BkingAdvsettings
         Me.Button1 = New System.Windows.Forms.Button
         Me.GroupBox9 = New System.Windows.Forms.GroupBox
         Me.Label1 = New System.Windows.Forms.Label
-        Me.Button3 = New System.Windows.Forms.Button
+        Me.B_Inj_Bal_Map = New System.Windows.Forms.Button
         Me.Label10 = New System.Windows.Forms.Label
-        Me.Button2 = New System.Windows.Forms.Button
+        Me.B_STP_Map = New System.Windows.Forms.Button
         Me.Label7 = New System.Windows.Forms.Label
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -174,9 +174,9 @@ Partial Class BkingAdvsettings
         'GroupBox9
         '
         Me.GroupBox9.Controls.Add(Me.Label1)
-        Me.GroupBox9.Controls.Add(Me.Button3)
+        Me.GroupBox9.Controls.Add(Me.B_Inj_Bal_Map)
         Me.GroupBox9.Controls.Add(Me.Label10)
-        Me.GroupBox9.Controls.Add(Me.Button2)
+        Me.GroupBox9.Controls.Add(Me.B_STP_Map)
         Me.GroupBox9.Controls.Add(Me.Label7)
         Me.GroupBox9.Location = New System.Drawing.Point(193, 12)
         Me.GroupBox9.Name = "GroupBox9"
@@ -194,14 +194,14 @@ Partial Class BkingAdvsettings
         Me.Label1.TabIndex = 5
         Me.Label1.Text = "Misc maps untested"
         '
-        'Button3
+        'B_Inj_Bal_Map
         '
-        Me.Button3.Location = New System.Drawing.Point(111, 62)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(80, 23)
-        Me.Button3.TabIndex = 4
-        Me.Button3.Text = "Inj Bal map editing"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.B_Inj_Bal_Map.Location = New System.Drawing.Point(111, 62)
+        Me.B_Inj_Bal_Map.Name = "B_Inj_Bal_Map"
+        Me.B_Inj_Bal_Map.Size = New System.Drawing.Size(80, 23)
+        Me.B_Inj_Bal_Map.TabIndex = 4
+        Me.B_Inj_Bal_Map.Text = "Inj Bal map editing"
+        Me.B_Inj_Bal_Map.UseVisualStyleBackColor = True
         '
         'Label10
         '
@@ -212,14 +212,14 @@ Partial Class BkingAdvsettings
         Me.Label10.TabIndex = 3
         Me.Label10.Text = "Inj Bal map editing"
         '
-        'Button2
+        'B_STP_Map
         '
-        Me.Button2.Location = New System.Drawing.Point(111, 28)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(80, 23)
-        Me.Button2.TabIndex = 1
-        Me.Button2.Text = "STP map editing"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.B_STP_Map.Location = New System.Drawing.Point(111, 28)
+        Me.B_STP_Map.Name = "B_STP_Map"
+        Me.B_STP_Map.Size = New System.Drawing.Size(80, 23)
+        Me.B_STP_Map.TabIndex = 1
+        Me.B_STP_Map.Text = "STP map editing"
+        Me.B_STP_Map.UseVisualStyleBackColor = True
         '
         'Label7
         '
@@ -269,9 +269,9 @@ Partial Class BkingAdvsettings
     Friend WithEvents C_PAIR As System.Windows.Forms.CheckBox
     Friend WithEvents C_EXC As System.Windows.Forms.CheckBox
     Friend WithEvents GroupBox9 As System.Windows.Forms.GroupBox
-    Friend WithEvents Button3 As System.Windows.Forms.Button
+    Friend WithEvents B_Inj_Bal_Map As System.Windows.Forms.Button
     Friend WithEvents Label10 As System.Windows.Forms.Label
-    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents B_STP_Map As System.Windows.Forms.Button
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
 End Class
