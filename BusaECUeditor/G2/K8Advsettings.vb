@@ -258,7 +258,7 @@ Public Class K8Advsettings
         If Not loading Then
 
             ' Open the original file and read it to global variable fl
-            fs = File.OpenRead(Application.StartupPath & "\K8.bin")
+            fs = File.OpenRead(My.Application.Info.DirectoryPath & "\ecu.bin\K8.bin")
             i = 0
             Do While fs.Read(b, 0, 1) > 0
                 fl(i) = b(0)
