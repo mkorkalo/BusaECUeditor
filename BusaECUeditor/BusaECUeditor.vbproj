@@ -139,10 +139,10 @@
     <Compile Include="Bking\BkingLimiters.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Bking\BkingAdvsettings.Designer.vb">
-      <DependentUpon>BkingAdvsettings.vb</DependentUpon>
+    <Compile Include="Bking\BkingAdvSettings.Designer.vb">
+      <DependentUpon>BkingAdvSettings.vb</DependentUpon>
     </Compile>
-    <Compile Include="Bking\BkingAdvsettings.vb">
+    <Compile Include="Bking\BkingAdvSettings.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Bking\BkingSTPmap.vb">
@@ -459,26 +459,26 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Bking\shifterbking.bin">
+    <None Include="ecu.bin\shifterbking.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Common\app.config" />
     <BaseApplicationManifest Include="My Project\app.manifest" />
     <None Include="Common\assemblykey.snk" />
-    <Content Include="G2\boostfuel.bin">
+    <Content Include="ecu.bin\boostfuel.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bking\Bking.bin">
+    <Content Include="ecu.bin\Bking.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bking\BkingUS.bin">
+    <Content Include="ecu.bin\BkingUS.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Common\ClassDiagram1.cd" />
-    <Content Include="G1\default.bin">
+    <Content Include="ecu.bin\default.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="G2\K8.bin">
+    <Content Include="ecu.bin\K8.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="My Project\Application.myapp">
@@ -491,13 +491,13 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <Content Include="G2\nitrouscontrol.bin">
+    <Content Include="ecu.bin\nitrouscontrol.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="G2\shiftergen2.bin">
+    <Content Include="ecu.bin\shiftergen2.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="G1\shifter2.bin">
+    <Content Include="ecu.bin\shifter2.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -542,9 +542,6 @@
     <EmbeddedResource Include="G1\Limiters.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Limiters.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\Lxsoft.Controls.LedControl.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -624,18 +621,12 @@
     <EmbeddedResource Include="Bking\BkingShifter.resx">
       <DependentUpon>BkingShifter.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Common\AquaGauge.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\AGauge.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="Bking\BkingLimiters.resx">
       <DependentUpon>BkingLimiters.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Bking\BkingAdvsettings.resx">
-      <DependentUpon>BkingAdvsettings.vb</DependentUpon>
+    <EmbeddedResource Include="Bking\BkingAdvSettings.resx">
+      <DependentUpon>BkingAdvSettings.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Bking\BKingFuelmap.resx">
@@ -710,9 +701,6 @@
     </Content>
     <EmbeddedResource Include="G1\LoginForm.resx">
       <DependentUpon>LoginForm.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\SpPerfChart.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

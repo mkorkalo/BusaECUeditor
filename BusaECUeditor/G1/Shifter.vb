@@ -127,7 +127,7 @@ Public Class shifter
     Private Sub shifter_code_in_memory(ByVal method As Boolean, ByVal lenght As Integer)
         Dim i As Integer
         Dim fs As FileStream
-        Dim path As String = My.Application.Info.DirectoryPath & "\G1\shifter2.bin"
+        Dim path As String = My.Application.Info.DirectoryPath & "\ecu.bin\shifter2.bin"
         Dim b(1) As Byte
 
         If Not File.Exists(path) Then

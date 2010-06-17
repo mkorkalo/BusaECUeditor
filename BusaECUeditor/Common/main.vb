@@ -663,7 +663,7 @@ Public Class main
         Dim defpath As String ' this is for this subroutine only
 
         ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\G1\" & "default.bin"
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\default.bin"
 
         L_File.Text = ""
         L_Comparefile.Text = ""
@@ -740,7 +740,7 @@ Public Class main
         close_child_windows()
 
         ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\G2\" & "k8.bin"
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\k8.bin"
 
         L_File.Text = ""
         L_Comparefile.Text = ""
@@ -3939,7 +3939,7 @@ Public Class main
         Dim defpath As String ' this is for this subroutine only
 
         ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\Bking\" & "Bking.bin"
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\bking.bin"
 
         L_File.Text = ""
         L_Comparefile.Text = ""
@@ -4003,7 +4003,7 @@ Public Class main
         Dim defpath As String ' this is for this subroutine only
 
         ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\Bking\" & "BkingUS.bin"
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\BkingUS.bin"
 
         L_File.Text = ""
         L_Comparefile.Text = ""

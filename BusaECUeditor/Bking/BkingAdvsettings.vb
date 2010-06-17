@@ -25,6 +25,9 @@ Imports System.Text
 Imports System.Net.Mail
 
 Public Class BkingAdvsettings
+
+#Region "Variables"
+
     Dim loading As Boolean
     Dim _stock = &H80
     Dim _300cc = &H60
@@ -32,25 +35,14 @@ Public Class BkingAdvsettings
     Dim _500cc = &H20
     Dim _600cc = &H10
 
+#End Region
 
-    Private Sub B_Close_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Me.Close()
-    End Sub
-
-
-    Private Sub K8Advsettings_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
-        If e.KeyChar = Chr(27) Then Me.Close()
-        If e.KeyChar = "P" Or e.KeyChar = "p" Then
-            PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Left = 10
-            PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Right = 10
-            PrintForm1.Print()
-        End If
-
-
-    End Sub
+#Region "Form Events"
 
     Private Sub K8Advsettings_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
         loading = True
+
         If readflashbyte(&H74BDC) = &H80 Then
             C_HOX.Text = "Oxy sensor ON"
             C_HOX.Checked = True
@@ -58,6 +50,7 @@ Public Class BkingAdvsettings
             C_HOX.Text = "Oxy sensor OFF"
             C_HOX.Checked = False
         End If
+
         If readflashbyte(&H79A90) = &HFF Then
             C_PAIR.Text = "PAIR ON"
             C_PAIR.Checked = True
@@ -65,6 +58,7 @@ Public Class BkingAdvsettings
             C_PAIR.Text = "PAIR OFF"
             C_PAIR.Checked = False
         End If
+
         If readflashbyte(&H79A95) = &HFF Then
             C_EVAP.Text = "EVAP ON"
             C_EVAP.Checked = True
@@ -72,6 +66,7 @@ Public Class BkingAdvsettings
             C_EVAP.Checked = False
             C_EVAP.Text = "EVAP OFF"
         End If
+
         If readflashbyte(&H73EBC) = &HFF Then
             C_EXC.Checked = True
             C_EXC.Text = "EXC ON"
@@ -82,36 +77,31 @@ Public Class BkingAdvsettings
 
 
         loading = False
+
     End Sub
 
+    Private Sub K8Advsettings_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
 
-
-
-
-
-    Private Sub T_hexaddr_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_hexaddr.TextChanged
-        If T_hexaddr.Text.Contains("&H") Then
-            T_hexvaluehi.Text = "&H" & Hex(Flash(Val(T_hexaddr.Text)))
-        Else
-            T_hexvaluehi.Text = "&H" & Hex(Flash(Val("&H" & T_hexaddr.Text)))
+        If e.KeyChar = Chr(27) Then
+            Me.Close()
         End If
-    End Sub
 
-
-    Private Sub B_WRITE_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_WRITE.Click
-        Dim hi, addr As String
-
-        If Not T_hexvaluehi.Text.Contains("&H") Then hi = "&H" & T_hexvaluehi.Text Else hi = T_hexvaluehi.Text
-        If Not T_hexaddr.Text.Contains("&H") Then addr = "&H" & T_hexaddr.Text Else addr = T_hexaddr.Text
-
-        writeflashbyte(Val(addr), Val(hi))
+        If e.KeyChar = "P" Or e.KeyChar = "p" Then
+            PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Left = 10
+            PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Right = 10
+            PrintForm1.Print()
+        End If
 
     End Sub
 
+#End Region
 
- 
+#Region "Control Events"
+
     Private Sub C_HOX_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_HOX.CheckedChanged
+
         If Not loading Then
+
             If C_HOX.Checked = True Then
                 C_HOX.Text = "Oxy sensor ON"
                 writeflashbyte(&H74BDC, &H80)
@@ -119,16 +109,15 @@ Public Class BkingAdvsettings
                 C_HOX.Text = "Oxy sensor OFF"
                 writeflashbyte(&H74BDC, &H0)
             End If
+
         End If
 
     End Sub
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        writeflashbyte(&H73D27, 0)
-    End Sub
-
     Private Sub C_PAIR_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_PAIR.CheckedChanged
+
         If Not loading Then
+
             If C_PAIR.Checked = True Then
                 C_PAIR.Text = "PAIR ON"
                 writeflashbyte(&H79A90, &HFF)
@@ -136,12 +125,15 @@ Public Class BkingAdvsettings
                 C_PAIR.Text = "PAIR OFF"
                 writeflashbyte(&H79A90, &H80)
             End If
+
         End If
 
     End Sub
 
     Private Sub C_EVAP_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_EVAP.CheckedChanged
+
         If Not loading Then
+
             If C_EVAP.Checked = True Then
                 C_EVAP.Text = "EVAP ON"
                 writeflashbyte(&H79A95, &HFF)
@@ -149,11 +141,15 @@ Public Class BkingAdvsettings
                 C_EVAP.Text = "EVAP OFF"
                 writeflashbyte(&H79A95, &H0)
             End If
+
         End If
+
     End Sub
 
     Private Sub C_EXC_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_EXC.CheckedChanged
+
         If Not loading Then
+
             If C_EXC.Checked = True Then
                 C_EXC.Text = "EXCV ON"
                 writeflashbyte(&H73EBC, &HFF)
@@ -165,21 +161,25 @@ Public Class BkingAdvsettings
                 writeflashbyte(&H7000D, &H0) 'if 0 shows error on busa
                 writeflashbyte(&H7000F, &H80)
             End If
+
         End If
 
     End Sub
 
-    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+    Private Sub B_STP_Map_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_STP_Map.Click
+
         BkingSTPmap.Show()
         BkingSTPmap.Select()
 
     End Sub
 
-    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
-        BKinginjectorbalancemap.Show()
-        BKinginjectorbalancemap.Select()
+    Private Sub B_Inj_Bal_Map_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Inj_Bal_Map.Click
+
+        Bkinginjectorbalancemap.Show()
+        Bkinginjectorbalancemap.Select()
 
     End Sub
 
-   
+#End Region
+
 End Class
