@@ -882,12 +882,19 @@ Public Class main
 
         strEditor = "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\dde589b887ecb332\"
 
-        objShell = CreateObject("WScript.Shell")
+        Try
 
-        strVersion = objShell.RegRead(strEditor & strVersion)
-        strPublish = objShell.RegRead(strEditor & strPublish)
-        strTitle = objShell.RegRead(strEditor & strTitle)
+            objShell = CreateObject("WScript.Shell")
 
+            strVersion = objShell.RegRead(strEditor & strVersion)
+            strPublish = objShell.RegRead(strEditor & strPublish)
+            strTitle = objShell.RegRead(strEditor & strTitle)
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message, MsgBoxStyle.OkOnly, "Error")
+
+        End Try
 
         'Wscript.Echo "ECUeditor Version: " & vbTab & strVersion & vbCr _
         MsgBox(vbTab & vbTab & "ECUeditor Version: " & vbTab & strVersion & vbCr _
