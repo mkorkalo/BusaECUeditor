@@ -873,7 +873,7 @@ Public Class main
 
     Private Sub VersionToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VersionToolStripMenuItem.Click
         ' Option Explicit
-        Dim objShell
+        'Dim objShell
         Dim strEditor, strVersion, strPublish, strTitle
 
         strVersion = "DisplayVersion"
@@ -884,11 +884,27 @@ Public Class main
 
         Try
 
-            objShell = CreateObject("WScript.Shell")
 
-            strVersion = objShell.RegRead(strEditor & strVersion)
-            strPublish = objShell.RegRead(strEditor & strPublish)
-            strTitle = objShell.RegRead(strEditor & strTitle)
+            'objShell = CreateObject("WScript.Shell")
+
+            Dim assembly As System.Reflection.Assembly
+
+            assembly = System.Reflection.Assembly.GetExecutingAssembly()
+
+            strVersion = assembly.GetName.Version.Major & "." & assembly.GetName.Version.Minor & "." & assembly.GetName.Version.Build
+
+            Dim company As System.Reflection.AssemblyCompanyAttribute
+            company = assembly.GetCustomAttributes(GetType(System.Reflection.AssemblyCompanyAttribute), False)(0)
+            strPublish = company.Company
+
+            Dim title As System.Reflection.AssemblyTitleAttribute
+            title = assembly.GetCustomAttributes(GetType(System.Reflection.AssemblyTitleAttribute), False)(0)
+
+            strTitle = title.Title
+
+            'strVersion = objShell.RegRead(strEditor & strVersion)
+            'strPublish = objShell.RegRead(strEditor & strPublish)
+            'strTitle = objShell.RegRead(strEditor & strTitle)
 
         Catch ex As Exception
 
