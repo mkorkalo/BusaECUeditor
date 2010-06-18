@@ -21,9 +21,9 @@ Partial Class main
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(main))
-        Me.Button_fuelmap = New System.Windows.Forms.Button
+        Me.B_FuelMap = New System.Windows.Forms.Button
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog
-        Me.Enginedata = New System.Windows.Forms.Button
+        Me.B_EngineData = New System.Windows.Forms.Button
         Me.MenuStrip = New System.Windows.Forms.MenuStrip
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.NewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -47,15 +47,15 @@ Partial Class main
         Me.VerifyECUToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.FullEraseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.FlashTheECUToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.B_limiters = New System.Windows.Forms.Button
+        Me.B_Limiters = New System.Windows.Forms.Button
         Me.B_FlashECU = New System.Windows.Forms.Button
-        Me.Button_Ignitionmap = New System.Windows.Forms.Button
-        Me.B_miscsettings = New System.Windows.Forms.Button
+        Me.B_IgnitionMap = New System.Windows.Forms.Button
+        Me.B_AdvancedSettings = New System.Windows.Forms.Button
         Me.L_File = New System.Windows.Forms.Label
         Me.L_Comparefile = New System.Windows.Forms.Label
         Me.Label2 = New System.Windows.Forms.Label
         Me.Label3 = New System.Windows.Forms.Label
-        Me.B_shifter = New System.Windows.Forms.Button
+        Me.B_Shifter = New System.Windows.Forms.Button
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
         Me.ECUID = New System.Windows.Forms.Label
@@ -64,36 +64,36 @@ Partial Class main
         Me.Hayabusa = New System.Windows.Forms.Label
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.WebBrowser1 = New System.Windows.Forms.WebBrowser
-        Me.Linklabel_program_homepage = New System.Windows.Forms.LinkLabel
+        Me.L_ProgramHomepage = New System.Windows.Forms.LinkLabel
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
-        'Button_fuelmap
+        'B_FuelMap
         '
-        Me.Button_fuelmap.Enabled = False
-        Me.Button_fuelmap.Location = New System.Drawing.Point(285, 36)
-        Me.Button_fuelmap.Name = "Button_fuelmap"
-        Me.Button_fuelmap.Size = New System.Drawing.Size(86, 44)
-        Me.Button_fuelmap.TabIndex = 10
-        Me.Button_fuelmap.Text = "Edit Fuel map(s)"
-        Me.ToolTip1.SetToolTip(Me.Button_fuelmap, "EDIT Fuelmaps")
-        Me.Button_fuelmap.UseVisualStyleBackColor = True
+        Me.B_FuelMap.Enabled = False
+        Me.B_FuelMap.Location = New System.Drawing.Point(285, 36)
+        Me.B_FuelMap.Name = "B_FuelMap"
+        Me.B_FuelMap.Size = New System.Drawing.Size(86, 44)
+        Me.B_FuelMap.TabIndex = 10
+        Me.B_FuelMap.Text = "Edit Fuel map(s)"
+        Me.ToolTip1.SetToolTip(Me.B_FuelMap, "EDIT Fuelmaps")
+        Me.B_FuelMap.UseVisualStyleBackColor = True
         '
         'OpenFileDialog1
         '
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         '
-        'Enginedata
+        'B_EngineData
         '
-        Me.Enginedata.Location = New System.Drawing.Point(377, 36)
-        Me.Enginedata.Name = "Enginedata"
-        Me.Enginedata.Size = New System.Drawing.Size(86, 44)
-        Me.Enginedata.TabIndex = 20
-        Me.Enginedata.Text = "Connect for engine data"
-        Me.ToolTip1.SetToolTip(Me.Enginedata, "Connect to engine data  - requires the interface cable")
-        Me.Enginedata.UseVisualStyleBackColor = True
+        Me.B_EngineData.Location = New System.Drawing.Point(377, 36)
+        Me.B_EngineData.Name = "B_EngineData"
+        Me.B_EngineData.Size = New System.Drawing.Size(86, 44)
+        Me.B_EngineData.TabIndex = 20
+        Me.B_EngineData.Text = "Connect for engine data"
+        Me.ToolTip1.SetToolTip(Me.B_EngineData, "Connect to engine data  - requires the interface cable")
+        Me.B_EngineData.UseVisualStyleBackColor = True
         '
         'MenuStrip
         '
@@ -108,94 +108,94 @@ Partial Class main
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewToolStripMenuItem, Me.NewK8ToolStripMenuItem, Me.NewStockBkingToolStripMenuItem, Me.NewStockBkingUSToolStripMenuItem, Me.OpenToolStripMenuItem, Me.SaveToolStripMenuItem, Me.OpenComparemapToolStripMenuItem, Me.ExitToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'NewToolStripMenuItem
         '
         Me.NewToolStripMenuItem.Name = "NewToolStripMenuItem"
-        Me.NewToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.NewToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
         Me.NewToolStripMenuItem.Text = "New/Stock K2-K7"
         '
         'NewK8ToolStripMenuItem
         '
         Me.NewK8ToolStripMenuItem.Name = "NewK8ToolStripMenuItem"
-        Me.NewK8ToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.NewK8ToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
         Me.NewK8ToolStripMenuItem.Text = "New/Stock K8-.."
         '
         'NewStockBkingToolStripMenuItem
         '
         Me.NewStockBkingToolStripMenuItem.Name = "NewStockBkingToolStripMenuItem"
-        Me.NewStockBkingToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.NewStockBkingToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
         Me.NewStockBkingToolStripMenuItem.Text = "New/Stock Bking (EU/AU)"
         '
         'NewStockBkingUSToolStripMenuItem
         '
         Me.NewStockBkingUSToolStripMenuItem.Name = "NewStockBkingUSToolStripMenuItem"
-        Me.NewStockBkingUSToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.NewStockBkingUSToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
         Me.NewStockBkingUSToolStripMenuItem.Text = "New/Stock Bking (US)"
         '
         'OpenToolStripMenuItem
         '
         Me.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
-        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
         Me.OpenToolStripMenuItem.Text = "Open"
         '
         'SaveToolStripMenuItem
         '
         Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
         Me.SaveToolStripMenuItem.Text = "Save"
         '
         'OpenComparemapToolStripMenuItem
         '
         Me.OpenComparemapToolStripMenuItem.Name = "OpenComparemapToolStripMenuItem"
-        Me.OpenComparemapToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.OpenComparemapToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
         Me.OpenComparemapToolStripMenuItem.Text = "Set comparemap"
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'AboutToolStripMenuItem1
         '
         Me.AboutToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProgramInfoToolStripMenuItem, Me.VersionToolStripMenuItem})
         Me.AboutToolStripMenuItem1.Name = "AboutToolStripMenuItem1"
-        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(52, 20)
+        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(48, 20)
         Me.AboutToolStripMenuItem1.Text = "About"
         '
         'ProgramInfoToolStripMenuItem
         '
         Me.ProgramInfoToolStripMenuItem.Name = "ProgramInfoToolStripMenuItem"
-        Me.ProgramInfoToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
+        Me.ProgramInfoToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ProgramInfoToolStripMenuItem.Text = "Program info"
         '
         'VersionToolStripMenuItem
         '
         Me.VersionToolStripMenuItem.Name = "VersionToolStripMenuItem"
-        Me.VersionToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
+        Me.VersionToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.VersionToolStripMenuItem.Text = "Version"
         '
         'UpdatesToolStripMenuItem
         '
         Me.UpdatesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HomepageToolStripMenuItem})
         Me.UpdatesToolStripMenuItem.Name = "UpdatesToolStripMenuItem"
-        Me.UpdatesToolStripMenuItem.Size = New System.Drawing.Size(62, 20)
+        Me.UpdatesToolStripMenuItem.Size = New System.Drawing.Size(59, 20)
         Me.UpdatesToolStripMenuItem.Text = "Updates"
         '
         'HomepageToolStripMenuItem
         '
         Me.HomepageToolStripMenuItem.Name = "HomepageToolStripMenuItem"
-        Me.HomepageToolStripMenuItem.Size = New System.Drawing.Size(220, 22)
+        Me.HomepageToolStripMenuItem.Size = New System.Drawing.Size(215, 22)
         Me.HomepageToolStripMenuItem.Text = "Program update homepage"
         '
         'SetupToolStripMenuItem
         '
         Me.SetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InstallFTDIDriversToolStripMenuItem, Me.SetupCOMPortToolStripMenuItem})
         Me.SetupToolStripMenuItem.Name = "SetupToolStripMenuItem"
-        Me.SetupToolStripMenuItem.Size = New System.Drawing.Size(49, 20)
+        Me.SetupToolStripMenuItem.Size = New System.Drawing.Size(47, 20)
         Me.SetupToolStripMenuItem.Text = "Setup"
         '
         'InstallFTDIDriversToolStripMenuItem
@@ -214,42 +214,42 @@ Partial Class main
         '
         Me.FlashToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerifyChecksumToolStripMenuItem, Me.VerifyECUToolStripMenuItem, Me.FullEraseToolStripMenuItem, Me.FlashTheECUToolStripMenuItem})
         Me.FlashToolStripMenuItem.Name = "FlashToolStripMenuItem"
-        Me.FlashToolStripMenuItem.Size = New System.Drawing.Size(46, 20)
+        Me.FlashToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.FlashToolStripMenuItem.Text = "Flash"
         '
         'VerifyChecksumToolStripMenuItem
         '
         Me.VerifyChecksumToolStripMenuItem.Name = "VerifyChecksumToolStripMenuItem"
-        Me.VerifyChecksumToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
+        Me.VerifyChecksumToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.VerifyChecksumToolStripMenuItem.Text = "Verify Checksum"
         '
         'VerifyECUToolStripMenuItem
         '
         Me.VerifyECUToolStripMenuItem.Name = "VerifyECUToolStripMenuItem"
-        Me.VerifyECUToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
+        Me.VerifyECUToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.VerifyECUToolStripMenuItem.Text = "Verify ECU"
         '
         'FullEraseToolStripMenuItem
         '
         Me.FullEraseToolStripMenuItem.Name = "FullEraseToolStripMenuItem"
-        Me.FullEraseToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
+        Me.FullEraseToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.FullEraseToolStripMenuItem.Text = "Full Erase"
         '
         'FlashTheECUToolStripMenuItem
         '
         Me.FlashTheECUToolStripMenuItem.Name = "FlashTheECUToolStripMenuItem"
-        Me.FlashTheECUToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
+        Me.FlashTheECUToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.FlashTheECUToolStripMenuItem.Text = "Flash the ECU"
         '
-        'B_limiters
+        'B_Limiters
         '
-        Me.B_limiters.Location = New System.Drawing.Point(285, 135)
-        Me.B_limiters.Name = "B_limiters"
-        Me.B_limiters.Size = New System.Drawing.Size(86, 43)
-        Me.B_limiters.TabIndex = 23
-        Me.B_limiters.Text = "Edit Limiters"
-        Me.ToolTip1.SetToolTip(Me.B_limiters, "Edit RPM limiters, set top speed limiter on/off")
-        Me.B_limiters.UseVisualStyleBackColor = True
+        Me.B_Limiters.Location = New System.Drawing.Point(285, 135)
+        Me.B_Limiters.Name = "B_Limiters"
+        Me.B_Limiters.Size = New System.Drawing.Size(86, 43)
+        Me.B_Limiters.TabIndex = 23
+        Me.B_Limiters.Text = "Edit Limiters"
+        Me.ToolTip1.SetToolTip(Me.B_Limiters, "Edit RPM limiters, set top speed limiter on/off")
+        Me.B_Limiters.UseVisualStyleBackColor = True
         '
         'B_FlashECU
         '
@@ -262,26 +262,26 @@ Partial Class main
                 "hitch.")
         Me.B_FlashECU.UseVisualStyleBackColor = True
         '
-        'Button_Ignitionmap
+        'B_IgnitionMap
         '
-        Me.Button_Ignitionmap.Location = New System.Drawing.Point(285, 86)
-        Me.Button_Ignitionmap.Name = "Button_Ignitionmap"
-        Me.Button_Ignitionmap.Size = New System.Drawing.Size(86, 43)
-        Me.Button_Ignitionmap.TabIndex = 25
-        Me.Button_Ignitionmap.Text = "Edit Ignition map(s)"
-        Me.ToolTip1.SetToolTip(Me.Button_Ignitionmap, "Edit Ignition maps")
-        Me.Button_Ignitionmap.UseVisualStyleBackColor = True
+        Me.B_IgnitionMap.Location = New System.Drawing.Point(285, 86)
+        Me.B_IgnitionMap.Name = "B_IgnitionMap"
+        Me.B_IgnitionMap.Size = New System.Drawing.Size(86, 43)
+        Me.B_IgnitionMap.TabIndex = 25
+        Me.B_IgnitionMap.Text = "Edit Ignition map(s)"
+        Me.ToolTip1.SetToolTip(Me.B_IgnitionMap, "Edit Ignition maps")
+        Me.B_IgnitionMap.UseVisualStyleBackColor = True
         '
-        'B_miscsettings
+        'B_AdvancedSettings
         '
-        Me.B_miscsettings.Location = New System.Drawing.Point(377, 86)
-        Me.B_miscsettings.Name = "B_miscsettings"
-        Me.B_miscsettings.Size = New System.Drawing.Size(86, 43)
-        Me.B_miscsettings.TabIndex = 26
-        Me.B_miscsettings.Text = "Advanced settings"
-        Me.ToolTip1.SetToolTip(Me.B_miscsettings, "Set various advanced settings including" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "fuel pressure, activation of window swit" & _
+        Me.B_AdvancedSettings.Location = New System.Drawing.Point(377, 86)
+        Me.B_AdvancedSettings.Name = "B_AdvancedSettings"
+        Me.B_AdvancedSettings.Size = New System.Drawing.Size(86, 43)
+        Me.B_AdvancedSettings.TabIndex = 26
+        Me.B_AdvancedSettings.Text = "Advanced settings"
+        Me.ToolTip1.SetToolTip(Me.B_AdvancedSettings, "Set various advanced settings including" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "fuel pressure, activation of window swit" & _
                 "ch solenoid etc...")
-        Me.B_miscsettings.UseVisualStyleBackColor = True
+        Me.B_AdvancedSettings.UseVisualStyleBackColor = True
         '
         'L_File
         '
@@ -323,16 +323,16 @@ Partial Class main
         Me.Label3.Text = "Compare"
         Me.ToolTip1.SetToolTip(Me.Label3, resources.GetString("Label3.ToolTip"))
         '
-        'B_shifter
+        'B_Shifter
         '
-        Me.B_shifter.Location = New System.Drawing.Point(377, 135)
-        Me.B_shifter.Name = "B_shifter"
-        Me.B_shifter.Size = New System.Drawing.Size(86, 43)
-        Me.B_shifter.TabIndex = 32
-        Me.B_shifter.Text = "Shifter"
-        Me.ToolTip1.SetToolTip(Me.B_shifter, "Activate shifter module and set shifter kill time." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Requires shifter hardware bei" & _
+        Me.B_Shifter.Location = New System.Drawing.Point(377, 135)
+        Me.B_Shifter.Name = "B_Shifter"
+        Me.B_Shifter.Size = New System.Drawing.Size(86, 43)
+        Me.B_Shifter.TabIndex = 32
+        Me.B_Shifter.Text = "Shifter"
+        Me.ToolTip1.SetToolTip(Me.B_Shifter, "Activate shifter module and set shifter kill time." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Requires shifter hardware bei" & _
                 "ng connected")
-        Me.B_shifter.UseVisualStyleBackColor = True
+        Me.B_Shifter.UseVisualStyleBackColor = True
         '
         'GroupBox1
         '
@@ -407,17 +407,17 @@ Partial Class main
         Me.WebBrowser1.TabIndex = 36
         Me.WebBrowser1.Url = New System.Uri("http://www.dolphinwebdevelopment.com/dolphin-web/dolphin/banner_blue.gif", System.UriKind.Absolute)
         '
-        'Linklabel_program_homepage
+        'L_ProgramHomepage
         '
-        Me.Linklabel_program_homepage.ActiveLinkColor = System.Drawing.Color.DimGray
-        Me.Linklabel_program_homepage.AutoSize = True
-        Me.Linklabel_program_homepage.LinkColor = System.Drawing.Color.Black
-        Me.Linklabel_program_homepage.Location = New System.Drawing.Point(18, 215)
-        Me.Linklabel_program_homepage.Name = "Linklabel_program_homepage"
-        Me.Linklabel_program_homepage.Size = New System.Drawing.Size(215, 13)
-        Me.Linklabel_program_homepage.TabIndex = 37
-        Me.Linklabel_program_homepage.TabStop = True
-        Me.Linklabel_program_homepage.Text = "Click here to visit: http//www.ecueditor.com"
+        Me.L_ProgramHomepage.ActiveLinkColor = System.Drawing.Color.DimGray
+        Me.L_ProgramHomepage.AutoSize = True
+        Me.L_ProgramHomepage.LinkColor = System.Drawing.Color.Black
+        Me.L_ProgramHomepage.Location = New System.Drawing.Point(18, 215)
+        Me.L_ProgramHomepage.Name = "L_ProgramHomepage"
+        Me.L_ProgramHomepage.Size = New System.Drawing.Size(215, 13)
+        Me.L_ProgramHomepage.TabIndex = 37
+        Me.L_ProgramHomepage.TabStop = True
+        Me.L_ProgramHomepage.Text = "Click here to visit: http//www.ecueditor.com"
         '
         'main
         '
@@ -425,17 +425,17 @@ Partial Class main
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlDark
         Me.ClientSize = New System.Drawing.Size(474, 240)
-        Me.Controls.Add(Me.Linklabel_program_homepage)
+        Me.Controls.Add(Me.L_ProgramHomepage)
         Me.Controls.Add(Me.WebBrowser1)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.B_shifter)
-        Me.Controls.Add(Me.B_miscsettings)
-        Me.Controls.Add(Me.Button_Ignitionmap)
+        Me.Controls.Add(Me.B_Shifter)
+        Me.Controls.Add(Me.B_AdvancedSettings)
+        Me.Controls.Add(Me.B_IgnitionMap)
         Me.Controls.Add(Me.B_FlashECU)
-        Me.Controls.Add(Me.B_limiters)
-        Me.Controls.Add(Me.Enginedata)
-        Me.Controls.Add(Me.Button_fuelmap)
+        Me.Controls.Add(Me.B_Limiters)
+        Me.Controls.Add(Me.B_EngineData)
+        Me.Controls.Add(Me.B_FuelMap)
         Me.Controls.Add(Me.MenuStrip)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -454,27 +454,27 @@ Partial Class main
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Button_fuelmap As System.Windows.Forms.Button
+    Friend WithEvents B_FuelMap As System.Windows.Forms.Button
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
-    Friend WithEvents Enginedata As System.Windows.Forms.Button
+    Friend WithEvents B_EngineData As System.Windows.Forms.Button
     Friend WithEvents MenuStrip As System.Windows.Forms.MenuStrip
     Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents OpenToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SaveToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AboutToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents UpdatesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents B_limiters As System.Windows.Forms.Button
+    Friend WithEvents B_Limiters As System.Windows.Forms.Button
     Friend WithEvents B_FlashECU As System.Windows.Forms.Button
     Friend WithEvents HomepageToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents Button_Ignitionmap As System.Windows.Forms.Button
-    Friend WithEvents B_miscsettings As System.Windows.Forms.Button
+    Friend WithEvents B_IgnitionMap As System.Windows.Forms.Button
+    Friend WithEvents B_AdvancedSettings As System.Windows.Forms.Button
     Friend WithEvents OpenComparemapToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents L_File As System.Windows.Forms.Label
     Friend WithEvents L_Comparefile As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents B_shifter As System.Windows.Forms.Button
+    Friend WithEvents B_Shifter As System.Windows.Forms.Button
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
@@ -496,7 +496,7 @@ Partial Class main
     Friend WithEvents NewStockBkingToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NewStockBkingUSToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents VersionToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents Linklabel_program_homepage As System.Windows.Forms.LinkLabel
+    Friend WithEvents L_ProgramHomepage As System.Windows.Forms.LinkLabel
     Friend WithEvents ECUID As System.Windows.Forms.Label
 
 End Class

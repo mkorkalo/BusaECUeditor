@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Bkinginjectorbalancemap
+Partial Class BKingInjectorBalanceMap
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -20,9 +20,8 @@ Partial Class Bkinginjectorbalancemap
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Bkinginjectorbalancemap))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BKingInjectorBalanceMap))
         Me.INJBALmapgrid = New System.Windows.Forms.DataGridView
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.T_TPSIAP = New System.Windows.Forms.TextBox
         Me.T_RPM = New System.Windows.Forms.TextBox
         Me.T_change = New System.Windows.Forms.TextBox
@@ -54,10 +53,6 @@ Partial Class Bkinginjectorbalancemap
         Me.INJBALmapgrid.ShowRowErrors = False
         Me.INJBALmapgrid.Size = New System.Drawing.Size(615, 314)
         Me.INJBALmapgrid.TabIndex = 0
-        '
-        'Timer1
-        '
-        Me.Timer1.Interval = 500
         '
         'T_TPSIAP
         '
@@ -185,7 +180,6 @@ Partial Class Bkinginjectorbalancemap
 
     End Sub
     Friend WithEvents INJBALmapgrid As System.Windows.Forms.DataGridView
-    Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents T_TPSIAP As System.Windows.Forms.TextBox
     Friend WithEvents T_RPM As System.Windows.Forms.TextBox
     Friend WithEvents T_change As System.Windows.Forms.TextBox

@@ -26,8 +26,10 @@ Imports System.IO
 Imports System.Text
 Imports System.Net.mail
 
-
 Public Class main
+
+#Region "Declare Functions"
+
     Public Declare Function FT_GetModemStatus Lib "FTD2XX.DLL" (ByVal lnghandle As Integer, ByRef modstat As Integer) As Integer
     Public Declare Function FT_SetBreakOn Lib "FTD2XX.DLL" (ByVal lnghandle As Integer) As Integer
     Public Declare Function FT_SetBreakOff Lib "FTD2XX.DLL" (ByVal lnghandle As Integer) As Integer
@@ -61,11 +63,19 @@ Public Class main
     Declare Function QueryPerformanceCounter Lib "Kernel32" (ByRef X As Long) As Short 'new HighResTimer*******************************
     Declare Function QueryPerformanceFrequency Lib "Kernel32" (ByRef X As Long) As Short    ' new HighResTimer************************
 
+#End Region
+
+#Region "Variables"
+
     Dim path As String = ""
     Dim comparepath As String = ""
     Dim fs As FileStream
 
-    Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+#End Region
+
+#Region "Form Events"
+
+    Private Sub Main_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Me.Visible = False
         My.Application.SaveMySettingsOnExit = True
@@ -87,28 +97,12 @@ Public Class main
         LoginForm.Select()
 
     End Sub
-    Private Sub disablebuttons()
-        '
-        ' set the controls enabled or disabled at start or when file is reload. 
-        ' the ecu version testing sets the correct buttons visible or enabled.
-        '
-        Hayabusa.Visible = False
-        OpenToolStripMenuItem.Enabled = True
-        SaveToolStripMenuItem.Enabled = False
-        B_limiters.Enabled = False
-        B_shifter.Enabled = False
-        B_FlashECU.Enabled = False
-        Button_fuelmap.Enabled = False
-        Button_Ignitionmap.Enabled = False
-        B_miscsettings.Enabled = False
-        Enginedata.Enabled = False
-        readprocessongoing = False
-        fuelmapvisible = False
-        Ignitionmapvisible = False
- 
-    End Sub
 
-    Private Sub Button1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button_fuelmap.Click
+#End Region
+
+#Region "Control Events"
+
+    Private Sub B_FuelMap_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_FuelMap.Click
         Select Case ECUversion
             Case "gen1"
                 Fuelmap.Show()
@@ -117,15 +111,56 @@ Public Class main
                 K8Fuelmap.Show()
                 K8Fuelmap.Select()
             Case "bking"
-                BKingFuelmap.Show()
+                BKingFuelMap.Show()
                 MsgBox("Please note, currently BKing fuel map tuning is under testing, any comments and feedback appreciated. Rgds, PetriK")
-                BKingFuelmap.Select()
+                BKingFuelMap.Select()
             Case Else
                 MsgBox("Feature not yet implemented")
         End Select
     End Sub
 
-    Private Sub Button2_Click_2(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Enginedata.Click
+    Private Sub B_IgnitionMap_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_IgnitionMap.Click
+
+        Select Case ECUversion
+            Case "gen1"
+                Ignitionmap.Show()
+                Ignitionmap.Select()
+            Case "gen2"
+                K8Ignitionmap.Show()
+                K8Ignitionmap.Select()
+            Case "bking"
+                BKingIgnitionMap.Show()
+                BKingIgnitionMap.Select()
+            Case Else
+                MsgBox("Feature not yet implemented")
+        End Select
+
+    End Sub
+
+    Private Sub B_Limiters_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Limiters.Click
+
+        Select Case ECUversion
+            Case "gen1"
+                Limiters.Show()
+                Limiters.Select()
+            Case "gen2"
+                K8Limiters.Show()
+                K8Limiters.Select()
+            Case "bking"
+                BKingLimiters.Show()
+                BKingLimiters.Select()
+            Case Else
+                MsgBox("feature not yet supported")
+        End Select
+    End Sub
+
+    Private Sub B_FlashECU_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_FlashECU.Click
+
+        flashtheecu()
+
+    End Sub
+
+    Private Sub B_EngineData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_EngineData.Click
         Select Case ECUversion
             Case "gen1"
                 Datastream.Show()
@@ -139,6 +174,310 @@ Public Class main
             Case Else
                 MsgBox("Feature not yet implemented")
         End Select
+    End Sub
+
+    Private Sub B_AdvancedSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_AdvancedSettings.Click
+
+        Select Case ECUversion
+            Case "gen1"
+                Advsettings.Show()
+                Advsettings.Select()
+            Case "gen2"
+                K8Advsettings.Show()
+                K8Advsettings.Select()
+            Case "bking"
+                BKingAdvSettings.Show()
+                BKingAdvSettings.Select()
+            Case Else
+                MsgBox("Feature not yet implemented")
+        End Select
+
+    End Sub
+
+    Private Sub B_Shifter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Shifter.Click
+        Select Case ECUversion
+            Case "gen1"
+                shifter.Show()
+                shifter.Select()
+            Case "gen2"
+                K8shifter.Show()
+                K8shifter.Select()
+            Case "bking"
+                BKingShifter.Show()
+                BKingShifter.Select()
+            Case Else
+                MsgBox("Feature not yet implemented")
+        End Select
+    End Sub
+
+    Private Sub NewToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewToolStripMenuItem.Click
+
+        Dim defpath As String ' this is for this subroutine only
+
+        ' OK, so the file is found, now lets start processing it
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\default.bin"
+
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+
+        ' Open the stream and read it to global variable "Flash". 
+        fs = File.OpenRead(defpath)
+        Dim b(1) As Byte
+        Dim i As Integer
+        i = 0
+        Do While fs.Read(b, 0, 1) > 0
+            Flash(i) = b(0)
+            FlashCopy(i) = b(0)
+            i = i + 1
+        Loop
+        fs.Close()
+
+        ' Check that the binary lenght matches expected ecu
+        If i <> 262144 Then
+            ECUnotsupported.ShowDialog()
+        End If
+        '
+        ' Make sure the ECU id is supported type
+        '
+        i = 0
+        ECUID.Text = ""
+        Do While i < 8
+            ECUID.Text = ECUID.Text & Chr(Flash(&H3FFF0 + i))
+            i = i + 1
+        Loop
+
+        ' check the ecu id bytes and validate that the ecu flash image is supported
+        If Mid(ECUID.Text, 1, 6) <> "BB34BB" Then
+            ECUnotsupported.ShowDialog()
+        Else
+            Hayabusa.Visible = True
+            FlashToolStripMenuItem.Visible = False
+            Select Case Mid(ECUID.Text, 1, 8)
+                Case "BB34BB51"
+                    Hayabusa.Text = "Hayabusa EU"
+                    metric = True
+                    ECUversion = "gen1"
+                Case "BB34BB35"
+                    Hayabusa.Text = "Hayabusa USA"
+                    metric = False
+                    ECUversion = "gen1"
+                Case Else
+                    Hayabusa.Text = "Unknown model"
+                    metric = True
+                    ECUversion = ""
+            End Select
+        End If
+
+        ' enable controls, otherwise at form load an event will occur
+        Limiters.RPM.Enabled = True
+        SaveToolStripMenuItem.Enabled = True
+        B_FlashECU.Enabled = True
+        B_Limiters.Enabled = True
+        B_Shifter.Enabled = True
+        B_FuelMap.Enabled = True
+        B_IgnitionMap.Enabled = True
+        B_AdvancedSettings.Enabled = True
+        B_EngineData.Enabled = True
+
+        ' if the computername does not match to the stored computername, do not use the email address from this map
+        Fuelmap.Close()
+        Ignitionmap.Close()
+
+        MsgBox("A new gen1 basemap is generated", MsgBoxStyle.Information)
+
+    End Sub
+
+    Private Sub NewK8ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewK8ToolStripMenuItem.Click
+        Dim defpath As String ' this is for this subroutine only
+        close_child_windows()
+
+        ' OK, so the file is found, now lets start processing it
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\k8.bin"
+
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        disablebuttons()
+
+        ' Open the stream and read it to global variable "Flash". 
+        fs = File.OpenRead(defpath)
+        Dim b(1) As Byte
+        Dim i As Integer
+        i = 0
+        Do While fs.Read(b, 0, 1) > 0
+            Flash(i) = b(0)
+            FlashCopy(i) = b(0)
+            i = i + 1
+        Loop
+        fs.Close()
+
+        ' Check that the binary lenght matches expected ecu
+        If i <> (262144 * 4) Then
+            ECUnotsupported.ShowDialog()
+        End If
+
+        ECUversion = "gen2"
+        '
+        ' Make sure the ECU id is supported type
+        '
+        i = 0
+        ECUID.Text = ""
+        Do While i < 8
+            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
+            i = i + 1
+        Loop
+
+        ' check the ecu id bytes and validate that the ecu flash image is supported
+        If Mid(ECUID.Text, 1, 6) <> "DJ18SE" Then
+            ECUnotsupported.ShowDialog()
+        Else
+            setecutype()
+        End If
+
+        ' enable controls, otherwise at form load an event will occur
+        Limiters.RPM.Enabled = True
+        SaveToolStripMenuItem.Enabled = True
+        B_FlashECU.Enabled = True
+        B_Limiters.Enabled = True
+        B_EngineData.Enabled = True
+        B_Shifter.Enabled = True
+        B_FuelMap.Enabled = True
+        B_IgnitionMap.Enabled = True
+        B_AdvancedSettings.Enabled = True
+
+        K8Fuelmap.Close()
+        K8Ignitionmap.Close()
+
+        MsgBox("A new gen2 basemap is generated", MsgBoxStyle.Information)
+
+        block_pgm = True
+    End Sub
+
+    Private Sub NewStockBkingToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockBkingToolStripMenuItem.Click
+        Dim defpath As String ' this is for this subroutine only
+
+        ' OK, so the file is found, now lets start processing it
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\bking.bin"
+
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        disablebuttons()
+
+        ' Open the stream and read it to global variable "Flash". 
+        fs = File.OpenRead(defpath)
+        Dim b(1) As Byte
+        Dim i As Integer
+        i = 0
+        Do While fs.Read(b, 0, 1) > 0
+            Flash(i) = b(0)
+            FlashCopy(i) = b(0)
+            i = i + 1
+        Loop
+        fs.Close()
+
+        ' Check that the binary lenght matches expected ecu
+        If i <> (262144 * 4) Then
+            ECUnotsupported.ShowDialog()
+        End If
+
+        ECUversion = "bking"
+        '
+        ' Make sure the ECU id is supported type
+        '
+        i = 0
+        ECUID.Text = ""
+        Do While i < 8
+            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
+            i = i + 1
+        Loop
+
+        ' check the ecu id bytes and validate that the ecu flash image is supported
+        If Mid(ECUID.Text, 1, 6) <> "DJ47SE" Then
+            ECUnotsupported.ShowDialog()
+        Else
+            setecutype()
+        End If
+
+        ' enable controls, otherwise at form load an event will occur
+        Limiters.RPM.Enabled = True
+        SaveToolStripMenuItem.Enabled = True
+        B_FlashECU.Enabled = True
+        B_Limiters.Enabled = True
+        B_EngineData.Enabled = True
+        B_Shifter.Enabled = True
+        B_FuelMap.Enabled = True
+        B_IgnitionMap.Enabled = True
+        B_AdvancedSettings.Enabled = True
+
+        K8Fuelmap.Close()
+        K8Ignitionmap.Close()
+
+        MsgBox("A new Bking basemap is generated", MsgBoxStyle.Information)
+
+        block_pgm = True
+    End Sub
+
+    Private Sub NewStockBkingUSToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockBkingUSToolStripMenuItem.Click
+        Dim defpath As String ' this is for this subroutine only
+
+        ' OK, so the file is found, now lets start processing it
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\BkingUS.bin"
+
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        disablebuttons()
+
+        ' Open the stream and read it to global variable "Flash". 
+        fs = File.OpenRead(defpath)
+        Dim b(1) As Byte
+        Dim i As Integer
+        i = 0
+        Do While fs.Read(b, 0, 1) > 0
+            Flash(i) = b(0)
+            FlashCopy(i) = b(0)
+            i = i + 1
+        Loop
+        fs.Close()
+
+        ' Check that the binary lenght matches expected ecu
+        If i <> (262144 * 4) Then
+            ECUnotsupported.ShowDialog()
+        End If
+
+        ECUversion = "bking"
+        '
+        ' Make sure the ECU id is supported type
+        '
+        i = 0
+        ECUID.Text = ""
+        Do While i < 8
+            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
+            i = i + 1
+        Loop
+
+        ' check the ecu id bytes and validate that the ecu flash image is supported
+        If Mid(ECUID.Text, 1, 6) <> "DJ47SE" Then
+            ECUnotsupported.ShowDialog()
+        Else
+            setecutype()
+        End If
+
+        ' enable controls, otherwise at form load an event will occur
+        Limiters.RPM.Enabled = True
+        SaveToolStripMenuItem.Enabled = True
+        B_FlashECU.Enabled = True
+        B_Limiters.Enabled = True
+        B_EngineData.Enabled = True
+        B_Shifter.Enabled = True
+        B_FuelMap.Enabled = True
+        B_IgnitionMap.Enabled = True
+        B_AdvancedSettings.Enabled = True
+
+        K8Fuelmap.Close()
+        K8Ignitionmap.Close()
+
+        MsgBox("A new Bking basemap is generated", MsgBoxStyle.Information)
+
+        block_pgm = True
     End Sub
 
     Private Sub OpenToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OpenToolStripMenuItem.Click
@@ -211,7 +550,7 @@ Public Class main
                     ECUversion = "gen1"
                     FlashToolStripMenuItem.Visible = False
 
-                     ' Make sure the ECU id is supported type
+                    ' Make sure the ECU id is supported type
                     i = 0
                     ECUID.Text = ""
                     Do While i < 8
@@ -251,26 +590,26 @@ Public Class main
             Limiters.RPM.Enabled = True
             SaveToolStripMenuItem.Enabled = True
             B_FlashECU.Enabled = True
-            B_limiters.Enabled = True
-            B_shifter.Enabled = True
-            Button_fuelmap.Enabled = True
-            Button_Ignitionmap.Enabled = True
-            B_miscsettings.Enabled = True
+            B_Limiters.Enabled = True
+            B_Shifter.Enabled = True
+            B_FuelMap.Enabled = True
+            B_IgnitionMap.Enabled = True
+            B_AdvancedSettings.Enabled = True
 
             Select Case ECUversion
                 Case "gen1"
-                    Enginedata.Enabled = True
+                    B_EngineData.Enabled = True
                     Fuelmap.Close()
                     Ignitionmap.Close()
                     FlashToolStripMenuItem.Visible = False
 
                 Case "gen2"
-                    Enginedata.Enabled = True
+                    B_EngineData.Enabled = True
                     K8Ignitionmap.Close()
                     K8Fuelmap.Close()
                     FlashToolStripMenuItem.Visible = Enabled
                 Case "bking"
-                    Enginedata.Enabled = True
+                    B_EngineData.Enabled = True
                     FlashToolStripMenuItem.Visible = Enabled
                     MsgBox("experimental bking flashing enabled")
 
@@ -381,110 +720,6 @@ Public Class main
                 End If
             Case Else
                 MsgBox("Somehow trying to save a .bin which is not gen1 or gen2. Report this as an error!")
-        End Select
-
-    End Sub
-
-    Private Sub ProgramInfoToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ProgramInfoToolStripMenuItem.Click
-        AboutBox.Show()
-        AboutBox.Select()
-    End Sub
-
-    Private Sub ProgramUpdateToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        updatebox.Show()
-        updatebox.Select()
-    End Sub
-
-    Private Sub B_limiters_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_limiters.Click
-        Select Case ECUversion
-            Case "gen1"
-                Limiters.Show()
-                Limiters.Select()
-            Case "gen2"
-                K8Limiters.Show()
-                K8Limiters.Select()
-            Case "bking"
-                BkingLimiters.Show()
-                BkingLimiters.Select()
-            Case Else
-                MsgBox("feature not yet supported")
-        End Select
-    End Sub
-    Private Sub flashtheecu()
-        Select Case ECUversion
-            Case "gen1"
-                renesasfdt()
-            Case "gen2"
-                flash_serial()
-            Case "bking"
-                flash_serial()
-            Case Else
-                MsgBox("ECU programmer not defined for this .bin file")
-        End Select
-
-    End Sub
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_FlashECU.Click
-        flashtheecu()
-    End Sub
-    Private Sub cleanupFDTdir(ByVal FDTPath As String)
-        Dim di As New IO.DirectoryInfo(FDTPath)
-        Dim diar1 As IO.FileInfo() = di.GetFiles()
-        Dim dra As IO.FileInfo
-        Dim delcount As Integer
-        delcount = 0
-        '
-        'Cleanup all BB34*.bin files which are older than -14 days
-        '
-        For Each dra In diar1
-            If dra.CreationTime < (My.Computer.Clock.LocalTime.AddDays(-14)) Then
-                If dra.FullName.Contains(".bin") And dra.FullName.Contains("BB34") Then
-                    File.Delete(dra.FullName)
-                    delcount = delcount + 1
-                End If
-            End If
-        Next
-
-    End Sub
-
-    Private Sub HomepageToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HomepageToolStripMenuItem.Click
-        ProgramHomepage.Show()
-        ProgramHomepage.Select()
-    End Sub
-
-    Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExitToolStripMenuItem.Click
-        End
-    End Sub
-
-    Private Sub Button_Ignitionmap_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button_Ignitionmap.Click
-        Select Case ECUversion
-            Case "gen1"
-                Ignitionmap.Show()
-                Ignitionmap.Select()
-            Case "gen2"
-                K8Ignitionmap.Show()
-                K8Ignitionmap.Select()
-            Case "bking"
-                BKingIgnitionmap.Show()
-                BKingIgnitionmap.Select()
-            Case Else
-                MsgBox("Feature not yet implemented")
-        End Select
-
-    End Sub
-
-    Private Sub Button1_Click_2(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_miscsettings.Click
-        Select Case ECUversion
-            Case "gen1"
-                Advsettings.Show()
-                Advsettings.Select()
-            Case "gen2"
-                K8Advsettings.Show()
-                K8Advsettings.Select()
-            Case "bking"
-                BKingAdvsettings.Show()
-                BKingAdvsettings.Select()
-            Case Else
-                MsgBox("Feature not yet implemented")
         End Select
 
     End Sub
@@ -623,22 +858,208 @@ Public Class main
         End Select
     End Sub
 
+    Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExitToolStripMenuItem.Click
 
-    Private Sub B_shifter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_shifter.Click
+        End
+
+    End Sub
+
+    Private Sub ProgramInfoToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ProgramInfoToolStripMenuItem.Click
+
+        AboutBox.Show()
+        AboutBox.Select()
+
+    End Sub
+
+    Private Sub VersionToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VersionToolStripMenuItem.Click
+        ' Option Explicit
+        Dim objShell
+        Dim strEditor, strVersion, strPublish, strTitle
+
+        strVersion = "DisplayVersion"
+        strPublish = "Publisher"
+        strTitle = "DisplayName"
+
+        strEditor = "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\dde589b887ecb332\"
+
+        objShell = CreateObject("WScript.Shell")
+
+        strVersion = objShell.RegRead(strEditor & strVersion)
+        strPublish = objShell.RegRead(strEditor & strPublish)
+        strTitle = objShell.RegRead(strEditor & strTitle)
+
+
+        'Wscript.Echo "ECUeditor Version: " & vbTab & strVersion & vbCr _
+        MsgBox(vbTab & vbTab & "ECUeditor Version: " & vbTab & strVersion & vbCr _
+        & vbCr & vbTab & vbTab & "         Publisher: " & strPublish & vbCr & vbTab & vbTab & " Version info displayed thanks to Eric. " & vbCr, 0, strTitle)
+
+    End Sub
+
+    Private Sub ProgramUpdateToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+        updatebox.Show()
+        updatebox.Select()
+
+    End Sub
+
+    Private Sub InstallFTDIDriversToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InstallFTDIDriversToolStripMenuItem.Click
+        Dim s As String
+        s = Application.StartupPath
+
+        If Not File.Exists(Application.StartupPath & "\common\FTDI_CDM_2.04.16.exe") Then
+            MsgBox("FTDI driver is missing, can not be installed")
+            Return
+        Else
+            If MsgBox("Install/reinstall the FTDI USB COM port drivers, press OK or Cancel", MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
+                Shell(Application.StartupPath & "\FTDI_CDM_2.04.16.exe", AppWinStyle.NormalFocus, True, -1)
+                MsgBox("When drivers are installed, now reboot your computer")
+            Else
+                MsgBox("Drivers not installed")
+            End If
+        End If
+
+    End Sub
+
+    Private Sub SetupCOMPortToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SetupCOMPortToolStripMenuItem.Click
+
+        K8setupcomport.Show()
+
+    End Sub
+
+    Private Sub VerifyChecksumToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VerifyChecksumToolStripMenuItem.Click
         Select Case ECUversion
             Case "gen1"
-                shifter.Show()
-                shifter.Select()
+                MsgBox("Command not supported with gen1 ecu.")
             Case "gen2"
-                K8shifter.Show()
-                K8shifter.Select()
-            Case "bking"
-                BkingShifter.Show()
-                BkingShifter.Select()
+                testchecksum()
             Case Else
-                MsgBox("Feature not yet implemented")
+                MsgBox("Unknown ecu type, command not supported.")
         End Select
     End Sub
+
+    Private Sub VerifyECUToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VerifyECUToolStripMenuItem.Click
+        Select Case ECUversion
+            Case "gen1"
+                MsgBox("Command not supported with gen1 ecu.")
+            Case "gen2"
+                readecu()
+            Case "bking"
+                readecu()
+            Case Else
+                MsgBox("Unknown ecu type, command not supported.")
+        End Select
+    End Sub
+
+    Private Sub FullEraseToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FullEraseToolStripMenuItem.Click
+        Select Case ECUversion
+            Case "gen1"
+                MsgBox("Command not supported with gen1 ecu.")
+            Case "gen2"
+                erase_ecu()
+            Case "bking"
+                erase_ecu()
+            Case Else
+                MsgBox("Unknown ecu type, command not supported.")
+        End Select
+    End Sub
+
+    Private Sub FlashTheECUToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FlashTheECUToolStripMenuItem.Click
+        Select Case ECUversion
+            Case "gen1"
+                MsgBox("Command not supported with gen1 ecu.")
+            Case "gen2"
+                flashtheecu()
+            Case "bking"
+                flashtheecu()
+            Case Else
+                MsgBox("Unknown ecu type, command not supported.")
+        End Select
+
+    End Sub
+
+    Private Sub HomepageToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HomepageToolStripMenuItem.Click
+        ProgramHomepage.Show()
+        ProgramHomepage.Select()
+    End Sub
+
+    Private Sub L_ProgramHomepage_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles L_ProgramHomepage.LinkClicked
+
+        System.Diagnostics.Process.Start("http://www.ecueditor.com")
+
+    End Sub
+
+#End Region
+
+#Region "Functions"
+
+    Private Sub DisableButtons()
+        '
+        ' set the controls enabled or disabled at start or when file is reload. 
+        ' the ecu version testing sets the correct buttons visible or enabled.
+        '
+        Hayabusa.Visible = False
+        OpenToolStripMenuItem.Enabled = True
+        SaveToolStripMenuItem.Enabled = False
+        B_Limiters.Enabled = False
+        B_Shifter.Enabled = False
+        B_FlashECU.Enabled = False
+        B_FuelMap.Enabled = False
+        B_IgnitionMap.Enabled = False
+        B_AdvancedSettings.Enabled = False
+        B_EngineData.Enabled = False
+        readprocessongoing = False
+        fuelmapvisible = False
+        Ignitionmapvisible = False
+
+    End Sub
+
+    Private Sub close_child_windows()
+        K8Advsettings.Close()
+        K8boostfuel.Close()
+        K8Fuelmap.Close()
+        K8Datastream.Close()
+        K8Ignitionmap.Close()
+        K8shifter.Close()
+        K8nitrouscontrol.Close()
+        K8injectorbalancemap.Close()
+        K8dwellignition.Close()
+        K8STPmap.Close()
+    End Sub
+
+    Private Sub flashtheecu()
+        Select Case ECUversion
+            Case "gen1"
+                renesasfdt()
+            Case "gen2"
+                flash_serial()
+            Case "bking"
+                flash_serial()
+            Case Else
+                MsgBox("ECU programmer not defined for this .bin file")
+        End Select
+
+    End Sub
+
+    Private Sub cleanupFDTdir(ByVal FDTPath As String)
+        Dim di As New IO.DirectoryInfo(FDTPath)
+        Dim diar1 As IO.FileInfo() = di.GetFiles()
+        Dim dra As IO.FileInfo
+        Dim delcount As Integer
+        delcount = 0
+        '
+        'Cleanup all BB34*.bin files which are older than -14 days
+        '
+        For Each dra In diar1
+            If dra.CreationTime < (My.Computer.Clock.LocalTime.AddDays(-14)) Then
+                If dra.FullName.Contains(".bin") And dra.FullName.Contains("BB34") Then
+                    File.Delete(dra.FullName)
+                    delcount = delcount + 1
+                End If
+            End If
+        Next
+
+    End Sub
+
     Private Function fnam(ByVal p As String) As String
         Dim testFile As System.IO.FileInfo
         testFile = My.Computer.FileSystem.GetFileInfo(p)
@@ -647,158 +1068,10 @@ Public Class main
         Return (fileName)
     End Function
 
-    Private Sub Button1_Click_4(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        mapsharing.Show()
-        mapsharing.Select()
-    End Sub
-
-
     Public Shared Function StrToByteArray(ByVal str As String) As Byte()
         Dim encoding As New System.Text.ASCIIEncoding()
         Return encoding.GetBytes(str)
     End Function 'StrToByteArray
-
-    Private Sub NewToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewToolStripMenuItem.Click
-
-        Dim defpath As String ' this is for this subroutine only
-
-        ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\default.bin"
-
-        L_File.Text = ""
-        L_Comparefile.Text = ""
-
-        ' Open the stream and read it to global variable "Flash". 
-        fs = File.OpenRead(defpath)
-        Dim b(1) As Byte
-        Dim i As Integer
-        i = 0
-        Do While fs.Read(b, 0, 1) > 0
-            Flash(i) = b(0)
-            FlashCopy(i) = b(0)
-            i = i + 1
-        Loop
-        fs.Close()
-
-        ' Check that the binary lenght matches expected ecu
-        If i <> 262144 Then
-            ECUnotsupported.ShowDialog()
-        End If
-        '
-        ' Make sure the ECU id is supported type
-        '
-        i = 0
-        ECUID.Text = ""
-        Do While i < 8
-            ECUID.Text = ECUID.Text & Chr(Flash(&H3FFF0 + i))
-            i = i + 1
-        Loop
-
-        ' check the ecu id bytes and validate that the ecu flash image is supported
-        If Mid(ECUID.Text, 1, 6) <> "BB34BB" Then
-            ECUnotsupported.ShowDialog()
-        Else
-            Hayabusa.Visible = True
-            FlashToolStripMenuItem.Visible = False
-            Select Case Mid(ECUID.Text, 1, 8)
-                Case "BB34BB51"
-                    Hayabusa.Text = "Hayabusa EU"
-                    metric = True
-                    ECUversion = "gen1"
-                Case "BB34BB35"
-                    Hayabusa.Text = "Hayabusa USA"
-                    metric = False
-                    ECUversion = "gen1"
-                Case Else
-                    Hayabusa.Text = "Unknown model"
-                    metric = True
-                    ECUversion = ""
-            End Select
-        End If
-
-        ' enable controls, otherwise at form load an event will occur
-        Limiters.RPM.Enabled = True
-        SaveToolStripMenuItem.Enabled = True
-        B_FlashECU.Enabled = True
-        B_limiters.Enabled = True
-        B_shifter.Enabled = True
-        Button_fuelmap.Enabled = True
-        Button_Ignitionmap.Enabled = True
-        B_miscsettings.Enabled = True
-        Enginedata.Enabled = True
-
-        ' if the computername does not match to the stored computername, do not use the email address from this map
-        Fuelmap.Close()
-        Ignitionmap.Close()
-
-        MsgBox("A new gen1 basemap is generated", MsgBoxStyle.Information)
-
-    End Sub
-
-    Private Sub NewK8ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewK8ToolStripMenuItem.Click
-        Dim defpath As String ' this is for this subroutine only
-        close_child_windows()
-
-        ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\k8.bin"
-
-        L_File.Text = ""
-        L_Comparefile.Text = ""
-        disablebuttons()
-
-        ' Open the stream and read it to global variable "Flash". 
-        fs = File.OpenRead(defpath)
-        Dim b(1) As Byte
-        Dim i As Integer
-        i = 0
-        Do While fs.Read(b, 0, 1) > 0
-            Flash(i) = b(0)
-            FlashCopy(i) = b(0)
-            i = i + 1
-        Loop
-        fs.Close()
-
-        ' Check that the binary lenght matches expected ecu
-        If i <> (262144 * 4) Then
-            ECUnotsupported.ShowDialog()
-        End If
-
-        ECUversion = "gen2"
-        '
-        ' Make sure the ECU id is supported type
-        '
-        i = 0
-        ECUID.Text = ""
-        Do While i < 8
-            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
-            i = i + 1
-        Loop
-
-        ' check the ecu id bytes and validate that the ecu flash image is supported
-        If Mid(ECUID.Text, 1, 6) <> "DJ18SE" Then
-            ECUnotsupported.ShowDialog()
-        Else
-            setecutype()
-        End If
-
-        ' enable controls, otherwise at form load an event will occur
-        Limiters.RPM.Enabled = True
-        SaveToolStripMenuItem.Enabled = True
-        B_FlashECU.Enabled = True
-        B_limiters.Enabled = True
-        Enginedata.Enabled = True
-        B_shifter.Enabled = True
-        Button_fuelmap.Enabled = True
-        Button_Ignitionmap.Enabled = True
-        B_miscsettings.Enabled = True
-
-        K8Fuelmap.Close()
-        K8Ignitionmap.Close()
-
-        MsgBox("A new gen2 basemap is generated", MsgBoxStyle.Information)
-
-        block_pgm = True
-    End Sub
 
     Private Sub renesasfdt()
 
@@ -957,6 +1230,7 @@ Public Class main
 
 
     End Sub
+
     Private Sub flash_serial()
 
         Dim path As String
@@ -2709,7 +2983,6 @@ Public Class main
 
     End Sub
 
-
     Private Sub blockok(ByVal b As Integer)
         Select Case b
             Case b = 0 : block0 = False
@@ -2729,15 +3002,6 @@ Public Class main
             Case b = 14 : blockE = False
             Case b = 15 : blockF = False
         End Select
-    End Sub
-    Private Sub B_readecu_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        '
-        ' Lets put the verify function running in another thread, not for any particular reason
-        '
-        'Dim th As New System.Threading.Thread(AddressOf readecu)
-        'th.Start()
-
-        readecu()
     End Sub
 
     Sub readecu()
@@ -3108,11 +3372,11 @@ Public Class main
             Limiters.RPM.Enabled = True
             SaveToolStripMenuItem.Enabled = True
             B_FlashECU.Enabled = True
-            B_limiters.Enabled = True
-            B_shifter.Enabled = True
-            Button_fuelmap.Enabled = True
-            Button_Ignitionmap.Enabled = True
-            B_miscsettings.Enabled = True
+            B_Limiters.Enabled = True
+            B_Shifter.Enabled = True
+            B_FuelMap.Enabled = True
+            B_IgnitionMap.Enabled = True
+            B_AdvancedSettings.Enabled = True
 
             '
             ' Make sure the ECU id is supported type
@@ -3147,7 +3411,7 @@ Public Class main
 
     Private Sub erase_ecu()
 
- 
+
         Dim cb(4) As Byte
         Dim FT_status As Long
         Dim lngHandle As Long
@@ -3467,7 +3731,7 @@ Public Class main
         reset_blocks()
         block_pgm = True
 
-        
+
         FT_status = FT_GetModemStatus(lngHandle, modemstat)
         'While ((modemstat = &H6000) Or (modemstat = &H6200))
         'FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
@@ -3489,6 +3753,7 @@ Public Class main
 
 
     End Sub
+
     Public Sub setecutype()
         '
         ' ECU is DJ18SE type
@@ -3523,34 +3788,6 @@ Public Class main
         End Select
 
     End Sub
-
-    Private Sub Button1_Click_3(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        K8enginedatalog.Show()
-
-    End Sub
-
-    Private Sub InstallFTDIDriversToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InstallFTDIDriversToolStripMenuItem.Click
-        Dim s As String
-        s = Application.StartupPath
-
-        If Not File.Exists(Application.StartupPath & "\FTDI_CDM_2.04.16.exe") Then
-            MsgBox("FTDI driver is missing, can not be installed")
-            Return
-        Else
-            If MsgBox("Install/reinstall the FTDI USB COM port drivers, press OK or Cancel", MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
-                Shell(Application.StartupPath & "\FTDI_CDM_2.04.16.exe", AppWinStyle.NormalFocus, True, -1)
-                MsgBox("When drivers are installed, now reboot your computer")
-            Else
-                MsgBox("Drivers not installed")
-            End If
-        End If
-
-    End Sub
-
-    Private Sub SetupCOMPortToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SetupCOMPortToolStripMenuItem.Click
-        K8setupcomport.Show()
-    End Sub
-
 
     Private Sub testchecksum()
 
@@ -3882,227 +4119,34 @@ Public Class main
         End If
     End Sub
 
+#End Region
 
-    Private Sub VerifyChecksumToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VerifyChecksumToolStripMenuItem.Click
-        Select Case ECUversion
-            Case "gen1"
-                MsgBox("Command not supported with gen1 ecu.")
-            Case "gen2"
-                testchecksum()
-            Case Else
-                MsgBox("Unknown ecu type, command not supported.")
-        End Select
-    End Sub
+#Region "Not In Use"
 
-    Private Sub VerifyECUToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VerifyECUToolStripMenuItem.Click
-        Select Case ECUversion
-            Case "gen1"
-                MsgBox("Command not supported with gen1 ecu.")
-            Case "gen2"
-                readecu()
-            Case "bking"
-                readecu()
-            Case Else
-                MsgBox("Unknown ecu type, command not supported.")
-        End Select
-    End Sub
+    Private Sub B_MapSharing_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
-    Private Sub FlashTheECUToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FlashTheECUToolStripMenuItem.Click
-        Select Case ECUversion
-            Case "gen1"
-                MsgBox("Command not supported with gen1 ecu.")
-            Case "gen2"
-                flashtheecu()
-            Case "bking"
-                flashtheecu()
-            Case Else
-                MsgBox("Unknown ecu type, command not supported.")
-        End Select
+        mapsharing.Show()
+        mapsharing.Select()
 
     End Sub
 
-    Private Sub FullEraseToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FullEraseToolStripMenuItem.Click
-        Select Case ECUversion
-            Case "gen1"
-                MsgBox("Command not supported with gen1 ecu.")
-            Case "gen2"
-                erase_ecu()
-            Case "bking"
-                erase_ecu()
-            Case Else
-                MsgBox("Unknown ecu type, command not supported.")
-        End Select
-    End Sub
-
-    
-    Private Sub NewStockBkingToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockBkingToolStripMenuItem.Click
-        Dim defpath As String ' this is for this subroutine only
-
-        ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\bking.bin"
-
-        L_File.Text = ""
-        L_Comparefile.Text = ""
-        disablebuttons()
-
-        ' Open the stream and read it to global variable "Flash". 
-        fs = File.OpenRead(defpath)
-        Dim b(1) As Byte
-        Dim i As Integer
-        i = 0
-        Do While fs.Read(b, 0, 1) > 0
-            Flash(i) = b(0)
-            FlashCopy(i) = b(0)
-            i = i + 1
-        Loop
-        fs.Close()
-
-        ' Check that the binary lenght matches expected ecu
-        If i <> (262144 * 4) Then
-            ECUnotsupported.ShowDialog()
-        End If
-
-        ECUversion = "bking"
+    Private Sub B_readecu_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         '
-        ' Make sure the ECU id is supported type
+        ' Lets put the verify function running in another thread, not for any particular reason
         '
-        i = 0
-        ECUID.Text = ""
-        Do While i < 8
-            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
-            i = i + 1
-        Loop
+        'Dim th As New System.Threading.Thread(AddressOf readecu)
+        'th.Start()
 
-        ' check the ecu id bytes and validate that the ecu flash image is supported
-        If Mid(ECUID.Text, 1, 6) <> "DJ47SE" Then
-            ECUnotsupported.ShowDialog()
-        Else
-            setecutype()
-        End If
-
-        ' enable controls, otherwise at form load an event will occur
-        Limiters.RPM.Enabled = True
-        SaveToolStripMenuItem.Enabled = True
-        B_FlashECU.Enabled = True
-        B_limiters.Enabled = True
-        Enginedata.Enabled = True
-        B_shifter.Enabled = True
-        Button_fuelmap.Enabled = True
-        Button_Ignitionmap.Enabled = True
-        B_miscsettings.Enabled = True
-
-        K8Fuelmap.Close()
-        K8Ignitionmap.Close()
-
-        MsgBox("A new Bking basemap is generated", MsgBoxStyle.Information)
-
-        block_pgm = True
+        readecu()
     End Sub
 
-    Private Sub NewStockBkingUSToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockBkingUSToolStripMenuItem.Click
-        Dim defpath As String ' this is for this subroutine only
-
-        ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\BkingUS.bin"
-
-        L_File.Text = ""
-        L_Comparefile.Text = ""
-        disablebuttons()
-
-        ' Open the stream and read it to global variable "Flash". 
-        fs = File.OpenRead(defpath)
-        Dim b(1) As Byte
-        Dim i As Integer
-        i = 0
-        Do While fs.Read(b, 0, 1) > 0
-            Flash(i) = b(0)
-            FlashCopy(i) = b(0)
-            i = i + 1
-        Loop
-        fs.Close()
-
-        ' Check that the binary lenght matches expected ecu
-        If i <> (262144 * 4) Then
-            ECUnotsupported.ShowDialog()
-        End If
-
-        ECUversion = "bking"
-        '
-        ' Make sure the ECU id is supported type
-        '
-        i = 0
-        ECUID.Text = ""
-        Do While i < 8
-            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
-            i = i + 1
-        Loop
-
-        ' check the ecu id bytes and validate that the ecu flash image is supported
-        If Mid(ECUID.Text, 1, 6) <> "DJ47SE" Then
-            ECUnotsupported.ShowDialog()
-        Else
-            setecutype()
-        End If
-
-        ' enable controls, otherwise at form load an event will occur
-        Limiters.RPM.Enabled = True
-        SaveToolStripMenuItem.Enabled = True
-        B_FlashECU.Enabled = True
-        B_limiters.Enabled = True
-        Enginedata.Enabled = True
-        B_shifter.Enabled = True
-        Button_fuelmap.Enabled = True
-        Button_Ignitionmap.Enabled = True
-        B_miscsettings.Enabled = True
-
-        K8Fuelmap.Close()
-        K8Ignitionmap.Close()
-
-        MsgBox("A new Bking basemap is generated", MsgBoxStyle.Information)
-
-        block_pgm = True
-    End Sub
-
-    Private Sub VersionToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VersionToolStripMenuItem.Click
-        ' Option Explicit
-        Dim objShell
-        Dim strEditor, strVersion, strPublish, strTitle
-
-        strVersion = "DisplayVersion"
-        strPublish = "Publisher"
-        strTitle = "DisplayName"
-
-        strEditor = "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\dde589b887ecb332\"
-
-        objShell = CreateObject("WScript.Shell")
-
-        strVersion = objShell.RegRead(strEditor & strVersion)
-        strPublish = objShell.RegRead(strEditor & strPublish)
-        strTitle = objShell.RegRead(strEditor & strTitle)
-
-
-        'Wscript.Echo "ECUeditor Version: " & vbTab & strVersion & vbCr _
-        MsgBox(vbTab & vbTab & "ECUeditor Version: " & vbTab & strVersion & vbCr _
-        & vbCr & vbTab & vbTab & "         Publisher: " & strPublish & vbCr & vbTab & vbTab & " Version info displayed thanks to Eric. " & vbCr, 0, strTitle)
+    Private Sub Button1_Click_3(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        K8enginedatalog.Show()
 
     End Sub
 
-    Private Sub Linklabel_program_homepage_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles Linklabel_program_homepage.LinkClicked
-        System.Diagnostics.Process.Start("http://www.ecueditor.com")
-    End Sub
+#End Region
 
-    Private Sub close_child_windows()
-        K8Advsettings.Close()
-        K8boostfuel.Close()
-        K8Fuelmap.Close()
-        K8Datastream.Close()
-        K8Ignitionmap.Close()
-        K8shifter.Close()
-        K8nitrouscontrol.Close()
-        K8injectorbalancemap.Close()
-        K8dwellignition.Close()
-        K8STPmap.Close()
-    End Sub
 End Class
 
 

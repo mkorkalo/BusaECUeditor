@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class BkingSTPmap
+Partial Class BKingSTPMap
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -20,9 +20,8 @@ Partial Class BkingSTPmap
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(K8STPmap))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BKingSTPMap))
         Me.STPmapgrid = New System.Windows.Forms.DataGridView
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.T_TPSIAP = New System.Windows.Forms.TextBox
         Me.T_RPM = New System.Windows.Forms.TextBox
         Me.T_change = New System.Windows.Forms.TextBox
@@ -55,10 +54,6 @@ Partial Class BkingSTPmap
         Me.STPmapgrid.ShowRowErrors = False
         Me.STPmapgrid.Size = New System.Drawing.Size(441, 483)
         Me.STPmapgrid.TabIndex = 0
-        '
-        'Timer1
-        '
-        Me.Timer1.Interval = 500
         '
         'T_TPSIAP
         '
@@ -167,7 +162,7 @@ Partial Class BkingSTPmap
         Me.L_STPMAP.TabIndex = 27
         Me.L_STPMAP.Text = "n/a"
         '
-        'K8STPmap
+        'BkingSTPmap
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(5.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -188,7 +183,7 @@ Partial Class BkingSTPmap
         Me.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "K8STPmap"
+        Me.Name = "BkingSTPmap"
         Me.Text = "ECUeditor STP maps"
         CType(Me.STPmapgrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -196,7 +191,6 @@ Partial Class BkingSTPmap
 
     End Sub
     Friend WithEvents STPmapgrid As System.Windows.Forms.DataGridView
-    Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents T_TPSIAP As System.Windows.Forms.TextBox
     Friend WithEvents T_RPM As System.Windows.Forms.TextBox
     Friend WithEvents T_change As System.Windows.Forms.TextBox

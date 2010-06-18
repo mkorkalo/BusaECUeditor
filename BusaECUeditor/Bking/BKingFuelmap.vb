@@ -21,7 +21,7 @@
 '
 Imports System.IO
 
-Public Class BKingFuelmap
+Public Class BKingFuelMap
     '
     ' Fuelmap.vb contains all functions to edit fuelmaps in ecueditor. it uses a global variable flash(addr) that
     ' has the full ecu image loaded as byte values. the fuelmap is edited on a grid and changed values are
@@ -47,7 +47,7 @@ Public Class BKingFuelmap
 
 #Region "Form Events"
 
-    Private Sub Fuelmap_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub BKingFuelMap_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         change = 1 ' default change to map when pressing +,- or *,/
         previousrow = 0
@@ -60,7 +60,7 @@ Public Class BKingFuelmap
 
     End Sub
 
-    Private Sub Fuelmap_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub BKingFuelMap_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
 
         fuelmapvisible = False
 
@@ -255,32 +255,32 @@ Public Class BKingFuelmap
         Select Case e.KeyChar
             Case "*"
                 MultiplySelectedCells()
-                show_values()
+                ShowValues()
             Case "/"
                 DivideSelectedCells()
-                show_values()
+                ShowValues()
             Case "+"
                 IncreaseSelectedCells()
-                show_values()
+                ShowValues()
             Case "-"
                 DecreaseSelectedCells()
-                show_values()
+                ShowValues()
             Case "1"
-                selectmap(1)
+                SelectMap(1)
             Case "T"
-                selectmap(1)
+                SelectMap(1)
             Case "t"
-                selectmap(1)
+                SelectMap(1)
             Case "2"
-                selectmap(2)
+                SelectMap(2)
             Case "I"
-                selectmap(2)
+                SelectMap(2)
             Case "i"
-                selectmap(2)
+                SelectMap(2)
             Case "3"
-                selectmap(3)
+                SelectMap(3)
             Case "4"
-                selectmap(4)
+                SelectMap(4)
             Case "a"
                 setmode = 0
                 selectmap(1)
@@ -314,13 +314,13 @@ Public Class BKingFuelmap
 
     Private Sub Fuelmapgrid_MouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Fuelmapgrid.MouseClick
 
-        show_values()
+        ShowValues()
 
     End Sub
 
     Private Sub Fuelmapgrid_CellEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles Fuelmapgrid.CellEnter
 
-        show_values()
+        ShowValues()
 
     End Sub
 
@@ -375,14 +375,14 @@ Public Class BKingFuelmap
 
 #Region "Functions"
 
-    Public Function fuelpw(ByVal pw As Integer)
+    Public Function FuelPW(ByVal pW As Integer)
 
         ' change ecu values on values on the screen.
-        Return CInt(pw / 24)
+        Return CInt(pW / 24)
 
     End Function
 
-    Function fuelpw_toecuval(ByVal pw As Integer)
+    Function FuelPWToECUVal(ByVal pw As Integer)
 
         ' change screen values back to ecu values.
         Return CInt(pw * 24)
@@ -530,7 +530,7 @@ Public Class BKingFuelmap
 
     End Sub
 
-    Private Sub setCellColour(ByVal c As Integer, ByVal r As Integer)
+    Private Sub SetCellColour(ByVal c As Integer, ByVal r As Integer)
 
         ' this subroutine compares the cell value to the value of the flash image initially read from the disk with open file
         ' and sets cell colour accordingly based on that comparison        
@@ -574,7 +574,7 @@ Public Class BKingFuelmap
         minval = 5   ' not validated from ecu, minimum value to which the map item can be set
 
         m1 = Fuelmapgrid.Item(c, r).Value
-        m2 = fuelpw((readflashword(editing_map + (2 * (c + (r * map_number_of_columns))))))
+        m2 = FuelPW((readflashword(editing_map + (2 * (c + (r * map_number_of_columns))))))
 
         diff = m2 - m1
 
@@ -605,13 +605,13 @@ Public Class BKingFuelmap
                         ' This is normal on gear idle map
                         '
                         copy_to_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        writeflashword(copy_to_map + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
+                        writeflashword(copy_to_map + (2 * (c + (r * number_of_columns))), FuelPWToECUVal(m1))
                         '
                         ' Need to write the values also to idle neutral map
                         ' &H54DF4 on gear, &H54E54 on neutral
                         '
                         copy_to_map2 = readflashlongword(readflashlongword((&H54E54 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        writeflashword(copy_to_map2 + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
+                        writeflashword(copy_to_map2 + (2 * (c + (r * number_of_columns))), FuelPWToECUVal(m1))
                     Next
                 Next
             Next
@@ -628,7 +628,7 @@ Public Class BKingFuelmap
                 For ms01 = 1 To 1
                     For modeabc = setmode To setmode
                         copy_to_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        writeflashword(copy_to_map + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
+                        writeflashword(copy_to_map + (2 * (c + (r * number_of_columns))), FuelPWToECUVal(m1))
                     Next
                 Next
             Next
@@ -646,7 +646,7 @@ Public Class BKingFuelmap
                 For ms01 = 0 To 0
                     For modeabc = setmode To setmode
                         copy_to_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        writeflashword(copy_to_map + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
+                        writeflashword(copy_to_map + (2 * (c + (r * number_of_columns))), FuelPWToECUVal(m1))
                     Next
                 Next
             Next
@@ -655,7 +655,8 @@ Public Class BKingFuelmap
 
     End Sub
 
-    Public Sub selectmap(ByVal map As Integer)
+    Public Sub SelectMap(ByVal map As Integer)
+
         Dim cylinder, ms01, modeabc As Integer
         '
         ' map tracing function to be disabled when map is changed
@@ -709,7 +710,7 @@ Public Class BKingFuelmap
 
     End Sub
 
-    Public Sub loadmap(ByVal ms01 As Integer)
+    Public Sub LoadMap(ByVal ms01 As Integer)
 
         ' This function loads a map into a grid including map contents and heading information
         Dim columnheading_map, rowheading_map As Integer
@@ -772,8 +773,8 @@ Public Class BKingFuelmap
         i = 0
         Do While (r < map_number_of_rows)
 
-            Fuelmapgrid.Item(c, r).Value = fuelpw(readflashword((i * 2) + editing_map))
-            setCellColour(c, r)
+            Fuelmapgrid.Item(c, r).Value = FuelPW(readflashword((i * 2) + editing_map))
+            SetCellColour(c, r)
 
             If c < map_number_of_columns - 1 Then
                 c = c + 1
@@ -794,13 +795,13 @@ Public Class BKingFuelmap
 
     End Sub
 
-    Public Sub tracemap()
+    Public Sub TraceMap()
 
         ' based on enginedata show the position on the map and trace which cell is being accessed by ecu (almost)
         Dim c As Integer
         Dim r As Integer
 
-        setCellColour(cc, rr)
+        SetCellColour(cc, rr)
 
         ' enable automatic map switching when tracing and datastream on
 
@@ -862,14 +863,14 @@ Public Class BKingFuelmap
         If cc > map_number_of_columns Then cc = 0
         If cc < 0 Then cc = 0
         If rr <> 0 Or cc <> 0 Then
-            setCellColour(0, rr)
+            SetCellColour(0, rr)
             Fuelmapgrid.Item(cc, rr).Style.BackColor = Color.Blue
         Else
-            setCellColour(cc, rr)
+            SetCellColour(cc, rr)
         End If
     End Sub
 
-    Public Sub copymaps(ByVal i As Integer)
+    Public Sub CopyMaps(ByVal i As Integer)
         '
         ' copy map contents to all cylinders and modeABC groups, depending on parameter only ms0 or ms1 or both ms0 and ms1
         '
@@ -940,7 +941,7 @@ Public Class BKingFuelmap
 
     End Sub
 
-    Private Sub show_values()
+    Private Sub ShowValues()
         '
         ' show the values on topmost boxes. for gen2 this is not really completed function.
         '
@@ -974,7 +975,7 @@ Public Class BKingFuelmap
             r = Fuelmapgrid.CurrentRow.Index
             c = Fuelmapgrid.CurrentCell.ColumnIndex
             m2 = Fuelmapgrid.Item(c, r).Value
-            m1 = fuelpw((readflashwordcopy(editing_map + (2 * (c + (r * map_number_of_columns))))))
+            m1 = FuelPW((readflashwordcopy(editing_map + (2 * (c + (r * map_number_of_columns))))))
             v = m2 - m1
             p = ((m2 / m1) - 1) * 100
             If v > 0 Then

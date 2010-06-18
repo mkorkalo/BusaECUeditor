@@ -21,12 +21,15 @@
 '
 Imports System.IO
 
-Public Class BkingSTPmap
+Public Class BKingSTPMap
     '
     ' Fuelmap.vb contains all functions to edit fuelmaps in ecueditor. it uses a global variable flash(addr) that
     ' has the full ecu image loaded as byte values. the fuelmap is edited on a grid and changed values are
     ' written to the global variable flash(addr).
     '
+
+#Region "Variables"
+
     Dim change As Integer
     Dim previousrow As Integer
     Dim toprow(50) As Integer
@@ -43,13 +46,11 @@ Public Class BkingSTPmap
     Dim cc, rr As Integer
     Dim stptrace As Boolean
 
+#End Region
 
+#Region "Form Events"
 
-    Private Sub Fuelmap_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        fuelmapvisible = False
-    End Sub
-
-    Private Sub Fuelmap_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub BKingSTPMap_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         change = 1 ' default change to map when pressing +,- or *,/
         previousrow = 0
@@ -72,6 +73,15 @@ Public Class BkingSTPmap
 
     End Sub
 
+    Private Sub BKingSTPMap_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+
+        fuelmapvisible = False
+
+    End Sub
+
+#End Region
+
+#Region "Control Events"
 
     Private Sub Fuelmapgrid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles STPmapgrid.KeyPress
 
@@ -182,6 +192,11 @@ Public Class BkingSTPmap
         End Select
 
     End Sub
+
+#End Region
+
+#Region "Functions"
+
     Private Sub DecreaseSelectedCells()
         Dim c As Integer
         Dim r As Integer
@@ -249,6 +264,7 @@ Public Class BkingSTPmap
             i = i + 1
         Loop
     End Sub
+
     Private Sub MultiplySelectedCells()
         Dim c As Integer
         Dim r As Integer
@@ -318,8 +334,6 @@ Public Class BkingSTPmap
 
     End Sub
 
-
-
     Private Sub SetFlashItem(ByVal c As Integer, ByVal r As Integer)
 
 
@@ -349,8 +363,6 @@ Public Class BkingSTPmap
 
     End Sub
 
-
-
     Public Sub selectmap()
         Dim i As Integer
 
@@ -376,6 +388,7 @@ Public Class BkingSTPmap
 
 
     End Sub
+
     Public Sub loadmap()
         '
         ' This function loads a map into a grid including map contents and heading information
@@ -469,16 +482,6 @@ Public Class BkingSTPmap
 
     End Sub
 
-
-
-
-
-
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Me.Close()
-    End Sub
-
-
     Public Sub tracemap(ByVal g As Integer, ByVal ms As Integer, ByVal m As Integer)
         '
         ' based on enginedata show the position on the map and trace which cell is being accessed by ecu (almost)
@@ -563,5 +566,7 @@ Public Class BkingSTPmap
         End If
 
     End Sub
+
+#End Region
 
 End Class

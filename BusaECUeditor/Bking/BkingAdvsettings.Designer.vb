@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class BkingAdvsettings
+Partial Class BKingAdvSettings
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -20,7 +20,7 @@ Partial Class BkingAdvsettings
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BkingAdvsettings))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BKingAdvSettings))
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.GroupBox8 = New System.Windows.Forms.GroupBox
@@ -230,7 +230,7 @@ Partial Class BkingAdvsettings
         Me.Label7.TabIndex = 0
         Me.Label7.Text = "STP map editing"
         '
-        'BkingAdvsettings
+        'BKingAdvSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -243,7 +243,7 @@ Partial Class BkingAdvsettings
         Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "BkingAdvsettings"
+        Me.Name = "BKingAdvSettings"
         Me.Text = "ECUeditor Bking Advanced settings"
         Me.GroupBox8.ResumeLayout(False)
         Me.GroupBox8.PerformLayout()

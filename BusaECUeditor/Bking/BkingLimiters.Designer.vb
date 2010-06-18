@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class BkingLimiters
+Partial Class BKingLimiters
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -20,7 +20,7 @@ Partial Class BkingLimiters
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BkingLimiters))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BKingLimiters))
         Me.Label4 = New System.Windows.Forms.Label
         Me.C_6gear = New System.Windows.Forms.CheckBox
         Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
