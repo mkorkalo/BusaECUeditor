@@ -45,7 +45,6 @@
     <ProductName>Hayabusa ECUeditor for K2-K7, K8- and BKing models</ProductName>
     <PublisherName>PetriK</PublisherName>
     <MinimumRequiredVersion>2.3.1.0</MinimumRequiredVersion>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>ecueditor_prerelease.htm</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
     <ApplicationRevision>38</ApplicationRevision>
@@ -123,8 +122,8 @@
     <Compile Include="BKing\BKingShifter.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BKing\BKingSTPmap.Designer.vb">
-      <DependentUpon>BKingSTPmap.vb</DependentUpon>
+    <Compile Include="BKing\BKingSTPMap.Designer.vb">
+      <DependentUpon>BKingSTPMap.vb</DependentUpon>
     </Compile>
     <Compile Include="Common\AboutBox.Designer.vb">
       <DependentUpon>AboutBox.vb</DependentUpon>
@@ -145,7 +144,7 @@
     <Compile Include="BKing\BKingAdvSettings.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BKing\BKingSTPmap.vb">
+    <Compile Include="BKing\BKingSTPMap.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="BKing\BKingInjectorBalanceMap.Designer.vb">
@@ -154,10 +153,10 @@
     <Compile Include="BKing\BKingInjectorBalanceMap.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BKing\BKingIgnitionmap.Designer.vb">
-      <DependentUpon>BKingIgnitionmap.vb</DependentUpon>
+    <Compile Include="BKing\BKingIgnitionMap.Designer.vb">
+      <DependentUpon>BKingIgnitionMap.vb</DependentUpon>
     </Compile>
-    <Compile Include="BKing\BKingIgnitionmap.vb">
+    <Compile Include="BKing\BKingIgnitionMap.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="G2\K8boostdiagram.Designer.vb">
@@ -368,11 +367,11 @@
     <Compile Include="Common\filesavenotice.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Common\main.vb">
+    <Compile Include="Common\Main.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Common\main.Designer.vb">
-      <DependentUpon>main.vb</DependentUpon>
+    <Compile Include="Common\Main.Designer.vb">
+      <DependentUpon>Main.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="G1\Fuelmap.Designer.vb">
@@ -439,9 +438,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>errordialogue.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Common\main.resx">
+    <EmbeddedResource Include="Common\Main.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>main.vb</DependentUpon>
+      <DependentUpon>Main.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="G1\Fuelmap.resx">
       <SubType>Designer</SubType>
@@ -468,10 +467,10 @@
     <Content Include="ecu.bin\boostfuel.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ecu.bin\Bking.bin">
+    <Content Include="ecu.bin\BKing.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ecu.bin\BkingUS.bin">
+    <Content Include="ecu.bin\BKingUS.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Common\ClassDiagram1.cd" />
@@ -633,16 +632,16 @@
       <DependentUpon>BKingFuelmap.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="BKing\BKingSTPmap.resx">
-      <DependentUpon>BKingSTPmap.vb</DependentUpon>
+    <EmbeddedResource Include="BKing\BKingSTPMap.resx">
+      <DependentUpon>BKingSTPMap.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="BKing\BKingInjectorBalanceMap.resx">
       <DependentUpon>BKingInjectorBalanceMap.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="BKing\BKingIgnitionmap.resx">
-      <DependentUpon>BKingIgnitionmap.vb</DependentUpon>
+    <EmbeddedResource Include="BKing\BKingIgnitionMap.resx">
+      <DependentUpon>BKingIgnitionMap.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8boostdiagram.resx">

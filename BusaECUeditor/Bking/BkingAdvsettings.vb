@@ -24,7 +24,7 @@ Imports System.IO
 Imports System.Text
 Imports System.Net.Mail
 
-Public Class BkingAdvsettings
+Public Class BKingAdvSettings
 
 #Region "Variables"
 
@@ -39,7 +39,7 @@ Public Class BkingAdvsettings
 
 #Region "Form Events"
 
-    Private Sub K8Advsettings_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub BKingAdvSettings_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         loading = True
 
@@ -80,7 +80,7 @@ Public Class BkingAdvsettings
 
     End Sub
 
-    Private Sub K8Advsettings_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
+    Private Sub BKingAdvSettings_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
 
         If e.KeyChar = Chr(27) Then
             Me.Close()

@@ -21,12 +21,14 @@
 '
 Imports System.IO
 
-Public Class Bkinginjectorbalancemap
+Public Class BKingInjectorBalanceMap
     '
     ' Fuelmap.vb contains all functions to edit fuelmaps in ecueditor. it uses a global variable flash(addr) that
     ' has the full ecu image loaded as byte values. the fuelmap is edited on a grid and changed values are
     ' written to the global variable flash(addr).
     '
+#Region "Variables"
+
     Dim change As Integer
     Dim previousrow As Integer
     Dim toprow(50) As Integer
@@ -45,24 +47,11 @@ Public Class Bkinginjectorbalancemap
     Dim col As Integer = 2
     Dim cel As Integer = 2
 
+#End Region
 
-    Private Function decode(ByVal i As Integer) As Integer
-        ' return the value that is displayed on the screen
-        Return CInt(100 * i / &H8000)
-    End Function
+#Region "Form Events"
 
-    Private Function encode(ByVal i As Integer) As Integer
-        ' return the value that is written to flash
-        Return CInt(&H8000 * i / 100)
-    End Function
-
-
-
-    Private Sub Fuelmap_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        fuelmapvisible = False
-    End Sub
-
-    Private Sub Fuelmap_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub BKingInjectorBalanceMap_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         change = 1 ' default change to map when pressing +,- or *,/
         previousrow = 0
@@ -85,9 +74,17 @@ Public Class Bkinginjectorbalancemap
         fuelmap = False
         selectmap()
 
+    End Sub
+
+    Private Sub BKingInjectorBalanceMap_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+
+        fuelmapvisible = False
 
     End Sub
 
+#End Region
+
+#Region "Control Events"
 
     Private Sub Fuelmapgrid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles INJBALmapgrid.KeyPress
 
@@ -183,6 +180,25 @@ Public Class Bkinginjectorbalancemap
         End Select
 
     End Sub
+
+#End Region
+
+#Region "Functions"
+
+    Private Function decode(ByVal i As Integer) As Integer
+
+        ' return the value that is displayed on the screen
+        Return CInt(100 * i / &H8000)
+
+    End Function
+
+    Private Function encode(ByVal i As Integer) As Integer
+
+        ' return the value that is written to flash
+        Return CInt(&H8000 * i / 100)
+
+    End Function
+
     Private Sub DecreaseSelectedCells()
         Dim c As Integer
         Dim r As Integer
@@ -250,6 +266,7 @@ Public Class Bkinginjectorbalancemap
             i = i + 1
         Loop
     End Sub
+
     Private Sub MultiplySelectedCells()
         Dim c As Integer
         Dim r As Integer
@@ -319,8 +336,6 @@ Public Class Bkinginjectorbalancemap
 
     End Sub
 
-
-
     Private Sub SetFlashItem(ByVal c As Integer, ByVal r As Integer)
 
 
@@ -350,8 +365,6 @@ Public Class Bkinginjectorbalancemap
 
     End Sub
 
-
-
     Public Sub selectmap()
         Dim i As Integer
 
@@ -377,6 +390,7 @@ Public Class Bkinginjectorbalancemap
 
 
     End Sub
+
     Public Sub loadmap()
         '
         ' This function loads a map into a grid including map contents and heading information
@@ -473,13 +487,6 @@ Public Class Bkinginjectorbalancemap
 
     End Sub
 
-
-
-
-
-
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Me.Close()
-    End Sub
+#End Region
 
 End Class

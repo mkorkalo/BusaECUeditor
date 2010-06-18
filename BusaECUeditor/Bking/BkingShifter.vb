@@ -23,8 +23,11 @@
 Imports System.Windows.Forms
 Imports System.IO
 
-Public Class BkingShifter
+Public Class BKingShifter
 
+#Region "Variables"
+
+    Dim loading As Boolean
     Dim ADJ As Integer = &H58400 '&HFF if shifter inactive, no code present else shifter active
     Dim FUELCODE As Integer = &H58450
     Dim IGNCODE As Integer = &H58700
@@ -35,19 +38,13 @@ Public Class BkingShifter
     Dim shiftercodelenght As Integer = &H58800 - &H58400 - 1 'lenght of the shifter code in bytes for clearing the memory
     Dim timerconst = 1 / 1.28
 
-    Private Sub BKingShifter_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
+#End Region
 
-        If e.KeyChar = Chr(27) Then Me.Close()
+#Region "Form Events"
 
-        If e.KeyChar = "P" Or e.KeyChar = "p" Then
-            PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Left = 10
-            PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Right = 10
-            PrintForm1.Print()
-        End If
+    Private Sub BKingShifter_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-    End Sub
-
-    Private Sub shifter_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        loading = True
 
         Dim i As Integer
 
@@ -72,7 +69,42 @@ Public Class BkingShifter
             C_killtime.Items.Add(Str(10 * i))
         Next
 
+        loading = False
+
     End Sub
+
+    Private Sub BKingShifter_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
+
+        If e.KeyChar = Chr(27) Then Me.Close()
+
+        If e.KeyChar = "P" Or e.KeyChar = "p" Then
+            PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Left = 10
+            PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Right = 10
+            PrintForm1.Print()
+        End If
+
+    End Sub
+
+    Private Sub BKingShifter_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
+
+        If C_shifter_activation.Checked = True Then
+
+            writeflashword((ADJ + 2), (Val(T_Gear1.Text)) / timerconst)
+            writeflashword((ADJ + 4), (Val(T_Gear2.Text)) / timerconst)
+            writeflashword((ADJ + 6), (Val(T_Gear3.Text)) / timerconst)
+            writeflashword((ADJ + 8), (Val(T_Gear4.Text)) / timerconst)
+            writeflashword((ADJ + 10), (Val(T_Gear5.Text)) / timerconst)
+            writeflashword((ADJ + 12), (Val(T_Gear6.Text)) / timerconst)
+
+            writeflashword((ADJ + 22), (Val(T_minkillactive.Text)))
+            writeflashword((ADJ + 24), (Val(T_killcountdelay.Text)))
+
+        End If
+    End Sub
+
+#End Region
+
+#Region "Control Events"
 
     Private Sub C_shifter_activation_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_shifter_activation.CheckedChanged
 
@@ -97,6 +129,71 @@ Public Class BkingShifter
         End If
 
     End Sub
+
+    Private Sub C_killtime_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_killtime.SelectedIndexChanged
+
+        T_Gear1.Text = C_killtime.Text
+        T_Gear2.Text = C_killtime.Text
+        T_Gear3.Text = C_killtime.Text
+        T_Gear4.Text = C_killtime.Text
+        T_Gear5.Text = C_killtime.Text
+        T_Gear6.Text = C_killtime.Text
+
+    End Sub
+
+    Private Sub T_minkillactive_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_minkillactive.TextChanged
+
+        If Val(T_minkillactive.Text) > 50 Then
+            T_minkillactive.Text = "50"
+        End If
+
+        If Val(T_minkillactive.Text) <= 1 Then
+            T_minkillactive.Text = "1"
+        End If
+
+    End Sub
+
+    Private Sub T_killcountdelay_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_killcountdelay.TextChanged
+
+        If Val(T_killcountdelay.Text) > 4000 Then
+            T_killcountdelay.Text = "4000"
+        End If
+
+        If Val(T_killcountdelay.Text) <= 1 Then
+            T_killcountdelay.Text = "1"
+        End If
+
+    End Sub
+
+    Private Sub C_Fuelcut_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_Fuelcut.CheckedChanged
+
+        If C_Fuelcut.Checked Then
+            C_Fuelcut.Text = "Fuelcut active"
+            writeflashword(ADJ + 26, 1)
+        Else
+            If Not C_igncut.Checked Then C_igncut.Checked = True
+            C_Fuelcut.Text = "Fuelcut not active"
+            writeflashword(ADJ + 26, 0)
+        End If
+
+    End Sub
+
+    Private Sub C_Igncut_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_igncut.CheckedChanged
+
+        If C_igncut.Checked Then
+            C_igncut.Text = "Igncut active"
+            writeflashword(ADJ + 28, 1)
+        Else
+            If Not C_Fuelcut.Checked Then C_Fuelcut.Checked = True
+            C_igncut.Text = "Igncut not active"
+            writeflashword(ADJ + 28, 0)
+        End If
+
+    End Sub
+
+#End Region
+
+#Region "Functions"
 
     Private Sub modify_original_ECU_code(ByVal method As Boolean)
         Dim pcdisp As Integer
@@ -217,7 +314,7 @@ Public Class BkingShifter
         T_Gear4.Visible = False
         T_Gear5.Visible = False
         T_Gear6.Visible = False
-        
+
         C_killtime.Enabled = False
 
         T_minkillactive.Visible = False
@@ -229,105 +326,6 @@ Public Class BkingShifter
 
     End Sub
 
-    Private Sub C_killtime_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_killtime.SelectedIndexChanged
-
-        T_Gear1.Text = C_killtime.Text
-        T_Gear2.Text = C_killtime.Text
-        T_Gear3.Text = C_killtime.Text
-        T_Gear4.Text = C_killtime.Text
-        T_Gear5.Text = C_killtime.Text
-        T_Gear6.Text = C_killtime.Text
-
-    End Sub
-
-    Private Sub T_minkillactive_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_minkillactive.TextChanged
-
-        If Val(T_minkillactive.Text) > 50 Then
-            T_minkillactive.Text = "50"
-        End If
-
-        If Val(T_minkillactive.Text) <= 1 Then
-            T_minkillactive.Text = "1"
-        End If
-
-        writeflashword((ADJ + 22), (Val(T_minkillactive.Text)))
-
-    End Sub
-
-    Private Sub T_killcountdelay_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_killcountdelay.TextChanged
-
-        If Val(T_killcountdelay.Text) > 4000 Then
-            T_killcountdelay.Text = "4000"
-        End If
-
-        If Val(T_killcountdelay.Text) <= 1 Then
-            T_killcountdelay.Text = "1"
-        End If
-
-        writeflashword((ADJ + 24), (Val(T_killcountdelay.Text)))
-
-    End Sub
-
-    Private Sub C_Fuelcut_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_Fuelcut.CheckedChanged
-
-        If C_Fuelcut.Checked Then
-            C_Fuelcut.Text = "Fuelcut active"
-            writeflashword(ADJ + 26, 1)
-        Else
-            If Not C_igncut.Checked Then C_igncut.Checked = True
-            C_Fuelcut.Text = "Fuelcut not active"
-            writeflashword(ADJ + 26, 0)
-        End If
-
-    End Sub
-
-    Private Sub C_Igncut_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_igncut.CheckedChanged
-
-        If C_igncut.Checked Then
-            C_igncut.Text = "Igncut active"
-            writeflashword(ADJ + 28, 1)
-        Else
-            If Not C_Fuelcut.Checked Then C_Fuelcut.Checked = True
-            C_igncut.Text = "Igncut not active"
-            writeflashword(ADJ + 28, 0)
-        End If
-
-    End Sub
-
-    Private Sub T_Gear1_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_Gear1.TextChanged
-
-        writeflashword((ADJ + 2), (Val(T_Gear1.Text)) / timerconst)
-
-    End Sub
-
-    Private Sub T_Gear2_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_Gear2.TextChanged
-
-        writeflashword((ADJ + 4), (Val(T_Gear2.Text)) / timerconst)
-
-    End Sub
-
-    Private Sub T_Gear3_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_Gear3.TextChanged
-
-        writeflashword((ADJ + 6), (Val(T_Gear3.Text)) / timerconst)
-
-    End Sub
-
-    Private Sub T_Gear4_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_Gear4.TextChanged
-
-        writeflashword((ADJ + 8), (Val(T_Gear4.Text)) / timerconst)
-
-    End Sub
-
-    Private Sub T_Gear5_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_Gear5.TextChanged
-
-        writeflashword((ADJ + 10), (Val(T_Gear5.Text)) / timerconst)
-
-    End Sub
-
-    Private Sub T_Gear6_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_Gear6.TextChanged
-
-        writeflashword((ADJ + 12), (Val(T_Gear6.Text)) / timerconst)
-
-    End Sub
+#End Region
 
 End Class

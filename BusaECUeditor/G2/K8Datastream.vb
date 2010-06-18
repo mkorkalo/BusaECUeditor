@@ -131,14 +131,15 @@ Public Class K8Datastream
     Private Sub K8Datastream_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
 
         FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+
         If FT_status = 0 Then
             closeenginedatacomms()
         End If
+
         Timer2.Enabled = False
+
         ticking = 0
         FT_status = FT_Close(lngHandle)
-
-
 
     End Sub
 

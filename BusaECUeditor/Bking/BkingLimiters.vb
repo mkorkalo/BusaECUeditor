@@ -20,23 +20,20 @@
 '    of the GNU licence.
 '
 
-Public Class BkingLimiters
+Public Class BKingLimiters
+
+#Region "Variables"
+
     Dim rpmconv As Long
     Dim addedrpm As Integer
 
-    Private Sub K8Limiters_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
-        If e.KeyChar = Chr(27) Then Me.Close()
-        If e.KeyChar = "P" Or e.KeyChar = "p" Then
-            PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Left = 10
-            PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Right = 10
-            PrintForm1.Print()
-        End If
-    End Sub
+#End Region
 
-    Private Sub Limiters_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+#Region "Form Events"
+
+    Private Sub BKingLimiters_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim i As Integer
         rpmconv = 15000000
-
 
         '
         '
@@ -70,14 +67,57 @@ Public Class BkingLimiters
 
     End Sub
 
-
-  
-
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Me.Close()
+    Private Sub BKingLimiters_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
+        If e.KeyChar = Chr(27) Then Me.Close()
+        If e.KeyChar = "P" Or e.KeyChar = "p" Then
+            PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Left = 10
+            PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Right = 10
+            PrintForm1.Print()
+        End If
     End Sub
 
-    Private Sub CheckBox1_CheckedChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_6gear.CheckedChanged
+#End Region
+
+#Region "Control Events"
+
+    Private Sub RPM_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RPM.SelectedIndexChanged
+        Dim i As Integer
+        Dim baseline As Integer
+
+        baseline = 11103
+        ' Set various RPM limits based on RPM value selected
+        i = Val(RPM.Text)
+        addedrpm = i - baseline ' we are just setting here the baseline
+
+        '
+        ' RPM/Fuel soft hard type 1
+        '
+        writeflashword(&H74A7A, Int((rpmconv / (addedrpm + (rpmconv / &H56D)) + 1)))
+        writeflashword(&H74A7C, Int((rpmconv / (addedrpm + (rpmconv / &H560)) + 1)))
+        writeflashword(&H74A7E, Int((rpmconv / (addedrpm + (rpmconv / &H553)) + 1)))
+        writeflashword(&H74A80, Int((rpmconv / (addedrpm + (rpmconv / &H547)) + 1)))
+        '
+        ' RPM/Fuel soft hard type 2, this is modified higher than stock as stock is not used
+        '
+        writeflashword(&H74A82, Int((rpmconv / (addedrpm + (rpmconv / &H57A)) + 1)))
+        writeflashword(&H74A84, Int((rpmconv / (addedrpm + (rpmconv / &H56D)) + 1)))
+        '
+        ' RPM/Fuel soft hard type 3 neutral
+        '
+        writeflashword(&H74A86, Int((rpmconv / (addedrpm + (rpmconv / &H594)) + 1)))
+        writeflashword(&H74A88, Int((rpmconv / (addedrpm + (rpmconv / &H587)) + 1)))
+        '
+        ' RPM/Ignition
+        '
+        writeflashword(&H74358, Int((rpmconv / (addedrpm + (rpmconv / &H524)) + 1)))
+        writeflashword(&H7435A, Int((rpmconv / (addedrpm + (rpmconv / &H518)) + 1)))
+        writeflashword(&H7435C, Int((rpmconv / (addedrpm + (rpmconv / &H560)) + 1)))
+        writeflashword(&H7435E, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1)))
+
+
+    End Sub
+
+    Private Sub C_6gear_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_6gear.CheckedChanged
         If C_6gear.Checked = True Then
             '
             ' gear modeA compensation 5&6 as 4th, 0x80 only
@@ -133,47 +173,8 @@ Public Class BkingLimiters
             writeflashword(&H74AB0, &H58D7)
             C_6gear.Text = "5-6th gear limiter as stock"
         End If
-
     End Sub
 
- 
+#End Region
 
-    Private Sub RPM_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RPM.SelectedIndexChanged
-        Dim i As Integer
-        Dim baseline As Integer
-
-        baseline = 11103
-        ' Set various RPM limits based on RPM value selected
-        i = Val(RPM.Text)
-        addedrpm = i - baseline ' we are just setting here the baseline
-
-        '
-        ' RPM/Fuel soft hard type 1
-        '
-        writeflashword(&H74A7A, Int((rpmconv / (addedrpm + (rpmconv / &H56D)) + 1)))
-        writeflashword(&H74A7C, Int((rpmconv / (addedrpm + (rpmconv / &H560)) + 1)))
-        writeflashword(&H74A7E, Int((rpmconv / (addedrpm + (rpmconv / &H553)) + 1)))
-        writeflashword(&H74A80, Int((rpmconv / (addedrpm + (rpmconv / &H547)) + 1)))
-        '
-        ' RPM/Fuel soft hard type 2, this is modified higher than stock as stock is not used
-        '
-        writeflashword(&H74A82, Int((rpmconv / (addedrpm + (rpmconv / &H57A)) + 1)))
-        writeflashword(&H74A84, Int((rpmconv / (addedrpm + (rpmconv / &H56D)) + 1)))
-        '
-        ' RPM/Fuel soft hard type 3 neutral
-        '
-        writeflashword(&H74A86, Int((rpmconv / (addedrpm + (rpmconv / &H594)) + 1)))
-        writeflashword(&H74A88, Int((rpmconv / (addedrpm + (rpmconv / &H587)) + 1)))
-        '
-        ' RPM/Ignition
-        '
-        writeflashword(&H74358, Int((rpmconv / (addedrpm + (rpmconv / &H524)) + 1)))
-        writeflashword(&H7435A, Int((rpmconv / (addedrpm + (rpmconv / &H518)) + 1)))
-        writeflashword(&H7435C, Int((rpmconv / (addedrpm + (rpmconv / &H560)) + 1)))
-        writeflashword(&H7435E, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1)))
-
-
-    End Sub
-
-   
 End Class

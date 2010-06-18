@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class BKingFuelmap
+Partial Class BKingFuelMap
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -20,9 +20,8 @@ Partial Class BKingFuelmap
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BKingFuelmap))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BKingFuelMap))
         Me.Fuelmapgrid = New System.Windows.Forms.DataGridView
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.B_TPS = New System.Windows.Forms.Button
         Me.B_IAP = New System.Windows.Forms.Button
         Me.B_MSTP = New System.Windows.Forms.Button
@@ -52,10 +51,6 @@ Partial Class BKingFuelmap
         Me.Fuelmapgrid.ShowRowErrors = False
         Me.Fuelmapgrid.Size = New System.Drawing.Size(792, 675)
         Me.Fuelmapgrid.TabIndex = 0
-        '
-        'Timer1
-        '
-        Me.Timer1.Interval = 500
         '
         'B_TPS
         '
@@ -147,7 +142,7 @@ Partial Class BKingFuelmap
         Me.L_modeabc.TabIndex = 21
         Me.L_modeabc.Text = "A/B/C"
         '
-        'BKingFuelmap
+        'BKingFuelMap
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(5.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -166,7 +161,7 @@ Partial Class BKingFuelmap
         Me.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "BKingFuelmap"
+        Me.Name = "BKingFuelMap"
         Me.Text = "ECUeditor Fuelmap"
         CType(Me.Fuelmapgrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -174,7 +169,6 @@ Partial Class BKingFuelmap
 
     End Sub
     Friend WithEvents Fuelmapgrid As System.Windows.Forms.DataGridView
-    Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents B_TPS As System.Windows.Forms.Button
     Friend WithEvents B_IAP As System.Windows.Forms.Button
     Friend WithEvents B_MSTP As System.Windows.Forms.Button

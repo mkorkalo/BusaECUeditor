@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class BKingIgnitionmap
+Partial Class BKingIgnitionMap
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -20,10 +20,9 @@ Partial Class BKingIgnitionmap
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BKingIgnitionmap))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BKingIgnitionMap))
         Me.T_TPSIAP = New System.Windows.Forms.TextBox
         Me.T_RPM = New System.Windows.Forms.TextBox
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Ignitionmapgrid = New System.Windows.Forms.DataGridView
         Me.B_MS0 = New System.Windows.Forms.Button
         Me.B_MS1 = New System.Windows.Forms.Button
@@ -56,10 +55,6 @@ Partial Class BKingIgnitionmap
         Me.T_RPM.Size = New System.Drawing.Size(134, 22)
         Me.T_RPM.TabIndex = 16
         Me.T_RPM.WordWrap = False
-        '
-        'Timer1
-        '
-        Me.Timer1.Interval = 500
         '
         'Ignitionmapgrid
         '
@@ -147,7 +142,6 @@ Partial Class BKingIgnitionmap
     End Sub
     Friend WithEvents T_TPSIAP As System.Windows.Forms.TextBox
     Friend WithEvents T_RPM As System.Windows.Forms.TextBox
-    Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents Ignitionmapgrid As System.Windows.Forms.DataGridView
     Friend WithEvents B_MS0 As System.Windows.Forms.Button
     Friend WithEvents B_MS1 As System.Windows.Forms.Button

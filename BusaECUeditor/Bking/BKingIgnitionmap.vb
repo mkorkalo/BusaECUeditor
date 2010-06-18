@@ -19,12 +19,14 @@
 '    under this same license for free. For more information see paragraph 5
 '    of the GNU licence.
 '
-Public Class BKingIgnitionmap
+Public Class BKingIgnitionMap
     '
     ' K8Ignitionmap.vb contains all functions to edit ignitionmaps in ecueditor. it uses a global variable flash(addr) that
     ' has the full ecu image loaded as byte values. the fuelmap is edited on a grid and changed values are
     ' written to the global variable flash(addr).
     '
+#Region "Variables"
+
     Dim change As Integer
     Dim previousrow As Integer
     Dim toprow(50) As Integer
@@ -40,33 +42,11 @@ Public Class BKingIgnitionmap
     Dim MSbias As Integer
     Dim rr, cc As Integer
 
+#End Region
 
-    Public Function K8igndeg(ByVal i As Integer)
-        Dim tmp As Integer
+#Region "Form Events"
 
-        tmp = (0.4 * i) - 12.5
-
-        Return CInt(tmp)
-    End Function
-
-    Private Function K8igndeg_toecuval(ByVal i As Integer)
-        Dim tmp As Integer
-
-        tmp = (i + 12.5) / 0.4
-        If tmp > &HFF Then
-            tmp = &HFF
-            MsgBox("Mamixum value exceeded, using maximum value")
-
-        End If
-
-        Return CInt(tmp)
-    End Function
-
-    Private Sub Ignitionmap_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        Ignitionmapvisible = False
-    End Sub
-
-    Private Sub Ignitionmap_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub BKingIgnitionMap_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         change = 1 ' default change to map when pressing +,- or *,/
         previousrow = 0
@@ -109,6 +89,15 @@ Public Class BKingIgnitionmap
 
     End Sub
 
+    Private Sub BKingIgnitionMap_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+
+        Ignitionmapvisible = False
+
+    End Sub
+
+#End Region
+
+#Region "Control Events"
 
     Private Sub Ignitionmapgrid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Ignitionmapgrid.KeyPress
 
@@ -145,6 +134,116 @@ Public Class BKingIgnitionmap
         End Select
 
     End Sub
+
+    Private Sub Ignitionmapgrid_MouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Ignitionmapgrid.MouseClick
+
+        show_values()
+
+    End Sub
+
+    Private Sub Ignitionmapgrid_CellEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles Ignitionmapgrid.CellEnter
+
+        show_values()
+
+    End Sub
+
+    Private Sub Ignitionmapgrid_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Ignitionmapgrid.KeyDown
+
+        If (e.Control = True And e.KeyCode = Keys.V) Then
+            Dim rowIndex As Integer
+            Dim lines As String()
+            Dim columnStartIndex As Integer
+
+            rowIndex = Integer.MaxValue
+            columnStartIndex = Integer.MaxValue
+
+            For Each cell As DataGridViewCell In Ignitionmapgrid.SelectedCells()
+                If cell.RowIndex < rowIndex Then
+                    rowIndex = cell.RowIndex
+                End If
+
+                If cell.ColumnIndex < columnStartIndex Then
+                    columnStartIndex = cell.ColumnIndex
+                End If
+            Next
+
+
+
+            rowIndex = Ignitionmapgrid.CurrentCell.RowIndex
+
+            lines = Clipboard.GetText().Split(ControlChars.CrLf)
+
+            For Each line As String In lines
+                Dim columnIndex As Integer
+                Dim values As String()
+
+                values = line.Split(ControlChars.Tab)
+                columnIndex = columnStartIndex
+
+                For Each value As String In values
+                    If columnIndex < map_number_of_columns And rowIndex < map_number_of_rows Then
+                        If IsNumeric(value) Then
+                            Ignitionmapgrid(columnIndex, rowIndex).Value = value
+                            SetFlashItem(columnIndex, rowIndex)
+                            setCellColour(columnIndex, rowIndex)
+                        End If
+                    End If
+
+                    columnIndex = columnIndex + 1
+                Next
+
+                rowIndex = rowIndex + 1
+            Next
+
+        End If
+
+    End Sub
+
+    Private Sub B_MS0_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_MS0.Click
+
+        selectmap(1)
+
+    End Sub
+
+    Private Sub B_MS1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_MS1.Click
+
+        selectmap(2)
+
+    End Sub
+
+    Private Sub B_print_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+        PrintForm1.Print()
+
+    End Sub
+
+#End Region
+
+#Region "Functions"
+
+    Public Function K8igndeg(ByVal i As Integer)
+
+        Dim tmp As Integer
+        tmp = (0.4 * i) - 12.5
+        Return CInt(tmp)
+
+    End Function
+
+    Private Function K8igndeg_toecuval(ByVal i As Integer)
+
+        Dim tmp As Integer
+        tmp = (i + 12.5) / 0.4
+
+        If tmp > &HFF Then
+            tmp = &HFF
+            MsgBox("Mamixum value exceeded, using maximum value")
+
+        End If
+
+        Return CInt(tmp)
+
+    End Function
+
     Private Sub DecreaseSelectedCells()
         Dim c As Integer
         Dim r As Integer
@@ -199,6 +298,7 @@ Public Class BKingIgnitionmap
 
 
     End Sub
+
     Private Sub IncreaseSelectedCells()
         Dim c As Integer
         Dim r As Integer
@@ -232,7 +332,6 @@ Public Class BKingIgnitionmap
             i = i + 1
         Loop
     End Sub
-
 
     Private Sub SetFlashItem(ByVal c As Integer, ByVal r As Integer)
 
@@ -303,7 +402,6 @@ Public Class BKingIgnitionmap
             Next
         End If
     End Sub
-
 
     Private Sub copymaps(ByVal i As Integer)
         '
@@ -529,9 +627,7 @@ Public Class BKingIgnitionmap
             setCellColour(cc, rr)
         End If
     End Sub
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Me.Close()
-    End Sub
+
     Private Sub show_values()
         Dim istr As String
         Dim r As Integer
@@ -560,14 +656,6 @@ Public Class BKingIgnitionmap
         Catch ex As Exception
         End Try
 
-    End Sub
-
-    Private Sub Ignitionmapgrid_MouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Ignitionmapgrid.MouseClick
-        show_values()
-    End Sub
-
-    Private Sub Ignitionmapgrid_CellEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles Ignitionmapgrid.CellEnter
-        show_values()
     End Sub
 
     Public Sub selectmap(ByVal map As Integer)
@@ -618,69 +706,6 @@ Public Class BKingIgnitionmap
 
     End Sub
 
-    Private Sub B_MS0_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_MS0.Click
-        selectmap(1)
-    End Sub
-
-    Private Sub B_MS1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_MS1.Click
-        selectmap(2)
-    End Sub
-
-
-    Private Sub B_print_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        PrintForm1.Print()
-    End Sub
-
-    Private Sub Ignitionmapgrid_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Ignitionmapgrid.KeyDown
-        If (e.Control = True And e.KeyCode = Keys.V) Then
-            Dim rowIndex As Integer
-            Dim lines As String()
-            Dim columnStartIndex As Integer
-
-            rowIndex = Integer.MaxValue
-            columnStartIndex = Integer.MaxValue
-
-            For Each cell As DataGridViewCell In Ignitionmapgrid.SelectedCells()
-                If cell.RowIndex < rowIndex Then
-                    rowIndex = cell.RowIndex
-                End If
-
-                If cell.ColumnIndex < columnStartIndex Then
-                    columnStartIndex = cell.ColumnIndex
-                End If
-            Next
-
-
-
-            rowIndex = Ignitionmapgrid.CurrentCell.RowIndex
-
-            lines = Clipboard.GetText().Split(ControlChars.CrLf)
-
-            For Each line As String In lines
-                Dim columnIndex As Integer
-                Dim values As String()
-
-                values = line.Split(ControlChars.Tab)
-                columnIndex = columnStartIndex
-
-                For Each value As String In values
-                    If columnIndex < map_number_of_columns And rowIndex < map_number_of_rows Then
-                        If IsNumeric(value) Then
-                            Ignitionmapgrid(columnIndex, rowIndex).Value = value
-                            SetFlashItem(columnIndex, rowIndex)
-                            setCellColour(columnIndex, rowIndex)
-                        End If
-                    End If
-
-                    columnIndex = columnIndex + 1
-                Next
-
-                rowIndex = rowIndex + 1
-            Next
-
-        End If
-
-    End Sub
-
+#End Region
 
 End Class
