@@ -24,8 +24,8 @@ Public Class BKingLimiters
 
 #Region "Variables"
 
-    Dim rpmconv As Long
-    Dim addedrpm As Integer
+    Dim _rpmConv As Long
+    Dim _addedRpm As Integer
 
 #End Region
 
@@ -33,7 +33,7 @@ Public Class BKingLimiters
 
     Private Sub BKingLimiters_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim i As Integer
-        rpmconv = 15000000
+        _rpmConv = 15000000
 
         '
         '
@@ -49,7 +49,7 @@ Public Class BKingLimiters
 
         'populate RPM with initial value
         i = readflashword(&H74A80) ' this is the reference RPM that is stored in the system
-        i = Int(((rpmconv / (i + 0))) + 1)
+        i = Int(((_rpmConv / (i + 0))) + 1)
         i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
 
         Me.RPM.Items.Add(i.ToString())
@@ -87,32 +87,32 @@ Public Class BKingLimiters
         baseline = 11103
         ' Set various RPM limits based on RPM value selected
         i = Val(RPM.Text)
-        addedrpm = i - baseline ' we are just setting here the baseline
+        _addedRpm = i - baseline ' we are just setting here the baseline
 
         '
         ' RPM/Fuel soft hard type 1
         '
-        writeflashword(&H74A7A, Int((rpmconv / (addedrpm + (rpmconv / &H56D)) + 1)))
-        writeflashword(&H74A7C, Int((rpmconv / (addedrpm + (rpmconv / &H560)) + 1)))
-        writeflashword(&H74A7E, Int((rpmconv / (addedrpm + (rpmconv / &H553)) + 1)))
-        writeflashword(&H74A80, Int((rpmconv / (addedrpm + (rpmconv / &H547)) + 1)))
+        writeflashword(&H74A7A, Int((_rpmConv / (_addedRpm + (_rpmConv / &H56D)) + 1)))
+        writeflashword(&H74A7C, Int((_rpmConv / (_addedRpm + (_rpmConv / &H560)) + 1)))
+        writeflashword(&H74A7E, Int((_rpmConv / (_addedRpm + (_rpmConv / &H553)) + 1)))
+        writeflashword(&H74A80, Int((_rpmConv / (_addedRpm + (_rpmConv / &H547)) + 1)))
         '
         ' RPM/Fuel soft hard type 2, this is modified higher than stock as stock is not used
         '
-        writeflashword(&H74A82, Int((rpmconv / (addedrpm + (rpmconv / &H57A)) + 1)))
-        writeflashword(&H74A84, Int((rpmconv / (addedrpm + (rpmconv / &H56D)) + 1)))
+        writeflashword(&H74A82, Int((_rpmConv / (_addedRpm + (_rpmConv / &H57A)) + 1)))
+        writeflashword(&H74A84, Int((_rpmConv / (_addedRpm + (_rpmConv / &H56D)) + 1)))
         '
         ' RPM/Fuel soft hard type 3 neutral
         '
-        writeflashword(&H74A86, Int((rpmconv / (addedrpm + (rpmconv / &H594)) + 1)))
-        writeflashword(&H74A88, Int((rpmconv / (addedrpm + (rpmconv / &H587)) + 1)))
+        writeflashword(&H74A86, Int((_rpmConv / (_addedRpm + (_rpmConv / &H594)) + 1)))
+        writeflashword(&H74A88, Int((_rpmConv / (_addedRpm + (_rpmConv / &H587)) + 1)))
         '
         ' RPM/Ignition
         '
-        writeflashword(&H74358, Int((rpmconv / (addedrpm + (rpmconv / &H524)) + 1)))
-        writeflashword(&H7435A, Int((rpmconv / (addedrpm + (rpmconv / &H518)) + 1)))
-        writeflashword(&H7435C, Int((rpmconv / (addedrpm + (rpmconv / &H560)) + 1)))
-        writeflashword(&H7435E, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1)))
+        writeflashword(&H74358, Int((_rpmConv / (_addedRpm + (_rpmConv / &H524)) + 1)))
+        writeflashword(&H7435A, Int((_rpmConv / (_addedRpm + (_rpmConv / &H518)) + 1)))
+        writeflashword(&H7435C, Int((_rpmConv / (_addedRpm + (_rpmConv / &H560)) + 1)))
+        writeflashword(&H7435E, Int((_rpmConv / (_addedRpm + (_rpmConv / &H554)) + 1)))
 
 
     End Sub

@@ -21,7 +21,7 @@ Partial Class BKingInjectorBalanceMap
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BKingInjectorBalanceMap))
-        Me.INJBALmapgrid = New System.Windows.Forms.DataGridView
+        Me.InjBalMapGrid = New System.Windows.Forms.DataGridView
         Me.T_TPSIAP = New System.Windows.Forms.TextBox
         Me.T_RPM = New System.Windows.Forms.TextBox
         Me.T_change = New System.Windows.Forms.TextBox
@@ -32,27 +32,27 @@ Partial Class BKingInjectorBalanceMap
         Me.L_MS = New System.Windows.Forms.Label
         Me.L_mode = New System.Windows.Forms.Label
         Me.L_gear = New System.Windows.Forms.Label
-        CType(Me.INJBALmapgrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.InjBalMapGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'INJBALmapgrid
+        'InjBalMapGrid
         '
-        Me.INJBALmapgrid.AllowUserToAddRows = False
-        Me.INJBALmapgrid.AllowUserToDeleteRows = False
-        Me.INJBALmapgrid.AllowUserToResizeColumns = False
-        Me.INJBALmapgrid.AllowUserToResizeRows = False
-        Me.INJBALmapgrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        Me.INJBALmapgrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.INJBALmapgrid.Location = New System.Drawing.Point(3, 64)
-        Me.INJBALmapgrid.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
-        Me.INJBALmapgrid.Name = "INJBALmapgrid"
-        Me.INJBALmapgrid.ReadOnly = True
-        Me.INJBALmapgrid.RowHeadersWidth = 500
-        Me.INJBALmapgrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.INJBALmapgrid.ShowEditingIcon = False
-        Me.INJBALmapgrid.ShowRowErrors = False
-        Me.INJBALmapgrid.Size = New System.Drawing.Size(615, 314)
-        Me.INJBALmapgrid.TabIndex = 0
+        Me.InjBalMapGrid.AllowUserToAddRows = False
+        Me.InjBalMapGrid.AllowUserToDeleteRows = False
+        Me.InjBalMapGrid.AllowUserToResizeColumns = False
+        Me.InjBalMapGrid.AllowUserToResizeRows = False
+        Me.InjBalMapGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.InjBalMapGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.InjBalMapGrid.Location = New System.Drawing.Point(3, 64)
+        Me.InjBalMapGrid.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
+        Me.InjBalMapGrid.Name = "InjBalMapGrid"
+        Me.InjBalMapGrid.ReadOnly = True
+        Me.InjBalMapGrid.RowHeadersWidth = 500
+        Me.InjBalMapGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
+        Me.InjBalMapGrid.ShowEditingIcon = False
+        Me.InjBalMapGrid.ShowRowErrors = False
+        Me.InjBalMapGrid.Size = New System.Drawing.Size(615, 314)
+        Me.InjBalMapGrid.TabIndex = 0
         '
         'T_TPSIAP
         '
@@ -152,7 +152,7 @@ Partial Class BKingInjectorBalanceMap
         Me.L_gear.TabIndex = 26
         Me.L_gear.Text = "n/a"
         '
-        'Bkinginjectorbalancemap
+        'BKingInjectorBalanceMap
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(5.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -166,20 +166,20 @@ Partial Class BKingInjectorBalanceMap
         Me.Controls.Add(Me.T_change)
         Me.Controls.Add(Me.T_TPSIAP)
         Me.Controls.Add(Me.T_RPM)
-        Me.Controls.Add(Me.INJBALmapgrid)
+        Me.Controls.Add(Me.InjBalMapGrid)
         Me.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "Bkinginjectorbalancemap"
+        Me.Name = "BKingInjectorBalanceMap"
         Me.Text = "ECUeditor Injector Balance maps"
-        CType(Me.INJBALmapgrid, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.InjBalMapGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents INJBALmapgrid As System.Windows.Forms.DataGridView
+    Friend WithEvents InjBalMapGrid As System.Windows.Forms.DataGridView
     Friend WithEvents T_TPSIAP As System.Windows.Forms.TextBox
     Friend WithEvents T_RPM As System.Windows.Forms.TextBox
     Friend WithEvents T_change As System.Windows.Forms.TextBox

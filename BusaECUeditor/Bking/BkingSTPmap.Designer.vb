@@ -21,7 +21,7 @@ Partial Class BKingSTPMap
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BKingSTPMap))
-        Me.STPmapgrid = New System.Windows.Forms.DataGridView
+        Me.STPMapGrid = New System.Windows.Forms.DataGridView
         Me.T_TPSIAP = New System.Windows.Forms.TextBox
         Me.T_RPM = New System.Windows.Forms.TextBox
         Me.T_change = New System.Windows.Forms.TextBox
@@ -33,27 +33,27 @@ Partial Class BKingSTPMap
         Me.L_mode = New System.Windows.Forms.Label
         Me.L_gear = New System.Windows.Forms.Label
         Me.L_STPMAP = New System.Windows.Forms.Label
-        CType(Me.STPmapgrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.STPMapGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'STPmapgrid
+        'STPMapGrid
         '
-        Me.STPmapgrid.AllowUserToAddRows = False
-        Me.STPmapgrid.AllowUserToDeleteRows = False
-        Me.STPmapgrid.AllowUserToResizeColumns = False
-        Me.STPmapgrid.AllowUserToResizeRows = False
-        Me.STPmapgrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        Me.STPmapgrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.STPmapgrid.Location = New System.Drawing.Point(3, 64)
-        Me.STPmapgrid.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
-        Me.STPmapgrid.Name = "STPmapgrid"
-        Me.STPmapgrid.ReadOnly = True
-        Me.STPmapgrid.RowHeadersWidth = 500
-        Me.STPmapgrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.STPmapgrid.ShowEditingIcon = False
-        Me.STPmapgrid.ShowRowErrors = False
-        Me.STPmapgrid.Size = New System.Drawing.Size(441, 483)
-        Me.STPmapgrid.TabIndex = 0
+        Me.STPMapGrid.AllowUserToAddRows = False
+        Me.STPMapGrid.AllowUserToDeleteRows = False
+        Me.STPMapGrid.AllowUserToResizeColumns = False
+        Me.STPMapGrid.AllowUserToResizeRows = False
+        Me.STPMapGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.STPMapGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.STPMapGrid.Location = New System.Drawing.Point(3, 64)
+        Me.STPMapGrid.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
+        Me.STPMapGrid.Name = "STPMapGrid"
+        Me.STPMapGrid.ReadOnly = True
+        Me.STPMapGrid.RowHeadersWidth = 500
+        Me.STPMapGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
+        Me.STPMapGrid.ShowEditingIcon = False
+        Me.STPMapGrid.ShowRowErrors = False
+        Me.STPMapGrid.Size = New System.Drawing.Size(441, 483)
+        Me.STPMapGrid.TabIndex = 0
         '
         'T_TPSIAP
         '
@@ -162,11 +162,11 @@ Partial Class BKingSTPMap
         Me.L_STPMAP.TabIndex = 27
         Me.L_STPMAP.Text = "n/a"
         '
-        'BkingSTPmap
+        'BKingSTPMap
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(5.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(489, 559)
+        Me.ClientSize = New System.Drawing.Size(447, 549)
         Me.Controls.Add(Me.L_STPMAP)
         Me.Controls.Add(Me.L_gear)
         Me.Controls.Add(Me.L_mode)
@@ -177,20 +177,20 @@ Partial Class BKingSTPMap
         Me.Controls.Add(Me.T_change)
         Me.Controls.Add(Me.T_TPSIAP)
         Me.Controls.Add(Me.T_RPM)
-        Me.Controls.Add(Me.STPmapgrid)
+        Me.Controls.Add(Me.STPMapGrid)
         Me.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "BkingSTPmap"
+        Me.Name = "BKingSTPMap"
         Me.Text = "ECUeditor STP maps"
-        CType(Me.STPmapgrid, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.STPMapGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents STPmapgrid As System.Windows.Forms.DataGridView
+    Friend WithEvents STPMapGrid As System.Windows.Forms.DataGridView
     Friend WithEvents T_TPSIAP As System.Windows.Forms.TextBox
     Friend WithEvents T_RPM As System.Windows.Forms.TextBox
     Friend WithEvents T_change As System.Windows.Forms.TextBox

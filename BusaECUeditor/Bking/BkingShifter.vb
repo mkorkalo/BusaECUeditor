@@ -27,16 +27,16 @@ Public Class BKingShifter
 
 #Region "Variables"
 
-    Dim loading As Boolean
-    Dim ADJ As Integer = &H58400 '&HFF if shifter inactive, no code present else shifter active
-    Dim FUELCODE As Integer = &H58450
-    Dim IGNCODE As Integer = &H58700
-    Dim IDTAG As Integer = &H58400
-    Dim minkillactive As Integer = ADJ + &H16
-    Dim killcountdelay As Integer = ADJ + &H18
-    Dim SHIFTER2VERSION As Integer = 203
-    Dim shiftercodelenght As Integer = &H58800 - &H58400 - 1 'lenght of the shifter code in bytes for clearing the memory
-    Dim timerconst = 1 / 1.28
+    Dim _loading As Boolean
+    Dim _ADJ As Integer = &H58400 '&HFF if shifter inactive, no code present else shifter active
+    Dim _FUELCODE As Integer = &H58450
+    Dim _IGNCODE As Integer = &H58700
+    Dim _IDTAG As Integer = &H58400
+    Dim _minKillActive As Integer = _ADJ + &H16
+    Dim _killCountDelay As Integer = _ADJ + &H18
+    Dim _shifter2Version As Integer = 203
+    Dim _shifterCodeLength As Integer = &H58800 - &H58400 - 1 'length of the shifter code in bytes for clearing the memory
+    Dim _timerConst = 1 / 1.28
 
 #End Region
 
@@ -44,21 +44,21 @@ Public Class BKingShifter
 
     Private Sub BKingShifter_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        loading = True
+        _loading = True
 
         Dim i As Integer
 
-        L_shifterver.Text = Str(SHIFTER2VERSION)
+        L_shifterver.Text = Str(_shifter2Version)
 
-        If (readflashbyte(ADJ) = &HFF) Then
+        If (readflashbyte(_ADJ) = &HFF) Then
             C_shifter_activation.Checked = False
             hide_shifter_settings()
         Else
             C_shifter_activation.Checked = True
             read_shifter_settings()
-            shifter_code_in_memory(True, shiftercodelenght)
+            shifter_code_in_memory(True, _shifterCodeLength)
 
-            If (readflashword(IDTAG) <> SHIFTER2VERSION) Then
+            If (readflashword(_IDTAG) <> _shifter2Version) Then
                 MsgBox("Shifter code incompatible with this version, please reactivate the shifter on this map")
                 C_shifter_activation.Checked = False
                 hide_shifter_settings()
@@ -69,7 +69,7 @@ Public Class BKingShifter
             C_killtime.Items.Add(Str(10 * i))
         Next
 
-        loading = False
+        _loading = False
 
     End Sub
 
@@ -89,15 +89,15 @@ Public Class BKingShifter
 
         If C_shifter_activation.Checked = True Then
 
-            writeflashword((ADJ + 2), (Val(T_Gear1.Text)) / timerconst)
-            writeflashword((ADJ + 4), (Val(T_Gear2.Text)) / timerconst)
-            writeflashword((ADJ + 6), (Val(T_Gear3.Text)) / timerconst)
-            writeflashword((ADJ + 8), (Val(T_Gear4.Text)) / timerconst)
-            writeflashword((ADJ + 10), (Val(T_Gear5.Text)) / timerconst)
-            writeflashword((ADJ + 12), (Val(T_Gear6.Text)) / timerconst)
+            writeflashword((_ADJ + 2), (Val(T_Gear1.Text)) / _timerConst)
+            writeflashword((_ADJ + 4), (Val(T_Gear2.Text)) / _timerConst)
+            writeflashword((_ADJ + 6), (Val(T_Gear3.Text)) / _timerConst)
+            writeflashword((_ADJ + 8), (Val(T_Gear4.Text)) / _timerConst)
+            writeflashword((_ADJ + 10), (Val(T_Gear5.Text)) / _timerConst)
+            writeflashword((_ADJ + 12), (Val(T_Gear6.Text)) / _timerConst)
 
-            writeflashword((ADJ + 22), (Val(T_minkillactive.Text)))
-            writeflashword((ADJ + 24), (Val(T_killcountdelay.Text)))
+            writeflashword((_ADJ + 22), (Val(T_minkillactive.Text)))
+            writeflashword((_ADJ + 24), (Val(T_killcountdelay.Text)))
 
         End If
     End Sub
@@ -112,9 +112,9 @@ Public Class BKingShifter
 
             C_shifter_activation.Text = "Shifter active"
 
-            If (readflashbyte(ADJ) = &HFF) Then
+            If (readflashbyte(_ADJ) = &HFF) Then
                 modify_original_ECU_code(True)
-                shifter_code_in_memory(True, shiftercodelenght)
+                shifter_code_in_memory(True, _shifterCodeLength)
             End If
 
             read_shifter_settings()
@@ -123,7 +123,7 @@ Public Class BKingShifter
 
             C_shifter_activation.Text = "Shifter not active"
             modify_original_ECU_code(False)
-            shifter_code_in_memory(False, shiftercodelenght)
+            shifter_code_in_memory(False, _shifterCodeLength)
             hide_shifter_settings()
 
         End If
@@ -169,11 +169,11 @@ Public Class BKingShifter
 
         If C_Fuelcut.Checked Then
             C_Fuelcut.Text = "Fuelcut active"
-            writeflashword(ADJ + 26, 1)
+            writeflashword(_ADJ + 26, 1)
         Else
             If Not C_igncut.Checked Then C_igncut.Checked = True
             C_Fuelcut.Text = "Fuelcut not active"
-            writeflashword(ADJ + 26, 0)
+            writeflashword(_ADJ + 26, 0)
         End If
 
     End Sub
@@ -182,11 +182,11 @@ Public Class BKingShifter
 
         If C_igncut.Checked Then
             C_igncut.Text = "Igncut active"
-            writeflashword(ADJ + 28, 1)
+            writeflashword(_ADJ + 28, 1)
         Else
             If Not C_Fuelcut.Checked Then C_Fuelcut.Checked = True
             C_igncut.Text = "Igncut not active"
-            writeflashword(ADJ + 28, 0)
+            writeflashword(_ADJ + 28, 0)
         End If
 
     End Sub
@@ -202,12 +202,12 @@ Public Class BKingShifter
             ' Lets activate a branch to shifter code address and immediate return from there
             ' this modifies the programmingcode so that the ecu does a loop to the shifter code
             ' as part of each main loop
-            pcdisp = (FUELCODE - &H43130) / 4
+            pcdisp = (_FUELCODE - &H43130) / 4
             writeflashword(&H43130, &HFF00) ' bra.l 
             writeflashword(&H43132, pcdisp) ' pcdisp
 
             ' Ignition
-            pcdisp = (IGNCODE - &H39C98) / 4
+            pcdisp = (_IGNCODE - &H39C98) / 4
             writeflashword(&H39C98, &HFF00) ' bra.l 
             writeflashword(&H39C9A, pcdisp) ' pcdisp
 
@@ -223,7 +223,7 @@ Public Class BKingShifter
         End If
     End Sub
 
-    Private Sub shifter_code_in_memory(ByVal method As Boolean, ByVal lenght As Integer)
+    Private Sub shifter_code_in_memory(ByVal method As Boolean, ByVal length As Integer)
 
         Dim i As Integer
         Dim fs As FileStream
@@ -239,28 +239,28 @@ Public Class BKingShifter
         If method And File.Exists(path) Then
 
             ' write the shifter code into memory address from the .bin file
-            writeflashbyte(ADJ, &H0)
+            writeflashbyte(_ADJ, &H0)
             fs = File.OpenRead(path)
 
             i = 0
             Do While fs.Read(b, 0, 1) > 0
-                Flash(i + ADJ) = b(0)
+                Flash(i + _ADJ) = b(0)
                 i = i + 1
             Loop
 
             fs.Close()
 
-            If readflashword(IDTAG) <> SHIFTER2VERSION Then
+            If readflashword(_IDTAG) <> _shifter2Version Then
                 MsgBox("This shifter code is not compatible with this ECUeditor version !!!")
-                For i = 0 To lenght
-                    writeflashbyte(i + ADJ, &HFF)
+                For i = 0 To length
+                    writeflashbyte(i + _ADJ, &HFF)
                 Next
                 Me.Close()
             End If
         Else
             ' reset the shifter code in memory back to &HFF. Remember that &HFF is the default value after EPROM erase
-            For i = 0 To lenght
-                writeflashbyte(i + ADJ, &HFF)
+            For i = 0 To length
+                writeflashbyte(i + _ADJ, &HFF)
             Next
         End If
     End Sub
@@ -282,27 +282,27 @@ Public Class BKingShifter
         C_Fuelcut.Visible = True
         C_igncut.Visible = True
 
-        T_Gear1.Text = round5(readflashword(ADJ + 2) * timerconst)
-        T_Gear2.Text = round5(readflashword(ADJ + 4) * timerconst)
-        T_Gear3.Text = round5(readflashword(ADJ + 6) * timerconst)
-        T_Gear4.Text = round5(readflashword(ADJ + 8) * timerconst)
-        T_Gear5.Text = round5(readflashword(ADJ + 10) * timerconst)
-        T_Gear6.Text = round5(readflashword(ADJ + 12) * timerconst)
+        T_Gear1.Text = round5(readflashword(_ADJ + 2) * _timerConst)
+        T_Gear2.Text = round5(readflashword(_ADJ + 4) * _timerConst)
+        T_Gear3.Text = round5(readflashword(_ADJ + 6) * _timerConst)
+        T_Gear4.Text = round5(readflashword(_ADJ + 8) * _timerConst)
+        T_Gear5.Text = round5(readflashword(_ADJ + 10) * _timerConst)
+        T_Gear6.Text = round5(readflashword(_ADJ + 12) * _timerConst)
 
-        If readflashword(ADJ + 26) = 1 Then
+        If readflashword(_ADJ + 26) = 1 Then
             C_Fuelcut.Checked = True
         Else
             C_Fuelcut.Checked = False
         End If
 
-        If readflashword(ADJ + 28) = 1 Then
+        If readflashword(_ADJ + 28) = 1 Then
             C_igncut.Checked = True
         Else
             C_igncut.Checked = False
         End If
 
-        T_minkillactive.Text = readflashword(minkillactive)
-        T_killcountdelay.Text = readflashword(killcountdelay)
+        T_minkillactive.Text = readflashword(_minKillActive)
+        T_killcountdelay.Text = readflashword(_killCountDelay)
 
     End Sub
 
