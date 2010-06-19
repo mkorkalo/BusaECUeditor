@@ -23,29 +23,28 @@ Imports System.IO
 
 Public Class BKingInjectorBalanceMap
     '
-    ' Fuelmap.vb contains all functions to edit fuelmaps in ecueditor. it uses a global variable flash(addr) that
-    ' has the full ecu image loaded as byte values. the fuelmap is edited on a grid and changed values are
+    ' _fuelMap.vb contains all functions to edit _fuelMaps in ecueditor. it uses a global variable flash(addr) that
+    ' has the full ecu image loaded as byte values. the _fuelMap is edited on a grid and _changed values are
     ' written to the global variable flash(addr).
     '
 #Region "Variables"
 
-    Dim change As Integer
-    Dim previousrow As Integer
-    Dim toprow(50) As Integer
-    Dim TPSmap As Boolean
-    Dim previouscolour As Color
-    Dim gear, ms01, modeabc As Integer
-    Dim fuelmap As Boolean
-    Dim map_structure_table As Long
-    Dim map_number_of_structures As Integer
-    Dim map_number_of_columns, map_number_of_rows As Integer
-    Dim editing_map As Long
-    Dim rowheadingmap, columnheadingmap As Long
-    Dim basemap As Integer
-    Dim cc, rr As Integer
-    Dim INJBALtrace As Boolean
-    Dim col As Integer = 2
-    Dim cel As Integer = 2
+    Dim _change As Integer
+    Dim _previousRow As Integer
+    Dim _gear As Integer
+    Dim _ms01 As Integer
+    Dim _modeABC As Integer
+    Dim _fuelMap As Boolean
+    Dim _mapStructureTable As Long
+    Dim _mapNumberOfColumns As Integer
+    Dim _mapNumberOfRows As Integer
+    Dim _editingMap As Long
+    Dim _rowHeadingMap As Long
+    Dim _columnHeadingMap As Long
+    Dim _baseMap As Integer
+    Dim _injBalTrace As Boolean
+    Dim _col As Integer = 2
+    Dim _cel As Integer = 2
 
 #End Region
 
@@ -53,26 +52,29 @@ Public Class BKingInjectorBalanceMap
 
     Private Sub BKingInjectorBalanceMap_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-        change = 1 ' default change to map when pressing +,- or *,/
-        previousrow = 0
+        _change = 1 ' default _change to map when pressing +,- or *,/
+        _previousRow = 0
         fuelmapvisible = True
-        INJBALtrace = False
+        _injBalTrace = False
 
         L_geartext.Visible = False
         L_gear.Visible = False
 
+        ' select tpsmap as first map to show, this will unify cylinder specific _fuelMaps
+        _ms01 = 0
+        _modeABC = 0
+        _gear = 0
 
-        '
-        ' select tpsmap as first map to show, this will unify cylinder specific fuelmaps
-        '
-        ms01 = 0
-        modeabc = 0
-        gear = 0
-
-        map_structure_table = &H54DDC
+        _mapStructureTable = &H54DDC
         Me.Text = "ECUeditor - Bking Injector balance map editing"
-        fuelmap = False
-        selectmap()
+        _fuelMap = False
+        SelectMap()
+
+    End Sub
+
+    Private Sub BKingInjectorBalanceMap_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles MyBase.KeyPress
+
+        InjBalMapGrid_KeyPress(sender, e)
 
     End Sub
 
@@ -86,18 +88,17 @@ Public Class BKingInjectorBalanceMap
 
 #Region "Control Events"
 
-    Private Sub Fuelmapgrid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles INJBALmapgrid.KeyPress
+    Private Sub InjBalMapGrid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles InjBalMapGrid.KeyPress
 
         Dim c As Integer
         Dim r As Integer
-        c = INJBALmapgrid.CurrentCell.ColumnIndex
-        r = INJBALmapgrid.CurrentCell.RowIndex
+        c = InjBalMapGrid.CurrentCell.ColumnIndex
+        r = InjBalMapGrid.CurrentCell.RowIndex
 
         ' this is the user interface shortcut keys processor
         Select Case e.KeyChar
             Case "*"
                 MultiplySelectedCells()
-
             Case "/"
                 DivideSelectedCells()
             Case "+"
@@ -107,63 +108,63 @@ Public Class BKingInjectorBalanceMap
             Case "0"
                 If L_gear.Visible Then
 
-                    gear = 0
-                    selectmap()
+                    _gear = 0
+                    SelectMap()
                 End If
             Case "1"
                 If L_gear.Visible Then
-                    gear = 1
-                    selectmap()
+                    _gear = 1
+                    SelectMap()
                 End If
             Case "2"
                 If L_gear.Visible Then
-                    gear = 2
-                    selectmap()
+                    _gear = 2
+                    SelectMap()
                 End If
             Case "3"
                 If L_gear.Visible Then
-                    gear = 3
-                    selectmap()
+                    _gear = 3
+                    SelectMap()
                 End If
             Case "4"
                 If L_gear.Visible Then
-                    gear = 4
-                    selectmap()
+                    _gear = 4
+                    SelectMap()
                 End If
             Case "5"
                 If L_gear.Visible Then
-                    gear = 5
-                    selectmap()
+                    _gear = 5
+                    SelectMap()
                 End If
             Case "6"
                 If L_gear.Visible Then
-                    gear = 6
-                    selectmap()
+                    _gear = 6
+                    SelectMap()
                 End If
             Case "a"
-                modeabc = 0
-                selectmap()
+                _modeABC = 0
+                SelectMap()
             Case "A"
-                modeabc = 0
-                selectmap()
+                _modeABC = 0
+                SelectMap()
             Case "b"
-                modeabc = 1
-                selectmap()
+                _modeABC = 1
+                SelectMap()
             Case "B"
-                modeabc = 1
-                selectmap()
+                _modeABC = 1
+                SelectMap()
             Case "c"
-                modeabc = 2
-                selectmap()
+                _modeABC = 2
+                SelectMap()
             Case "C"
-                modeabc = 2
-                selectmap()
+                _modeABC = 2
+                SelectMap()
             Case "m"
-                If ms01 = 1 Then ms01 = 0 Else ms01 = 1
-                selectmap()
+                If _ms01 = 1 Then _ms01 = 0 Else _ms01 = 1
+                SelectMap()
             Case "M"
-                If ms01 = 1 Then ms01 = 0 Else ms01 = 1
-                selectmap()
+                If _ms01 = 1 Then _ms01 = 0 Else _ms01 = 1
+                SelectMap()
             Case Chr(27)
                 Me.Close()
             Case "P"
@@ -176,7 +177,6 @@ Public Class BKingInjectorBalanceMap
                 PrintForm1.Print()
             Case Else
 
-
         End Select
 
     End Sub
@@ -185,14 +185,14 @@ Public Class BKingInjectorBalanceMap
 
 #Region "Functions"
 
-    Private Function decode(ByVal i As Integer) As Integer
+    Private Function Decode(ByVal i As Integer) As Integer
 
         ' return the value that is displayed on the screen
         Return CInt(100 * i / &H8000)
 
     End Function
 
-    Private Function encode(ByVal i As Integer) As Integer
+    Private Function Encode(ByVal i As Integer) As Integer
 
         ' return the value that is written to flash
         Return CInt(&H8000 * i / 100)
@@ -208,22 +208,22 @@ Public Class BKingInjectorBalanceMap
         Dim decrease As Integer
 
 
-        decrease = change ' This is the amount that value is decreased when pressing "-"
+        decrease = _change ' This is the amount that value is decreased when pressing "-"
 
         i = 0
 
-        n = INJBALmapgrid.SelectedCells.Count()
+        n = InjBalMapGrid.SelectedCells.Count()
 
-        Do While (r < map_number_of_rows)
+        Do While (r < _mapNumberOfRows)
 
-            If INJBALmapgrid.Item(c, r).Selected And n > 0 Then
-                INJBALmapgrid.Item(c, r).Value = INJBALmapgrid.Item(c, r).Value - decrease
+            If InjBalMapGrid.Item(c, r).Selected And n > 0 Then
+                InjBalMapGrid.Item(c, r).Value = InjBalMapGrid.Item(c, r).Value - decrease
                 SetFlashItem(c, r)
 
                 n = n - 1
             End If
 
-            If c < map_number_of_columns - 1 Then
+            If c < _mapNumberOfColumns - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -242,22 +242,22 @@ Public Class BKingInjectorBalanceMap
         Dim decrease As Integer
 
 
-        decrease = change ' This is the amount that value is decreased when pressing "-"
+        decrease = _change ' This is the amount that value is decreased when pressing "-"
 
         i = 0
 
-        n = INJBALmapgrid.SelectedCells.Count()
+        n = InjBalMapGrid.SelectedCells.Count()
 
-        Do While (r < map_number_of_rows)
+        Do While (r < _mapNumberOfRows)
 
-            If INJBALmapgrid.Item(c, r).Selected And n > 0 Then
-                INJBALmapgrid.Item(c, r).Value = Int(INJBALmapgrid.Item(c, r).Value / 1.05)
+            If InjBalMapGrid.Item(c, r).Selected And n > 0 Then
+                InjBalMapGrid.Item(c, r).Value = Int(InjBalMapGrid.Item(c, r).Value / 1.05)
                 SetFlashItem(c, r)
 
                 n = n - 1
             End If
 
-            If c < map_number_of_columns - 1 Then
+            If c < _mapNumberOfColumns - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -276,22 +276,22 @@ Public Class BKingInjectorBalanceMap
         Dim decrease As Integer
 
 
-        decrease = change ' This is the amount that value is decreased when pressing "-"
+        decrease = _change ' This is the amount that value is decreased when pressing "-"
 
         i = 0
 
-        n = INJBALmapgrid.SelectedCells.Count()
+        n = InjBalMapGrid.SelectedCells.Count()
 
-        Do While (r < map_number_of_rows)
+        Do While (r < _mapNumberOfRows)
 
-            If INJBALmapgrid.Item(c, r).Selected And n > 0 Then
-                INJBALmapgrid.Item(c, r).Value = Int(INJBALmapgrid.Item(c, r).Value * 1.05)
+            If InjBalMapGrid.Item(c, r).Selected And n > 0 Then
+                InjBalMapGrid.Item(c, r).Value = Int(InjBalMapGrid.Item(c, r).Value * 1.05)
                 SetFlashItem(c, r)
 
                 n = n - 1
             End If
 
-            If c < map_number_of_columns - 1 Then
+            If c < _mapNumberOfColumns - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -308,24 +308,24 @@ Public Class BKingInjectorBalanceMap
         Dim n As Integer
         Dim increase As Integer
 
-        increase = change ' this is the value how much the cell is increased when pressing "+"
+        increase = _change ' this is the value how much the cell is increased when pressing "+"
         i = 0
         r = 0
         c = 0
 
 
-        n = INJBALmapgrid.SelectedCells.Count()
+        n = InjBalMapGrid.SelectedCells.Count()
 
-        Do While (r < (map_number_of_rows - 1)) And n > 0
+        Do While (r < (_mapNumberOfRows - 1)) And n > 0
 
-            If INJBALmapgrid.Item(c, r).Selected And n > 0 Then
-                INJBALmapgrid.Item(c, r).Value = INJBALmapgrid.Item(c, r).Value + increase
+            If InjBalMapGrid.Item(c, r).Selected And n > 0 Then
+                InjBalMapGrid.Item(c, r).Value = InjBalMapGrid.Item(c, r).Value + increase
                 SetFlashItem(c, r)
 
                 n = n - 1
             End If
 
-            If c < map_number_of_columns - 1 Then
+            If c < _mapNumberOfColumns - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -338,7 +338,6 @@ Public Class BKingInjectorBalanceMap
 
     Private Sub SetFlashItem(ByVal c As Integer, ByVal r As Integer)
 
-
         Dim maxval As Integer
         Dim minval As Integer
         Dim m1 As Integer
@@ -347,7 +346,7 @@ Public Class BKingInjectorBalanceMap
         maxval = 255   ' not validated from ecu, maximum value to which the map item can be set
         minval = 0   ' not validated from ecu, minimum value to which the map item can be set
 
-        m1 = INJBALmapgrid.Item(c, r).Value
+        m1 = InjBalMapGrid.Item(c, r).Value
 
         ' lets check that we do not have too small values that the ecu can not handle
         If ((m1 < minval)) Then MsgBox("Minimum cell value exceeded", MsgBoxStyle.Information)
@@ -357,45 +356,43 @@ Public Class BKingInjectorBalanceMap
         If ((m1 >= maxval)) Then MsgBox("Maximum cell value exceeded", MsgBoxStyle.Information)
         If m1 >= maxval Then m1 = maxval
 
-        If col = 1 Then
-            writeflashbyte(editing_map + (cel * (c + (r * map_number_of_columns))), encode(m1))
+        If _col = 1 Then
+            writeflashbyte(_editingMap + (_cel * (c + (r * _mapNumberOfColumns))), Encode(m1))
         Else
-            writeflashword(editing_map + (cel * (c + (r * map_number_of_columns))), encode(m1))
+            writeflashword(_editingMap + (_cel * (c + (r * _mapNumberOfColumns))), Encode(m1))
         End If
 
     End Sub
 
-    Public Sub selectmap()
+    Public Sub SelectMap()
         Dim i As Integer
 
         '
-        ' map tracing function to be disabled when map is changed
+        ' map tracing function to be disabled when map is _changed
         '
-        previousrow = 0
+        _previousRow = 0
 
         '
         ' these are more or less global definitions for editing the maps
         '
 
-        i = map_structure_table + (gear * 6 * 4) + (((3 * ms01) + modeabc) * 4)
-        editing_map = readflashlongword(readflashlongword(i) + 12)
-        rowheadingmap = readflashlongword(readflashlongword(i) + 8)
-        columnheadingmap = readflashlongword(readflashlongword(i) + 4)
-        map_number_of_columns = readflashbyte(readflashlongword(i) + 1)
-        map_number_of_rows = readflashbyte(readflashlongword(i) + 2)
+        i = _mapStructureTable + (_gear * 6 * 4) + (((3 * _ms01) + _modeABC) * 4)
+        _editingMap = readflashlongword(readflashlongword(i) + 12)
+        _rowHeadingMap = readflashlongword(readflashlongword(i) + 8)
+        _columnHeadingMap = readflashlongword(readflashlongword(i) + 4)
+        _mapNumberOfColumns = readflashbyte(readflashlongword(i) + 1)
+        _mapNumberOfRows = readflashbyte(readflashlongword(i) + 2)
 
         mapvisible = Me.Text
 
-        loadmap()
+        LoadMap()
 
 
     End Sub
 
-    Public Sub loadmap()
-        '
-        ' This function loads a map into a grid including map contents and heading information
-        '
+    Public Sub LoadMap()
 
+        ' This function loads a map into a grid including map contents and heading information
         Dim i As Integer
         Dim ii As Integer
         Dim c As Integer
@@ -404,51 +401,46 @@ Public Class BKingInjectorBalanceMap
         i = 0
         ii = 0
 
-        '
         ' Generate column headings
-        '
-        INJBALmapgrid.ColumnCount = map_number_of_columns
+        InjBalMapGrid.ColumnCount = _mapNumberOfColumns
         c = 0
-        Do While c < map_number_of_columns
-            If col = 1 Then
-                i = readflashbyte(columnheadingmap + (c * col))
+        Do While c < _mapNumberOfColumns
+            If _col = 1 Then
+                i = readflashbyte(_columnHeadingMap + (c * _col))
             Else
-                i = readflashword(columnheadingmap + (c * col))
+                i = readflashword(_columnHeadingMap + (c * _col))
             End If
-            INJBALmapgrid.Columns.Item(c).HeaderText = calc_K8TPS(i)
-            INJBALmapgrid.Columns.Item(c).Width = 50
+            InjBalMapGrid.Columns.Item(c).HeaderText = calc_K8TPS(i)
+            InjBalMapGrid.Columns.Item(c).Width = 50
             c = c + 1
         Loop
 
-        '
         ' Generate row headings
-        '
-        INJBALmapgrid.RowHeadersWidth = 100
-        INJBALmapgrid.RowCount = map_number_of_rows
+        InjBalMapGrid.RowHeadersWidth = 100
+        InjBalMapGrid.RowCount = _mapNumberOfRows
         r = 0
+
         'INJBALmapgrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
-        Do While (r < map_number_of_rows)
+        Do While (r < _mapNumberOfRows)
 
-            i = readflashword(rowheadingmap + (r * 2))
+            i = readflashword(_rowHeadingMap + (r * 2))
 
-            INJBALmapgrid.Rows.Item(r).HeaderCell.Value = Str(Int(i / 2.56))
-            INJBALmapgrid.Rows.Item(r).Height = 15
+            InjBalMapGrid.Rows.Item(r).HeaderCell.Value = Str(Int(i / 2.56))
+            InjBalMapGrid.Rows.Item(r).Height = 15
             r = r + 1
         Loop
 
-        '
         ' Generate map contents into a grid
-        '
         c = 0
         r = 0
         i = 0
-        Do While (r < map_number_of_rows)
-            If cel = 1 Then
-                INJBALmapgrid.Item(c, r).Value = decode(readflashbyte((i * cel) + editing_map))
+        Do While (r < _mapNumberOfRows)
+            If _cel = 1 Then
+                InjBalMapGrid.Item(c, r).Value = Decode(readflashbyte((i * _cel) + _editingMap))
             Else
-                INJBALmapgrid.Item(c, r).Value = decode(readflashword((i * cel) + editing_map))
+                InjBalMapGrid.Item(c, r).Value = Decode(readflashword((i * _cel) + _editingMap))
             End If
-            If c < map_number_of_columns - 1 Then
+            If c < _mapNumberOfColumns - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -457,20 +449,18 @@ Public Class BKingInjectorBalanceMap
             i = i + 1
         Loop
 
-        '
         ' Define some grid properties
-        '
-        INJBALmapgrid.AllowUserToAddRows = False
-        INJBALmapgrid.AllowUserToDeleteRows = False
-        INJBALmapgrid.AllowUserToOrderColumns = False
-        INJBALmapgrid.SelectionMode = DataGridViewSelectionMode.CellSelect
+        InjBalMapGrid.AllowUserToAddRows = False
+        InjBalMapGrid.AllowUserToDeleteRows = False
+        InjBalMapGrid.AllowUserToOrderColumns = False
+        InjBalMapGrid.SelectionMode = DataGridViewSelectionMode.CellSelect
 
-        If gear = 0 Then
+        If _gear = 0 Then
             L_gear.Text = "NT"
         Else
-            L_gear.Text = Str(gear)
+            L_gear.Text = Str(_gear)
         End If
-        Select Case modeabc
+        Select Case _modeABC
             Case 0
                 L_mode.Text = "A"
             Case 1
@@ -481,9 +471,7 @@ Public Class BKingInjectorBalanceMap
                 L_mode.Text = " "
         End Select
 
-
-        L_MS.Text = Str(ms01)
-
+        L_MS.Text = Str(_ms01)
 
     End Sub
 

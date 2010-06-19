@@ -28,7 +28,7 @@ Public Class BKingAdvSettings
 
 #Region "Variables"
 
-    Dim loading As Boolean
+    Dim _loading As Boolean
     Dim _stock = &H80
     Dim _300cc = &H60
     Dim _400cc = &H30
@@ -41,7 +41,7 @@ Public Class BKingAdvSettings
 
     Private Sub BKingAdvSettings_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        loading = True
+        _loading = True
 
         If readflashbyte(&H74BDC) = &H80 Then
             C_HOX.Text = "Oxy sensor ON"
@@ -76,7 +76,7 @@ Public Class BKingAdvSettings
         End If
 
 
-        loading = False
+        _loading = False
 
     End Sub
 
@@ -100,7 +100,7 @@ Public Class BKingAdvSettings
 
     Private Sub C_HOX_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_HOX.CheckedChanged
 
-        If Not loading Then
+        If Not _loading Then
 
             If C_HOX.Checked = True Then
                 C_HOX.Text = "Oxy sensor ON"
@@ -116,7 +116,7 @@ Public Class BKingAdvSettings
 
     Private Sub C_PAIR_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_PAIR.CheckedChanged
 
-        If Not loading Then
+        If Not _loading Then
 
             If C_PAIR.Checked = True Then
                 C_PAIR.Text = "PAIR ON"
@@ -132,7 +132,7 @@ Public Class BKingAdvSettings
 
     Private Sub C_EVAP_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_EVAP.CheckedChanged
 
-        If Not loading Then
+        If Not _loading Then
 
             If C_EVAP.Checked = True Then
                 C_EVAP.Text = "EVAP ON"
@@ -148,7 +148,7 @@ Public Class BKingAdvSettings
 
     Private Sub C_EXC_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_EXC.CheckedChanged
 
-        If Not loading Then
+        If Not _loading Then
 
             If C_EXC.Checked = True Then
                 C_EXC.Text = "EXCV ON"

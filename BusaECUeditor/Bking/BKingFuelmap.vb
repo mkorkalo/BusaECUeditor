@@ -30,18 +30,32 @@ Public Class BKingFuelMap
 
 #Region "Variables"
 
-    Dim change As Integer
-    Dim previousrow As Integer
-    Dim toprow(50) As Integer
-    Dim TPSmap As Boolean
-    Dim previouscolour As Color
+    Dim _change As Integer
+    Dim _previousRow As Integer
+    Dim _tPSMap As Boolean
+    Dim _mapStructureTable As Long
+    Dim _mapNumberOfColumns As Integer
+    Dim _mapNumberOfRows As Integer
+    Dim _editingMap As Long
+    Dim _baseMap As Integer
+    Dim _setMode As Integer
 
-    Dim map_structure_table As Long
-    Dim map_number_of_structures As Integer
-    Dim map_number_of_columns, map_number_of_rows As Integer
-    Dim editing_map As Long
-    Dim basemap As Integer
-    Public setmode As Integer
+#End Region
+
+#Region "Properties"
+
+    Public Property SetMode() As Integer
+        Get
+
+            Return _setMode
+
+        End Get
+        Set(ByVal value As Integer)
+
+            _setMode = value
+
+        End Set
+    End Property
 
 #End Region
 
@@ -49,14 +63,19 @@ Public Class BKingFuelMap
 
     Private Sub BKingFuelMap_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-        change = 1 ' default change to map when pressing +,- or *,/
-        previousrow = 0
+        _change = 1 ' default change to map when pressing +,- or *,/
+        _previousRow = 0
         fuelmapvisible = True
-
-        setmode = 0
+        _setMode = 0
 
         ' select tpsmap as first map to show, this will unify cylinder specific fuelmaps
-        selectmap(1)
+        SelectMap(1)
+
+    End Sub
+
+    Private Sub BKingFuelMap_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles MyBase.KeyPress
+
+        FuelMapGrid_KeyPress(sender, e)
 
     End Sub
 
@@ -72,19 +91,19 @@ Public Class BKingFuelMap
 
     Private Sub B_TPSMAP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_TPS.Click
 
-        selectmap(1)
+        SelectMap(1)
 
     End Sub
 
     Private Sub B_IAP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_IAP.Click
 
-        selectmap(2)
+        SelectMap(2)
 
     End Sub
 
     Private Sub B_MSTP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_MSTP.Click
 
-        selectmap(4)
+        SelectMap(4)
 
     End Sub
 
@@ -118,9 +137,9 @@ Public Class BKingFuelMap
         '
         ' Apply changes to the TPS map
         '
-        selectmap(1)
-        noc = readflashbyte(readflashlongword(map_structure_table + ((0 * 6) + (3 * 0) + 0) * 4) + 1)
-        nor = readflashbyte(readflashlongword(map_structure_table + ((0 * 6) + (3 * 0) + 0) * 4) + 2)
+        SelectMap(1)
+        noc = readflashbyte(readflashlongword(_mapStructureTable + ((0 * 6) + (3 * 0) + 0) * 4) + 1)
+        nor = readflashbyte(readflashlongword(_mapStructureTable + ((0 * 6) + (3 * 0) + 0) * 4) + 2)
 
 
         If fdlg.ShowDialog() = Windows.Forms.DialogResult.OK Then
@@ -176,13 +195,13 @@ Public Class BKingFuelMap
                             tpscorr = cp / 1000
                             adj = (tpscorr + rpmcorr + 1)
                             v = (pcv(&H230 + (10 * pcvr) + pcvc) - &H64)
-                            Fuelmapgrid.Item(cp, rp).Value = Int(Fuelmapgrid.Item(cp, rp).Value * adj * (1 + (v / 100)))
+                            FuelMapGrid.Item(cp, rp).Value = Int(FuelMapGrid.Item(cp, rp).Value * adj * (1 + (v / 100)))
 
                             '
                             ' Set value on map to ecu flash
                             '
                             SetFlashItem(cp, rp)
-                            setCellColour(cp, rp)
+                            SetCellColour(cp, rp)
                         Next
                     Next
                 Case "bz"
@@ -228,13 +247,13 @@ Public Class BKingFuelMap
                             adj = 1.0 ' this is a number reserved for AFR adjustments 
                             v = (bz(15 + (13 * bzr) + bzc)) ' here get value and reverse columns
                             If v >= 50 Then v = v - &HFF ' make negative values too...
-                            Fuelmapgrid.Item(cp, rp).Value = Int(Fuelmapgrid.Item(cp, rp).Value * adj * (1 + (v / 100)))
+                            FuelMapGrid.Item(cp, rp).Value = Int(FuelMapGrid.Item(cp, rp).Value * adj * (1 + (v / 100)))
 
                             '
                             ' Set value on map to ecu flash
                             '
                             SetFlashItem(cp, rp)
-                            setCellColour(cp, rp)
+                            SetCellColour(cp, rp)
                         Next
                     Next
                 Case Else
@@ -244,12 +263,12 @@ Public Class BKingFuelMap
         End If
     End Sub
 
-    Private Sub Fuelmapgrid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Fuelmapgrid.KeyPress
+    Private Sub FuelMapGrid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles FuelMapGrid.KeyPress
 
         Dim c As Integer
         Dim r As Integer
-        c = Fuelmapgrid.CurrentCell.ColumnIndex
-        r = Fuelmapgrid.CurrentCell.RowIndex
+        c = FuelMapGrid.CurrentCell.ColumnIndex
+        r = FuelMapGrid.CurrentCell.RowIndex
 
         ' this is the user interface shortcut keys processor
         Select Case e.KeyChar
@@ -282,21 +301,21 @@ Public Class BKingFuelMap
             Case "4"
                 SelectMap(4)
             Case "a"
-                setmode = 0
-                selectmap(1)
+                _setMode = 0
+                SelectMap(1)
             Case "A"
-                setmode = 0
-                selectmap(1)
+                _setMode = 0
+                SelectMap(1)
             Case "b"
-                setmode = 1
-                selectmap(1)
+                _setMode = 1
+                SelectMap(1)
             Case "B"
-                setmode = 1
-                selectmap(1)
+                _setMode = 1
+                SelectMap(1)
             Case "c"
-                copymaps(2)
+                CopyMaps(2)
             Case "C"
-                copymaps(2)
+                CopyMaps(2)
             Case Chr(27)
                 Me.Close()
             Case "P"
@@ -312,19 +331,19 @@ Public Class BKingFuelMap
 
     End Sub
 
-    Private Sub Fuelmapgrid_MouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Fuelmapgrid.MouseClick
+    Private Sub FuelMapGrid_MouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles FuelMapGrid.MouseClick
 
         ShowValues()
 
     End Sub
 
-    Private Sub Fuelmapgrid_CellEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles Fuelmapgrid.CellEnter
+    Private Sub FuelMapGrid_CellEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles FuelMapGrid.CellEnter
 
         ShowValues()
 
     End Sub
 
-    Private Sub Fuelmapgrid_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Fuelmapgrid.KeyDown
+    Private Sub FuelMapGrid_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles FuelMapGrid.KeyDown
 
         If (e.Control = True And e.KeyCode = Keys.V) Then
             Dim rowIndex As Integer
@@ -334,7 +353,7 @@ Public Class BKingFuelMap
             rowIndex = Integer.MaxValue
             columnStartIndex = Integer.MaxValue
 
-            For Each cell As DataGridViewCell In Fuelmapgrid.SelectedCells()
+            For Each cell As DataGridViewCell In FuelMapGrid.SelectedCells()
                 If cell.RowIndex < rowIndex Then
                     rowIndex = cell.RowIndex
                 End If
@@ -354,11 +373,11 @@ Public Class BKingFuelMap
                 columnIndex = columnStartIndex
 
                 For Each value As String In values
-                    If columnIndex < map_number_of_columns And rowIndex < map_number_of_rows Then
+                    If columnIndex < _mapNumberOfColumns And rowIndex < _mapNumberOfRows Then
                         If IsNumeric(value) Then
-                            Fuelmapgrid(columnIndex, rowIndex).Value = value
+                            FuelMapGrid(columnIndex, rowIndex).Value = value
                             SetFlashItem(columnIndex, rowIndex)
-                            setCellColour(columnIndex, rowIndex)
+                            SetCellColour(columnIndex, rowIndex)
                         End If
                     End If
 
@@ -398,23 +417,22 @@ Public Class BKingFuelMap
 
         Dim decrease As Integer
 
-
-        decrease = change ' This is the amount that value is decreased when pressing "-"
+        decrease = _change ' This is the amount that value is decreased when pressing "-"
 
         i = 0
 
-        n = Fuelmapgrid.SelectedCells.Count()
+        n = FuelMapGrid.SelectedCells.Count()
 
-        Do While (r < map_number_of_rows)
+        Do While (r < _mapNumberOfRows)
 
-            If Fuelmapgrid.Item(c, r).Selected And n > 0 Then
-                Fuelmapgrid.Item(c, r).Value = Fuelmapgrid.Item(c, r).Value - decrease
+            If FuelMapGrid.Item(c, r).Selected And n > 0 Then
+                FuelMapGrid.Item(c, r).Value = FuelMapGrid.Item(c, r).Value - decrease
                 SetFlashItem(c, r)
-                setCellColour(c, r)
+                SetCellColour(c, r)
                 n = n - 1
             End If
 
-            If c < map_number_of_columns - 1 Then
+            If c < _mapNumberOfColumns - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -433,23 +451,22 @@ Public Class BKingFuelMap
 
         Dim decrease As Integer
 
-
-        decrease = change ' This is the amount that value is decreased when pressing "-"
+        decrease = _change ' This is the amount that value is decreased when pressing "-"
 
         i = 0
 
-        n = Fuelmapgrid.SelectedCells.Count()
+        n = FuelMapGrid.SelectedCells.Count()
 
-        Do While (r < map_number_of_rows)
+        Do While (r < _mapNumberOfRows)
 
-            If Fuelmapgrid.Item(c, r).Selected And n > 0 Then
-                Fuelmapgrid.Item(c, r).Value = Int(Fuelmapgrid.Item(c, r).Value / 1.05)
+            If FuelMapGrid.Item(c, r).Selected And n > 0 Then
+                FuelMapGrid.Item(c, r).Value = Int(FuelMapGrid.Item(c, r).Value / 1.05)
                 SetFlashItem(c, r)
-                setCellColour(c, r)
+                SetCellColour(c, r)
                 n = n - 1
             End If
 
-            If c < map_number_of_columns - 1 Then
+            If c < _mapNumberOfColumns - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -468,23 +485,22 @@ Public Class BKingFuelMap
 
         Dim decrease As Integer
 
-
-        decrease = change ' This is the amount that value is decreased when pressing "-"
+        decrease = _change ' This is the amount that value is decreased when pressing "-"
 
         i = 0
 
-        n = Fuelmapgrid.SelectedCells.Count()
+        n = FuelMapGrid.SelectedCells.Count()
 
-        Do While (r < map_number_of_rows)
+        Do While (r < _mapNumberOfRows)
 
-            If Fuelmapgrid.Item(c, r).Selected And n > 0 Then
-                Fuelmapgrid.Item(c, r).Value = Int(Fuelmapgrid.Item(c, r).Value * 1.05)
+            If FuelMapGrid.Item(c, r).Selected And n > 0 Then
+                FuelMapGrid.Item(c, r).Value = Int(FuelMapGrid.Item(c, r).Value * 1.05)
                 SetFlashItem(c, r)
-                setCellColour(c, r)
+                SetCellColour(c, r)
                 n = n - 1
             End If
 
-            If c < map_number_of_columns - 1 Then
+            If c < _mapNumberOfColumns - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -502,24 +518,23 @@ Public Class BKingFuelMap
         Dim n As Integer
         Dim increase As Integer
 
-        increase = change ' this is the value how much the cell is increased when pressing "+"
+        increase = _change ' this is the value how much the cell is increased when pressing "+"
         i = 0
         r = 0
         c = 0
 
+        n = FuelMapGrid.SelectedCells.Count()
 
-        n = Fuelmapgrid.SelectedCells.Count()
+        Do While (r < (_mapNumberOfRows - 1)) And n > 0
 
-        Do While (r < (map_number_of_rows - 1)) And n > 0
-
-            If Fuelmapgrid.Item(c, r).Selected And n > 0 Then
-                Fuelmapgrid.Item(c, r).Value = Fuelmapgrid.Item(c, r).Value + increase
+            If FuelMapGrid.Item(c, r).Selected And n > 0 Then
+                FuelMapGrid.Item(c, r).Value = FuelMapGrid.Item(c, r).Value + increase
                 SetFlashItem(c, r)
-                setCellColour(c, r)
+                SetCellColour(c, r)
                 n = n - 1
             End If
 
-            If c < map_number_of_columns - 1 Then
+            If c < _mapNumberOfColumns - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -536,21 +551,21 @@ Public Class BKingFuelMap
         ' and sets cell colour accordingly based on that comparison        
         Dim diff As Decimal
 
-        diff = (((readflashword(editing_map + (2 * (c + (r * map_number_of_columns))))))) - (((readflashwordcopy(editing_map + (2 * (c + (r * map_number_of_columns)))))))
+        diff = (((readflashword(_editingMap + (2 * (c + (r * _mapNumberOfColumns))))))) - (((readflashwordcopy(_editingMap + (2 * (c + (r * _mapNumberOfColumns)))))))
 
         '
         ' Only set cell colour if cursor is on the grid.
         '
         If (Me.Visible) Then
-            Fuelmapgrid.Item(c, r).Style.ForeColor = Color.Black
-            If Me.Text.Contains("TPS") And c < 11 Then Fuelmapgrid.Item(c, r).Style.ForeColor = Color.Gray
-            Fuelmapgrid.Item(c, r).Style.BackColor = Color.White
-            If CInt(diff) < -1 * 24 Then Fuelmapgrid.Item(c, r).Style.BackColor = Color.Yellow
-            If CInt(diff) < -2 * 24 Then Fuelmapgrid.Item(c, r).Style.BackColor = Color.Pink
-            If CInt(diff) < -5 * 24 Then Fuelmapgrid.Item(c, r).Style.BackColor = Color.Red
-            If CInt(diff) > 1 * 24 Then Fuelmapgrid.Item(c, r).Style.BackColor = Color.LightGreen
-            If CInt(diff) > 2 * 24 Then Fuelmapgrid.Item(c, r).Style.BackColor = Color.YellowGreen
-            If CInt(diff) > 5 * 24 Then Fuelmapgrid.Item(c, r).Style.BackColor = Color.Green
+            FuelMapGrid.Item(c, r).Style.ForeColor = Color.Black
+            If Me.Text.Contains("TPS") And c < 11 Then FuelMapGrid.Item(c, r).Style.ForeColor = Color.Gray
+            FuelMapGrid.Item(c, r).Style.BackColor = Color.White
+            If CInt(diff) < -1 * 24 Then FuelMapGrid.Item(c, r).Style.BackColor = Color.Yellow
+            If CInt(diff) < -2 * 24 Then FuelMapGrid.Item(c, r).Style.BackColor = Color.Pink
+            If CInt(diff) < -5 * 24 Then FuelMapGrid.Item(c, r).Style.BackColor = Color.Red
+            If CInt(diff) > 1 * 24 Then FuelMapGrid.Item(c, r).Style.BackColor = Color.LightGreen
+            If CInt(diff) > 2 * 24 Then FuelMapGrid.Item(c, r).Style.BackColor = Color.YellowGreen
+            If CInt(diff) > 5 * 24 Then FuelMapGrid.Item(c, r).Style.BackColor = Color.Green
         End If
 
     End Sub
@@ -573,8 +588,8 @@ Public Class BKingFuelMap
         maxval = 300   ' not validated from ecu, maximum value to which the map item can be set
         minval = 5   ' not validated from ecu, minimum value to which the map item can be set
 
-        m1 = Fuelmapgrid.Item(c, r).Value
-        m2 = FuelPW((readflashword(editing_map + (2 * (c + (r * map_number_of_columns))))))
+        m1 = FuelMapGrid.Item(c, r).Value
+        m2 = FuelPW((readflashword(_editingMap + (2 * (c + (r * _mapNumberOfColumns))))))
 
         diff = m2 - m1
 
@@ -597,14 +612,14 @@ Public Class BKingFuelMap
             mapsel = True
             cylinder = 0        ' 0,1,2,3
             ms01 = 0            ' 0,1
-            number_of_columns = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+            number_of_columns = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
             For cylinder = 0 To 3
                 For ms01 = 0 To 1
-                    For modeabc = setmode To setmode
+                    For modeabc = _setMode To _setMode
                         '
                         ' This is normal on gear idle map
                         '
-                        copy_to_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        copy_to_map = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                         writeflashword(copy_to_map + (2 * (c + (r * number_of_columns))), FuelPWToECUVal(m1))
                         '
                         ' Need to write the values also to idle neutral map
@@ -623,11 +638,11 @@ Public Class BKingFuelMap
             mapsel = True
             cylinder = 0        ' 0,1,2,3
             ms01 = 1            ' 0,1
-            number_of_columns = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+            number_of_columns = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
             For cylinder = 0 To 3
                 For ms01 = 1 To 1
-                    For modeabc = setmode To setmode
-                        copy_to_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                    For modeabc = _setMode To _setMode
+                        copy_to_map = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                         writeflashword(copy_to_map + (2 * (c + (r * number_of_columns))), FuelPWToECUVal(m1))
                     Next
                 Next
@@ -641,11 +656,11 @@ Public Class BKingFuelMap
             mapsel = True
             cylinder = 0        ' 0,1,2,3
             ms01 = 0            ' 0,1
-            number_of_columns = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+            number_of_columns = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
             For cylinder = 0 To 3
                 For ms01 = 0 To 0
-                    For modeabc = setmode To setmode
-                        copy_to_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                    For modeabc = _setMode To _setMode
+                        copy_to_map = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                         writeflashword(copy_to_map + (2 * (c + (r * number_of_columns))), FuelPWToECUVal(m1))
                     Next
                 Next
@@ -657,56 +672,55 @@ Public Class BKingFuelMap
 
     Public Sub SelectMap(ByVal map As Integer)
 
-        Dim cylinder, ms01, modeabc As Integer
-        '
+        Dim cylinder As Integer
+        Dim ms01 As Integer
+        Dim modeabc As Integer
+
         ' map tracing function to be disabled when map is changed
-        '
-        previousrow = 0
+        _previousRow = 0
 
         Select Case map
             Case 1
-                map_structure_table = &H54EB4
+                _mapStructureTable = &H54EB4
                 Me.Text = "ECUeditor - Fuel TPS/RPM map"
                 ms01 = 0            ' 0,1
             Case 2
-                map_structure_table = &H54DF4 '&H54DF4 on gear, &H54E54 on neutral
+                _mapStructureTable = &H54DF4 '&H54DF4 on gear, &H54E54 on neutral
                 Me.Text = "ECUeditor - Fuel IAP/RPM map"
                 ms01 = 0            ' 0,1
             Case 4
-                map_structure_table = &H54EB4
+                _mapStructureTable = &H54EB4
                 Me.Text = "ECUeditor - Fuel MS TPS/RPM map"
                 ms01 = 1            ' 0,1
         End Select
+
         rr = 0
         cc = 0
 
-        '
         ' these are more or less global definitions for editing the maps
-        '
         cylinder = 0        ' 0,1,2,3
-        modeabc = setmode         ' 0,1,2
-        editing_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-        map_number_of_columns = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
-        map_number_of_rows = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
+        modeabc = _setMode  ' 0,1,2
+        _editingMap = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+        _mapNumberOfColumns = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+        _mapNumberOfRows = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
 
-        '
         ' Global variable of which map type is being edited
-        '
-        If Me.Text.Contains("TPS") Then TPSmap = True Else TPSmap = False
-
-        '
-        ' Initialize map type selected. Copymaps unifies cylinders and modeABC maps. Loadmap brings the map visible.
-        '
-        If Me.Text.Contains("MS") Then
-            loadmap(1)
-            copymaps(1)
+        If Me.Text.Contains("TPS") Then
+            _tPSMap = True
         Else
-            loadmap(0)
-            copymaps(0)
+            _tPSMap = False
+        End If
+
+        ' Initialize map type selected. Copymaps unifies cylinders and modeABC maps. Loadmap brings the map visible.
+        If Me.Text.Contains("MS") Then
+            LoadMap(1)
+            CopyMaps(1)
+        Else
+            LoadMap(0)
+            CopyMaps(0)
         End If
 
         mapvisible = Me.Text
-
 
     End Sub
 
@@ -722,46 +736,46 @@ Public Class BKingFuelMap
         i = 0
         ii = 0
 
-        Select Case setmode
+        Select Case _setMode
             Case 0 : L_modeabc.Text = "A"
             Case 1 : L_modeabc.Text = "B"
             Case 2 : L_modeabc.Text = "C"
         End Select
         '
-        ' Select which map is being used as a basemap for editing
+        ' Select which map is being used as a _baseMap for editing
         '
         cylinder = 0        ' 0,1,2,3
-        modeabc = setmode         ' 0,1,2
-        columnheading_map = readflashlongword(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 4)
-        rowheading_map = readflashlongword(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 8)
-        editing_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+        modeabc = _setMode         ' 0,1,2
+        columnheading_map = readflashlongword(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 4)
+        rowheading_map = readflashlongword(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 8)
+        _editingMap = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
 
         '
         ' Generate column headings
         '
-        Fuelmapgrid.ColumnCount = map_number_of_columns
+        FuelMapGrid.ColumnCount = _mapNumberOfColumns
         c = 0
-        Do While c < map_number_of_columns
+        Do While c < _mapNumberOfColumns
             i = readflashword(columnheading_map + (c * 2))
-            If TPSmap Then
-                Fuelmapgrid.Columns.Item(c).HeaderText = calc_K8TPS(i)
+            If _tPSMap Then
+                FuelMapGrid.Columns.Item(c).HeaderText = calc_K8TPS(i)
             Else
-                Fuelmapgrid.Columns.Item(c).HeaderText = calc_K8IAP(i)
+                FuelMapGrid.Columns.Item(c).HeaderText = calc_K8IAP(i)
             End If
-            Fuelmapgrid.Columns.Item(c).Width = 26
+            FuelMapGrid.Columns.Item(c).Width = 26
             c = c + 1
         Loop
 
         '
         ' Generate row headings
         '
-        Fuelmapgrid.RowCount = map_number_of_rows
+        FuelMapGrid.RowCount = _mapNumberOfRows
         r = 0
-        Fuelmapgrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
-        Do While (r < map_number_of_rows)
+        FuelMapGrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
+        Do While (r < _mapNumberOfRows)
             i = readflashword(rowheading_map + (r * 2))
-            Fuelmapgrid.Rows.Item(r).HeaderCell.Value = Str(Int(i / 2.56))
-            Fuelmapgrid.Rows.Item(r).Height = 15
+            FuelMapGrid.Rows.Item(r).HeaderCell.Value = Str(Int(i / 2.56))
+            FuelMapGrid.Rows.Item(r).Height = 15
             r = r + 1
         Loop
 
@@ -771,12 +785,12 @@ Public Class BKingFuelMap
         c = 0
         r = 0
         i = 0
-        Do While (r < map_number_of_rows)
+        Do While (r < _mapNumberOfRows)
 
-            Fuelmapgrid.Item(c, r).Value = FuelPW(readflashword((i * 2) + editing_map))
+            FuelMapGrid.Item(c, r).Value = FuelPW(readflashword((i * 2) + _editingMap))
             SetCellColour(c, r)
 
-            If c < map_number_of_columns - 1 Then
+            If c < _mapNumberOfColumns - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -788,10 +802,10 @@ Public Class BKingFuelMap
         '
         ' Define some grid properties
         '
-        Fuelmapgrid.AllowUserToAddRows = False
-        Fuelmapgrid.AllowUserToDeleteRows = False
-        Fuelmapgrid.AllowUserToOrderColumns = False
-        Fuelmapgrid.SelectionMode = DataGridViewSelectionMode.CellSelect
+        FuelMapGrid.AllowUserToAddRows = False
+        FuelMapGrid.AllowUserToDeleteRows = False
+        FuelMapGrid.AllowUserToOrderColumns = False
+        FuelMapGrid.SelectionMode = DataGridViewSelectionMode.CellSelect
 
     End Sub
 
@@ -805,40 +819,40 @@ Public Class BKingFuelMap
 
         ' enable automatic map switching when tracing and datastream on
 
-        r = map_number_of_rows
-        c = map_number_of_columns
+        r = _mapNumberOfRows
+        c = _mapNumberOfColumns
 
         r = 0
         rr = 0
-        Do While (r < map_number_of_rows - 1)
-            If RPM >= rr And RPM < Int(Fuelmapgrid.Rows(r + 1).HeaderCell.Value) Then
+        Do While (r < _mapNumberOfRows - 1)
+            If RPM >= rr And RPM < Int(FuelMapGrid.Rows(r + 1).HeaderCell.Value) Then
                 rr = r
                 r = 256
             Else
                 r = r + 1
-                rr = Int(Fuelmapgrid.Rows(r).HeaderCell.Value)
+                rr = Int(FuelMapGrid.Rows(r).HeaderCell.Value)
             End If
         Loop
 
 
-        If TPSmap Then
+        If _tPSMap Then
             '
             ' Process TPS maps
             '
             c = 0
             cc = 0
-            If calc_TPS_dec(TPS) < Val(Fuelmapgrid.Columns.Item(map_number_of_columns - 1).HeaderCell.Value) Then
-                Do While (c < map_number_of_columns - 1)
-                    If calc_TPS_dec(TPS) >= cc And calc_TPS_dec(TPS) < Fuelmapgrid.Columns.Item(c + 1).HeaderCell.Value Then
+            If calc_TPS_dec(TPS) < Val(FuelMapGrid.Columns.Item(_mapNumberOfColumns - 1).HeaderCell.Value) Then
+                Do While (c < _mapNumberOfColumns - 1)
+                    If calc_TPS_dec(TPS) >= cc And calc_TPS_dec(TPS) < FuelMapGrid.Columns.Item(c + 1).HeaderCell.Value Then
                         cc = c
                         c = 256
                     Else
                         c = c + 1
-                        cc = Int(Fuelmapgrid.Columns.Item(c).HeaderCell.Value)
+                        cc = Int(FuelMapGrid.Columns.Item(c).HeaderCell.Value)
                     End If
                 Loop
             Else
-                cc = map_number_of_columns - 1
+                cc = _mapNumberOfColumns - 1
             End If
         Else
             '
@@ -847,24 +861,24 @@ Public Class BKingFuelMap
             c = 0
             cc = 256
 
-            Do While (c < map_number_of_columns - 1)
-                If IAP <= cc And IAP > Int(Fuelmapgrid.Columns.Item(c + 1).HeaderCell.Value) Then
+            Do While (c < _mapNumberOfColumns - 1)
+                If IAP <= cc And IAP > Int(FuelMapGrid.Columns.Item(c + 1).HeaderCell.Value) Then
                     cc = c
                     c = 256
                 Else
                     c = c + 1
-                    cc = Int(Fuelmapgrid.Columns.Item(c).HeaderCell.Value)
+                    cc = Int(FuelMapGrid.Columns.Item(c).HeaderCell.Value)
                 End If
             Loop
         End If
 
-        If rr > map_number_of_rows Then rr = 0
+        If rr > _mapNumberOfRows Then rr = 0
         If rr < 0 Then rr = 0
-        If cc > map_number_of_columns Then cc = 0
+        If cc > _mapNumberOfColumns Then cc = 0
         If cc < 0 Then cc = 0
         If rr <> 0 Or cc <> 0 Then
             SetCellColour(0, rr)
-            Fuelmapgrid.Item(cc, rr).Style.BackColor = Color.Blue
+            FuelMapGrid.Item(cc, rr).Style.BackColor = Color.Blue
         Else
             SetCellColour(cc, rr)
         End If
@@ -912,25 +926,25 @@ Public Class BKingFuelMap
         '
         cylinder = 0        ' 0,1,2,3
         ms01 = a            ' 0,1
-        modeabc = setmode         ' 0,1,2
-        copy_from_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-        number_of_columns = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
-        number_of_rows = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
+        modeabc = _setMode         ' 0,1,2
+        copy_from_map = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+        number_of_columns = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+        number_of_rows = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
 
         '
         ' Now copy the map contents for selected mode ms0 or ms1
         '
         For cylinder = 0 To 3
             For ms01 = a To b
-                For modeabc = setmode To setmode
-                    copy_to_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                For modeabc = _setMode To _setMode
+                    copy_to_map = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                     For cell = 0 To ((number_of_columns - 1) * (number_of_rows - 1))
                         writeflashword(copy_to_map + (cell * 2), readflashword(copy_from_map + (cell * 2)))
                         '
                         ' If IAP map then also copy to idle map in addition to on gear map
                         ' &H54DF4 on gear, &H54E54 on neutral
                         '
-                        If map_structure_table = &H54DF4 Then
+                        If _mapStructureTable = &H54DF4 Then
                             copy_to_map2 = readflashlongword(readflashlongword((&H54E54 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                             writeflashword(copy_to_map2 + (cell * 2), readflashword(copy_from_map + (cell * 2)))
                         End If
@@ -953,16 +967,16 @@ Public Class BKingFuelMap
         Dim p As Decimal
 
         istr = ""
-        rowselected = Fuelmapgrid.CurrentRow.Index
+        rowselected = FuelMapGrid.CurrentRow.Index
 
         Try
 
-            istr = Str(Fuelmapgrid.Columns.Item(Fuelmapgrid.CurrentCell.ColumnIndex).HeaderCell.Value)
+            istr = Str(FuelMapGrid.Columns.Item(FuelMapGrid.CurrentCell.ColumnIndex).HeaderCell.Value)
 
             '
             ' Editing position 
             '
-            T_RPM.Text = Fuelmapgrid.CurrentRow.HeaderCell.Value & " rpm"
+            T_RPM.Text = FuelMapGrid.CurrentRow.HeaderCell.Value & " rpm"
             If Me.Text.Contains("TPS") Then
                 T_TPSIAP.Text = "TPS = " & istr & "%"
             Else
@@ -972,10 +986,10 @@ Public Class BKingFuelMap
             '
             ' Now lets show the difference compared to comparemap
             '
-            r = Fuelmapgrid.CurrentRow.Index
-            c = Fuelmapgrid.CurrentCell.ColumnIndex
-            m2 = Fuelmapgrid.Item(c, r).Value
-            m1 = FuelPW((readflashwordcopy(editing_map + (2 * (c + (r * map_number_of_columns))))))
+            r = FuelMapGrid.CurrentRow.Index
+            c = FuelMapGrid.CurrentCell.ColumnIndex
+            m2 = FuelMapGrid.Item(c, r).Value
+            m1 = FuelPW((readflashwordcopy(_editingMap + (2 * (c + (r * _mapNumberOfColumns))))))
             v = m2 - m1
             p = ((m2 / m1) - 1) * 100
             If v > 0 Then
@@ -984,14 +998,14 @@ Public Class BKingFuelMap
                 T_change.Text = Str(v) & " (" & Format(p, "##0") & "%)"
             End If
 
-            msrpm = 1 / (Fuelmapgrid.CurrentRow.HeaderCell.Value / 60) * 1000 * 2
+            msrpm = 1 / (FuelMapGrid.CurrentRow.HeaderCell.Value / 60) * 1000 * 2
 
         Catch ex As Exception
         End Try
 
     End Sub
 
-    Private Function eetopcvr(ByVal r As Integer) As Integer
+    Private Function EEToPCVR(ByVal r As Integer) As Integer
         '
         ' ecueditor row to pcv row conversion table
         ' first row is 0
@@ -1050,11 +1064,10 @@ Public Class BKingFuelMap
             Case Else
                 MsgBox("Error in converting pcv row")
 
-
         End Select
     End Function
 
-    Private Function eetopcvc(ByVal c As Integer) As Integer
+    Private Function EEToPCVC(ByVal c As Integer) As Integer
         '
         ' ecueditor column to pcv column conversion table
         ' first column is 0
@@ -1088,7 +1101,7 @@ Public Class BKingFuelMap
         End Select
     End Function
 
-    Private Function eetobzr(ByVal r As Integer) As Integer
+    Private Function EEToBzr(ByVal r As Integer) As Integer
         '
         ' ecueditor row to bazzaz row conversion table
         ' first row is 0. Note bazzaz table is x-y reversed.
@@ -1151,7 +1164,7 @@ Public Class BKingFuelMap
         End Select
     End Function
 
-    Private Function eetobzc(ByVal c As Integer) As Integer
+    Private Function EEToBzc(ByVal c As Integer) As Integer
         '
         ' ecueditor column to bz conversion table
         ' first column is 0. Note bazzaz table is x-y reversed.

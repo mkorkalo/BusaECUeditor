@@ -21,7 +21,7 @@ Partial Class BKingFuelMap
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BKingFuelMap))
-        Me.Fuelmapgrid = New System.Windows.Forms.DataGridView
+        Me.FuelMapGrid = New System.Windows.Forms.DataGridView
         Me.B_TPS = New System.Windows.Forms.Button
         Me.B_IAP = New System.Windows.Forms.Button
         Me.B_MSTP = New System.Windows.Forms.Button
@@ -31,26 +31,26 @@ Partial Class BKingFuelMap
         Me.T_change = New System.Windows.Forms.TextBox
         Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.L_modeabc = New System.Windows.Forms.Label
-        CType(Me.Fuelmapgrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.FuelMapGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'Fuelmapgrid
+        'FuelMapGrid
         '
-        Me.Fuelmapgrid.AllowUserToAddRows = False
-        Me.Fuelmapgrid.AllowUserToDeleteRows = False
-        Me.Fuelmapgrid.AllowUserToResizeColumns = False
-        Me.Fuelmapgrid.AllowUserToResizeRows = False
-        Me.Fuelmapgrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.Fuelmapgrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.Fuelmapgrid.Location = New System.Drawing.Point(3, 31)
-        Me.Fuelmapgrid.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
-        Me.Fuelmapgrid.Name = "Fuelmapgrid"
-        Me.Fuelmapgrid.ReadOnly = True
-        Me.Fuelmapgrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.Fuelmapgrid.ShowEditingIcon = False
-        Me.Fuelmapgrid.ShowRowErrors = False
-        Me.Fuelmapgrid.Size = New System.Drawing.Size(792, 675)
-        Me.Fuelmapgrid.TabIndex = 0
+        Me.FuelMapGrid.AllowUserToAddRows = False
+        Me.FuelMapGrid.AllowUserToDeleteRows = False
+        Me.FuelMapGrid.AllowUserToResizeColumns = False
+        Me.FuelMapGrid.AllowUserToResizeRows = False
+        Me.FuelMapGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.FuelMapGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.FuelMapGrid.Location = New System.Drawing.Point(3, 31)
+        Me.FuelMapGrid.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
+        Me.FuelMapGrid.Name = "FuelMapGrid"
+        Me.FuelMapGrid.ReadOnly = True
+        Me.FuelMapGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
+        Me.FuelMapGrid.ShowEditingIcon = False
+        Me.FuelMapGrid.ShowRowErrors = False
+        Me.FuelMapGrid.Size = New System.Drawing.Size(792, 675)
+        Me.FuelMapGrid.TabIndex = 0
         '
         'B_TPS
         '
@@ -155,7 +155,7 @@ Partial Class BKingFuelMap
         Me.Controls.Add(Me.B_MSTP)
         Me.Controls.Add(Me.B_IAP)
         Me.Controls.Add(Me.B_TPS)
-        Me.Controls.Add(Me.Fuelmapgrid)
+        Me.Controls.Add(Me.FuelMapGrid)
         Me.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
@@ -163,12 +163,12 @@ Partial Class BKingFuelMap
         Me.MinimizeBox = False
         Me.Name = "BKingFuelMap"
         Me.Text = "ECUeditor Fuelmap"
-        CType(Me.Fuelmapgrid, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.FuelMapGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Fuelmapgrid As System.Windows.Forms.DataGridView
+    Friend WithEvents FuelMapGrid As System.Windows.Forms.DataGridView
     Friend WithEvents B_TPS As System.Windows.Forms.Button
     Friend WithEvents B_IAP As System.Windows.Forms.Button
     Friend WithEvents B_MSTP As System.Windows.Forms.Button

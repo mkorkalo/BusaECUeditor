@@ -22,34 +22,27 @@
 Public Class BKingIgnitionMap
     '
     ' K8Ignitionmap.vb contains all functions to edit ignitionmaps in ecueditor. it uses a global variable flash(addr) that
-    ' has the full ecu image loaded as byte values. the fuelmap is edited on a grid and changed values are
+    ' has the full ecu image loaded as byte values. the fuelmap is edited on a grid and _changed values are
     ' written to the global variable flash(addr).
     '
 #Region "Variables"
 
-    Dim change As Integer
-    Dim previousrow As Integer
-    Dim toprow(50) As Integer
-    Dim TPSmap As Boolean
-    Dim previouscolour As Color
-
-    Dim map_structure_table As Long
-    Dim map_number_of_structures As Integer
-    Dim map_number_of_columns, map_number_of_rows As Integer
-    Dim editing_map As Long
-    Dim basemap As Integer
-    Dim prevMS As Integer
-    Dim MSbias As Integer
-    Dim rr, cc As Integer
-
+    Dim _change As Integer
+    Dim _previousRow As Integer
+    Dim _mapStructureTable As Long
+    Dim _mapNumberOfColumns As Integer
+    Dim _mapNumberOfRows As Integer
+    Dim _editingMap As Long
+    Dim _baseMap As Integer
+    
 #End Region
 
 #Region "Form Events"
 
     Private Sub BKingIgnitionMap_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-        change = 1 ' default change to map when pressing +,- or *,/
-        previousrow = 0
+        _change = 1 ' default _change to map when pressing +,- or *,/
+        _previousRow = 0
         fuelmapvisible = True
 
         If readflashbyte(&H74388) <> 0 Then
@@ -167,10 +160,6 @@ Public Class BKingIgnitionMap
                 End If
             Next
 
-
-
-            rowIndex = Ignitionmapgrid.CurrentCell.RowIndex
-
             lines = Clipboard.GetText().Split(ControlChars.CrLf)
 
             For Each line As String In lines
@@ -181,7 +170,7 @@ Public Class BKingIgnitionMap
                 columnIndex = columnStartIndex
 
                 For Each value As String In values
-                    If columnIndex < map_number_of_columns And rowIndex < map_number_of_rows Then
+                    If columnIndex < _mapNumberOfColumns And rowIndex < _mapNumberOfRows Then
                         If IsNumeric(value) Then
                             Ignitionmapgrid(columnIndex, rowIndex).Value = value
                             SetFlashItem(columnIndex, rowIndex)
@@ -208,12 +197,6 @@ Public Class BKingIgnitionMap
     Private Sub B_MS1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_MS1.Click
 
         selectmap(2)
-
-    End Sub
-
-    Private Sub B_print_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-
-        PrintForm1.Print()
 
     End Sub
 
@@ -252,13 +235,13 @@ Public Class BKingIgnitionMap
 
         Dim decrease As Integer
 
-        decrease = change ' This is the amount that value is decreased when pressing "-"
+        decrease = _change ' This is the amount that value is decreased when pressing "-"
 
         i = 0
 
         n = Ignitionmapgrid.SelectedCells.Count()
 
-        Do While (r < map_number_of_rows)
+        Do While (r < _mapNumberOfRows)
 
             If Ignitionmapgrid.Item(c, r).Selected And n > 0 Then
                 Ignitionmapgrid.Item(c, r).Value = Ignitionmapgrid.Item(c, r).Value - decrease
@@ -267,7 +250,7 @@ Public Class BKingIgnitionMap
                 n = n - 1
             End If
 
-            If c < map_number_of_columns - 1 Then
+            If c < _mapNumberOfColumns - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -284,7 +267,7 @@ Public Class BKingIgnitionMap
         '
         Dim diff As Decimal
 
-        diff = K8igndeg(((readflashbyte(editing_map + (1 * (c + (r * map_number_of_columns))))))) - K8igndeg(((readflashbytecopy(editing_map + (1 * (c + (r * map_number_of_columns)))))))
+        diff = K8igndeg(((readflashbyte(_editingMap + (1 * (c + (r * _mapNumberOfColumns))))))) - K8igndeg(((readflashbytecopy(_editingMap + (1 * (c + (r * _mapNumberOfColumns)))))))
 
         Ignitionmapgrid.Item(c, r).Style.ForeColor = Color.Black
         If Me.Text.Contains("TPS") And c < 11 Then Ignitionmapgrid.Item(c, r).Style.ForeColor = Color.Gray
@@ -306,7 +289,7 @@ Public Class BKingIgnitionMap
         Dim n As Integer
         Dim increase As Integer
 
-        increase = change ' this is the value how much the cell is increased when pressing "+"
+        increase = _change ' this is the value how much the cell is increased when pressing "+"
         i = 0
         r = 0
         c = 0
@@ -314,7 +297,7 @@ Public Class BKingIgnitionMap
 
         n = Ignitionmapgrid.SelectedCells.Count()
 
-        Do While (r < (map_number_of_rows - 1)) And n > 0
+        Do While (r < (_mapNumberOfRows - 1)) And n > 0
 
             If Ignitionmapgrid.Item(c, r).Selected And n > 0 Then
                 Ignitionmapgrid.Item(c, r).Value = Ignitionmapgrid.Item(c, r).Value + increase
@@ -323,7 +306,7 @@ Public Class BKingIgnitionMap
                 n = n - 1
             End If
 
-            If c < map_number_of_columns - 1 Then
+            If c < _mapNumberOfColumns - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -335,7 +318,7 @@ Public Class BKingIgnitionMap
 
     Private Sub SetFlashItem(ByVal c As Integer, ByVal r As Integer)
 
-        Dim diff As Integer ' diff is the falue how much it is changed compared to the visible map
+        Dim diff As Integer ' diff is the falue how much it is _changed compared to the visible map
         Dim m1 As Integer 'map new value
         Dim m2 As Integer 'map2 new value
         Dim maxval As Integer
@@ -348,7 +331,7 @@ Public Class BKingIgnitionMap
         minval = 1   ' not validated from ecu, minimum value to which the Ignitionmap item can be set
 
         m1 = Ignitionmapgrid.Item(c, r).Value
-        m2 = K8igndeg((readflashbyte(editing_map + (1 * (c + (r * map_number_of_columns))))))
+        m2 = K8igndeg((readflashbyte(_editingMap + (1 * (c + (r * _mapNumberOfColumns))))))
 
         diff = m2 - m1
 
@@ -375,11 +358,11 @@ Public Class BKingIgnitionMap
             cylinder = 1        ' 0,1,2,3
             ms01 = 1            ' 0,1
             modeabc = 0         ' 0,1,2
-            number_of_columns = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+            number_of_columns = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
             For cylinder = 0 To 3
                 For ms01 = 1 To 1
                     For modeabc = 0 To 2
-                        copy_to_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        copy_to_map = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                         writeflashbyte(copy_to_map + (1 * (c + (r * number_of_columns))), K8igndeg_toecuval(m1))
                     Next
                 Next
@@ -391,11 +374,11 @@ Public Class BKingIgnitionMap
             cylinder = 1        ' 0,1,2,3
             ms01 = 0            ' 0,1
             modeabc = 0         ' 0,1,2
-            number_of_columns = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+            number_of_columns = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
             For cylinder = 0 To 3
                 For ms01 = 0 To 0
                     For modeabc = 0 To 2
-                        copy_to_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        copy_to_map = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                         writeflashbyte(copy_to_map + (1 * (c + (r * number_of_columns))), K8igndeg_toecuval(m1))
                     Next
                 Next
@@ -446,9 +429,9 @@ Public Class BKingIgnitionMap
         cylinder = 1        ' 0,1,2,3
         ms01 = a            ' 0,1
         modeabc = 0         ' 0,1,2
-        copy_from_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-        number_of_columns = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
-        number_of_rows = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
+        copy_from_map = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+        number_of_columns = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+        number_of_rows = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
 
         '
         ' Now copy the map contents for selected mode ms0 or ms1
@@ -456,7 +439,7 @@ Public Class BKingIgnitionMap
         For cylinder = 0 To 3
             For ms01 = a To b
                 For modeabc = 0 To 2
-                    copy_to_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                    copy_to_map = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                     For cell = 0 To ((number_of_columns - 1) * (number_of_rows - 1))
                         writeflashbyte(copy_to_map + (1 * cell), readflashbyte(copy_from_map + (1 * cell)))
                     Next
@@ -484,24 +467,24 @@ Public Class BKingIgnitionMap
         ' Fastflash mode in Bking not supported
         '
         'If (readflashlongword(&H549F4) <> &H566E8) And (ms01 = 1) Then
-        'MsgBox("Please note that ms mode maps are flashed only when using full flashing. You need to change flashmode.")
+        'MsgBox("Please note that ms mode maps are flashed only when using full flashing. You need to _change flashmode.")
         'End If
 
         '
-        ' Select which map is being used as a basemap for editing
+        ' Select which map is being used as a _baseMap for editing
         '
         cylinder = 1        ' 0,1,2,3
         modeabc = 0         ' 0,1,2
-        columnheading_map = readflashlongword(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 4)
-        rowheading_map = readflashlongword(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 8)
-        editing_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+        columnheading_map = readflashlongword(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 4)
+        rowheading_map = readflashlongword(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 8)
+        _editingMap = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
 
         '
         ' Generate column headings
         '
-        Ignitionmapgrid.ColumnCount = map_number_of_columns
+        Ignitionmapgrid.ColumnCount = _mapNumberOfColumns
         c = 0
-        Do While c < map_number_of_columns
+        Do While c < _mapNumberOfColumns
             i = readflashword(columnheading_map + (c * 2))
             Ignitionmapgrid.Columns.Item(c).HeaderText = calc_K8TPS(i)
             Ignitionmapgrid.Columns.Item(c).Width = 26
@@ -511,10 +494,10 @@ Public Class BKingIgnitionMap
         '
         ' Generate row headings
         '
-        Ignitionmapgrid.RowCount = map_number_of_rows
+        Ignitionmapgrid.RowCount = _mapNumberOfRows
         r = 0
         Ignitionmapgrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
-        Do While (r < map_number_of_rows)
+        Do While (r < _mapNumberOfRows)
             i = readflashword(rowheading_map + (r * 2))
             Ignitionmapgrid.Rows.Item(r).HeaderCell.Value = Str(Int(i / 2.56))
             Ignitionmapgrid.Rows.Item(r).Height = 15
@@ -527,12 +510,12 @@ Public Class BKingIgnitionMap
         c = 0
         r = 0
         i = 0
-        Do While (r < map_number_of_rows)
+        Do While (r < _mapNumberOfRows)
 
-            Ignitionmapgrid.Item(c, r).Value = K8igndeg(readflashbyte((i * 1) + editing_map))
+            Ignitionmapgrid.Item(c, r).Value = K8igndeg(readflashbyte((i * 1) + _editingMap))
             setCellColour(c, r)
 
-            If c < map_number_of_columns - 1 Then
+            If c < _mapNumberOfColumns - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -582,12 +565,13 @@ Public Class BKingIgnitionMap
 
         ' enable automatic map switching when tracing and datastream on
 
-        r = map_number_of_rows
-        c = map_number_of_columns
+        r = _mapNumberOfRows
+        c = _mapNumberOfColumns
 
         r = 0
         rr = 0
-        Do While (r < map_number_of_rows - 1)
+
+        Do While (r < _mapNumberOfRows - 1)
             If RPM >= rr And RPM < Int(Ignitionmapgrid.Rows(r + 1).HeaderCell.Value) Then
                 rr = r
                 r = 256
@@ -603,8 +587,8 @@ Public Class BKingIgnitionMap
         '
         c = 0
         cc = 0
-        If calc_TPS_dec(TPS) < Val(Ignitionmapgrid.Columns.Item(map_number_of_columns - 1).HeaderCell.Value) Then
-            Do While (c < map_number_of_columns - 1)
+        If calc_TPS_dec(TPS) < Val(Ignitionmapgrid.Columns.Item(_mapNumberOfColumns - 1).HeaderCell.Value) Then
+            Do While (c < _mapNumberOfColumns - 1)
                 If calc_TPS_dec(TPS) >= cc And calc_TPS_dec(TPS) < Ignitionmapgrid.Columns.Item(c + 1).HeaderCell.Value Then
                     cc = c
                     c = 256
@@ -614,12 +598,12 @@ Public Class BKingIgnitionMap
                 End If
             Loop
         Else
-            cc = map_number_of_columns - 1
+            cc = _mapNumberOfColumns - 1
         End If
 
-        If rr > map_number_of_rows Then rr = 0
+        If rr > _mapNumberOfRows Then rr = 0
         If rr < 0 Then rr = 0
-        If cc > map_number_of_columns Then cc = 0
+        If cc > _mapNumberOfColumns Then cc = 0
         If cc < 0 Then cc = 0
         If rr <> 0 Or cc <> 0 Then
             Ignitionmapgrid.Item(cc, rr).Style.BackColor = Color.Blue
@@ -649,7 +633,7 @@ Public Class BKingIgnitionMap
             r = Ignitionmapgrid.CurrentRow.Index
             c = Ignitionmapgrid.CurrentCell.ColumnIndex
 
-            diff = K8igndeg(((readflashbyte(editing_map + (1 * (c + (r * map_number_of_columns))))))) - K8igndeg(((readflashbytecopy(editing_map + (1 * (c + (r * map_number_of_columns)))))))
+            diff = K8igndeg(((readflashbyte(_editingMap + (1 * (c + (r * _mapNumberOfColumns))))))) - K8igndeg(((readflashbytecopy(_editingMap + (1 * (c + (r * _mapNumberOfColumns)))))))
 
             T_DEG.Text = Str(diff)
 
@@ -661,9 +645,9 @@ Public Class BKingIgnitionMap
     Public Sub selectmap(ByVal map As Integer)
         Dim cylinder, ms01, modeabc As Integer
         '
-        ' map tracing function to be disabled when map is changed
+        ' map tracing function to be disabled when map is _changed
         '
-        previousrow = 0
+        _previousRow = 0
         '
         ' We assume that ecu is programmed into just using group3 ignition maps. Thats how ecueditor is set
         ' when programming the ecu. If .bin is edited with another methods it may destroy the integrity
@@ -671,11 +655,11 @@ Public Class BKingIgnitionMap
         '
         Select Case map
             Case 1
-                map_structure_table = &H549F4 'group1
+                _mapStructureTable = &H549F4 'group1
                 Me.Text = "ECUeditor - Ignition TPS/RPM map"
                 ms01 = 0            ' 0,1
             Case 2
-                map_structure_table = &H549F4
+                _mapStructureTable = &H549F4
                 Me.Text = "ECUeditor - Ignition MS TPS/RPM map"
                 ms01 = 1            ' 0,1
         End Select
@@ -687,9 +671,9 @@ Public Class BKingIgnitionMap
         '
         cylinder = 1        ' 0,1,2,3
         modeabc = 0         ' 0,1,2
-        editing_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-        map_number_of_columns = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
-        map_number_of_rows = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
+        _editingMap = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+        _mapNumberOfColumns = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+        _mapNumberOfRows = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
 
         '
         ' Initialize map type selected. Copymaps unifies cylinders and modeABC maps. Loadmap brings the map visible.
@@ -703,6 +687,16 @@ Public Class BKingIgnitionMap
         End If
 
         mapvisible = Me.Text
+
+    End Sub
+
+#End Region
+
+#Region "Not Used"
+
+    Private Sub B_print_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+        PrintForm1.Print()
 
     End Sub
 
