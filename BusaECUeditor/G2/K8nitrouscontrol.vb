@@ -209,17 +209,13 @@ Public Class K8nitrouscontrol
             writeflashword(&H41652, &H6818)
             writeflashword(&H416D0, &H4400) ' + 0
             writeflashword(&H416D2, &H5446) ' << 5
-            ' disable DSM1 and set fixed mode A
-            writeflashbyte(&H1D9E7, &HFF) 'dsm1
-            writeflashbyte(&H1DCD7, &HFF) 'dsm1
-            writeflashbyte(&H1DA5B, &HFF) 'dsm2
-            writeflashbyte(&H1DCEF, &HFF) 'dsm2
 
             D_fuel_nitrouscontrol.Visible = True
             ' set ignition retard to read the nitrouscontrol module variable
             writeflashbyte(&H33C22, &H68)
             writeflashbyte(&H33C23, &H56)
 
+            'set fixed modeA
             K8Advsettings.C_ABCmode.Checked = False
 
 
@@ -250,11 +246,7 @@ Public Class K8nitrouscontrol
             writeflashword(&H41652, &H652D)
             writeflashword(&H416D0, &H4480)
             writeflashword(&H416D2, &H5442)
-            ' enable DSM1 and enable ABC
-            writeflashbyte(&H1D9E7, &H2) 'dsm1
-            writeflashbyte(&H1DCD7, &H2) 'dsm1
-            writeflashbyte(&H1DA5B, &H1) 'dsm2
-            writeflashbyte(&H1DCEF, &H1) 'dsm2
+            
             D_fuel_nitrouscontrol.Visible = False
             ' set ignition retard to read the stock variable
             writeflashbyte(&H33C22, &H63)

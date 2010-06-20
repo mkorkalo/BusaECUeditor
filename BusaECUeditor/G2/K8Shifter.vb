@@ -30,7 +30,7 @@ Public Class K8shifter
     Dim IDTAG As Integer = &H55400
     Dim minkillactive As Integer = ADJ + &H16
     Dim killcountdelay As Integer = ADJ + &H18
-    Dim SHIFTER2VERSION As Integer = 203
+    Dim SHIFTER2VERSION As Integer = 204
     Dim shiftercodelenght As Integer = &H55800 - &H55400 - 1 'lenght of the shifter code in bytes for clearing the memory
     Dim timerconst = 1 / 1.28
     Dim initiating As Boolean = True

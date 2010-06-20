@@ -866,9 +866,20 @@ Public Class K8Advsettings
             If C_ABCmode.Checked = True Then
                 C_ABCmode.Text = "ABC mode selectable"
                 writeflashbyte(&H72558, &HFF)
+                ' enable DSM1 and enable ABC
+                writeflashbyte(&H1D9E7, &H2) 'dsm1
+                writeflashbyte(&H1DCD7, &H2) 'dsm1
+                writeflashbyte(&H1DA5B, &H1) 'dsm2
+                writeflashbyte(&H1DCEF, &H1) 'dsm2
             Else
                 C_ABCmode.Text = "ABC mode fixed to A"
                 writeflashbyte(&H72558, &H0)
+                ' disable DSM
+                writeflashbyte(&H1D9E7, &HFF) 'dsm1
+                writeflashbyte(&H1DCD7, &HFF) 'dsm1
+                writeflashbyte(&H1DA5B, &HFF) 'dsm2
+                writeflashbyte(&H1DCEF, &HFF) 'dsm2
+
             End If
         End If
 
