@@ -934,7 +934,7 @@ Public Class main
             Return
         Else
             If MsgBox("Install/reinstall the FTDI USB COM port drivers, press OK or Cancel", MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
-                Shell(Application.StartupPath & "\FTDI_CDM_2.04.16.exe", AppWinStyle.NormalFocus, True, -1)
+                Shell(Application.StartupPath & "\common\FTDI_CDM_2.04.16.exe", AppWinStyle.NormalFocus, True, -1)
                 MsgBox("When drivers are installed, now reboot your computer")
             Else
                 MsgBox("Drivers not installed")
