@@ -280,8 +280,7 @@ Public Class main
         B_EngineData.Enabled = True
 
         ' if the computername does not match to the stored computername, do not use the email address from this map
-        Fuelmap.Close()
-        Ignitionmap.Close()
+        close_child_windows()
 
         MsgBox("A new gen1 basemap is generated", MsgBoxStyle.Information)
 
@@ -355,6 +354,9 @@ Public Class main
     Private Sub NewStockBkingToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockBkingToolStripMenuItem.Click
         Dim defpath As String ' this is for this subroutine only
 
+        close_child_windows()
+
+
         ' OK, so the file is found, now lets start processing it
         defpath = My.Application.Info.DirectoryPath & "\ecu.bin\bking.bin"
 
@@ -418,6 +420,9 @@ Public Class main
 
     Private Sub NewStockBkingUSToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockBkingUSToolStripMenuItem.Click
         Dim defpath As String ' this is for this subroutine only
+
+        close_child_windows()
+
 
         ' OK, so the file is found, now lets start processing it
         defpath = My.Application.Info.DirectoryPath & "\ecu.bin\BkingUS.bin"
@@ -490,6 +495,8 @@ Public Class main
         fdlg.FilterIndex = 1
         fdlg.RestoreDirectory = True
         fdlg.FileName = path
+
+        close_child_windows()
 
         If fdlg.ShowDialog() = Windows.Forms.DialogResult.OK Then
 
@@ -730,6 +737,8 @@ Public Class main
         ' to the previous maps
         Dim fdlg As OpenFileDialog = New OpenFileDialog()
         Dim fs As FileStream
+
+        close_child_windows()
 
         Select Case ECUversion
             Case "gen1"
@@ -1037,6 +1046,11 @@ Public Class main
     End Sub
 
     Private Sub close_child_windows()
+        '
+        ' This sub closes all open windows that are closeable. Did not get MDI thread working properly so using just vb close instead
+        '
+
+        'gen2
         K8Advsettings.Close()
         K8boostfuel.Close()
         K8Fuelmap.Close()
@@ -1047,6 +1061,22 @@ Public Class main
         K8injectorbalancemap.Close()
         K8dwellignition.Close()
         K8STPmap.Close()
+        K8Limiters.Close()
+
+        'gen1 
+        Fuelmap.Close()
+        Ignitionmap.Close()
+        Advsettings.Close()
+        shifter.Close()
+        Limiters.Close()
+
+        'BKing
+        BKingFuelMap.Close()
+        BKingIgnitionMap.Close()
+        BKingAdvSettings.Close()
+        BKingShifter.Close()
+        BKingLimiters.Close()
+
     End Sub
 
     Private Sub flashtheecu()
