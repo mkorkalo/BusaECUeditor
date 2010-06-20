@@ -12,6 +12,7 @@
     <EnableSecurityDebugging>false</EnableSecurityDebugging>
     <ErrorReportUrlHistory>
     </ErrorReportUrlHistory>
+    <ReferencePath>C:\Users\PetriK\Desktop\ecueditor2.4\BusaECUeditor\dlls\</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
