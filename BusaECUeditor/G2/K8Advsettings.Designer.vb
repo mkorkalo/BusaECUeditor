@@ -39,9 +39,8 @@ Partial Class K8Advsettings
         Me.C_ICS = New System.Windows.Forms.CheckBox
         Me.Button4 = New System.Windows.Forms.Button
         Me.C_coil_fi_disable = New System.Windows.Forms.CheckBox
+        Me.C_coolingfan = New System.Windows.Forms.CheckBox
         Me.B_ramairadjust = New System.Windows.Forms.Button
-        Me.C_bking_gauge = New System.Windows.Forms.CheckBox
-        Me.Label5 = New System.Windows.Forms.Label
         Me.GroupBox6 = New System.Windows.Forms.GroupBox
         Me.C_PAIR = New System.Windows.Forms.CheckBox
         Me.B_boostfuel = New System.Windows.Forms.Button
@@ -67,7 +66,6 @@ Partial Class K8Advsettings
         Me.GroupBox4 = New System.Windows.Forms.GroupBox
         Me.GroupBox7 = New System.Windows.Forms.GroupBox
         Me.C_ABCmode = New System.Windows.Forms.CheckBox
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -270,6 +268,17 @@ Partial Class K8Advsettings
         Me.ToolTip1.SetToolTip(Me.C_coil_fi_disable, resources.GetString("C_coil_fi_disable.ToolTip"))
         Me.C_coil_fi_disable.UseVisualStyleBackColor = True
         '
+        'C_coolingfan
+        '
+        Me.C_coolingfan.AutoSize = True
+        Me.C_coolingfan.Location = New System.Drawing.Point(10, 157)
+        Me.C_coolingfan.Name = "C_coolingfan"
+        Me.C_coolingfan.Size = New System.Drawing.Size(113, 17)
+        Me.C_coolingfan.TabIndex = 7
+        Me.C_coolingfan.Text = "Cooling fan normal"
+        Me.ToolTip1.SetToolTip(Me.C_coolingfan, resources.GetString("C_coolingfan.ToolTip"))
+        Me.C_coolingfan.UseVisualStyleBackColor = True
+        '
         'B_ramairadjust
         '
         Me.B_ramairadjust.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -279,25 +288,6 @@ Partial Class K8Advsettings
         Me.B_ramairadjust.TabIndex = 2
         Me.B_ramairadjust.Text = "Ramair map"
         Me.B_ramairadjust.UseVisualStyleBackColor = True
-        '
-        'C_bking_gauge
-        '
-        Me.C_bking_gauge.AutoSize = True
-        Me.C_bking_gauge.Location = New System.Drawing.Point(125, 47)
-        Me.C_bking_gauge.Name = "C_bking_gauge"
-        Me.C_bking_gauge.Size = New System.Drawing.Size(67, 17)
-        Me.C_bking_gauge.TabIndex = 9
-        Me.C_bking_gauge.Text = "ON/OFF"
-        Me.C_bking_gauge.UseVisualStyleBackColor = True
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(2, 51)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(115, 13)
-        Me.Label5.TabIndex = 8
-        Me.Label5.Text = "Bking gauge emulation"
         '
         'GroupBox6
         '
@@ -335,13 +325,11 @@ Partial Class K8Advsettings
         '
         Me.GroupBox5.Controls.Add(Me.Label8)
         Me.GroupBox5.Controls.Add(Me.Label1)
-        Me.GroupBox5.Controls.Add(Me.Label6)
-        Me.GroupBox5.Controls.Add(Me.C_secsize)
         Me.GroupBox5.Controls.Add(Me.Button2)
         Me.GroupBox5.Controls.Add(Me.B_boostfuel)
         Me.GroupBox5.Location = New System.Drawing.Point(189, 68)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(213, 110)
+        Me.GroupBox5.Size = New System.Drawing.Size(213, 85)
         Me.GroupBox5.TabIndex = 40
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Powertools"
@@ -367,7 +355,7 @@ Partial Class K8Advsettings
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(7, 77)
+        Me.Label6.Location = New System.Drawing.Point(6, 39)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(87, 13)
         Me.Label6.TabIndex = 0
@@ -378,7 +366,7 @@ Partial Class K8Advsettings
         Me.C_secsize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.C_secsize.Enabled = False
         Me.C_secsize.FormattingEnabled = True
-        Me.C_secsize.Location = New System.Drawing.Point(111, 74)
+        Me.C_secsize.Location = New System.Drawing.Point(99, 39)
         Me.C_secsize.Name = "C_secsize"
         Me.C_secsize.Size = New System.Drawing.Size(81, 21)
         Me.C_secsize.TabIndex = 10
@@ -407,16 +395,16 @@ Partial Class K8Advsettings
         Me.GroupBox8.Controls.Add(Me.Label4)
         Me.GroupBox8.Controls.Add(Me.Label2)
         Me.GroupBox8.Controls.Add(Me.T_hexaddr)
-        Me.GroupBox8.Location = New System.Drawing.Point(15, 353)
+        Me.GroupBox8.Location = New System.Drawing.Point(15, 356)
         Me.GroupBox8.Name = "GroupBox8"
-        Me.GroupBox8.Size = New System.Drawing.Size(364, 65)
+        Me.GroupBox8.Size = New System.Drawing.Size(386, 65)
         Me.GroupBox8.TabIndex = 42
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "Setbyte"
         '
         'B_WRITE
         '
-        Me.B_WRITE.Location = New System.Drawing.Point(254, 31)
+        Me.B_WRITE.Location = New System.Drawing.Point(279, 31)
         Me.B_WRITE.Name = "B_WRITE"
         Me.B_WRITE.Size = New System.Drawing.Size(82, 23)
         Me.B_WRITE.TabIndex = 4
@@ -425,7 +413,7 @@ Partial Class K8Advsettings
         '
         'T_hexvaluehi
         '
-        Me.T_hexvaluehi.Location = New System.Drawing.Point(174, 34)
+        Me.T_hexvaluehi.Location = New System.Drawing.Point(182, 34)
         Me.T_hexvaluehi.Name = "T_hexvaluehi"
         Me.T_hexvaluehi.Size = New System.Drawing.Size(46, 20)
         Me.T_hexvaluehi.TabIndex = 3
@@ -433,7 +421,7 @@ Partial Class K8Advsettings
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(171, 16)
+        Me.Label4.Location = New System.Drawing.Point(180, 16)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(60, 13)
         Me.Label4.TabIndex = 2
@@ -442,7 +430,7 @@ Partial Class K8Advsettings
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(19, 16)
+        Me.Label2.Location = New System.Drawing.Point(6, 16)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(71, 13)
         Me.Label2.TabIndex = 1
@@ -450,7 +438,7 @@ Partial Class K8Advsettings
         '
         'T_hexaddr
         '
-        Me.T_hexaddr.Location = New System.Drawing.Point(17, 34)
+        Me.T_hexaddr.Location = New System.Drawing.Point(5, 34)
         Me.T_hexaddr.Name = "T_hexaddr"
         Me.T_hexaddr.Size = New System.Drawing.Size(129, 20)
         Me.T_hexaddr.TabIndex = 0
@@ -467,6 +455,7 @@ Partial Class K8Advsettings
         '
         'GroupBox9
         '
+        Me.GroupBox9.Controls.Add(Me.C_coolingfan)
         Me.GroupBox9.Controls.Add(Me.C_coil_fi_disable)
         Me.GroupBox9.Controls.Add(Me.Button4)
         Me.GroupBox9.Controls.Add(Me.Label11)
@@ -476,9 +465,9 @@ Partial Class K8Advsettings
         Me.GroupBox9.Controls.Add(Me.Label9)
         Me.GroupBox9.Controls.Add(Me.Button1)
         Me.GroupBox9.Controls.Add(Me.Label7)
-        Me.GroupBox9.Location = New System.Drawing.Point(188, 184)
+        Me.GroupBox9.Location = New System.Drawing.Point(188, 162)
         Me.GroupBox9.Name = "GroupBox9"
-        Me.GroupBox9.Size = New System.Drawing.Size(214, 164)
+        Me.GroupBox9.Size = New System.Drawing.Size(214, 188)
         Me.GroupBox9.TabIndex = 44
         Me.GroupBox9.TabStop = False
         Me.GroupBox9.Text = "Misc maps"
@@ -522,14 +511,14 @@ Partial Class K8Advsettings
         'GroupBox4
         '
         Me.GroupBox4.Controls.Add(Me.C_COV)
-        Me.GroupBox4.Controls.Add(Me.Label5)
-        Me.GroupBox4.Controls.Add(Me.C_bking_gauge)
-        Me.GroupBox4.Location = New System.Drawing.Point(33, 462)
+        Me.GroupBox4.Controls.Add(Me.Label6)
+        Me.GroupBox4.Controls.Add(Me.C_secsize)
+        Me.GroupBox4.Location = New System.Drawing.Point(16, 462)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(223, 121)
+        Me.GroupBox4.Size = New System.Drawing.Size(387, 114)
         Me.GroupBox4.TabIndex = 45
         Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Misc"
+        Me.GroupBox4.Text = "Just for testing"
         '
         'GroupBox7
         '
@@ -537,7 +526,7 @@ Partial Class K8Advsettings
         Me.GroupBox7.Controls.Add(Me.C_ICS)
         Me.GroupBox7.Location = New System.Drawing.Point(15, 278)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(148, 70)
+        Me.GroupBox7.Size = New System.Drawing.Size(148, 72)
         Me.GroupBox7.TabIndex = 46
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Misc settings"
@@ -552,23 +541,11 @@ Partial Class K8Advsettings
         Me.C_ABCmode.Text = "ABC fixed to A"
         Me.C_ABCmode.UseVisualStyleBackColor = True
         '
-        'CheckBox1
-        '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(222, 439)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(155, 17)
-        Me.CheckBox1.TabIndex = 7
-        Me.CheckBox1.Text = "Coil FI disabled for NLR sim"
-        Me.ToolTip1.SetToolTip(Me.CheckBox1, resources.GetString("CheckBox1.ToolTip"))
-        Me.CheckBox1.UseVisualStyleBackColor = True
-        '
         'K8Advsettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(503, 595)
-        Me.Controls.Add(Me.CheckBox1)
+        Me.ClientSize = New System.Drawing.Size(420, 435)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox9)
@@ -603,7 +580,6 @@ Partial Class K8Advsettings
         Me.GroupBox7.ResumeLayout(False)
         Me.GroupBox7.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
@@ -628,8 +604,6 @@ Partial Class K8Advsettings
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents T_hexaddr As System.Windows.Forms.TextBox
     Friend WithEvents B_WRITE As System.Windows.Forms.Button
-    Friend WithEvents C_bking_gauge As System.Windows.Forms.CheckBox
-    Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents C_HOX As System.Windows.Forms.CheckBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents C_secsize As System.Windows.Forms.ComboBox
@@ -652,5 +626,5 @@ Partial Class K8Advsettings
     Friend WithEvents Button4 As System.Windows.Forms.Button
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents C_coil_fi_disable As System.Windows.Forms.CheckBox
-    Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
+    Friend WithEvents C_coolingfan As System.Windows.Forms.CheckBox
 End Class

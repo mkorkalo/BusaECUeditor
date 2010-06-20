@@ -173,14 +173,6 @@ Public Class K8Advsettings
         C_ECU.Enabled = True
 
 
-        If readflashbyte(&H138F7) = &H94 Then
-            C_bking_gauge.Checked = False
-            C_bking_gauge.Text = "OFF"
-        Else
-            C_bking_gauge.Checked = True
-            C_bking_gauge.Text = "ON"
-        End If
-
         If readflashbyte(&H73B5D) = &H80 Then
             C_HOX.Text = "HOX sensor ON"
             C_HOX.Checked = True
@@ -239,6 +231,15 @@ Public Class K8Advsettings
             C_coil_fi_disable.Checked = False
             writeflashbyte(&H72B00, &HFF)
         End If
+
+        If readflashbyte(&H7D138) = 0 Then
+            C_coolingfan.Text = "Cooling fan FI disabled"
+            writeflashbyte(&H7D138, &H0)
+        Else
+            C_coolingfan.Text = "Cooling fan normal"
+            writeflashbyte(&H7D138, &HFF)
+        End If
+
 
         loading = False
 
@@ -744,23 +745,6 @@ Public Class K8Advsettings
 
   
   
-
-    Private Sub C_bking_gauge_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_bking_gauge.CheckedChanged
-        If Not loading Then
-
-            If C_bking_gauge.Checked = True Then
-                MsgBox("This is an untested feature released for testing only")
-                C_bking_gauge.Text = "ON"
-                writeflashbyte(&H137CF, &H9) 'lenght of gaugedata string
-                writeflashbyte(&H138F7, &H96) 'address of checksum byte
-            Else
-                C_bking_gauge.Text = "OFF"
-                writeflashbyte(&H137CF, &H7) 'lenght of gaugedata string
-                writeflashbyte(&H138F7, &H94) 'address of checksum byte
-            End If
-        End If
-    End Sub
-
     Private Sub C_HOX_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_HOX.CheckedChanged
         If Not loading Then
             If C_HOX.Checked = True Then
@@ -909,7 +893,16 @@ Public Class K8Advsettings
 
     End Sub
 
-    Private Sub CheckBox1_CheckedChanged_2(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBox1.CheckedChanged
-        'täshän kohta koodia
+    Private Sub CheckBox1_CheckedChanged_2(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_coolingfan.CheckedChanged
+        If Not loading Then
+            If C_coolingfan.Checked = True Then
+                C_coolingfan.Text = "Cooling fan FI disabled"
+                writeflashbyte(&H7D138, &H0)
+            Else
+                C_coolingfan.Text = "Cooling fan normal"
+                writeflashbyte(&H7D138, &HFF)
+            End If
+        End If
+
     End Sub
 End Class
