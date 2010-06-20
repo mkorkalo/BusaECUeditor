@@ -13,7 +13,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("Hayabusa ECUeditor")> 
 <Assembly: AssemblyDescription("gen1 K2-K7, gen2 K8- , Bking")> 
 <Assembly: AssemblyCompany("by PetriK")> 
-<Assembly: AssemblyProduct("Hayabusa ECUeditor v2.3")> 
+<Assembly: AssemblyProduct("Hayabusa ECUeditor v2.4")> 
 <Assembly: AssemblyCopyright("Copyright © PetriK 2008-2010")> 
 <Assembly: AssemblyTrademark("")> 
 
@@ -33,7 +33,7 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("2.3.23.0")> 
-<Assembly: AssemblyFileVersion("2.3.23.0")> 
+<Assembly: AssemblyVersion("2.4.0.0")> 
+<Assembly: AssemblyFileVersion("2.4.0.0")> 
 
 <Assembly: NeutralResourcesLanguageAttribute("en")> 
