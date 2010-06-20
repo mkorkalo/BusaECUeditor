@@ -908,4 +908,8 @@ Public Class K8Advsettings
         End If
 
     End Sub
+
+    Private Sub CheckBox1_CheckedChanged_2(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBox1.CheckedChanged
+        'täshän kohta koodia
+    End Sub
 End Class

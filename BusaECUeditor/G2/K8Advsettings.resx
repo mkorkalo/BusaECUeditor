@@ -224,6 +224,13 @@ making the installation simplier and less fault prone.
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>25</value>
   </metadata>
+  <data name="CheckBox1.ToolTip" xml:space="preserve">
+    <value>With this setting active you can disable the coil FI. If e.g. an aftermarket ignition module like NLR SIM is used,
+ecu will set a fault code making the engine loose power and ultimately preventing it to run. With the setting active
+coil errors are disabled and you can run aftermarket ignition module like NLR SIM without extra dummy coil loads
+making the installation simplier and less fault prone.
+</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
