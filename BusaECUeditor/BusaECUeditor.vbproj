@@ -45,7 +45,6 @@
     <ProductName>Hayabusa ECUeditor for K2-K7, K8- and BKing models</ProductName>
     <PublisherName>PetriK</PublisherName>
     <MinimumRequiredVersion>2.4.0.0</MinimumRequiredVersion>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>ecueditor_prerelease.htm</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
     <ApplicationRevision>8</ApplicationRevision>
@@ -77,23 +76,53 @@
   <ItemGroup>
     <Reference Include="AGauge, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\AGauge.dll</HintPath>
+      <HintPath>dlls\AGauge.dll</HintPath>
     </Reference>
     <Reference Include="AquaGauge, Version=1.0.2800.27798, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>.\AquaGauge.dll</HintPath>
+      <HintPath>dlls\AquaGauge.dll</HintPath>
     </Reference>
-    <Reference Include="AxInterop.ECHARTCONTROLLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL" />
-    <Reference Include="AxInterop.Graph, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL" />
-    <Reference Include="AxInterop.MTSSDKLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL" />
-    <Reference Include="AxInterop.NTGRAPH3DLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL" />
-    <Reference Include="Lxsoft.Controls.LedControl, Version=1.0.2755.28697, Culture=neutral, PublicKeyToken=ab1b2a8e4bff52ad, processorArchitecture=MSIL" />
+    <Reference Include="AxInterop.ECHARTCONTROLLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
+      <HintPath>dlls\AxInterop.ECHARTCONTROLLib.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.Graph, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
+      <HintPath>dlls\AxInterop.Graph.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.MTSSDKLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
+      <HintPath>dlls\AxInterop.MTSSDKLib.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.NTGRAPH3DLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
+      <HintPath>dlls\AxInterop.NTGRAPH3DLib.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.XEDECTRLLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dlls\AxInterop.XEDECTRLLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.Graph, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dlls\Interop.Graph.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.MTSSDKLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dlls\Interop.MTSSDKLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.NTGRAPH3DLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dlls\Interop.NTGRAPH3DLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.XEDECTRLLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dlls\Interop.XEDECTRLLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Lxsoft.Controls.LedControl, Version=1.0.2755.28697, Culture=neutral, PublicKeyToken=ab1b2a8e4bff52ad, processorArchitecture=MSIL">
+      <HintPath>dlls\Lxsoft.Controls.LedControl.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="SpPerfChart, Version=1.0.2595.43101, Culture=neutral, PublicKeyToken=5f66223a893f5e2f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\SpPerfChart.dll</HintPath>
+      <HintPath>dlls\SpPerfChart.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Design" />

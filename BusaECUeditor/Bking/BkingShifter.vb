@@ -52,16 +52,16 @@ Public Class BKingShifter
 
         If (readflashbyte(_ADJ) = &HFF) Then
             C_shifter_activation.Checked = False
-            hide_shifter_settings()
+            HideShifterSettings()
         Else
             C_shifter_activation.Checked = True
-            read_shifter_settings()
-            shifter_code_in_memory(True, _shifterCodeLength)
+            ReadShifterSettings()
+            ShifterCodeInMemory(True, _shifterCodeLength)
 
             If (readflashword(_IDTAG) <> _shifter2Version) Then
                 MsgBox("Shifter code incompatible with this version, please reactivate the shifter on this map")
                 C_shifter_activation.Checked = False
-                hide_shifter_settings()
+                HideShifterSettings()
             End If
         End If
 
@@ -113,18 +113,18 @@ Public Class BKingShifter
             C_shifter_activation.Text = "Shifter active"
 
             If (readflashbyte(_ADJ) = &HFF) Then
-                modify_original_ECU_code(True)
-                shifter_code_in_memory(True, _shifterCodeLength)
+                ModifyOriginalECUCode(True)
+                ShifterCodeInMemory(True, _shifterCodeLength)
             End If
 
-            read_shifter_settings()
+            ReadShifterSettings()
 
         Else
 
             C_shifter_activation.Text = "Shifter not active"
-            modify_original_ECU_code(False)
-            shifter_code_in_memory(False, _shifterCodeLength)
-            hide_shifter_settings()
+            ModifyOriginalECUCode(False)
+            ShifterCodeInMemory(False, _shifterCodeLength)
+            HideShifterSettings()
 
         End If
 
@@ -195,7 +195,7 @@ Public Class BKingShifter
 
 #Region "Functions"
 
-    Private Sub modify_original_ECU_code(ByVal method As Boolean)
+    Private Sub ModifyOriginalECUCode(ByVal method As Boolean)
         Dim pcdisp As Integer
 
         If method Then
@@ -223,7 +223,7 @@ Public Class BKingShifter
         End If
     End Sub
 
-    Private Sub shifter_code_in_memory(ByVal method As Boolean, ByVal length As Integer)
+    Private Sub ShifterCodeInMemory(ByVal method As Boolean, ByVal length As Integer)
 
         Dim i As Integer
         Dim fs As FileStream
@@ -265,7 +265,7 @@ Public Class BKingShifter
         End If
     End Sub
 
-    Private Sub read_shifter_settings()
+    Private Sub ReadShifterSettings()
 
         T_Gear1.Visible = True
         T_Gear2.Visible = True
@@ -306,7 +306,7 @@ Public Class BKingShifter
 
     End Sub
 
-    Private Sub hide_shifter_settings()
+    Private Sub HideShifterSettings()
 
         T_Gear1.Visible = False
         T_Gear2.Visible = False
