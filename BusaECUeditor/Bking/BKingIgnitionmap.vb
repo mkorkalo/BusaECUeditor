@@ -105,10 +105,10 @@ Public Class BKingIgnitionMap
         Select Case e.KeyChar
             Case "+"
                 IncreaseSelectedCells()
-                show_values()
+                ShowValues()
             Case "-"
                 DecreaseSelectedCells()
-                show_values()
+                ShowValues()
             Case "0"
                 selectmap(1)
             Case "1"
@@ -130,13 +130,13 @@ Public Class BKingIgnitionMap
 
     Private Sub Ignitionmapgrid_MouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Ignitionmapgrid.MouseClick
 
-        show_values()
+        ShowValues()
 
     End Sub
 
     Private Sub Ignitionmapgrid_CellEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles Ignitionmapgrid.CellEnter
 
-        show_values()
+        ShowValues()
 
     End Sub
 
@@ -190,13 +190,13 @@ Public Class BKingIgnitionMap
 
     Private Sub B_MS0_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_MS0.Click
 
-        selectmap(1)
+        SelectMap(1)
 
     End Sub
 
     Private Sub B_MS1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_MS1.Click
 
-        selectmap(2)
+        SelectMap(2)
 
     End Sub
 
@@ -204,7 +204,7 @@ Public Class BKingIgnitionMap
 
 #Region "Functions"
 
-    Public Function K8igndeg(ByVal i As Integer)
+    Public Function K8IgnDeg(ByVal i As Integer)
 
         Dim tmp As Integer
         tmp = (0.4 * i) - 12.5
@@ -212,7 +212,7 @@ Public Class BKingIgnitionMap
 
     End Function
 
-    Private Function K8igndeg_toecuval(ByVal i As Integer)
+    Private Function K8IgnDegToECUVal(ByVal i As Integer)
 
         Dim tmp As Integer
         tmp = (i + 12.5) / 0.4
@@ -246,7 +246,7 @@ Public Class BKingIgnitionMap
             If Ignitionmapgrid.Item(c, r).Selected And n > 0 Then
                 Ignitionmapgrid.Item(c, r).Value = Ignitionmapgrid.Item(c, r).Value - decrease
                 SetFlashItem(c, r)
-                setCellColour(c, r)
+                SetCellColour(c, r)
                 n = n - 1
             End If
 
@@ -260,7 +260,7 @@ Public Class BKingIgnitionMap
         Loop
     End Sub
 
-    Private Sub setCellColour(ByVal c As Integer, ByVal r As Integer)
+    Private Sub SetCellColour(ByVal c As Integer, ByVal r As Integer)
         '
         ' this subroutine compares the cell value to the value of the flash image initially read from the disk with open file
         ' and sets cell colour accordingly based on that comparison
@@ -302,7 +302,7 @@ Public Class BKingIgnitionMap
             If Ignitionmapgrid.Item(c, r).Selected And n > 0 Then
                 Ignitionmapgrid.Item(c, r).Value = Ignitionmapgrid.Item(c, r).Value + increase
                 SetFlashItem(c, r)
-                setCellColour(c, r)
+                SetCellColour(c, r)
                 n = n - 1
             End If
 
@@ -363,7 +363,7 @@ Public Class BKingIgnitionMap
                 For ms01 = 1 To 1
                     For modeabc = 0 To 2
                         copy_to_map = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        writeflashbyte(copy_to_map + (1 * (c + (r * number_of_columns))), K8igndeg_toecuval(m1))
+                        writeflashbyte(copy_to_map + (1 * (c + (r * number_of_columns))), K8IgnDegToECUVal(m1))
                     Next
                 Next
             Next
@@ -379,14 +379,14 @@ Public Class BKingIgnitionMap
                 For ms01 = 0 To 0
                     For modeabc = 0 To 2
                         copy_to_map = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        writeflashbyte(copy_to_map + (1 * (c + (r * number_of_columns))), K8igndeg_toecuval(m1))
+                        writeflashbyte(copy_to_map + (1 * (c + (r * number_of_columns))), K8IgnDegToECUVal(m1))
                     Next
                 Next
             Next
         End If
     End Sub
 
-    Private Sub copymaps(ByVal i As Integer)
+    Private Sub CopyMaps(ByVal i As Integer)
         '
         ' copy map contents to all cylinders and modeABC groups, depending on parameter only ms0 or ms1 or both ms0 and ms1
         '
@@ -449,7 +449,7 @@ Public Class BKingIgnitionMap
 
     End Sub
 
-    Public Sub loadmap(ByVal ms01 As Integer)
+    Public Sub LoadMap(ByVal ms01 As Integer)
         '
         ' This function loads a map into a grid including map contents and heading information
         '
@@ -513,7 +513,7 @@ Public Class BKingIgnitionMap
         Do While (r < _mapNumberOfRows)
 
             Ignitionmapgrid.Item(c, r).Value = K8igndeg(readflashbyte((i * 1) + _editingMap))
-            setCellColour(c, r)
+            SetCellColour(c, r)
 
             If c < _mapNumberOfColumns - 1 Then
                 c = c + 1
@@ -536,15 +536,15 @@ Public Class BKingIgnitionMap
         ' 
         '
         If Me.Text.Contains("MS") Then
-            copymaps(1)
+            CopyMaps(1)
         Else
-            copymaps(0)
+            CopyMaps(0)
         End If
 
 
     End Sub
 
-    Public Sub tracemap()
+    Public Sub TraceMap()
         '
         ' based on enginedata show the position on the map and trace which cell is being accessed by ecu (almost)
         '
@@ -555,13 +555,13 @@ Public Class BKingIgnitionMap
         ' Lets select the map based on MS switch position for tracing and make sure that the correct map is visible when tracing
         '
         If Me.Text.Contains("MS") And MS = 0 Then
-            selectmap(MS + 1)
+            SelectMap(MS + 1)
         End If
         If (Not Me.Text.Contains("MS")) And MS = 1 Then
-            selectmap(MS + 1)
+            SelectMap(MS + 1)
         End If
 
-        setCellColour(cc, rr)
+        SetCellColour(cc, rr)
 
         ' enable automatic map switching when tracing and datastream on
 
@@ -608,11 +608,11 @@ Public Class BKingIgnitionMap
         If rr <> 0 Or cc <> 0 Then
             Ignitionmapgrid.Item(cc, rr).Style.BackColor = Color.Blue
         Else
-            setCellColour(cc, rr)
+            SetCellColour(cc, rr)
         End If
     End Sub
 
-    Private Sub show_values()
+    Private Sub ShowValues()
         Dim istr As String
         Dim r As Integer
         Dim c As Integer
@@ -642,7 +642,7 @@ Public Class BKingIgnitionMap
 
     End Sub
 
-    Public Sub selectmap(ByVal map As Integer)
+    Public Sub SelectMap(ByVal map As Integer)
         Dim cylinder, ms01, modeabc As Integer
         '
         ' map tracing function to be disabled when map is _changed
@@ -676,14 +676,14 @@ Public Class BKingIgnitionMap
         _mapNumberOfRows = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
 
         '
-        ' Initialize map type selected. Copymaps unifies cylinders and modeABC maps. Loadmap brings the map visible.
+        ' Initialize map type selected. CopyMaps unifies cylinders and modeABC maps. LoadMap brings the map visible.
         '
         If Me.Text.Contains("MS") Then
-            loadmap(1)
-            copymaps(1)
+            LoadMap(1)
+            CopyMaps(1)
         Else
-            loadmap(0)
-            copymaps(0)
+            LoadMap(0)
+            CopyMaps(0)
         End If
 
         mapvisible = Me.Text
