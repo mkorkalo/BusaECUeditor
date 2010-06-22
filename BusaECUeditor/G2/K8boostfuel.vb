@@ -1115,4 +1115,5 @@ Public Class K8boostfuel
         End If
 
     End Sub
+
 End Class
