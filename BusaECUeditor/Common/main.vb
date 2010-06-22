@@ -900,7 +900,7 @@ Public Class main
 
             assembly = System.Reflection.Assembly.GetExecutingAssembly()
 
-            strVersion = assembly.GetName.Version.Major & "." & assembly.GetName.Version.Minor & "." & assembly.GetName.Version.Build
+            strVersion = assembly.GetName.Version.Major & "." & assembly.GetName.Version.Minor & "." & assembly.GetName.Version.Build & "." & assembly.GetName.Version.Revision
 
             Dim company As System.Reflection.AssemblyCompanyAttribute
             company = assembly.GetCustomAttributes(GetType(System.Reflection.AssemblyCompanyAttribute), False)(0)

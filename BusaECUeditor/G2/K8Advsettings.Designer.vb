@@ -47,9 +47,9 @@ Partial Class K8Advsettings
         Me.GroupBox5 = New System.Windows.Forms.GroupBox
         Me.Label8 = New System.Windows.Forms.Label
         Me.Label1 = New System.Windows.Forms.Label
+        Me.Button2 = New System.Windows.Forms.Button
         Me.Label6 = New System.Windows.Forms.Label
         Me.C_secsize = New System.Windows.Forms.ComboBox
-        Me.Button2 = New System.Windows.Forms.Button
         Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.GroupBox8 = New System.Windows.Forms.GroupBox
         Me.B_WRITE = New System.Windows.Forms.Button
@@ -276,7 +276,8 @@ Partial Class K8Advsettings
         Me.C_coolingfan.Size = New System.Drawing.Size(113, 17)
         Me.C_coolingfan.TabIndex = 7
         Me.C_coolingfan.Text = "Cooling fan normal"
-        Me.ToolTip1.SetToolTip(Me.C_coolingfan, resources.GetString("C_coolingfan.ToolTip"))
+        Me.ToolTip1.SetToolTip(Me.C_coolingfan, "With this setting you can disable the FI code from a missing cooling fan relay - " & _
+                "only for race purposes.")
         Me.C_coolingfan.UseVisualStyleBackColor = True
         '
         'B_ramairadjust
@@ -352,6 +353,15 @@ Partial Class K8Advsettings
         Me.Label1.TabIndex = 41
         Me.Label1.Text = "Set nitrous fuelling"
         '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(111, 46)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(81, 22)
+        Me.Button2.TabIndex = 40
+        Me.Button2.Text = "Nitrouscontrol"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
         'Label6
         '
         Me.Label6.AutoSize = True
@@ -370,15 +380,6 @@ Partial Class K8Advsettings
         Me.C_secsize.Name = "C_secsize"
         Me.C_secsize.Size = New System.Drawing.Size(81, 21)
         Me.C_secsize.TabIndex = 10
-        '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(111, 46)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(81, 22)
-        Me.Button2.TabIndex = 40
-        Me.Button2.Text = "Nitrouscontrol"
-        Me.Button2.UseVisualStyleBackColor = True
         '
         'PrintForm1
         '
