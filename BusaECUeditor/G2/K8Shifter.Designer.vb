@@ -53,7 +53,7 @@ Partial Class K8shifter
         Me.L_shifterver = New System.Windows.Forms.Label
         Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.HelpProvider1 = New System.Windows.Forms.HelpProvider
-        Me.Label10 = New System.Windows.Forms.Label
+        Me.C_DSMactivation = New System.Windows.Forms.CheckBox
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -176,6 +176,7 @@ Partial Class K8shifter
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.C_DSMactivation)
         Me.GroupBox2.Controls.Add(Me.Label9)
         Me.GroupBox2.Controls.Add(Me.Label8)
         Me.GroupBox2.Controls.Add(Me.Label7)
@@ -199,7 +200,7 @@ Partial Class K8shifter
         Me.GroupBox2.Controls.Add(Me.T_12000)
         Me.GroupBox2.Location = New System.Drawing.Point(13, 45)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(524, 120)
+        Me.GroupBox2.Size = New System.Drawing.Size(524, 129)
         Me.GroupBox2.TabIndex = 41
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Shifter settings"
@@ -336,21 +337,21 @@ Partial Class K8shifter
         Me.PrintForm1.PrinterSettings = CType(resources.GetObject("PrintForm1.PrinterSettings"), System.Drawing.Printing.PrinterSettings)
         Me.PrintForm1.PrintFileName = Nothing
         '
-        'Label10
+        'C_DSMactivation
         '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(186, 168)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(351, 13)
-        Me.Label10.TabIndex = 50
-        Me.Label10.Text = "Gear based shifting unfinished. All gears using same kill time should work."
+        Me.C_DSMactivation.AutoSize = True
+        Me.C_DSMactivation.Location = New System.Drawing.Point(317, 102)
+        Me.C_DSMactivation.Name = "C_DSMactivation"
+        Me.C_DSMactivation.Size = New System.Drawing.Size(157, 17)
+        Me.C_DSMactivation.TabIndex = 50
+        Me.C_DSMactivation.Text = "DSM2 activated shift active"
+        Me.C_DSMactivation.UseVisualStyleBackColor = True
         '
         'K8shifter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(549, 186)
-        Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.L_shifterver)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.Label2)
@@ -406,6 +407,6 @@ Partial Class K8shifter
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents HelpProvider1 As System.Windows.Forms.HelpProvider
-    Friend WithEvents Label10 As System.Windows.Forms.Label
+    Friend WithEvents C_DSMactivation As System.Windows.Forms.CheckBox
 
 End Class
