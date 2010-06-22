@@ -10,8 +10,7 @@
     <VerifyUploadedFiles>true</VerifyUploadedFiles>
     <ProjectView>ShowAllFiles</ProjectView>
     <EnableSecurityDebugging>false</EnableSecurityDebugging>
-    <ErrorReportUrlHistory>
-    </ErrorReportUrlHistory>
+    <ErrorReportUrlHistory>http://bitbucket.org/ecueditor/ecueditor/issues%3fstatus=new</ErrorReportUrlHistory>
     <ReferencePath>C:\Users\PetriK\Desktop\ecueditor2.4\BusaECUeditor\dlls\</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">

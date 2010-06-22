@@ -12,7 +12,7 @@
     <AssemblyName>Hayabusa_ECUeditor</AssemblyName>
     <MyType>WindowsForms</MyType>
     <SignManifests>false</SignManifests>
-    <ManifestCertificateThumbprint>83AE1D7F43FADEE606B79F0D368E0D60765CD0BE</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>A971FC8EB684E9C5154FF7DA720E29BCC7ADB15B</ManifestCertificateThumbprint>
     <ManifestKeyFile>BusaECUeditor_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
     <IsWebBootstrapper>true</IsWebBootstrapper>
@@ -41,15 +41,18 @@
     <InstallUrl>http://macmadigan.no-ip.com/ecueditor2.4/</InstallUrl>
     <UpdateUrl>http://macmadigan.no-ip.com/ecueditor2.4/</UpdateUrl>
     <SupportUrl>http://www.ecueditor.com</SupportUrl>
+    <ErrorReportUrl>http://bitbucket.org/ecueditor/ecueditor/issues%3fstatus=new</ErrorReportUrl>
     <TargetCulture>en</TargetCulture>
     <ProductName>Hayabusa ECUeditor for K2-K7, K8- and BKing models</ProductName>
     <PublisherName>PetriK</PublisherName>
-    <MinimumRequiredVersion>2.4.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>2.3.0.0</MinimumRequiredVersion>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>ecueditor_prerelease.htm</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>8</ApplicationRevision>
+    <ApplicationRevision>23</ApplicationRevision>
     <ApplicationVersion>2.4.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -488,6 +491,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="BusaECUeditor_TemporaryKey.pfx" />
     <None Include="ecu.bin\shifterbking.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -770,16 +774,6 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <PublishFile Include="Hayabusa_ECUeditor.xml">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
     <PublishFile Include="Microsoft.VisualBasic.PowerPacks.Vs">
       <Visible>False</Visible>
       <Group>
@@ -787,6 +781,16 @@
       <TargetPath>
       </TargetPath>
       <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="stdole">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
       <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
