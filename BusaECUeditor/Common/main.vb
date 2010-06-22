@@ -936,7 +936,7 @@ Public Class main
         strPublish = "Publisher"
         strTitle = "DisplayName"
 
-        strEditor = "HKCU\Software\Microsoft\Windows\currentVersion\Uninstall\0683c2c1208fabf1\"
+        strEditor = "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\dde589b887ecb332\"
 
         objShell = CreateObject("WScript.Shell")
 
