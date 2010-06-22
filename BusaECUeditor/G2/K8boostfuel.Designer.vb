@@ -39,13 +39,13 @@ Partial Class K8boostfuel
         Me.C_bleed = New System.Windows.Forms.CheckBox
         Me.Label5 = New System.Windows.Forms.Label
         Me.G_boosttable = New System.Windows.Forms.GroupBox
+        Me.B_Apply_Map = New System.Windows.Forms.Button
         Me.Label6 = New System.Windows.Forms.Label
         Me.T_overboost = New System.Windows.Forms.TextBox
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Label7 = New System.Windows.Forms.Label
         Me.C_fueladd = New System.Windows.Forms.CheckBox
         Me.Button1 = New System.Windows.Forms.Button
-        Me.B_Apply_Map = New System.Windows.Forms.Button
         Me.K8boostfuelBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.D_boostfuel, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_BOOST, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -230,6 +230,15 @@ Partial Class K8boostfuel
         Me.G_boosttable.TabStop = False
         Me.G_boosttable.Text = "Fuel% to add per rpm/boost area"
         '
+        'B_Apply_Map
+        '
+        Me.B_Apply_Map.Location = New System.Drawing.Point(574, 298)
+        Me.B_Apply_Map.Name = "B_Apply_Map"
+        Me.B_Apply_Map.Size = New System.Drawing.Size(82, 21)
+        Me.B_Apply_Map.TabIndex = 87
+        Me.B_Apply_Map.Text = "Apply Map"
+        Me.B_Apply_Map.UseVisualStyleBackColor = True
+        '
         'Label6
         '
         Me.Label6.AutoSize = True
@@ -252,6 +261,12 @@ Partial Class K8boostfuel
         Me.ToolTip1.SetToolTip(Me.T_overboost, "Sets the hardlimit for fuel and ignitioncut based on boost. Use + and - keys to a" & _
                 "djust. Requires shifter module being active.")
         Me.T_overboost.WordWrap = False
+        '
+        'ToolTip1
+        '
+        Me.ToolTip1.AutoPopDelay = 10000
+        Me.ToolTip1.InitialDelay = 500
+        Me.ToolTip1.ReshowDelay = 100
         '
         'Label7
         '
@@ -280,15 +295,6 @@ Partial Class K8boostfuel
         Me.Button1.TabIndex = 86
         Me.Button1.Text = "Help"
         Me.Button1.UseVisualStyleBackColor = True
-        '
-        'B_Apply_Map
-        '
-        Me.B_Apply_Map.Location = New System.Drawing.Point(574, 298)
-        Me.B_Apply_Map.Name = "B_Apply_Map"
-        Me.B_Apply_Map.Size = New System.Drawing.Size(82, 21)
-        Me.B_Apply_Map.TabIndex = 87
-        Me.B_Apply_Map.Text = "Apply Map"
-        Me.B_Apply_Map.UseVisualStyleBackColor = True
         '
         'K8boostfuelBindingSource
         '

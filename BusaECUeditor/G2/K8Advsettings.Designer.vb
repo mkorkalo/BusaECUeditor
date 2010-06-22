@@ -114,6 +114,12 @@ Partial Class K8Advsettings
         Me.ToolTip1.SetToolTip(Me.R_Flash, resources.GetString("R_Flash.ToolTip"))
         Me.R_Flash.UseVisualStyleBackColor = True
         '
+        'ToolTip1
+        '
+        Me.ToolTip1.AutoPopDelay = 10000
+        Me.ToolTip1.InitialDelay = 500
+        Me.ToolTip1.ReshowDelay = 100
+        '
         'GroupBox3
         '
         Me.GroupBox3.Controls.Add(Me.C_ECU)
