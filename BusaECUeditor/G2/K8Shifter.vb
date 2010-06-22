@@ -26,7 +26,7 @@ Imports System.IO
 Public Class K8shifter
     Dim ADJ As Integer = &H55400 '&HFF if shifter inactive, no code present else shifter active
     Dim FUELCODE As Integer = &H55450
-    Dim IGNCODE As Integer = &H55700
+    Dim IGNCODE As Integer = &H55800
     Dim IDTAG As Integer = &H55400
     Dim minkillactive As Integer = ADJ + &H16
     Dim killcountdelay As Integer = ADJ + &H18
@@ -183,6 +183,7 @@ Public Class K8shifter
     End Sub
     Private Sub read_shifter_settings()
 
+        Dim i As Integer
 
         T_12000.Visible = True
         T_11000.Visible = True
@@ -233,7 +234,24 @@ Public Class K8shifter
         C_Fuelcut.Visible = True
         C_igncut.Visible = True
         C_DSMactivation.Visible = True
+        RPM.Visible = True
 
+        'populate RPM with initial value
+        i = readflashword(&H5540E) ' this is the reference RPM that is stored in the system
+        i = i / 2.56
+        i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
+
+        Me.RPM.Items.Add(i.ToString())
+
+        i = 2000
+        Do While i < 13000 ' this is the maximum rpm allowed 
+            Me.RPM.Items.Add(i.ToString())
+            i = i + 100
+        Loop
+        Me.RPM.Items.Add(i.ToString())
+
+        Me.RPM.SelectedIndex = 0
+        Me.RPM.Enabled = True
 
     End Sub
 
@@ -260,6 +278,8 @@ Public Class K8shifter
         C_igncut.Visible = False
 
         C_DSMactivation.Visible = False
+
+        RPM.Visible = False
 
     End Sub
 
@@ -356,5 +376,12 @@ Public Class K8shifter
             writeflashbyte(&H55420, 2)
         End If
 
+    End Sub
+
+    Private Sub RPM_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RPM.SelectedIndexChanged
+        Dim i As Integer
+        i = Val(RPM.Text) * 2.56
+        i = CInt(i / 50) * 50
+        writeflashword(&H5540E, i)
     End Sub
 End Class
