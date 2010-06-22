@@ -215,6 +215,13 @@ Public Class K8shifter
         Else
             C_igncut.Checked = False
         End If
+        If readflashbyte(&H55420) = 0 Then
+            C_DSMactivation.Checked = False
+            C_DSMactivation.Text = "Normal GPS resistor activation"
+        Else
+            C_DSMactivation.Checked = True
+            C_DSMactivation.Text = "GPS resistor and DSM2 activation"
+        End If
 
         L_minkillactive.Visible = True
         L_killcountdelay.Visible = True
@@ -225,6 +232,7 @@ Public Class K8shifter
         C_killtime.Enabled = True
         C_Fuelcut.Visible = True
         C_igncut.Visible = True
+        C_DSMactivation.Visible = True
 
 
     End Sub
@@ -250,6 +258,8 @@ Public Class K8shifter
         L_killcountdelay.Visible = False
         C_Fuelcut.Visible = False
         C_igncut.Visible = False
+
+        C_DSMactivation.Visible = False
 
     End Sub
 
@@ -334,5 +344,17 @@ Public Class K8shifter
         writeflashbyte(&H525C5, &H80)
         writeflashbyte(&H525C6, &H68)
         writeflashbyte(&H525C7, &H65)
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged_2(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_DSMactivation.CheckedChanged
+        If Not C_DSMactivation.Checked Then
+            C_DSMactivation.Text = "Normal GPS resistor activation"
+            writeflashbyte(&H55420, 0)
+        Else
+            If Not C_DSMactivation.Checked Then C_Fuelcut.Checked = True
+            C_DSMactivation.Text = "GPS resistor and DSM2 activation"
+            writeflashbyte(&H55420, 2)
+        End If
+
     End Sub
 End Class
