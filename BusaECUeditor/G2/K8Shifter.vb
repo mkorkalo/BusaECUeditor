@@ -94,7 +94,7 @@ Public Class K8shifter
             read_shifter_settings()
             'shifter_code_in_memory(True, shiftercodelenght)
             If (readflashword(IDTAG) <> SHIFTER2VERSION) Then
-                MsgBox("Shifter code incompatible with this version, please reactivate the shifter on this map")
+                MsgBox("Shifter code incompatible with this version, please reactivate the shifter on this map " & readflashword(IDTAG).ToString)
                 C_shifter_activation.Checked = False
                 hide_shifter_settings()
             End If
@@ -168,7 +168,7 @@ Public Class K8shifter
             fs.Close()
 
             If readflashword(IDTAG) <> SHIFTER2VERSION Then
-                MsgBox("This shifter code is not compatible with this ECUeditor version !!!")
+                MsgBox("This shifter code is not compatible with this ECUeditor version !!! " & readflashword(IDTAG).ToString)
                 For i = 0 To lenght
                     writeflashbyte(i + ADJ, &HFF)
                 Next
