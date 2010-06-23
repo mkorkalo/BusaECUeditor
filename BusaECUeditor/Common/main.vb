@@ -112,7 +112,6 @@ Public Class main
                 K8Fuelmap.Select()
             Case "bking"
                 BKingFuelMap.Show()
-                MsgBox("Please note, currently BKing fuel map tuning is under testing, any comments and feedback appreciated. Rgds, PetriK")
                 BKingFuelMap.Select()
             Case Else
                 MsgBox("Feature not yet implemented")
@@ -880,76 +879,67 @@ Public Class main
 
     End Sub
 
-    'Private Sub VersionToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VersionToolStripMenuItem.Click
-    ' Option Explicit
-    'Dim objShell
-    'Dim strEditor, strVersion, strPublish, strTitle
-    '
-    '   strVersion = "DisplayVersion"
-    '  strPublish = "Publisher"
-    ' strTitle = "DisplayName"
-    '
-    '   strEditor = "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\dde589b887ecb332\"
-    '
-    '   Try
-    '
-    '
-    'objShell = CreateObject("WScript.Shell")
-
-    'Dim assembly As System.Reflection.Assembly
-
-    '       assembly = System.Reflection.Assembly.GetExecutingAssembly()
-    '
-    '       strVersion = assembly.GetName.Version.Major & "." & assembly.GetName.Version.Minor & "." & assembly.GetName.Version.Build & "." & assembly.GetName.Version.Revision
-    '
-    'Dim company As System.Reflection.AssemblyCompanyAttribute
-    '       company = assembly.GetCustomAttributes(GetType(System.Reflection.AssemblyCompanyAttribute), False)(0)
-    '        strPublish = company.Company
-    '
-    'Dim title As System.Reflection.AssemblyTitleAttribute
-    '       title = assembly.GetCustomAttributes(GetType(System.Reflection.AssemblyTitleAttribute), False)(0)
-    '
-    '       strTitle = title.Title
-    '
-    'strVersion = objShell.RegRead(strEditor & strVersion)
-    'strPublish = objShell.RegRead(strEditor & strPublish)
-    'strTitle = objShell.RegRead(strEditor & strTitle)
-    '
-    '   Catch ex As Exception
-    '
-    '       MsgBox(ex.Message, MsgBoxStyle.OkOnly, "Error")
-    '
-    '   End Try
-    '
-    'Wscript.Echo "ECUeditor Version: " & vbTab & strVersion & vbCr _
-    '   MsgBox(vbTab & vbTab & "ECUeditor Version: " & vbTab & strVersion & vbCr _
-    '  & vbCr & vbTab & vbTab & "         Publisher: " & strPublish & vbCr & vbTab & vbTab & " Version info displayed thanks to Eric. " & vbCr, 0, strTitle)
-    '
-    'End Sub
-
     Private Sub VersionToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VersionToolStripMenuItem.Click
-        ' Option Explicit
-        Dim objShell
-        Dim strEditor, strVersion, strPublish, strTitle
+        Dim strVersion As String
+        Dim strPublish As String
+        Dim strTitle As String
 
         strVersion = "DisplayVersion"
         strPublish = "Publisher"
         strTitle = "DisplayName"
 
-        strEditor = "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\dde589b887ecb332\"
+        Dim assembly As System.Reflection.Assembly
+        assembly = System.Reflection.Assembly.GetExecutingAssembly()
 
-        objShell = CreateObject("WScript.Shell")
+        If (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed) Then
+            Dim currentVersion As System.Version
+            currentVersion = My.Application.Deployment.CurrentVersion
+            strVersion = currentVersion.ToString()
+        Else
+            strVersion = assembly.GetName.Version.Major & "." & assembly.GetName.Version.Minor & "." & assembly.GetName.Version.Build & "." & assembly.GetName.Version.Revision
+        End If
 
-        strVersion = objShell.RegRead(strEditor & strVersion)
-        strPublish = objShell.RegRead(strEditor & strPublish)
-        strTitle = objShell.RegRead(strEditor & strTitle)
+        Dim company As System.Reflection.AssemblyCompanyAttribute
+        company = assembly.GetCustomAttributes(GetType(System.Reflection.AssemblyCompanyAttribute), False)(0)
+        strPublish = company.Company
 
+        Dim title As System.Reflection.AssemblyTitleAttribute
+        title = assembly.GetCustomAttributes(GetType(System.Reflection.AssemblyTitleAttribute), False)(0)
+        strTitle = title.Title
 
-        'Wscript.Echo "ECUeditor Version: " & vbTab & strVersion & vbCr _
+        Dim description As System.Reflection.AssemblyDescriptionAttribute
+        description = assembly.GetCustomAttributes(GetType(System.Reflection.AssemblyDescriptionAttribute), False)(0)
+
+        strTitle = strTitle & " " & description.Description
+
         MsgBox(vbTab & vbTab & "ECUeditor Version: " & vbTab & strVersion & vbCr _
         & vbCr & vbTab & vbTab & "         Publisher: " & strPublish & vbCr & vbTab & vbTab & " Version info displayed thanks to Eric. " & vbCr, 0, strTitle)
 
     End Sub
+
+    'Private Sub VersionToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VersionToolStripMenuItem.Click
+    '    ' Option Explicit
+    '    Dim objShell
+    '    Dim strEditor, strVersion, strPublish, strTitle
+
+    '    strVersion = "DisplayVersion"
+    '    strPublish = "Publisher"
+    '    strTitle = "DisplayName"
+
+    '    strEditor = "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\dde589b887ecb332\"
+
+    '    objShell = CreateObject("WScript.Shell")
+
+    '    strVersion = objShell.RegRead(strEditor & strVersion)
+    '    strPublish = objShell.RegRead(strEditor & strPublish)
+    '    strTitle = objShell.RegRead(strEditor & strTitle)
+
+
+    '    'Wscript.Echo "ECUeditor Version: " & vbTab & strVersion & vbCr _
+    '    MsgBox(vbTab & vbTab & "ECUeditor Version: " & vbTab & strVersion & vbCr _
+    '    & vbCr & vbTab & vbTab & "         Publisher: " & strPublish & vbCr & vbTab & vbTab & " Version info displayed thanks to Eric. " & vbCr, 0, strTitle)
+
+    'End Sub
 
     Private Sub ProgramUpdateToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
