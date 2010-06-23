@@ -32,7 +32,7 @@ Public Class K8Limiters
             '
             writeflashbyte(&H73B4A, &H0) 'fuel limiter by gear 
             writeflashbyte(&H73B4B, &H0) 'fuel limiter by gear softcut
-            writeflashbyte(&H72A88, &H0) 'ignition limiter by gear 
+            writeflashbyte(&H72A88, &H0) 'ignition limiter by gear, not active by default 
             C_gearlimiter.Text = "Gear limiters removed"
         Else
             '
@@ -40,7 +40,7 @@ Public Class K8Limiters
             '
             writeflashbyte(&H73B4A, &H80) 'fuel limiter by gear 
             writeflashbyte(&H73B4B, &H80) 'fuel limiter by gear softcut
-            writeflashbyte(&H72A88, &H0) 'ignition limiter by gear 
+            writeflashbyte(&H72A88, &H0) 'ignition limiter by gear, not active by default 
             C_gearlimiter.Text = "Gear limiters on"
 
         End If
@@ -56,19 +56,28 @@ Public Class K8Limiters
         i = Val(RPM.Text)
         addedrpm = i - baseline ' we are just setting here the baseline
 
-        If i > 11500 Then
+        If i >= 11500 Then
             C_gearlimiter.Checked = True
         End If
+        '
+        ' Type 0 - set by fuel config const, no fuelcut
+        ' Type 1 - softcut
+        ' Type 2 - hardcut
+        ' Type 3 - GPS error or clutch
+        ' Type 4 - limp mode, errorcode present
+        ' Type 5 - limp mode, errorcode present
+        ' Type 6 - normal running, but errorcode present
+        '
 
         '
-        ' RPM/Fuel soft hard type 1
+        ' RPM/Fuel soft type 1
         '
         writeflashword(&H739E6, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1)))
         writeflashword(&H739E8, Int((rpmconv / (addedrpm + (rpmconv / &H547)) + 1)))
         writeflashword(&H739EA, Int((rpmconv / (addedrpm + (rpmconv / &H53B)) + 1)))
         writeflashword(&H739EC, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1)))
         '
-        ' RPM/Fuel soft hard type 2, this is modified higher than stock as stock is not used
+        ' RPM/Fuel hard type 2, this is modified higher than stock as stock is not used
         '
         writeflashword(&H739EE, Int((rpmconv / (addedrpm + (rpmconv / &H53B)) + 1)))
         writeflashword(&H739F0, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1)))
@@ -78,19 +87,20 @@ Public Class K8Limiters
         writeflashword(&H739F2, Int((rpmconv / (addedrpm + (rpmconv / &H594)) + 1)))
         writeflashword(&H739F4, Int((rpmconv / (addedrpm + (rpmconv / &H587)) + 1)))
         '
+        ' RPM limiter type 6
+        '
+        writeflashword(&H739FE, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1)))
+        writeflashword(&H73A00, Int((rpmconv / (addedrpm + (rpmconv / &H547)) + 1)))
+        writeflashword(&H73A02, Int((rpmconv / (addedrpm + (rpmconv / &H53B)) + 1)))
+        writeflashword(&H73A04, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1)))
+
+        '
         ' RPM/Ignition
         '
         writeflashword(&H72A68, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1)))
         writeflashword(&H72A6A, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1)))
         writeflashword(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H560)) + 1)))
         writeflashword(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1)))
-        '
-        ' RPM limiter type 4
-        '
-        writeflashword(&H739FE, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1)))
-        writeflashword(&H73A00, Int((rpmconv / (addedrpm + (rpmconv / &H547)) + 1)))
-        writeflashword(&H73A02, Int((rpmconv / (addedrpm + (rpmconv / &H53B)) + 1)))
-        writeflashword(&H73A04, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1)))
 
 
     End Sub
@@ -139,8 +149,8 @@ Public Class K8Limiters
 
         Me.RPM.Items.Add(i.ToString())
 
-        i = 10600
-        Do While i < 13000 ' this is the maximum rpm allowed 
+        i = 10500
+        Do While i < 12500 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
             Me.RPM.Items.Add(i.ToString())
             i = i + 100
         Loop
