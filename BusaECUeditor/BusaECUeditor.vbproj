@@ -128,6 +128,7 @@
       <HintPath>dlls\SpPerfChart.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Deployment" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
