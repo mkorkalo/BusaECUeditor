@@ -48,7 +48,7 @@
     <MinimumRequiredVersion>2.3.0.0</MinimumRequiredVersion>
     <WebPage>ecueditor_prerelease.htm</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>30</ApplicationRevision>
+    <ApplicationRevision>34</ApplicationRevision>
     <ApplicationVersion>2.4.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -143,6 +143,7 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationEvents.vb" />
     <Compile Include="BKing\BKingFuelmap.Designer.vb">
       <DependentUpon>BKingFuelmap.vb</DependentUpon>
     </Compile>
@@ -490,9 +491,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="BusaECUeditor_TemporaryKey.pfx" />
-    <None Include="ecu.bin\shifterbking.bin">
+    <Content Include="ecu.bin\shifterbking.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="Common\app.config" />
     <BaseApplicationManifest Include="My Project\app.manifest" />
     <None Include="Common\assemblykey.snk" />
