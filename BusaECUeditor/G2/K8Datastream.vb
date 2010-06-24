@@ -932,7 +932,7 @@ Public Class K8Datastream
                     Case 26
                         TPS = rxs(x)
                     Case 27
-                        IP = rxs(x)
+                        IntakeAirPressure = rxs(x)
                         IAPabs = rxs(x)
                     Case 28
                         ' conversion formula usinng known thermostat and room pressure
@@ -941,9 +941,9 @@ Public Class K8Datastream
                         ' conversion formula usinng known thermostat and room pressure
                         IAT = ((rxs(x)) - 15) * 1.1
                     Case 30
-                        AP = rxs(x)
+                        AirPressure = rxs(x)
                         SAPabs = rxs(x)
-                        IAP = (AP * 4 * 0.136) - (IP * 4 * 0.136)
+                        IAP = (AirPressure * 4 * 0.136) - (IntakeAirPressure * 4 * 0.136)
                         If IAP < 0 Then IAP = 0
                     Case 31
                         BATT = rxs(x)
@@ -1154,7 +1154,7 @@ Public Class K8Datastream
 
         LED_RPM.Text = Str(RPM)
 
-        LED_TPS.Text = calc_TPS(TPS)
+        LED_TPS.Text = CalcTPS(TPS)
         If TPS <= 11 Then
             LED_TPS.ForeColor = Color.Gray
         Else
@@ -1200,7 +1200,7 @@ Public Class K8Datastream
 
 
         '
-        ' MS Signal is normally grounded and that sets MS0 map as default
+        ' MS Signal is normally gRounded and that sets MS0 map as default
         ' when open MS signal is set to MS1 map
         '
         If MS = 0 Then

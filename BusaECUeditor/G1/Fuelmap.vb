@@ -255,7 +255,7 @@ Public Class Fuelmap
         '
         Dim diff As Decimal
 
-        diff = (((readflashword(mapaddr_1 + (2 * (c + (r * mapcolumns))))))) - (((readflashwordcopy(mapaddr_1 + (2 * (c + (r * mapcolumns)))))))
+        diff = (((ReadFlashWord(mapaddr_1 + (2 * (c + (r * mapcolumns))))))) - (((ReadFlashWordCopy(mapaddr_1 + (2 * (c + (r * mapcolumns)))))))
 
         Fuelmapgrid.Item(c, r).Style.ForeColor = Color.Black
         If Me.Text.Contains("TPS") And c < 11 Then Fuelmapgrid.Item(c, r).Style.ForeColor = Color.Gray
@@ -292,14 +292,14 @@ Public Class Fuelmap
         minval = 12 * 2 * 5     ' not validated from ecu, minimum value to which the fuelmap item can be set
 
         m1 = Fuelmapgrid.Item(c, r).Value
-        m2 = Int(readflashword(mapaddr_1 + (2 * (c + (r * mapcolumns)))) / 24) 'Int(readflashword((i * 2) + mapaddr_1) / 48)
+        m2 = Int(ReadFlashWord(mapaddr_1 + (2 * (c + (r * mapcolumns)))) / 24) 'Int(ReadFlashWord((i * 2) + mapaddr_1) / 48)
 
-        diff = Int(readflashword(mapaddr_1 + (2 * (c + (r * mapcolumns)))) / 24) - (Fuelmapgrid.Item(c, r).Value)
+        diff = Int(ReadFlashWord(mapaddr_1 + (2 * (c + (r * mapcolumns)))) / 24) - (Fuelmapgrid.Item(c, r).Value)
 
-        m1 = (Int(readflashword(mapaddr_1 + (2 * (c + (r * mapcolumns)))) / 24) - diff) * 24
-        m2 = (Int(readflashword(mapaddr_2 + (2 * (c + (r * mapcolumns)))) / 24) - diff) * 24
-        m3 = (Int(readflashword(mapaddr_3 + (2 * (c + (r * mapcolumns)))) / 24) - diff) * 24
-        m4 = (Int(readflashword(mapaddr_4 + (2 * (c + (r * mapcolumns)))) / 24) - diff) * 24
+        m1 = (Int(ReadFlashWord(mapaddr_1 + (2 * (c + (r * mapcolumns)))) / 24) - diff) * 24
+        m2 = (Int(ReadFlashWord(mapaddr_2 + (2 * (c + (r * mapcolumns)))) / 24) - diff) * 24
+        m3 = (Int(ReadFlashWord(mapaddr_3 + (2 * (c + (r * mapcolumns)))) / 24) - diff) * 24
+        m4 = (Int(ReadFlashWord(mapaddr_4 + (2 * (c + (r * mapcolumns)))) / 24) - diff) * 24
 
         ' lets check that we do not have too small values that the ecu can not handle
         If ((m1 < minval) Or (m2 < minval) Or (m3 < minval) Or (m4 < minval)) Then MsgBox("Minimum cell value exceeded", MsgBoxStyle.Information)
@@ -316,10 +316,10 @@ Public Class Fuelmap
         If m4 > maxval Then m1 = maxval
 
 
-        writeflashword(mapaddr_1 + (2 * (c + (r * mapcolumns))), m1)
-        writeflashword(mapaddr_2 + (2 * (c + (r * mapcolumns))), m2)
-        writeflashword(mapaddr_3 + (2 * (c + (r * mapcolumns))), m3)
-        writeflashword(mapaddr_4 + (2 * (c + (r * mapcolumns))), m4)
+        WriteFlashWord(mapaddr_1 + (2 * (c + (r * mapcolumns))), m1)
+        WriteFlashWord(mapaddr_2 + (2 * (c + (r * mapcolumns))), m2)
+        WriteFlashWord(mapaddr_3 + (2 * (c + (r * mapcolumns))), m3)
+        WriteFlashWord(mapaddr_4 + (2 * (c + (r * mapcolumns))), m4)
 
         ' now lets also update both IAP idlemaps if there are any changes to the idlemap area
         ' and also the other full size IAP map
@@ -330,10 +330,10 @@ Public Class Fuelmap
             ' so its assumed that user wants to retain the IAP maps for MS use also...
             ' I.e. these are the IAP ms maps that get written together with IAP maps
             '
-            writeflashword(&H2DF04 + (2 * (c + (r * mapcolumns))), m1)
-            writeflashword(&H2E692 + (2 * (c + (r * mapcolumns))), m2)
-            writeflashword(&H2EE20 + (2 * (c + (r * mapcolumns))), m3)
-            writeflashword(&H2F5AE + (2 * (c + (r * mapcolumns))), m4)
+            WriteFlashWord(&H2DF04 + (2 * (c + (r * mapcolumns))), m1)
+            WriteFlashWord(&H2E692 + (2 * (c + (r * mapcolumns))), m2)
+            WriteFlashWord(&H2EE20 + (2 * (c + (r * mapcolumns))), m3)
+            WriteFlashWord(&H2F5AE + (2 * (c + (r * mapcolumns))), m4)
 
 
             '
@@ -352,15 +352,15 @@ Public Class Fuelmap
                 'if this is the first row, then copy also those values to the map just assuming 
                 ' that 600rpm is the same as 800rpm
                 If r = 0 Then
-                    writeflashword(idle_mapaddr_1 + (2 * ((c - 3) + (r * idle_mapcolumns))), m1)
-                    writeflashword(idle_mapaddr_2 + (2 * ((c - 3) + (r * idle_mapcolumns))), m2)
-                    writeflashword(idle_mapaddr_3 + (2 * ((c - 3) + (r * idle_mapcolumns))), m3)
-                    writeflashword(idle_mapaddr_4 + (2 * ((c - 3) + (r * idle_mapcolumns))), m4)
+                    WriteFlashWord(idle_mapaddr_1 + (2 * ((c - 3) + (r * idle_mapcolumns))), m1)
+                    WriteFlashWord(idle_mapaddr_2 + (2 * ((c - 3) + (r * idle_mapcolumns))), m2)
+                    WriteFlashWord(idle_mapaddr_3 + (2 * ((c - 3) + (r * idle_mapcolumns))), m3)
+                    WriteFlashWord(idle_mapaddr_4 + (2 * ((c - 3) + (r * idle_mapcolumns))), m4)
                 End If
-                writeflashword(idle_mapaddr_1 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m1)
-                writeflashword(idle_mapaddr_2 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m2)
-                writeflashword(idle_mapaddr_3 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m3)
-                writeflashword(idle_mapaddr_4 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m4)
+                WriteFlashWord(idle_mapaddr_1 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m1)
+                WriteFlashWord(idle_mapaddr_2 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m2)
+                WriteFlashWord(idle_mapaddr_3 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m3)
+                WriteFlashWord(idle_mapaddr_4 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m4)
             End If
 
             idle_mapaddr_1 = &H31DE2
@@ -376,15 +376,15 @@ Public Class Fuelmap
                 'if this is the first row, then copy also those values to the map just assuming 
                 ' that 600rpm is the same as 800rpm
                 If r = 0 Then
-                    writeflashword(idle_mapaddr_1 + (2 * ((c - 3) + (r * idle_mapcolumns))), m1)
-                    writeflashword(idle_mapaddr_2 + (2 * ((c - 3) + (r * idle_mapcolumns))), m2)
-                    writeflashword(idle_mapaddr_3 + (2 * ((c - 3) + (r * idle_mapcolumns))), m3)
-                    writeflashword(idle_mapaddr_4 + (2 * ((c - 3) + (r * idle_mapcolumns))), m4)
+                    WriteFlashWord(idle_mapaddr_1 + (2 * ((c - 3) + (r * idle_mapcolumns))), m1)
+                    WriteFlashWord(idle_mapaddr_2 + (2 * ((c - 3) + (r * idle_mapcolumns))), m2)
+                    WriteFlashWord(idle_mapaddr_3 + (2 * ((c - 3) + (r * idle_mapcolumns))), m3)
+                    WriteFlashWord(idle_mapaddr_4 + (2 * ((c - 3) + (r * idle_mapcolumns))), m4)
                 End If
-                writeflashword(idle_mapaddr_1 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m1)
-                writeflashword(idle_mapaddr_2 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m2)
-                writeflashword(idle_mapaddr_3 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m3)
-                writeflashword(idle_mapaddr_4 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m4)
+                WriteFlashWord(idle_mapaddr_1 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m1)
+                WriteFlashWord(idle_mapaddr_2 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m2)
+                WriteFlashWord(idle_mapaddr_3 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m3)
+                WriteFlashWord(idle_mapaddr_4 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m4)
             End If
         Else
             If Me.Text.Contains("MS") Then
@@ -406,15 +406,15 @@ Public Class Fuelmap
                     'if this is the first row, then copy also those values to the map just assuming 
                     ' that 600rpm is the same as 800rpm
                     If r = 0 Then
-                        writeflashword(idle_mapaddr_1 + (2 * ((c - 3) + (r * idle_mapcolumns))), m1)
-                        writeflashword(idle_mapaddr_2 + (2 * ((c - 3) + (r * idle_mapcolumns))), m2)
-                        writeflashword(idle_mapaddr_3 + (2 * ((c - 3) + (r * idle_mapcolumns))), m3)
-                        writeflashword(idle_mapaddr_4 + (2 * ((c - 3) + (r * idle_mapcolumns))), m4)
+                        WriteFlashWord(idle_mapaddr_1 + (2 * ((c - 3) + (r * idle_mapcolumns))), m1)
+                        WriteFlashWord(idle_mapaddr_2 + (2 * ((c - 3) + (r * idle_mapcolumns))), m2)
+                        WriteFlashWord(idle_mapaddr_3 + (2 * ((c - 3) + (r * idle_mapcolumns))), m3)
+                        WriteFlashWord(idle_mapaddr_4 + (2 * ((c - 3) + (r * idle_mapcolumns))), m4)
                     End If
-                    writeflashword(idle_mapaddr_1 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m1)
-                    writeflashword(idle_mapaddr_2 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m2)
-                    writeflashword(idle_mapaddr_3 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m3)
-                    writeflashword(idle_mapaddr_4 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m4)
+                    WriteFlashWord(idle_mapaddr_1 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m1)
+                    WriteFlashWord(idle_mapaddr_2 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m2)
+                    WriteFlashWord(idle_mapaddr_3 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m3)
+                    WriteFlashWord(idle_mapaddr_4 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m4)
                 End If
             Else
                 '
@@ -434,15 +434,15 @@ Public Class Fuelmap
                     'if this is the first row, then copy also those values to the map just assuming 
                     ' that 600rpm is the same as 800rpm
                     If r = 0 Then
-                        writeflashword(idle_mapaddr_1 + (2 * ((c - 3) + (r * idle_mapcolumns))), m1)
-                        writeflashword(idle_mapaddr_2 + (2 * ((c - 3) + (r * idle_mapcolumns))), m2)
-                        writeflashword(idle_mapaddr_3 + (2 * ((c - 3) + (r * idle_mapcolumns))), m3)
-                        writeflashword(idle_mapaddr_4 + (2 * ((c - 3) + (r * idle_mapcolumns))), m4)
+                        WriteFlashWord(idle_mapaddr_1 + (2 * ((c - 3) + (r * idle_mapcolumns))), m1)
+                        WriteFlashWord(idle_mapaddr_2 + (2 * ((c - 3) + (r * idle_mapcolumns))), m2)
+                        WriteFlashWord(idle_mapaddr_3 + (2 * ((c - 3) + (r * idle_mapcolumns))), m3)
+                        WriteFlashWord(idle_mapaddr_4 + (2 * ((c - 3) + (r * idle_mapcolumns))), m4)
                     End If
-                    writeflashword(idle_mapaddr_1 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m1)
-                    writeflashword(idle_mapaddr_2 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m2)
-                    writeflashword(idle_mapaddr_3 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m3)
-                    writeflashword(idle_mapaddr_4 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m4)
+                    WriteFlashWord(idle_mapaddr_1 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m1)
+                    WriteFlashWord(idle_mapaddr_2 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m2)
+                    WriteFlashWord(idle_mapaddr_3 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m3)
+                    WriteFlashWord(idle_mapaddr_4 + (2 * ((c - 3) + ((r + 1) * idle_mapcolumns))), m4)
                 End If
 
             End If
@@ -524,9 +524,9 @@ Public Class Fuelmap
         c = 0
         r = 0
         Do While c < mapcolumns
-            i = Int((readflashword(mapaddr_1 - (2 * maprows) - (2 * mapcolumns) + (c * 2))) / 256) ' * 0.00152587890625)
+            i = Int((ReadFlashWord(mapaddr_1 - (2 * maprows) - (2 * mapcolumns) + (c * 2))) / 256) ' * 0.00152587890625)
             If TPSmap Then
-                Fuelmapgrid.Columns.Item(c).HeaderText = calc_TPS(i)
+                Fuelmapgrid.Columns.Item(c).HeaderText = CalcTPS(i)
             Else
                 Fuelmapgrid.Columns.Item(c).HeaderText = Str(i)
             End If
@@ -539,7 +539,7 @@ Public Class Fuelmap
 
         Fuelmapgrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
         Do While (r < maprows) And (r < 42)
-            Fuelmapgrid.Rows.Item(r).HeaderCell.Value = Str((readflashword(mapaddr_1 - (2 * maprows) + (r * 2)) / 2.56))
+            Fuelmapgrid.Rows.Item(r).HeaderCell.Value = Str((ReadFlashWord(mapaddr_1 - (2 * maprows) + (r * 2)) / 2.56))
             Fuelmapgrid.Rows.Item(r).Height = 15
             r = r + 1
         Loop
@@ -550,9 +550,9 @@ Public Class Fuelmap
         i = 0
         Do While (r < maprows) And (r < 42)
 
-            Fuelmapgrid.Item(c, r).Value = Int(readflashword((i * 2) + mapaddr_1) / 24) '48
+            Fuelmapgrid.Item(c, r).Value = Int(ReadFlashWord((i * 2) + mapaddr_1) / 24) '48
             setCellColour(c, r)
-            If Not (readflashword((i * 2) + mapaddr_1) = readflashword((i * 2) + mapaddr_2)) Then
+            If Not (ReadFlashWord((i * 2) + mapaddr_1) = ReadFlashWord((i * 2) + mapaddr_2)) Then
                 B_unify.Visible = True
             End If
 
@@ -602,9 +602,9 @@ Public Class Fuelmap
             '
             c = 0
             cc = 0
-            If calc_TPS_dec(TPS) < Val(Fuelmapgrid.Columns.Item(mapcolumns - 1).HeaderCell.Value) Then
+            If CalcTPSDec(TPS) < Val(Fuelmapgrid.Columns.Item(mapcolumns - 1).HeaderCell.Value) Then
                 Do While (c < mapcolumns - 1)
-                    If calc_TPS_dec(TPS) >= cc And calc_TPS_dec(TPS) < Fuelmapgrid.Columns.Item(c + 1).HeaderCell.Value Then
+                    If CalcTPSDec(TPS) >= cc And CalcTPSDec(TPS) < Fuelmapgrid.Columns.Item(c + 1).HeaderCell.Value Then
                         cc = c
                         c = 256
                     Else
@@ -695,7 +695,7 @@ Public Class Fuelmap
 
             r = Fuelmapgrid.CurrentRow.Index
             c = Fuelmapgrid.CurrentCell.ColumnIndex
-            v = Int(readflashword(((((mapcolumns * r) + c) * 2) + mapaddr_1)) / 24) - Int(readflashwordcopy((((mapcolumns * r) + c) * 2) + mapaddr_1) / 24)
+            v = Int(ReadFlashWord(((((mapcolumns * r) + c) * 2) + mapaddr_1)) / 24) - Int(ReadFlashWordCopy((((mapcolumns * r) + c) * 2) + mapaddr_1) / 24)
             If v > 0 Then
                 T_valdiff.Text = "+" & Str(v)
             Else
@@ -703,7 +703,7 @@ Public Class Fuelmap
             End If
 
             msrpm = 1 / (Fuelmapgrid.CurrentRow.HeaderCell.Value / 60) * 1000 * 2
-            'T_duty.Text = Int((100 * Int(readflashword(((((mapcolumns * r) + c) * 2) + mapaddr_1)) / 24) / 19) / msrpm) & "%"
+            'T_duty.Text = Int((100 * Int(ReadFlashWord(((((mapcolumns * r) + c) * 2) + mapaddr_1)) / 24) / 19) / msrpm) & "%"
 
 
         Catch ex As Exception
@@ -729,10 +729,10 @@ Public Class Fuelmap
             If i = 1 Then ' OK pressed
                 i = 0
                 Do While (i < (((maprows) * (mapcolumns))))
-                    writeflashword(((i * 2) + &H2FD40), readflashword((i * 2) + &H2B5B0))
-                    writeflashword(((i * 2) + &H3057E), readflashword((i * 2) + &H2BDEE))
-                    writeflashword(((i * 2) + &H30DBC), readflashword((i * 2) + &H2C62C))
-                    writeflashword(((i * 2) + &H315FA), readflashword((i * 2) + &H2CE6A))
+                    WriteFlashWord(((i * 2) + &H2FD40), ReadFlashWord((i * 2) + &H2B5B0))
+                    WriteFlashWord(((i * 2) + &H3057E), ReadFlashWord((i * 2) + &H2BDEE))
+                    WriteFlashWord(((i * 2) + &H30DBC), ReadFlashWord((i * 2) + &H2C62C))
+                    WriteFlashWord(((i * 2) + &H315FA), ReadFlashWord((i * 2) + &H2CE6A))
                     i = i + 1
                 Loop
             End If
@@ -744,9 +744,9 @@ Public Class Fuelmap
         Dim i As Integer
 
         Do While (i < (((maprows) * (mapcolumns))))
-            writeflashword(((i * 2) + mapaddr_2), readflashword((i * 2) + mapaddr_1))
-            writeflashword(((i * 2) + mapaddr_3), readflashword((i * 2) + mapaddr_1))
-            writeflashword(((i * 2) + mapaddr_4), readflashword((i * 2) + mapaddr_1))
+            WriteFlashWord(((i * 2) + mapaddr_2), ReadFlashWord((i * 2) + mapaddr_1))
+            WriteFlashWord(((i * 2) + mapaddr_3), ReadFlashWord((i * 2) + mapaddr_1))
+            WriteFlashWord(((i * 2) + mapaddr_4), ReadFlashWord((i * 2) + mapaddr_1))
             i = i + 1
         Loop
         B_unify.Visible = False

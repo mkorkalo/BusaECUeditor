@@ -138,8 +138,8 @@ Public Class BKingFuelMap
         ' Apply changes to the TPS map
         '
         SelectMap(1)
-        noc = readflashbyte(readflashlongword(_mapStructureTable + ((0 * 6) + (3 * 0) + 0) * 4) + 1)
-        nor = readflashbyte(readflashlongword(_mapStructureTable + ((0 * 6) + (3 * 0) + 0) * 4) + 2)
+        noc = ReadFlashByte(readflashlongword(_mapStructureTable + ((0 * 6) + (3 * 0) + 0) * 4) + 1)
+        nor = ReadFlashByte(readflashlongword(_mapStructureTable + ((0 * 6) + (3 * 0) + 0) * 4) + 2)
 
 
         If fdlg.ShowDialog() = Windows.Forms.DialogResult.OK Then
@@ -186,8 +186,8 @@ Public Class BKingFuelMap
                             '
                             ' First map the ecueditor map columns and rows to pcv rows and columns
                             '
-                            pcvr = eetopcvr(rp)
-                            pcvc = eetopcvc(cp)
+                            pcvr = EEToPCVR(rp)
+                            pcvc = EEToPCVC(cp)
                             '
                             ' Now lets calculate the % change to ecueditor fuelmap value
                             '
@@ -236,8 +236,8 @@ Public Class BKingFuelMap
                             ' First map the ecueditor map columns and rows to bz rows and columns
                             ' bz table has r/c reversed to ee rows and columns
                             '
-                            bzr = eetobzr(rp)
-                            bzc = eetobzc(cp)
+                            bzr = EEToBzr(rp)
+                            bzc = EEToBzc(cp)
                             If (bzr = 2) And (bzc = 5) Then
                                 bzr = bzr
                             End If
@@ -551,7 +551,7 @@ Public Class BKingFuelMap
         ' and sets cell colour accordingly based on that comparison        
         Dim diff As Decimal
 
-        diff = (((readflashword(_editingMap + (2 * (c + (r * _mapNumberOfColumns))))))) - (((readflashwordcopy(_editingMap + (2 * (c + (r * _mapNumberOfColumns)))))))
+        diff = (((ReadFlashWord(_editingMap + (2 * (c + (r * _mapNumberOfColumns))))))) - (((ReadFlashWordCopy(_editingMap + (2 * (c + (r * _mapNumberOfColumns)))))))
 
         '
         ' Only set cell colour if cursor is on the grid.
@@ -589,7 +589,7 @@ Public Class BKingFuelMap
         minval = 5   ' not validated from ecu, minimum value to which the map item can be set
 
         m1 = FuelMapGrid.Item(c, r).Value
-        m2 = FuelPW((readflashword(_editingMap + (2 * (c + (r * _mapNumberOfColumns))))))
+        m2 = FuelPW((ReadFlashWord(_editingMap + (2 * (c + (r * _mapNumberOfColumns))))))
 
         diff = m2 - m1
 
@@ -612,7 +612,7 @@ Public Class BKingFuelMap
             mapsel = True
             cylinder = 0        ' 0,1,2,3
             ms01 = 0            ' 0,1
-            number_of_columns = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+            number_of_columns = ReadFlashByte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
             For cylinder = 0 To 3
                 For ms01 = 0 To 1
                     For modeabc = _setMode To _setMode
@@ -620,13 +620,13 @@ Public Class BKingFuelMap
                         ' This is normal on gear idle map
                         '
                         copy_to_map = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        writeflashword(copy_to_map + (2 * (c + (r * number_of_columns))), FuelPWToECUVal(m1))
+                        WriteFlashWord(copy_to_map + (2 * (c + (r * number_of_columns))), FuelPWToECUVal(m1))
                         '
                         ' Need to write the values also to idle neutral map
                         ' &H54DF4 on gear, &H54E54 on neutral
                         '
                         copy_to_map2 = readflashlongword(readflashlongword((&H54E54 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        writeflashword(copy_to_map2 + (2 * (c + (r * number_of_columns))), FuelPWToECUVal(m1))
+                        WriteFlashWord(copy_to_map2 + (2 * (c + (r * number_of_columns))), FuelPWToECUVal(m1))
                     Next
                 Next
             Next
@@ -638,12 +638,12 @@ Public Class BKingFuelMap
             mapsel = True
             cylinder = 0        ' 0,1,2,3
             ms01 = 1            ' 0,1
-            number_of_columns = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+            number_of_columns = ReadFlashByte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
             For cylinder = 0 To 3
                 For ms01 = 1 To 1
                     For modeabc = _setMode To _setMode
                         copy_to_map = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        writeflashword(copy_to_map + (2 * (c + (r * number_of_columns))), FuelPWToECUVal(m1))
+                        WriteFlashWord(copy_to_map + (2 * (c + (r * number_of_columns))), FuelPWToECUVal(m1))
                     Next
                 Next
             Next
@@ -656,12 +656,12 @@ Public Class BKingFuelMap
             mapsel = True
             cylinder = 0        ' 0,1,2,3
             ms01 = 0            ' 0,1
-            number_of_columns = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+            number_of_columns = ReadFlashByte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
             For cylinder = 0 To 3
                 For ms01 = 0 To 0
                     For modeabc = _setMode To _setMode
                         copy_to_map = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        writeflashword(copy_to_map + (2 * (c + (r * number_of_columns))), FuelPWToECUVal(m1))
+                        WriteFlashWord(copy_to_map + (2 * (c + (r * number_of_columns))), FuelPWToECUVal(m1))
                     Next
                 Next
             Next
@@ -701,8 +701,8 @@ Public Class BKingFuelMap
         cylinder = 0        ' 0,1,2,3
         modeabc = _setMode  ' 0,1,2
         _editingMap = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-        _mapNumberOfColumns = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
-        _mapNumberOfRows = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
+        _mapNumberOfColumns = ReadFlashByte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+        _mapNumberOfRows = ReadFlashByte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
 
         ' Global variable of which map type is being edited
         If Me.Text.Contains("TPS") Then
@@ -756,11 +756,11 @@ Public Class BKingFuelMap
         FuelMapGrid.ColumnCount = _mapNumberOfColumns
         c = 0
         Do While c < _mapNumberOfColumns
-            i = readflashword(columnheading_map + (c * 2))
+            i = ReadFlashWord(columnheading_map + (c * 2))
             If _tPSMap Then
-                FuelMapGrid.Columns.Item(c).HeaderText = calc_K8TPS(i)
+                FuelMapGrid.Columns.Item(c).HeaderText = CalcK8TPS(i)
             Else
-                FuelMapGrid.Columns.Item(c).HeaderText = calc_K8IAP(i)
+                FuelMapGrid.Columns.Item(c).HeaderText = CalcK8IAP(i)
             End If
             FuelMapGrid.Columns.Item(c).Width = 26
             c = c + 1
@@ -773,7 +773,7 @@ Public Class BKingFuelMap
         r = 0
         FuelMapGrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
         Do While (r < _mapNumberOfRows)
-            i = readflashword(rowheading_map + (r * 2))
+            i = ReadFlashWord(rowheading_map + (r * 2))
             FuelMapGrid.Rows.Item(r).HeaderCell.Value = Str(Int(i / 2.56))
             FuelMapGrid.Rows.Item(r).Height = 15
             r = r + 1
@@ -787,7 +787,7 @@ Public Class BKingFuelMap
         i = 0
         Do While (r < _mapNumberOfRows)
 
-            FuelMapGrid.Item(c, r).Value = FuelPW(readflashword((i * 2) + _editingMap))
+            FuelMapGrid.Item(c, r).Value = FuelPW(ReadFlashWord((i * 2) + _editingMap))
             SetCellColour(c, r)
 
             If c < _mapNumberOfColumns - 1 Then
@@ -841,9 +841,9 @@ Public Class BKingFuelMap
             '
             c = 0
             cc = 0
-            If calc_TPS_dec(TPS) < Val(FuelMapGrid.Columns.Item(_mapNumberOfColumns - 1).HeaderCell.Value) Then
+            If CalcTPSDec(TPS) < Val(FuelMapGrid.Columns.Item(_mapNumberOfColumns - 1).HeaderCell.Value) Then
                 Do While (c < _mapNumberOfColumns - 1)
-                    If calc_TPS_dec(TPS) >= cc And calc_TPS_dec(TPS) < FuelMapGrid.Columns.Item(c + 1).HeaderCell.Value Then
+                    If CalcTPSDec(TPS) >= cc And CalcTPSDec(TPS) < FuelMapGrid.Columns.Item(c + 1).HeaderCell.Value Then
                         cc = c
                         c = 256
                     Else
@@ -928,8 +928,8 @@ Public Class BKingFuelMap
         ms01 = a            ' 0,1
         modeabc = _setMode         ' 0,1,2
         copy_from_map = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-        number_of_columns = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
-        number_of_rows = readflashbyte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
+        number_of_columns = ReadFlashByte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+        number_of_rows = ReadFlashByte(readflashlongword(_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
 
         '
         ' Now copy the map contents for selected mode ms0 or ms1
@@ -939,14 +939,14 @@ Public Class BKingFuelMap
                 For modeabc = _setMode To _setMode
                     copy_to_map = readflashlongword(readflashlongword((_mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                     For cell = 0 To ((number_of_columns - 1) * (number_of_rows - 1))
-                        writeflashword(copy_to_map + (cell * 2), readflashword(copy_from_map + (cell * 2)))
+                        WriteFlashWord(copy_to_map + (cell * 2), ReadFlashWord(copy_from_map + (cell * 2)))
                         '
                         ' If IAP map then also copy to idle map in addition to on gear map
                         ' &H54DF4 on gear, &H54E54 on neutral
                         '
                         If _mapStructureTable = &H54DF4 Then
                             copy_to_map2 = readflashlongword(readflashlongword((&H54E54 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                            writeflashword(copy_to_map2 + (cell * 2), readflashword(copy_from_map + (cell * 2)))
+                            WriteFlashWord(copy_to_map2 + (cell * 2), ReadFlashWord(copy_from_map + (cell * 2)))
                         End If
                     Next
                 Next
@@ -989,7 +989,7 @@ Public Class BKingFuelMap
             r = FuelMapGrid.CurrentRow.Index
             c = FuelMapGrid.CurrentCell.ColumnIndex
             m2 = FuelMapGrid.Item(c, r).Value
-            m1 = FuelPW((readflashwordcopy(_editingMap + (2 * (c + (r * _mapNumberOfColumns))))))
+            m1 = FuelPW((ReadFlashWordCopy(_editingMap + (2 * (c + (r * _mapNumberOfColumns))))))
             v = m2 - m1
             p = ((m2 / m1) - 1) * 100
             If v > 0 Then

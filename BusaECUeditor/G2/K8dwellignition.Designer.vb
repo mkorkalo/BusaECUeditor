@@ -45,7 +45,7 @@ Partial Class K8dwellignition
         '
         Me.D_dwell.AllowUserToAddRows = False
         Me.D_dwell.AllowUserToDeleteRows = False
-        Me.D_dwell.BackgroundColor = System.Drawing.SystemColors.Control
+        Me.D_dwell.BackgRoundColor = System.Drawing.SystemColors.Control
         Me.D_dwell.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.D_dwell.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.D_dwell.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically

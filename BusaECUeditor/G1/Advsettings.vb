@@ -45,13 +45,13 @@ Public Class Advsettings
         solenoidchangeok = False
 
 
-        IAPLow.Text = Str(readflashbyte(&H295E2))
-        IAPHigh.Text = Str(readflashbyte(&H295E3))
-        TPSLow.Text = Str(Int((readflashbyte(&H295E0))))
-        TPSHigh.Text = Str(Int(calc_TPS_dec(readflashbyte(&H295E1))))
-        RPMLow.Text = Str(Int(readflashword(&H28C2E) / 2.56))
-        RPMHigh.Text = Str(Int(readflashword(&H28C2C) / 2.56))
-        CLTMin.Text = Str((((readflashbyte(&H295DF) - 32) * 10) / 18))
+        IAPLow.Text = Str(ReadFlashByte(&H295E2))
+        IAPHigh.Text = Str(ReadFlashByte(&H295E3))
+        TPSLow.Text = Str(Int((ReadFlashByte(&H295E0))))
+        TPSHigh.Text = Str(Int(CalcTPSDec(ReadFlashByte(&H295E1))))
+        RPMLow.Text = Str(Int(ReadFlashWord(&H28C2E) / 2.56))
+        RPMHigh.Text = Str(Int(ReadFlashWord(&H28C2C) / 2.56))
+        CLTMin.Text = Str((((ReadFlashByte(&H295DF) - 32) * 10) / 18))
 
 
         '
@@ -69,7 +69,7 @@ Public Class Advsettings
         C_Gearing.Items.Add("Turbo") '8
         C_Gearing.Items.Add("TRE 5th") '9
 
-        i = CInt(readflashbyte(&H28B4C + 8))
+        i = CInt(ReadFlashByte(&H28B4C + 8))
         C_Gearing.Enabled = True
         Select Case i
             Case CInt(105 * 16 / 17 * 40 / 40)
@@ -99,7 +99,7 @@ Public Class Advsettings
         '
         ' Ignition dwell table
         '
-        dwell = readflashbyte(&H3686E + 27)
+        dwell = ReadFlashByte(&H3686E + 27)
         C_dwell.Items.Add(Str(CInt(100 * dwell / 101)))
         C_dwell.Items.Add("100")
         C_dwell.Items.Add("105")
@@ -112,7 +112,7 @@ Public Class Advsettings
         '
         injector_A = &HDA42 ' word
         injector_B = &HDAAA
-        i = CInt((128 / readflashword(injector_A) * 100) / 5) * 5
+        i = CInt((128 / ReadFlashWord(injector_A) * 100) / 5) * 5
         C_injectorsize.Items.Add(Str(i))
         C_injectorsize.Items.Add("400")
         C_injectorsize.Items.Add("350")
@@ -140,7 +140,7 @@ Public Class Advsettings
         ' preset the selection and actual value of fuelconsumption byte
         '
         fuelconsumption = &H7913
-        i = readflashbyte(fuelconsumption)
+        i = ReadFlashByte(fuelconsumption)
         'i = (CInt(i - 100) * 2) + 100
         C_fuelconsumption.Items.Add(Str(i))
         'C_fuelconsumption.Items.Add("150")
@@ -160,8 +160,8 @@ Public Class Advsettings
         C_fuelconsumption.Items.Add("80")
         C_fuelconsumption.SelectedIndex = 0
 
-        C_solenoid_on.Items.Add(Str(readflashbyte(solenoid_on_low) * 100))
-        C_solenoid_off.Items.Add(Str(readflashbyte(solenoid_off_low) * 100))
+        C_solenoid_on.Items.Add(Str(ReadFlashByte(solenoid_on_low) * 100))
+        C_solenoid_off.Items.Add(Str(ReadFlashByte(solenoid_off_low) * 100))
         C_solenoid_on.SelectedIndex = 0
         C_solenoid_off.SelectedIndex = 0
         For i = 1 To 20
@@ -175,26 +175,26 @@ Public Class Advsettings
 
         solenoidchangeok = True
 
-        If readflashbyte(&H28BD4) = &HFF Then
+        If ReadFlashByte(&H28BD4) = &HFF Then
             IAT_disable.Checked = False
         Else
             IAT_disable.Checked = True
         End If
 
 
-        If readflashword(&H8846) <> &HF852 Then
+        If ReadFlashWord(&H8846) <> &HF852 Then
             IAP_range.Checked = True
         Else
             IAP_range.Checked = False
         End If
 
-        If readflashword(&H7650) <> &HCB01 Then
+        If ReadFlashWord(&H7650) <> &HCB01 Then
             C_antitheft.Checked = True
         Else
             C_antitheft.Checked = False
         End If
 
-        If readflashword(&H28C2C) <> &H3000 Then
+        If ReadFlashWord(&H28C2C) <> &H3000 Then
             C_cranking.Checked = True
         Else
             C_cranking.Checked = False
@@ -203,7 +203,7 @@ Public Class Advsettings
         '
         ' Enable disable yoshbox compensation
         '
-        If readflashword(&HE95A) <> &H6540 Then
+        If ReadFlashWord(&HE95A) <> &H6540 Then
             C_yoshbox.Checked = True
         Else
             C_yoshbox.Checked = False
@@ -216,7 +216,7 @@ Public Class Advsettings
         For i = -5 To 5
             C_Accel.Items.Add(Str(i * 20))
         Next
-        Select Case Int(readflashbyte(&H32A39 + 6))
+        Select Case Int(ReadFlashByte(&H32A39 + 6))
             Case 32
                 i = -100
                 C_Accel.SelectedIndex = 0
@@ -255,10 +255,10 @@ Public Class Advsettings
         End Select
 
         Solenoid_TPS.Enabled = False
-        If readflashbyte(&H10A8F) = &HA7 Then
+        If ReadFlashByte(&H10A8F) = &HA7 Then
             Solenoid_TPS.Text = "Normal"
             Solenoid_TPS.Checked = False
-        ElseIf readflashbyte(&H10A8F) = &H3E Then
+        ElseIf ReadFlashByte(&H10A8F) = &H3E Then
             Solenoid_TPS.Text = "TPS > 85%"
             Solenoid_TPS.Checked = True
         Else
@@ -268,7 +268,7 @@ Public Class Advsettings
         Solenoid_TPS.Enabled = True
 
 
-        C_IAPTPSswitchingpoint.Items.Add(calc_TPS(readflashbyte(&H294FC)))
+        C_IAPTPSswitchingpoint.Items.Add(CalcTPS(ReadFlashByte(&H294FC)))
         C_IAPTPSswitchingpoint.SelectedIndex = 0
         For i = 2 To 15
             C_IAPTPSswitchingpoint.Items.Add(Str(i))
@@ -290,31 +290,31 @@ Public Class Advsettings
         i = Val(C_injectorsize.Text)
         'i = ((i - 100) * 2) + 100
         newsize = (100 / i) * 128
-        writeflashword(injector_A, CInt(newsize))
-        writeflashword(injector_B, CInt(newsize))
+        WriteFlashWord(injector_A, CInt(newsize))
+        WriteFlashWord(injector_B, CInt(newsize))
     End Sub
 
     Private Sub C_solenoid_on_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_solenoid_on.SelectedIndexChanged
         Dim i As Integer
         If solenoidchangeok Then
-            If (readflashbyte(solenoid_on_low) = 5) And (readflashbyte(solenoid_on_high) = 8) And (readflashbyte(solenoid_off_low) = 22) Then
+            If (ReadFlashByte(solenoid_on_low) = 5) And (ReadFlashByte(solenoid_on_high) = 8) And (ReadFlashByte(solenoid_off_low) = 22) Then
                 MsgBox("If you Flash the ecu your after this the IAC solenoid will be reprogrammed as Nitrous control relay", MsgBoxStyle.Information)
             End If
             i = Val(C_solenoid_on.Text)
-            writeflashbyte(solenoid_on_low, Int(i / 100))
-            writeflashbyte(solenoid_on_high, Int((i + 100) / 100))
+            WriteFlashByte(solenoid_on_low, Int(i / 100))
+            WriteFlashByte(solenoid_on_high, Int((i + 100) / 100))
         End If
     End Sub
 
     Private Sub C_solenoid_off_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_solenoid_off.SelectedIndexChanged
         Dim i As Integer
         If solenoidchangeok Then
-            If (readflashbyte(solenoid_on_low) = 5) And (readflashbyte(solenoid_on_high) = 8) And (readflashbyte(solenoid_off_low) = 22) Then
+            If (ReadFlashByte(solenoid_on_low) = 5) And (ReadFlashByte(solenoid_on_high) = 8) And (ReadFlashByte(solenoid_off_low) = 22) Then
                 MsgBox("If you Flash the ecu your after this the IAC solenoid will be reprogrammed as Nitrous control relay", MsgBoxStyle.Information)
             End If
             i = Val(C_solenoid_off.Text)
-            writeflashbyte(solenoid_off_low, Int(i / 100))
-            writeflashbyte(Solenoid_off_high, Int((i + 100) / 100))
+            WriteFlashByte(solenoid_off_low, Int(i / 100))
+            WriteFlashByte(Solenoid_off_high, Int((i + 100) / 100))
         End If
     End Sub
 
@@ -325,41 +325,41 @@ Public Class Advsettings
         If IAT_disable.Checked Then
             IAT_disable.Text = "IAT fixed to 24C"
             For i = 0 To 29
-                writeflashbyte(&H28BD4 + i, 75) '65=18C, 75=24C, 128=54C
+                WriteFlashByte(&H28BD4 + i, 75) '65=18C, 75=24C, 128=54C
             Next
         Else
             IAT_disable.Text = "IAT normal"
             ' set IAT values back to normal
-            writeflashbyte(&H28BD4 + 0, &HFF)
-            writeflashbyte(&H28BD4 + 1, &HFF)
-            writeflashbyte(&H28BD4 + 2, &HD3)
-            writeflashbyte(&H28BD4 + 3, &HB8)
-            writeflashbyte(&H28BD4 + 4, &HA6)
-            writeflashbyte(&H28BD4 + 5, &H98)
-            writeflashbyte(&H28BD4 + 6, &H8D)
-            writeflashbyte(&H28BD4 + 7, &H83)
-            writeflashbyte(&H28BD4 + 8, &H7B)
-            writeflashbyte(&H28BD4 + 9, &H74)
-            writeflashbyte(&H28BD4 + 10, &H6D)
-            writeflashbyte(&H28BD4 + 11, &H67)
-            writeflashbyte(&H28BD4 + 12, &H61)
-            writeflashbyte(&H28BD4 + 13, &H5B)
-            writeflashbyte(&H28BD4 + 14, &H56)
-            writeflashbyte(&H28BD4 + 15, &H51)
-            writeflashbyte(&H28BD4 + 16, &H4C)
-            writeflashbyte(&H28BD4 + 17, &H47)
-            writeflashbyte(&H28BD4 + 18, &H43)
-            writeflashbyte(&H28BD4 + 19, &H3E)
-            writeflashbyte(&H28BD4 + 20, &H39)
-            writeflashbyte(&H28BD4 + 21, &H34)
-            writeflashbyte(&H28BD4 + 22, &H30)
-            writeflashbyte(&H28BD4 + 23, &H2B)
-            writeflashbyte(&H28BD4 + 24, &H25)
-            writeflashbyte(&H28BD4 + 25, &H20)
-            writeflashbyte(&H28BD4 + 26, &H1A)
-            writeflashbyte(&H28BD4 + 27, &H13)
-            writeflashbyte(&H28BD4 + 28, &HC)
-            writeflashbyte(&H28BD4 + 29, &H3)
+            WriteFlashByte(&H28BD4 + 0, &HFF)
+            WriteFlashByte(&H28BD4 + 1, &HFF)
+            WriteFlashByte(&H28BD4 + 2, &HD3)
+            WriteFlashByte(&H28BD4 + 3, &HB8)
+            WriteFlashByte(&H28BD4 + 4, &HA6)
+            WriteFlashByte(&H28BD4 + 5, &H98)
+            WriteFlashByte(&H28BD4 + 6, &H8D)
+            WriteFlashByte(&H28BD4 + 7, &H83)
+            WriteFlashByte(&H28BD4 + 8, &H7B)
+            WriteFlashByte(&H28BD4 + 9, &H74)
+            WriteFlashByte(&H28BD4 + 10, &H6D)
+            WriteFlashByte(&H28BD4 + 11, &H67)
+            WriteFlashByte(&H28BD4 + 12, &H61)
+            WriteFlashByte(&H28BD4 + 13, &H5B)
+            WriteFlashByte(&H28BD4 + 14, &H56)
+            WriteFlashByte(&H28BD4 + 15, &H51)
+            WriteFlashByte(&H28BD4 + 16, &H4C)
+            WriteFlashByte(&H28BD4 + 17, &H47)
+            WriteFlashByte(&H28BD4 + 18, &H43)
+            WriteFlashByte(&H28BD4 + 19, &H3E)
+            WriteFlashByte(&H28BD4 + 20, &H39)
+            WriteFlashByte(&H28BD4 + 21, &H34)
+            WriteFlashByte(&H28BD4 + 22, &H30)
+            WriteFlashByte(&H28BD4 + 23, &H2B)
+            WriteFlashByte(&H28BD4 + 24, &H25)
+            WriteFlashByte(&H28BD4 + 25, &H20)
+            WriteFlashByte(&H28BD4 + 26, &H1A)
+            WriteFlashByte(&H28BD4 + 27, &H13)
+            WriteFlashByte(&H28BD4 + 28, &HC)
+            WriteFlashByte(&H28BD4 + 29, &H3)
         End If
     End Sub
 
@@ -368,30 +368,30 @@ Public Class Advsettings
         Dim change As Integer
 
         change = Val(C_Accel.Items.Item(C_Accel.SelectedIndex))
-        writeflashbyte(&H32A39 + 0, 32 + Int((1 + (change / 100)) * 0))
-        writeflashbyte(&H32A39 + 1, 32 + Int((1 + (change / 100)) * 3))
-        writeflashbyte(&H32A39 + 2, 32 + Int((1 + (change / 100)) * 7))
-        writeflashbyte(&H32A39 + 3, 32 + Int((1 + (change / 100)) * 15))
-        writeflashbyte(&H32A39 + 4, 32 + Int((1 + (change / 100)) * 24))
-        writeflashbyte(&H32A39 + 5, 32 + Int((1 + (change / 100)) * 35))
-        writeflashbyte(&H32A39 + 6, 32 + Int((1 + (change / 100)) * 48))
+        WriteFlashByte(&H32A39 + 0, 32 + Int((1 + (change / 100)) * 0))
+        WriteFlashByte(&H32A39 + 1, 32 + Int((1 + (change / 100)) * 3))
+        WriteFlashByte(&H32A39 + 2, 32 + Int((1 + (change / 100)) * 7))
+        WriteFlashByte(&H32A39 + 3, 32 + Int((1 + (change / 100)) * 15))
+        WriteFlashByte(&H32A39 + 4, 32 + Int((1 + (change / 100)) * 24))
+        WriteFlashByte(&H32A39 + 5, 32 + Int((1 + (change / 100)) * 35))
+        WriteFlashByte(&H32A39 + 6, 32 + Int((1 + (change / 100)) * 48))
 
     End Sub
 
 
     Private Sub Solenoid_TPS_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Solenoid_TPS.CheckedChanged
         Dim i As Integer
-        i = readflashbyte(&H10A4B)
+        i = ReadFlashByte(&H10A4B)
         If Solenoid_TPS.Enabled Then
             If Solenoid_TPS.Checked Then                'If TPS>88%, i.e. RAM=3 then branch
-                writeflashbyte(&H10A8F, &H3E)           'RAM ADDR FFFF833E, low byte of RAM addr to tested
-                writeflashbyte(&H10A4A, 136)            'COMMAND CMP/EQ (if #imm=r0 then 1-->T)
-                writeflashbyte(&H10A4B, 3)              'CMP byte , byte is the value to be tested 3 = appr 85% throttle opening
+                WriteFlashByte(&H10A8F, &H3E)           'RAM ADDR FFFF833E, low byte of RAM addr to tested
+                WriteFlashByte(&H10A4A, 136)            'COMMAND CMP/EQ (if #imm=r0 then 1-->T)
+                WriteFlashByte(&H10A4B, 3)              'CMP byte , byte is the value to be tested 3 = appr 85% throttle opening
                 Solenoid_TPS.Text = "TPS > 85%"
             Else                                        ' ...normal function...
-                writeflashbyte(&H10A8F, &HA7)           'RAM ADDR FFFF83A7
-                writeflashbyte(&H10A4A, 200)            'COMMAND TST
-                writeflashbyte(&H10A4B, 1)              'TST byte
+                WriteFlashByte(&H10A8F, &HA7)           'RAM ADDR FFFF83A7
+                WriteFlashByte(&H10A4A, 200)            'COMMAND TST
+                WriteFlashByte(&H10A4B, 1)              'TST byte
                 Solenoid_TPS.Text = "Normal"
             End If
         End If
@@ -402,25 +402,25 @@ Public Class Advsettings
         '
         i = Val(C_fuelconsumption.Text)
         'i = CInt((i - 100) / 2) + 100
-        writeflashbyte(fuelconsumption, i)
+        WriteFlashByte(fuelconsumption, i)
     End Sub
 
     Private Sub setgearmap(ByVal addr As Integer, ByVal v1 As Integer, ByVal v2 As Integer, ByVal v3 As Integer, ByVal v4 As Integer, ByVal v5 As Integer, ByVal v6 As Integer, ByVal v7 As Integer, ByVal v8 As Integer, ByVal v9 As Integer, ByVal v10 As Integer, ByVal v11 As Integer, ByVal v12 As Integer, ByVal v13 As Integer, ByVal v14 As Integer, ByVal v15 As Integer, ByVal change As Integer)
-        writeflashbyte(addr + 0, CInt(v1 * change / 100))
-        writeflashbyte(addr + 1, CInt(v2 * change / 100))
-        writeflashbyte(addr + 2, CInt(v3 * change / 100))
-        writeflashbyte(addr + 3, CInt(v4 * change / 100))
-        writeflashbyte(addr + 4, CInt(v5 * change / 100))
-        writeflashbyte(addr + 5, CInt(v6 * change / 100))
-        writeflashbyte(addr + 6, CInt(v7 * change / 100))
-        writeflashbyte(addr + 7, CInt(v8 * change / 100))
-        writeflashbyte(addr + 8, CInt(v9 * change / 100))
-        writeflashbyte(addr + 9, CInt(v10 * change / 100))
-        writeflashbyte(addr + 10, CInt(v11 * change / 100))
-        writeflashbyte(addr + 11, CInt(v12 * change / 100))
-        writeflashbyte(addr + 12, CInt(v13 * change / 100))
-        writeflashbyte(addr + 13, CInt(v14 * change / 100))
-        writeflashbyte(addr + 14, CInt(v15 * change / 100))
+        WriteFlashByte(addr + 0, CInt(v1 * change / 100))
+        WriteFlashByte(addr + 1, CInt(v2 * change / 100))
+        WriteFlashByte(addr + 2, CInt(v3 * change / 100))
+        WriteFlashByte(addr + 3, CInt(v4 * change / 100))
+        WriteFlashByte(addr + 4, CInt(v5 * change / 100))
+        WriteFlashByte(addr + 5, CInt(v6 * change / 100))
+        WriteFlashByte(addr + 6, CInt(v7 * change / 100))
+        WriteFlashByte(addr + 7, CInt(v8 * change / 100))
+        WriteFlashByte(addr + 8, CInt(v9 * change / 100))
+        WriteFlashByte(addr + 9, CInt(v10 * change / 100))
+        WriteFlashByte(addr + 10, CInt(v11 * change / 100))
+        WriteFlashByte(addr + 11, CInt(v12 * change / 100))
+        WriteFlashByte(addr + 12, CInt(v13 * change / 100))
+        WriteFlashByte(addr + 13, CInt(v14 * change / 100))
+        WriteFlashByte(addr + 14, CInt(v15 * change / 100))
     End Sub
     Private Sub set_gearing(ByVal gearing As String)
         Dim change As Integer
@@ -538,37 +538,37 @@ Public Class Advsettings
 
         j = (i * (256 - 55) / 125) + 55
 
-        writeflashbyte(&H294FC, j)
+        WriteFlashByte(&H294FC, j)
 
     End Sub
 
     Private Sub IAP_range_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles IAP_range.CheckedChanged
         If IAP_range.Checked Then
             IAP_range.Text = "IAP extended"
-            writeflashword(&H8846, &HFF00)
+            WriteFlashWord(&H8846, &HFF00)
         Else
             IAP_range.Text = "IAP normal"
-            writeflashword(&H8846, &HF852)
+            WriteFlashWord(&H8846, &HF852)
         End If
     End Sub
 
     Private Sub C_antitheft_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_antitheft.CheckedChanged
         If C_antitheft.Checked Then
             C_antitheft.Text = "Lock compatible"
-            writeflashword(&H7650, &H9)
+            WriteFlashWord(&H7650, &H9)
         Else
             C_antitheft.Text = "Lock normal"
-            writeflashword(&H7650, &HCB01)
+            WriteFlashWord(&H7650, &HCB01)
         End If
     End Sub
 
     Private Sub C_cranking_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_cranking.CheckedChanged
         If C_cranking.Checked Then
             C_cranking.Text = "Lower RPM"
-            writeflashword(&H28C2C, &H3C00)
+            WriteFlashWord(&H28C2C, &H3C00)
         Else
             C_cranking.Text = "RPM normal"
-            writeflashword(&H28C2C, &H3000)
+            WriteFlashWord(&H28C2C, &H3000)
         End If
 
     End Sub
@@ -576,22 +576,22 @@ Public Class Advsettings
     Private Sub C_yoshbox_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_yoshbox.CheckedChanged
         If C_yoshbox.Checked Then
             C_yoshbox.Text = "Disabled"
-            writeflashword(&HE95A, &HE580)
-            writeflashword(&HE960, &HE080)
-            writeflashword(&HE966, &HE080)
-            writeflashword(&HE96E, &HE080)
-            writeflashword(&HDB90, &HE080)
-            writeflashword(&HDB98, &HE080)
-            writeflashword(&HDBA0, &HE080)
+            WriteFlashWord(&HE95A, &HE580)
+            WriteFlashWord(&HE960, &HE080)
+            WriteFlashWord(&HE966, &HE080)
+            WriteFlashWord(&HE96E, &HE080)
+            WriteFlashWord(&HDB90, &HE080)
+            WriteFlashWord(&HDB98, &HE080)
+            WriteFlashWord(&HDBA0, &HE080)
         Else
             C_yoshbox.Text = "Normal"
-            writeflashword(&HE95A, &H6540)
-            writeflashword(&HE960, &H8441)
-            writeflashword(&HE966, &H8442)
-            writeflashword(&HE96E, &H8443)
-            writeflashword(&HDB90, &H8444)
-            writeflashword(&HDB98, &H8445)
-            writeflashword(&HDBA0, &H8446)
+            WriteFlashWord(&HE95A, &H6540)
+            WriteFlashWord(&HE960, &H8441)
+            WriteFlashWord(&HE966, &H8442)
+            WriteFlashWord(&HE96E, &H8443)
+            WriteFlashWord(&HDB90, &H8444)
+            WriteFlashWord(&HDB98, &H8445)
+            WriteFlashWord(&HDBA0, &H8446)
         End If
 
     End Sub
@@ -604,7 +604,7 @@ Public Class Advsettings
         Dim z As Integer
 
         i = Val(C_dwell.Text)
-        j = readflashbyte(&H3686E + 27)
+        j = ReadFlashByte(&H3686E + 27)
 
         Select Case j
             Case 101    ' 100% map in use
@@ -618,9 +618,9 @@ Public Class Advsettings
         End Select
 
         For y = 27 To ((9 * 18) - 1)
-            z = readflashbyte(&H3686E + y)
+            z = ReadFlashByte(&H3686E + y)
             z = CInt((z * i) / x)
-            writeflashbyte(&H3686E + y, z)
+            WriteFlashByte(&H3686E + y, z)
         Next
 
         z = 0

@@ -41,21 +41,21 @@ Public Class shifter
 
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
-        If (readflashbyte(ADJ) <> &HFF) Then
-            writeflashword((ADJ), (Val(T_12000.Text) * 12) / timerconst)
-            writeflashword((ADJ + 2), (Val(T_11000.Text) * 11) / timerconst)
-            writeflashword((ADJ + 4), (Val(T_10000.Text) * 10) / timerconst)
-            writeflashword((ADJ + 6), (Val(T_9000.Text) * 9) / timerconst)
-            writeflashword((ADJ + 8), (Val(T_8000.Text) * 8) / timerconst)
-            writeflashword((ADJ + 10), (Val(T_7000.Text) * 7) / timerconst)
-            writeflashword((ADJ + 12), (Val(T_6000.Text) * 6) / timerconst)
-            writeflashword((ADJ + 14), (Val(T_5000.Text) * 5) / timerconst)
-            writeflashword((ADJ + 16), (Val(T_4000.Text) * 4) / timerconst)
-            writeflashword((ADJ + 18), (Val(T_3000.Text) * 3) / timerconst)
-            writeflashword(ADJ + 20, (Val(T_2000.Text) * 2) / timerconst)     'Added 11.8.2009 JaSa
+        If (ReadFlashByte(ADJ) <> &HFF) Then
+            WriteFlashWord((ADJ), (Val(T_12000.Text) * 12) / timerconst)
+            WriteFlashWord((ADJ + 2), (Val(T_11000.Text) * 11) / timerconst)
+            WriteFlashWord((ADJ + 4), (Val(T_10000.Text) * 10) / timerconst)
+            WriteFlashWord((ADJ + 6), (Val(T_9000.Text) * 9) / timerconst)
+            WriteFlashWord((ADJ + 8), (Val(T_8000.Text) * 8) / timerconst)
+            WriteFlashWord((ADJ + 10), (Val(T_7000.Text) * 7) / timerconst)
+            WriteFlashWord((ADJ + 12), (Val(T_6000.Text) * 6) / timerconst)
+            WriteFlashWord((ADJ + 14), (Val(T_5000.Text) * 5) / timerconst)
+            WriteFlashWord((ADJ + 16), (Val(T_4000.Text) * 4) / timerconst)
+            WriteFlashWord((ADJ + 18), (Val(T_3000.Text) * 3) / timerconst)
+            WriteFlashWord(ADJ + 20, (Val(T_2000.Text) * 2) / timerconst)     'Added 11.8.2009 JaSa
 
-            writeflashword(minkillactive, Val(T_minkillactive.Text))
-            writeflashword(killcountdelay, Val(T_killcountdelay.Text))
+            WriteFlashWord(minkillactive, Val(T_minkillactive.Text))
+            WriteFlashWord(killcountdelay, Val(T_killcountdelay.Text))
         End If
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
@@ -64,7 +64,7 @@ Public Class shifter
     Private Sub CheckBox1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_shifter_activation.CheckedChanged
         If C_shifter_activation.Checked Then
             C_shifter_activation.Text = "Shifter active"
-            If (readflashbyte(ADJ) = &HFF) Then
+            If (ReadFlashByte(ADJ) = &HFF) Then
                 modify_original_ECU_code(True)
                 shifter_code_in_memory(True, shiftercodelenght)
             End If
@@ -80,7 +80,7 @@ Public Class shifter
     Private Sub shifter_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim i As Integer
 
-        If (readflashbyte(ADJ) = &HFF) Then
+        If (ReadFlashByte(ADJ) = &HFF) Then
             C_shifter_activation.Checked = False
             hide_shifter_settings()
             L_Neutral.Text = "Using Neutral gear during shifter operation"
@@ -90,7 +90,7 @@ Public Class shifter
             'shifter_code_in_memory(True, shiftercodelenght)
             L_Neutral.Text = "Using 6th gear during shifter operation"
 
-            If (readflashword(IDTAG) <> SHIFTER2VERSION) Then
+            If (ReadFlashWord(IDTAG) <> SHIFTER2VERSION) Then
                 MsgBox("Shifter code incompatible with this version, please reactivate the shifter on this map")
                 C_shifter_activation.Checked = False
                 hide_shifter_settings()
@@ -100,27 +100,27 @@ Public Class shifter
 
 
 
-            For i = 3 To 12
-                C_killtime.Items.Add(Str(10 * i))
-            Next
+        For i = 3 To 12
+            C_killtime.Items.Add(Str(10 * i))
+        Next
     End Sub
 
     Private Sub modify_original_ECU_code(ByVal method As Boolean)
         If method Then
-            writeflashlongword(&HE46C, FUELCODE)    '@r3, jsraddr to shifter code which includes jsr to original code
-            writeflashword(&HE28C, &H432B)              '0100001100101011 jmp @r3
-            writeflashbyte(&H7E5B, &H40)                 'Threshold for low voltage 6th map raised to same as limiter
+            WriteFlashLongWord(&HE46C, FUELCODE)    '@r3, jsraddr to shifter code which includes jsr to original code
+            WriteFlashWord(&HE28C, &H432B)              '0100001100101011 jmp @r3
+            WriteFlashByte(&H7E5B, &H40)                 'Threshold for low voltage 6th map raised to same as limiter
             L_Neutral.Text = "Using 6th gear during shifter operation"
-            writeflashword(&H12F96, &H432B)        '0100001100101011 jmp @r3
-            writeflashlongword(&H13080, IGNCODE)    'IGN code start addr
+            WriteFlashWord(&H12F96, &H432B)        '0100001100101011 jmp @r3
+            WriteFlashLongWord(&H13080, IGNCODE)    'IGN code start addr
 
         Else
-            writeflashlongword(&HE46C, &H11E90)         '@r3, original ecu code
-            writeflashword(&HE28C, &H430B)              '0100001100001011 jsr @r3
-            writeflashbyte(&H7E5B, &H2C)                 'Threshold for low voltage 6th map set to original
+            WriteFlashLongWord(&HE46C, &H11E90)         '@r3, original ecu code
+            WriteFlashWord(&HE28C, &H430B)              '0100001100001011 jsr @r3
+            WriteFlashByte(&H7E5B, &H2C)                 'Threshold for low voltage 6th map set to original
             L_Neutral.Text = "Using Neutral gear during shifter operation"
-            writeflashword(&H12F96, &H430B)         '0100001100001011 jsr @r3
-            writeflashlongword(&H13080, &HB078)     'Original IGN code start addr
+            WriteFlashWord(&H12F96, &H430B)         '0100001100001011 jsr @r3
+            WriteFlashLongWord(&H13080, &HB078)     'Original IGN code start addr
 
         End If
     End Sub
@@ -140,7 +140,7 @@ Public Class shifter
             '
             ' write the shifter code into memory address from the .bin file
             '
-            writeflashbyte(ADJ, &H0)
+            WriteFlashByte(ADJ, &H0)
             fs = File.OpenRead(path)
 
             i = 0
@@ -150,17 +150,17 @@ Public Class shifter
             Loop
             fs.Close()
 
-            If readflashword(IDTAG) <> SHIFTER2VERSION Then
+            If ReadFlashWord(IDTAG) <> SHIFTER2VERSION Then
                 MsgBox("This shifter code is not compatible with this ECUeditor version !!!")
                 For i = 0 To lenght
-                    writeflashbyte(i + ADJ, &HFF)
+                    WriteFlashByte(i + ADJ, &HFF)
                 Next
                 Me.Close()
             End If
         Else
             ' reset the shifter code in memory back to &HFF. Remember that &HFF is the default value after EPROM erase
             For i = 0 To lenght
-                writeflashbyte(i + ADJ, &HFF)
+                WriteFlashByte(i + ADJ, &HFF)
             Next
         End If
     End Sub
@@ -192,39 +192,39 @@ Public Class shifter
         T_3000.Visible = True
         T_2000.Visible = True                                           'Added 11.8.2009 JaSa
 
-        T_12000.Text = round5(readflashword(ADJ + 0) / 12 * timerconst)
-        T_11000.Text = round5(readflashword(ADJ + 2) / 11 * timerconst)
-        T_10000.Text = round5(readflashword(ADJ + 4) / 10 * timerconst)
-        T_9000.Text = round5(readflashword(ADJ + 6) / 9 * timerconst)
-        T_8000.Text = round5(readflashword(ADJ + 8) / 8 * timerconst)
-        T_7000.Text = round5(readflashword(ADJ + 10) / 7 * timerconst)
-        T_6000.Text = round5(readflashword(ADJ + 12) / 6 * timerconst)
-        T_5000.Text = round5(readflashword(ADJ + 14) / 5 * timerconst)
-        T_4000.Text = round5(readflashword(ADJ + 16) / 4 * timerconst)
-        T_3000.Text = round5(readflashword(ADJ + 18) / 3 * timerconst)
-        T_2000.Text = round5(readflashword(ADJ + 20) / 2 * timerconst)  'Added 11.8.2009 JaSa
+        T_12000.Text = Round5(ReadFlashWord(ADJ + 0) / 12 * timerconst)
+        T_11000.Text = Round5(ReadFlashWord(ADJ + 2) / 11 * timerconst)
+        T_10000.Text = Round5(ReadFlashWord(ADJ + 4) / 10 * timerconst)
+        T_9000.Text = Round5(ReadFlashWord(ADJ + 6) / 9 * timerconst)
+        T_8000.Text = Round5(ReadFlashWord(ADJ + 8) / 8 * timerconst)
+        T_7000.Text = Round5(ReadFlashWord(ADJ + 10) / 7 * timerconst)
+        T_6000.Text = Round5(ReadFlashWord(ADJ + 12) / 6 * timerconst)
+        T_5000.Text = Round5(ReadFlashWord(ADJ + 14) / 5 * timerconst)
+        T_4000.Text = Round5(ReadFlashWord(ADJ + 16) / 4 * timerconst)
+        T_3000.Text = Round5(ReadFlashWord(ADJ + 18) / 3 * timerconst)
+        T_2000.Text = Round5(ReadFlashWord(ADJ + 20) / 2 * timerconst)  'Added 11.8.2009 JaSa
 
         L_minkillactive.Visible = True
         L_killcountdelay.Visible = True
         T_minkillactive.Visible = True
         T_killcountdelay.Visible = True
-        T_minkillactive.Text = readflashword(minkillactive)
-        T_killcountdelay.Text = readflashword(killcountdelay)
+        T_minkillactive.Text = ReadFlashWord(minkillactive)
+        T_killcountdelay.Text = ReadFlashWord(killcountdelay)
         C_killtime.Enabled = True
         C_pair.Enabled = True
 
         C_fuelcut.Enabled = True
         C_Igncut.Enabled = True
 
-        If readflashbyte(FUELCUT) = 1 Then
+        If ReadFlashByte(FUELCUT) = 1 Then
             C_fuelcut.Checked = True
         End If
 
-        If readflashbyte(IGNCUT) = 1 Then
+        If ReadFlashByte(IGNCUT) = 1 Then
             C_Igncut.Checked = True
         End If
 
-        If readflashbyte(&H665F) = 0 Then
+        If ReadFlashByte(&H665F) = 0 Then
             C_pair.Checked = True
             C_pair.Text = "PAIR as output control"
             C_pairrpm12.Enabled = True
@@ -238,7 +238,7 @@ Public Class shifter
         End If
 
         If C_pairrpm12.Items.Count() = 0 Then
-            C_pairrpm12.Items.Add(Int(readflashword(SOLRPM12) / 2.56))
+            C_pairrpm12.Items.Add(Int(ReadFlashWord(SOLRPM12) / 2.56))
             For i = 8000 To 12000 Step 100
                 C_pairrpm12.Items.Add(Int(i))
             Next
@@ -246,7 +246,7 @@ Public Class shifter
         End If
 
         If C_pairrpm36.Items.Count() = 0 Then
-            C_pairrpm36.Items.Add(Int(readflashword(SOLRPM36) / 2.56))
+            C_pairrpm36.Items.Add(Int(ReadFlashWord(SOLRPM36) / 2.56))
             For i = 9000 To 12000 Step 100
                 C_pairrpm36.Items.Add(Int(i))
             Next
@@ -255,7 +255,7 @@ Public Class shifter
 
 
         C_6thGearKill.Enabled = True
-        If readflashword(GEAR6KILL) = 1 Then
+        If ReadFlashWord(GEAR6KILL) = 1 Then
             C_6thGearKill.Checked = True
         Else
             C_6thGearKill.Text = "Allow gear changes on 6th (GPS fault between gears)"
@@ -320,17 +320,17 @@ Public Class shifter
         T_3000.Text = C_killtime.Text
         T_2000.Text = C_killtime.Text               'Added 11.8.2009 JaSa
 
-        writeflashword((ADJ), (Val(T_12000.Text) * 12) / timerconst)
-        writeflashword((ADJ + 2), (Val(T_11000.Text) * 11) / timerconst)
-        writeflashword((ADJ + 4), (Val(T_10000.Text) * 10) / timerconst)
-        writeflashword((ADJ + 6), (Val(T_9000.Text) * 9) / timerconst)
-        writeflashword((ADJ + 8), (Val(T_8000.Text) * 8) / timerconst)
-        writeflashword((ADJ + 10), (Val(T_7000.Text) * 7) / timerconst)
-        writeflashword((ADJ + 12), (Val(T_6000.Text) * 6) / timerconst)
-        writeflashword((ADJ + 14), (Val(T_5000.Text) * 5) / timerconst)
-        writeflashword((ADJ + 16), (Val(T_4000.Text) * 4) / timerconst)
-        writeflashword((ADJ + 18), (Val(T_3000.Text) * 3) / timerconst)
-        writeflashword((ADJ + 20), (Val(T_2000.Text) * 2) / timerconst) 'Added 11.8.2009
+        WriteFlashWord((ADJ), (Val(T_12000.Text) * 12) / timerconst)
+        WriteFlashWord((ADJ + 2), (Val(T_11000.Text) * 11) / timerconst)
+        WriteFlashWord((ADJ + 4), (Val(T_10000.Text) * 10) / timerconst)
+        WriteFlashWord((ADJ + 6), (Val(T_9000.Text) * 9) / timerconst)
+        WriteFlashWord((ADJ + 8), (Val(T_8000.Text) * 8) / timerconst)
+        WriteFlashWord((ADJ + 10), (Val(T_7000.Text) * 7) / timerconst)
+        WriteFlashWord((ADJ + 12), (Val(T_6000.Text) * 6) / timerconst)
+        WriteFlashWord((ADJ + 14), (Val(T_5000.Text) * 5) / timerconst)
+        WriteFlashWord((ADJ + 16), (Val(T_4000.Text) * 4) / timerconst)
+        WriteFlashWord((ADJ + 18), (Val(T_3000.Text) * 3) / timerconst)
+        WriteFlashWord((ADJ + 20), (Val(T_2000.Text) * 2) / timerconst) 'Added 11.8.2009
 
     End Sub
 
@@ -342,13 +342,13 @@ Public Class shifter
     Private Sub C_pair_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_pair.CheckedChanged
 
         If C_pair.Checked = True Then
-            writeflashbyte(&H665F, &H0)         'Pair set to no write to port
+            WriteFlashByte(&H665F, &H0)         'Pair set to no write to port
             C_pair.Text = "PAIR as output control"
             C_pairrpm12.Enabled = True
             C_pairrpm36.Enabled = True
 
         Else
-            writeflashbyte(&H665F, &H3)         'Pair set to write to port
+            WriteFlashByte(&H665F, &H3)         'Pair set to write to port
             C_pair.Text = "PAIR normal operation"
             C_pairrpm12.Enabled = False
             C_pairrpm36.Enabled = False
@@ -359,9 +359,9 @@ Public Class shifter
 
     Private Sub C_fuelcut_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_fuelcut.CheckedChanged
         If C_fuelcut.Checked Then
-            writeflashbyte(FUELCUT, 1)
+            WriteFlashByte(FUELCUT, 1)
         Else
-            writeflashbyte(FUELCUT, 0)
+            WriteFlashByte(FUELCUT, 0)
             If C_Igncut.Checked = False Then
                 C_Igncut.Checked = True
             End If
@@ -371,9 +371,9 @@ Public Class shifter
 
     Private Sub C_Igncut_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_Igncut.CheckedChanged
         If C_Igncut.Checked Then
-            writeflashbyte(IGNCUT, 1)
+            WriteFlashByte(IGNCUT, 1)
         Else
-            writeflashbyte(IGNCUT, 0)
+            WriteFlashByte(IGNCUT, 0)
             If C_fuelcut.Checked = False Then
                 C_fuelcut.Checked = True
             End If
@@ -381,19 +381,19 @@ Public Class shifter
     End Sub
 
     Private Sub C_pairrpm_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_pairrpm12.SelectedIndexChanged
-        writeflashword(SOLRPM12, Int(Val(C_pairrpm12.Text) * 2.56))
+        WriteFlashWord(SOLRPM12, Int(Val(C_pairrpm12.Text) * 2.56))
     End Sub
 
     Private Sub C_pairrpm36_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_pairrpm36.SelectedIndexChanged
-        writeflashword(SOLRPM36, Int(Val(C_pairrpm36.Text) * 2.56))
+        WriteFlashWord(SOLRPM36, Int(Val(C_pairrpm36.Text) * 2.56))
     End Sub
 
     Private Sub C_6thGearKill_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_6thGearKill.CheckedChanged
         If C_6thGearKill.Checked Then
-            writeflashword(GEAR6KILL, 1)
+            WriteFlashWord(GEAR6KILL, 1)
             C_6thGearKill.Text = "No kill on 6th gear"
         Else
-            writeflashword(GEAR6KILL, 0)
+            WriteFlashWord(GEAR6KILL, 0)
             C_6thGearKill.Text = "Allow gear changes on 6th (GPS fault between gears)"
         End If
     End Sub

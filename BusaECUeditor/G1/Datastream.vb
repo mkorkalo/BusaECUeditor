@@ -259,8 +259,8 @@ Public Class Datastream
 
             RPM = Int(b(2)) * 100
             TPS = b(3)
-            IP = b(4)
-            AP = b(5)
+            IntakeAirPressure = b(4)
+            AirPressure = b(5)
             CLT = b(6)
             'FUEL = CInt(((b(8) * 256) - 1024) * 2.47 / 100) * 2 ' if 48, then *1, if 24 then*2
             'FUEL = Int(((b(8) * 12.8) - 64))
@@ -287,7 +287,7 @@ Public Class Datastream
                     USR1 = b(7)
             End Select
 
-            IAP = AP - IP + 1 ' calculate x axis scale ambient - manifold
+            IAP = AirPressure - IntakeAirPressure + 1 ' calculate x axis scale ambient - manifold
             If IAP < 0 Then
                 IAP = 0
             End If
@@ -316,13 +316,13 @@ Public Class Datastream
         ' not fully tested and validated. Based on assumptions of reading the disassembler.
         '
         oxysensoractive = False
-        If IAP > readflashbyte(&H295E2) And IAP < readflashbyte(&H295E3) And main.ECUID.Text.Contains("BB34BB51") And MapSelected.Text.Contains("IAP") Then
+        If IAP > ReadFlashByte(&H295E2) And IAP < ReadFlashByte(&H295E3) And main.ECUID.Text.Contains("BB34BB51") And MapSelected.Text.Contains("IAP") Then
             oxysensoractive = True
         End If
-        If TPS > readflashbyte(&H295E0) And TPS < readflashbyte(&H295E1) And main.ECUID.Text.Contains("BB34BB51") And MapSelected.Text.Contains("TPS") Then
+        If TPS > ReadFlashByte(&H295E0) And TPS < ReadFlashByte(&H295E1) And main.ECUID.Text.Contains("BB34BB51") And MapSelected.Text.Contains("TPS") Then
             oxysensoractive = True
         End If
-        If Not (oxysensoractive And RPM > readflashword(&H28C2E) / 2.56 And RPM < readflashword(&H28C2C) / 2.56 And CLT > readflashbyte(&H295DF)) Then
+        If Not (oxysensoractive And RPM > ReadFlashWord(&H28C2E) / 2.56 And RPM < ReadFlashWord(&H28C2C) / 2.56 And CLT > ReadFlashByte(&H295DF)) Then
             oxysensoractive = False
         End If
         R_oxysensor.Checked = oxysensoractive
@@ -492,7 +492,7 @@ Public Class Datastream
                 datalog(datalogpointer, 2) = RPM
                 datalog(datalogpointer, 3) = TPS
                 datalog(datalogpointer, 4) = IAP
-                datalog(datalogpointer, 5) = AP
+                datalog(datalogpointer, 5) = AirPressure
                 datalog(datalogpointer, 6) = CLT
                 datalog(datalogpointer, 7) = USR1
                 datalog(datalogpointer, 8) = FUEL
@@ -516,7 +516,7 @@ Public Class Datastream
                 '
                 d = RPM
                 Datalogger.AxEChartCtl1.SetValue(d)
-                d = calc_TPS(TPS)
+                d = CalcTPS(TPS)
                 Datalogger.AxEChartCtl2.SetValue(d)
                 Datalogger.AxEChartCtl1.Update()
                 Datalogger.AxEChartCtl2.Update()
@@ -607,7 +607,7 @@ Public Class Datastream
         End If
 
         LED_RPM.Text = Str(RPM)
-        LED_TPS.Text = calc_TPS(TPS)
+        LED_TPS.Text = CalcTPS(TPS)
         LED_IAP.Text = Str(IAP)
 
         If metric Then
