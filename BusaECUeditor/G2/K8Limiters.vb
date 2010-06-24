@@ -30,17 +30,17 @@ Public Class K8Limiters
             '
             ' Write limiters off values
             '
-            writeflashbyte(&H73B4A, &H0) 'fuel limiter by gear 
-            writeflashbyte(&H73B4B, &H0) 'fuel limiter by gear softcut
-            writeflashbyte(&H72A88, &H0) 'ignition limiter by gear 
+            WriteFlashByte(&H73B4A, &H0) 'fuel limiter by gear 
+            WriteFlashByte(&H73B4B, &H0) 'fuel limiter by gear softcut
+            WriteFlashByte(&H72A88, &H0) 'ignition limiter by gear 
             C_gearlimiter.Text = "Gear limiters removed"
         Else
             '
             ' Write default values
             '
-            writeflashbyte(&H73B4A, &H80) 'fuel limiter by gear 
-            writeflashbyte(&H73B4B, &H80) 'fuel limiter by gear softcut
-            writeflashbyte(&H72A88, &H0) 'ignition limiter by gear 
+            WriteFlashByte(&H73B4A, &H80) 'fuel limiter by gear 
+            WriteFlashByte(&H73B4B, &H80) 'fuel limiter by gear softcut
+            WriteFlashByte(&H72A88, &H0) 'ignition limiter by gear 
             C_gearlimiter.Text = "Gear limiters on"
 
         End If
@@ -63,34 +63,34 @@ Public Class K8Limiters
         '
         ' RPM/Fuel soft hard type 1
         '
-        writeflashword(&H739E6, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1)))
-        writeflashword(&H739E8, Int((rpmconv / (addedrpm + (rpmconv / &H547)) + 1)))
-        writeflashword(&H739EA, Int((rpmconv / (addedrpm + (rpmconv / &H53B)) + 1)))
-        writeflashword(&H739EC, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1)))
+        WriteFlashWord(&H739E6, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1)))
+        WriteFlashWord(&H739E8, Int((rpmconv / (addedrpm + (rpmconv / &H547)) + 1)))
+        WriteFlashWord(&H739EA, Int((rpmconv / (addedrpm + (rpmconv / &H53B)) + 1)))
+        WriteFlashWord(&H739EC, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1)))
         '
         ' RPM/Fuel soft hard type 2, this is modified higher than stock as stock is not used
         '
-        writeflashword(&H739EE, Int((rpmconv / (addedrpm + (rpmconv / &H53B)) + 1)))
-        writeflashword(&H739F0, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1)))
+        WriteFlashWord(&H739EE, Int((rpmconv / (addedrpm + (rpmconv / &H53B)) + 1)))
+        WriteFlashWord(&H739F0, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1)))
         '
         ' RPM/Fuel soft hard type 3 neutral
         '
-        writeflashword(&H739F2, Int((rpmconv / (addedrpm + (rpmconv / &H594)) + 1)))
-        writeflashword(&H739F4, Int((rpmconv / (addedrpm + (rpmconv / &H587)) + 1)))
+        WriteFlashWord(&H739F2, Int((rpmconv / (addedrpm + (rpmconv / &H594)) + 1)))
+        WriteFlashWord(&H739F4, Int((rpmconv / (addedrpm + (rpmconv / &H587)) + 1)))
         '
         ' RPM/Ignition
         '
-        writeflashword(&H72A68, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1)))
-        writeflashword(&H72A6A, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1)))
-        writeflashword(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H560)) + 1)))
-        writeflashword(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1)))
+        WriteFlashWord(&H72A68, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1)))
+        WriteFlashWord(&H72A6A, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1)))
+        WriteFlashWord(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H560)) + 1)))
+        WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1)))
         '
         ' RPM limiter type 4
         '
-        writeflashword(&H739FE, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1)))
-        writeflashword(&H73A00, Int((rpmconv / (addedrpm + (rpmconv / &H547)) + 1)))
-        writeflashword(&H73A02, Int((rpmconv / (addedrpm + (rpmconv / &H53B)) + 1)))
-        writeflashword(&H73A04, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1)))
+        WriteFlashWord(&H739FE, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1)))
+        WriteFlashWord(&H73A00, Int((rpmconv / (addedrpm + (rpmconv / &H547)) + 1)))
+        WriteFlashWord(&H73A02, Int((rpmconv / (addedrpm + (rpmconv / &H53B)) + 1)))
+        WriteFlashWord(&H73A04, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1)))
 
 
     End Sub
@@ -111,8 +111,8 @@ Public Class K8Limiters
         '
         ' Determine if gear limiters are on or off
         '
-        i = readflashbyte(&H73B4A)
-        If readflashbyte(&H73B4A) <> &H80 Then
+        i = ReadFlashByte(&H73B4A)
+        If ReadFlashByte(&H73B4A) <> &H80 Then
             C_gearlimiter.Checked = True
             C_gearlimiter.Text = "Gear limiters removed"
         Else
@@ -123,7 +123,7 @@ Public Class K8Limiters
         '
         ' Determine if softcut is on or off
         '
-        If readflashbyte(&H73B43) = &HFF Then
+        If ReadFlashByte(&H73B43) = &HFF Then
             Hardcut.Checked = True
             Hardcut.Text = "Fuel hardcut only"
         Else
@@ -133,9 +133,9 @@ Public Class K8Limiters
 
 
         'populate RPM with initial value
-        i = readflashword(&H739EC) ' this is the reference RPM that is stored in the system
+        i = ReadFlashWord(&H739EC) ' this is the reference RPM that is stored in the system
         i = Int(((rpmconv / (i + 0))) + 1)
-        i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
+        i = CInt(i / 50) * 50 'the conversions are not exact, Round it up to the closest 50 to avoid confusion
 
         Me.RPM.Items.Add(i.ToString())
 
@@ -154,10 +154,10 @@ Public Class K8Limiters
 
     Private Sub Hardcut_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Hardcut.CheckedChanged
         If Hardcut.Checked = True Then
-            writeflashbyte(&H73B43, &HFF)
+            WriteFlashByte(&H73B43, &HFF)
             Hardcut.Text = "Fuel hardcut only"
         Else
-            writeflashbyte(&H73B43, &H80)
+            WriteFlashByte(&H73B43, &H80)
             Hardcut.Text = "Fuel softcut enabled"
         End If
 

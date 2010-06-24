@@ -286,7 +286,7 @@ Public Class K8Fuelmap
         '
         Dim diff As Decimal
 
-        diff = (((readflashword(editing_map + (2 * (c + (r * map_number_of_columns))))))) - (((readflashwordcopy(editing_map + (2 * (c + (r * map_number_of_columns)))))))
+        diff = (((ReadFlashWord(editing_map + (2 * (c + (r * map_number_of_columns))))))) - (((ReadFlashWordCopy(editing_map + (2 * (c + (r * map_number_of_columns)))))))
 
         '
         ' Only set cell colour if cursor is on the grid.
@@ -321,7 +321,7 @@ Public Class K8Fuelmap
         mapsel = False
 
         m1 = Fuelmapgrid.Item(c, r).Value
-        m2 = fuelpw((readflashword(editing_map + (2 * (c + (r * map_number_of_columns))))))
+        m2 = fuelpw((ReadFlashWord(editing_map + (2 * (c + (r * map_number_of_columns))))))
 
         diff = m2 - m1
 
@@ -344,20 +344,20 @@ Public Class K8Fuelmap
             mapsel = True
             cylinder = 0        ' 0,1,2,3
             ms01 = 0            ' 0,1
-            number_of_columns = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+            number_of_columns = ReadFlashByte(ReadFlashLongWord(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
             For cylinder = 0 To 3
                 For ms01 = 1 To 1
                     For modeabc = setmode To setmode
                         '
                         ' This is normal on gear idle map
                         '
-                        copy_to_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        writeflashword(copy_to_map + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
+                        copy_to_map = ReadFlashLongWord(ReadFlashLongWord((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        WriteFlashWord(copy_to_map + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
                         '
                         ' Need to write the values also to idle neutral map
                         '
-                        copy_to_map2 = readflashlongword(readflashlongword((&H522A4 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        writeflashword(copy_to_map2 + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
+                        copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((&H522A4 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        WriteFlashWord(copy_to_map2 + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
 
                     Next
                 Next
@@ -367,20 +367,20 @@ Public Class K8Fuelmap
             mapsel = True
             cylinder = 0        ' 0,1,2,3
             ms01 = 0            ' 0,1
-            number_of_columns = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+            number_of_columns = ReadFlashByte(ReadFlashLongWord(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
             For cylinder = 0 To 3
                 For ms01 = 0 To 1
                     For modeabc = setmode To setmode
                         '
                         ' This is normal on gear idle map
                         '
-                        copy_to_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        writeflashword(copy_to_map + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
+                        copy_to_map = ReadFlashLongWord(ReadFlashLongWord((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        WriteFlashWord(copy_to_map + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
                         '
                         ' Need to write the values also to idle neutral map
                         '
-                        copy_to_map2 = readflashlongword(readflashlongword((&H522A4 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        writeflashword(copy_to_map2 + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
+                        copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((&H522A4 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        WriteFlashWord(copy_to_map2 + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
 
                     Next
                 Next
@@ -393,12 +393,12 @@ Public Class K8Fuelmap
             mapsel = True
             cylinder = 0        ' 0,1,2,3
             ms01 = 1            ' 0,1
-            number_of_columns = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+            number_of_columns = ReadFlashByte(ReadFlashLongWord(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
             For cylinder = 0 To 3
                 For ms01 = 1 To 1
                     For modeabc = setmode To setmode
-                        copy_to_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        writeflashword(copy_to_map + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
+                        copy_to_map = ReadFlashLongWord(ReadFlashLongWord((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        WriteFlashWord(copy_to_map + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
                     Next
                 Next
             Next
@@ -411,12 +411,12 @@ Public Class K8Fuelmap
             mapsel = True
             cylinder = 0        ' 0,1,2,3
             ms01 = 0            ' 0,1
-            number_of_columns = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+            number_of_columns = ReadFlashByte(ReadFlashLongWord(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
             For cylinder = 0 To 3
                 For ms01 = 0 To 0
                     For modeabc = setmode To setmode
-                        copy_to_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        writeflashword(copy_to_map + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
+                        copy_to_map = ReadFlashLongWord(ReadFlashLongWord((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        WriteFlashWord(copy_to_map + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
                     Next
                 Next
             Next
@@ -458,9 +458,9 @@ Public Class K8Fuelmap
         '
         cylinder = 0        ' 0,1,2,3
         modeabc = setmode         ' 0,1,2
-        editing_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-        map_number_of_columns = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
-        map_number_of_rows = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
+        editing_map = ReadFlashLongWord(ReadFlashLongWord((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+        map_number_of_columns = ReadFlashByte(ReadFlashLongWord(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+        map_number_of_rows = ReadFlashByte(ReadFlashLongWord(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
 
         '
         ' Global variable of which map type is being edited
@@ -507,9 +507,9 @@ Public Class K8Fuelmap
         '
         cylinder = 0        ' 0,1,2,3
         modeabc = setmode         ' 0,1,2
-        columnheading_map = readflashlongword(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 4)
-        rowheading_map = readflashlongword(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 8)
-        editing_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+        columnheading_map = ReadFlashLongWord(ReadFlashLongWord(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 4)
+        rowheading_map = ReadFlashLongWord(ReadFlashLongWord(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 8)
+        editing_map = ReadFlashLongWord(ReadFlashLongWord((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
 
         '
         ' Generate column headings
@@ -517,11 +517,11 @@ Public Class K8Fuelmap
         Fuelmapgrid.ColumnCount = map_number_of_columns
         c = 0
         Do While c < map_number_of_columns
-            i = readflashword(columnheading_map + (c * 2))
+            i = ReadFlashWord(columnheading_map + (c * 2))
             If TPSmap Then
-                Fuelmapgrid.Columns.Item(c).HeaderText = calc_K8TPS(i)
+                Fuelmapgrid.Columns.Item(c).HeaderText = CalcK8TPS(i)
             Else
-                Fuelmapgrid.Columns.Item(c).HeaderText = calc_K8IAP(i)
+                Fuelmapgrid.Columns.Item(c).HeaderText = CalcK8IAP(i)
             End If
             Fuelmapgrid.Columns.Item(c).Width = 26
             c = c + 1
@@ -534,7 +534,7 @@ Public Class K8Fuelmap
         r = 0
         Fuelmapgrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
         Do While (r < map_number_of_rows)
-            i = readflashword(rowheading_map + (r * 2))
+            i = ReadFlashWord(rowheading_map + (r * 2))
             Fuelmapgrid.Rows.Item(r).HeaderCell.Value = Str(Int(i / 2.56))
             Fuelmapgrid.Rows.Item(r).Height = 15
             r = r + 1
@@ -548,7 +548,7 @@ Public Class K8Fuelmap
         i = 0
         Do While (r < map_number_of_rows)
 
-            Fuelmapgrid.Item(c, r).Value = fuelpw(readflashword((i * 2) + editing_map))
+            Fuelmapgrid.Item(c, r).Value = fuelpw(ReadFlashWord((i * 2) + editing_map))
             setCellColour(c, r)
 
             If c < map_number_of_columns - 1 Then
@@ -604,9 +604,9 @@ Public Class K8Fuelmap
             '
             c = 0
             cc = 0
-            If calc_TPS_dec(TPS) < Val(Fuelmapgrid.Columns.Item(map_number_of_columns - 1).HeaderCell.Value) Then
+            If CalcTPSDec(TPS) < Val(Fuelmapgrid.Columns.Item(map_number_of_columns - 1).HeaderCell.Value) Then
                 Do While (c < map_number_of_columns - 1)
-                    If calc_TPS_dec(TPS) >= cc And calc_TPS_dec(TPS) < Fuelmapgrid.Columns.Item(c + 1).HeaderCell.Value Then
+                    If CalcTPSDec(TPS) >= cc And CalcTPSDec(TPS) < Fuelmapgrid.Columns.Item(c + 1).HeaderCell.Value Then
                         cc = c
                         c = 256
                     Else
@@ -712,9 +712,9 @@ Public Class K8Fuelmap
         cylinder = 0        ' 0,1,2,3
         ms01 = a            ' 0,1
         modeabc = setmode         ' 0,1,2
-        copy_from_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-        number_of_columns = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
-        number_of_rows = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
+        copy_from_map = ReadFlashLongWord(ReadFlashLongWord((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+        number_of_columns = ReadFlashByte(ReadFlashLongWord(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+        number_of_rows = ReadFlashByte(ReadFlashLongWord(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
 
         '
         ' Now copy the map contents for selected mode ms0 or ms1
@@ -722,16 +722,16 @@ Public Class K8Fuelmap
         For cylinder = 0 To 3
             For ms01 = a To b
                 For modeabc = setmode To setmode
-                    copy_to_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                    copy_to_map = ReadFlashLongWord(ReadFlashLongWord((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                     For cell = 0 To ((number_of_columns - 1) * (number_of_rows - 1))
-                        writeflashword(copy_to_map + (cell * 2), readflashword(copy_from_map + (cell * 2)))
+                        WriteFlashWord(copy_to_map + (cell * 2), ReadFlashWord(copy_from_map + (cell * 2)))
                         '
                         ' If IAP map then also copy to idle map in addition to on gear map
                         ' &H52244 on gear, &H522A4 on neutral
                         '
                         If map_structure_table = &H52244 Then
-                            copy_to_map2 = readflashlongword(readflashlongword((&H522A4 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                            writeflashword(copy_to_map2 + (cell * 2), readflashword(copy_from_map + (cell * 2)))
+                            copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((&H522A4 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                            WriteFlashWord(copy_to_map2 + (cell * 2), ReadFlashWord(copy_from_map + (cell * 2)))
                         End If
 
                     Next
@@ -775,7 +775,7 @@ Public Class K8Fuelmap
             r = Fuelmapgrid.CurrentRow.Index
             c = Fuelmapgrid.CurrentCell.ColumnIndex
             m2 = Fuelmapgrid.Item(c, r).Value
-            m1 = fuelpw((readflashwordcopy(editing_map + (2 * (c + (r * map_number_of_columns))))))
+            m1 = fuelpw((ReadFlashWordCopy(editing_map + (2 * (c + (r * map_number_of_columns))))))
             v = m2 - m1
             p = ((m2 / m1) - 1) * 100
             If v > 0 Then
@@ -831,8 +831,8 @@ Public Class K8Fuelmap
         ' Apply changes to the TPS map
         '
         selectmap(1)
-        noc = readflashbyte(readflashlongword(map_structure_table + ((0 * 6) + (3 * 0) + 0) * 4) + 1)
-        nor = readflashbyte(readflashlongword(map_structure_table + ((0 * 6) + (3 * 0) + 0) * 4) + 2)
+        noc = ReadFlashByte(ReadFlashLongWord(map_structure_table + ((0 * 6) + (3 * 0) + 0) * 4) + 1)
+        nor = ReadFlashByte(ReadFlashLongWord(map_structure_table + ((0 * 6) + (3 * 0) + 0) * 4) + 2)
 
 
         If fdlg.ShowDialog() = Windows.Forms.DialogResult.OK Then
@@ -888,7 +888,7 @@ Public Class K8Fuelmap
                             '
                             i = (rp * noc) + cp
 
-                            em = readflashlongword(readflashlongword((&H52304 + ((0 * 6) + (3 * 0) + 0) * 4)) + 12)
+                            em = ReadFlashLongWord(ReadFlashLongWord((&H52304 + ((0 * 6) + (3 * 0) + 0) * 4)) + 12)
                             Fuelmapgrid.Item(cp, rp).Value = fuelpw(((bin((i * 2) + em) * 256) + bin((i * 2) + 1 + em)))
 
                             If Fuelmapgrid.Item(cp, rp).Value <= minval Then Fuelmapgrid.Item(cp, rp).Value = minval + 1

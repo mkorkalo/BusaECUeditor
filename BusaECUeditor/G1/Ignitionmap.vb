@@ -134,7 +134,7 @@ Public Class Ignitionmap
         '
         Dim diff As Decimal
 
-        diff = (((readflashbyte(ignmapaddr_A + (1 * (c + (r * ignmapcolumns))))))) - (((readflashbytecopy(ignmapaddr_A + (1 * (c + (r * ignmapcolumns)))))))
+        diff = (((ReadFlashByte(ignmapaddr_A + (1 * (c + (r * ignmapcolumns))))))) - (((ReadFlashBytecopy(ignmapaddr_A + (1 * (c + (r * ignmapcolumns)))))))
 
         Ignitionmapgrid.Item(c, r).Style.ForeColor = Color.Black
         Ignitionmapgrid.Item(c, r).Style.BackColor = Color.White
@@ -203,12 +203,12 @@ Public Class Ignitionmap
         minval = 32   ' not validated from ecu, minimum value to which the Ignitionmap item can be set
 
         m1 = Ignitionmapgrid.Item(c, r).Value
-        m2 = igndeg((readflashbyte(ignmapaddr_A + (1 * (c + (r * ignmapcolumns)))) / ign_div) * ign_mul - ign_sub)
+        m2 = igndeg((ReadFlashByte(ignmapaddr_A + (1 * (c + (r * ignmapcolumns)))) / ign_div) * ign_mul - ign_sub)
 
         diff = m2 - m1
 
-        m1 = (((CInt((readflashbyte(ignmapaddr_A + (1 * (c + (r * ignmapcolumns)))) / ign_div) * ign_mul - ign_sub) - diff) + ign_sub) / ign_mul * ign_div)
-        m2 = (((CInt((readflashbyte(ignmapaddr_B + (1 * (c + (r * ignmapcolumns)))) / ign_div) * ign_mul - ign_sub) - diff) + ign_sub) / ign_mul * ign_div)
+        m1 = (((CInt((ReadFlashByte(ignmapaddr_A + (1 * (c + (r * ignmapcolumns)))) / ign_div) * ign_mul - ign_sub) - diff) + ign_sub) / ign_mul * ign_div)
+        m2 = (((CInt((ReadFlashByte(ignmapaddr_B + (1 * (c + (r * ignmapcolumns)))) / ign_div) * ign_mul - ign_sub) - diff) + ign_sub) / ign_mul * ign_div)
 
         ' lets check that we do not have too small values that the ecu can not handle
         If ((m1 < minval) Or (m2 < minval)) Then MsgBox("Minimum cell value exceeded", MsgBoxStyle.Information)
@@ -223,14 +223,14 @@ Public Class Ignitionmap
         '
         ' All ignitionmaps will be now flashed with the same values
         '
-        writeflashbyte(ignmapaddr_A1 + (1 * (c + (r * ignmapcolumns))), m1)
-        writeflashbyte(ignmapaddr_B1 + (1 * (c + (r * ignmapcolumns))), m2)
-        writeflashbyte(ignmapaddr_A2 + (1 * (c + (r * ignmapcolumns))), m1)
-        writeflashbyte(ignmapaddr_B2 + (1 * (c + (r * ignmapcolumns))), m2)
-        writeflashbyte(ignmapaddr_A34 + (1 * (c + (r * ignmapcolumns))), m1)
-        writeflashbyte(ignmapaddr_B34 + (1 * (c + (r * ignmapcolumns))), m2)
-        writeflashbyte(ignmapaddr_A56 + (1 * (c + (r * ignmapcolumns))), m1)
-        writeflashbyte(ignmapaddr_B56 + (1 * (c + (r * ignmapcolumns))), m2)
+        WriteFlashByte(ignmapaddr_A1 + (1 * (c + (r * ignmapcolumns))), m1)
+        WriteFlashByte(ignmapaddr_B1 + (1 * (c + (r * ignmapcolumns))), m2)
+        WriteFlashByte(ignmapaddr_A2 + (1 * (c + (r * ignmapcolumns))), m1)
+        WriteFlashByte(ignmapaddr_B2 + (1 * (c + (r * ignmapcolumns))), m2)
+        WriteFlashByte(ignmapaddr_A34 + (1 * (c + (r * ignmapcolumns))), m1)
+        WriteFlashByte(ignmapaddr_B34 + (1 * (c + (r * ignmapcolumns))), m2)
+        WriteFlashByte(ignmapaddr_A56 + (1 * (c + (r * ignmapcolumns))), m1)
+        WriteFlashByte(ignmapaddr_B56 + (1 * (c + (r * ignmapcolumns))), m2)
 
     End Sub
 
@@ -279,7 +279,7 @@ Public Class Ignitionmap
         ' Inform the user that individual gear specific ignitionmaps are now gone
         ' and copy gear 56 map to all maps
         '
-        If readflashword(ignmapaddr_A56 + (ignmaprows * ignmapcolumns) - 12) <> readflashword(ignmapaddr_A1 + (ignmaprows * ignmapcolumns) - 12) Then
+        If ReadFlashWord(ignmapaddr_A56 + (ignmaprows * ignmapcolumns) - 12) <> ReadFlashWord(ignmapaddr_A1 + (ignmaprows * ignmapcolumns) - 12) Then
             MsgBox("Please note, from now on all gears will be using this ignitionmap when flashed", MsgBoxStyle.Information)
             copymaps()
         End If
@@ -300,12 +300,12 @@ Public Class Ignitionmap
         i = 0
         Do While (r < ignmaprows) And (r < 42)
 
-            writeflashbyte(i + ignmapaddr_A1, (readflashbyte(i + ignmapaddr_A)))
-            writeflashbyte(i + ignmapaddr_B1, (readflashbyte(i + ignmapaddr_B)))
-            writeflashbyte(i + ignmapaddr_A2, (readflashbyte(i + ignmapaddr_A)))
-            writeflashbyte(i + ignmapaddr_B2, (readflashbyte(i + ignmapaddr_B)))
-            writeflashbyte(i + ignmapaddr_A34, (readflashbyte(i + ignmapaddr_A)))
-            writeflashbyte(i + ignmapaddr_B34, (readflashbyte(i + ignmapaddr_B)))
+            WriteFlashByte(i + ignmapaddr_A1, (ReadFlashByte(i + ignmapaddr_A)))
+            WriteFlashByte(i + ignmapaddr_B1, (ReadFlashByte(i + ignmapaddr_B)))
+            WriteFlashByte(i + ignmapaddr_A2, (ReadFlashByte(i + ignmapaddr_A)))
+            WriteFlashByte(i + ignmapaddr_B2, (ReadFlashByte(i + ignmapaddr_B)))
+            WriteFlashByte(i + ignmapaddr_A34, (ReadFlashByte(i + ignmapaddr_A)))
+            WriteFlashByte(i + ignmapaddr_B34, (ReadFlashByte(i + ignmapaddr_B)))
 
             If c < ignmapcolumns - 1 Then
                 c = c + 1
@@ -340,8 +340,8 @@ Public Class Ignitionmap
         c = 0
         r = 0
         Do While c < ignmapcolumns
-            i = Int((readflashword(ignmapaddr_A - (2 * ignmaprows) - (2 * ignmapcolumns) + (c * 2))) / 256) ' * 0.00152587890625)
-            Ignitionmapgrid.Columns.Item(c).HeaderText = calc_TPS(i)
+            i = Int((ReadFlashWord(ignmapaddr_A - (2 * ignmaprows) - (2 * ignmapcolumns) + (c * 2))) / 256) ' * 0.00152587890625)
+            Ignitionmapgrid.Columns.Item(c).HeaderText = CalcTPS(i)
             Ignitionmapgrid.Columns.Item(c).Width = 26
             c = c + 1
         Loop
@@ -351,7 +351,7 @@ Public Class Ignitionmap
 
         Ignitionmapgrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
         Do While (r < ignmaprows) And (r < 42)
-            Ignitionmapgrid.Rows.Item(r).HeaderCell.Value = Str((readflashword(ignmapaddr_A - (2 * ignmaprows) + (r * 2)) / 2.56))
+            Ignitionmapgrid.Rows.Item(r).HeaderCell.Value = Str((ReadFlashWord(ignmapaddr_A - (2 * ignmaprows) + (r * 2)) / 2.56))
             Ignitionmapgrid.Rows.Item(r).Height = 15
             r = r + 1
         Loop
@@ -362,9 +362,9 @@ Public Class Ignitionmap
         i = 0
         Do While (r < ignmaprows) And (r < 42)
 
-            Ignitionmapgrid.Item(c, r).Value = igndeg(readflashbyte((i) + ignmapaddr_A) / ign_div * ign_mul - ign_sub)
+            Ignitionmapgrid.Item(c, r).Value = igndeg(ReadFlashByte((i) + ignmapaddr_A) / ign_div * ign_mul - ign_sub)
             setCellColour(c, r)
-            If Not (readflashword(i + ignmapaddr_A) = readflashword(i + ignmapaddr_B)) Then
+            If Not (ReadFlashWord(i + ignmapaddr_A) = ReadFlashWord(i + ignmapaddr_B)) Then
                 B_unify.Visible = True
             End If
 
@@ -409,9 +409,9 @@ Public Class Ignitionmap
 
         c = 0
         icc = 0
-        If calc_TPS_dec(TPS) < Val(Ignitionmapgrid.Columns.Item(ignmapcolumns - 1).HeaderCell.Value) Then
+        If CalcTPSDec(TPS) < Val(Ignitionmapgrid.Columns.Item(ignmapcolumns - 1).HeaderCell.Value) Then
             Do While (c < ignmapcolumns - 1)
-                If calc_TPS_dec(TPS) >= icc And calc_TPS_dec(TPS) < Ignitionmapgrid.Columns.Item(c + 1).HeaderCell.Value Then
+                If CalcTPSDec(TPS) >= icc And CalcTPSDec(TPS) < Ignitionmapgrid.Columns.Item(c + 1).HeaderCell.Value Then
                     icc = c
                     c = 256
                 Else
@@ -470,7 +470,7 @@ Public Class Ignitionmap
 
             r = Ignitionmapgrid.CurrentRow.Index
             c = Ignitionmapgrid.CurrentCell.ColumnIndex
-            v = (Int(readflashbyte(((((ignmapcolumns * r) + c)) + ignmapaddr_A)) / ign_div * ign_mul - ign_sub) - Int(readflashbytecopy((((ignmapcolumns * r) + c)) + ignmapaddr_A) / ign_div * ign_mul - ign_sub))
+            v = (Int(ReadFlashByte(((((ignmapcolumns * r) + c)) + ignmapaddr_A)) / ign_div * ign_mul - ign_sub) - Int(ReadFlashBytecopy((((ignmapcolumns * r) + c)) + ignmapaddr_A) / ign_div * ign_mul - ign_sub))
             If v > 0 Then
                 T_valdiff.Text = "+" & Str(v)
             Else
@@ -503,15 +503,15 @@ Public Class Ignitionmap
         i = 0
 
         Do While (i < (ignmaprows * ignmapcolumns))
-            writeflashword((i + ignmapaddr_B), readflashword(i + ignmapaddr_A))
-            writeflashword((i + ignmapaddr_A1), readflashword(i + ignmapaddr_A))
-            writeflashword((i + ignmapaddr_B1), readflashword(i + ignmapaddr_A))
-            writeflashword((i + ignmapaddr_A2), readflashword(i + ignmapaddr_A))
-            writeflashword((i + ignmapaddr_B2), readflashword(i + ignmapaddr_A))
-            writeflashword((i + ignmapaddr_A34), readflashword(i + ignmapaddr_A))
-            writeflashword((i + ignmapaddr_B34), readflashword(i + ignmapaddr_A))
-            writeflashword((i + ignmapaddr_A56), readflashword(i + ignmapaddr_A))
-            writeflashword((i + ignmapaddr_B56), readflashword(i + ignmapaddr_A))
+            WriteFlashWord((i + ignmapaddr_B), ReadFlashWord(i + ignmapaddr_A))
+            WriteFlashWord((i + ignmapaddr_A1), ReadFlashWord(i + ignmapaddr_A))
+            WriteFlashWord((i + ignmapaddr_B1), ReadFlashWord(i + ignmapaddr_A))
+            WriteFlashWord((i + ignmapaddr_A2), ReadFlashWord(i + ignmapaddr_A))
+            WriteFlashWord((i + ignmapaddr_B2), ReadFlashWord(i + ignmapaddr_A))
+            WriteFlashWord((i + ignmapaddr_A34), ReadFlashWord(i + ignmapaddr_A))
+            WriteFlashWord((i + ignmapaddr_B34), ReadFlashWord(i + ignmapaddr_A))
+            WriteFlashWord((i + ignmapaddr_A56), ReadFlashWord(i + ignmapaddr_A))
+            WriteFlashWord((i + ignmapaddr_B56), ReadFlashWord(i + ignmapaddr_A))
             i = i + 1
         Loop
         B_unify.Visible = False
@@ -526,14 +526,14 @@ Public Class Ignitionmap
         If i = 1 Then ' OK pressed
             i = 0
             Do While (i < (((ignmaprows) * (ignmapcolumns))))
-                writeflashword((i + &H34AA2), readflashword(i + &H32D12))
-                writeflashword((i + &H34E54), readflashword(i + &H330C4))
-                writeflashword((i + &H35206), readflashword(i + &H33476))
-                writeflashword((i + &H355B8), readflashword(i + &H33828))
-                writeflashword((i + &H3596A), readflashword(i + &H33BDA))
-                writeflashword((i + &H35D1C), readflashword(i + &H33F8C))
-                writeflashword((i + &H360CE), readflashword(i + &H3433E))
-                writeflashword((i + &H36480), readflashword(i + &H346F0))
+                WriteFlashWord((i + &H34AA2), ReadFlashWord(i + &H32D12))
+                WriteFlashWord((i + &H34E54), ReadFlashWord(i + &H330C4))
+                WriteFlashWord((i + &H35206), ReadFlashWord(i + &H33476))
+                WriteFlashWord((i + &H355B8), ReadFlashWord(i + &H33828))
+                WriteFlashWord((i + &H3596A), ReadFlashWord(i + &H33BDA))
+                WriteFlashWord((i + &H35D1C), ReadFlashWord(i + &H33F8C))
+                WriteFlashWord((i + &H360CE), ReadFlashWord(i + &H3433E))
+                WriteFlashWord((i + &H36480), ReadFlashWord(i + &H346F0))
                 i = i + 1
             Loop
         End If

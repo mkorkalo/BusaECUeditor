@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class filesavenotice
+Partial Class FileSaveNotice
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -19,19 +19,19 @@ Partial Class filesavenotice
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(filesavenotice))
-        Me.OK_Button = New System.Windows.Forms.Button
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FileSaveNotice))
+        Me.B_Ok = New System.Windows.Forms.Button
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox
         Me.SuspendLayout()
         '
-        'OK_Button
+        'B_Ok
         '
-        Me.OK_Button.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.OK_Button.Location = New System.Drawing.Point(355, 272)
-        Me.OK_Button.Name = "OK_Button"
-        Me.OK_Button.Size = New System.Drawing.Size(67, 19)
-        Me.OK_Button.TabIndex = 0
-        Me.OK_Button.Text = "OK"
+        Me.B_Ok.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.B_Ok.Location = New System.Drawing.Point(355, 272)
+        Me.B_Ok.Name = "B_Ok"
+        Me.B_Ok.Size = New System.Drawing.Size(67, 19)
+        Me.B_Ok.TabIndex = 0
+        Me.B_Ok.Text = "OK"
         '
         'RichTextBox1
         '
@@ -43,24 +43,24 @@ Partial Class filesavenotice
         Me.RichTextBox1.TabIndex = 1
         Me.RichTextBox1.Text = resources.GetString("RichTextBox1.Text")
         '
-        'filesavenotice
+        'FileSaveNotice
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(435, 303)
         Me.Controls.Add(Me.RichTextBox1)
-        Me.Controls.Add(Me.OK_Button)
+        Me.Controls.Add(Me.B_Ok)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "filesavenotice"
+        Me.Name = "FileSaveNotice"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Busa 32bit ECU editor notice"
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents OK_Button As System.Windows.Forms.Button
+    Friend WithEvents B_Ok As System.Windows.Forms.Button
     Friend WithEvents RichTextBox1 As System.Windows.Forms.RichTextBox
 
 End Class

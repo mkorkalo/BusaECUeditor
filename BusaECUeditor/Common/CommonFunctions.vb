@@ -1,17 +1,23 @@
-Module Module1
-    Public RPM As Integer
-    Public TPS As Integer
-    Public IAP As Integer 'ambient - intake air pressure
-    Public OXY As Integer
-    Public CLT As Integer
-    Public USR1 As Integer 'user can define this 1variable to be monitored
-    Public RAMVAR_USR1 As Integer ' index of the USR1 variable within RAM
-    Public FUEL As Integer
-    Public AP As Integer ' Air pressure
-    Public IP As Integer 'inteke air pressure
-    Public IGN As Integer
-    Public DUTY As Integer
-    Public AFR As Integer
+Module CommonFunctions
+
+#Region "Variables"
+
+    Public Const _timerInterval As Integer = 250
+    Public Const _maxDataLog As Integer = 4000
+
+    Public _rpm As Integer
+    Public _tps As Integer
+    Public _iap As Integer 'ambient - intake air pressure
+    Public _oxy As Integer
+    Public _clt As Integer
+    Public _usr1 As Integer 'user can define this 1variable to be monitored
+    Public _ramVarUsr1 As Integer ' index of the USR1 variable within RAM
+    Public _fuel As Integer
+    Public _airPressure As Integer ' Air pressure
+    Public _intakeAirPressure As Integer 'intake air pressure
+    Public _ign As Integer
+    Public _duty As Integer
+    Public _afr As Integer
     Public MS As Integer
     Public NT As Integer
     Public CLUTCH As Integer
@@ -27,13 +33,9 @@ Module Module1
     Public BOOST As Integer
     Public DSM1 As Boolean
 
-
     Public looperrorcodes As Integer
-
     Public block_pgm As Boolean
-
     Public block0, block1, block2, block3, block4, block5, block6, block7, block8, block9, blockA, blockB, blockC, blockD, blockE, blockF As Boolean
-
 
     Public cc As Integer
     Public rr As Integer
@@ -66,9 +68,6 @@ Module Module1
     Public ignrowselected As Integer
     Public ignmapvisible As String
 
-
-    Public Const timerinterval As Integer = 250
-    Public Const maxdatalog As Integer = 4000
     Public datalog(CInt(1000 / timerinterval * maxdatalog), 16) As Integer
     Public datalogpointer As Integer
     Public dataloglenght As Integer
@@ -76,21 +75,156 @@ Module Module1
     Public metric As Boolean
     Public ECUversion As String ' either gen1 or gen2 indicating which ecu version is under modification
 
+#End Region
 
-    Public Function fastmode() As Boolean
+#Region "Properties"
+
+    ReadOnly Property TimerInterval() As Integer
+        Get
+            Return _timerInterval
+        End Get
+    End Property
+
+    ReadOnly Property MaxDataLog() As Integer
+        Get
+            Return _maxDataLog
+        End Get
+    End Property
+
+    Public Property RPM() As Integer
+        Get
+            Return _rpm
+        End Get
+
+        Set(ByVal value As Integer)
+            _rpm = value
+        End Set
+    End Property
+
+    Public Property TPS() As Integer
+        Get
+            Return _tps
+        End Get
+        Set(ByVal value As Integer)
+            _tps = value
+        End Set
+    End Property
+
+    Public Property IAP() As Integer
+        Get
+            Return _iap
+        End Get
+        Set(ByVal value As Integer)
+            _iap = value
+        End Set
+    End Property
+
+    Public Property OXY() As Integer
+        Get
+            Return _oxy
+        End Get
+        Set(ByVal value As Integer)
+            _oxy = value
+        End Set
+    End Property
+
+    Public Property CLT() As Integer
+        Get
+            Return _clt
+        End Get
+        Set(ByVal value As Integer)
+            _clt = value
+        End Set
+    End Property
+
+    Public Property USR1() As Integer
+        Get
+            Return _usr1
+        End Get
+        Set(ByVal value As Integer)
+            _usr1 = value
+        End Set
+    End Property
+
+    Public Property RAMVAR_USR1() As Integer
+        Get
+            Return _ramVarUsr1
+        End Get
+        Set(ByVal value As Integer)
+            _ramVarUsr1 = value
+        End Set
+    End Property
+
+    Public Property Fuel() As Integer
+        Get
+            Return _fuel
+        End Get
+        Set(ByVal value As Integer)
+            _fuel = value
+        End Set
+    End Property
+
+    Public Property AirPressure()
+        Get
+            Return _airPressure
+        End Get
+        Set(ByVal value)
+            _airPressure = value
+        End Set
+    End Property
+
+    Public Property IntakeAirPressure() As Integer
+        Get
+            Return _intakeAirPressure
+        End Get
+        Set(ByVal value As Integer)
+            _intakeAirPressure = value
+        End Set
+    End Property
+
+    Public Property IGN() As Integer
+        Get
+            Return _ign
+        End Get
+        Set(ByVal value As Integer)
+            _ign = value
+        End Set
+    End Property
+
+    Public Property DUTY() As Integer
+        Get
+            Return _duty
+        End Get
+        Set(ByVal value As Integer)
+            _duty = value
+        End Set
+    End Property
+
+    Public Property AFR() As Integer
+        Get
+            Return _afr
+        End Get
+        Set(ByVal value As Integer)
+            _afr = value
+        End Set
+    End Property
+#End Region
+
+#Region "Functions"
+
+    Public Function FastMode() As Boolean
+
         If readflashlongword(&H51F10) = &H536C4 Then
             Return True
         Else
             Return False
         End If
+
     End Function
 
+    Public Function CalcTPS(ByVal i As Integer) As String
 
-    Public Function calc_TPS(ByVal i As Integer) As String
-        '
         '  Used by gen1 and gen2 enginedata
-        '
-
         Dim f As Decimal
         Dim istr As String
         istr = ""
@@ -98,18 +232,17 @@ Module Module1
         f = (((i - 55) / (256 - 55)) * 125)
         If f > 100 Then f = 100
 
-
         If f > 5 Then
             istr = Format(f, "###")
         Else
             istr = Format(f, "#0.#")
         End If
 
-
         Return (istr)
 
     End Function
-    Public Function calc_TPStoval(ByVal s As String) As Integer
+
+    Public Function CalcTPSToVal(ByVal s As String) As Integer
         Dim f As Decimal
         Dim ir As String
 
@@ -123,7 +256,7 @@ Module Module1
 
     End Function
 
-    Public Function calc_K8IAP(ByVal i As Integer) As String
+    Public Function CalcK8IAP(ByVal i As Integer) As String
         Dim f As Decimal
         Dim istr As String
         istr = ""
@@ -140,7 +273,8 @@ Module Module1
         Return (istr)
 
     End Function
-    Public Function calc_K8TPS(ByVal i As Integer) As String
+
+    Public Function CalcK8TPS(ByVal i As Integer) As String
         '
         ' Used by map conversions
         '
@@ -161,7 +295,7 @@ Module Module1
 
     End Function
 
-    Public Function calc_TPS_dec(ByVal i As Integer) As Decimal
+    Public Function CalcTPSDec(ByVal i As Integer) As Decimal
         Dim a As Decimal
         a = ((((i - 55) / (256 - 55)) * 125))
         If a <= 5 Then
@@ -175,11 +309,12 @@ Module Module1
     Public Function Rows() As Integer
         Return (9)
     End Function
+
     Public Function Columns() As Integer
         Return (9)
     End Function
 
-    Public Function readflashword(ByVal i As Integer) As Long
+    Public Function ReadFlashWord(ByVal i As Integer) As Long
         Dim tmp As Long
         Dim maxi As Long
 
@@ -194,7 +329,7 @@ Module Module1
 
 
         If i < 0 Or i > maxi Then
-            Dialog_Error.ShowDialog()
+            ErrorDialog.ShowDialog()
         Else
             tmp = (Flash(i) * 256) + Flash(i + 1)
         End If
@@ -203,7 +338,7 @@ Module Module1
 
     End Function
 
-    Public Function readflashwordcopy(ByVal i As Integer) As Integer
+    Public Function ReadFlashWordCopy(ByVal i As Integer) As Integer
         Dim tmp As Integer
         Dim maxi As Integer
 
@@ -217,7 +352,7 @@ Module Module1
         End Select
 
         If i < 0 Or i > maxi Then
-            Dialog_Error.ShowDialog()
+            ErrorDialog.ShowDialog()
         Else
             tmp = (FlashCopy(i) * 256) + FlashCopy(i + 1)
         End If
@@ -226,7 +361,7 @@ Module Module1
 
     End Function
 
-    Public Function readflashbyte(ByVal i As Integer) As Integer
+    Public Function ReadFlashByte(ByVal i As Integer) As Integer
         Dim tmp As Integer
         Dim maxi As Integer
 
@@ -240,7 +375,7 @@ Module Module1
         End Select
 
         If i < 0 Or i > maxi Then
-            Dialog_Error.ShowDialog()
+            ErrorDialog.ShowDialog()
         Else
             tmp = Flash(i)
         End If
@@ -248,7 +383,8 @@ Module Module1
         Return (tmp)
 
     End Function
-    Public Function readflashbytecopy(ByVal i As Integer) As Integer
+
+    Public Function ReadFlashBytecopy(ByVal i As Integer) As Integer
         Dim tmp As Integer
         Dim maxi As Integer
 
@@ -263,7 +399,7 @@ Module Module1
 
 
         If i < 0 Or i > maxi Then
-            Dialog_Error.ShowDialog()
+            ErrorDialog.ShowDialog()
         Else
             tmp = FlashCopy(i)
         End If
@@ -271,13 +407,14 @@ Module Module1
         Return (tmp)
 
     End Function
-    Public Sub writeflashword(ByVal address As Integer, ByVal word As Integer)
+
+    Public Sub WriteFlashWord(ByVal address As Integer, ByVal word As Integer)
         Dim tmp As Byte
         Dim i As Integer
 
         i = Int(word / 256)
         If i > 255 Or i < 0 Then
-            Dialog_Error.ShowDialog()
+            ErrorDialog.ShowDialog()
         Else
             tmp = i
             Flash(address) = tmp
@@ -286,7 +423,7 @@ Module Module1
 
         i = word - (tmp * 256)
         If i > 255 Or i < 0 Then
-            Dialog_Error.ShowDialog()
+            ErrorDialog.ShowDialog()
         Else
             tmp = i
             Flash(address + 1) = tmp
@@ -296,10 +433,10 @@ Module Module1
 
     End Sub
 
-    Public Sub writeflashbyte(ByVal address As Integer, ByVal b As Integer)
+    Public Sub WriteFlashByte(ByVal address As Integer, ByVal b As Integer)
 
         If b > 255 Or b < 0 Then
-            Dialog_Error.ShowDialog()
+            ErrorDialog.ShowDialog()
         Else
             Flash(address) = b
         End If
@@ -307,51 +444,51 @@ Module Module1
         markblock(address)
 
     End Sub
-    Public Function readflashlongword(ByVal address As Long)
+
+    Public Function ReadFlashLongWord(ByVal address As Long)
         Dim tmp As Long
-        tmp = readflashword(address)
+        tmp = ReadFlashWord(address)
         tmp = tmp * 65536
-        tmp = tmp + readflashword(address + 2)
+        tmp = tmp + ReadFlashWord(address + 2)
 
         Return tmp
 
     End Function
 
-
-    Public Sub writeflashlongword(ByVal address As Integer, ByVal longword As Int64)
+    Public Sub WriteFlashLongWord(ByVal address As Integer, ByVal longword As Int64)
         Dim i As Int64
         Dim a, b, c, d As Int64
 
         a = Int(longword / (&HFFFFFF + 1))
-        writeflashbyte(address, a)
+        WriteFlashByte(address, a)
         i = a * (&HFFFFFF + 1)
         i = longword - i
         b = Int(i / (&HFFFF + 1))
-        writeflashbyte(address + 1, b)
+        WriteFlashByte(address + 1, b)
         i = (a * (&HFFFFFF + 1)) + (b * (&HFFFF + 1))
         i = longword - i
         c = Int(i / (&HFF + 1))
-        writeflashbyte(address + 2, c)
+        WriteFlashByte(address + 2, c)
         i = (a * (&HFFFFFF + 1)) + (b * (&HFFFF + 1)) + (c * (&HFF + 1))
         i = longword - i
         d = Int(i)
-        writeflashbyte(address + 3, d)
+        WriteFlashByte(address + 3, d)
 
         markblock(address)
 
     End Sub
 
-    Public Function round(ByVal i As Integer) As String
+    Public Function Round(ByVal i As Integer) As String
         i = CInt(i / 10) * 10
         Return (Str(i))
     End Function
 
-    Public Function round5(ByVal i As Integer) As String
+    Public Function Round5(ByVal i As Integer) As String
         i = CInt(i / 5) * 5
         Return (Str(i))
     End Function
 
-    Private Sub markblock(ByVal a As Long)
+    Private Sub MarkBlock(ByVal a As Long)
         '
         ' This function marks a block changed when doing any writes to flash
         '
@@ -397,11 +534,9 @@ Module Module1
         End Select
     End Sub
 
-    Public Function block_changed(ByVal b As Long) As Boolean
-        '
-        ' This function is used to return true if the block has been changed
-        '
+    Public Function BlockChanged(ByVal b As Long) As Boolean
 
+        ' This function is used to return true if the block has been changed
         Dim retval As Boolean
 
         retval = False
@@ -426,7 +561,8 @@ Module Module1
         Return retval
 
     End Function
-    Public Sub reset_blocks()
+
+    Public Sub ResetBlocks()
         '
         ' This sub is used for clearing all the block flags. E.g. after flashing or verify
         ' we know that this block has been flashed so it can be changed back to original
@@ -450,5 +586,6 @@ Module Module1
 
     End Sub
 
+#End Region
 
 End Module

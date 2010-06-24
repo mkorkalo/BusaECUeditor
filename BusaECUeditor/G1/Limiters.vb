@@ -25,64 +25,64 @@ Public Class Limiters
 
     Private Sub CheckBox1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBox1.CheckedChanged
         If CheckBox1.Checked = True Then
-            writeflashword(&H29588 + 24, Int(12800 * 2.56) + 1)
-            writeflashword(&H29588 + 26, Int(12900 * 2.56) + 1)
+            WriteFlashWord(&H29588 + 24, Int(12800 * 2.56) + 1)
+            WriteFlashWord(&H29588 + 26, Int(12900 * 2.56) + 1)
             ' change also gear specific limiters        
-            writeflashword(&H29588, Int(12800 * 2.56) + 1)
-            writeflashword(&H29590, Int(12800 * 2.56) + 1)
-            writeflashword(&H29598, Int(12800 * 2.56) + 1)
-            writeflashword(&H295A0, Int(12800 * 2.56) + 1)
-            writeflashword(&H2958A, Int(12900 * 2.56) + 1)
-            writeflashword(&H29592, Int(12900 * 2.56) + 1)
-            writeflashword(&H2959A, Int(12900 * 2.56) + 1)
-            writeflashword(&H295A2, Int(12900 * 2.56) + 1)
-            writeflashword(&H295A8 + 0, Int(12800 * 2.56) + 1)
-            writeflashword(&H295A8 + 2, Int(12900 * 2.56) + 1)
-            writeflashword(&H295A8 + 4, Int(12800 * 2.56) + 1)
-            writeflashword(&H295A8 + 6, Int(12900 * 2.56) + 1)
-            writeflashword(&H295A8 + 8, Int(12800 * 2.56) + 1)
-            writeflashword(&H295A8 + 10, Int(12900 * 2.56) + 1)
-            writeflashword(&H295A8 + 12, Int(12800 * 2.56) + 1)
-            writeflashword(&H295A8 + 14, Int(12900 * 2.56) + 1)
+            WriteFlashWord(&H29588, Int(12800 * 2.56) + 1)
+            WriteFlashWord(&H29590, Int(12800 * 2.56) + 1)
+            WriteFlashWord(&H29598, Int(12800 * 2.56) + 1)
+            WriteFlashWord(&H295A0, Int(12800 * 2.56) + 1)
+            WriteFlashWord(&H2958A, Int(12900 * 2.56) + 1)
+            WriteFlashWord(&H29592, Int(12900 * 2.56) + 1)
+            WriteFlashWord(&H2959A, Int(12900 * 2.56) + 1)
+            WriteFlashWord(&H295A2, Int(12900 * 2.56) + 1)
+            WriteFlashWord(&H295A8 + 0, Int(12800 * 2.56) + 1)
+            WriteFlashWord(&H295A8 + 2, Int(12900 * 2.56) + 1)
+            WriteFlashWord(&H295A8 + 4, Int(12800 * 2.56) + 1)
+            WriteFlashWord(&H295A8 + 6, Int(12900 * 2.56) + 1)
+            WriteFlashWord(&H295A8 + 8, Int(12800 * 2.56) + 1)
+            WriteFlashWord(&H295A8 + 10, Int(12900 * 2.56) + 1)
+            WriteFlashWord(&H295A8 + 12, Int(12800 * 2.56) + 1)
+            WriteFlashWord(&H295A8 + 14, Int(12900 * 2.56) + 1)
 
             CheckBox1.Text = "Top speed limiter removed"
         Else
             '
             ' New, trying to add gear limts higher
             '
-            'writeflashword(&H29588 + 14, Int(11400 * 2.56) + 1)
-            'writeflashword(&H29588 + 16, Int(11800 * 2.56) + 1)
-            'writeflashword(&H29588 + 18, Int(11800 * 2.56) + 1)
-            'writeflashword(&H29588 + 20, Int(12000 * 2.56) + 1)
-            'writeflashword(&H29588 + 22, Int(11400 * 2.56) + 1)
-            'writeflashword(&H29588 + 24, Int(11600 * 2.56) + 1)
-            'writeflashword(&H29588 + 26, Int(11800 * 2.56) + 1)
-            'writeflashword(&H29588 + 28, Int(12000 * 2.56) + 1)
-            'writeflashword(&H29588 + 30, Int(10065 * 2.56) + 1)
-            'writeflashword(&H29588 + 32, Int(10089 * 2.56) + 1)
-            'writeflashword(&H29588 + 36, Int(11800 * 2.56) + 1)
-            'writeflashword(&H29588 + 40, Int(12000 * 2.56) + 1)
+            'WriteFlashWord(&H29588 + 14, Int(11400 * 2.56) + 1)
+            'WriteFlashWord(&H29588 + 16, Int(11800 * 2.56) + 1)
+            'WriteFlashWord(&H29588 + 18, Int(11800 * 2.56) + 1)
+            'WriteFlashWord(&H29588 + 20, Int(12000 * 2.56) + 1)
+            'WriteFlashWord(&H29588 + 22, Int(11400 * 2.56) + 1)
+            'WriteFlashWord(&H29588 + 24, Int(11600 * 2.56) + 1)
+            'WriteFlashWord(&H29588 + 26, Int(11800 * 2.56) + 1)
+            'WriteFlashWord(&H29588 + 28, Int(12000 * 2.56) + 1)
+            'WriteFlashWord(&H29588 + 30, Int(10065 * 2.56) + 1)
+            'WriteFlashWord(&H29588 + 32, Int(10089 * 2.56) + 1)
+            'WriteFlashWord(&H29588 + 36, Int(11800 * 2.56) + 1)
+            'WriteFlashWord(&H29588 + 40, Int(12000 * 2.56) + 1)
             '
             '            '
-            writeflashword(&H29588 + 24, Int(10065 * 2.56) + 1)
-            writeflashword(&H29588 + 26, Int(10089 * 2.56) + 1)
+            WriteFlashWord(&H29588 + 24, Int(10065 * 2.56) + 1)
+            WriteFlashWord(&H29588 + 26, Int(10089 * 2.56) + 1)
             ' change also gear specific limiters        
-            writeflashword(&H29588, Int(11400 * 2.56) + 1)
-            writeflashword(&H29590, Int(11400 * 2.56) + 1)
-            writeflashword(&H29598, Int(11400 * 2.56) + 1)
-            writeflashword(&H295A0, Int(10065 * 2.56) + 1)
-            writeflashword(&H2958A, Int(10089 * 2.56) + 1)
-            writeflashword(&H29592, Int(11600 * 2.56) + 1)
-            writeflashword(&H2959A, Int(11600 * 2.56) + 1)
-            writeflashword(&H295A2, Int(11600 * 2.56) + 1)
-            writeflashword(&H295A8 + 0, Int(11400 * 2.56) + 1)
-            writeflashword(&H295A8 + 2, Int(11600 * 2.56) + 1)
-            writeflashword(&H295A8 + 4, Int(11400 * 2.56) + 1)
-            writeflashword(&H295A8 + 6, Int(11600 * 2.56) + 1)
-            writeflashword(&H295A8 + 8, Int(11400 * 2.56) + 1)
-            writeflashword(&H295A8 + 10, Int(11600 * 2.56) + 1)
-            writeflashword(&H295A8 + 12, Int(11400 * 2.56) + 1)
-            writeflashword(&H295A8 + 14, Int(11600 * 2.56) + 1)
+            WriteFlashWord(&H29588, Int(11400 * 2.56) + 1)
+            WriteFlashWord(&H29590, Int(11400 * 2.56) + 1)
+            WriteFlashWord(&H29598, Int(11400 * 2.56) + 1)
+            WriteFlashWord(&H295A0, Int(10065 * 2.56) + 1)
+            WriteFlashWord(&H2958A, Int(10089 * 2.56) + 1)
+            WriteFlashWord(&H29592, Int(11600 * 2.56) + 1)
+            WriteFlashWord(&H2959A, Int(11600 * 2.56) + 1)
+            WriteFlashWord(&H295A2, Int(11600 * 2.56) + 1)
+            WriteFlashWord(&H295A8 + 0, Int(11400 * 2.56) + 1)
+            WriteFlashWord(&H295A8 + 2, Int(11600 * 2.56) + 1)
+            WriteFlashWord(&H295A8 + 4, Int(11400 * 2.56) + 1)
+            WriteFlashWord(&H295A8 + 6, Int(11600 * 2.56) + 1)
+            WriteFlashWord(&H295A8 + 8, Int(11400 * 2.56) + 1)
+            WriteFlashWord(&H295A8 + 10, Int(11600 * 2.56) + 1)
+            WriteFlashWord(&H295A8 + 12, Int(11400 * 2.56) + 1)
+            WriteFlashWord(&H295A8 + 14, Int(11600 * 2.56) + 1)
 
             CheckBox1.Text = "Top speed restricted"
         End If
@@ -99,12 +99,12 @@ Public Class Limiters
             CheckBox1.Checked = True
         End If
 
-        writeflashword(&H29576 + 0, Int(((rpmconv / (i + 0))) + 1))
-        writeflashword(&H29576 + 2, Int(((rpmconv / (i + 50))) + 1))
-        writeflashword(&H29576 + 4, Int(((rpmconv / (i + 100))) + 1))
-        writeflashword(&H29576 + 6, Int(((rpmconv / (i + 150))) + 1))
-        writeflashword(&H29576 + 8, Int(((rpmconv / (i - 100))) + 1))
-        writeflashword(&H29576 + 10, Int(((rpmconv / (i + 0))) + 1))
+        WriteFlashWord(&H29576 + 0, Int(((rpmconv / (i + 0))) + 1))
+        WriteFlashWord(&H29576 + 2, Int(((rpmconv / (i + 50))) + 1))
+        WriteFlashWord(&H29576 + 4, Int(((rpmconv / (i + 100))) + 1))
+        WriteFlashWord(&H29576 + 6, Int(((rpmconv / (i + 150))) + 1))
+        WriteFlashWord(&H29576 + 8, Int(((rpmconv / (i - 100))) + 1))
+        WriteFlashWord(&H29576 + 10, Int(((rpmconv / (i + 0))) + 1))
 
     End Sub
 
@@ -112,14 +112,14 @@ Public Class Limiters
         Dim i As Integer
         rpmconv = 15000000
 
-        If readflashword(&H29588 + 26) = Int(12900 * 2.56) + 1 Then
+        If ReadFlashWord(&H29588 + 26) = Int(12900 * 2.56) + 1 Then
             CheckBox1.Checked = True
             CheckBox1.Text = "Top speed limiter removed"
         Else
             CheckBox1.Text = "Top speed restricted"
         End If
 
-        If readflashword(&H29586) = &HFF Then
+        If ReadFlashWord(&H29586) = &HFF Then
             Hardcut.Checked = True
             Hardcut.Text = "Fuel hardcut only"
         Else
@@ -129,9 +129,9 @@ Public Class Limiters
 
 
         'populate RPM with initial value
-        i = readflashword(&H29576) ' this is the reference RPM that is stored in the system
+        i = ReadFlashWord(&H29576) ' this is the reference RPM that is stored in the system
         i = Int(((rpmconv / (i + 0))) + 1)
-        i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
+        i = CInt(i / 50) * 50 'the conversions are not exact, Round it up to the closest 50 to avoid confusion
 
         Me.RPM.Items.Add(i.ToString())
 
@@ -151,10 +151,10 @@ Public Class Limiters
 
     Private Sub Hardcut_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Hardcut.CheckedChanged
         If Hardcut.Checked = True Then
-            writeflashword(&H29586, &HFF)
+            WriteFlashWord(&H29586, &HFF)
             Hardcut.Text = "Fuel hardcut only"
         Else
-            writeflashword(&H29586, &H80)
+            WriteFlashWord(&H29586, &H80)
             Hardcut.Text = "Fuel softcut enabled"
         End If
 

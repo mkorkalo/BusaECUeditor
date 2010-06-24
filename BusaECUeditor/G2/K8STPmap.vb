@@ -345,7 +345,7 @@ Public Class K8STPmap
         If ((m1 >= maxval)) Then MsgBox("Maximum cell value exceeded", MsgBoxStyle.Information)
         If m1 >= maxval Then m1 = maxval
 
-        writeflashbyte(editing_map + (1 * (c + (r * map_number_of_columns))), (m1))
+        WriteFlashByte(editing_map + (1 * (c + (r * map_number_of_columns))), (m1))
 
     End Sub
 
@@ -364,11 +364,11 @@ Public Class K8STPmap
         '
 
         i = map_structure_table + (gear * 6 * 4) + (((3 * ms01) + modeabc) * 4)
-        editing_map = readflashlongword(readflashlongword(i) + 12)
-        rowheadingmap = readflashlongword(readflashlongword(i) + 8)
-        columnheadingmap = readflashlongword(readflashlongword(i) + 4)
-        map_number_of_columns = readflashbyte(readflashlongword(i) + 1)
-        map_number_of_rows = readflashbyte(readflashlongword(i) + 2)
+        editing_map = ReadFlashLongWord(ReadFlashLongWord(i) + 12)
+        rowheadingmap = ReadFlashLongWord(ReadFlashLongWord(i) + 8)
+        columnheadingmap = ReadFlashLongWord(ReadFlashLongWord(i) + 4)
+        map_number_of_columns = ReadFlashByte(ReadFlashLongWord(i) + 1)
+        map_number_of_rows = ReadFlashByte(ReadFlashLongWord(i) + 2)
 
         mapvisible = Me.Text
 
@@ -395,8 +395,8 @@ Public Class K8STPmap
         STPmapgrid.ColumnCount = map_number_of_columns
         c = 0
         Do While c < map_number_of_columns
-            i = readflashword(columnheadingmap + (c * 2))
-            STPmapgrid.Columns.Item(c).HeaderText = calc_K8TPS(i)
+            i = ReadFlashWord(columnheadingmap + (c * 2))
+            STPmapgrid.Columns.Item(c).HeaderText = CalcK8TPS(i)
             STPmapgrid.Columns.Item(c).Width = 50
             c = c + 1
         Loop
@@ -409,7 +409,7 @@ Public Class K8STPmap
         r = 0
         'STPmapgrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
         Do While (r < map_number_of_rows)
-            i = readflashword(rowheadingmap + (r * 2))
+            i = ReadFlashWord(rowheadingmap + (r * 2))
             STPmapgrid.Rows.Item(r).HeaderCell.Value = Str(Int(i / 2.56))
             STPmapgrid.Rows.Item(r).Height = 15
             r = r + 1
@@ -423,9 +423,9 @@ Public Class K8STPmap
         i = 0
         Do While (r < map_number_of_rows)
             If fuelmap Then
-                STPmapgrid.Item(c, r).Value = Int(readflashbyte(i + editing_map) * 100 / 128)
+                STPmapgrid.Item(c, r).Value = Int(ReadFlashByte(i + editing_map) * 100 / 128)
             Else
-                STPmapgrid.Item(c, r).Value = Int(readflashbyte(i + editing_map) * 100 / 255)
+                STPmapgrid.Item(c, r).Value = Int(ReadFlashByte(i + editing_map) * 100 / 255)
 
             End If
 
@@ -538,9 +538,9 @@ Public Class K8STPmap
             '
             c = 0
             cc = 0
-            If calc_TPS_dec(TPS) < Val(STPmapgrid.Columns.Item(map_number_of_columns - 1).HeaderCell.Value) Then
+            If CalcTPSDec(TPS) < Val(STPmapgrid.Columns.Item(map_number_of_columns - 1).HeaderCell.Value) Then
                 Do While (c < map_number_of_columns - 1)
-                    If calc_TPS_dec(TPS) >= cc And calc_TPS_dec(TPS) < STPmapgrid.Columns.Item(c + 1).HeaderCell.Value Then
+                    If CalcTPSDec(TPS) >= cc And CalcTPSDec(TPS) < STPmapgrid.Columns.Item(c + 1).HeaderCell.Value Then
                         cc = c
                         c = 256
                     Else

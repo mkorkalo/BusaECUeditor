@@ -39,7 +39,7 @@ Public Class BKingLimiters
         '
         ' Determine if 6th gear limiter is stock
         '
-        If readflashword(&H74AAA) = &H5654 Then
+        If ReadFlashword(&H74AAA) = &H5654 Then
             C_6gear.Text = "5-6th gear limiter as stock"
             C_6gear.Checked = False
         Else
@@ -48,9 +48,9 @@ Public Class BKingLimiters
         End If
 
         'populate RPM with initial value
-        i = readflashword(&H74A80) ' this is the reference RPM that is stored in the system
+        i = ReadFlashword(&H74A80) ' this is the reference RPM that is stored in the system
         i = Int(((_rpmConv / (i + 0))) + 1)
-        i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
+        i = CInt(i / 50) * 50 'the conversions are not exact, Round it up to the closest 50 to avoid confusion
 
         Me.RPM.Items.Add(i.ToString())
 
