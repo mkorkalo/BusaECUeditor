@@ -45,7 +45,7 @@ Public Class K8nitrouscontrol
 
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        If (readflashbyte(ADJ) <> &HFF) Then
+        If (ReadFlashByte(ADJ) <> &HFF) Then
         End If
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
@@ -56,7 +56,7 @@ Public Class K8nitrouscontrol
             C_nitrouscontrol_activation.Text = "Code active"
             D_fuel_nitrouscontrol.Visible = True
             G_gencontrol.Visible = True
-            If (readflashbyte(ADJ) = &HFF) Then
+            If (ReadFlashByte(ADJ) = &HFF) Then
                 modify_original_ECU_code(True)
                 nitrouscontrol_code_in_memory(True, nitrouscontrolcodelenght)
             End If
@@ -106,13 +106,13 @@ Public Class K8nitrouscontrol
 
         L_nitrouscontrolver.Text = Str(nitrouscontrolVERSION)
 
-        If (readflashbyte(ADJ) = &HFF) Then
+        If (ReadFlashByte(ADJ) = &HFF) Then
             C_nitrouscontrol_activation.Checked = False
         Else
             C_nitrouscontrol_activation.Checked = True
             'nitrouscontrol_code_in_memory(True, nitrouscontrolcodelenght)
 
-            If (readflashword(IDTAG) <> nitrouscontrolVERSION) Then
+            If (ReadFlashWord(IDTAG) <> nitrouscontrolVERSION) Then
                 MsgBox("nitrouscontrol code incompatible with this version, please reactivate the nitrouscontrol on this map")
                 C_nitrouscontrol_activation.Checked = False
             End If
@@ -126,40 +126,40 @@ Public Class K8nitrouscontrol
     Private Sub generate_general_settings()
         Dim i As Integer
         C_RPM_LOW.Items.Clear()
-        C_RPM_LOW.Items.Add(Str(CInt(readflashword(&H55802) / 2.56)))
+        C_RPM_LOW.Items.Add(Str(CInt(ReadFlashWord(&H55802) / 2.56)))
         For i = 5000 To 12500 Step 100
             C_RPM_LOW.Items.Add(Str(i))
         Next
         C_RPM_LOW.SelectedIndex = 0
         C_RPM_HIGH.Items.Clear()
-        C_RPM_HIGH.Items.Add(Str(CInt(readflashword(&H55804) / 2.56)))
+        C_RPM_HIGH.Items.Add(Str(CInt(ReadFlashWord(&H55804) / 2.56)))
         For i = 6000 To 12500 Step 100
             C_RPM_HIGH.Items.Add(Str(i))
         Next
         C_RPM_HIGH.SelectedIndex = 0
         C_RUNHZ.Items.Clear()
-        C_RUNHZ.Items.Add(Str(CInt(dcounter / readflashword(&H5580A))))
+        C_RUNHZ.Items.Add(Str(CInt(dcounter / ReadFlashWord(&H5580A))))
         For i = 5 To 15 Step 1
             C_RUNHZ.Items.Add(Str(i))
         Next
         C_RUNHZ.SelectedIndex = 0
-        L_TPS.Text = CInt(100 * readflashword(&H55806) / &H370)
-        
-        If readflashbyte(&H5580E) = &HFF Then
+        L_TPS.Text = CInt(100 * ReadFlashWord(&H55806) / &H370)
+
+        If ReadFlashByte(&H5580E) = &HFF Then
             C_wetkit.Checked = True
             C_wetkit.Text = "Emulation ON"
         Else
             C_wetkit.Checked = False
             C_wetkit.Text = "Emulation OFF"
         End If
-        If readflashbyte(&H5580F) <> &H0 Then
+        If ReadFlashByte(&H5580F) <> &H0 Then
             C_buttonactive.Text = "RPM/TPS/Button"
             C_buttonactive.Checked = True
         Else
             C_buttonactive.Text = "RPM only"
             C_buttonactive.Checked = False
         End If
-        If readflashbyte(&H55810) = &H1 Then
+        If ReadFlashByte(&H55810) = &H1 Then
             C_DSMSELECTED.Text = "Lower"
             C_DSMSELECTED.Checked = False
         Else
@@ -186,34 +186,34 @@ Public Class K8nitrouscontrol
                 blk = Int(pcdisp / &H10000)
                 pcdisp = pcdisp And &HFFFF
             End If
-            writeflashbyte(&H41D8, &HFE)
-            writeflashbyte(&H41D9, blk)
-            writeflashword(&H41DA, pcdisp)
+            WriteFlashByte(&H41D8, &HFE)
+            WriteFlashByte(&H41D9, blk)
+            WriteFlashWord(&H41DA, pcdisp)
             'cylinder 1 
-            writeflashword(&H41408, &H6400) ' ldi R4, 0
-            writeflashword(&H413E2, &H6818)
-            writeflashword(&H41460, &H4400) ' + 0
-            writeflashword(&H41462, &H5446) ' << 5
+            WriteFlashWord(&H41408, &H6400) ' ldi R4, 0
+            WriteFlashWord(&H413E2, &H6818)
+            WriteFlashWord(&H41460, &H4400) ' + 0
+            WriteFlashWord(&H41462, &H5446) ' << 5
             'cylinder 2 
-            writeflashword(&H414D8, &H6400)
-            writeflashword(&H414B2, &H6818)
-            writeflashword(&H41530, &H4400) ' + 0
-            writeflashword(&H41532, &H5446) ' << 5
+            WriteFlashWord(&H414D8, &H6400)
+            WriteFlashWord(&H414B2, &H6818)
+            WriteFlashWord(&H41530, &H4400) ' + 0
+            WriteFlashWord(&H41532, &H5446) ' << 5
             'cylinder 3 
-            writeflashword(&H415A8, &H6400)
-            writeflashword(&H41582, &H6818)
-            writeflashword(&H41600, &H4400) ' + 0
-            writeflashword(&H41602, &H5446) ' << 5
+            WriteFlashWord(&H415A8, &H6400)
+            WriteFlashWord(&H41582, &H6818)
+            WriteFlashWord(&H41600, &H4400) ' + 0
+            WriteFlashWord(&H41602, &H5446) ' << 5
             'cylinder 4 
-            writeflashword(&H41678, &H6400)
-            writeflashword(&H41652, &H6818)
-            writeflashword(&H416D0, &H4400) ' + 0
-            writeflashword(&H416D2, &H5446) ' << 5
+            WriteFlashWord(&H41678, &H6400)
+            WriteFlashWord(&H41652, &H6818)
+            WriteFlashWord(&H416D0, &H4400) ' + 0
+            WriteFlashWord(&H416D2, &H5446) ' << 5
 
             D_fuel_nitrouscontrol.Visible = True
             ' set ignition retard to read the nitrouscontrol module variable
-            writeflashbyte(&H33C22, &H68)
-            writeflashbyte(&H33C23, &H56)
+            WriteFlashByte(&H33C22, &H68)
+            WriteFlashByte(&H33C23, &H56)
 
             'set fixed modeA
             K8Advsettings.C_ABCmode.Checked = False
@@ -224,33 +224,33 @@ Public Class K8nitrouscontrol
             ' bring the ecu code back to original
             '
             ' AD_conversion loop no jump to separate code
-            writeflashword(&H41D8, &HFE00)
-            writeflashword(&H41DA, &HBAC9)
+            WriteFlashWord(&H41D8, &HFE00)
+            WriteFlashWord(&H41DA, &HBAC9)
             'cylinder 1 
-            writeflashword(&H41408, &H4400)
-            writeflashword(&H413E2, &H652A)
-            writeflashword(&H41460, &H4480)
-            writeflashword(&H41462, &H5442)
+            WriteFlashWord(&H41408, &H4400)
+            WriteFlashWord(&H413E2, &H652A)
+            WriteFlashWord(&H41460, &H4480)
+            WriteFlashWord(&H41462, &H5442)
             'cylinder 2 
-            writeflashword(&H414D8, &H4400)
-            writeflashword(&H414B2, &H652B)
-            writeflashword(&H41530, &H4480)
-            writeflashword(&H41532, &H5442)
+            WriteFlashWord(&H414D8, &H4400)
+            WriteFlashWord(&H414B2, &H652B)
+            WriteFlashWord(&H41530, &H4480)
+            WriteFlashWord(&H41532, &H5442)
             'cylinder 3 
-            writeflashword(&H415A8, &H4400)
-            writeflashword(&H41582, &H652C)
-            writeflashword(&H41600, &H4480)
-            writeflashword(&H41602, &H5442)
+            WriteFlashWord(&H415A8, &H4400)
+            WriteFlashWord(&H41582, &H652C)
+            WriteFlashWord(&H41600, &H4480)
+            WriteFlashWord(&H41602, &H5442)
             'cylinder 4 
-            writeflashword(&H41678, &H4400)
-            writeflashword(&H41652, &H652D)
-            writeflashword(&H416D0, &H4480)
-            writeflashword(&H416D2, &H5442)
-            
+            WriteFlashWord(&H41678, &H4400)
+            WriteFlashWord(&H41652, &H652D)
+            WriteFlashWord(&H416D0, &H4480)
+            WriteFlashWord(&H416D2, &H5442)
+
             D_fuel_nitrouscontrol.Visible = False
             ' set ignition retard to read the stock variable
-            writeflashbyte(&H33C22, &H63)
-            writeflashbyte(&H33C23, &HA2)
+            WriteFlashByte(&H33C22, &H63)
+            WriteFlashByte(&H33C23, &HA2)
 
         End If
     End Sub
@@ -274,17 +274,17 @@ Public Class K8nitrouscontrol
 
             i = 0
             Do While fs.Read(b, 0, 1) > 0
-                writeflashbyte(i + ADJ, b(0))
+                WriteFlashByte(i + ADJ, b(0))
                 i = i + 1
             Loop
             fs.Close()
 
-            i = readflashword(IDTAG)
+            i = ReadFlashWord(IDTAG)
 
-            If readflashword(IDTAG) <> nitrouscontrolVERSION Then
+            If ReadFlashWord(IDTAG) <> nitrouscontrolVERSION Then
                 MsgBox("This nitrouscontrol code is not compatible with this ECUeditor version !!!")
                 For i = 0 To lenght
-                    writeflashbyte(i + ADJ, &HFF)
+                    WriteFlashByte(i + ADJ, &HFF)
                 Next
                 Me.Close()
             End If
@@ -293,7 +293,7 @@ Public Class K8nitrouscontrol
         Else
             ' reset the nitrouscontrol code in memory back to &HFF. Remember that &HFF is the default value after EPROM erase
             For i = 0 To lenght
-                writeflashbyte(i + ADJ, &HFF)
+                WriteFlashByte(i + ADJ, &HFF)
             Next
         End If
     End Sub
@@ -352,13 +352,13 @@ Public Class K8nitrouscontrol
 
             Select Case r + 1
                 Case 1 ' case as is duty cycle
-                    D_fuel_nitrouscontrol.Item(c, r).Value = readflashword((i * 2) + tableaddress)
+                    D_fuel_nitrouscontrol.Item(c, r).Value = ReadFlashWord((i * 2) + tableaddress)
                 Case 2 ' fuel map
-                    D_fuel_nitrouscontrol.Item(c, r).Value = Int(readflashword((i * 2) + tableaddress) / fuelconv)
+                    D_fuel_nitrouscontrol.Item(c, r).Value = Int(ReadFlashWord((i * 2) + tableaddress) / fuelconv)
                 Case 3 ' ignition retard map
-                    D_fuel_nitrouscontrol.Item(c, r).Value = Int(readflashword((i * 2) + tableaddress) * 0.4)
+                    D_fuel_nitrouscontrol.Item(c, r).Value = Int(ReadFlashWord((i * 2) + tableaddress) * 0.4)
                 Case 4 ' rampuptime
-                    D_fuel_nitrouscontrol.Item(c, r).Value = readflashword((i * 2) + tableaddress)
+                    D_fuel_nitrouscontrol.Item(c, r).Value = ReadFlashWord((i * 2) + tableaddress)
             End Select
 
             If c < D_fuel_nitrouscontrol.ColumnCount - 1 Then
@@ -543,7 +543,7 @@ Public Class K8nitrouscontrol
                         D_fuel_nitrouscontrol.Item(c, r).Value = 100
                         MsgBox("Max value exceeded, using max value")
                     End If
-                    writeflashword((i * 2) + tableaddress, (D_fuel_nitrouscontrol.Item(c, r).Value))
+                    WriteFlashWord((i * 2) + tableaddress, (D_fuel_nitrouscontrol.Item(c, r).Value))
                 Case 2
                     If D_fuel_nitrouscontrol.Item(c, r).Value < 0 Then
                         D_fuel_nitrouscontrol.Item(c, r).Value = 0
@@ -553,7 +553,7 @@ Public Class K8nitrouscontrol
                         D_fuel_nitrouscontrol.Item(c, r).Value = 100
                         MsgBox("Max value exceeded, using max value")
                     End If
-                    writeflashword((i * 2) + tableaddress, (D_fuel_nitrouscontrol.Item(c, r).Value * fuelconv))
+                    WriteFlashWord((i * 2) + tableaddress, (D_fuel_nitrouscontrol.Item(c, r).Value * fuelconv))
                 Case 3 ' / ign retard in degrees, the module handles conversion with 0.4
                     If D_fuel_nitrouscontrol.Item(c, r).Value < 0 Then
                         D_fuel_nitrouscontrol.Item(c, r).Value = 0
@@ -563,7 +563,7 @@ Public Class K8nitrouscontrol
                         D_fuel_nitrouscontrol.Item(c, r).Value = 20
                         MsgBox("Max value exceeded, using max value")
                     End If
-                    writeflashword((i * 2) + tableaddress, (D_fuel_nitrouscontrol.Item(c, r).Value / 0.4))
+                    WriteFlashWord((i * 2) + tableaddress, (D_fuel_nitrouscontrol.Item(c, r).Value / 0.4))
                 Case 4 ' as it is rampuptime
                     If D_fuel_nitrouscontrol.Item(c, r).Value < 0 Then
                         D_fuel_nitrouscontrol.Item(c, r).Value = 0
@@ -573,7 +573,7 @@ Public Class K8nitrouscontrol
                         D_fuel_nitrouscontrol.Item(c, r).Value = 8000
                         MsgBox("Max value exceeded, using max value")
                     End If
-                    writeflashword((i * 2) + tableaddress, (D_fuel_nitrouscontrol.Item(c, r).Value))
+                    WriteFlashWord((i * 2) + tableaddress, (D_fuel_nitrouscontrol.Item(c, r).Value))
                 Case Else
                     MsgBox("Error in writing nitrous controller map values")
             End Select
@@ -592,22 +592,22 @@ Public Class K8nitrouscontrol
         Me.Close()
     End Sub
 
-    
+
     Private Sub C_RPM_LOW_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_RPM_LOW.SelectedIndexChanged
         If Not loading Then
-            writeflashword(&H55802, CInt(Val(C_RPM_LOW.Text) * 2.56))
+            WriteFlashWord(&H55802, CInt(Val(C_RPM_LOW.Text) * 2.56))
         End If
     End Sub
 
     Private Sub C_RPM_HIGH_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_RPM_HIGH.SelectedIndexChanged
         If Not loading Then
-            writeflashword(&H55804, CInt(Val(C_RPM_HIGH.Text) * 2.56))
+            WriteFlashWord(&H55804, CInt(Val(C_RPM_HIGH.Text) * 2.56))
         End If
     End Sub
 
     Private Sub C_RUNHZ_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_RUNHZ.SelectedIndexChanged
         If Not loading Then
-            writeflashword(&H5580A, CInt(dcounter / Val(C_RUNHZ.Text)))
+            WriteFlashWord(&H5580A, CInt(dcounter / Val(C_RUNHZ.Text)))
         End If
     End Sub
 
@@ -619,10 +619,10 @@ Public Class K8nitrouscontrol
         If Not loading Then
             If C_wetkit.Checked Then
                 C_wetkit.Text = "Emulation on"
-                writeflashbyte(&H5580E, &HFF)
+                WriteFlashByte(&H5580E, &HFF)
             Else
                 C_wetkit.Text = "Emulation off"
-                writeflashbyte(&H5580E, &H0)
+                WriteFlashByte(&H5580E, &H0)
             End If
         End If
     End Sub
@@ -631,10 +631,10 @@ Public Class K8nitrouscontrol
         If Not loading Then
             If C_buttonactive.Checked Then
                 C_buttonactive.Text = "RPM/TPS/Button"
-                writeflashbyte(&H5580F, &HFF)
+                WriteFlashByte(&H5580F, &HFF)
             Else
                 C_buttonactive.Text = "RPM/TPS only"
-                writeflashbyte(&H5580F, &H0)
+                WriteFlashByte(&H5580F, &H0)
             End If
         End If
 
@@ -644,10 +644,10 @@ Public Class K8nitrouscontrol
         If Not loading Then
             If Not C_DSMSELECTED.Checked Then
                 C_DSMSELECTED.Text = "Lower"
-                writeflashbyte(&H55810, &H1)
+                WriteFlashByte(&H55810, &H1)
             Else
                 C_DSMSELECTED.Text = "Upper"
-                writeflashbyte(&H55810, &H2)
+                WriteFlashByte(&H55810, &H2)
             End If
         End If
 

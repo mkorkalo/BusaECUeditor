@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class ECUnotsupported
+Partial Class ECUNotSupported
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -19,18 +19,18 @@ Partial Class ECUnotsupported
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Button1 = New System.Windows.Forms.Button
+        Me.B_End = New System.Windows.Forms.Button
         Me.Label1 = New System.Windows.Forms.Label
         Me.SuspendLayout()
         '
-        'Button1
+        'B_End
         '
-        Me.Button1.Location = New System.Drawing.Point(251, 57)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(92, 28)
-        Me.Button1.TabIndex = 0
-        Me.Button1.Text = "End Program"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.B_End.Location = New System.Drawing.Point(251, 57)
+        Me.B_End.Name = "B_End"
+        Me.B_End.Size = New System.Drawing.Size(92, 28)
+        Me.B_End.TabIndex = 0
+        Me.B_End.Text = "End Program"
+        Me.B_End.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -42,17 +42,17 @@ Partial Class ECUnotsupported
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "ECU not supported"
         '
-        'Dialog1
+        'ECUnotsupported
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(355, 97)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.B_End)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "Dialog1"
+        Me.Name = "ECUnotsupported"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Dialog1"
@@ -60,7 +60,7 @@ Partial Class ECUnotsupported
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents B_End As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
 
 End Class

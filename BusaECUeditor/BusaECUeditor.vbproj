@@ -46,7 +46,6 @@
     <ProductName>Hayabusa ECUeditor for K2-K7, K8- and BKing models</ProductName>
     <PublisherName>PetriK</PublisherName>
     <MinimumRequiredVersion>2.3.0.0</MinimumRequiredVersion>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>ecueditor_prerelease.htm</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
     <ApplicationRevision>34</ApplicationRevision>
@@ -128,6 +127,7 @@
       <HintPath>dlls\SpPerfChart.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Deployment" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
@@ -143,7 +143,6 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationEvents.vb" />
     <Compile Include="BKing\BKingFuelmap.Designer.vb">
       <DependentUpon>BKingFuelmap.vb</DependentUpon>
     </Compile>
@@ -165,7 +164,6 @@
     <Compile Include="Common\AboutBox.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Common\ApplicationEvents.vb" />
     <Compile Include="BKing\BKingLimiters.Designer.vb">
       <DependentUpon>BKingLimiters.vb</DependentUpon>
     </Compile>
@@ -319,10 +317,10 @@
     <Compile Include="G1\Interfacedlg.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="G1\LoginForm.Designer.vb">
+    <Compile Include="Common\LoginForm.Designer.vb">
       <DependentUpon>LoginForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="G1\LoginForm.vb">
+    <Compile Include="Common\LoginForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="G1\Shifter_Instructions.Designer.vb">
@@ -331,10 +329,10 @@
     <Compile Include="G1\Shifter_Instructions.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Common\mapsharing.Designer.vb">
-      <DependentUpon>mapsharing.vb</DependentUpon>
+    <Compile Include="Common\MapSharing.Designer.vb">
+      <DependentUpon>MapSharing.vb</DependentUpon>
     </Compile>
-    <Compile Include="Common\mapsharing.vb">
+    <Compile Include="Common\MapSharing.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="G1\Shifter.Designer.vb">
@@ -370,11 +368,10 @@
     <Compile Include="G1\ldGuage.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Common\Settings.vb" />
-    <Compile Include="Common\updatebox.Designer.vb">
-      <DependentUpon>updatebox.vb</DependentUpon>
+    <Compile Include="Common\ProgramUpdate.Designer.vb">
+      <DependentUpon>ProgramUpdate.vb</DependentUpon>
     </Compile>
-    <Compile Include="Common\updatebox.vb">
+    <Compile Include="Common\ProgramUpdate.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="G1\Fuelmapediting.Designer.vb">
@@ -383,22 +380,22 @@
     <Compile Include="G1\Fuelmapediting.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Common\ECUnotsupported.Designer.vb">
-      <DependentUpon>ECUnotsupported.vb</DependentUpon>
+    <Compile Include="Common\ECUNotSupported.Designer.vb">
+      <DependentUpon>ECUNotSupported.vb</DependentUpon>
     </Compile>
-    <Compile Include="Common\ECUnotsupported.vb">
+    <Compile Include="Common\ECUNotSupported.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Common\errordialogue.Designer.vb">
-      <DependentUpon>errordialogue.vb</DependentUpon>
+    <Compile Include="Common\ErrorDialogue.Designer.vb">
+      <DependentUpon>ErrorDialogue.vb</DependentUpon>
     </Compile>
-    <Compile Include="Common\errordialogue.vb">
+    <Compile Include="Common\ErrorDialogue.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Common\filesavenotice.Designer.vb">
-      <DependentUpon>filesavenotice.vb</DependentUpon>
+    <Compile Include="Common\FileSaveNotice.Designer.vb">
+      <DependentUpon>FileSaveNotice.vb</DependentUpon>
     </Compile>
-    <Compile Include="Common\filesavenotice.vb">
+    <Compile Include="Common\FileSaveNotice.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Common\Main.vb">
@@ -414,7 +411,7 @@
     <Compile Include="G1\Fuelmap.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Common\Module1.vb" />
+    <Compile Include="Common\CommonFunctions.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -430,16 +427,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Common\userbikeinfo.Designer.vb">
-      <DependentUpon>userbikeinfo.vb</DependentUpon>
+    <Compile Include="Common\UserBikeInfo.Designer.vb">
+      <DependentUpon>UserBikeInfo.vb</DependentUpon>
     </Compile>
-    <Compile Include="Common\userbikeinfo.vb">
+    <Compile Include="Common\UserBikeInfo.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Common\Verifyinprogress.Designer.vb">
-      <DependentUpon>Verifyinprogress.vb</DependentUpon>
+    <Compile Include="Common\VerifyInProgress.Designer.vb">
+      <DependentUpon>VerifyInProgress.vb</DependentUpon>
     </Compile>
-    <Compile Include="Common\Verifyinprogress.vb">
+    <Compile Include="Common\VerifyInProgress.vb">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
@@ -456,21 +453,21 @@
       <DependentUpon>ldGuage.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Common\updatebox.resx">
+    <EmbeddedResource Include="Common\ProgramUpdate.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>updatebox.vb</DependentUpon>
+      <DependentUpon>ProgramUpdate.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="G1\Fuelmapediting.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Fuelmapediting.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Common\ECUnotsupported.resx">
+    <EmbeddedResource Include="Common\ECUNotSupported.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>ECUnotsupported.vb</DependentUpon>
+      <DependentUpon>ECUNotSupported.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Common\errordialogue.resx">
+    <EmbeddedResource Include="Common\ErrorDialogue.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>errordialogue.vb</DependentUpon>
+      <DependentUpon>ErrorDialogue.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Common\Main.resx">
       <SubType>Designer</SubType>
@@ -486,9 +483,9 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Common\filesavenotice.resx">
+    <EmbeddedResource Include="Common\FileSaveNotice.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>filesavenotice.vb</DependentUpon>
+      <DependentUpon>FileSaveNotice.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -508,7 +505,6 @@
     <Content Include="ecu.bin\BKingUS.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Common\ClassDiagram1.cd" />
     <Content Include="ecu.bin\default.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -623,9 +619,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>Shifter_Instructions.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Common\mapsharing.resx">
+    <EmbeddedResource Include="Common\MapSharing.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>mapsharing.vb</DependentUpon>
+      <DependentUpon>MapSharing.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="G1\Shifter.resx">
       <SubType>Designer</SubType>
@@ -643,12 +639,12 @@
       <SubType>Designer</SubType>
       <DependentUpon>ProgramHomepage.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Common\userbikeinfo.resx">
+    <EmbeddedResource Include="Common\UserBikeInfo.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>userbikeinfo.vb</DependentUpon>
+      <DependentUpon>UserBikeInfo.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Common\Verifyinprogress.resx">
-      <DependentUpon>Verifyinprogress.vb</DependentUpon>
+    <EmbeddedResource Include="Common\VerifyInProgress.resx">
+      <DependentUpon>VerifyInProgress.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -713,6 +709,7 @@
     <EmbeddedResource Include="G2\K8enginedatalog.resx">
       <DependentUpon>K8enginedatalog.vb</DependentUpon>
     </EmbeddedResource>
+    <Content Include="Common\Copy of ecueditor.ico" />
     <Content Include="Common\ecueditor.ico" />
     <Content Include="Common\FTDI_CDM_2.04.16.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -759,7 +756,7 @@
     <Content Include="gpl.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="G1\LoginForm.resx">
+    <EmbeddedResource Include="Common\LoginForm.resx">
       <DependentUpon>LoginForm.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

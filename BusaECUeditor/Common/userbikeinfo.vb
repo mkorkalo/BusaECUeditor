@@ -22,35 +22,75 @@
 
 Imports System.Text.RegularExpressions
 
-Public Class userbikeinfo
+Public Class UserBikeInfo
+
+#Region "Form Events"
+
+    Private Sub UserBikeInfo_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        C_Engine.Text = inforead(&H27000)
+        C_Model.Text = inforead(&H27010)
+        C_RWHP.Text = inforead(&H27020)
+        C_Type.Text = inforead(&H27030)
+        C_Exhaust.Text = inforead(&H27040)
+        C_Head.Text = inforead(&H27050)
+        C_Cams.Text = inforead(&H27060)
+        C_Compression.Text = inforead(&H27070)
+        C_Injectors.Text = inforead(&H27080)
+        C_FuelPressure.Text = inforead(&H27090)
+        T_Email.Text = inforead(&H270A0)
+        T_Webpage.Text = inforead(&H271A0)
+        T_Comments.Text = inforead(&H272A0)
+
+        ' if the computername from this map does not match with the computer name on the map
+        ' then empty the email intormation
+        If (inforead(&H273A0) <> My.Computer.Name()) Then
+            T_Email.Text = ""
+        Else
+            If T_Email.Text = "" Then
+                T_Email.Text = My.Settings.Item("emailaddr")
+            End If
+        End If
+
+    End Sub
+
+#End Region
+
+#Region "Control Events"
 
     Private Sub B_Close_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Close.Click
-        save_when_closing()
-    End Sub
-    Private Sub save_when_closing()
-        infowrite(&H27000, C_engine.Text)
-        infowrite(&H27010, C_model.Text)
-        infowrite(&H27020, C_RWHP.Text)
-        infowrite(&H27030, C_type.Text)
-        infowrite(&H27040, C_exhaust.Text)
-        infowrite(&H27050, C_head.Text)
-        infowrite(&H27060, C_cams.Text)
-        infowrite(&H27070, C_compression.Text)
-        infowrite(&H27080, C_injectors.Text)
-        infowrite(&H27090, C_fuelpressure.Text)
-        infowrite(&H270A0, T_email.Text)
-        infowrite(&H271A0, T_webpage.Text)
-        infowrite(&H272A0, T_comments.Text)
-        infowrite(&H273A0, My.Computer.Name())
+        SaveWhenClosing()
 
-        If validemail(T_email.Text) Then
+    End Sub
+
+#End Region
+
+#Region "Functions"
+
+    Private Sub SaveWhenClosing()
+
+        InfoWrite(&H27000, C_Engine.Text)
+        InfoWrite(&H27010, C_Model.Text)
+        InfoWrite(&H27020, C_RWHP.Text)
+        InfoWrite(&H27030, C_Type.Text)
+        InfoWrite(&H27040, C_Exhaust.Text)
+        InfoWrite(&H27050, C_Head.Text)
+        InfoWrite(&H27060, C_Cams.Text)
+        InfoWrite(&H27070, C_Compression.Text)
+        InfoWrite(&H27080, C_Injectors.Text)
+        InfoWrite(&H27090, C_FuelPressure.Text)
+        InfoWrite(&H270A0, T_Email.Text)
+        InfoWrite(&H271A0, T_Webpage.Text)
+        InfoWrite(&H272A0, T_Comments.Text)
+        InfoWrite(&H273A0, My.Computer.Name())
+
+        If ValidEmail(T_Email.Text) Then
             Me.Close()
         Else
             MsgBox("Enter a valid email for your map file")
         End If
     End Sub
 
-    Private Function validemail(ByVal e As String) As Boolean
+    Private Function ValidEmail(ByVal e As String) As Boolean
         Dim pattern As String = "^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"
         Dim emailAddressMatch As Match = Regex.Match(e, pattern)
 
@@ -63,8 +103,7 @@ Public Class userbikeinfo
 
     End Function
 
-
-    Private Sub infowrite(ByVal addr As Integer, ByVal str As String)
+    Private Sub InfoWrite(ByVal addr As Integer, ByVal str As String)
         Dim i As Integer
         Dim x As Integer
         Dim s As String
@@ -102,42 +141,15 @@ Public Class userbikeinfo
             Else
                 a = 0
             End If
-            writeflashbyte(addr + x, a)
+            WriteFlashByte(addr + x, a)
         Next
 
         For x = i To m
-            writeflashbyte(addr + x, &HFF)
+            WriteFlashByte(addr + x, &HFF)
         Next
     End Sub
 
-    Private Sub userbikeinfo_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        C_engine.Text = inforead(&H27000)
-        C_model.Text = inforead(&H27010)
-        C_RWHP.Text = inforead(&H27020)
-        C_type.Text = inforead(&H27030)
-        C_exhaust.Text = inforead(&H27040)
-        C_head.Text = inforead(&H27050)
-        C_cams.Text = inforead(&H27060)
-        C_compression.Text = inforead(&H27070)
-        C_injectors.Text = inforead(&H27080)
-        C_fuelpressure.Text = inforead(&H27090)
-        T_email.Text = inforead(&H270A0)
-        T_webpage.Text = inforead(&H271A0)
-        T_comments.Text = inforead(&H272A0)
-
-        ' if the computername from this map does not match with the computer name on the map
-        ' then empty the email intormation
-        If (inforead(&H273A0) <> My.Computer.Name()) Then
-            T_email.Text = ""
-        Else
-            If T_email.Text = "" Then
-                T_email.Text = My.Settings.Item("emailaddr")
-            End If
-        End If
-
-    End Sub
-
-    Public Function inforead(ByVal addr As Integer) As String
+    Public Function InfoRead(ByVal addr As Integer) As String
         Dim i As Integer
         Dim s As String
         Dim m As Integer
@@ -160,13 +172,15 @@ Public Class userbikeinfo
 
         s = ""
         For i = 0 To m
-            If (readflashbyte(addr + i) < &HFF) And (readflashbyte(addr + i) > 0) Then
-                s = s & Chr(readflashbyte(addr + i))
+            If (ReadFlashByte(addr + i) < &HFF) And (ReadFlashByte(addr + i) > 0) Then
+                s = s & Chr(ReadFlashByte(addr + i))
             End If
         Next
 
         Return (s)
 
     End Function
+
+#End Region
 
 End Class

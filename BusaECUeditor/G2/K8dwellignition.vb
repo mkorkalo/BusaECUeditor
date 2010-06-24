@@ -24,7 +24,7 @@ Public Class K8dwellignition
         D_dwell.ColumnCount = 9
         c = 0
         Do While c < D_dwell.ColumnCount
-            D_dwell.Columns.Item(c).HeaderText = Replace(Format((readflashbyte(&H733C0 + c)) / 12.7, "#0.0"), ",", ".")
+            D_dwell.Columns.Item(c).HeaderText = Replace(Format((ReadFlashByte(&H733C0 + c)) / 12.7, "#0.0"), ",", ".")
             D_dwell.Columns.Item(c).Width = 40
             c = c + 1
         Loop
@@ -35,7 +35,7 @@ Public Class K8dwellignition
         D_dwell.RowCount = 20
         D_dwell.RowHeadersWidth = 80
         For i = 1 To D_dwell.RowCount
-            D_dwell.Rows.Item(i - 1).HeaderCell.Value = Str(Int(readflashword(&H72C08 + (2 * (i - 1))) / 2.56))
+            D_dwell.Rows.Item(i - 1).HeaderCell.Value = Str(Int(ReadFlashWord(&H72C08 + (2 * (i - 1))) / 2.56))
         Next
 
 
@@ -48,7 +48,7 @@ Public Class K8dwellignition
         i = 0
         Do While (r < D_dwell.RowCount)
 
-            D_dwell.Item(c, r).Value = readflashbyte((i) + &H733C9)
+            D_dwell.Item(c, r).Value = ReadFlashByte((i) + &H733C9)
 
             If c < D_dwell.ColumnCount - 1 Then
                 c = c + 1
@@ -237,7 +237,7 @@ Public Class K8dwellignition
                 MsgBox("Max value exceeded, using max value")
             End If
 
-            writeflashbyte(i + &H733C9, (D_dwell.Item(c, r).Value))
+            WriteFlashByte(i + &H733C9, (D_dwell.Item(c, r).Value))
             If c < D_dwell.ColumnCount - 1 Then
                 c = c + 1
             Else

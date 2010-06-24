@@ -380,8 +380,8 @@ Public Class BKingInjectorBalanceMap
         _editingMap = readflashlongword(readflashlongword(i) + 12)
         _rowHeadingMap = readflashlongword(readflashlongword(i) + 8)
         _columnHeadingMap = readflashlongword(readflashlongword(i) + 4)
-        _mapNumberOfColumns = readflashbyte(readflashlongword(i) + 1)
-        _mapNumberOfRows = readflashbyte(readflashlongword(i) + 2)
+        _mapNumberOfColumns = ReadFlashByte(readflashlongword(i) + 1)
+        _mapNumberOfRows = ReadFlashByte(readflashlongword(i) + 2)
 
         mapvisible = Me.Text
 
@@ -408,9 +408,9 @@ Public Class BKingInjectorBalanceMap
             If _col = 1 Then
                 i = readflashbyte(_columnHeadingMap + (c * _col))
             Else
-                i = readflashword(_columnHeadingMap + (c * _col))
+                i = ReadFlashword(_columnHeadingMap + (c * _col))
             End If
-            InjBalMapGrid.Columns.Item(c).HeaderText = calc_K8TPS(i)
+            InjBalMapGrid.Columns.Item(c).HeaderText = CalcK8TPS(i)
             InjBalMapGrid.Columns.Item(c).Width = 50
             c = c + 1
         Loop
@@ -423,7 +423,7 @@ Public Class BKingInjectorBalanceMap
         'INJBALmapgrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
         Do While (r < _mapNumberOfRows)
 
-            i = readflashword(_rowHeadingMap + (r * 2))
+            i = ReadFlashword(_rowHeadingMap + (r * 2))
 
             InjBalMapGrid.Rows.Item(r).HeaderCell.Value = Str(Int(i / 2.56))
             InjBalMapGrid.Rows.Item(r).Height = 15
@@ -436,9 +436,9 @@ Public Class BKingInjectorBalanceMap
         i = 0
         Do While (r < _mapNumberOfRows)
             If _cel = 1 Then
-                InjBalMapGrid.Item(c, r).Value = Decode(readflashbyte((i * _cel) + _editingMap))
+                InjBalMapGrid.Item(c, r).Value = Decode(ReadFlashByte((i * _cel) + _editingMap))
             Else
-                InjBalMapGrid.Item(c, r).Value = Decode(readflashword((i * _cel) + _editingMap))
+                InjBalMapGrid.Item(c, r).Value = Decode(ReadFlashword((i * _cel) + _editingMap))
             End If
             If c < _mapNumberOfColumns - 1 Then
                 c = c + 1

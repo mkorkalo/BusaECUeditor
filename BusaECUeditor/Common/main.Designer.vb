@@ -108,94 +108,94 @@ Partial Class main
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewToolStripMenuItem, Me.NewK8ToolStripMenuItem, Me.NewStockBkingToolStripMenuItem, Me.NewStockBkingUSToolStripMenuItem, Me.OpenToolStripMenuItem, Me.SaveToolStripMenuItem, Me.OpenComparemapToolStripMenuItem, Me.ExitToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'NewToolStripMenuItem
         '
         Me.NewToolStripMenuItem.Name = "NewToolStripMenuItem"
-        Me.NewToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.NewToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
         Me.NewToolStripMenuItem.Text = "New/Stock K2-K7"
         '
         'NewK8ToolStripMenuItem
         '
         Me.NewK8ToolStripMenuItem.Name = "NewK8ToolStripMenuItem"
-        Me.NewK8ToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.NewK8ToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
         Me.NewK8ToolStripMenuItem.Text = "New/Stock K8-.."
         '
         'NewStockBkingToolStripMenuItem
         '
         Me.NewStockBkingToolStripMenuItem.Name = "NewStockBkingToolStripMenuItem"
-        Me.NewStockBkingToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.NewStockBkingToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
         Me.NewStockBkingToolStripMenuItem.Text = "New/Stock Bking (EU/AU)"
         '
         'NewStockBkingUSToolStripMenuItem
         '
         Me.NewStockBkingUSToolStripMenuItem.Name = "NewStockBkingUSToolStripMenuItem"
-        Me.NewStockBkingUSToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.NewStockBkingUSToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
         Me.NewStockBkingUSToolStripMenuItem.Text = "New/Stock Bking (US)"
         '
         'OpenToolStripMenuItem
         '
         Me.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
-        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
         Me.OpenToolStripMenuItem.Text = "Open"
         '
         'SaveToolStripMenuItem
         '
         Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
         Me.SaveToolStripMenuItem.Text = "Save"
         '
         'OpenComparemapToolStripMenuItem
         '
         Me.OpenComparemapToolStripMenuItem.Name = "OpenComparemapToolStripMenuItem"
-        Me.OpenComparemapToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.OpenComparemapToolStripMenuItem.Text = "Set comparemap"
+        Me.OpenComparemapToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
+        Me.OpenComparemapToolStripMenuItem.Text = "Set Compare Map"
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'AboutToolStripMenuItem1
         '
         Me.AboutToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProgramInfoToolStripMenuItem, Me.VersionToolStripMenuItem})
         Me.AboutToolStripMenuItem1.Name = "AboutToolStripMenuItem1"
-        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(52, 20)
+        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(48, 20)
         Me.AboutToolStripMenuItem1.Text = "About"
         '
         'ProgramInfoToolStripMenuItem
         '
         Me.ProgramInfoToolStripMenuItem.Name = "ProgramInfoToolStripMenuItem"
-        Me.ProgramInfoToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
+        Me.ProgramInfoToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ProgramInfoToolStripMenuItem.Text = "Program info"
         '
         'VersionToolStripMenuItem
         '
         Me.VersionToolStripMenuItem.Name = "VersionToolStripMenuItem"
-        Me.VersionToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
+        Me.VersionToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.VersionToolStripMenuItem.Text = "Version"
         '
         'UpdatesToolStripMenuItem
         '
         Me.UpdatesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HomepageToolStripMenuItem})
         Me.UpdatesToolStripMenuItem.Name = "UpdatesToolStripMenuItem"
-        Me.UpdatesToolStripMenuItem.Size = New System.Drawing.Size(62, 20)
+        Me.UpdatesToolStripMenuItem.Size = New System.Drawing.Size(59, 20)
         Me.UpdatesToolStripMenuItem.Text = "Updates"
         '
         'HomepageToolStripMenuItem
         '
         Me.HomepageToolStripMenuItem.Name = "HomepageToolStripMenuItem"
-        Me.HomepageToolStripMenuItem.Size = New System.Drawing.Size(220, 22)
+        Me.HomepageToolStripMenuItem.Size = New System.Drawing.Size(215, 22)
         Me.HomepageToolStripMenuItem.Text = "Program update homepage"
         '
         'SetupToolStripMenuItem
         '
         Me.SetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InstallFTDIDriversToolStripMenuItem, Me.SetupCOMPortToolStripMenuItem})
         Me.SetupToolStripMenuItem.Name = "SetupToolStripMenuItem"
-        Me.SetupToolStripMenuItem.Size = New System.Drawing.Size(49, 20)
+        Me.SetupToolStripMenuItem.Size = New System.Drawing.Size(47, 20)
         Me.SetupToolStripMenuItem.Text = "Setup"
         '
         'InstallFTDIDriversToolStripMenuItem
@@ -214,31 +214,31 @@ Partial Class main
         '
         Me.FlashToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerifyChecksumToolStripMenuItem, Me.VerifyECUToolStripMenuItem, Me.FullEraseToolStripMenuItem, Me.FlashTheECUToolStripMenuItem})
         Me.FlashToolStripMenuItem.Name = "FlashToolStripMenuItem"
-        Me.FlashToolStripMenuItem.Size = New System.Drawing.Size(46, 20)
+        Me.FlashToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.FlashToolStripMenuItem.Text = "Flash"
         '
         'VerifyChecksumToolStripMenuItem
         '
         Me.VerifyChecksumToolStripMenuItem.Name = "VerifyChecksumToolStripMenuItem"
-        Me.VerifyChecksumToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
+        Me.VerifyChecksumToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.VerifyChecksumToolStripMenuItem.Text = "Verify Checksum"
         '
         'VerifyECUToolStripMenuItem
         '
         Me.VerifyECUToolStripMenuItem.Name = "VerifyECUToolStripMenuItem"
-        Me.VerifyECUToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
+        Me.VerifyECUToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.VerifyECUToolStripMenuItem.Text = "Verify ECU"
         '
         'FullEraseToolStripMenuItem
         '
         Me.FullEraseToolStripMenuItem.Name = "FullEraseToolStripMenuItem"
-        Me.FullEraseToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
+        Me.FullEraseToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.FullEraseToolStripMenuItem.Text = "Full Erase"
         '
         'FlashTheECUToolStripMenuItem
         '
         Me.FlashTheECUToolStripMenuItem.Name = "FlashTheECUToolStripMenuItem"
-        Me.FlashTheECUToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
+        Me.FlashTheECUToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.FlashTheECUToolStripMenuItem.Text = "Flash the ECU"
         '
         'B_Limiters

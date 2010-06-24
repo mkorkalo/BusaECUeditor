@@ -22,14 +22,17 @@
 
 Imports System.Windows.Forms
 
-Public Class mapsharing
+Public Class MapSharing
 
-    Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
+#Region "Control Events"
+
+    Private Sub B_Close_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Close.Click
+
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
-    End Sub
-
-    Private Sub mapsharing_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
     End Sub
+
+#End Region
+
 End Class

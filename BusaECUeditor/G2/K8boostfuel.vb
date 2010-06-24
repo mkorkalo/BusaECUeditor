@@ -41,7 +41,7 @@ Public Class K8boostfuel
 
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        If (readflashbyte(ADJ) <> &HFF) Then
+        If (ReadFlashByte(ADJ) <> &HFF) Then
         End If
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
@@ -50,7 +50,7 @@ Public Class K8boostfuel
     Private Sub CheckBox1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_boostfuel_activation.CheckedChanged, C_boostfuel_activation.CheckedChanged
         If C_boostfuel_activation.Checked Then
             C_boostfuel_activation.Text = "Code active"
-            If (readflashbyte(ADJ) = &HFF) Then
+            If (ReadFlashByte(ADJ) = &HFF) Then
                 modify_original_ECU_code(True)
                 boostfuel_code_in_memory(True, boostfuelcodelenght)
                 generate_map_table()
@@ -79,7 +79,7 @@ Public Class K8boostfuel
 
         L_boostfuelver.Text = Str(BOOSTFUELVERSION)
 
-        If (readflashbyte(ADJ) = &HFF) Then
+        If (ReadFlashByte(ADJ) = &HFF) Then
             C_boostfuel_activation.Checked = False
             hide_boostfuel_settings()
         Else
@@ -88,10 +88,10 @@ Public Class K8boostfuel
             'boostfuel_code_in_memory(True, boostfuelcodelenght)
             generate_map_table()
 
-            i = readflashword(IDTAG)
+            i = ReadFlashWord(IDTAG)
 
-            If (readflashword(IDTAG) <> BOOSTFUELVERSION) Then
-                MsgBox("boostfuel code incompatible with this version, please reactivate the boostfuel on this map " & Str(readflashword(IDTAG)))
+            If (ReadFlashWord(IDTAG) <> BOOSTFUELVERSION) Then
+                MsgBox("boostfuel code incompatible with this version, please reactivate the boostfuel on this map " & Str(ReadFlashWord(IDTAG)))
                 C_boostfuel_activation.Checked = False
                 hide_boostfuel_settings()
             End If
@@ -116,46 +116,46 @@ Public Class K8boostfuel
             ' as part of each main loop
             '
             ' GAUGEDATA BITFLAG FOR BLINKING LIGHT
-            writeflashword(&H4E122, &H6828) 'let the gaugedata read the copy of the variable
+            WriteFlashWord(&H4E122, &H6828) 'let the gaugedata read the copy of the variable
             ' KWP protocol to be able to read boost and COV1
-            writeflashword(&H525C8, &H80)
-            writeflashword(&H525CA, &H6824) 'RAW pressure voltage from AD converter
-            writeflashword(&H525CC, &H80)
-            writeflashword(&H525CE, &H681A) 'EMULATED IAP after GM3 bar map conversion
+            WriteFlashWord(&H525C8, &H80)
+            WriteFlashWord(&H525CA, &H6824) 'RAW pressure voltage from AD converter
+            WriteFlashWord(&H525CC, &H80)
+            WriteFlashWord(&H525CE, &H681A) 'EMULATED IAP after GM3 bar map conversion
             ' AD_conversion loop 
-            writeflashword(&H4112, &H682A) 'ECU AD converter value
+            WriteFlashWord(&H4112, &H682A) 'ECU AD converter value
             pcdisp = (BOOSTFUELCODE - &H41D8) / 4
             blk = 0
             If pcdisp > &HFFFF Then
                 blk = Int(pcdisp / &H10000)
                 pcdisp = pcdisp And &HFFFF
             End If
-            writeflashbyte(&H41D8, &HFE)
-            writeflashbyte(&H41D9, blk)
-            writeflashword(&H41DA, pcdisp)
+            WriteFlashByte(&H41D8, &HFE)
+            WriteFlashByte(&H41D9, blk)
+            WriteFlashWord(&H41DA, pcdisp)
             'cylinder 1 
-            writeflashword(&H41408, &H6400) ' ldi R4, 0
-            writeflashword(&H413E2, &H6818)
-            writeflashword(&H41460, &H4400) ' + 0
-            writeflashword(&H41462, &H5446) ' << 5
+            WriteFlashWord(&H41408, &H6400) ' ldi R4, 0
+            WriteFlashWord(&H413E2, &H6818)
+            WriteFlashWord(&H41460, &H4400) ' + 0
+            WriteFlashWord(&H41462, &H5446) ' << 5
             'cylinder 2 
-            writeflashword(&H414D8, &H6400)
-            writeflashword(&H414B2, &H6818)
-            writeflashword(&H41530, &H4400) ' + 0
-            writeflashword(&H41532, &H5446) ' << 5
+            WriteFlashWord(&H414D8, &H6400)
+            WriteFlashWord(&H414B2, &H6818)
+            WriteFlashWord(&H41530, &H4400) ' + 0
+            WriteFlashWord(&H41532, &H5446) ' << 5
             'cylinder 3 
-            writeflashword(&H415A8, &H6400)
-            writeflashword(&H41582, &H6818)
-            writeflashword(&H41600, &H4400) ' + 0
-            writeflashword(&H41602, &H5446) ' << 5
+            WriteFlashWord(&H415A8, &H6400)
+            WriteFlashWord(&H41582, &H6818)
+            WriteFlashWord(&H41600, &H4400) ' + 0
+            WriteFlashWord(&H41602, &H5446) ' << 5
             'cylinder 4 
-            writeflashword(&H41678, &H6400)
-            writeflashword(&H41652, &H6818)
-            writeflashword(&H416D0, &H4400) ' + 0
-            writeflashword(&H416D2, &H5446) ' << 5
+            WriteFlashWord(&H41678, &H6400)
+            WriteFlashWord(&H41652, &H6818)
+            WriteFlashWord(&H416D0, &H4400) ' + 0
+            WriteFlashWord(&H416D2, &H5446) ' << 5
             ' set ignition retard to read the nitrouscontrol module variable
-            writeflashbyte(&H33C22, &H68)
-            writeflashbyte(&H33C23, &H56)
+            WriteFlashByte(&H33C22, &H68)
+            WriteFlashByte(&H33C23, &H56)
 
             K8Advsettings.C_ABCmode.Checked = False
 
@@ -164,41 +164,41 @@ Public Class K8boostfuel
             ' bring the ecu code back to original
             '
             ' GAUGEDATA BITFLAG
-            writeflashword(&H4E122, &H6874)
+            WriteFlashWord(&H4E122, &H6874)
             ' KWP protocol to be able to read boost
-            writeflashword(&H525C8, &H7)
-            writeflashword(&H525CA, &HD11B)
-            writeflashword(&H525CC, &H7)
-            writeflashword(&H525CE, &HD11B)
-            'writeflashword(&H525CC, &H80) ' just for debugging
-            'writeflashword(&H525CE, &H652A) 'COV1 just for debugging
+            WriteFlashWord(&H525C8, &H7)
+            WriteFlashWord(&H525CA, &HD11B)
+            WriteFlashWord(&H525CC, &H7)
+            WriteFlashWord(&H525CE, &HD11B)
+            'WriteFlashWord(&H525CC, &H80) ' just for debugging
+            'WriteFlashWord(&H525CE, &H652A) 'COV1 just for debugging
             ' AD_conversion loop no jump to separate code
-            writeflashword(&H41D8, &HFE00)
-            writeflashword(&H41DA, &HBAC9)
-            writeflashword(&H4112, &H42F0) 'ECU AD converter value
+            WriteFlashWord(&H41D8, &HFE00)
+            WriteFlashWord(&H41DA, &HBAC9)
+            WriteFlashWord(&H4112, &H42F0) 'ECU AD converter value
             'cylinder 1 
-            writeflashword(&H41408, &H4400)
-            writeflashword(&H413E2, &H652A)
-            writeflashword(&H41460, &H4480)
-            writeflashword(&H41462, &H5442)
+            WriteFlashWord(&H41408, &H4400)
+            WriteFlashWord(&H413E2, &H652A)
+            WriteFlashWord(&H41460, &H4480)
+            WriteFlashWord(&H41462, &H5442)
             'cylinder 2 
-            writeflashword(&H414D8, &H4400)
-            writeflashword(&H414B2, &H652B)
-            writeflashword(&H41530, &H4480)
-            writeflashword(&H41532, &H5442)
+            WriteFlashWord(&H414D8, &H4400)
+            WriteFlashWord(&H414B2, &H652B)
+            WriteFlashWord(&H41530, &H4480)
+            WriteFlashWord(&H41532, &H5442)
             'cylinder 3 
-            writeflashword(&H415A8, &H4400)
-            writeflashword(&H41582, &H652C)
-            writeflashword(&H41600, &H4480)
-            writeflashword(&H41602, &H5442)
+            WriteFlashWord(&H415A8, &H4400)
+            WriteFlashWord(&H41582, &H652C)
+            WriteFlashWord(&H41600, &H4480)
+            WriteFlashWord(&H41602, &H5442)
             'cylinder 4 
-            writeflashword(&H41678, &H4400)
-            writeflashword(&H41652, &H652D)
-            writeflashword(&H416D0, &H4480)
-            writeflashword(&H416D2, &H5442)
+            WriteFlashWord(&H41678, &H4400)
+            WriteFlashWord(&H41652, &H652D)
+            WriteFlashWord(&H416D0, &H4480)
+            WriteFlashWord(&H416D2, &H5442)
             ' set ignition retard to read the stock variable
-            writeflashbyte(&H33C22, &H63)
-            writeflashbyte(&H33C23, &HA2)
+            WriteFlashByte(&H33C22, &H63)
+            WriteFlashByte(&H33C23, &HA2)
 
         End If
     End Sub
@@ -222,29 +222,29 @@ Public Class K8boostfuel
 
             i = 0
             Do While fs.Read(b, 0, 1) > 0
-                writeflashbyte(i + ADJ, b(0))
+                WriteFlashByte(i + ADJ, b(0))
                 i = i + 1
             Loop
             fs.Close()
 
-            i = readflashword(IDTAG)
+            i = ReadFlashWord(IDTAG)
 
-            If readflashword(IDTAG) <> BOOSTFUELVERSION Then
+            If ReadFlashWord(IDTAG) <> BOOSTFUELVERSION Then
                 MsgBox("This boostfuel code is not compatible with this ECUeditor version !!!")
                 For i = 0 To lenght
-                    writeflashbyte(i + ADJ, &HFF)
+                    WriteFlashByte(i + ADJ, &HFF)
                 Next
                 Me.Close()
             End If
         Else
             ' reset the boostfuel code in memory back to &HFF. Remember that &HFF is the default value after EPROM erase
             For i = 0 To lenght
-                writeflashbyte(i + ADJ, &HFF)
+                WriteFlashByte(i + ADJ, &HFF)
             Next
         End If
     End Sub
     Private Sub read_boostfuel_settings()
-        If readflashbyte(&H559D1) = &H0 Then
+        If ReadFlashByte(&H559D1) = &H0 Then
             C_fueladd.Text = "+ to TPS"
             C_fueladd.Checked = True
         Else
@@ -265,7 +265,7 @@ Public Class K8boostfuel
 
     Private Sub solenoidcontrol_visible()
 
-        If readflashbyte(&H559D2) = &H0 Then 'Dutyactive
+        If ReadFlashByte(&H559D2) = &H0 Then 'Dutyactive
             D_solenoidcontrol.Visible = True
             C_solenoidcontrol.Checked = True
         Else
@@ -273,7 +273,7 @@ Public Class K8boostfuel
             C_solenoidcontrol.Checked = False
         End If
 
-        If readflashbyte(&H559D3) = &H0 Then 'Solenoidtype
+        If ReadFlashByte(&H559D3) = &H0 Then 'Solenoidtype
             C_bleed.Checked = True
             C_bleed.Text = "Normally Open"
         Else
@@ -291,7 +291,7 @@ Public Class K8boostfuel
         D_boostfuel.ColumnCount = 16
         c = 0
         Do While c < D_boostfuel.ColumnCount
-            i = readflashbyte(columnheading_map + c)
+            i = ReadFlashByte(columnheading_map + c)
             If metric Then
                 D_boostfuel.Columns.Item(c).HeaderText = Int(((((i / 50.5) * 9.2) - 14.7) / 14.7) * 100)
             Else
@@ -308,7 +308,7 @@ Public Class K8boostfuel
         D_boostfuel.RowHeadersWidth = 60
         r = 0
         Do While (r < D_boostfuel.RowCount)
-            i = readflashword(rowheading_map + (r * 2))
+            i = ReadFlashWord(rowheading_map + (r * 2))
             D_boostfuel.Rows.Item(r).HeaderCell.Value = Str(Int(i / 2.56))
             D_boostfuel.Rows.Item(r).Height = 15
             r = r + 1
@@ -318,7 +318,7 @@ Public Class K8boostfuel
         '
         ' Show overboost limit
         '
-        If readflashbyte(&H55400) <> &HFF Then ' If shifter module is active, then enable overboost limit adjusting
+        If ReadFlashByte(&H55400) <> &HFF Then ' If shifter module is active, then enable overboost limit adjusting
             T_overboost.Enabled = True
             T_overboost.Visible = True
         Else
@@ -327,9 +327,9 @@ Public Class K8boostfuel
         End If
 
         If metric Then
-            T_overboost.Text = Int(((((readflashword(&H55802) / 50.5) * 9.2) - 14.7) / 14.7) * 100)
+            T_overboost.Text = Int(((((ReadFlashWord(&H55802) / 50.5) * 9.2) - 14.7) / 14.7) * 100)
         Else
-            T_overboost.Text = Int(((((readflashword(&H55802) / 50.5) * 9.2) - 14.7)))
+            T_overboost.Text = Int(((((ReadFlashWord(&H55802) / 50.5) * 9.2) - 14.7)))
         End If
 
 
@@ -341,13 +341,13 @@ Public Class K8boostfuel
         i = 0
         Do While (r < D_boostfuel.RowCount)
 
-            If (D_boostfuel.Columns.Item(c).HeaderText > Abs(Val(T_overboost.Text))) And (readflashbyte(&H55400) <> &HFF) Then
+            If (D_boostfuel.Columns.Item(c).HeaderText > Abs(Val(T_overboost.Text))) And (ReadFlashByte(&H55400) <> &HFF) Then
                 D_boostfuel.Item(c, r).Style.ForeColor = Color.Gray
             Else
                 D_boostfuel.Item(c, r).Style.ForeColor = Color.Black
             End If
 
-            D_boostfuel.Item(c, r).Value = Int(readflashbyte(i + editing_map))
+            D_boostfuel.Item(c, r).Value = Int(ReadFlashByte(i + editing_map))
             If c < D_boostfuel.ColumnCount - 1 Then
                 c = c + 1
             Else
@@ -390,7 +390,7 @@ Public Class K8boostfuel
                 MsgBox("Max value exceeded, using max value")
             End If
 
-            writeflashbyte(i + editing_map, (D_boostfuel.Item(c, r).Value))
+            WriteFlashByte(i + editing_map, (D_boostfuel.Item(c, r).Value))
             If c < D_boostfuel.ColumnCount - 1 Then
                 c = c + 1
             Else
@@ -420,17 +420,17 @@ Public Class K8boostfuel
             End If
             If (r = 0) Or (r = 1) Then
                 If metric Then
-                    writeflashword((i * 2) + &H559A0, (((14.7 * D_duty.Item(c, r).Value / 100) + 14.7) * 50.5 / 9.2))
-                    'D_duty.Item(c, r).Value = Int(((((readflashword((i * 2) + &H559A4) / 50.5) * 9.2) - 14.7) / 14.7) * 100)
+                    WriteFlashWord((i * 2) + &H559A0, (((14.7 * D_duty.Item(c, r).Value / 100) + 14.7) * 50.5 / 9.2))
+                    'D_duty.Item(c, r).Value = Int(((((ReadFlashWord((i * 2) + &H559A4) / 50.5) * 9.2) - 14.7) / 14.7) * 100)
                 Else
-                    writeflashword((i * 2) + &H559A0, ((D_duty.Item(c, r).Value + 14.7) * 50.5 / 9.2))
-                    ' D_duty.Item(c, r).Value = Int(((((readflashword((i * 2) + &H559A4) / 50.5) * 9.2) - 14.7)))
+                    WriteFlashWord((i * 2) + &H559A0, ((D_duty.Item(c, r).Value + 14.7) * 50.5 / 9.2))
+                    ' D_duty.Item(c, r).Value = Int(((((ReadFlashWord((i * 2) + &H559A4) / 50.5) * 9.2) - 14.7)))
                 End If
             Else
                 'if Not ((C_bleed.Checked) And (r = 2)) Then
-                writeflashword((i * 2) + &H559A0, (D_duty.Item(c, r).Value))
+                WriteFlashWord((i * 2) + &H559A0, (D_duty.Item(c, r).Value))
                 'Else
-                'writeflashword((i * 2) + &H559A0, (100 - D_duty.Item(c, r).Value))
+                'WriteFlashWord((i * 2) + &H559A0, (100 - D_duty.Item(c, r).Value))
                 'End If
 
 
@@ -783,17 +783,17 @@ Public Class K8boostfuel
 
             If (r = 0) Or (r = 1) Then
                 If metric Then
-                    D_duty.Item(c, r).Value = Int(((((readflashword((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7) / 14.7) * 100)
+                    D_duty.Item(c, r).Value = Int(((((ReadFlashWord((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7) / 14.7) * 100)
                 Else
-                    D_duty.Item(c, r).Value = Int(((((readflashword((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7)))
+                    D_duty.Item(c, r).Value = Int(((((ReadFlashWord((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7)))
                 End If
             Else
                 'If Not ((C_bleed.Checked) And (r = 2)) Then
-                D_duty.Item(c, r).Value = Int((readflashword((i * 2) + &H559A0)))
+                D_duty.Item(c, r).Value = Int((ReadFlashWord((i * 2) + &H559A0)))
                 'Else
-                'D_duty.Item(c, r).Value = 100 - Int((readflashword((i * 2) + &H559A0)))
+                'D_duty.Item(c, r).Value = 100 - Int((ReadFlashWord((i * 2) + &H559A0)))
                 ' End If
-                'D_duty.Item(c, r).Value = Int((readflashword((i * 2) + &H559A0)))
+                'D_duty.Item(c, r).Value = Int((ReadFlashWord((i * 2) + &H559A0)))
             End If
 
             If c < D_duty.ColumnCount - 1 Then
@@ -818,12 +818,12 @@ Public Class K8boostfuel
         If C_solenoidcontrol.Checked = True Then
             C_solenoidcontrol.Text = "Active"
             D_solenoidcontrol.Visible = True
-            writeflashbyte(&H559D2, &H0) ' Dutyactive
+            WriteFlashByte(&H559D2, &H0) ' Dutyactive
             K8Advsettings.C_PAIR.Checked = False
         Else
             C_solenoidcontrol.Text = "Not active"
             D_solenoidcontrol.Visible = False
-            writeflashbyte(&H559D2, &HFF) ' Dutyactive
+            WriteFlashByte(&H559D2, &HFF) ' Dutyactive
         End If
         generate_duty_table()
 
@@ -846,24 +846,24 @@ Public Class K8boostfuel
 
     End Sub
 
-  
+
     Private Sub C_bleed_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_bleed.CheckedChanged
         If C_bleed.Checked = True Then
             C_bleed.Text = "Normally Open"
-            writeflashbyte(&H559D3, &H0)
+            WriteFlashByte(&H559D3, &H0)
         Else
             C_bleed.Text = "Normally Closed"
-            writeflashbyte(&H559D3, &HFF)
+            WriteFlashByte(&H559D3, &HFF)
         End If
         generate_duty_table()
 
     End Sub
 
     Private Sub setdebugrpmstep()
-        If readflashword(rowheading_map) = 0 Then
-            writeflashword(rowheading_map, &H2800)
+        If ReadFlashWord(rowheading_map) = 0 Then
+            WriteFlashWord(rowheading_map, &H2800)
         Else
-            writeflashword(rowheading_map, 0)
+            WriteFlashWord(rowheading_map, 0)
         End If
         generate_map_table()
     End Sub
@@ -871,7 +871,7 @@ Public Class K8boostfuel
     Private Sub T_overboost_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles T_overboost.KeyPress
         Dim i As Integer
 
-        If readflashbyte(&H55400) = &HFF Then
+        If ReadFlashByte(&H55400) = &HFF Then
             MsgBox("To use overboost limit you must have shifter code active")
             T_overboost.Enabled = False
             T_overboost.Visible = False
@@ -886,12 +886,12 @@ Public Class K8boostfuel
             If Abs(Val(T_overboost.Text)) > 250 Then T_overboost.Text = "250"
 
             If metric Then
-                writeflashword(&H55802, (((14.7 * Int(T_overboost.Text) / 100) + 14.7) * 50.5 / 9.2))
+                WriteFlashWord(&H55802, (((14.7 * Int(T_overboost.Text) / 100) + 14.7) * 50.5 / 9.2))
             Else
-                writeflashword(&H55802, ((Int(T_overboost.Text) + 14.7) * 50.5 / 9.2))
+                WriteFlashWord(&H55802, ((Int(T_overboost.Text) + 14.7) * 50.5 / 9.2))
             End If
 
-            i = readflashword(&H55802)
+            i = ReadFlashWord(&H55802)
 
             'generate_map_table()
         End If
@@ -901,10 +901,10 @@ Public Class K8boostfuel
     Private Sub C_fueladd_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_fueladd.CheckedChanged
         If C_fueladd.Checked = True Then
             C_fueladd.Text = "+ to TPS"
-            writeflashbyte(&H559D1, &H0)
+            WriteFlashByte(&H559D1, &H0)
         Else
             C_fueladd.Text = "% of TPS"
-            writeflashbyte(&H559D1, &H10)
+            WriteFlashByte(&H559D1, &H10)
         End If
 
     End Sub
