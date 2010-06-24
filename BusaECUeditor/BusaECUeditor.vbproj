@@ -143,7 +143,6 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationEvents.vb" />
     <Compile Include="BKing\BKingFuelmap.Designer.vb">
       <DependentUpon>BKingFuelmap.vb</DependentUpon>
     </Compile>
