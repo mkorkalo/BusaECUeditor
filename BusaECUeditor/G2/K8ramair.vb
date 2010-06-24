@@ -24,7 +24,7 @@ Public Class K8ramair
         D_ramair.ColumnCount = 20
         c = 0
         Do While c < D_ramair.ColumnCount
-            D_ramair.Columns.Item(c).HeaderText = Int(readflashword(&H7268E + (2 * c)) / 2.56)
+            D_ramair.Columns.Item(c).HeaderText = Int(ReadFlashWord(&H7268E + (2 * c)) / 2.56)
             D_ramair.Columns.Item(c).Width = 40
             c = c + 1
         Loop
@@ -49,7 +49,7 @@ Public Class K8ramair
         i = 0
         Do While (r < D_ramair.RowCount)
 
-            D_ramair.Item(c, r).Value = readflashbyte((i) + &H72859)
+            D_ramair.Item(c, r).Value = ReadFlashByte((i) + &H72859)
 
             If c < D_ramair.ColumnCount - 1 Then
                 c = c + 1
@@ -233,7 +233,7 @@ Public Class K8ramair
                 MsgBox("Max value exceeded, using max value")
             End If
 
-            writeflashbyte(i + &H72859, (D_ramair.Item(c, r).Value))
+            WriteFlashByte(i + &H72859, (D_ramair.Item(c, r).Value))
             If c < D_ramair.ColumnCount - 1 Then
                 c = c + 1
             Else

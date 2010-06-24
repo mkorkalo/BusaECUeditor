@@ -1184,7 +1184,7 @@ Public Class K8Datastream
 
         LED_RPM.Text = Str(RPM)
 
-        LED_TPS.Text = calc_TPS(TPS)
+        LED_TPS.Text = CalcTPS(TPS)
         If TPS <= 11 Then
             LED_TPS.ForeColor = Color.Gray
         Else
@@ -1230,7 +1230,7 @@ Public Class K8Datastream
 
 
         '
-        ' MS Signal is normally grounded and that sets MS0 map as default
+        ' MS Signal is normally gRounded and that sets MS0 map as default
         ' when open MS signal is set to MS1 map
         '
         If MS = 0 Then

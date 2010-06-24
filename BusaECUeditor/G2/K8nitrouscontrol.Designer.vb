@@ -115,7 +115,7 @@ Partial Class K8nitrouscontrol
         '
         Me.D_fuel_nitrouscontrol.AllowUserToAddRows = False
         Me.D_fuel_nitrouscontrol.AllowUserToDeleteRows = False
-        Me.D_fuel_nitrouscontrol.BackgroundColor = System.Drawing.Color.WhiteSmoke
+        Me.D_fuel_nitrouscontrol.BackgRoundColor = System.Drawing.Color.WhiteSmoke
         Me.D_fuel_nitrouscontrol.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.D_fuel_nitrouscontrol.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.D_fuel_nitrouscontrol.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically

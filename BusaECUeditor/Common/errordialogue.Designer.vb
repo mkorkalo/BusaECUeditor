@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Dialog_Error
+Partial Class ErrorDialog
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -19,18 +19,18 @@ Partial Class Dialog_Error
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Button1 = New System.Windows.Forms.Button
+        Me.B_End = New System.Windows.Forms.Button
         Me.Label1 = New System.Windows.Forms.Label
         Me.SuspendLayout()
         '
-        'Button1
+        'B_End
         '
-        Me.Button1.Location = New System.Drawing.Point(326, 92)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(84, 30)
-        Me.Button1.TabIndex = 0
-        Me.Button1.Text = "END"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.B_End.Location = New System.Drawing.Point(326, 92)
+        Me.B_End.Name = "B_End"
+        Me.B_End.Size = New System.Drawing.Size(84, 30)
+        Me.B_End.TabIndex = 0
+        Me.B_End.Text = "END"
+        Me.B_End.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -47,7 +47,7 @@ Partial Class Dialog_Error
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(429, 139)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.B_End)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -59,7 +59,7 @@ Partial Class Dialog_Error
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents B_End As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
 
 End Class

@@ -343,9 +343,9 @@ Public Class K8injectorbalancemap
         If m1 >= maxval Then m1 = maxval
 
         If col = 1 Then
-            writeflashbyte(editing_map + (cel * (c + (r * map_number_of_columns))), encode(m1))
+            WriteFlashByte(editing_map + (cel * (c + (r * map_number_of_columns))), encode(m1))
         Else
-            writeflashword(editing_map + (cel * (c + (r * map_number_of_columns))), encode(m1))
+            WriteFlashWord(editing_map + (cel * (c + (r * map_number_of_columns))), encode(m1))
         End If
 
     End Sub
@@ -365,11 +365,11 @@ Public Class K8injectorbalancemap
         '
 
         i = map_structure_table + (gear * 6 * 4) + (((3 * ms01) + modeabc) * 4)
-        editing_map = readflashlongword(readflashlongword(i) + 12)
-        rowheadingmap = readflashlongword(readflashlongword(i) + 8)
-        columnheadingmap = readflashlongword(readflashlongword(i) + 4)
-        map_number_of_columns = readflashbyte(readflashlongword(i) + 1)
-        map_number_of_rows = readflashbyte(readflashlongword(i) + 2)
+        editing_map = ReadFlashLongWord(ReadFlashLongWord(i) + 12)
+        rowheadingmap = ReadFlashLongWord(ReadFlashLongWord(i) + 8)
+        columnheadingmap = ReadFlashLongWord(ReadFlashLongWord(i) + 4)
+        map_number_of_columns = ReadFlashByte(ReadFlashLongWord(i) + 1)
+        map_number_of_rows = ReadFlashByte(ReadFlashLongWord(i) + 2)
 
         mapvisible = Me.Text
 
@@ -397,11 +397,11 @@ Public Class K8injectorbalancemap
         c = 0
         Do While c < map_number_of_columns
             If col = 1 Then
-                i = readflashbyte(columnheadingmap + (c * col))
+                i = ReadFlashByte(columnheadingmap + (c * col))
             Else
-                i = readflashword(columnheadingmap + (c * col))
+                i = ReadFlashWord(columnheadingmap + (c * col))
             End If
-            INJBALmapgrid.Columns.Item(c).HeaderText = calc_K8TPS(i)
+            INJBALmapgrid.Columns.Item(c).HeaderText = CalcK8TPS(i)
             INJBALmapgrid.Columns.Item(c).Width = 50
             c = c + 1
         Loop
@@ -415,7 +415,7 @@ Public Class K8injectorbalancemap
         'INJBALmapgrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
         Do While (r < map_number_of_rows)
 
-            i = readflashword(rowheadingmap + (r * 2))
+            i = ReadFlashWord(rowheadingmap + (r * 2))
 
             INJBALmapgrid.Rows.Item(r).HeaderCell.Value = Str(Int(i / 2.56))
             INJBALmapgrid.Rows.Item(r).Height = 15
@@ -430,9 +430,9 @@ Public Class K8injectorbalancemap
         i = 0
         Do While (r < map_number_of_rows)
             If cel = 1 Then
-                INJBALmapgrid.Item(c, r).Value = decode(readflashbyte((i * cel) + editing_map))
+                INJBALmapgrid.Item(c, r).Value = decode(ReadFlashByte((i * cel) + editing_map))
             Else
-                INJBALmapgrid.Item(c, r).Value = decode(readflashword((i * cel) + editing_map))
+                INJBALmapgrid.Item(c, r).Value = decode(ReadFlashWord((i * cel) + editing_map))
             End If
             If c < map_number_of_columns - 1 Then
                 c = c + 1

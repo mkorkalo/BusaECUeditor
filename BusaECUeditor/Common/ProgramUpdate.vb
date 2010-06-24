@@ -21,10 +21,6 @@
 '
 
 
-Public Class updatebox
+Public Class ProgramUpdate
 
-
-    Private Sub updatebox_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
-    End Sub
 End Class

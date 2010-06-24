@@ -21,10 +21,10 @@ Public Class K8enginedatalog
         End Select
         If RPM > 1500 Then
             Me.P_RPM.AddValue(RPM)
-            Me.P_TPS.AddValue(Val(calc_TPS(TPS)))
+            Me.P_TPS.AddValue(Val(CalcTPS(TPS)))
             Me.P_AFR.AddValue(i)
 
-            Me.L_datalog.Items.Add(Format(RPM, "00000   ") & Format(calc_TPS_dec(TPS), "00.0   ") & Format(IAP, "00.0   ") & K8Datastream.ho2toafr(HO2) & " " & Format(BOOST, "000"))
+            Me.L_datalog.Items.Add(Format(RPM, "00000   ") & Format(CalcTPSDec(TPS), "00.0   ") & Format(IAP, "00.0   ") & K8Datastream.ho2toafr(HO2) & " " & Format(BOOST, "000"))
             Me.L_record.ForeColor = Color.Green
 
         Else
@@ -69,7 +69,7 @@ Public Class K8enginedatalog
         ' Put values from table to global variables
         '
         RPM = Val(Mid$(L_datalog.Text, 1, 5))
-        TPS = calc_TPStoval(Mid$(L_datalog.Text, 8, 4))
+        TPS = CalcTPSToVal(Mid$(L_datalog.Text, 8, 4))
         IAP = Val(Mid$(L_datalog.Text, 16, 4))
         BOOST = Val(Mid$(L_datalog.Text, 28, 3))
 
@@ -81,7 +81,7 @@ Public Class K8enginedatalog
             K8Fuelmap.Focus()
         End If
 
-        If calc_TPS_dec(TPS) > 10 Then
+        If CalcTPSDec(TPS) > 10 Then
             '
             ' Select TPS map
             '

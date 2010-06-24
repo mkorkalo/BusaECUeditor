@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class update
+Partial Class ProgramUpdate
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -19,29 +19,29 @@ Partial Class update
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.WebBrowser1 = New System.Windows.Forms.WebBrowser
+        Me.WebUpdate = New System.Windows.Forms.WebBrowser
         Me.SuspendLayout()
         '
-        'WebBrowser1
+        'WebUpdate
         '
-        Me.WebBrowser1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.WebBrowser1.Location = New System.Drawing.Point(0, 0)
-        Me.WebBrowser1.MinimumSize = New System.Drawing.Size(20, 20)
-        Me.WebBrowser1.Name = "WebBrowser1"
-        Me.WebBrowser1.Size = New System.Drawing.Size(820, 412)
-        Me.WebBrowser1.TabIndex = 0
-        Me.WebBrowser1.Url = New System.Uri("http://macmadigan.no-ip.com/Public/ecueditor", System.UriKind.Absolute)
+        Me.WebUpdate.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.WebUpdate.Location = New System.Drawing.Point(0, 0)
+        Me.WebUpdate.MinimumSize = New System.Drawing.Size(20, 20)
+        Me.WebUpdate.Name = "WebUpdate"
+        Me.WebUpdate.Size = New System.Drawing.Size(766, 412)
+        Me.WebUpdate.TabIndex = 0
+        Me.WebUpdate.Url = New System.Uri("http://macmadigan.no-ip.com/public/ecu/ecueditor/ecueditor.htm", System.UriKind.Absolute)
         '
-        'update
+        'updatebox
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(820, 412)
-        Me.Controls.Add(Me.WebBrowser1)
-        Me.Name = "update"
-        Me.Text = "Program update"
+        Me.ClientSize = New System.Drawing.Size(766, 412)
+        Me.Controls.Add(Me.WebUpdate)
+        Me.Name = "updatebox"
+        Me.Text = "Program Updates"
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents WebBrowser1 As System.Windows.Forms.WebBrowser
+    Friend WithEvents WebUpdate As System.Windows.Forms.WebBrowser
 End Class
