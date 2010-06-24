@@ -2,78 +2,93 @@ Module CommonFunctions
 
 #Region "Variables"
 
-    Public Const _timerInterval As Integer = 250
-    Public Const _maxDataLog As Integer = 4000
-
-    Public _rpm As Integer
-    Public _tps As Integer
-    Public _iap As Integer 'ambient - intake air pressure
-    Public _oxy As Integer
-    Public _clt As Integer
-    Public _usr1 As Integer 'user can define this 1variable to be monitored
-    Public _ramVarUsr1 As Integer ' index of the USR1 variable within RAM
-    Public _fuel As Integer
-    Public _airPressure As Integer ' Air pressure
-    Public _intakeAirPressure As Integer 'intake air pressure
-    Public _ign As Integer
-    Public _duty As Integer
-    Public _afr As Integer
-    Public MS As Integer
-    Public NT As Integer
-    Public CLUTCH As Integer
-    Public PAIR As Integer
-    Public MODE As Integer
-    Public GEAR As Integer
-    Public HO2 As Integer
-    Public BATT As Integer
-    Public STP As Integer
-    Public IAT As Integer
-    Public SAPabs As Integer
-    Public IAPabs As Integer
-    Public BOOST As Integer
-    Public DSM1 As Boolean
-
-    Public looperrorcodes As Integer
-    Public block_pgm As Boolean
-    Public block0, block1, block2, block3, block4, block5, block6, block7, block8, block9, blockA, blockB, blockC, blockD, blockE, blockF As Boolean
-
-    Public cc As Integer
-    Public rr As Integer
-    Public icc As Integer
-    Public irr As Integer
-
-    Public readprocessongoing As Boolean
-    Public fuelmapvisible As Boolean
-    Public Ignitionmapvisible As Boolean
-    Public innovatevisible As Boolean
+    Private Const _timerInterval As Integer = 250
+    Private Const _maxDataLog As Integer = 4000
 
     Public Flash(262144 * 4) As Byte
     Public FlashCopy(262144 * 4) As Byte
-    Public Adjustmap(9 * 9)
-    Public config_bytes(256) As Integer
+    Public AdjustMap(9 * 9)
+    Public ConfigBytes(256) As Integer
 
-    Public mapaddr_1 As Integer
-    Public mapaddr_2 As Integer
-    Public mapaddr_3 As Integer
-    Public mapaddr_4 As Integer
-    Public maprows As Integer
-    Public mapcolumns As Integer
-    Public rowselected As Integer
-    Public mapvisible As String
+    Public DataLog(CInt(1000 / TimerInterval * MaxDataLog), 16) As Integer
+    Public DataLogPointer As Integer
+    Public DataLogLength As Integer
 
-    Public ignmapaddr_A As Integer
-    Public ignmapaddr_B As Integer
-    Public ignmaprows As Integer
-    Public ignmapcolumns As Integer
-    Public ignrowselected As Integer
-    Public ignmapvisible As String
+    Private _rpm As Integer
+    Private _tps As Integer
+    Private _iap As Integer 'ambient - intake air pressure
+    Private _oxy As Integer
+    Private _clt As Integer
+    Private _usr1 As Integer 'user can define this 1variable to be monitored
+    Private _ramVarUsr1 As Integer ' index of the USR1 variable within RAM
+    Private _fuel As Integer
+    Private _ap As Integer ' Air pressure
+    Private _ip As Integer 'intake air pressure
+    Private _ign As Integer
+    Private _duty As Integer
+    Private _afr As Integer
+    Private _ms As Integer
+    Private _nt As Integer
+    Private _clutch As Integer
+    Private _pair As Integer
+    Private _mode As Integer
+    Private _gear As Integer
+    Private _ho2 As Integer
+    Private _batt As Integer
+    Private _stp As Integer
+    Private _iat As Integer
+    Private _sAPabs As Integer
+    Private _iAPabs As Integer
+    Private _boost As Integer
+    Private _dsm1 As Boolean
 
-    Public datalog(CInt(1000 / timerinterval * maxdatalog), 16) As Integer
-    Public datalogpointer As Integer
-    Public dataloglenght As Integer
+    Private _loopErrorCodes As Integer
+    Private _blockPgm As Boolean
+    Private _block0 As Boolean
+    Private _block1 As Boolean
+    Private _block2 As Boolean
+    Private _block3 As Boolean
+    Private _block4 As Boolean
+    Private _block5 As Boolean
+    Private _block6 As Boolean
+    Private _block7 As Boolean
+    Private _block8 As Boolean
+    Private _block9 As Boolean
+    Private _blockA As Boolean
+    Private _blockB As Boolean
+    Private _blockC As Boolean
+    Private _blockD As Boolean
+    Private _blockE As Boolean
+    Private _blockF As Boolean
 
-    Public metric As Boolean
-    Public ECUversion As String ' either gen1 or gen2 indicating which ecu version is under modification
+    Private _cc As Integer
+    Private _rr As Integer
+    Private _icc As Integer
+    Private _irr As Integer
+
+    Private _readProcessOnGoing As Boolean
+    Private _fuelMapVisible As Boolean
+    Private _ignitionMapVisible As Boolean
+    Private _innovateVisible As Boolean
+
+    Private _mapAddr1 As Integer
+    Private _mapAddr2 As Integer
+    Private _mapAddr3 As Integer
+    Private _mapAddr4 As Integer
+    Private _mapRows As Integer
+    Private _mapColumns As Integer
+    Private _rowSelected As Integer
+    Private _mapVisible As String
+
+    Private _ignMapAddrA As Integer
+    Private _ignMapAddrB As Integer
+    Private _ignMapRows As Integer
+    Private _ignMapColumns As Integer
+    Private _ignRowSelected As Integer
+    Private _ignMapVisible As String
+
+    Private _metric As Boolean
+    Private _eCUVersion As String ' either gen1 or gen2 indicating which ecu version is under modification
 
 #End Region
 
@@ -164,21 +179,21 @@ Module CommonFunctions
         End Set
     End Property
 
-    Public Property AirPressure()
+    Public Property AP()
         Get
-            Return _airPressure
+            Return _ap
         End Get
         Set(ByVal value)
-            _airPressure = value
+            _ap = value
         End Set
     End Property
 
-    Public Property IntakeAirPressure() As Integer
+    Public Property IP() As Integer
         Get
-            Return _intakeAirPressure
+            Return _ip
         End Get
         Set(ByVal value As Integer)
-            _intakeAirPressure = value
+            _ip = value
         End Set
     End Property
 
@@ -208,6 +223,502 @@ Module CommonFunctions
             _afr = value
         End Set
     End Property
+
+    Public Property MS() As Integer
+        Get
+            Return _ms
+        End Get
+        Set(ByVal value As Integer)
+            _ms = value
+        End Set
+    End Property
+
+    Public Property NT() As Integer
+        Get
+            Return _nt
+        End Get
+        Set(ByVal value As Integer)
+            _nt = value
+        End Set
+    End Property
+
+    Public Property CLUTCH() As Integer
+        Get
+            Return _clutch
+        End Get
+        Set(ByVal value As Integer)
+            _clutch = value
+        End Set
+    End Property
+
+    Public Property PAIR() As Integer
+        Get
+            Return _pair
+        End Get
+        Set(ByVal value As Integer)
+            _pair = value
+        End Set
+    End Property
+
+    Public Property MODE() As Integer
+        Get
+            Return _mode
+        End Get
+        Set(ByVal value As Integer)
+            _mode = value
+        End Set
+    End Property
+
+    Public Property Gear() As Integer
+        Get
+            Return _gear
+        End Get
+        Set(ByVal value As Integer)
+            _gear = value
+        End Set
+    End Property
+
+    Public Property HO2() As Integer
+        Get
+            Return _ho2
+        End Get
+        Set(ByVal value As Integer)
+            _ho2 = value
+        End Set
+    End Property
+
+    Public Property BATT() As Integer
+        Get
+            Return _batt
+        End Get
+        Set(ByVal value As Integer)
+            _batt = value
+        End Set
+    End Property
+
+    Public Property STP() As Integer
+        Get
+            Return _stp
+        End Get
+        Set(ByVal value As Integer)
+            _stp = value
+        End Set
+    End Property
+
+    Public Property IAT() As Integer
+        Get
+            Return _iat
+        End Get
+        Set(ByVal value As Integer)
+            _iat = value
+        End Set
+    End Property
+
+    Public Property SAPabs() As Integer
+        Get
+            Return _sAPabs
+        End Get
+        Set(ByVal value As Integer)
+            _sAPabs = value
+        End Set
+    End Property
+
+    Public Property IAPabs() As Integer
+        Get
+            Return _iAPabs
+        End Get
+        Set(ByVal value As Integer)
+            _iAPabs = value
+        End Set
+    End Property
+
+    Public Property BOOST() As Integer
+        Get
+            Return _boost
+        End Get
+        Set(ByVal value As Integer)
+            _boost = value
+        End Set
+    End Property
+
+    Public Property DSM1() As Integer
+        Get
+            Return _dsm1
+        End Get
+        Set(ByVal value As Integer)
+            _dsm1 = value
+        End Set
+    End Property
+
+    Public Property BlockPgm() As Boolean
+        Get
+            Return _blockPgm
+        End Get
+        Set(ByVal value As Boolean)
+            _blockPgm = value
+        End Set
+    End Property
+
+    Public Property Block0() As Boolean
+        Get
+            Return _block0
+        End Get
+        Set(ByVal value As Boolean)
+            _block0 = value
+        End Set
+    End Property
+
+    Public Property Block1() As Boolean
+        Get
+            Return _block1
+        End Get
+        Set(ByVal value As Boolean)
+            _block1 = value
+        End Set
+    End Property
+
+    Public Property Block2() As Boolean
+        Get
+            Return _block2
+        End Get
+        Set(ByVal value As Boolean)
+            _block2 = value
+        End Set
+    End Property
+
+    Public Property Block3() As Boolean
+        Get
+            Return _block3
+        End Get
+        Set(ByVal value As Boolean)
+            _block3 = value
+        End Set
+    End Property
+
+    Public Property Block4() As Boolean
+        Get
+            Return _block4
+        End Get
+        Set(ByVal value As Boolean)
+            _block4 = value
+        End Set
+    End Property
+
+    Public Property Block5() As Boolean
+        Get
+            Return _block5
+        End Get
+        Set(ByVal value As Boolean)
+            _block5 = value
+        End Set
+    End Property
+
+    Public Property Block6() As Boolean
+        Get
+            Return _block6
+        End Get
+        Set(ByVal value As Boolean)
+            _block6 = value
+        End Set
+    End Property
+
+    Public Property Block7() As Boolean
+        Get
+            Return _block7
+        End Get
+        Set(ByVal value As Boolean)
+            _block7 = value
+        End Set
+    End Property
+
+    Public Property Block8() As Boolean
+        Get
+            Return _block8
+        End Get
+        Set(ByVal value As Boolean)
+            _block8 = value
+        End Set
+    End Property
+
+    Public Property Block9() As Boolean
+        Get
+            Return _block9
+        End Get
+        Set(ByVal value As Boolean)
+            _block9 = value
+        End Set
+    End Property
+
+    Public Property BlockA() As Boolean
+        Get
+            Return _blockA
+        End Get
+        Set(ByVal value As Boolean)
+            _blockA = value
+        End Set
+    End Property
+
+    Public Property BlockB() As Boolean
+        Get
+            Return _blockB
+        End Get
+        Set(ByVal value As Boolean)
+            _blockB = value
+        End Set
+    End Property
+
+    Public Property BlockC() As Boolean
+        Get
+            Return _blockC
+        End Get
+        Set(ByVal value As Boolean)
+            _blockC = value
+        End Set
+    End Property
+
+    Public Property BlockD() As Boolean
+        Get
+            Return _blockD
+        End Get
+        Set(ByVal value As Boolean)
+            _blockD = value
+        End Set
+    End Property
+
+    Public Property BlockE() As Boolean
+        Get
+            Return _blockE
+        End Get
+        Set(ByVal value As Boolean)
+            _blockE = value
+        End Set
+    End Property
+
+    Public Property BlockF() As Boolean
+        Get
+            Return _blockF
+        End Get
+        Set(ByVal value As Boolean)
+            _blockF = value
+        End Set
+    End Property
+
+    Public Property CC() As Integer
+        Get
+            Return _cc
+        End Get
+        Set(ByVal value As Integer)
+            _cc = value
+        End Set
+    End Property
+
+    Public Property RR() As Integer
+        Get
+            Return _rr
+        End Get
+        Set(ByVal value As Integer)
+            _rr = value
+        End Set
+    End Property
+
+    Public Property ICC() As Integer
+        Get
+            Return _icc
+        End Get
+        Set(ByVal value As Integer)
+            _icc = value
+        End Set
+    End Property
+
+    Public Property IRR() As Integer
+        Get
+            Return _irr
+        End Get
+        Set(ByVal value As Integer)
+            _irr = value
+        End Set
+    End Property
+
+    Public Property ReadProcessOnGoing() As Boolean
+        Get
+            Return _readProcessOnGoing
+        End Get
+        Set(ByVal value As Boolean)
+            _readProcessOnGoing = value
+        End Set
+    End Property
+
+    Public Property FuelMapVisible() As Boolean
+        Get
+            Return _fuelMapVisible
+        End Get
+        Set(ByVal value As Boolean)
+            _fuelMapVisible = value
+        End Set
+    End Property
+
+    Public Property IgnitionMapVisible() As Boolean
+        Get
+            Return _ignitionMapVisible
+        End Get
+        Set(ByVal value As Boolean)
+            _ignitionMapVisible = value
+        End Set
+    End Property
+
+    Public Property InnovateMapVisible() As Boolean
+        Get
+            Return _innovateVisible
+        End Get
+        Set(ByVal value As Boolean)
+            _innovateVisible = value
+        End Set
+    End Property
+
+    Public Property MapAddr1() As Integer
+        Get
+            Return _mapAddr1
+        End Get
+        Set(ByVal value As Integer)
+            _mapAddr1 = value
+        End Set
+    End Property
+
+    Public Property MapAddr2() As Integer
+        Get
+            Return _mapAddr2
+        End Get
+        Set(ByVal value As Integer)
+            _mapAddr2 = value
+        End Set
+    End Property
+
+    Public Property MapAddr3() As Integer
+        Get
+            Return _mapAddr3
+        End Get
+        Set(ByVal value As Integer)
+            _mapAddr3 = value
+        End Set
+    End Property
+
+    Public Property MapAddr4() As Integer
+        Get
+            Return _mapAddr4
+        End Get
+        Set(ByVal value As Integer)
+            _mapAddr4 = value
+        End Set
+    End Property
+
+    Public Property MapRows() As Integer
+        Get
+            Return _mapRows
+        End Get
+        Set(ByVal value As Integer)
+            _mapRows = value
+        End Set
+    End Property
+
+    Public Property MapColumns() As Integer
+        Get
+            Return _mapColumns
+        End Get
+        Set(ByVal value As Integer)
+            _mapColumns = value
+        End Set
+    End Property
+
+    Public Property RowSelected() As Integer
+        Get
+            Return _rowSelected
+        End Get
+        Set(ByVal value As Integer)
+            _rowSelected = value
+        End Set
+    End Property
+
+    Public Property MapVisible() As String
+        Get
+            Return _mapVisible
+        End Get
+        Set(ByVal value As String)
+            _mapVisible = value
+        End Set
+    End Property
+
+    Public Property IgnMapAddrA() As Integer
+        Get
+            Return _ignMapAddrA
+        End Get
+        Set(ByVal value As Integer)
+            _ignMapAddrA = value
+        End Set
+    End Property
+
+    Public Property IgnMapAddrB() As Integer
+        Get
+            Return _ignMapAddrB
+        End Get
+        Set(ByVal value As Integer)
+            _ignMapAddrB = value
+        End Set
+    End Property
+
+    Public Property IgnMapRows() As Integer
+        Get
+            Return _ignMapRows
+        End Get
+        Set(ByVal value As Integer)
+            _ignMapRows = value
+        End Set
+    End Property
+
+    Public Property IgnMapColumns() As Integer
+        Get
+            Return _ignMapColumns
+        End Get
+        Set(ByVal value As Integer)
+            _ignMapColumns = value
+        End Set
+    End Property
+
+    Public Property IgnRowSelected() As Integer
+        Get
+            Return _ignRowSelected
+        End Get
+        Set(ByVal value As Integer)
+            _ignRowSelected = value
+        End Set
+    End Property
+
+    Public Property IgnMapVisible() As String
+        Get
+            Return _ignMapVisible
+        End Get
+        Set(ByVal value As String)
+            _ignMapVisible = value
+        End Set
+    End Property
+
+    Public Property ECUVersion() As String
+        Get
+            Return _eCUVersion
+        End Get
+        Set(ByVal value As String)
+            _eCUVersion = value
+        End Set
+    End Property
+
+    Public Property Metric() As Boolean
+        Get
+            Return _metric
+        End Get
+        Set(ByVal value As Boolean)
+            _metric = value
+        End Set
+    End Property
+
 #End Region
 
 #Region "Functions"
@@ -384,7 +895,7 @@ Module CommonFunctions
 
     End Function
 
-    Public Function ReadFlashBytecopy(ByVal i As Integer) As Integer
+    Public Function ReadFlashByteCopy(ByVal i As Integer) As Integer
         Dim tmp As Integer
         Dim maxi As Integer
 

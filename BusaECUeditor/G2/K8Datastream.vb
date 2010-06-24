@@ -932,7 +932,7 @@ Public Class K8Datastream
                     Case 26
                         TPS = rxs(x)
                     Case 27
-                        IntakeAirPressure = rxs(x)
+                        IP = rxs(x)
                         IAPabs = rxs(x)
                     Case 28
                         ' conversion formula usinng known thermostat and room pressure
@@ -941,9 +941,9 @@ Public Class K8Datastream
                         ' conversion formula usinng known thermostat and room pressure
                         IAT = ((rxs(x)) - 15) * 1.1
                     Case 30
-                        AirPressure = rxs(x)
+                        AP = rxs(x)
                         SAPabs = rxs(x)
-                        IAP = (AirPressure * 4 * 0.136) - (IntakeAirPressure * 4 * 0.136)
+                        IAP = (AP * 4 * 0.136) - (IP * 4 * 0.136)
                         If IAP < 0 Then IAP = 0
                     Case 31
                         BATT = rxs(x)

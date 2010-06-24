@@ -259,8 +259,8 @@ Public Class Datastream
 
             RPM = Int(b(2)) * 100
             TPS = b(3)
-            IntakeAirPressure = b(4)
-            AirPressure = b(5)
+            IP = b(4)
+            AP = b(5)
             CLT = b(6)
             'FUEL = CInt(((b(8) * 256) - 1024) * 2.47 / 100) * 2 ' if 48, then *1, if 24 then*2
             'FUEL = Int(((b(8) * 12.8) - 64))
@@ -287,7 +287,7 @@ Public Class Datastream
                     USR1 = b(7)
             End Select
 
-            IAP = AirPressure - IntakeAirPressure + 1 ' calculate x axis scale ambient - manifold
+            IAP = AP - IP + 1 ' calculate x axis scale ambient - manifold
             If IAP < 0 Then
                 IAP = 0
             End If
@@ -487,27 +487,27 @@ Public Class Datastream
 
 
             If datalogpointer > 0 Then
-                dataloglenght = datalogpointer
-                datalog(datalogpointer, 0) = datalogpointer
-                datalog(datalogpointer, 2) = RPM
-                datalog(datalogpointer, 3) = TPS
-                datalog(datalogpointer, 4) = IAP
-                datalog(datalogpointer, 5) = AirPressure
-                datalog(datalogpointer, 6) = CLT
-                datalog(datalogpointer, 7) = USR1
-                datalog(datalogpointer, 8) = FUEL
-                datalog(datalogpointer, 9) = IGN
-                datalog(datalogpointer, 10) = AFR
+                DataLogLength = DataLogPointer
+                DataLog(DataLogPointer, 0) = DataLogPointer
+                DataLog(DataLogPointer, 2) = RPM
+                DataLog(DataLogPointer, 3) = TPS
+                DataLog(DataLogPointer, 4) = IAP
+                DataLog(DataLogPointer, 5) = AP
+                DataLog(DataLogPointer, 6) = CLT
+                DataLog(DataLogPointer, 7) = USR1
+                DataLog(DataLogPointer, 8) = Fuel
+                DataLog(DataLogPointer, 9) = IGN
+                DataLog(DataLogPointer, 10) = AFR
 
-                datalogpointer = datalogpointer + 1
+                DataLogPointer = DataLogPointer + 1
 
-                If datalogpointer >= maxdatalog Then
+                If DataLogPointer >= MaxDataLog Then
                     B_logging.Text = "Logging ON"
-                    dataloglenght = datalogpointer
-                    datalogpointer = 0
+                    DataLogLength = DataLogPointer
+                    DataLogPointer = 0
                     Datalog_trackbar.Enabled = True
-                    Datalog_trackbar.Maximum = dataloglenght
-                    TextBox1.Text = Str(dataloglenght)
+                    Datalog_trackbar.Maximum = DataLogLength
+                    TextBox1.Text = Str(DataLogLength)
                     Datalogger.Close()
                     MsgBox("Maximum datalog length exceeded", MsgBoxStyle.Information)
                 End If
@@ -542,12 +542,12 @@ Public Class Datastream
             Datalogger.Show()
         Else
             B_logging.Text = "Logging ON"
-            dataloglenght = datalogpointer
+            DataLogLength = DataLogPointer
             datalogpointer = 0
             Datalog_trackbar.Enabled = True
-            Datalog_trackbar.Maximum = dataloglenght
-            Datalog_trackbar.Value = datalogpointer
-            TextBox1.Text = Str(dataloglenght)
+            Datalog_trackbar.Maximum = DataLogLength
+            Datalog_trackbar.Value = DataLogLength
+            TextBox1.Text = Str(DataLogLength)
             Datalogger.Close()
         End If
     End Sub
