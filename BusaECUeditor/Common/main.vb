@@ -87,7 +87,7 @@ Public Class main
         comparepath = My.Settings.Item("comparepath")
         ECUversion = ""
 
-        block_pgm = True ' just initializing
+        BlockPgm = True ' just initializing
 
         'MsgBox("Important note: This is a prerelease of Hayabusa ECUeditor v2.0 for testing new functionality.")
 
@@ -155,7 +155,7 @@ Public Class main
 
     Private Sub B_FlashECU_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_FlashECU.Click
 
-        flashtheecu()
+        FlashTheECU()
 
     End Sub
 
@@ -347,7 +347,7 @@ Public Class main
 
         MsgBox("A new gen2 basemap is generated", MsgBoxStyle.Information)
 
-        block_pgm = True
+        BlockPgm = True
     End Sub
 
     Private Sub NewStockBkingToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockBkingToolStripMenuItem.Click
@@ -414,7 +414,7 @@ Public Class main
 
         MsgBox("A new Bking basemap is generated", MsgBoxStyle.Information)
 
-        block_pgm = True
+        BlockPgm = True
     End Sub
 
     Private Sub NewStockBkingUSToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockBkingUSToolStripMenuItem.Click
@@ -481,7 +481,7 @@ Public Class main
 
         MsgBox("A new Bking basemap is generated", MsgBoxStyle.Information)
 
-        block_pgm = True
+        BlockPgm = True
     End Sub
 
     Private Sub OpenToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OpenToolStripMenuItem.Click
@@ -550,7 +550,7 @@ Public Class main
                     Else
                         SetECUType()
                     End If
-                    block_pgm = True
+                    BlockPgm = True
                     CloseChildWindows()
                 Case (262144)
                     ECUversion = "gen1"
@@ -977,7 +977,7 @@ Public Class main
             Case "gen1"
                 MsgBox("Command not supported with gen1 ecu.")
             Case "gen2"
-                testchecksum()
+                TestCheckSum()
             Case Else
                 MsgBox("Unknown ecu type, command not supported.")
         End Select
@@ -1217,10 +1217,10 @@ Public Class main
             For i = 0 To (262144 / 4) - 1
                 ' read the flashword and set address
                 r0 = i * 4
-                r1 = readflashbyte((i * 4) + 0)
-                r2 = readflashbyte((i * 4) + 1)
-                r3 = readflashbyte((i * 4) + 2)
-                r4 = readflashbyte((i * 4) + 3)
+                r1 = ReadFlashByte((i * 4) + 0)
+                r2 = ReadFlashByte((i * 4) + 1)
+                r3 = ReadFlashByte((i * 4) + 2)
+                r4 = ReadFlashByte((i * 4) + 3)
                 ' calculate checksum
                 cks = 9
                 cks = cks + Val("&H" & Mid$(r0.ToString("x8"), 1, 2))
@@ -1348,8 +1348,8 @@ Public Class main
         '
         ' Lets calculate checksum for the bin
         '
-        chksum = ReadFlashword(&HFFFF8) 'old checksum
-        writeflashword(&HFFFF8, 0)
+        chksum = ReadFlashWord(&HFFFF8) 'old checksum
+        WriteFlashWord(&HFFFF8, 0)
         For im = 0 To &HFFFFF
             If k = 0 Then
                 chksumflash = chksumflash + (Flash(im) * &H100)
@@ -1363,7 +1363,7 @@ Public Class main
             End If
         Next
         chksumflash = (&H5AA5 - chksumflash) And &HFFFF
-        writeflashword(&HFFFF8, chksumflash) 'new checksum to written to .bin
+        WriteFlashWord(&HFFFF8, chksumflash) 'new checksum to written to .bin
 
         If K8Datastream.Visible() Then
             K8Datastream.closeenginedatacomms()
@@ -1680,7 +1680,7 @@ Public Class main
         ' Lets read what is the flashingmode in ecu if memory is set to fast flashmode
         ' if fastflash then...
         '
-        If readflashlongword(&H51F10) = &H536C4 Then
+        If ReadFlashLongWord(&H51F10) = &H536C4 Then
             System.Threading.Thread.Sleep(100)
             txbyte = &HFF
             FT_Write_Bytes(lngHandle, txbyte, 1, 1)
@@ -1698,7 +1698,7 @@ Public Class main
                         i = ReadFlashByte(&H51F10 + 3)
                         Select Case rxbyte
                             Case &H18 ' stock setting not fastmode, reflash block 5 is memory in fast mode
-                                If readflashlongword(&H51F10) = &H536C4 Then
+                                If ReadFlashLongWord(&H51F10) = &H536C4 Then
                                     blk5 = True
                                 Else
                                     blk5 = False
@@ -1709,7 +1709,7 @@ Public Class main
                                 blk5 = True
                             Case Else
                                 MsgBox("Error in reading flashingmode from ECU, programming aborted. Please reboot ecu and reflash")
-                                block_pgm = True
+                                BlockPgm = True
                                 K8FlashStatus.Close()
                                 B_FlashECU.Enabled = True
                                 '***************************************************************************************************************************
@@ -1729,7 +1729,7 @@ Public Class main
         ' For a reason or another block 0 requires full erase
         '
         If BlockChanged(0) = True Then
-            block_pgm = True
+            BlockPgm = True
         End If
 
         blkF = False ' this is just used for check sum testing
@@ -1737,7 +1737,7 @@ Public Class main
         '
         ' Here is an erase for the full ecu
         '
-        If block_pgm Then
+        If BlockPgm Then
             endtime = Date.Now
             totaltime = endtime.Subtract(starttime)
             K8FlashStatus.L_elapsedtime.Text = totaltime.Minutes & ":" & totaltime.Seconds
@@ -1796,7 +1796,7 @@ Public Class main
                     FT_status = FT_ClrDtr(lngHandle) 'new for Interface V1.1
                     '****************************************************************************************************************************
                     FT_status = FT_Close(lngHandle)
-                    block_pgm = True
+                    BlockPgm = True
                     Return
                 End If
                 loopcount = loopcount + 1
@@ -1823,8 +1823,8 @@ Public Class main
         startaddr = 0
         For block = startaddr To &HF
             ' BlockChanged returns true if there has been any changes to that block
-            ' block_pgm is a global variable that forces all blocks to be written
-            If BlockChanged(block) Or block_pgm Then
+            ' BlockPgm is a global variable that forces all blocks to be written
+            If BlockChanged(block) Or BlockPgm Then
 
                 endtime = Date.Now
                 totaltime = endtime.Subtract(starttime)
@@ -1933,7 +1933,7 @@ Public Class main
                         FT_status = FT_ClrDtr(lngHandle) 'new for Interface V1.1
                         '****************************************************************************************************************************
                         FT_status = FT_Close(lngHandle)
-                        block_pgm = True
+                        BlockPgm = True
                         Return
                     End If
                     endtime = Date.Now
@@ -2072,7 +2072,7 @@ Public Class main
                                 FT_status = FT_ClrDtr(lngHandle) 'new for Interface V1.1
                                 '****************************************************************************************************************************
                                 FT_status = FT_Close(lngHandle)
-                                block_pgm = True
+                                BlockPgm = True
                                 Return
                             End If
                             loopcount = loopcount + 1
@@ -2118,11 +2118,11 @@ Public Class main
             MsgBox("Checksum error when validating the flash, please reflash your ecu before using it.")
             K8FlashStatus.fmode.Text = "Checksum error, please reprogram"
             ResetBlocks()
-            block_pgm = True
+            BlockPgm = True
         Else
             K8FlashStatus.fmode.Text = "Flash OK, turn switch to enginedata"
             ResetBlocks()
-            block_pgm = False
+            BlockPgm = False
         End If
 
 
@@ -2197,22 +2197,22 @@ Public Class main
 
     Private Sub BlockOK(ByVal b As Integer)
         Select Case b
-            Case b = 0 : block0 = False
-            Case b = 1 : block1 = False
-            Case b = 2 : block2 = False
-            Case b = 3 : block3 = False
-            Case b = 4 : block4 = False
-            Case b = 5 : block5 = False
-            Case b = 6 : block6 = False
-            Case b = 7 : block7 = False
-            Case b = 8 : block8 = False
-            Case b = 9 : block9 = False
-            Case b = 10 : blockA = False
-            Case b = 11 : blockB = False
-            Case b = 12 : blockC = False
-            Case b = 13 : blockD = False
-            Case b = 14 : blockE = False
-            Case b = 15 : blockF = False
+            Case b = 0 : Block0 = False
+            Case b = 1 : Block1 = False
+            Case b = 2 : Block2 = False
+            Case b = 3 : Block3 = False
+            Case b = 4 : Block4 = False
+            Case b = 5 : Block5 = False
+            Case b = 6 : Block6 = False
+            Case b = 7 : Block7 = False
+            Case b = 8 : Block8 = False
+            Case b = 9 : Block9 = False
+            Case b = 10 : BlockA = False
+            Case b = 11 : BlockB = False
+            Case b = 12 : BlockC = False
+            Case b = 13 : BlockD = False
+            Case b = 14 : BlockE = False
+            Case b = 15 : BlockF = False
         End Select
     End Sub
 
@@ -2564,7 +2564,7 @@ Public Class main
             If imageidentical Then
                 MsgBox("Ecu verify complete, image same as comparemap. Ecu image is in ecueditor memory.")
                 ResetBlocks()
-                block_pgm = False
+                BlockPgm = False
             Else
                 '
                 ' Check that the binary lenght matches just in case
@@ -2576,7 +2576,7 @@ Public Class main
                 ' Same lenght, just inform the user that he has a new bin in the memory
                 '
                 MsgBox("Ecu image is not same as comparemap. Ecu image copied into ecueditor memory.", MsgBoxStyle.Exclamation)
-                block_pgm = True
+                BlockPgm = True
             End If
 
 
@@ -2925,7 +2925,7 @@ Public Class main
                 K8FlashStatus.Close()
                 B_FlashECU.Enabled = True
                 FT_status = FT_Close(lngHandle)
-                block_pgm = True
+                BlockPgm = True
                 Return
             End If
             loopcount = loopcount + 1
@@ -2940,7 +2940,7 @@ Public Class main
         B_FlashECU.Enabled = True
         MsgBox("Full erase done, you can now flash the ecu")
         ResetBlocks()
-        block_pgm = True
+        BlockPgm = True
 
 
         FT_status = FT_GetModemStatus(lngHandle, modemstat)
@@ -3276,7 +3276,7 @@ Public Class main
             FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
             If rxqueue <> 2 Then
                 MsgBox("Error in reading checksum from ecu")
-                block_pgm = True
+                BlockPgm = True
             End If
             FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
             k = rxbyte
@@ -3323,10 +3323,10 @@ Public Class main
 
         If chksumdiff Then
             MsgBox("Checksum does not match with flash, please verify or flash your ecu before making changes. Turn switch to enginedata.")
-            block_pgm = True
+            BlockPgm = True
         Else
             MsgBox("Flash checksum match, the computer and ecu memory are likely to be identical. You should be able to use the image in computer memory for changes. Turn switch to enginedata")
-            block_pgm = False
+            BlockPgm = False
         End If
     End Sub
 
@@ -3740,7 +3740,7 @@ Public Class main
                                 blk5 = True
                             Case Else
                                 MsgBox("Error in reading flashingmode from ECU, programming aborted. Please reboot ecu and reflash")
-                                block_pgm = True
+                                BlockPgm = True
                                 K8FlashStatus.Close()
                                 B_FlashECU.Enabled = True
                                 FT_status = FT_Close(lngHandle)
@@ -3757,7 +3757,7 @@ Public Class main
         ' For a reason or another block 0 requires full erase
         '
         If BlockChanged(0) = True Then
-            block_pgm = True
+            BlockPgm = True
         End If
 
         blkF = False ' this is just used for check sum testing
@@ -3765,7 +3765,7 @@ Public Class main
         '
         ' Here is an erase for the full ecu
         '
-        If block_pgm Then
+        If BlockPgm Then
             endtime = Date.Now
             totaltime = endtime.Subtract(starttime)
             K8FlashStatus.L_elapsedtime.Text = totaltime.Minutes & ":" & totaltime.Seconds
@@ -3821,7 +3821,7 @@ Public Class main
                     K8FlashStatus.Close()
                     B_FlashECU.Enabled = True
                     FT_status = FT_Close(lngHandle)
-                    block_pgm = True
+                    BlockPgm = True
                     Return
                 End If
                 loopcount = loopcount + 1
@@ -3848,8 +3848,8 @@ Public Class main
         startaddr = 0
         For block = startaddr To &HF
             ' BlockChanged returns true if there has been any changes to that block
-            ' block_pgm is a global variable that forces all blocks to be written
-            If BlockChanged(block) Or block_pgm Then
+            ' BlockPgm is a global variable that forces all blocks to be written
+            If BlockChanged(block) Or BlockPgm Then
 
                 endtime = Date.Now
                 totaltime = endtime.Subtract(starttime)
@@ -3955,7 +3955,7 @@ Public Class main
                         K8FlashStatus.Close()
                         B_FlashECU.Enabled = True
                         FT_status = FT_Close(lngHandle)
-                        block_pgm = True
+                        BlockPgm = True
                         Return
                     End If
                     endtime = Date.Now
@@ -4091,7 +4091,7 @@ Public Class main
                                 K8FlashStatus.Close()
                                 B_FlashECU.Enabled = True
                                 FT_status = FT_Close(lngHandle)
-                                block_pgm = True
+                                BlockPgm = True
                                 Return
                             End If
                             loopcount = loopcount + 1
@@ -4137,11 +4137,11 @@ Public Class main
             MsgBox("Checksum error when validating the flash, please reflash your ecu before using it.")
             K8FlashStatus.fmode.Text = "Checksum error, please reprogram"
             ResetBlocks()
-            block_pgm = True
+            BlockPgm = True
         Else
             K8FlashStatus.fmode.Text = "Flash OK, turn switch to enginedata"
             ResetBlocks()
-            block_pgm = False
+            BlockPgm = False
         End If
 
 

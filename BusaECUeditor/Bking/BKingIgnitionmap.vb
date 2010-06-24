@@ -92,12 +92,12 @@ Public Class BKingIgnitionMap
 
 #Region "Control Events"
 
-    Private Sub Ignitionmapgrid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Ignitionmapgrid.KeyPress
+    Private Sub Ignitionmapgrid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles IgnitionMapGrid.KeyPress
 
         Dim c As Integer
         Dim r As Integer
-        c = Ignitionmapgrid.CurrentCell.ColumnIndex
-        r = Ignitionmapgrid.CurrentCell.RowIndex
+        c = IgnitionMapGrid.CurrentCell.ColumnIndex
+        r = IgnitionMapGrid.CurrentCell.RowIndex
 
         '
         ' This is the user interface shortcut keys processor.
@@ -128,19 +128,19 @@ Public Class BKingIgnitionMap
 
     End Sub
 
-    Private Sub Ignitionmapgrid_MouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Ignitionmapgrid.MouseClick
+    Private Sub Ignitionmapgrid_MouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles IgnitionMapGrid.MouseClick
 
         ShowValues()
 
     End Sub
 
-    Private Sub Ignitionmapgrid_CellEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles Ignitionmapgrid.CellEnter
+    Private Sub Ignitionmapgrid_CellEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles IgnitionMapGrid.CellEnter
 
         ShowValues()
 
     End Sub
 
-    Private Sub Ignitionmapgrid_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Ignitionmapgrid.KeyDown
+    Private Sub Ignitionmapgrid_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles IgnitionMapGrid.KeyDown
 
         If (e.Control = True And e.KeyCode = Keys.V) Then
             Dim rowIndex As Integer
@@ -150,7 +150,7 @@ Public Class BKingIgnitionMap
             rowIndex = Integer.MaxValue
             columnStartIndex = Integer.MaxValue
 
-            For Each cell As DataGridViewCell In Ignitionmapgrid.SelectedCells()
+            For Each cell As DataGridViewCell In IgnitionMapGrid.SelectedCells()
                 If cell.RowIndex < rowIndex Then
                     rowIndex = cell.RowIndex
                 End If
@@ -172,7 +172,7 @@ Public Class BKingIgnitionMap
                 For Each value As String In values
                     If columnIndex < _mapNumberOfColumns And rowIndex < _mapNumberOfRows Then
                         If IsNumeric(value) Then
-                            Ignitionmapgrid(columnIndex, rowIndex).Value = value
+                            IgnitionMapGrid(columnIndex, rowIndex).Value = value
                             SetFlashItem(columnIndex, rowIndex)
                             SetCellColour(columnIndex, rowIndex)
                         End If
@@ -239,12 +239,12 @@ Public Class BKingIgnitionMap
 
         i = 0
 
-        n = Ignitionmapgrid.SelectedCells.Count()
+        n = IgnitionMapGrid.SelectedCells.Count()
 
         Do While (r < _mapNumberOfRows)
 
-            If Ignitionmapgrid.Item(c, r).Selected And n > 0 Then
-                Ignitionmapgrid.Item(c, r).Value = Ignitionmapgrid.Item(c, r).Value - decrease
+            If IgnitionMapGrid.Item(c, r).Selected And n > 0 Then
+                IgnitionMapGrid.Item(c, r).Value = IgnitionMapGrid.Item(c, r).Value - decrease
                 SetFlashItem(c, r)
                 SetCellColour(c, r)
                 n = n - 1
@@ -269,15 +269,15 @@ Public Class BKingIgnitionMap
 
         diff = K8IgnDeg(((ReadFlashByte(_editingMap + (1 * (c + (r * _mapNumberOfColumns))))))) - K8IgnDeg(((ReadFlashBytecopy(_editingMap + (1 * (c + (r * _mapNumberOfColumns)))))))
 
-        Ignitionmapgrid.Item(c, r).Style.ForeColor = Color.Black
-        If Me.Text.Contains("TPS") And c < 11 Then Ignitionmapgrid.Item(c, r).Style.ForeColor = Color.Gray
-        Ignitionmapgrid.Item(c, r).Style.BackColor = Color.White
-        If CInt(diff) <= -1 Then Ignitionmapgrid.Item(c, r).Style.BackColor = Color.Yellow
-        If CInt(diff) <= -2 Then Ignitionmapgrid.Item(c, r).Style.BackColor = Color.Pink
-        If CInt(diff) <= -5 Then Ignitionmapgrid.Item(c, r).Style.BackColor = Color.Red
-        If CInt(diff) >= 1 Then Ignitionmapgrid.Item(c, r).Style.BackColor = Color.LightGreen
-        If CInt(diff) >= 2 Then Ignitionmapgrid.Item(c, r).Style.BackColor = Color.YellowGreen
-        If CInt(diff) >= 5 Then Ignitionmapgrid.Item(c, r).Style.BackColor = Color.Green
+        IgnitionMapGrid.Item(c, r).Style.ForeColor = Color.Black
+        If Me.Text.Contains("TPS") And c < 11 Then IgnitionMapGrid.Item(c, r).Style.ForeColor = Color.Gray
+        IgnitionMapGrid.Item(c, r).Style.BackColor = Color.White
+        If CInt(diff) <= -1 Then IgnitionMapGrid.Item(c, r).Style.BackColor = Color.Yellow
+        If CInt(diff) <= -2 Then IgnitionMapGrid.Item(c, r).Style.BackColor = Color.Pink
+        If CInt(diff) <= -5 Then IgnitionMapGrid.Item(c, r).Style.BackColor = Color.Red
+        If CInt(diff) >= 1 Then IgnitionMapGrid.Item(c, r).Style.BackColor = Color.LightGreen
+        If CInt(diff) >= 2 Then IgnitionMapGrid.Item(c, r).Style.BackColor = Color.YellowGreen
+        If CInt(diff) >= 5 Then IgnitionMapGrid.Item(c, r).Style.BackColor = Color.Green
 
 
     End Sub
@@ -295,12 +295,12 @@ Public Class BKingIgnitionMap
         c = 0
 
 
-        n = Ignitionmapgrid.SelectedCells.Count()
+        n = IgnitionMapGrid.SelectedCells.Count()
 
         Do While (r < (_mapNumberOfRows - 1)) And n > 0
 
-            If Ignitionmapgrid.Item(c, r).Selected And n > 0 Then
-                Ignitionmapgrid.Item(c, r).Value = Ignitionmapgrid.Item(c, r).Value + increase
+            If IgnitionMapGrid.Item(c, r).Selected And n > 0 Then
+                IgnitionMapGrid.Item(c, r).Value = IgnitionMapGrid.Item(c, r).Value + increase
                 SetFlashItem(c, r)
                 SetCellColour(c, r)
                 n = n - 1
@@ -330,7 +330,7 @@ Public Class BKingIgnitionMap
         maxval = 89   ' not validated from ecu, maximum value to which the Ignitionmap item can be set
         minval = 1   ' not validated from ecu, minimum value to which the Ignitionmap item can be set
 
-        m1 = Ignitionmapgrid.Item(c, r).Value
+        m1 = IgnitionMapGrid.Item(c, r).Value
         m2 = K8IgnDeg((ReadFlashByte(_editingMap + (1 * (c + (r * _mapNumberOfColumns))))))
 
         diff = m2 - m1
@@ -482,25 +482,25 @@ Public Class BKingIgnitionMap
         '
         ' Generate column headings
         '
-        Ignitionmapgrid.ColumnCount = _mapNumberOfColumns
+        IgnitionMapGrid.ColumnCount = _mapNumberOfColumns
         c = 0
         Do While c < _mapNumberOfColumns
             i = ReadFlashWord(columnheading_map + (c * 2))
-            Ignitionmapgrid.Columns.Item(c).HeaderText = CalcK8TPS(i)
-            Ignitionmapgrid.Columns.Item(c).Width = 26
+            IgnitionMapGrid.Columns.Item(c).HeaderText = CalcK8TPS(i)
+            IgnitionMapGrid.Columns.Item(c).Width = 26
             c = c + 1
         Loop
 
         '
         ' Generate row headings
         '
-        Ignitionmapgrid.RowCount = _mapNumberOfRows
+        IgnitionMapGrid.RowCount = _mapNumberOfRows
         r = 0
-        Ignitionmapgrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
+        IgnitionMapGrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
         Do While (r < _mapNumberOfRows)
             i = ReadFlashWord(rowheading_map + (r * 2))
-            Ignitionmapgrid.Rows.Item(r).HeaderCell.Value = Str(Int(i / 2.56))
-            Ignitionmapgrid.Rows.Item(r).Height = 15
+            IgnitionMapGrid.Rows.Item(r).HeaderCell.Value = Str(Int(i / 2.56))
+            IgnitionMapGrid.Rows.Item(r).Height = 15
             r = r + 1
         Loop
 
@@ -512,7 +512,7 @@ Public Class BKingIgnitionMap
         i = 0
         Do While (r < _mapNumberOfRows)
 
-            Ignitionmapgrid.Item(c, r).Value = K8IgnDeg(ReadFlashByte((i * 1) + _editingMap))
+            IgnitionMapGrid.Item(c, r).Value = K8IgnDeg(ReadFlashByte((i * 1) + _editingMap))
             SetCellColour(c, r)
 
             If c < _mapNumberOfColumns - 1 Then
@@ -527,10 +527,10 @@ Public Class BKingIgnitionMap
         '
         ' Define some grid properties
         '
-        Ignitionmapgrid.AllowUserToAddRows = False
-        Ignitionmapgrid.AllowUserToDeleteRows = False
-        Ignitionmapgrid.AllowUserToOrderColumns = False
-        Ignitionmapgrid.SelectionMode = DataGridViewSelectionMode.CellSelect
+        IgnitionMapGrid.AllowUserToAddRows = False
+        IgnitionMapGrid.AllowUserToDeleteRows = False
+        IgnitionMapGrid.AllowUserToOrderColumns = False
+        IgnitionMapGrid.SelectionMode = DataGridViewSelectionMode.CellSelect
 
         '
         ' 
@@ -572,12 +572,12 @@ Public Class BKingIgnitionMap
         rr = 0
 
         Do While (r < _mapNumberOfRows - 1)
-            If RPM >= rr And RPM < Int(Ignitionmapgrid.Rows(r + 1).HeaderCell.Value) Then
+            If RPM >= rr And RPM < Int(IgnitionMapGrid.Rows(r + 1).HeaderCell.Value) Then
                 rr = r
                 r = 256
             Else
                 r = r + 1
-                rr = Int(Ignitionmapgrid.Rows(r).HeaderCell.Value)
+                rr = Int(IgnitionMapGrid.Rows(r).HeaderCell.Value)
             End If
         Loop
 
@@ -587,14 +587,14 @@ Public Class BKingIgnitionMap
         '
         c = 0
         cc = 0
-        If CalcTPSDec(TPS) < Val(Ignitionmapgrid.Columns.Item(_mapNumberOfColumns - 1).HeaderCell.Value) Then
+        If CalcTPSDec(TPS) < Val(IgnitionMapGrid.Columns.Item(_mapNumberOfColumns - 1).HeaderCell.Value) Then
             Do While (c < _mapNumberOfColumns - 1)
-                If CalcTPSDec(TPS) >= cc And CalcTPSDec(TPS) < Ignitionmapgrid.Columns.Item(c + 1).HeaderCell.Value Then
+                If CalcTPSDec(TPS) >= cc And CalcTPSDec(TPS) < IgnitionMapGrid.Columns.Item(c + 1).HeaderCell.Value Then
                     cc = c
                     c = 256
                 Else
                     c = c + 1
-                    cc = Int(Ignitionmapgrid.Columns.Item(c).HeaderCell.Value)
+                    cc = Int(IgnitionMapGrid.Columns.Item(c).HeaderCell.Value)
                 End If
             Loop
         Else
@@ -606,7 +606,7 @@ Public Class BKingIgnitionMap
         If cc > _mapNumberOfColumns Then cc = 0
         If cc < 0 Then cc = 0
         If rr <> 0 Or cc <> 0 Then
-            Ignitionmapgrid.Item(cc, rr).Style.BackColor = Color.Blue
+            IgnitionMapGrid.Item(cc, rr).Style.BackColor = Color.Blue
         Else
             SetCellColour(cc, rr)
         End If
@@ -620,20 +620,18 @@ Public Class BKingIgnitionMap
 
         istr = ""
 
-        ignrowselected = Ignitionmapgrid.CurrentRow.Index
+        IgnRowSelected = IgnitionMapGrid.CurrentRow.Index
 
         Try
+            istr = Str(IgnitionMapGrid.Columns.Item(IgnitionMapGrid.CurrentCell.ColumnIndex).HeaderCell.Value)
 
-
-            istr = Str(Ignitionmapgrid.Columns.Item(Ignitionmapgrid.CurrentCell.ColumnIndex).HeaderCell.Value)
-
-            T_RPM.Text = Ignitionmapgrid.CurrentRow.HeaderCell.Value & " rpm"
+            T_RPM.Text = IgnitionMapGrid.CurrentRow.HeaderCell.Value & " rpm"
             T_TPSIAP.Text = "TPS = " & istr & "%"
 
-            r = Ignitionmapgrid.CurrentRow.Index
-            c = Ignitionmapgrid.CurrentCell.ColumnIndex
+            r = IgnitionMapGrid.CurrentRow.Index
+            c = IgnitionMapGrid.CurrentCell.ColumnIndex
 
-            diff = K8IgnDeg(((ReadFlashByte(_editingMap + (1 * (c + (r * _mapNumberOfColumns))))))) - K8IgnDeg(((ReadFlashBytecopy(_editingMap + (1 * (c + (r * _mapNumberOfColumns)))))))
+            diff = K8IgnDeg(((ReadFlashByte(_editingMap + (1 * (c + (r * _mapNumberOfColumns))))))) - K8IgnDeg(((ReadFlashByteCopy(_editingMap + (1 * (c + (r * _mapNumberOfColumns)))))))
 
             T_DEG.Text = Str(diff)
 
