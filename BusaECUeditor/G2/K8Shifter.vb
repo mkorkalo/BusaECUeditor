@@ -26,7 +26,7 @@ Imports System.IO
 Public Class K8shifter
     Dim ADJ As Integer = &H55400 '&HFF if shifter inactive, no code present else shifter active
     Dim FUELCODE As Integer = &H55450
-    Dim IGNCODE As Integer = &H55800
+    Dim IGNCODE As Integer = &H55730
     Dim IDTAG As Integer = &H55400
     Dim minkillactive As Integer = ADJ + &H16
     Dim killcountdelay As Integer = ADJ + &H18

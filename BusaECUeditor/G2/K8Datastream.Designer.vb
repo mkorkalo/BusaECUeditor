@@ -125,6 +125,8 @@ Partial Class K8Datastream
         Me.L_performanceindex = New System.Windows.Forms.Label
         Me.L_perftext = New System.Windows.Forms.Label
         Me.Label31 = New System.Windows.Forms.Label
+        Me.C_debug = New System.Windows.Forms.Button
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         CType(Me.LED_RPM, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_IGN, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_CLT, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -305,9 +307,9 @@ Partial Class K8Datastream
         '
         'B_Clear_DTC
         '
-        Me.B_Clear_DTC.Location = New System.Drawing.Point(256, 92)
+        Me.B_Clear_DTC.Location = New System.Drawing.Point(291, 488)
         Me.B_Clear_DTC.Name = "B_Clear_DTC"
-        Me.B_Clear_DTC.Size = New System.Drawing.Size(65, 23)
+        Me.B_Clear_DTC.Size = New System.Drawing.Size(86, 28)
         Me.B_Clear_DTC.TabIndex = 78
         Me.B_Clear_DTC.Text = "Clear DTC"
         Me.B_Clear_DTC.UseVisualStyleBackColor = True
@@ -856,7 +858,6 @@ Partial Class K8Datastream
         'GroupBox6
         '
         Me.GroupBox6.Controls.Add(Me.L_msg)
-        Me.GroupBox6.Controls.Add(Me.B_Clear_DTC)
         Me.GroupBox6.Controls.Add(Me.ListBox1)
         Me.GroupBox6.Location = New System.Drawing.Point(396, 395)
         Me.GroupBox6.Name = "GroupBox6"
@@ -1138,9 +1139,9 @@ Partial Class K8Datastream
         '
         Me.B_stop_engine.Location = New System.Drawing.Point(12, 488)
         Me.B_stop_engine.Name = "B_stop_engine"
-        Me.B_stop_engine.Size = New System.Drawing.Size(370, 28)
+        Me.B_stop_engine.Size = New System.Drawing.Size(157, 28)
         Me.B_stop_engine.TabIndex = 112
-        Me.B_stop_engine.Text = "Stop Engine / Reset communications"
+        Me.B_stop_engine.Text = "Stop Engine / Reset comms"
         Me.B_stop_engine.UseVisualStyleBackColor = True
         '
         'Label23
@@ -1378,12 +1379,31 @@ Partial Class K8Datastream
         Me.Label31.TabIndex = 116
         Me.Label31.Text = "/"
         '
+        'C_debug
+        '
+        Me.C_debug.Location = New System.Drawing.Point(175, 488)
+        Me.C_debug.Name = "C_debug"
+        Me.C_debug.Size = New System.Drawing.Size(113, 28)
+        Me.C_debug.TabIndex = 117
+        Me.C_debug.Text = "Debug mode"
+        Me.ToolTip1.SetToolTip(Me.C_debug, "Toggle error code checking at high rpm on of. Normally error codes are read only " & _
+                "rpm < 2000")
+        Me.C_debug.UseVisualStyleBackColor = True
+        '
+        'ToolTip1
+        '
+        Me.ToolTip1.AutoPopDelay = 10000
+        Me.ToolTip1.InitialDelay = 500
+        Me.ToolTip1.ReshowDelay = 100
+        '
         'K8Datastream
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Silver
         Me.ClientSize = New System.Drawing.Size(731, 535)
+        Me.Controls.Add(Me.C_debug)
+        Me.Controls.Add(Me.B_Clear_DTC)
         Me.Controls.Add(Me.L_cov4)
         Me.Controls.Add(Me.Label31)
         Me.Controls.Add(Me.L_cov3)
@@ -1556,4 +1576,6 @@ Partial Class K8Datastream
     Friend WithEvents L_msg As System.Windows.Forms.Label
     Friend WithEvents L_STP As System.Windows.Forms.Label
     Friend WithEvents Label33 As System.Windows.Forms.Label
+    Friend WithEvents C_debug As System.Windows.Forms.Button
+    Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
 End Class

@@ -157,6 +157,11 @@ Public Class K8Datastream
             PrintForm1.Print()
         End If
         If (e.KeyChar = "d") Or (e.KeyChar = "D") Then debug = Not debug
+        If debug Then
+            C_debug.Text = "debug is on"
+        Else
+            C_debug.Text = "debug is off"
+        End If
 
     End Sub
 
@@ -247,6 +252,12 @@ Public Class K8Datastream
             B_Connect_Datastream.Enabled = True
             B_Clear_DTC.Enabled = False
 
+        End If
+
+        If debug Then
+            C_debug.Text = "debug is on"
+        Else
+            C_debug.Text = "debug is off"
         End If
 
         If OKtoactivate Then
@@ -895,20 +906,39 @@ Public Class K8Datastream
                     '
                     ' Process all errorcodes reported by enquiry
                     '
-                    If (rxs(14 + x + 2) And &H40) Then
-                        '
-                        ' If dtc status ´bit7 , i.e. fault present from this driving cycle
-                        '
-                        ' 0x01 bit0 = pending fault present
-                        ' bit1 = pending fault state
-                        ' bit2 = test running
-                        ' bit3 = test inhibit
-                        ' bit4 = test readiness
-                        ' 0x20 bit5 = DTC validated and stored in non volatile memory
-                        ' 0x40 bit6 = validated fault preset at time of request
-                        ' 0x80 bit7 = validated fault has been present during this driving cycle
-                        '
-                        ListBox1.Items.Add(getdtcdecription("P" & Format(rxs(14 + x), "x2") & Format(rxs(14 + x + 1), "x2")))
+                    If debug Then
+                        If (rxs(14 + x + 2) And &H80) Then
+                            '
+                            ' If dtc status ´bit7 , i.e. fault present from this driving cycle
+                            '
+                            ' 0x01 bit0 = pending fault present
+                            ' bit1 = pending fault state
+                            ' bit2 = test running
+                            ' bit3 = test inhibit
+                            ' bit4 = test readiness
+                            ' 0x20 bit5 = DTC validated and stored in non volatile memory
+                            ' 0x40 bit6 = validated fault preset at time of request
+                            ' 0x80 bit7 = validated fault has been present during this driving cycle
+                            '
+                            ListBox1.Items.Add(getdtcdecription("P" & Format(rxs(14 + x), "x2") & Format(rxs(14 + x + 1), "x2")))
+                        End If
+                    Else
+                        If (rxs(14 + x + 2) And &H40) Then
+                            '
+                            ' If dtc status ´bit7 , i.e. fault present from this driving cycle
+                            '
+                            ' 0x01 bit0 = pending fault present
+                            ' bit1 = pending fault state
+                            ' bit2 = test running
+                            ' bit3 = test inhibit
+                            ' bit4 = test readiness
+                            ' 0x20 bit5 = DTC validated and stored in non volatile memory
+                            ' 0x40 bit6 = validated fault preset at time of request
+                            ' 0x80 bit7 = validated fault has been present during this driving cycle
+                            '
+                            ListBox1.Items.Add(getdtcdecription("P" & Format(rxs(14 + x), "x2") & Format(rxs(14 + x + 1), "x2")))
+                        End If
+
                     End If
                 Next
             End If
@@ -1317,6 +1347,7 @@ Public Class K8Datastream
         '
         ' Clear DTC
         '
+        ListBox1.Items.Clear()
         kwpcomm = &H14
     End Sub
 
@@ -1504,4 +1535,18 @@ Public Class K8Datastream
         End If
     End Sub
 
+    Private Sub C_debug_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_debug.Click
+        If debug Then
+            debug = False
+        Else
+            debug = True
+        End If
+
+        If debug Then
+            C_debug.Text = "debug is on"
+        Else
+            C_debug.Text = "debug is off"
+        End If
+
+    End Sub
 End Class
