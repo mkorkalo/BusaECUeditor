@@ -21,14 +21,14 @@ Partial Class Datastream
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Me.TextBox2 = New System.Windows.Forms.TextBox
-        Me.ComboBox_Serialport = New System.Windows.Forms.ComboBox
+        Me.C_SerialPort = New System.Windows.Forms.ComboBox
         Me.TextBox1 = New System.Windows.Forms.TextBox
         Me.SerialPort1 = New System.IO.Ports.SerialPort(Me.components)
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
-        Me.B_DatastreamON = New System.Windows.Forms.Button
-        Me.B_logging = New System.Windows.Forms.Button
-        Me.Datalog_trackbar = New System.Windows.Forms.TrackBar
-        Me.Combobox_Uservar1 = New System.Windows.Forms.ComboBox
+        Me.B_DataStreamOn = New System.Windows.Forms.Button
+        Me.B_Logging = New System.Windows.Forms.Button
+        Me.TrackBar_Datalog = New System.Windows.Forms.TrackBar
+        Me.C_Uservar1 = New System.Windows.Forms.ComboBox
         Me.Label8 = New System.Windows.Forms.Label
         Me.LED_RPM = New LxControl.LxLedControl
         Me.LED_IGN = New LxControl.LxLedControl
@@ -43,11 +43,11 @@ Partial Class Datastream
         Me.LED_FUEL = New LxControl.LxLedControl
         Me.LED_USR1 = New LxControl.LxLedControl
         Me.Label1 = New System.Windows.Forms.Label
-        Me.MapSelected = New System.Windows.Forms.TextBox
-        Me.R_oxysensor = New System.Windows.Forms.RadioButton
-        Me.Button1 = New System.Windows.Forms.Button
+        Me.T_MapSelected = New System.Windows.Forms.TextBox
+        Me.R_OxySensor = New System.Windows.Forms.RadioButton
+        Me.B_LC1On = New System.Windows.Forms.Button
         Me.RPMGauge = New BusaECUeditor.ldGuage.ldGuage
-        CType(Me.Datalog_trackbar, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TrackBar_Datalog, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_RPM, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_IGN, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_CLT, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -64,14 +64,14 @@ Partial Class Datastream
         Me.TextBox2.Size = New System.Drawing.Size(451, 20)
         Me.TextBox2.TabIndex = 24
         '
-        'ComboBox_Serialport
+        'C_SerialPort
         '
-        Me.ComboBox_Serialport.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox_Serialport.FormattingEnabled = True
-        Me.ComboBox_Serialport.Location = New System.Drawing.Point(310, 33)
-        Me.ComboBox_Serialport.Name = "ComboBox_Serialport"
-        Me.ComboBox_Serialport.Size = New System.Drawing.Size(84, 21)
-        Me.ComboBox_Serialport.TabIndex = 22
+        Me.C_SerialPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.C_SerialPort.FormattingEnabled = True
+        Me.C_SerialPort.Location = New System.Drawing.Point(310, 33)
+        Me.C_SerialPort.Name = "C_SerialPort"
+        Me.C_SerialPort.Size = New System.Drawing.Size(84, 21)
+        Me.C_SerialPort.TabIndex = 22
         '
         'TextBox1
         '
@@ -97,39 +97,39 @@ Partial Class Datastream
         '
         Me.Timer2.Interval = 200
         '
-        'B_DatastreamON
+        'B_DataStreamOn
         '
-        Me.B_DatastreamON.Location = New System.Drawing.Point(310, 5)
-        Me.B_DatastreamON.Name = "B_DatastreamON"
-        Me.B_DatastreamON.Size = New System.Drawing.Size(84, 22)
-        Me.B_DatastreamON.TabIndex = 28
-        Me.B_DatastreamON.Text = "Data ON"
-        Me.B_DatastreamON.UseVisualStyleBackColor = True
+        Me.B_DataStreamOn.Location = New System.Drawing.Point(310, 5)
+        Me.B_DataStreamOn.Name = "B_DataStreamOn"
+        Me.B_DataStreamOn.Size = New System.Drawing.Size(84, 22)
+        Me.B_DataStreamOn.TabIndex = 28
+        Me.B_DataStreamOn.Text = "Data ON"
+        Me.B_DataStreamOn.UseVisualStyleBackColor = True
         '
-        'B_logging
+        'B_Logging
         '
-        Me.B_logging.Location = New System.Drawing.Point(311, 270)
-        Me.B_logging.Name = "B_logging"
-        Me.B_logging.Size = New System.Drawing.Size(83, 24)
-        Me.B_logging.TabIndex = 38
-        Me.B_logging.Text = "Logging ON"
-        Me.B_logging.UseVisualStyleBackColor = True
+        Me.B_Logging.Location = New System.Drawing.Point(311, 270)
+        Me.B_Logging.Name = "B_Logging"
+        Me.B_Logging.Size = New System.Drawing.Size(83, 24)
+        Me.B_Logging.TabIndex = 38
+        Me.B_Logging.Text = "Logging ON"
+        Me.B_Logging.UseVisualStyleBackColor = True
         '
-        'Datalog_trackbar
+        'TrackBar_Datalog
         '
-        Me.Datalog_trackbar.Location = New System.Drawing.Point(13, 270)
-        Me.Datalog_trackbar.Name = "Datalog_trackbar"
-        Me.Datalog_trackbar.Size = New System.Drawing.Size(285, 45)
-        Me.Datalog_trackbar.TabIndex = 39
+        Me.TrackBar_Datalog.Location = New System.Drawing.Point(13, 270)
+        Me.TrackBar_Datalog.Name = "TrackBar_Datalog"
+        Me.TrackBar_Datalog.Size = New System.Drawing.Size(285, 45)
+        Me.TrackBar_Datalog.TabIndex = 39
         '
-        'Combobox_Uservar1
+        'C_Uservar1
         '
-        Me.Combobox_Uservar1.BackColor = System.Drawing.SystemColors.Control
-        Me.Combobox_Uservar1.FormattingEnabled = True
-        Me.Combobox_Uservar1.Location = New System.Drawing.Point(233, 231)
-        Me.Combobox_Uservar1.Name = "Combobox_Uservar1"
-        Me.Combobox_Uservar1.Size = New System.Drawing.Size(103, 21)
-        Me.Combobox_Uservar1.TabIndex = 42
+        Me.C_Uservar1.BackColor = System.Drawing.SystemColors.Control
+        Me.C_Uservar1.FormattingEnabled = True
+        Me.C_Uservar1.Location = New System.Drawing.Point(233, 231)
+        Me.C_Uservar1.Name = "C_Uservar1"
+        Me.C_Uservar1.Size = New System.Drawing.Size(103, 21)
+        Me.C_Uservar1.TabIndex = 42
         '
         'Label8
         '
@@ -314,32 +314,32 @@ Partial Class Datastream
         Me.Label1.TabIndex = 72
         Me.Label1.Text = "Map:"
         '
-        'MapSelected
+        'T_MapSelected
         '
-        Me.MapSelected.Location = New System.Drawing.Point(348, 58)
-        Me.MapSelected.Name = "MapSelected"
-        Me.MapSelected.Size = New System.Drawing.Size(46, 20)
-        Me.MapSelected.TabIndex = 73
+        Me.T_MapSelected.Location = New System.Drawing.Point(348, 58)
+        Me.T_MapSelected.Name = "T_MapSelected"
+        Me.T_MapSelected.Size = New System.Drawing.Size(46, 20)
+        Me.T_MapSelected.TabIndex = 73
         '
-        'R_oxysensor
+        'R_OxySensor
         '
-        Me.R_oxysensor.AutoSize = True
-        Me.R_oxysensor.Location = New System.Drawing.Point(22, 235)
-        Me.R_oxysensor.Name = "R_oxysensor"
-        Me.R_oxysensor.Size = New System.Drawing.Size(109, 17)
-        Me.R_oxysensor.TabIndex = 74
-        Me.R_oxysensor.TabStop = True
-        Me.R_oxysensor.Text = "Oxy sensor active"
-        Me.R_oxysensor.UseVisualStyleBackColor = True
+        Me.R_OxySensor.AutoSize = True
+        Me.R_OxySensor.Location = New System.Drawing.Point(22, 235)
+        Me.R_OxySensor.Name = "R_OxySensor"
+        Me.R_OxySensor.Size = New System.Drawing.Size(109, 17)
+        Me.R_OxySensor.TabIndex = 74
+        Me.R_OxySensor.TabStop = True
+        Me.R_OxySensor.Text = "Oxy sensor active"
+        Me.R_OxySensor.UseVisualStyleBackColor = True
         '
-        'Button1
+        'B_LC1On
         '
-        Me.Button1.Location = New System.Drawing.Point(311, 301)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(83, 24)
-        Me.Button1.TabIndex = 75
-        Me.Button1.Text = "LC-1 ON"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.B_LC1On.Location = New System.Drawing.Point(311, 301)
+        Me.B_LC1On.Name = "B_LC1On"
+        Me.B_LC1On.Size = New System.Drawing.Size(83, 24)
+        Me.B_LC1On.TabIndex = 75
+        Me.B_LC1On.Text = "LC-1 ON"
+        Me.B_LC1On.UseVisualStyleBackColor = True
         '
         'RPMGauge
         '
@@ -362,9 +362,9 @@ Partial Class Datastream
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(411, 331)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.R_oxysensor)
-        Me.Controls.Add(Me.MapSelected)
+        Me.Controls.Add(Me.B_LC1On)
+        Me.Controls.Add(Me.R_OxySensor)
+        Me.Controls.Add(Me.T_MapSelected)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.LED_USR1)
         Me.Controls.Add(Me.LED_FUEL)
@@ -380,19 +380,19 @@ Partial Class Datastream
         Me.Controls.Add(Me.LED_RPM)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.RPMGauge)
-        Me.Controls.Add(Me.Combobox_Uservar1)
-        Me.Controls.Add(Me.Datalog_trackbar)
-        Me.Controls.Add(Me.B_logging)
-        Me.Controls.Add(Me.B_DatastreamON)
+        Me.Controls.Add(Me.C_Uservar1)
+        Me.Controls.Add(Me.TrackBar_Datalog)
+        Me.Controls.Add(Me.B_Logging)
+        Me.Controls.Add(Me.B_DataStreamOn)
         Me.Controls.Add(Me.TextBox2)
-        Me.Controls.Add(Me.ComboBox_Serialport)
+        Me.Controls.Add(Me.C_SerialPort)
         Me.Controls.Add(Me.TextBox1)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "Datastream"
         Me.ShowIcon = False
         Me.Text = "Hayabusa Engine Datastream Monitor K2-K7"
-        CType(Me.Datalog_trackbar, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TrackBar_Datalog, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LED_RPM, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LED_IGN, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LED_CLT, System.ComponentModel.ISupportInitialize).EndInit()
@@ -405,14 +405,14 @@ Partial Class Datastream
 
     End Sub
     Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
-    Friend WithEvents ComboBox_Serialport As System.Windows.Forms.ComboBox
+    Friend WithEvents C_SerialPort As System.Windows.Forms.ComboBox
     Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
     Friend WithEvents SerialPort1 As System.IO.Ports.SerialPort
     Friend WithEvents Timer2 As System.Windows.Forms.Timer
-    Friend WithEvents B_DatastreamON As System.Windows.Forms.Button
-    Friend WithEvents B_logging As System.Windows.Forms.Button
-    Friend WithEvents Datalog_trackbar As System.Windows.Forms.TrackBar
-    Friend WithEvents Combobox_Uservar1 As System.Windows.Forms.ComboBox
+    Friend WithEvents B_DataStreamOn As System.Windows.Forms.Button
+    Friend WithEvents B_Logging As System.Windows.Forms.Button
+    Friend WithEvents TrackBar_Datalog As System.Windows.Forms.TrackBar
+    Friend WithEvents C_Uservar1 As System.Windows.Forms.ComboBox
     Friend WithEvents RPMGauge As BusaECUeditor.ldGuage.ldGuage
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents LED_RPM As LxControl.LxLedControl
@@ -428,7 +428,7 @@ Partial Class Datastream
     Friend WithEvents LED_FUEL As LxControl.LxLedControl
     Friend WithEvents LED_USR1 As LxControl.LxLedControl
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents MapSelected As System.Windows.Forms.TextBox
-    Friend WithEvents R_oxysensor As System.Windows.Forms.RadioButton
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents T_MapSelected As System.Windows.Forms.TextBox
+    Friend WithEvents R_OxySensor As System.Windows.Forms.RadioButton
+    Friend WithEvents B_LC1On As System.Windows.Forms.Button
 End Class
