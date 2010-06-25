@@ -72,7 +72,7 @@ Public Class K8Ignitionmap
         previousrow = 0
         fuelmapvisible = True
 
-        If readflashbyte(&H72A98) <> 0 Then ' use clutch map setting to detect if maps have been unified
+        If ReadFlashByte(&H72A98) <> 0 Then ' use clutch map setting to detect if maps have been unified
             '
             ' First ask the user if the user wants to have ignition restrictions removed
             '
@@ -81,16 +81,16 @@ Public Class K8Ignitionmap
                 '
                 ' First make sure that only ignition group3 is used for tuning
                 '
-                writeflashbyte(&H72A99, 1)
-                writeflashbyte(&H72A9A, 1)
-                writeflashbyte(&H72A9B, 1)
-                writeflashbyte(&H72A9C, 1)
-                writeflashbyte(&H72A9D, 1)
-                writeflashbyte(&H72A9E, 1)
+                WriteFlashByte(&H72A99, 1)
+                WriteFlashByte(&H72A9A, 1)
+                WriteFlashByte(&H72A9B, 1)
+                WriteFlashByte(&H72A9C, 1)
+                WriteFlashByte(&H72A9D, 1)
+                WriteFlashByte(&H72A9E, 1)
                 '
                 ' Make clutch map to use the same ignition map as for other gears too
                 '
-                writeflashbyte(&H72A98, 0)
+                WriteFlashByte(&H72A98, 0)
             Else
                 '
                 ' Giving canlel as answer to question about removing ignition resrictions now means that the ignition tuning shall not be used...
@@ -101,11 +101,11 @@ Public Class K8Ignitionmap
         End If
 
 
-            '
-            ' select tpsmap as first map to show, this will unify cylinder specific fuelmaps
-            '
-            selectmap(1)
-            Ignitionmapvisible = True
+        '
+        ' select tpsmap as first map to show, this will unify cylinder specific fuelmaps
+        '
+        selectmap(1)
+        Ignitionmapvisible = True
 
     End Sub
 
@@ -185,7 +185,7 @@ Public Class K8Ignitionmap
         '
         Dim diff As Decimal
 
-        diff = K8igndeg(((readflashbyte(editing_map + (1 * (c + (r * map_number_of_columns))))))) - K8igndeg(((readflashbytecopy(editing_map + (1 * (c + (r * map_number_of_columns)))))))
+        diff = K8igndeg(((ReadFlashByte(editing_map + (1 * (c + (r * map_number_of_columns))))))) - K8igndeg(((ReadFlashBytecopy(editing_map + (1 * (c + (r * map_number_of_columns)))))))
 
         Ignitionmapgrid.Item(c, r).Style.ForeColor = Color.Black
         If Me.Text.Contains("TPS") And c < 11 Then Ignitionmapgrid.Item(c, r).Style.ForeColor = Color.Gray
@@ -249,7 +249,7 @@ Public Class K8Ignitionmap
         minval = 1   ' not validated from ecu, minimum value to which the Ignitionmap item can be set
 
         m1 = Ignitionmapgrid.Item(c, r).Value
-        m2 = K8igndeg((readflashbyte(editing_map + (1 * (c + (r * map_number_of_columns))))))
+        m2 = K8igndeg((ReadFlashByte(editing_map + (1 * (c + (r * map_number_of_columns))))))
 
         diff = m2 - m1
 
@@ -276,12 +276,12 @@ Public Class K8Ignitionmap
             cylinder = 1        ' 0,1,2,3
             ms01 = 1            ' 0,1
             modeabc = 0         ' 0,1,2
-            number_of_columns = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+            number_of_columns = ReadFlashByte(ReadFlashLongWord(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
             For cylinder = 0 To 3
                 For ms01 = 1 To 1
                     For modeabc = 0 To 2
-                        copy_to_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        writeflashbyte(copy_to_map + (1 * (c + (r * number_of_columns))), K8igndeg_toecuval(m1))
+                        copy_to_map = ReadFlashLongWord(ReadFlashLongWord((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        WriteFlashByte(copy_to_map + (1 * (c + (r * number_of_columns))), K8igndeg_toecuval(m1))
                     Next
                 Next
             Next
@@ -292,12 +292,12 @@ Public Class K8Ignitionmap
             cylinder = 1        ' 0,1,2,3
             ms01 = 0            ' 0,1
             modeabc = 0         ' 0,1,2
-            number_of_columns = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+            number_of_columns = ReadFlashByte(ReadFlashLongWord(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
             For cylinder = 0 To 3
                 For ms01 = 0 To 0
                     For modeabc = 0 To 2
-                        copy_to_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        writeflashbyte(copy_to_map + (1 * (c + (r * number_of_columns))), K8igndeg_toecuval(m1))
+                        copy_to_map = ReadFlashLongWord(ReadFlashLongWord((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        WriteFlashByte(copy_to_map + (1 * (c + (r * number_of_columns))), K8igndeg_toecuval(m1))
                     Next
                 Next
             Next
@@ -348,9 +348,9 @@ Public Class K8Ignitionmap
         cylinder = 1        ' 0,1,2,3
         ms01 = a            ' 0,1
         modeabc = 0         ' 0,1,2
-        copy_from_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-        number_of_columns = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
-        number_of_rows = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
+        copy_from_map = ReadFlashLongWord(ReadFlashLongWord((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+        number_of_columns = ReadFlashByte(ReadFlashLongWord(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+        number_of_rows = ReadFlashByte(ReadFlashLongWord(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
 
         '
         ' Now copy the map contents for selected mode ms0 or ms1
@@ -358,9 +358,9 @@ Public Class K8Ignitionmap
         For cylinder = 0 To 3
             For ms01 = a To b
                 For modeabc = 0 To 2
-                    copy_to_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                    copy_to_map = ReadFlashLongWord(ReadFlashLongWord((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                     For cell = 0 To ((number_of_columns - 1) * (number_of_rows - 1))
-                        writeflashbyte(copy_to_map + (1 * cell), readflashbyte(copy_from_map + (1 * cell)))
+                        WriteFlashByte(copy_to_map + (1 * cell), ReadFlashByte(copy_from_map + (1 * cell)))
                     Next
                 Next
             Next
@@ -382,7 +382,7 @@ Public Class K8Ignitionmap
         i = 0
         ii = 0
 
-        If (readflashlongword(&H51F10) <> &H53D18) And (ms01 = 1) Then
+        If (ReadFlashLongWord(&H51F10) <> &H53D18) And (ms01 = 1) Then
             MsgBox("Please note that ms mode maps are flashed only when using full flashing. You need to change flashmode.")
         End If
 
@@ -391,9 +391,9 @@ Public Class K8Ignitionmap
         '
         cylinder = 1        ' 0,1,2,3
         modeabc = 0         ' 0,1,2
-        columnheading_map = readflashlongword(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 4)
-        rowheading_map = readflashlongword(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 8)
-        editing_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+        columnheading_map = ReadFlashLongWord(ReadFlashLongWord(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 4)
+        rowheading_map = ReadFlashLongWord(ReadFlashLongWord(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 8)
+        editing_map = ReadFlashLongWord(ReadFlashLongWord((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
 
         '
         ' Generate column headings
@@ -401,8 +401,8 @@ Public Class K8Ignitionmap
         Ignitionmapgrid.ColumnCount = map_number_of_columns
         c = 0
         Do While c < map_number_of_columns
-            i = readflashword(columnheading_map + (c * 2))
-            Ignitionmapgrid.Columns.Item(c).HeaderText = calc_K8TPS(i)
+            i = ReadFlashWord(columnheading_map + (c * 2))
+            Ignitionmapgrid.Columns.Item(c).HeaderText = CalcK8TPS(i)
             Ignitionmapgrid.Columns.Item(c).Width = 26
             c = c + 1
         Loop
@@ -414,7 +414,7 @@ Public Class K8Ignitionmap
         r = 0
         Ignitionmapgrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
         Do While (r < map_number_of_rows)
-            i = readflashword(rowheading_map + (r * 2))
+            i = ReadFlashWord(rowheading_map + (r * 2))
             Ignitionmapgrid.Rows.Item(r).HeaderCell.Value = Str(Int(i / 2.56))
             Ignitionmapgrid.Rows.Item(r).Height = 15
             r = r + 1
@@ -428,7 +428,7 @@ Public Class K8Ignitionmap
         i = 0
         Do While (r < map_number_of_rows)
 
-            Ignitionmapgrid.Item(c, r).Value = K8igndeg(readflashbyte((i * 1) + editing_map))
+            Ignitionmapgrid.Item(c, r).Value = K8igndeg(ReadFlashByte((i * 1) + editing_map))
             setCellColour(c, r)
 
             If c < map_number_of_columns - 1 Then
@@ -502,9 +502,9 @@ Public Class K8Ignitionmap
         '
         c = 0
         cc = 0
-        If calc_TPS_dec(TPS) < Val(Ignitionmapgrid.Columns.Item(map_number_of_columns - 1).HeaderCell.Value) Then
+        If CalcTPSDec(TPS) < Val(Ignitionmapgrid.Columns.Item(map_number_of_columns - 1).HeaderCell.Value) Then
             Do While (c < map_number_of_columns - 1)
-                If calc_TPS_dec(TPS) >= cc And calc_TPS_dec(TPS) < Ignitionmapgrid.Columns.Item(c + 1).HeaderCell.Value Then
+                If CalcTPSDec(TPS) >= cc And CalcTPSDec(TPS) < Ignitionmapgrid.Columns.Item(c + 1).HeaderCell.Value Then
                     cc = c
                     c = 256
                 Else
@@ -515,7 +515,7 @@ Public Class K8Ignitionmap
         Else
             cc = map_number_of_columns - 1
         End If
- 
+
         If rr > map_number_of_rows Then rr = 0
         If rr < 0 Then rr = 0
         If cc > map_number_of_columns Then cc = 0
@@ -550,7 +550,7 @@ Public Class K8Ignitionmap
             r = Ignitionmapgrid.CurrentRow.Index
             c = Ignitionmapgrid.CurrentCell.ColumnIndex
 
-            diff = K8igndeg(((readflashbyte(editing_map + (1 * (c + (r * map_number_of_columns))))))) - K8igndeg(((readflashbytecopy(editing_map + (1 * (c + (r * map_number_of_columns)))))))
+            diff = K8igndeg(((ReadFlashByte(editing_map + (1 * (c + (r * map_number_of_columns))))))) - K8igndeg(((ReadFlashBytecopy(editing_map + (1 * (c + (r * map_number_of_columns)))))))
 
             T_DEG.Text = Str(diff)
 
@@ -596,9 +596,9 @@ Public Class K8Ignitionmap
         '
         cylinder = 1        ' 0,1,2,3
         modeabc = 0         ' 0,1,2
-        editing_map = readflashlongword(readflashlongword((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-        map_number_of_columns = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
-        map_number_of_rows = readflashbyte(readflashlongword(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
+        editing_map = ReadFlashLongWord(ReadFlashLongWord((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+        map_number_of_columns = ReadFlashByte(ReadFlashLongWord(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+        map_number_of_rows = ReadFlashByte(ReadFlashLongWord(map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
 
         '
         ' Initialize map type selected. Copymaps unifies cylinders and modeABC maps. Loadmap brings the map visible.

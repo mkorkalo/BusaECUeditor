@@ -316,13 +316,13 @@ Public Class Datastream
         ' not fully tested and validated. Based on assumptions of reading the disassembler.
         '
         oxysensoractive = False
-        If IAP > readflashbyte(&H295E2) And IAP < readflashbyte(&H295E3) And main.ECUID.Text.Contains("BB34BB51") And MapSelected.Text.Contains("IAP") Then
+        If IAP > ReadFlashByte(&H295E2) And IAP < ReadFlashByte(&H295E3) And main.ECUID.Text.Contains("BB34BB51") And MapSelected.Text.Contains("IAP") Then
             oxysensoractive = True
         End If
-        If TPS > readflashbyte(&H295E0) And TPS < readflashbyte(&H295E1) And main.ECUID.Text.Contains("BB34BB51") And MapSelected.Text.Contains("TPS") Then
+        If TPS > ReadFlashByte(&H295E0) And TPS < ReadFlashByte(&H295E1) And main.ECUID.Text.Contains("BB34BB51") And MapSelected.Text.Contains("TPS") Then
             oxysensoractive = True
         End If
-        If Not (oxysensoractive And RPM > readflashword(&H28C2E) / 2.56 And RPM < readflashword(&H28C2C) / 2.56 And CLT > readflashbyte(&H295DF)) Then
+        If Not (oxysensoractive And RPM > ReadFlashWord(&H28C2E) / 2.56 And RPM < ReadFlashWord(&H28C2C) / 2.56 And CLT > ReadFlashByte(&H295DF)) Then
             oxysensoractive = False
         End If
         R_oxysensor.Checked = oxysensoractive
@@ -487,27 +487,27 @@ Public Class Datastream
 
 
             If datalogpointer > 0 Then
-                dataloglenght = datalogpointer
-                datalog(datalogpointer, 0) = datalogpointer
-                datalog(datalogpointer, 2) = RPM
-                datalog(datalogpointer, 3) = TPS
-                datalog(datalogpointer, 4) = IAP
-                datalog(datalogpointer, 5) = AP
-                datalog(datalogpointer, 6) = CLT
-                datalog(datalogpointer, 7) = USR1
-                datalog(datalogpointer, 8) = FUEL
-                datalog(datalogpointer, 9) = IGN
-                datalog(datalogpointer, 10) = AFR
+                DataLogLength = DataLogPointer
+                DataLog(DataLogPointer, 0) = DataLogPointer
+                DataLog(DataLogPointer, 2) = RPM
+                DataLog(DataLogPointer, 3) = TPS
+                DataLog(DataLogPointer, 4) = IAP
+                DataLog(DataLogPointer, 5) = AP
+                DataLog(DataLogPointer, 6) = CLT
+                DataLog(DataLogPointer, 7) = USR1
+                DataLog(DataLogPointer, 8) = Fuel
+                DataLog(DataLogPointer, 9) = IGN
+                DataLog(DataLogPointer, 10) = AFR
 
-                datalogpointer = datalogpointer + 1
+                DataLogPointer = DataLogPointer + 1
 
-                If datalogpointer >= maxdatalog Then
+                If DataLogPointer >= MaxDataLog Then
                     B_logging.Text = "Logging ON"
-                    dataloglenght = datalogpointer
-                    datalogpointer = 0
+                    DataLogLength = DataLogPointer
+                    DataLogPointer = 0
                     Datalog_trackbar.Enabled = True
-                    Datalog_trackbar.Maximum = dataloglenght
-                    TextBox1.Text = Str(dataloglenght)
+                    Datalog_trackbar.Maximum = DataLogLength
+                    TextBox1.Text = Str(DataLogLength)
                     Datalogger.Close()
                     MsgBox("Maximum datalog length exceeded", MsgBoxStyle.Information)
                 End If
@@ -516,7 +516,7 @@ Public Class Datastream
                 '
                 d = RPM
                 Datalogger.AxEChartCtl1.SetValue(d)
-                d = calc_TPS(TPS)
+                d = CalcTPS(TPS)
                 Datalogger.AxEChartCtl2.SetValue(d)
                 Datalogger.AxEChartCtl1.Update()
                 Datalogger.AxEChartCtl2.Update()
@@ -542,12 +542,12 @@ Public Class Datastream
             Datalogger.Show()
         Else
             B_logging.Text = "Logging ON"
-            dataloglenght = datalogpointer
+            DataLogLength = DataLogPointer
             datalogpointer = 0
             Datalog_trackbar.Enabled = True
-            Datalog_trackbar.Maximum = dataloglenght
-            Datalog_trackbar.Value = datalogpointer
-            TextBox1.Text = Str(dataloglenght)
+            Datalog_trackbar.Maximum = DataLogLength
+            Datalog_trackbar.Value = DataLogLength
+            TextBox1.Text = Str(DataLogLength)
             Datalogger.Close()
         End If
     End Sub
@@ -607,7 +607,7 @@ Public Class Datastream
         End If
 
         LED_RPM.Text = Str(RPM)
-        LED_TPS.Text = calc_TPS(TPS)
+        LED_TPS.Text = CalcTPS(TPS)
         LED_IAP.Text = Str(IAP)
 
         If metric Then

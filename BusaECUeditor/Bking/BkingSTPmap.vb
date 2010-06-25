@@ -430,12 +430,12 @@ Public Class BKingSTPMap
         _editingMap = readflashlongword(readflashlongword(i) + 12)
         _rowHeadingMap = readflashlongword(readflashlongword(i) + 8)
         _columnHeadingMap = readflashlongword(readflashlongword(i) + 4)
-        _mapNumberOfColumns = readflashbyte(readflashlongword(i) + 1)
-        _mapNumberOfRows = readflashbyte(readflashlongword(i) + 2)
+        _mapNumberOfColumns = ReadFlashByte(readflashlongword(i) + 1)
+        _mapNumberOfRows = ReadFlashByte(readflashlongword(i) + 2)
 
         mapvisible = Me.Text
 
-        loadmap()
+        LoadMap()
 
 
     End Sub
@@ -459,8 +459,8 @@ Public Class BKingSTPMap
         STPMapGrid.ColumnCount = _mapNumberOfColumns
         c = 0
         Do While c < _mapNumberOfColumns
-            i = readflashword(_columnHeadingMap + (c * 2))
-            STPMapGrid.Columns.Item(c).HeaderText = calc_K8TPS(i)
+            i = ReadFlashword(_columnHeadingMap + (c * 2))
+            STPMapGrid.Columns.Item(c).HeaderText = CalcK8TPS(i)
             STPMapGrid.Columns.Item(c).Width = 50
             c = c + 1
         Loop
@@ -473,7 +473,7 @@ Public Class BKingSTPMap
         r = 0
         'STPmapgrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
         Do While (r < _mapNumberOfRows)
-            i = readflashword(_rowHeadingMap + (r * 2))
+            i = ReadFlashword(_rowHeadingMap + (r * 2))
             STPMapGrid.Rows.Item(r).HeaderCell.Value = Str(Int(i / 2.56))
             STPMapGrid.Rows.Item(r).Height = 15
             r = r + 1
@@ -587,9 +587,9 @@ Public Class BKingSTPMap
             '
             c = 0
             cc = 0
-            If calc_TPS_dec(TPS) < Val(STPMapGrid.Columns.Item(_mapNumberOfColumns - 1).HeaderCell.Value) Then
+            If CalcTPSDec(TPS) < Val(STPMapGrid.Columns.Item(_mapNumberOfColumns - 1).HeaderCell.Value) Then
                 Do While (c < _mapNumberOfColumns - 1)
-                    If calc_TPS_dec(TPS) >= cc And calc_TPS_dec(TPS) < STPMapGrid.Columns.Item(c + 1).HeaderCell.Value Then
+                    If CalcTPSDec(TPS) >= cc And CalcTPSDec(TPS) < STPMapGrid.Columns.Item(c + 1).HeaderCell.Value Then
                         cc = c
                         c = 256
                     Else

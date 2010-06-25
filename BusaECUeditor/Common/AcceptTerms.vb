@@ -23,20 +23,34 @@ Imports System.Windows.Forms
 
 Public Class AcceptTerms
 
-    Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
-        Me.DialogResult = System.Windows.Forms.DialogResult.OK
-        'My.Settings.Item("Userlic") = Str(30) 'settings already defined as project properties
-        main.Visible = True
-        Me.Close()
+#Region "Form Events"
+
+    Private Sub AcceptTerms_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+        Me.TopMost = True
+
     End Sub
 
-    Private Sub Cancel_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Cancel_Button.Click
+#End Region
+
+#Region "Control Events"
+
+    Private Sub B_Yes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Yes.Click
+
+        Me.DialogResult = System.Windows.Forms.DialogResult.OK
+        main.Visible = True
+        Me.Close()
+
+    End Sub
+
+    Private Sub B_No_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_No.Click
+
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
         My.Settings.Item("Userlic") = Str(0)
         End
+
     End Sub
 
-    Private Sub AcceptTerms_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Me.TopMost = True
-    End Sub
+#End Region
+
 End Class

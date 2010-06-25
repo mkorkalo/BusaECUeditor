@@ -23,13 +23,13 @@ Partial Class BKingIgnitionMap
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BKingIgnitionMap))
         Me.T_TPSIAP = New System.Windows.Forms.TextBox
         Me.T_RPM = New System.Windows.Forms.TextBox
-        Me.Ignitionmapgrid = New System.Windows.Forms.DataGridView
+        Me.IgnitionMapGrid = New System.Windows.Forms.DataGridView
         Me.B_MS0 = New System.Windows.Forms.Button
         Me.B_MS1 = New System.Windows.Forms.Button
         Me.T_DEG = New System.Windows.Forms.TextBox
         Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.Label1 = New System.Windows.Forms.Label
-        CType(Me.Ignitionmapgrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.IgnitionMapGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'T_TPSIAP
@@ -56,22 +56,22 @@ Partial Class BKingIgnitionMap
         Me.T_RPM.TabIndex = 16
         Me.T_RPM.WordWrap = False
         '
-        'Ignitionmapgrid
+        'IgnitionMapGrid
         '
-        Me.Ignitionmapgrid.AllowUserToAddRows = False
-        Me.Ignitionmapgrid.AllowUserToDeleteRows = False
-        Me.Ignitionmapgrid.AllowUserToResizeColumns = False
-        Me.Ignitionmapgrid.AllowUserToResizeRows = False
-        Me.Ignitionmapgrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.Ignitionmapgrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.Ignitionmapgrid.Location = New System.Drawing.Point(11, 51)
-        Me.Ignitionmapgrid.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
-        Me.Ignitionmapgrid.Name = "Ignitionmapgrid"
-        Me.Ignitionmapgrid.ReadOnly = True
-        Me.Ignitionmapgrid.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.Ignitionmapgrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.Ignitionmapgrid.Size = New System.Drawing.Size(654, 563)
-        Me.Ignitionmapgrid.TabIndex = 12
+        Me.IgnitionMapGrid.AllowUserToAddRows = False
+        Me.IgnitionMapGrid.AllowUserToDeleteRows = False
+        Me.IgnitionMapGrid.AllowUserToResizeColumns = False
+        Me.IgnitionMapGrid.AllowUserToResizeRows = False
+        Me.IgnitionMapGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.IgnitionMapGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.IgnitionMapGrid.Location = New System.Drawing.Point(11, 51)
+        Me.IgnitionMapGrid.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
+        Me.IgnitionMapGrid.Name = "IgnitionMapGrid"
+        Me.IgnitionMapGrid.ReadOnly = True
+        Me.IgnitionMapGrid.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.IgnitionMapGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
+        Me.IgnitionMapGrid.Size = New System.Drawing.Size(654, 563)
+        Me.IgnitionMapGrid.TabIndex = 12
         '
         'B_MS0
         '
@@ -120,7 +120,7 @@ Partial Class BKingIgnitionMap
         Me.Label1.TabIndex = 21
         Me.Label1.Text = "Note: press 'c' to copy this map to ms01 or unify cylinders"
         '
-        'BKingIgnitionmap
+        'BKingIgnitionMap
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -131,18 +131,18 @@ Partial Class BKingIgnitionMap
         Me.Controls.Add(Me.B_MS0)
         Me.Controls.Add(Me.T_TPSIAP)
         Me.Controls.Add(Me.T_RPM)
-        Me.Controls.Add(Me.Ignitionmapgrid)
+        Me.Controls.Add(Me.IgnitionMapGrid)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Name = "BKingIgnitionmap"
+        Me.Name = "BKingIgnitionMap"
         Me.Text = "ECUeditor.com BKing Ignitionmap"
-        CType(Me.Ignitionmapgrid, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.IgnitionMapGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents T_TPSIAP As System.Windows.Forms.TextBox
     Friend WithEvents T_RPM As System.Windows.Forms.TextBox
-    Friend WithEvents Ignitionmapgrid As System.Windows.Forms.DataGridView
+    Friend WithEvents IgnitionMapGrid As System.Windows.Forms.DataGridView
     Friend WithEvents B_MS0 As System.Windows.Forms.Button
     Friend WithEvents B_MS1 As System.Windows.Forms.Button
     Friend WithEvents T_DEG As System.Windows.Forms.TextBox

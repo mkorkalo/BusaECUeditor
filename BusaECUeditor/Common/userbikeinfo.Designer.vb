@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class userbikeinfo
+Partial Class UserBikeInfo
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -20,24 +20,24 @@ Partial Class userbikeinfo
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox
-        Me.T_webpage = New System.Windows.Forms.TextBox
+        Me.T_Webpage = New System.Windows.Forms.TextBox
         Me.C_RWHP = New System.Windows.Forms.ComboBox
         Me.Label3 = New System.Windows.Forms.Label
         Me.Label2 = New System.Windows.Forms.Label
         Me.Label1 = New System.Windows.Forms.Label
-        Me.T_comments = New System.Windows.Forms.TextBox
-        Me.C_head = New System.Windows.Forms.ComboBox
+        Me.T_Comments = New System.Windows.Forms.TextBox
+        Me.C_Head = New System.Windows.Forms.ComboBox
         Me.Label26 = New System.Windows.Forms.Label
-        Me.C_cams = New System.Windows.Forms.ComboBox
+        Me.C_Cams = New System.Windows.Forms.ComboBox
         Me.Label27 = New System.Windows.Forms.Label
-        Me.C_injectors = New System.Windows.Forms.ComboBox
-        Me.T_email = New System.Windows.Forms.TextBox
-        Me.C_exhaust = New System.Windows.Forms.ComboBox
-        Me.C_engine = New System.Windows.Forms.ComboBox
-        Me.C_fuelpressure = New System.Windows.Forms.ComboBox
-        Me.C_compression = New System.Windows.Forms.ComboBox
-        Me.C_type = New System.Windows.Forms.ComboBox
-        Me.C_model = New System.Windows.Forms.ComboBox
+        Me.C_Injectors = New System.Windows.Forms.ComboBox
+        Me.T_Email = New System.Windows.Forms.TextBox
+        Me.C_Exhaust = New System.Windows.Forms.ComboBox
+        Me.C_Engine = New System.Windows.Forms.ComboBox
+        Me.C_FuelPressure = New System.Windows.Forms.ComboBox
+        Me.C_Compression = New System.Windows.Forms.ComboBox
+        Me.C_Type = New System.Windows.Forms.ComboBox
+        Me.C_Model = New System.Windows.Forms.ComboBox
         Me.Label16 = New System.Windows.Forms.Label
         Me.Label17 = New System.Windows.Forms.Label
         Me.Label19 = New System.Windows.Forms.Label
@@ -53,24 +53,24 @@ Partial Class userbikeinfo
         '
         'GroupBox3
         '
-        Me.GroupBox3.Controls.Add(Me.T_webpage)
+        Me.GroupBox3.Controls.Add(Me.T_Webpage)
         Me.GroupBox3.Controls.Add(Me.C_RWHP)
         Me.GroupBox3.Controls.Add(Me.Label3)
         Me.GroupBox3.Controls.Add(Me.Label2)
         Me.GroupBox3.Controls.Add(Me.Label1)
-        Me.GroupBox3.Controls.Add(Me.T_comments)
-        Me.GroupBox3.Controls.Add(Me.C_head)
+        Me.GroupBox3.Controls.Add(Me.T_Comments)
+        Me.GroupBox3.Controls.Add(Me.C_Head)
         Me.GroupBox3.Controls.Add(Me.Label26)
-        Me.GroupBox3.Controls.Add(Me.C_cams)
+        Me.GroupBox3.Controls.Add(Me.C_Cams)
         Me.GroupBox3.Controls.Add(Me.Label27)
-        Me.GroupBox3.Controls.Add(Me.C_injectors)
-        Me.GroupBox3.Controls.Add(Me.T_email)
-        Me.GroupBox3.Controls.Add(Me.C_exhaust)
-        Me.GroupBox3.Controls.Add(Me.C_engine)
-        Me.GroupBox3.Controls.Add(Me.C_fuelpressure)
-        Me.GroupBox3.Controls.Add(Me.C_compression)
-        Me.GroupBox3.Controls.Add(Me.C_type)
-        Me.GroupBox3.Controls.Add(Me.C_model)
+        Me.GroupBox3.Controls.Add(Me.C_Injectors)
+        Me.GroupBox3.Controls.Add(Me.T_Email)
+        Me.GroupBox3.Controls.Add(Me.C_Exhaust)
+        Me.GroupBox3.Controls.Add(Me.C_Engine)
+        Me.GroupBox3.Controls.Add(Me.C_FuelPressure)
+        Me.GroupBox3.Controls.Add(Me.C_Compression)
+        Me.GroupBox3.Controls.Add(Me.C_Type)
+        Me.GroupBox3.Controls.Add(Me.C_Model)
         Me.GroupBox3.Controls.Add(Me.Label16)
         Me.GroupBox3.Controls.Add(Me.Label17)
         Me.GroupBox3.Controls.Add(Me.Label19)
@@ -87,12 +87,12 @@ Partial Class userbikeinfo
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Owner and bike info"
         '
-        'T_webpage
+        'T_Webpage
         '
-        Me.T_webpage.Location = New System.Drawing.Point(124, 91)
-        Me.T_webpage.Name = "T_webpage"
-        Me.T_webpage.Size = New System.Drawing.Size(378, 20)
-        Me.T_webpage.TabIndex = 60
+        Me.T_Webpage.Location = New System.Drawing.Point(124, 91)
+        Me.T_Webpage.Name = "T_Webpage"
+        Me.T_Webpage.Size = New System.Drawing.Size(378, 20)
+        Me.T_Webpage.TabIndex = 60
         '
         'C_RWHP
         '
@@ -130,22 +130,22 @@ Partial Class userbikeinfo
         Me.Label1.TabIndex = 54
         Me.Label1.Text = "This information is only used for map sharing"
         '
-        'T_comments
+        'T_Comments
         '
-        Me.T_comments.Location = New System.Drawing.Point(124, 117)
-        Me.T_comments.Multiline = True
-        Me.T_comments.Name = "T_comments"
-        Me.T_comments.Size = New System.Drawing.Size(378, 105)
-        Me.T_comments.TabIndex = 56
+        Me.T_Comments.Location = New System.Drawing.Point(124, 117)
+        Me.T_Comments.Multiline = True
+        Me.T_Comments.Name = "T_Comments"
+        Me.T_Comments.Size = New System.Drawing.Size(378, 105)
+        Me.T_Comments.TabIndex = 56
         '
-        'C_head
+        'C_Head
         '
-        Me.C_head.FormattingEnabled = True
-        Me.C_head.Items.AddRange(New Object() {"Stock", "Mildly ported", "Race ported", "Extreme"})
-        Me.C_head.Location = New System.Drawing.Point(350, 293)
-        Me.C_head.Name = "C_head"
-        Me.C_head.Size = New System.Drawing.Size(152, 21)
-        Me.C_head.TabIndex = 53
+        Me.C_Head.FormattingEnabled = True
+        Me.C_Head.Items.AddRange(New Object() {"Stock", "Mildly ported", "Race ported", "Extreme"})
+        Me.C_Head.Location = New System.Drawing.Point(350, 293)
+        Me.C_Head.Name = "C_Head"
+        Me.C_Head.Size = New System.Drawing.Size(152, 21)
+        Me.C_Head.TabIndex = 53
         '
         'Label26
         '
@@ -156,14 +156,14 @@ Partial Class userbikeinfo
         Me.Label26.TabIndex = 31
         Me.Label26.Text = "Owners email"
         '
-        'C_cams
+        'C_Cams
         '
-        Me.C_cams.FormattingEnabled = True
-        Me.C_cams.Items.AddRange(New Object() {"Stock", "Mild", "Race", "Outlaw"})
-        Me.C_cams.Location = New System.Drawing.Point(70, 320)
-        Me.C_cams.Name = "C_cams"
-        Me.C_cams.Size = New System.Drawing.Size(150, 21)
-        Me.C_cams.TabIndex = 52
+        Me.C_Cams.FormattingEnabled = True
+        Me.C_Cams.Items.AddRange(New Object() {"Stock", "Mild", "Race", "Outlaw"})
+        Me.C_Cams.Location = New System.Drawing.Point(70, 320)
+        Me.C_Cams.Name = "C_Cams"
+        Me.C_Cams.Size = New System.Drawing.Size(150, 21)
+        Me.C_Cams.TabIndex = 52
         '
         'Label27
         '
@@ -174,75 +174,75 @@ Partial Class userbikeinfo
         Me.Label27.TabIndex = 43
         Me.Label27.Text = "Comments"
         '
-        'C_injectors
+        'C_Injectors
         '
-        Me.C_injectors.FormattingEnabled = True
-        Me.C_injectors.Items.AddRange(New Object() {"Stock (250cc)", "300cc", "350cc", "400cc", "450cc", "500cc", "550cc or more"})
-        Me.C_injectors.Location = New System.Drawing.Point(70, 347)
-        Me.C_injectors.Name = "C_injectors"
-        Me.C_injectors.Size = New System.Drawing.Size(150, 21)
-        Me.C_injectors.TabIndex = 51
+        Me.C_Injectors.FormattingEnabled = True
+        Me.C_Injectors.Items.AddRange(New Object() {"Stock (250cc)", "300cc", "350cc", "400cc", "450cc", "500cc", "550cc or more"})
+        Me.C_Injectors.Location = New System.Drawing.Point(70, 347)
+        Me.C_Injectors.Name = "C_Injectors"
+        Me.C_Injectors.Size = New System.Drawing.Size(150, 21)
+        Me.C_Injectors.TabIndex = 51
         '
-        'T_email
+        'T_Email
         '
-        Me.T_email.Location = New System.Drawing.Point(124, 65)
-        Me.T_email.Name = "T_email"
-        Me.T_email.Size = New System.Drawing.Size(378, 20)
-        Me.T_email.TabIndex = 55
+        Me.T_Email.Location = New System.Drawing.Point(124, 65)
+        Me.T_Email.Name = "T_Email"
+        Me.T_Email.Size = New System.Drawing.Size(378, 20)
+        Me.T_Email.TabIndex = 55
         '
-        'C_exhaust
+        'C_Exhaust
         '
-        Me.C_exhaust.FormattingEnabled = True
-        Me.C_exhaust.Items.AddRange(New Object() {"Stock", "Slipons", "Full exhaust", "Full race exhaust", "Sidewinder", "Other"})
-        Me.C_exhaust.Location = New System.Drawing.Point(70, 293)
-        Me.C_exhaust.Name = "C_exhaust"
-        Me.C_exhaust.Size = New System.Drawing.Size(150, 21)
-        Me.C_exhaust.TabIndex = 50
+        Me.C_Exhaust.FormattingEnabled = True
+        Me.C_Exhaust.Items.AddRange(New Object() {"Stock", "Slipons", "Full exhaust", "Full race exhaust", "Sidewinder", "Other"})
+        Me.C_Exhaust.Location = New System.Drawing.Point(70, 293)
+        Me.C_Exhaust.Name = "C_Exhaust"
+        Me.C_Exhaust.Size = New System.Drawing.Size(150, 21)
+        Me.C_Exhaust.TabIndex = 50
         '
-        'C_engine
+        'C_Engine
         '
-        Me.C_engine.FormattingEnabled = True
-        Me.C_engine.Items.AddRange(New Object() {"Stock (1298)", "1397", "1441", "1500", "1700 or more"})
-        Me.C_engine.Location = New System.Drawing.Point(70, 239)
-        Me.C_engine.Name = "C_engine"
-        Me.C_engine.Size = New System.Drawing.Size(150, 21)
-        Me.C_engine.TabIndex = 49
+        Me.C_Engine.FormattingEnabled = True
+        Me.C_Engine.Items.AddRange(New Object() {"Stock (1298)", "1397", "1441", "1500", "1700 or more"})
+        Me.C_Engine.Location = New System.Drawing.Point(70, 239)
+        Me.C_Engine.Name = "C_Engine"
+        Me.C_Engine.Size = New System.Drawing.Size(150, 21)
+        Me.C_Engine.TabIndex = 49
         '
-        'C_fuelpressure
+        'C_FuelPressure
         '
-        Me.C_fuelpressure.FormattingEnabled = True
-        Me.C_fuelpressure.Items.AddRange(New Object() {"Stock (2.8bar/41psi)", "3bar / 44psi", "3.5bar / 51psi", "4bar / 58psi", "4.5bar / 65psi", "5bar / 72psi or more"})
-        Me.C_fuelpressure.Location = New System.Drawing.Point(350, 347)
-        Me.C_fuelpressure.Name = "C_fuelpressure"
-        Me.C_fuelpressure.Size = New System.Drawing.Size(152, 21)
-        Me.C_fuelpressure.TabIndex = 48
+        Me.C_FuelPressure.FormattingEnabled = True
+        Me.C_FuelPressure.Items.AddRange(New Object() {"Stock (2.8bar/41psi)", "3bar / 44psi", "3.5bar / 51psi", "4bar / 58psi", "4.5bar / 65psi", "5bar / 72psi or more"})
+        Me.C_FuelPressure.Location = New System.Drawing.Point(350, 347)
+        Me.C_FuelPressure.Name = "C_FuelPressure"
+        Me.C_FuelPressure.Size = New System.Drawing.Size(152, 21)
+        Me.C_FuelPressure.TabIndex = 48
         '
-        'C_compression
+        'C_Compression
         '
-        Me.C_compression.FormattingEnabled = True
-        Me.C_compression.Items.AddRange(New Object() {"Stock", "12:1", "13:1", "14:1", "15:1", "16:1 or greater"})
-        Me.C_compression.Location = New System.Drawing.Point(350, 320)
-        Me.C_compression.Name = "C_compression"
-        Me.C_compression.Size = New System.Drawing.Size(152, 21)
-        Me.C_compression.TabIndex = 47
+        Me.C_Compression.FormattingEnabled = True
+        Me.C_Compression.Items.AddRange(New Object() {"Stock", "12:1", "13:1", "14:1", "15:1", "16:1 or greater"})
+        Me.C_Compression.Location = New System.Drawing.Point(350, 320)
+        Me.C_Compression.Name = "C_Compression"
+        Me.C_Compression.Size = New System.Drawing.Size(152, 21)
+        Me.C_Compression.TabIndex = 47
         '
-        'C_type
+        'C_Type
         '
-        Me.C_type.FormattingEnabled = True
-        Me.C_type.Items.AddRange(New Object() {"All motor", "All motor with Nitrous", "Turbo"})
-        Me.C_type.Location = New System.Drawing.Point(350, 266)
-        Me.C_type.Name = "C_type"
-        Me.C_type.Size = New System.Drawing.Size(152, 21)
-        Me.C_type.TabIndex = 46
+        Me.C_Type.FormattingEnabled = True
+        Me.C_Type.Items.AddRange(New Object() {"All motor", "All motor with Nitrous", "Turbo"})
+        Me.C_Type.Location = New System.Drawing.Point(350, 266)
+        Me.C_Type.Name = "C_Type"
+        Me.C_Type.Size = New System.Drawing.Size(152, 21)
+        Me.C_Type.TabIndex = 46
         '
-        'C_model
+        'C_Model
         '
-        Me.C_model.FormattingEnabled = True
-        Me.C_model.Items.AddRange(New Object() {"K2", "K3", "K4", "K5", "K6", "K7", "K1 with 32bit ECU", "Y  with 32bit ECU", "X  with 32bit ECU"})
-        Me.C_model.Location = New System.Drawing.Point(350, 239)
-        Me.C_model.Name = "C_model"
-        Me.C_model.Size = New System.Drawing.Size(152, 21)
-        Me.C_model.TabIndex = 45
+        Me.C_Model.FormattingEnabled = True
+        Me.C_Model.Items.AddRange(New Object() {"K2", "K3", "K4", "K5", "K6", "K7", "K1 with 32bit ECU", "Y  with 32bit ECU", "X  with 32bit ECU"})
+        Me.C_Model.Location = New System.Drawing.Point(350, 239)
+        Me.C_Model.Name = "C_Model"
+        Me.C_Model.Size = New System.Drawing.Size(152, 21)
+        Me.C_Model.TabIndex = 45
         '
         'Label16
         '
@@ -328,14 +328,14 @@ Partial Class userbikeinfo
         'B_Close
         '
         Me.B_Close.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.B_Close.Location = New System.Drawing.Point(552, 347)
+        Me.B_Close.Location = New System.Drawing.Point(552, 362)
         Me.B_Close.Name = "B_Close"
-        Me.B_Close.Size = New System.Drawing.Size(90, 47)
+        Me.B_Close.Size = New System.Drawing.Size(90, 32)
         Me.B_Close.TabIndex = 37
         Me.B_Close.Text = "Close"
         Me.B_Close.UseVisualStyleBackColor = True
         '
-        'userbikeinfo
+        'UserBikeInfo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -345,7 +345,7 @@ Partial Class userbikeinfo
         Me.Controls.Add(Me.GroupBox3)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "userbikeinfo"
+        Me.Name = "UserBikeInfo"
         Me.Text = "Bike and user info"
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
@@ -353,15 +353,15 @@ Partial Class userbikeinfo
 
     End Sub
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
-    Friend WithEvents C_head As System.Windows.Forms.ComboBox
-    Friend WithEvents C_cams As System.Windows.Forms.ComboBox
-    Friend WithEvents C_injectors As System.Windows.Forms.ComboBox
-    Friend WithEvents C_exhaust As System.Windows.Forms.ComboBox
-    Friend WithEvents C_engine As System.Windows.Forms.ComboBox
-    Friend WithEvents C_fuelpressure As System.Windows.Forms.ComboBox
-    Friend WithEvents C_compression As System.Windows.Forms.ComboBox
-    Friend WithEvents C_type As System.Windows.Forms.ComboBox
-    Friend WithEvents C_model As System.Windows.Forms.ComboBox
+    Friend WithEvents C_Head As System.Windows.Forms.ComboBox
+    Friend WithEvents C_Cams As System.Windows.Forms.ComboBox
+    Friend WithEvents C_Injectors As System.Windows.Forms.ComboBox
+    Friend WithEvents C_Exhaust As System.Windows.Forms.ComboBox
+    Friend WithEvents C_Engine As System.Windows.Forms.ComboBox
+    Friend WithEvents C_FuelPressure As System.Windows.Forms.ComboBox
+    Friend WithEvents C_Compression As System.Windows.Forms.ComboBox
+    Friend WithEvents C_Type As System.Windows.Forms.ComboBox
+    Friend WithEvents C_Model As System.Windows.Forms.ComboBox
     Friend WithEvents Label27 As System.Windows.Forms.Label
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents Label17 As System.Windows.Forms.Label
@@ -374,11 +374,11 @@ Partial Class userbikeinfo
     Friend WithEvents Label25 As System.Windows.Forms.Label
     Friend WithEvents Label26 As System.Windows.Forms.Label
     Friend WithEvents B_Close As System.Windows.Forms.Button
-    Friend WithEvents T_comments As System.Windows.Forms.TextBox
-    Friend WithEvents T_email As System.Windows.Forms.TextBox
+    Friend WithEvents T_Comments As System.Windows.Forms.TextBox
+    Friend WithEvents T_Email As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents C_RWHP As System.Windows.Forms.ComboBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents T_webpage As System.Windows.Forms.TextBox
+    Friend WithEvents T_Webpage As System.Windows.Forms.TextBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
 End Class
