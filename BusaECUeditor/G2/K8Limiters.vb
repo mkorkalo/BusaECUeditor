@@ -59,35 +59,37 @@ Public Class K8Limiters
         If i >= 11500 Then
             C_gearlimiter.Checked = True
         End If
+
         '
+        ' Fuel limiters
+        '
+
         ' Type 0 - set by fuel config const, no fuelcut
         ' Type 1 - softcut
         ' Type 2 - hardcut
         ' Type 3 - GPS error or clutch
-        ' Type 4 - limp mode, errorcode present
-        ' Type 5 - limp mode, errorcode present
+        ' Type 4 - limp mode, errorcode present - do not set with ecueditor
+        ' Type 5 - limp mode, errorcode present - do not set with ecueditor
         ' Type 6 - normal running, but errorcode present
         '
-
-        '
-        ' RPM/Fuel soft type 1
+        ' RPM/Fuel soft type 1, the softcut hits earlier than hardcut. Abosolute limiter at hard cut limit.
         '
         writeflashword(&H739E6, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1)))
         writeflashword(&H739E8, Int((rpmconv / (addedrpm + (rpmconv / &H547)) + 1)))
         writeflashword(&H739EA, Int((rpmconv / (addedrpm + (rpmconv / &H53B)) + 1)))
         writeflashword(&H739EC, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1)))
         '
-        ' RPM/Fuel hard type 2, this is modified higher than stock as stock is not used
+        ' RPM/Fuel hard type 2, this is modified higher than stock as ecu default is not used in this case
         '
         writeflashword(&H739EE, Int((rpmconv / (addedrpm + (rpmconv / &H53B)) + 1)))
         writeflashword(&H739F0, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1)))
         '
-        ' RPM/Fuel soft hard type 3 neutral
+        ' RPM/Fuel soft hard type 3 neutral, this is modified to be same as type2
         '
-        writeflashword(&H739F2, Int((rpmconv / (addedrpm + (rpmconv / &H594)) + 1)))
-        writeflashword(&H739F4, Int((rpmconv / (addedrpm + (rpmconv / &H587)) + 1)))
+        writeflashword(&H739F2, Int((rpmconv / (addedrpm + (rpmconv / &H53B)) + 1)))
+        writeflashword(&H739F4, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1)))
         '
-        ' RPM limiter type 6
+        ' RPM limiter type 6, this is the limiter when FI light is on but still running normally
         '
         writeflashword(&H739FE, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1)))
         writeflashword(&H73A00, Int((rpmconv / (addedrpm + (rpmconv / &H547)) + 1)))
@@ -95,12 +97,14 @@ Public Class K8Limiters
         writeflashword(&H73A04, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1)))
 
         '
-        ' RPM/Ignition
+        ' RPM/Ignition limiters, these are set to around 150rpm higher than fuel limiters
         '
-        writeflashword(&H72A68, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1)))
-        writeflashword(&H72A6A, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1)))
-        writeflashword(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H560)) + 1)))
-        writeflashword(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1)))
+        writeflashword(&H72A68, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'normal limiter 11450rpm
+        writeflashword(&H72A6A, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'normal limiter 11601rpm
+        writeflashword(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'clutch limiter at 10901 modified to same as normal ignition limiter
+        writeflashword(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'clutch limiter at 10997 modified to same as normal ignition limiter
+        writeflashword(&H72A74, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'On TPS limiter 11450rpm - a bit unsure about condition triggering this one
+        writeflashword(&H72A76, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'On TPS limiter 11601rpm - a bit unsure about condition triggering this one
 
 
     End Sub
