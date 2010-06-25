@@ -21,28 +21,30 @@
 '
 
 Public Class Advsettings
-    Dim solenoid_on_low As Integer
-    Dim solenoid_on_high As Integer
-    Dim solenoid_off_low As Integer
-    Dim Solenoid_off_high As Integer
-    Dim solenoidchangeok As Boolean
-    Dim injector_A As Integer
-    Dim injector_B As Integer
-    Dim fuelconsumption As Integer
-    Private Sub B_Close_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Close.Click
-        Me.Close()
-    End Sub
+#Region "Variables"
 
+    Dim _solenoidOnLow As Integer
+    Dim _solenoidOnHigh As Integer
+    Dim _solenoidOffLow As Integer
+    Dim _solenoidOffHigh As Integer
+    Dim _solenoidChangeOk As Boolean
+    Dim _injectorA As Integer
+    Dim _injectorB As Integer
+    Dim _fuelConsumption As Integer
 
-    Private Sub MiscSettings_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+#End Region
+
+#Region "Form Events"
+
+    Private Sub AdvSettings_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Dim i As Integer
         Dim dwell As Integer
 
-        solenoid_on_low = &H32C78   ' RPM/100, byte, 5
-        solenoid_on_high = &H32C78 + 1 '8
-        solenoid_off_low = &H32C78 + 2 '22
-        Solenoid_off_high = &H32C78 + 3
-        solenoidchangeok = False
+        _solenoidOnLow = &H32C78   ' RPM/100, byte, 5
+        _solenoidOnHigh = &H32C78 + 1 '8
+        _solenoidOffLow = &H32C78 + 2 '22
+        _solenoidOffHigh = &H32C78 + 3
+        _solenoidChangeOk = False
 
 
         IAPLow.Text = Str(ReadFlashByte(&H295E2))
@@ -100,113 +102,113 @@ Public Class Advsettings
         ' Ignition dwell table
         '
         dwell = ReadFlashByte(&H3686E + 27)
-        C_dwell.Items.Add(Str(CInt(100 * dwell / 101)))
-        C_dwell.Items.Add("100")
-        C_dwell.Items.Add("105")
-        C_dwell.Items.Add("110")
-        C_dwell.Items.Add("120")
-        C_dwell.SelectedIndex = 0
+        C_Dwell.Items.Add(Str(CInt(100 * dwell / 101)))
+        C_Dwell.Items.Add("100")
+        C_Dwell.Items.Add("105")
+        C_Dwell.Items.Add("110")
+        C_Dwell.Items.Add("120")
+        C_Dwell.SelectedIndex = 0
 
         '
         ' preset the selection and actual value of injector size words
         '
-        injector_A = &HDA42 ' word
-        injector_B = &HDAAA
-        i = CInt((128 / ReadFlashWord(injector_A) * 100) / 5) * 5
-        C_injectorsize.Items.Add(Str(i))
-        C_injectorsize.Items.Add("400")
-        C_injectorsize.Items.Add("350")
-        C_injectorsize.Items.Add("300")
-        C_injectorsize.Items.Add("250")
-        C_injectorsize.Items.Add("200")
-        C_injectorsize.Items.Add("150")
-        C_injectorsize.Items.Add("145")
-        C_injectorsize.Items.Add("140")
-        C_injectorsize.Items.Add("135")
-        C_injectorsize.Items.Add("130")
-        C_injectorsize.Items.Add("125")
-        C_injectorsize.Items.Add("120")
-        C_injectorsize.Items.Add("115")
-        C_injectorsize.Items.Add("110")
-        C_injectorsize.Items.Add("105")
-        C_injectorsize.Items.Add("100")
-        C_injectorsize.Items.Add("95")
-        C_injectorsize.Items.Add("90")
-        C_injectorsize.Items.Add("85")
-        C_injectorsize.Items.Add("80")
-        C_injectorsize.SelectedIndex = 0
+        _injectorA = &HDA42 ' word
+        _injectorB = &HDAAA
+        i = CInt((128 / ReadFlashWord(_injectorA) * 100) / 5) * 5
+        C_InjectorSize.Items.Add(Str(i))
+        C_InjectorSize.Items.Add("400")
+        C_InjectorSize.Items.Add("350")
+        C_InjectorSize.Items.Add("300")
+        C_InjectorSize.Items.Add("250")
+        C_InjectorSize.Items.Add("200")
+        C_InjectorSize.Items.Add("150")
+        C_InjectorSize.Items.Add("145")
+        C_InjectorSize.Items.Add("140")
+        C_InjectorSize.Items.Add("135")
+        C_InjectorSize.Items.Add("130")
+        C_InjectorSize.Items.Add("125")
+        C_InjectorSize.Items.Add("120")
+        C_InjectorSize.Items.Add("115")
+        C_InjectorSize.Items.Add("110")
+        C_InjectorSize.Items.Add("105")
+        C_InjectorSize.Items.Add("100")
+        C_InjectorSize.Items.Add("95")
+        C_InjectorSize.Items.Add("90")
+        C_InjectorSize.Items.Add("85")
+        C_InjectorSize.Items.Add("80")
+        C_InjectorSize.SelectedIndex = 0
 
         '
-        ' preset the selection and actual value of fuelconsumption byte
+        ' preset the selection and actual value of _fuelConsumption byte
         '
-        fuelconsumption = &H7913
-        i = ReadFlashByte(fuelconsumption)
+        _fuelConsumption = &H7913
+        i = ReadFlashByte(_fuelConsumption)
         'i = (CInt(i - 100) * 2) + 100
-        C_fuelconsumption.Items.Add(Str(i))
-        'C_fuelconsumption.Items.Add("150")
-        'C_fuelconsumption.Items.Add("145")
-        'C_fuelconsumption.Items.Add("140")
-        'C_fuelconsumption.Items.Add("135")
-        'C_fuelconsumption.Items.Add("130")
-        C_fuelconsumption.Items.Add("125")
-        C_fuelconsumption.Items.Add("120")
-        C_fuelconsumption.Items.Add("115")
-        C_fuelconsumption.Items.Add("110")
-        C_fuelconsumption.Items.Add("105")
-        C_fuelconsumption.Items.Add("100")
-        C_fuelconsumption.Items.Add("95")
-        C_fuelconsumption.Items.Add("90")
-        C_fuelconsumption.Items.Add("85")
-        C_fuelconsumption.Items.Add("80")
-        C_fuelconsumption.SelectedIndex = 0
+        C_FuelConsumption.Items.Add(Str(i))
+        'C_FuelConsumption.Items.Add("150")
+        'C_FuelConsumption.Items.Add("145")
+        'C_FuelConsumption.Items.Add("140")
+        'C_FuelConsumption.Items.Add("135")
+        'C_FuelConsumption.Items.Add("130")
+        C_FuelConsumption.Items.Add("125")
+        C_FuelConsumption.Items.Add("120")
+        C_FuelConsumption.Items.Add("115")
+        C_FuelConsumption.Items.Add("110")
+        C_FuelConsumption.Items.Add("105")
+        C_FuelConsumption.Items.Add("100")
+        C_FuelConsumption.Items.Add("95")
+        C_FuelConsumption.Items.Add("90")
+        C_FuelConsumption.Items.Add("85")
+        C_FuelConsumption.Items.Add("80")
+        C_FuelConsumption.SelectedIndex = 0
 
-        C_solenoid_on.Items.Add(Str(ReadFlashByte(solenoid_on_low) * 100))
-        C_solenoid_off.Items.Add(Str(ReadFlashByte(solenoid_off_low) * 100))
-        C_solenoid_on.SelectedIndex = 0
-        C_solenoid_off.SelectedIndex = 0
+        C_SolenoidOn.Items.Add(Str(ReadFlashByte(_solenoidOnLow) * 100))
+        C_SolenoidOff.Items.Add(Str(ReadFlashByte(_solenoidOffLow) * 100))
+        C_SolenoidOn.SelectedIndex = 0
+        C_SolenoidOff.SelectedIndex = 0
         For i = 1 To 20
-            C_solenoid_on.Items.Add(Str(i * 500))
-            C_solenoid_off.Items.Add(Str(i * 500))
+            C_SolenoidOn.Items.Add(Str(i * 500))
+            C_SolenoidOff.Items.Add(Str(i * 500))
         Next
         For i = 101 To 120
-            C_solenoid_on.Items.Add(Str(i * 100))
-            C_solenoid_off.Items.Add(Str(i * 100))
+            C_SolenoidOn.Items.Add(Str(i * 100))
+            C_SolenoidOff.Items.Add(Str(i * 100))
         Next
 
-        solenoidchangeok = True
+        _solenoidChangeOk = True
 
         If ReadFlashByte(&H28BD4) = &HFF Then
-            IAT_disable.Checked = False
+            C_IATDisable.Checked = False
         Else
-            IAT_disable.Checked = True
+            C_IATDisable.Checked = True
         End If
 
 
         If ReadFlashWord(&H8846) <> &HF852 Then
-            IAP_range.Checked = True
+            C_IAPRange.Checked = True
         Else
-            IAP_range.Checked = False
+            C_IAPRange.Checked = False
         End If
 
         If ReadFlashWord(&H7650) <> &HCB01 Then
-            C_antitheft.Checked = True
+            C_Antitheft.Checked = True
         Else
-            C_antitheft.Checked = False
+            C_Antitheft.Checked = False
         End If
 
         If ReadFlashWord(&H28C2C) <> &H3000 Then
-            C_cranking.Checked = True
+            C_Cranking.Checked = True
         Else
-            C_cranking.Checked = False
+            C_Cranking.Checked = False
         End If
 
         '
         ' Enable disable yoshbox compensation
         '
         If ReadFlashWord(&HE95A) <> &H6540 Then
-            C_yoshbox.Checked = True
+            C_Yoshbox.Checked = True
         Else
-            C_yoshbox.Checked = False
+            C_Yoshbox.Checked = False
         End If
 
 
@@ -254,31 +256,38 @@ Public Class Advsettings
                 MsgBox("Could not calculate acccel enrichment, please reset", MsgBoxStyle.Information)
         End Select
 
-        Solenoid_TPS.Enabled = False
+        C_SolenoidTPS.Enabled = False
         If ReadFlashByte(&H10A8F) = &HA7 Then
-            Solenoid_TPS.Text = "Normal"
-            Solenoid_TPS.Checked = False
+            C_SolenoidTPS.Text = "Normal"
+            C_SolenoidTPS.Checked = False
         ElseIf ReadFlashByte(&H10A8F) = &H3E Then
-            Solenoid_TPS.Text = "TPS > 85%"
-            Solenoid_TPS.Checked = True
+            C_SolenoidTPS.Text = "TPS > 85%"
+            C_SolenoidTPS.Checked = True
         Else
-            Solenoid_TPS.Text = "Unknown"
+            C_SolenoidTPS.Text = "Unknown"
             MsgBox("Unknown ecu setting, please do not use this file !!!")
         End If
-        Solenoid_TPS.Enabled = True
+        C_SolenoidTPS.Enabled = True
 
 
-        C_IAPTPSswitchingpoint.Items.Add(CalcTPS(ReadFlashByte(&H294FC)))
-        C_IAPTPSswitchingpoint.SelectedIndex = 0
+        C_IAPTPSSwitchingPoint.Items.Add(CalcTPS(ReadFlashByte(&H294FC)))
+        C_IAPTPSSwitchingPoint.SelectedIndex = 0
         For i = 2 To 15
-            C_IAPTPSswitchingpoint.Items.Add(Str(i))
+            C_IAPTPSSwitchingPoint.Items.Add(Str(i))
         Next
 
 
     End Sub
 
+#End Region
 
-    Private Sub C_injectorsize_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_injectorsize.SelectedIndexChanged
+#Region "Control Events"
+
+    Private Sub B_Close_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Close.Click
+        Me.Close()
+    End Sub
+
+    Private Sub C_InjectorSize_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_InjectorSize.SelectedIndexChanged
         Dim i As Integer
         Dim newsize As Decimal
         '
@@ -287,48 +296,47 @@ Public Class Advsettings
         ' on the other hand the effect to the flow is change=sqrt((new+128)/(old+128)) -> change=sqrt(new)/sqrt(old)
         ' sqrt(new+128)=change*sqrt(old+128)-> .... thats almost the same as 2* change....
         '
-        i = Val(C_injectorsize.Text)
+        i = Val(C_InjectorSize.Text)
         'i = ((i - 100) * 2) + 100
         newsize = (100 / i) * 128
-        WriteFlashWord(injector_A, CInt(newsize))
-        WriteFlashWord(injector_B, CInt(newsize))
+        WriteFlashWord(_injectorA, CInt(newsize))
+        WriteFlashWord(_injectorB, CInt(newsize))
     End Sub
 
-    Private Sub C_solenoid_on_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_solenoid_on.SelectedIndexChanged
+    Private Sub C_SolenoidOn_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_SolenoidOn.SelectedIndexChanged
         Dim i As Integer
-        If solenoidchangeok Then
-            If (ReadFlashByte(solenoid_on_low) = 5) And (ReadFlashByte(solenoid_on_high) = 8) And (ReadFlashByte(solenoid_off_low) = 22) Then
+        If _solenoidChangeOk Then
+            If (ReadFlashByte(_solenoidOnLow) = 5) And (ReadFlashByte(_solenoidOnHigh) = 8) And (ReadFlashByte(_solenoidOffLow) = 22) Then
                 MsgBox("If you Flash the ecu your after this the IAC solenoid will be reprogrammed as Nitrous control relay", MsgBoxStyle.Information)
             End If
-            i = Val(C_solenoid_on.Text)
-            WriteFlashByte(solenoid_on_low, Int(i / 100))
-            WriteFlashByte(solenoid_on_high, Int((i + 100) / 100))
+            i = Val(C_SolenoidOn.Text)
+            WriteFlashByte(_solenoidOnLow, Int(i / 100))
+            WriteFlashByte(_solenoidOnHigh, Int((i + 100) / 100))
         End If
     End Sub
 
-    Private Sub C_solenoid_off_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_solenoid_off.SelectedIndexChanged
+    Private Sub C_SolenoidOff_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_SolenoidOff.SelectedIndexChanged
         Dim i As Integer
-        If solenoidchangeok Then
-            If (ReadFlashByte(solenoid_on_low) = 5) And (ReadFlashByte(solenoid_on_high) = 8) And (ReadFlashByte(solenoid_off_low) = 22) Then
+        If _solenoidChangeOk Then
+            If (ReadFlashByte(_solenoidOnLow) = 5) And (ReadFlashByte(_solenoidOnHigh) = 8) And (ReadFlashByte(_solenoidOffLow) = 22) Then
                 MsgBox("If you Flash the ecu your after this the IAC solenoid will be reprogrammed as Nitrous control relay", MsgBoxStyle.Information)
             End If
-            i = Val(C_solenoid_off.Text)
-            WriteFlashByte(solenoid_off_low, Int(i / 100))
-            WriteFlashByte(Solenoid_off_high, Int((i + 100) / 100))
+            i = Val(C_SolenoidOff.Text)
+            WriteFlashByte(_solenoidOffLow, Int(i / 100))
+            WriteFlashByte(_solenoidOffHigh, Int((i + 100) / 100))
         End If
     End Sub
 
-
-    Private Sub IAT_disable_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles IAT_disable.CheckedChanged
+    Private Sub C_IATDisable_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_IATDisable.CheckedChanged
         Dim i As Integer
         ' IAT_disable.Checked = Not IAT_disable.Checked
-        If IAT_disable.Checked Then
-            IAT_disable.Text = "IAT fixed to 24C"
+        If C_IATDisable.Checked Then
+            C_IATDisable.Text = "IAT fixed to 24C"
             For i = 0 To 29
                 WriteFlashByte(&H28BD4 + i, 75) '65=18C, 75=24C, 128=54C
             Next
         Else
-            IAT_disable.Text = "IAT normal"
+            C_IATDisable.Text = "IAT normal"
             ' set IAT values back to normal
             WriteFlashByte(&H28BD4 + 0, &HFF)
             WriteFlashByte(&H28BD4 + 1, &HFF)
@@ -363,7 +371,6 @@ Public Class Advsettings
         End If
     End Sub
 
-
     Private Sub C_Accel_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_Accel.SelectedIndexChanged
         Dim change As Integer
 
@@ -378,159 +385,40 @@ Public Class Advsettings
 
     End Sub
 
-
-    Private Sub Solenoid_TPS_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Solenoid_TPS.CheckedChanged
+    Private Sub C_SolenoidTPS_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_SolenoidTPS.CheckedChanged
         Dim i As Integer
         i = ReadFlashByte(&H10A4B)
-        If Solenoid_TPS.Enabled Then
-            If Solenoid_TPS.Checked Then                'If TPS>88%, i.e. RAM=3 then branch
+        If C_SolenoidTPS.Enabled Then
+            If C_SolenoidTPS.Checked Then                'If TPS>88%, i.e. RAM=3 then branch
                 WriteFlashByte(&H10A8F, &H3E)           'RAM ADDR FFFF833E, low byte of RAM addr to tested
                 WriteFlashByte(&H10A4A, 136)            'COMMAND CMP/EQ (if #imm=r0 then 1-->T)
                 WriteFlashByte(&H10A4B, 3)              'CMP byte , byte is the value to be tested 3 = appr 85% throttle opening
-                Solenoid_TPS.Text = "TPS > 85%"
+                C_SolenoidTPS.Text = "TPS > 85%"
             Else                                        ' ...normal function...
                 WriteFlashByte(&H10A8F, &HA7)           'RAM ADDR FFFF83A7
                 WriteFlashByte(&H10A4A, 200)            'COMMAND TST
                 WriteFlashByte(&H10A4B, 1)              'TST byte
-                Solenoid_TPS.Text = "Normal"
+                C_SolenoidTPS.Text = "Normal"
             End If
         End If
     End Sub
 
-    Private Sub C_fuelconsumption_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_fuelconsumption.SelectedIndexChanged
+    Private Sub C_FuelConsumption_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_FuelConsumption.SelectedIndexChanged
         Dim i As UInt16
         '
-        i = Val(C_fuelconsumption.Text)
+        i = Val(C_FuelConsumption.Text)
         'i = CInt((i - 100) / 2) + 100
-        WriteFlashByte(fuelconsumption, i)
-    End Sub
-
-    Private Sub setgearmap(ByVal addr As Integer, ByVal v1 As Integer, ByVal v2 As Integer, ByVal v3 As Integer, ByVal v4 As Integer, ByVal v5 As Integer, ByVal v6 As Integer, ByVal v7 As Integer, ByVal v8 As Integer, ByVal v9 As Integer, ByVal v10 As Integer, ByVal v11 As Integer, ByVal v12 As Integer, ByVal v13 As Integer, ByVal v14 As Integer, ByVal v15 As Integer, ByVal change As Integer)
-        WriteFlashByte(addr + 0, CInt(v1 * change / 100))
-        WriteFlashByte(addr + 1, CInt(v2 * change / 100))
-        WriteFlashByte(addr + 2, CInt(v3 * change / 100))
-        WriteFlashByte(addr + 3, CInt(v4 * change / 100))
-        WriteFlashByte(addr + 4, CInt(v5 * change / 100))
-        WriteFlashByte(addr + 5, CInt(v6 * change / 100))
-        WriteFlashByte(addr + 6, CInt(v7 * change / 100))
-        WriteFlashByte(addr + 7, CInt(v8 * change / 100))
-        WriteFlashByte(addr + 8, CInt(v9 * change / 100))
-        WriteFlashByte(addr + 9, CInt(v10 * change / 100))
-        WriteFlashByte(addr + 10, CInt(v11 * change / 100))
-        WriteFlashByte(addr + 11, CInt(v12 * change / 100))
-        WriteFlashByte(addr + 12, CInt(v13 * change / 100))
-        WriteFlashByte(addr + 13, CInt(v14 * change / 100))
-        WriteFlashByte(addr + 14, CInt(v15 * change / 100))
-    End Sub
-    Private Sub set_gearing(ByVal gearing As String)
-        Dim change As Integer
-
-        Select Case gearing
-            Case "16/40"
-                change = CInt(100 * 16 / 17 * 40 / 40)
-                setgearmap(&H28A66, 5, 9, 14, 19, 23, 28, 33, 37, 42, 47, 51, 56, 61, 65, 70, change)
-                setgearmap(&H28A94, 6, 13, 19, 25, 31, 38, 44, 50, 57, 63, 69, 75, 82, 88, 94, change)
-                setgearmap(&H28AC2, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, change)
-                setgearmap(&H28AF0, 9, 19, 28, 38, 47, 57, 66, 76, 85, 95, 104, 114, 123, 133, 142, change)
-                setgearmap(&H28B1E, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
-                setgearmap(&H28B4C, 12, 23, 35, 47, 58, 70, 82, 93, 105, 117, 128, 140, 152, 164, 175, change)
-            Case "16/43"
-                change = CInt(100 * 16 / 17 * 40 / 43)
-                setgearmap(&H28A66, 5, 9, 14, 19, 23, 28, 33, 37, 42, 47, 51, 56, 61, 65, 70, change)
-                setgearmap(&H28A94, 6, 13, 19, 25, 31, 38, 44, 50, 57, 63, 69, 75, 82, 88, 94, change)
-                setgearmap(&H28AC2, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, change)
-                setgearmap(&H28AF0, 9, 19, 28, 38, 47, 57, 66, 76, 85, 95, 104, 114, 123, 133, 142, change)
-                setgearmap(&H28B1E, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
-                setgearmap(&H28B4C, 12, 23, 35, 47, 58, 70, 82, 93, 105, 117, 128, 140, 152, 164, 175, change)
-            Case "17/40"
-                change = CInt(100 * 17 / 17 * 40 / 40)
-                setgearmap(&H28A66, 5, 9, 14, 19, 23, 28, 33, 37, 42, 47, 51, 56, 61, 65, 70, change)
-                setgearmap(&H28A94, 6, 13, 19, 25, 31, 38, 44, 50, 57, 63, 69, 75, 82, 88, 94, change)
-                setgearmap(&H28AC2, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, change)
-                setgearmap(&H28AF0, 9, 19, 28, 38, 47, 57, 66, 76, 85, 95, 104, 114, 123, 133, 142, change)
-                setgearmap(&H28B1E, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
-                setgearmap(&H28B4C, 12, 23, 35, 47, 58, 70, 82, 93, 105, 117, 128, 140, 152, 164, 175, change)
-            Case "18/38"
-                change = CInt(100 * 18 / 17 * 40 / 38)
-                setgearmap(&H28A66, 5, 9, 14, 19, 23, 28, 33, 37, 42, 47, 51, 56, 61, 65, 70, change)
-                setgearmap(&H28A94, 6, 13, 19, 25, 31, 38, 44, 50, 57, 63, 69, 75, 82, 88, 94, change)
-                setgearmap(&H28AC2, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, change)
-                setgearmap(&H28AF0, 9, 19, 28, 38, 47, 57, 66, 76, 85, 95, 104, 114, 123, 133, 142, change)
-                setgearmap(&H28B1E, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
-                setgearmap(&H28B4C, 12, 23, 35, 47, 58, 70, 82, 93, 105, 117, 128, 140, 152, 164, 175, change)
-            Case "18/40"
-                change = CInt(100 * 18 / 17 * 40 / 40)
-                setgearmap(&H28A66, 5, 9, 14, 19, 23, 28, 33, 37, 42, 47, 51, 56, 61, 65, 70, change)
-                setgearmap(&H28A94, 6, 13, 19, 25, 31, 38, 44, 50, 57, 63, 69, 75, 82, 88, 94, change)
-                setgearmap(&H28AC2, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, change)
-                setgearmap(&H28AF0, 9, 19, 28, 38, 47, 57, 66, 76, 85, 95, 104, 114, 123, 133, 142, change)
-                setgearmap(&H28B1E, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
-                setgearmap(&H28B4C, 12, 23, 35, 47, 58, 70, 82, 93, 105, 117, 128, 140, 152, 164, 175, change)
-            Case "18/42"
-                change = CInt(100 * 18 / 17 * 40 / 42)
-                setgearmap(&H28A66, 5, 9, 14, 19, 23, 28, 33, 37, 42, 47, 51, 56, 61, 65, 70, change)
-                setgearmap(&H28A94, 6, 13, 19, 25, 31, 38, 44, 50, 57, 63, 69, 75, 82, 88, 94, change)
-                setgearmap(&H28AC2, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, change)
-                setgearmap(&H28AF0, 9, 19, 28, 38, 47, 57, 66, 76, 85, 95, 104, 114, 123, 133, 142, change)
-                setgearmap(&H28B1E, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
-                setgearmap(&H28B4C, 12, 23, 35, 47, 58, 70, 82, 93, 105, 117, 128, 140, 152, 164, 175, change)
-            Case "18/43"
-                change = CInt(100 * 18 / 17 * 40 / 43)
-                setgearmap(&H28A66, 5, 9, 14, 19, 23, 28, 33, 37, 42, 47, 51, 56, 61, 65, 70, change)
-                setgearmap(&H28A94, 6, 13, 19, 25, 31, 38, 44, 50, 57, 63, 69, 75, 82, 88, 94, change)
-                setgearmap(&H28AC2, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, change)
-                setgearmap(&H28AF0, 9, 19, 28, 38, 47, 57, 66, 76, 85, 95, 104, 114, 123, 133, 142, change)
-                setgearmap(&H28B1E, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
-                setgearmap(&H28B4C, 12, 23, 35, 47, 58, 70, 82, 93, 105, 117, 128, 140, 152, 164, 175, change)
-            Case "dynomode"
-                change = 100 ' 'using flat gearing for all gears
-                setgearmap(&H28A66, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
-                setgearmap(&H28A94, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
-                setgearmap(&H28AC2, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
-                setgearmap(&H28AF0, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
-                setgearmap(&H28B1E, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
-                setgearmap(&H28B4C, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
-            Case "Turbo"
-                change = 105 ' 'using a flat gear map or all gears for a turbo bike, ram air does not change much between gears
-                setgearmap(&H28A66, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
-                setgearmap(&H28A94, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
-                setgearmap(&H28AC2, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
-                setgearmap(&H28AF0, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
-                setgearmap(&H28B1E, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
-                setgearmap(&H28B4C, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
-            Case "TRE 5th"
-                change = CInt(100)
-                setgearmap(&H28A66, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
-                setgearmap(&H28A94, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
-                setgearmap(&H28AC2, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
-                setgearmap(&H28AF0, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
-                setgearmap(&H28B1E, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
-                setgearmap(&H28B4C, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
-            Case Else
-                MsgBox("ERROR: Gearing settings not found, using stock setting 17/40")
-                change = CInt(100 * 17 / 17 * 40 / 40)
-                setgearmap(&H28A66, 5, 9, 14, 19, 23, 28, 33, 37, 42, 47, 51, 56, 61, 65, 70, change)
-                setgearmap(&H28A94, 6, 13, 19, 25, 31, 38, 44, 50, 57, 63, 69, 75, 82, 88, 94, change)
-                setgearmap(&H28AC2, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, change)
-                setgearmap(&H28AF0, 9, 19, 28, 38, 47, 57, 66, 76, 85, 95, 104, 114, 123, 133, 142, change)
-                setgearmap(&H28B1E, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
-                setgearmap(&H28B4C, 12, 23, 35, 47, 58, 70, 82, 93, 105, 117, 128, 140, 152, 164, 175, change)
-        End Select
+        WriteFlashByte(_fuelConsumption, i)
     End Sub
 
     Private Sub C_Gearing_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_Gearing.SelectedIndexChanged
-        set_gearing(C_Gearing.Text)
+        SetGearing(C_Gearing.Text)
     End Sub
 
-    Private Sub GroupBox1_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GroupBox1.Enter
-
-    End Sub
-
-
-    Private Sub C_IAPTPSswitchingpoint_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_IAPTPSswitchingpoint.SelectedIndexChanged
+    Private Sub C_IAPTPSSwitchingPoint_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_IAPTPSSwitchingPoint.SelectedIndexChanged
         Dim i, j As Integer
 
-        i = Val(C_IAPTPSswitchingpoint.Text)
+        i = Val(C_IAPTPSSwitchingPoint.Text)
 
         'x=(((i - 55) / (256 - 55)) * 125)
         '(x*(256 - 55)/125)+55 = i
@@ -542,40 +430,40 @@ Public Class Advsettings
 
     End Sub
 
-    Private Sub IAP_range_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles IAP_range.CheckedChanged
-        If IAP_range.Checked Then
-            IAP_range.Text = "IAP extended"
+    Private Sub C_IAPRange_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_IAPRange.CheckedChanged
+        If C_IAPRange.Checked Then
+            C_IAPRange.Text = "IAP extended"
             WriteFlashWord(&H8846, &HFF00)
         Else
-            IAP_range.Text = "IAP normal"
+            C_IAPRange.Text = "IAP normal"
             WriteFlashWord(&H8846, &HF852)
         End If
     End Sub
 
-    Private Sub C_antitheft_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_antitheft.CheckedChanged
-        If C_antitheft.Checked Then
-            C_antitheft.Text = "Lock compatible"
+    Private Sub C_Antitheft_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_Antitheft.CheckedChanged
+        If C_Antitheft.Checked Then
+            C_Antitheft.Text = "Lock compatible"
             WriteFlashWord(&H7650, &H9)
         Else
-            C_antitheft.Text = "Lock normal"
+            C_Antitheft.Text = "Lock normal"
             WriteFlashWord(&H7650, &HCB01)
         End If
     End Sub
 
-    Private Sub C_cranking_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_cranking.CheckedChanged
-        If C_cranking.Checked Then
-            C_cranking.Text = "Lower RPM"
+    Private Sub C_Cranking_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_Cranking.CheckedChanged
+        If C_Cranking.Checked Then
+            C_Cranking.Text = "Lower RPM"
             WriteFlashWord(&H28C2C, &H3C00)
         Else
-            C_cranking.Text = "RPM normal"
+            C_Cranking.Text = "RPM normal"
             WriteFlashWord(&H28C2C, &H3000)
         End If
 
     End Sub
 
-    Private Sub C_yoshbox_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_yoshbox.CheckedChanged
-        If C_yoshbox.Checked Then
-            C_yoshbox.Text = "Disabled"
+    Private Sub C_Yoshbox_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_Yoshbox.CheckedChanged
+        If C_Yoshbox.Checked Then
+            C_Yoshbox.Text = "Disabled"
             WriteFlashWord(&HE95A, &HE580)
             WriteFlashWord(&HE960, &HE080)
             WriteFlashWord(&HE966, &HE080)
@@ -584,7 +472,7 @@ Public Class Advsettings
             WriteFlashWord(&HDB98, &HE080)
             WriteFlashWord(&HDBA0, &HE080)
         Else
-            C_yoshbox.Text = "Normal"
+            C_Yoshbox.Text = "Normal"
             WriteFlashWord(&HE95A, &H6540)
             WriteFlashWord(&HE960, &H8441)
             WriteFlashWord(&HE966, &H8442)
@@ -596,14 +484,14 @@ Public Class Advsettings
 
     End Sub
 
-    Private Sub C_dwell_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_dwell.SelectedIndexChanged
+    Private Sub C_Dwell_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_Dwell.SelectedIndexChanged
         Dim i As Integer
         Dim j As Integer
         Dim x As Integer
         Dim y As Integer
         Dim z As Integer
 
-        i = Val(C_dwell.Text)
+        i = Val(C_Dwell.Text)
         j = ReadFlashByte(&H3686E + 27)
 
         Select Case j
@@ -626,4 +514,126 @@ Public Class Advsettings
         z = 0
 
     End Sub
+
+#End Region
+
+#Region "Functions"
+
+    Private Sub SetGearMap(ByVal addr As Integer, ByVal v1 As Integer, ByVal v2 As Integer, ByVal v3 As Integer, ByVal v4 As Integer, ByVal v5 As Integer, ByVal v6 As Integer, ByVal v7 As Integer, ByVal v8 As Integer, ByVal v9 As Integer, ByVal v10 As Integer, ByVal v11 As Integer, ByVal v12 As Integer, ByVal v13 As Integer, ByVal v14 As Integer, ByVal v15 As Integer, ByVal change As Integer)
+
+        WriteFlashByte(addr + 0, CInt(v1 * change / 100))
+        WriteFlashByte(addr + 1, CInt(v2 * change / 100))
+        WriteFlashByte(addr + 2, CInt(v3 * change / 100))
+        WriteFlashByte(addr + 3, CInt(v4 * change / 100))
+        WriteFlashByte(addr + 4, CInt(v5 * change / 100))
+        WriteFlashByte(addr + 5, CInt(v6 * change / 100))
+        WriteFlashByte(addr + 6, CInt(v7 * change / 100))
+        WriteFlashByte(addr + 7, CInt(v8 * change / 100))
+        WriteFlashByte(addr + 8, CInt(v9 * change / 100))
+        WriteFlashByte(addr + 9, CInt(v10 * change / 100))
+        WriteFlashByte(addr + 10, CInt(v11 * change / 100))
+        WriteFlashByte(addr + 11, CInt(v12 * change / 100))
+        WriteFlashByte(addr + 12, CInt(v13 * change / 100))
+        WriteFlashByte(addr + 13, CInt(v14 * change / 100))
+        WriteFlashByte(addr + 14, CInt(v15 * change / 100))
+    End Sub
+
+    Private Sub SetGearing(ByVal gearing As String)
+        Dim change As Integer
+
+        Select Case gearing
+            Case "16/40"
+                change = CInt(100 * 16 / 17 * 40 / 40)
+                SetGearMap(&H28A66, 5, 9, 14, 19, 23, 28, 33, 37, 42, 47, 51, 56, 61, 65, 70, change)
+                SetGearMap(&H28A94, 6, 13, 19, 25, 31, 38, 44, 50, 57, 63, 69, 75, 82, 88, 94, change)
+                SetGearMap(&H28AC2, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, change)
+                SetGearMap(&H28AF0, 9, 19, 28, 38, 47, 57, 66, 76, 85, 95, 104, 114, 123, 133, 142, change)
+                SetGearMap(&H28B1E, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
+                SetGearMap(&H28B4C, 12, 23, 35, 47, 58, 70, 82, 93, 105, 117, 128, 140, 152, 164, 175, change)
+            Case "16/43"
+                change = CInt(100 * 16 / 17 * 40 / 43)
+                SetGearMap(&H28A66, 5, 9, 14, 19, 23, 28, 33, 37, 42, 47, 51, 56, 61, 65, 70, change)
+                SetGearMap(&H28A94, 6, 13, 19, 25, 31, 38, 44, 50, 57, 63, 69, 75, 82, 88, 94, change)
+                SetGearMap(&H28AC2, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, change)
+                SetGearMap(&H28AF0, 9, 19, 28, 38, 47, 57, 66, 76, 85, 95, 104, 114, 123, 133, 142, change)
+                SetGearMap(&H28B1E, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
+                SetGearMap(&H28B4C, 12, 23, 35, 47, 58, 70, 82, 93, 105, 117, 128, 140, 152, 164, 175, change)
+            Case "17/40"
+                change = CInt(100 * 17 / 17 * 40 / 40)
+                SetGearMap(&H28A66, 5, 9, 14, 19, 23, 28, 33, 37, 42, 47, 51, 56, 61, 65, 70, change)
+                SetGearMap(&H28A94, 6, 13, 19, 25, 31, 38, 44, 50, 57, 63, 69, 75, 82, 88, 94, change)
+                SetGearMap(&H28AC2, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, change)
+                SetGearMap(&H28AF0, 9, 19, 28, 38, 47, 57, 66, 76, 85, 95, 104, 114, 123, 133, 142, change)
+                SetGearMap(&H28B1E, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
+                SetGearMap(&H28B4C, 12, 23, 35, 47, 58, 70, 82, 93, 105, 117, 128, 140, 152, 164, 175, change)
+            Case "18/38"
+                change = CInt(100 * 18 / 17 * 40 / 38)
+                SetGearMap(&H28A66, 5, 9, 14, 19, 23, 28, 33, 37, 42, 47, 51, 56, 61, 65, 70, change)
+                SetGearMap(&H28A94, 6, 13, 19, 25, 31, 38, 44, 50, 57, 63, 69, 75, 82, 88, 94, change)
+                SetGearMap(&H28AC2, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, change)
+                SetGearMap(&H28AF0, 9, 19, 28, 38, 47, 57, 66, 76, 85, 95, 104, 114, 123, 133, 142, change)
+                SetGearMap(&H28B1E, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
+                SetGearMap(&H28B4C, 12, 23, 35, 47, 58, 70, 82, 93, 105, 117, 128, 140, 152, 164, 175, change)
+            Case "18/40"
+                change = CInt(100 * 18 / 17 * 40 / 40)
+                SetGearMap(&H28A66, 5, 9, 14, 19, 23, 28, 33, 37, 42, 47, 51, 56, 61, 65, 70, change)
+                SetGearMap(&H28A94, 6, 13, 19, 25, 31, 38, 44, 50, 57, 63, 69, 75, 82, 88, 94, change)
+                SetGearMap(&H28AC2, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, change)
+                SetGearMap(&H28AF0, 9, 19, 28, 38, 47, 57, 66, 76, 85, 95, 104, 114, 123, 133, 142, change)
+                SetGearMap(&H28B1E, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
+                SetGearMap(&H28B4C, 12, 23, 35, 47, 58, 70, 82, 93, 105, 117, 128, 140, 152, 164, 175, change)
+            Case "18/42"
+                change = CInt(100 * 18 / 17 * 40 / 42)
+                SetGearMap(&H28A66, 5, 9, 14, 19, 23, 28, 33, 37, 42, 47, 51, 56, 61, 65, 70, change)
+                SetGearMap(&H28A94, 6, 13, 19, 25, 31, 38, 44, 50, 57, 63, 69, 75, 82, 88, 94, change)
+                SetGearMap(&H28AC2, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, change)
+                SetGearMap(&H28AF0, 9, 19, 28, 38, 47, 57, 66, 76, 85, 95, 104, 114, 123, 133, 142, change)
+                SetGearMap(&H28B1E, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
+                SetGearMap(&H28B4C, 12, 23, 35, 47, 58, 70, 82, 93, 105, 117, 128, 140, 152, 164, 175, change)
+            Case "18/43"
+                change = CInt(100 * 18 / 17 * 40 / 43)
+                SetGearMap(&H28A66, 5, 9, 14, 19, 23, 28, 33, 37, 42, 47, 51, 56, 61, 65, 70, change)
+                SetGearMap(&H28A94, 6, 13, 19, 25, 31, 38, 44, 50, 57, 63, 69, 75, 82, 88, 94, change)
+                SetGearMap(&H28AC2, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, change)
+                SetGearMap(&H28AF0, 9, 19, 28, 38, 47, 57, 66, 76, 85, 95, 104, 114, 123, 133, 142, change)
+                SetGearMap(&H28B1E, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
+                SetGearMap(&H28B4C, 12, 23, 35, 47, 58, 70, 82, 93, 105, 117, 128, 140, 152, 164, 175, change)
+            Case "dynomode"
+                change = 100 ' 'using flat gearing for all gears
+                SetGearMap(&H28A66, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
+                SetGearMap(&H28A94, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
+                SetGearMap(&H28AC2, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
+                SetGearMap(&H28AF0, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
+                SetGearMap(&H28B1E, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
+                SetGearMap(&H28B4C, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
+            Case "Turbo"
+                change = 105 ' 'using a flat gear map or all gears for a turbo bike, ram air does not change much between gears
+                SetGearMap(&H28A66, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
+                SetGearMap(&H28A94, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
+                SetGearMap(&H28AC2, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
+                SetGearMap(&H28AF0, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
+                SetGearMap(&H28B1E, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
+                SetGearMap(&H28B4C, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, change)
+            Case "TRE 5th"
+                change = CInt(100)
+                SetGearMap(&H28A66, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
+                SetGearMap(&H28A94, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
+                SetGearMap(&H28AC2, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
+                SetGearMap(&H28AF0, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
+                SetGearMap(&H28B1E, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
+                SetGearMap(&H28B4C, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
+            Case Else
+                MsgBox("ERROR: Gearing settings not found, using stock setting 17/40")
+                change = CInt(100 * 17 / 17 * 40 / 40)
+                SetGearMap(&H28A66, 5, 9, 14, 19, 23, 28, 33, 37, 42, 47, 51, 56, 61, 65, 70, change)
+                SetGearMap(&H28A94, 6, 13, 19, 25, 31, 38, 44, 50, 57, 63, 69, 75, 82, 88, 94, change)
+                SetGearMap(&H28AC2, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, change)
+                SetGearMap(&H28AF0, 9, 19, 28, 38, 47, 57, 66, 76, 85, 95, 104, 114, 123, 133, 142, change)
+                SetGearMap(&H28B1E, 11, 21, 32, 43, 54, 64, 75, 86, 96, 107, 118, 129, 139, 150, 161, change)
+                SetGearMap(&H28B4C, 12, 23, 35, 47, 58, 70, 82, 93, 105, 117, 128, 140, 152, 164, 175, change)
+        End Select
+    End Sub
+
+#End Region
+   
 End Class
