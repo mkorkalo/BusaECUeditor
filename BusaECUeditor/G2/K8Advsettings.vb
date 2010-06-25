@@ -241,6 +241,23 @@ Public Class K8Advsettings
         End If
 
 
+        If readflashbyte(&H3E047) = 0 Then
+            C_secondaries.Text = "Secondaries FI disabled"
+            C_secondaries.Checked = True
+            writeflashbyte(&H3E047, 0)
+            writeflashbyte(&H3E26F, 0)
+            writeflashbyte(&H3E497, 0)
+            writeflashbyte(&H3E6BF, 0)
+        Else
+            C_secondaries.Text = "Secondaries FI normal"
+            C_secondaries.Checked = False
+            writeflashbyte(&H3E047, &HCD)
+            writeflashbyte(&H3E26F, &HCD)
+            writeflashbyte(&H3E497, &HCD)
+            writeflashbyte(&H3E6BF, &HCD)
+        End If
+
+
         loading = False
 
     End Sub
@@ -912,6 +929,26 @@ Public Class K8Advsettings
             Else
                 C_coolingfan.Text = "Cooling fan normal"
                 writeflashbyte(&H7D138, &HFF)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub C_secondaries_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_secondaries.CheckedChanged
+        If Not loading Then
+
+            If C_secondaries.Checked Then
+                C_secondaries.Text = "Secondaries FI disabled"
+                writeflashbyte(&H3E047, 0)
+                writeflashbyte(&H3E26F, 0)
+                writeflashbyte(&H3E497, 0)
+                writeflashbyte(&H3E6BF, 0)
+            Else
+                C_secondaries.Text = "Secondaries FI normal"
+                writeflashbyte(&H3E047, &HCD)
+                writeflashbyte(&H3E26F, &HCD)
+                writeflashbyte(&H3E497, &HCD)
+                writeflashbyte(&H3E6BF, &HCD)
             End If
         End If
 

@@ -1206,8 +1206,7 @@ Public Class K8Datastream
             L_msg.ForeColor = Color.Red
         End If
         LED_DUTY.Text = Str(duty)
-        If duty > 65 Then
-            debug = True
+        If duty > 50 Then
             If duty > 100 Then
                 L_msg.Text = "Fuel pulse maximum was exceeded"
                 L_msg.ForeColor = Color.Red
@@ -1216,8 +1215,9 @@ Public Class K8Datastream
                     L_msg.Text = "Inj balance 50/50 recommended"
                     L_msg.ForeColor = Color.Black
 
-                else
-                L_msg.Text = "High duty, forced debug mode"
+                Else
+                    debug = True
+                    L_msg.Text = "High duty, forced debug mode"
                     L_msg.ForeColor = Color.Gray
                 End If
             End If
