@@ -87,7 +87,7 @@ Public Class main
         comparepath = My.Settings.Item("comparepath")
         ECUversion = ""
 
-        block_pgm = True ' just initializing
+        BlockPgm = True ' just initializing
 
         'MsgBox("Important note: This is a prerelease of Hayabusa ECUeditor v2.0 for testing new functionality.")
 
@@ -112,7 +112,6 @@ Public Class main
                 K8Fuelmap.Select()
             Case "bking"
                 BKingFuelMap.Show()
-                MsgBox("Please note, currently BKing fuel map tuning is under testing, any comments and feedback appreciated. Rgds, PetriK")
                 BKingFuelMap.Select()
             Case Else
                 MsgBox("Feature not yet implemented")
@@ -156,7 +155,7 @@ Public Class main
 
     Private Sub B_FlashECU_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_FlashECU.Click
 
-        flashtheecu()
+        FlashTheECU()
 
     End Sub
 
@@ -234,7 +233,7 @@ Public Class main
 
         ' Check that the binary lenght matches expected ecu
         If i <> 262144 Then
-            ECUnotsupported.ShowDialog()
+            ECUNotSupported.ShowDialog()
         End If
         '
         ' Make sure the ECU id is supported type
@@ -248,7 +247,7 @@ Public Class main
 
         ' check the ecu id bytes and validate that the ecu flash image is supported
         If Mid(ECUID.Text, 1, 6) <> "BB34BB" Then
-            ECUnotsupported.ShowDialog()
+            ECUNotSupported.ShowDialog()
         Else
             Hayabusa.Visible = True
             FlashToolStripMenuItem.Visible = False
@@ -280,7 +279,7 @@ Public Class main
         B_EngineData.Enabled = True
 
         ' if the computername does not match to the stored computername, do not use the email address from this map
-        close_child_windows()
+        CloseChildWindows()
 
         MsgBox("A new gen1 basemap is generated", MsgBoxStyle.Information)
 
@@ -288,14 +287,14 @@ Public Class main
 
     Private Sub NewK8ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewK8ToolStripMenuItem.Click
         Dim defpath As String ' this is for this subroutine only
-        close_child_windows()
+        CloseChildWindows()
 
         ' OK, so the file is found, now lets start processing it
         defpath = My.Application.Info.DirectoryPath & "\ecu.bin\k8.bin"
 
         L_File.Text = ""
         L_Comparefile.Text = ""
-        disablebuttons()
+        DisableButtons()
 
         ' Open the stream and read it to global variable "Flash". 
         fs = File.OpenRead(defpath)
@@ -311,7 +310,7 @@ Public Class main
 
         ' Check that the binary lenght matches expected ecu
         If i <> (262144 * 4) Then
-            ECUnotsupported.ShowDialog()
+            ECUNotSupported.ShowDialog()
         End If
 
         ECUversion = "gen2"
@@ -327,9 +326,9 @@ Public Class main
 
         ' check the ecu id bytes and validate that the ecu flash image is supported
         If Mid(ECUID.Text, 1, 6) <> "DJ18SE" Then
-            ECUnotsupported.ShowDialog()
+            ECUNotSupported.ShowDialog()
         Else
-            setecutype()
+            SetECUType()
         End If
 
         ' enable controls, otherwise at form load an event will occur
@@ -348,13 +347,13 @@ Public Class main
 
         MsgBox("A new gen2 basemap is generated", MsgBoxStyle.Information)
 
-        block_pgm = True
+        BlockPgm = True
     End Sub
 
     Private Sub NewStockBkingToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockBkingToolStripMenuItem.Click
         Dim defpath As String ' this is for this subroutine only
 
-        close_child_windows()
+        CloseChildWindows()
 
 
         ' OK, so the file is found, now lets start processing it
@@ -362,7 +361,7 @@ Public Class main
 
         L_File.Text = ""
         L_Comparefile.Text = ""
-        disablebuttons()
+        DisableButtons()
 
         ' Open the stream and read it to global variable "Flash". 
         fs = File.OpenRead(defpath)
@@ -378,7 +377,7 @@ Public Class main
 
         ' Check that the binary lenght matches expected ecu
         If i <> (262144 * 4) Then
-            ECUnotsupported.ShowDialog()
+            ECUNotSupported.ShowDialog()
         End If
 
         ECUversion = "bking"
@@ -394,9 +393,9 @@ Public Class main
 
         ' check the ecu id bytes and validate that the ecu flash image is supported
         If Mid(ECUID.Text, 1, 6) <> "DJ47SE" Then
-            ECUnotsupported.ShowDialog()
+            ECUNotSupported.ShowDialog()
         Else
-            setecutype()
+            SetECUType()
         End If
 
         ' enable controls, otherwise at form load an event will occur
@@ -415,13 +414,13 @@ Public Class main
 
         MsgBox("A new Bking basemap is generated", MsgBoxStyle.Information)
 
-        block_pgm = True
+        BlockPgm = True
     End Sub
 
     Private Sub NewStockBkingUSToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockBkingUSToolStripMenuItem.Click
         Dim defpath As String ' this is for this subroutine only
 
-        close_child_windows()
+        CloseChildWindows()
 
 
         ' OK, so the file is found, now lets start processing it
@@ -429,7 +428,7 @@ Public Class main
 
         L_File.Text = ""
         L_Comparefile.Text = ""
-        disablebuttons()
+        DisableButtons()
 
         ' Open the stream and read it to global variable "Flash". 
         fs = File.OpenRead(defpath)
@@ -445,7 +444,7 @@ Public Class main
 
         ' Check that the binary lenght matches expected ecu
         If i <> (262144 * 4) Then
-            ECUnotsupported.ShowDialog()
+            ECUNotSupported.ShowDialog()
         End If
 
         ECUversion = "bking"
@@ -461,9 +460,9 @@ Public Class main
 
         ' check the ecu id bytes and validate that the ecu flash image is supported
         If Mid(ECUID.Text, 1, 6) <> "DJ47SE" Then
-            ECUnotsupported.ShowDialog()
+            ECUNotSupported.ShowDialog()
         Else
-            setecutype()
+            SetECUType()
         End If
 
         ' enable controls, otherwise at form load an event will occur
@@ -482,7 +481,7 @@ Public Class main
 
         MsgBox("A new Bking basemap is generated", MsgBoxStyle.Information)
 
-        block_pgm = True
+        BlockPgm = True
     End Sub
 
     Private Sub OpenToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OpenToolStripMenuItem.Click
@@ -496,7 +495,7 @@ Public Class main
         fdlg.RestoreDirectory = True
         fdlg.FileName = path
 
-        close_child_windows()
+        CloseChildWindows()
 
         If fdlg.ShowDialog() = Windows.Forms.DialogResult.OK Then
 
@@ -547,12 +546,12 @@ Public Class main
 
                     ' check the ecu id bytes and validate that the ecu flash image is supported
                     If (Mid(ECUID.Text, 1, 6) <> "DJ18SE") And (Mid(ECUID.Text, 1, 6) <> "DJ47SE") Then
-                        ECUnotsupported.ShowDialog()
+                        ECUNotSupported.ShowDialog()
                     Else
-                        setecutype()
+                        SetECUType()
                     End If
-                    block_pgm = True
-                    close_child_windows()
+                    BlockPgm = True
+                    CloseChildWindows()
                 Case (262144)
                     ECUversion = "gen1"
                     FlashToolStripMenuItem.Visible = False
@@ -567,7 +566,7 @@ Public Class main
 
                     ' check the ecu id bytes and validate that the ecu flash image is supported
                     If Mid(ECUID.Text, 1, 6) <> "BB34BB" Then
-                        ECUnotsupported.ShowDialog()
+                        ECUNotSupported.ShowDialog()
                     Else
                         Hayabusa.Visible = True
                         Select Case Mid(ECUID.Text, 1, 8)
@@ -588,7 +587,7 @@ Public Class main
 
                 Case Else
                     ECUversion = ""
-                    ECUnotsupported.ShowDialog()
+                    ECUNotSupported.ShowDialog()
             End Select
 
             My.Settings.Item("path") = path
@@ -738,7 +737,7 @@ Public Class main
         Dim fdlg As OpenFileDialog = New OpenFileDialog()
         Dim fs As FileStream
 
-        close_child_windows()
+        CloseChildWindows()
 
         Select Case ECUversion
             Case "gen1"
@@ -773,7 +772,7 @@ Public Class main
 
                     ' Check that the binary lenght matches expected ecu
                     If i <> 262144 Then
-                        ECUnotsupported.ShowDialog()
+                        ECUNotSupported.ShowDialog()
                     End If
                 End If
                 '
@@ -814,7 +813,7 @@ Public Class main
 
                     ' Check that the binary lenght matches expected ecu
                     If i <> (262144 * 4) Then
-                        ECUnotsupported.ShowDialog()
+                        ECUNotSupported.ShowDialog()
                     End If
                 End If
                 '
@@ -855,7 +854,7 @@ Public Class main
 
                     ' Check that the binary lenght matches expected ecu
                     If i <> (262144 * 4) Then
-                        ECUnotsupported.ShowDialog()
+                        ECUNotSupported.ShowDialog()
                     End If
                 End If
                 '
@@ -880,81 +879,72 @@ Public Class main
 
     End Sub
 
-    'Private Sub VersionToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VersionToolStripMenuItem.Click
-    ' Option Explicit
-    'Dim objShell
-    'Dim strEditor, strVersion, strPublish, strTitle
-    '
-    '   strVersion = "DisplayVersion"
-    '  strPublish = "Publisher"
-    ' strTitle = "DisplayName"
-    '
-    '   strEditor = "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\dde589b887ecb332\"
-    '
-    '   Try
-    '
-    '
-    'objShell = CreateObject("WScript.Shell")
-
-    'Dim assembly As System.Reflection.Assembly
-
-    '       assembly = System.Reflection.Assembly.GetExecutingAssembly()
-    '
-    '       strVersion = assembly.GetName.Version.Major & "." & assembly.GetName.Version.Minor & "." & assembly.GetName.Version.Build & "." & assembly.GetName.Version.Revision
-    '
-    'Dim company As System.Reflection.AssemblyCompanyAttribute
-    '       company = assembly.GetCustomAttributes(GetType(System.Reflection.AssemblyCompanyAttribute), False)(0)
-    '        strPublish = company.Company
-    '
-    'Dim title As System.Reflection.AssemblyTitleAttribute
-    '       title = assembly.GetCustomAttributes(GetType(System.Reflection.AssemblyTitleAttribute), False)(0)
-    '
-    '       strTitle = title.Title
-    '
-    'strVersion = objShell.RegRead(strEditor & strVersion)
-    'strPublish = objShell.RegRead(strEditor & strPublish)
-    'strTitle = objShell.RegRead(strEditor & strTitle)
-    '
-    '   Catch ex As Exception
-    '
-    '       MsgBox(ex.Message, MsgBoxStyle.OkOnly, "Error")
-    '
-    '   End Try
-    '
-    'Wscript.Echo "ECUeditor Version: " & vbTab & strVersion & vbCr _
-    '   MsgBox(vbTab & vbTab & "ECUeditor Version: " & vbTab & strVersion & vbCr _
-    '  & vbCr & vbTab & vbTab & "         Publisher: " & strPublish & vbCr & vbTab & vbTab & " Version info displayed thanks to Eric. " & vbCr, 0, strTitle)
-    '
-    'End Sub
-
     Private Sub VersionToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VersionToolStripMenuItem.Click
-        ' Option Explicit
-        Dim objShell
-        Dim strEditor, strVersion, strPublish, strTitle
+        Dim strVersion As String
+        Dim strPublish As String
+        Dim strTitle As String
 
         strVersion = "DisplayVersion"
         strPublish = "Publisher"
         strTitle = "DisplayName"
 
-        strEditor = "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\dde589b887ecb332\"
+        Dim assembly As System.Reflection.Assembly
+        assembly = System.Reflection.Assembly.GetExecutingAssembly()
 
-        objShell = CreateObject("WScript.Shell")
+        If (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed) Then
+            Dim currentVersion As System.Version
+            currentVersion = My.Application.Deployment.CurrentVersion
+            strVersion = currentVersion.ToString()
+        Else
+            strVersion = assembly.GetName.Version.Major & "." & assembly.GetName.Version.Minor & "." & assembly.GetName.Version.Build & "." & assembly.GetName.Version.Revision
+        End If
 
-        strVersion = objShell.RegRead(strEditor & strVersion)
-        strPublish = objShell.RegRead(strEditor & strPublish)
-        strTitle = objShell.RegRead(strEditor & strTitle)
+        Dim company As System.Reflection.AssemblyCompanyAttribute
+        company = assembly.GetCustomAttributes(GetType(System.Reflection.AssemblyCompanyAttribute), False)(0)
+        strPublish = company.Company
 
+        Dim title As System.Reflection.AssemblyTitleAttribute
+        title = assembly.GetCustomAttributes(GetType(System.Reflection.AssemblyTitleAttribute), False)(0)
+        strTitle = title.Title
 
-        'Wscript.Echo "ECUeditor Version: " & vbTab & strVersion & vbCr _
+        Dim description As System.Reflection.AssemblyDescriptionAttribute
+        description = assembly.GetCustomAttributes(GetType(System.Reflection.AssemblyDescriptionAttribute), False)(0)
+
+        strTitle = strTitle & " " & description.Description
+
         MsgBox(vbTab & vbTab & "ECUeditor Version: " & vbTab & strVersion & vbCr _
         & vbCr & vbTab & vbTab & "         Publisher: " & strPublish & vbCr & vbTab & vbTab & " Version info displayed thanks to Eric. " & vbCr, 0, strTitle)
 
     End Sub
 
+    'Private Sub VersionToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VersionToolStripMenuItem.Click
+    '    ' Option Explicit
+    '    Dim objShell
+    '    Dim strEditor, strVersion, strPublish, strTitle
+
+    '    strVersion = "DisplayVersion"
+    '    strPublish = "Publisher"
+    '    strTitle = "DisplayName"
+
+    '    strEditor = "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\dde589b887ecb332\"
+
+    '    objShell = CreateObject("WScript.Shell")
+
+    '    strVersion = objShell.RegRead(strEditor & strVersion)
+    '    strPublish = objShell.RegRead(strEditor & strPublish)
+    '    strTitle = objShell.RegRead(strEditor & strTitle)
+
+
+    '    'Wscript.Echo "ECUeditor Version: " & vbTab & strVersion & vbCr _
+    '    MsgBox(vbTab & vbTab & "ECUeditor Version: " & vbTab & strVersion & vbCr _
+    '    & vbCr & vbTab & vbTab & "         Publisher: " & strPublish & vbCr & vbTab & vbTab & " Version info displayed thanks to Eric. " & vbCr, 0, strTitle)
+
+    'End Sub
+
     Private Sub ProgramUpdateToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
-        updatebox.Show()
-        updatebox.Select()
+        ProgramUpdate.Show()
+        ProgramUpdate.Select()
 
     End Sub
 
@@ -987,7 +977,7 @@ Public Class main
             Case "gen1"
                 MsgBox("Command not supported with gen1 ecu.")
             Case "gen2"
-                testchecksum()
+                TestCheckSum()
             Case Else
                 MsgBox("Unknown ecu type, command not supported.")
         End Select
@@ -998,9 +988,9 @@ Public Class main
             Case "gen1"
                 MsgBox("Command not supported with gen1 ecu.")
             Case "gen2"
-                readecu()
+                ReadECU()
             Case "bking"
-                readecu()
+                ReadECU()
             Case Else
                 MsgBox("Unknown ecu type, command not supported.")
         End Select
@@ -1011,9 +1001,9 @@ Public Class main
             Case "gen1"
                 MsgBox("Command not supported with gen1 ecu.")
             Case "gen2"
-                erase_ecu()
+                EraseECU()
             Case "bking"
-                erase_ecu()
+                EraseECU()
             Case Else
                 MsgBox("Unknown ecu type, command not supported.")
         End Select
@@ -1024,9 +1014,9 @@ Public Class main
             Case "gen1"
                 MsgBox("Command not supported with gen1 ecu.")
             Case "gen2"
-                flashtheecu()
+                FlashTheECU()
             Case "bking"
-                flashtheecu()
+                FlashTheECU()
             Case Else
                 MsgBox("Unknown ecu type, command not supported.")
         End Select
@@ -1069,7 +1059,7 @@ Public Class main
 
     End Sub
 
-    Private Sub close_child_windows()
+    Private Sub CloseChildWindows()
         '
         ' This sub closes all open windows that are closeable. Did not get MDI thread working properly so using just vb close instead
         '
@@ -1103,21 +1093,21 @@ Public Class main
 
     End Sub
 
-    Private Sub flashtheecu()
+    Private Sub FlashTheECU()
         Select Case ECUversion
             Case "gen1"
-                renesasfdt()
+                RenesasFDT()
             Case "gen2"
-                flash_serial()
+                FlashSerial()
             Case "bking"
-                flash_serial()
+                FlashSerial()
             Case Else
                 MsgBox("ECU programmer not defined for this .bin file")
         End Select
 
     End Sub
 
-    Private Sub cleanupFDTdir(ByVal FDTPath As String)
+    Private Sub CleanUpFDTDirectory(ByVal FDTPath As String)
         Dim di As New IO.DirectoryInfo(FDTPath)
         Dim diar1 As IO.FileInfo() = di.GetFiles()
         Dim dra As IO.FileInfo
@@ -1137,7 +1127,7 @@ Public Class main
 
     End Sub
 
-    Private Function fnam(ByVal p As String) As String
+    Private Function FName(ByVal p As String) As String
         Dim testFile As System.IO.FileInfo
         testFile = My.Computer.FileSystem.GetFileInfo(p)
         Dim folderPath As String = testFile.DirectoryName
@@ -1150,7 +1140,7 @@ Public Class main
         Return encoding.GetBytes(str)
     End Function 'StrToByteArray
 
-    Private Sub renesasfdt()
+    Private Sub RenesasFDT()
 
         Dim path As String
         Dim shpath As String
@@ -1227,10 +1217,10 @@ Public Class main
             For i = 0 To (262144 / 4) - 1
                 ' read the flashword and set address
                 r0 = i * 4
-                r1 = readflashbyte((i * 4) + 0)
-                r2 = readflashbyte((i * 4) + 1)
-                r3 = readflashbyte((i * 4) + 2)
-                r4 = readflashbyte((i * 4) + 3)
+                r1 = ReadFlashByte((i * 4) + 0)
+                r2 = ReadFlashByte((i * 4) + 1)
+                r3 = ReadFlashByte((i * 4) + 2)
+                r4 = ReadFlashByte((i * 4) + 3)
                 ' calculate checksum
                 cks = 9
                 cks = cks + Val("&H" & Mid$(r0.ToString("x8"), 1, 2))
@@ -1302,13 +1292,13 @@ Public Class main
             fs.Write(Flash, 0, 262144)
             fs.Close()
 
-            cleanupFDTdir(FDTpath)
+            CleanUpFDTDirectory(FDTpath)
         End If
 
 
     End Sub
 
-    Private Sub flash_serial()
+    Private Sub FlashSerial()
 
         Dim path As String
         Dim flashfile As String
@@ -1358,8 +1348,8 @@ Public Class main
         '
         ' Lets calculate checksum for the bin
         '
-        chksum = readflashword(&HFFFF8) 'old checksum
-        writeflashword(&HFFFF8, 0)
+        chksum = ReadFlashWord(&HFFFF8) 'old checksum
+        WriteFlashWord(&HFFFF8, 0)
         For im = 0 To &HFFFFF
             If k = 0 Then
                 chksumflash = chksumflash + (Flash(im) * &H100)
@@ -1373,7 +1363,7 @@ Public Class main
             End If
         Next
         chksumflash = (&H5AA5 - chksumflash) And &HFFFF
-        writeflashword(&HFFFF8, chksumflash) 'new checksum to written to .bin
+        WriteFlashWord(&HFFFF8, chksumflash) 'new checksum to written to .bin
 
         If K8Datastream.Visible() Then
             K8Datastream.closeenginedatacomms()
@@ -1660,7 +1650,7 @@ Public Class main
                 ' if rxbyte = &HFF then its likely that the ecu has been fully erased and can be reflashed
                 '
                 If (k >= &HF0) And (k <= &HF5) Then
-                    If (rxbyte <> readflashbyte(&HFFF00 + k)) And (rxbyte <> &HFF) Then
+                    If (rxbyte <> ReadFlashByte(&HFFF00 + k)) And (rxbyte <> &HFF) Then
                         If MsgBox("Not same ECU ID in memory and inside the ecu. Possibly ecu is not from a Hayabusa. You can stop the flashing by pressing cancel.", MsgBoxStyle.OkCancel) = MsgBoxResult.Cancel Then
                             K8FlashStatus.Close()
                             B_FlashECU.Enabled = True
@@ -1690,7 +1680,7 @@ Public Class main
         ' Lets read what is the flashingmode in ecu if memory is set to fast flashmode
         ' if fastflash then...
         '
-        If readflashlongword(&H51F10) = &H536C4 Then
+        If ReadFlashLongWord(&H51F10) = &H536C4 Then
             System.Threading.Thread.Sleep(100)
             txbyte = &HFF
             FT_Write_Bytes(lngHandle, txbyte, 1, 1)
@@ -1705,10 +1695,10 @@ Public Class main
                 For i = 1 To rxqueue
                     FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
                     If k = 19 Then
-                        i = readflashbyte(&H51F10 + 3)
+                        i = ReadFlashByte(&H51F10 + 3)
                         Select Case rxbyte
                             Case &H18 ' stock setting not fastmode, reflash block 5 is memory in fast mode
-                                If readflashlongword(&H51F10) = &H536C4 Then
+                                If ReadFlashLongWord(&H51F10) = &H536C4 Then
                                     blk5 = True
                                 Else
                                     blk5 = False
@@ -1719,7 +1709,7 @@ Public Class main
                                 blk5 = True
                             Case Else
                                 MsgBox("Error in reading flashingmode from ECU, programming aborted. Please reboot ecu and reflash")
-                                block_pgm = True
+                                BlockPgm = True
                                 K8FlashStatus.Close()
                                 B_FlashECU.Enabled = True
                                 '***************************************************************************************************************************
@@ -1738,8 +1728,8 @@ Public Class main
         '
         ' For a reason or another block 0 requires full erase
         '
-        If block_changed(0) = True Then
-            block_pgm = True
+        If BlockChanged(0) = True Then
+            BlockPgm = True
         End If
 
         blkF = False ' this is just used for check sum testing
@@ -1747,7 +1737,7 @@ Public Class main
         '
         ' Here is an erase for the full ecu
         '
-        If block_pgm Then
+        If BlockPgm Then
             endtime = Date.Now
             totaltime = endtime.Subtract(starttime)
             K8FlashStatus.L_elapsedtime.Text = totaltime.Minutes & ":" & totaltime.Seconds
@@ -1806,7 +1796,7 @@ Public Class main
                     FT_status = FT_ClrDtr(lngHandle) 'new for Interface V1.1
                     '****************************************************************************************************************************
                     FT_status = FT_Close(lngHandle)
-                    block_pgm = True
+                    BlockPgm = True
                     Return
                 End If
                 loopcount = loopcount + 1
@@ -1818,8 +1808,8 @@ Public Class main
         '
         ' Now programmings starts
         '
-        j = readflashlongword(&H51F10)
-        If readflashlongword(&H51F10) <> &H536C4 Then
+        j = ReadFlashLongWord(&H51F10)
+        If ReadFlashLongWord(&H51F10) <> &H536C4 Then
             K8FlashStatus.fmode.Text = "Normal flash "
         Else
             K8FlashStatus.fmode.Text = "Fast flash "
@@ -1832,9 +1822,9 @@ Public Class main
 
         startaddr = 0
         For block = startaddr To &HF
-            ' block_changed returns true if there has been any changes to that block
-            ' block_pgm is a global variable that forces all blocks to be written
-            If block_changed(block) Or block_pgm Then
+            ' BlockChanged returns true if there has been any changes to that block
+            ' BlockPgm is a global variable that forces all blocks to be written
+            If BlockChanged(block) Or BlockPgm Then
 
                 endtime = Date.Now
                 totaltime = endtime.Subtract(starttime)
@@ -1943,7 +1933,7 @@ Public Class main
                         FT_status = FT_ClrDtr(lngHandle) 'new for Interface V1.1
                         '****************************************************************************************************************************
                         FT_status = FT_Close(lngHandle)
-                        block_pgm = True
+                        BlockPgm = True
                         Return
                     End If
                     endtime = Date.Now
@@ -1983,7 +1973,7 @@ Public Class main
                     '
                     i = 0
                     For y = 0 To &HFF
-                        buff(y) = readflashbyte((block * &H10000) + (page * &H100) + y)
+                        buff(y) = ReadFlashByte((block * &H10000) + (page * &H100) + y)
                         If buff(y) <> &HFF Then
                             i = i + 1
                         End If
@@ -2082,7 +2072,7 @@ Public Class main
                                 FT_status = FT_ClrDtr(lngHandle) 'new for Interface V1.1
                                 '****************************************************************************************************************************
                                 FT_status = FT_Close(lngHandle)
-                                block_pgm = True
+                                BlockPgm = True
                                 Return
                             End If
                             loopcount = loopcount + 1
@@ -2127,12 +2117,12 @@ Public Class main
         If k <> &H5AA5 Then
             MsgBox("Checksum error when validating the flash, please reflash your ecu before using it.")
             K8FlashStatus.fmode.Text = "Checksum error, please reprogram"
-            reset_blocks()
-            block_pgm = True
+            ResetBlocks()
+            BlockPgm = True
         Else
             K8FlashStatus.fmode.Text = "Flash OK, turn switch to enginedata"
-            reset_blocks()
-            block_pgm = False
+            ResetBlocks()
+            BlockPgm = False
         End If
 
 
@@ -2200,888 +2190,33 @@ Public Class main
         fs.Write(Flash, 0, (262144 * 4))
         fs.Close()
         ' cleanup of old backup files
-        cleanupFDTdir(binpath)
+        CleanUpFDTDirectory(binpath)
 
 
     End Sub
 
-    Private Sub flash_serial_old()
-
-        Dim path As String
-        Dim flashfile As String
-        Dim binfile As String
-        Dim binpath As String
-        Dim cb(4) As Byte
-        Dim FT_status As Long
-        Dim lngHandle As Long
-        Dim rxbyte, txbyte As Byte
-        Dim rxqueue, txqueue, eventstat As Integer
-        Dim i, x, y, comportnum As Integer
-        Dim ACK As Integer = &H6
-        Dim NAK As Integer = &H15
-        Dim block As Integer
-        Dim cp As Integer
-        Dim buff(&HFF) As Byte
-        Dim j As Integer
-        Dim k As Integer
-        Dim blk5 As Boolean
-        Dim startaddr As Integer
-        Dim modemstat As Integer
-        Dim im, chksumflash, chksum As Long
-        Dim blkF As Boolean
-        Dim loopuntilack As Boolean
-        Dim loopcount As Integer
-        Dim do_once As Boolean
-        Dim starttime As Date
-        Dim endtime As Date
-        Dim totaltime As TimeSpan
-
-        endtime = Date.Now
-        starttime = Date.Now
-        totaltime = endtime.Subtract(starttime)
-        K8FlashStatus.L_elapsedtime.Text = totaltime.Minutes & ":" & totaltime.Seconds
-
-        K8FlashStatus.Show()
-        K8FlashStatus.Progressbar_Flashstatus.Maximum = &HFF
-        K8FlashStatus.Progressbar_Flashstatus.Value = 1
-
-
-        K8FlashStatus.fmode.ForeColor = Color.DarkGray
-        K8FlashStatus.Progressbar_Flashstatus.Value = 0
-        K8FlashStatus.Progressbar_Flashstatus.Refresh()
-        K8FlashStatus.Refresh()
-        System.Windows.Forms.Application.DoEvents()
-
-        '
-        ' Lets calculate checksum for the bin
-        '
-        chksum = readflashword(&HFFFF8) 'old checksum
-        writeflashword(&HFFFF8, 0)
-        For im = 0 To &HFFFFF
-            If k = 0 Then
-                chksumflash = chksumflash + (Flash(im) * &H100)
-                k = 1
-            Else
-                k = 0
-                chksumflash = chksumflash + Flash(im)
-            End If
-            If chksumflash > &HFFFF Then
-                chksumflash = chksumflash - &H10000
-            End If
-        Next
-        chksumflash = (&H5AA5 - chksumflash) And &HFFFF
-        writeflashword(&HFFFF8, chksumflash) 'new checksum to written to .bin
-
-        If K8Datastream.Visible() Then
-            K8Datastream.closeenginedatacomms()
-        End If
-        '
-        ' Get the FTDI device handle based on com port number and leave that port open
-        '
-        B_FlashECU.Enabled = False ' can not restart while flashing active
-        timeBeginPeriod(1)
-        comportnum = Val(Mid$(My.Settings.Item("ComPort"), 4))
-        FT_status = FT_GetNumberOfDevices(i, 0, &H80000000)
-        i = i - 1
-        For x = 0 To i
-            FT_status = FT_Open(x, lngHandle) ' only one
-            FT_status = FT_GetComPortNumber(lngHandle, y)
-            If y = comportnum Then
-                cp = x
-                x = i
-            End If
-            FT_status = FT_Close(lngHandle)
-        Next
-        If FT_status <> 0 Then
-            MsgBox("Could not open com port, please set correct port on K8 enginedata screen. Programming aborted, reset ecu and reprogram")
-            B_FlashECU.Enabled = True
-            FT_status = FT_Close(lngHandle)
-            K8FlashStatus.Close()
-            Return
-        End If
-        '
-        ' Open, Reset, set timeouts and set baud rate
-        '
-        FT_status = FT_Open(cp, lngHandle)
-        FT_status = FT_ResetDevice(lngHandle, 3)                                'set device to default status
-        FT_status = FT_status + FT_Purge(lngHandle)                             'clear rx and tx buffers
-        FT_status = FT_status + FT_SetBaudRate(lngHandle, 57600)                'set speed 57600
-        FT_status = FT_status + FT_SetDataCharacteristics(lngHandle, 8, 1, 0)   ' 8bits ,1 stop, parity none
-        FT_status = FT_status + FT_SetTimeouts(lngHandle, 50, 50)                 'rx and tx timeouts ms
-        FT_status = FT_status + FT_SetLatencyTimer(lngHandle, 8)               'ms
-        FT_status = FT_status + FT_SetUSBParameters(lngHandle, 4096, 4096)      'only rx is active by FTDI
-        If FT_status <> 0 Then
-            MsgBox("Could not set Com port parameters. Programming aborted, set correct com port for the interface using data monitoring screen")
-            B_FlashECU.Enabled = True
-            K8FlashStatus.Close()
-            FT_status = FT_Close(lngHandle)
-            Return
-        End If
-
-        '
-        ' Lets test that the interface is in the programming mode
-        '
-        FT_status = FT_SetDtr(lngHandle) 'new for Interface V1.1
-        FT_status = FT_GetModemStatus(lngHandle, modemstat)
-        If FT_status <> 0 Then
-            MsgBox("Set the correct Com port for the interface using data monitoring screen")
-            K8FlashStatus.Close()
-            B_FlashECU.Enabled = True
-            K8FlashStatus.Close()
-            Return
-        End If
-        If Not ((modemstat = &H6000) Or (modemstat = &H6200)) Then
-            MsgBox("Interface is not on or it is not in programming mode, set programming switch to programming mode and retry")
-            K8FlashStatus.Close()
-            B_FlashECU.Enabled = True
-            FT_status = FT_Close(lngHandle)
-            Return
-        Else
-            '
-            ' Reset ecu
-            '
-            FT_status = FT_SetRts(lngHandle)
-            System.Threading.Thread.Sleep(300)
-            FT_status = FT_ClrRts(lngHandle)
-            System.Threading.Thread.Sleep(300)
-        End If
-
-
-        i = 0
-        rxqueue = 0
-        '
-        ' Sync baud rate with ecu 18 x 0x00, get ack as a reply
-        '
-        x = 18 'default is 18
-        For i = 1 To x
-            txbyte = &H0
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            System.Threading.Thread.Sleep(40)
-            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            If rxqueue <> 0 Then i = x
-        Next
-        System.Threading.Thread.Sleep(2)
-        For x = 1 To rxqueue
-            FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-        Next
-        If (rxbyte <> ACK) Then
-            MsgBox("Unexpected or missing ECU response during intialization. Programming aborted, reset ecu and reprogram." & Hex(rxqueue) & " " & Hex(rxbyte))
-            K8FlashStatus.Close()
-            B_FlashECU.Enabled = True
-            FT_status = FT_Close(lngHandle)
-            Return
-        End If
-        '
-        ' check key status and send key if necessary
-        '
-        rxbyte = 0
-        i = 0
-        rxqueue = 0
-        While (rxqueue = 0) And (i < 10)
-            txbyte = &H70
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            System.Threading.Thread.Sleep(40)
-            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            i = i + 1
-        End While
-        For x = 1 To rxqueue
-            FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-        Next
-        If rxbyte <> &H8C Then
-            txbyte = &HF5
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            txbyte = &H84
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            txbyte = &H0
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            txbyte = &H0
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            txbyte = &HC
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            txbyte = &H53
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            txbyte = &H55
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            txbyte = &H45
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            txbyte = &H46
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            txbyte = &H49
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            txbyte = &H4D
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            txbyte = &HFF
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            txbyte = &HFF
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            txbyte = &HFF
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            txbyte = &HFF
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            txbyte = &H56
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            txbyte = &H30
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            '
-            ' Receive ACK if unlock code succesfull
-            '
-            System.Threading.Thread.Sleep(100)
-            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            For i = 1 To rxqueue
-                FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-            Next
-            If rxbyte <> ACK Then
-                MsgBox("No ACK received after sending unlock code. Programming aborted, reset ecu and reprogram")
-                K8FlashStatus.Close()
-                B_FlashECU.Enabled = True
-                FT_status = FT_Close(lngHandle)
-                Return
-            End If
-        End If
-        '
-        ' Check status after unlock code
-        '
-        txqueue = 0
-        i = 0
-        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-        System.Threading.Thread.Sleep(50)
-        While rxqueue = 0 And i < 10
-            txbyte = &H70
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            System.Threading.Thread.Sleep(40)
-            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            i = i + 1
-        End While
-        If (i >= 10) Or (rxqueue = 0) Then
-            MsgBox("Error in validating the unlock code from ECU. Programming aborted, reset ecu and reprogram")
-            K8FlashStatus.Close()
-            B_FlashECU.Enabled = True
-            FT_status = FT_Close(lngHandle)
-            Return
-        Else
-            FT_Read_Bytes(lngHandle, rxbyte, 1, 1) '128
-            System.Threading.Thread.Sleep(50)
-            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            FT_Read_Bytes(lngHandle, rxbyte, 1, 1) '140
-            System.Threading.Thread.Sleep(50)
-            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-        End If
-        If (rxbyte <> &H8C) Or (FT_status <> 0) Then
-            MsgBox("Was not able to set the ecu key. Programming aborted, reset ecu and reprogram")
-            K8FlashStatus.Close()
-            B_FlashECU.Enabled = True
-            FT_status = FT_Close(lngHandle)
-            Return
-        End If
-        '
-        ' Clear status register just in case
-        '
-        txbyte = &H50
-        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-        System.Threading.Thread.Sleep(50)
-        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-        For i = 1 To rxqueue
-            FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-        Next
-        If rxbyte <> ACK Then
-            MsgBox("Status query error 1. Programming aborted, reset ecu and reprogram")
-            K8FlashStatus.Close()
-            B_FlashECU.Enabled = True
-            FT_status = FT_Close(lngHandle)
-            Return
-        End If
-
-        '
-        ' New command added, to be tested
-        '
-        'timeBeginPeriod(0)
-
-        '
-        ' Lets verify that this really is suzuki hayabusa ecu, flashing any other ecu type may damage the ecu and the bike
-        '
-        System.Threading.Thread.Sleep(100)
-        txbyte = &HFF
-        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-        txbyte = &HFF
-        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-        txbyte = &HF
-        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-        System.Threading.Thread.Sleep(100)
-        k = 0
-        Dim s As String
-        s = ""
-        For j = 0 To &HFF
-            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            For i = 1 To rxqueue
-                FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-                '
-                ' Lets test that the ecu id matches close enought to Hayabusa ecu
-                ' if rxbyte = &HFF then its likely that the ecu has been fully erased and can be reflashed
-                '
-                If (k >= &HF0) And (k <= &HF5) Then
-                    If (rxbyte <> readflashbyte(&HFFF00 + k)) And (rxbyte <> &HFF) Then
-                        If MsgBox("Not same ECU ID in memory and inside the ecu. Possibly ecu is not from a Hayabusa. You can stop the flashing by pressing cancel.", MsgBoxStyle.OkCancel) = MsgBoxResult.Cancel Then
-                            K8FlashStatus.Close()
-                            B_FlashECU.Enabled = True
-                            FT_status = FT_Close(lngHandle)
-                        End If
-                    End If
-                End If
-                If (k >= &HF6) And (k <= &HF7) Then
-                    If (rxbyte <> &H30) And (rxbyte <> &H31) And (rxbyte <> &H32) And (rxbyte <> &H35) And (rxbyte <> &HFF) Then
-                        If MsgBox("Not a Hayabusa 15H00, 15H10, 15H20 or 15Hxx Generic ecu. Programming stopped to avoid damage to ecu or bike. Press cancel to stop, ok to continue", MsgBoxStyle.OkCancel) = MsgBoxResult.Cancel Then
-                            K8FlashStatus.Close()
-                            B_FlashECU.Enabled = True
-                            FT_status = FT_Close(lngHandle)
-                        End If
-                    End If
-                End If
-                k = k + 1
-            Next
-        Next
-        '
-        ' Lets read what is the flashingmode in ecu if memory is set to fast flashmode
-        ' if fastflash then...
-        '
-        If readflashlongword(&H51F10) = &H536C4 Then
-            System.Threading.Thread.Sleep(100)
-            txbyte = &HFF
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            txbyte = &H1F
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            txbyte = &H5
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            System.Threading.Thread.Sleep(100)
-            k = 0
-            For j = 0 To &HFF
-                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                For i = 1 To rxqueue
-                    FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-                    If k = 19 Then
-                        i = readflashbyte(&H51F10 + 3)
-                        Select Case rxbyte
-                            Case &H18 ' stock setting not fastmode, reflash block 5 is memory in fast mode
-                                If readflashlongword(&H51F10) = &H536C4 Then
-                                    blk5 = True
-                                Else
-                                    blk5 = False
-                                End If
-                            Case &HC4 ' ecu already in fast mode, no reflashing is needed
-                                blk5 = False
-                            Case &HFF ' block5 is empty, may be reflashing error. reflash block 5
-                                blk5 = True
-                            Case Else
-                                MsgBox("Error in reading flashingmode from ECU, programming aborted. Please reboot ecu and reflash")
-                                block_pgm = True
-                                K8FlashStatus.Close()
-                                B_FlashECU.Enabled = True
-                                FT_status = FT_Close(lngHandle)
-                        End Select
-                    End If
-                    k = k + 1
-                Next
-            Next
-        End If
-        timeBeginPeriod(1)
-        System.Threading.Thread.Sleep(300)
-
-        '
-        ' For a reason or another block 0 requires full erase
-        '
-        If block_changed(0) = True Then
-            block_pgm = True
-        End If
-
-        blkF = False ' this is just used for check sum testing
-
-        '
-        ' Here is an erase for the full ecu
-        '
-        If block_pgm Then
-            endtime = Date.Now
-            totaltime = endtime.Subtract(starttime)
-            K8FlashStatus.L_elapsedtime.Text = totaltime.Minutes & ":" & totaltime.Seconds
-            K8FlashStatus.fmode.Text = "Performing full erase, please wait"
-            K8FlashStatus.fmode.ForeColor = Color.Gray
-            K8FlashStatus.Progressbar_Flashstatus.Value = 0
-            K8FlashStatus.Progressbar_Flashstatus.Refresh()
-            K8FlashStatus.Refresh()
-            System.Windows.Forms.Application.DoEvents()
-            '
-            ' Send Erase full memory command
-            '
-            txbyte = &HA7
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            txbyte = &HD0
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            '
-            ' ECU confirms a succesfull erase by sending ACK
-            '
-            loopcount = 0
-            loopuntilack = False
-            While Not loopuntilack
-                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                While (rxqueue = 0) And (i < 100)
-                    System.Threading.Thread.Sleep(50)
-                    FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                    i = i + 1
-                End While
-                For i = 1 To rxqueue
-                    FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-                    If rxbyte = ACK Then
-                        loopuntilack = True
-                    End If
-                Next
-                If loopcount > 10 Then
-                    '
-                    ' Clear program lock bit and status register
-                    '
-                    txbyte = &H75
-                    FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                    FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                    FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-                    txbyte = &H50
-                    FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                    FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                    FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-
-                End If
-                If loopcount > 20 Then
-                    MsgBox("No ACK after full erase, Programming aborted, reset ecu and reprogram.")
-                    K8FlashStatus.Close()
-                    B_FlashECU.Enabled = True
-                    FT_status = FT_Close(lngHandle)
-                    block_pgm = True
-                    Return
-                End If
-                loopcount = loopcount + 1
-            End While
-
-        End If
-
-
-        '
-        ' Now programmings starts
-        '
-        j = readflashlongword(&H51F10)
-        If readflashlongword(&H51F10) <> &H536C4 Then
-            K8FlashStatus.fmode.Text = "Normal flash "
-        Else
-            K8FlashStatus.fmode.Text = "Fast flash "
-        End If
-        K8FlashStatus.fmode.ForeColor = Color.Black
-        K8FlashStatus.Progressbar_Flashstatus.Value = 0
-        K8FlashStatus.Progressbar_Flashstatus.Refresh()
-        K8FlashStatus.Refresh()
-        System.Windows.Forms.Application.DoEvents()
-
-        startaddr = 0
-        For block = startaddr To &HF
-            ' block_changed returns true if there has been any changes to that block
-            ' block_pgm is a global variable that forces all blocks to be written
-            If block_changed(block) Or block_pgm Then
-
-                endtime = Date.Now
-                totaltime = endtime.Subtract(starttime)
-                K8FlashStatus.L_elapsedtime.Text = totaltime.Minutes & ":" & totaltime.Seconds
-                K8FlashStatus.fmode.Text = K8FlashStatus.fmode.Text & Hex(block)
-                K8FlashStatus.Progressbar_Flashstatus.Refresh()
-                K8FlashStatus.Refresh()
-                System.Windows.Forms.Application.DoEvents()
-
-                If block = &HF Then blkF = True
-
-
-                '
-                ' Erase block
-                '
-                txbyte = &H20
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                txbyte = &H0
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                txbyte = block
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                txbyte = &HD0
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-
-                '
-                ' ECU confirms a succesfull erase by sending ACK
-                '
-
-                loopcount = 0
-                loopuntilack = False
-
-                While Not loopuntilack
-                    FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                    i = 0
-                    While (rxqueue = 0) And (i < 100)
-                        System.Threading.Thread.Sleep(50)
-                        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                        i = i + 1
-                    End While
-                    For i = 1 To rxqueue
-                        FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-                        If rxbyte = ACK Then loopuntilack = True
-                    Next
-                    If rxbyte = NAK Then
-                        '
-                        ' Lets inform the user that something is wrong
-                        '
-                        K8FlashStatus.fmode.ForeColor = Color.Orange
-                        '
-                        ' Clear status register
-                        '
-                        System.Threading.Thread.Sleep(200)
-                        txbyte = &H50
-                        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                        i = 0
-                        While (rxqueue = 0) And (i < 10)
-                            System.Threading.Thread.Sleep(50)
-                            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                            i = i + 1
-                        End While
-                        For i = 1 To rxqueue
-                            FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-                        Next
-                        '
-                        ' Disable lock bit
-                        '
-                        System.Threading.Thread.Sleep(200)
-                        txbyte = &H75
-                        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                        i = 0
-                        While (rxqueue = 0) And (i < 10)
-                            System.Threading.Thread.Sleep(50)
-                            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                            i = i + 1
-                        End While
-                        For i = 1 To rxqueue
-                            FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-                        Next
-                        '
-                        ' Erase block again
-                        '
-                        System.Threading.Thread.Sleep(200)
-                        txbyte = &H20
-                        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                        txbyte = &H0
-                        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                        txbyte = block
-                        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                        txbyte = &HD0
-                        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                        System.Threading.Thread.Sleep(200)
-                    End If
-                    If loopcount > 100 Then
-                        MsgBox("No ACK after erasing a block=" & Str(block) & " Programming aborted, reset ecu and reprogram")
-                        K8FlashStatus.Close()
-                        B_FlashECU.Enabled = True
-                        FT_status = FT_Close(lngHandle)
-                        block_pgm = True
-                        Return
-                    End If
-                    endtime = Date.Now
-                    totaltime = endtime.Subtract(starttime)
-                    K8FlashStatus.L_elapsedtime.Text = totaltime.Minutes & ":" & totaltime.Seconds
-                    K8FlashStatus.L_elapsedtime.Text = TimeOfDay
-                    K8FlashStatus.Progressbar_Flashstatus.Value = loopcount
-                    K8FlashStatus.Progressbar_Flashstatus.Refresh()
-                    K8FlashStatus.Refresh()
-                    System.Windows.Forms.Application.DoEvents()
-
-                    loopcount = loopcount + 1
-                End While
-
-                rxqueue = 0
-                i = 0
-
-                '
-                ' Write block using page write
-                '
-                K8FlashStatus.fmode.ForeColor = Color.Black
-
-                Dim page As Integer
-                For page = 0 To &HFF
-                    '
-                    ' Write one page at time
-                    '
-                    endtime = Date.Now
-                    totaltime = endtime.Subtract(starttime)
-                    K8FlashStatus.L_elapsedtime.Text = totaltime.Minutes & ":" & totaltime.Seconds
-                    K8FlashStatus.Progressbar_Flashstatus.Value = page
-                    K8FlashStatus.Progressbar_Flashstatus.Refresh()
-                    K8FlashStatus.Refresh()
-                    System.Windows.Forms.Application.DoEvents()
-                    '
-                    ' Check if the page is filled with 0xFF, no need to program
-                    '
-                    i = 0
-                    For y = 0 To &HFF
-                        buff(y) = readflashbyte((block * &H10000) + (page * &H100) + y)
-                        If buff(y) <> &HFF Then
-                            i = i + 1
-                        End If
-                    Next
-                    If i > 0 Then ' there is something in the page that is not 0xFF
-
-
-                        loopcount = 0
-                        loopuntilack = False
-
-                        While Not loopuntilack
-                            '
-                            ' write a page
-                            '
-                            txbyte = &H41
-                            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                            txbyte = page
-                            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                            txbyte = block
-                            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                            For y = 0 To &HFF
-                                txbyte = buff(y)
-                                'FT_status = FT_Write_Bytes(lngHandle, txbyte, 1, txqueue)
-                            Next
-
-                            FT_status = FT_Write(lngHandle, buff, &HFF + 1, &HFF + 1)
-
-                            '
-                            ' this should be ack from page write
-                            '
-                            rxbyte = 0
-                            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                            i = 0
-                            While (rxqueue = 0) And (i < 30)
-                                System.Threading.Thread.Sleep(25)
-                                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                                If rxqueue > 0 Then i = 30
-                                i = i + 1
-                            End While
-                            For i = 1 To rxqueue
-                                FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-                                If rxbyte = ACK Then loopuntilack = True
-                            Next
-                            If loopcount > 5 Then
-                                '
-                                ' Clear program lock bit and status register
-                                '
-                                K8FlashStatus.fmode.ForeColor = Color.Orange
-                                K8FlashStatus.Refresh()
-                                System.Windows.Forms.Application.DoEvents()
-                                System.Threading.Thread.Sleep(100)
-
-                                txbyte = &H75
-                                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                                FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-                                System.Threading.Thread.Sleep(100)
-                                rxbyte = 0
-                                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                                i = 0
-                                While (rxqueue = 0) And (i < 30)
-                                    System.Threading.Thread.Sleep(25)
-                                    FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                                    If rxqueue > 0 Then i = 30
-                                    i = i + 1
-                                End While
-                                For i = 1 To rxqueue
-                                    FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-                                Next
-
-                                txbyte = &H50
-                                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                                FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-                                System.Threading.Thread.Sleep(100)
-                                rxbyte = 0
-                                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                                i = 0
-                                While (rxqueue = 0) And (i < 30)
-                                    System.Threading.Thread.Sleep(25)
-                                    FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                                    If rxqueue > 0 Then i = 30
-                                    i = i + 1
-                                End While
-                                For i = 1 To rxqueue
-                                    FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-                                Next
-
-                            End If
-                            If loopcount > 10 Then
-
-                                MsgBox("No ACK after writing a block=" & Str(block) & " page=" & Str(page) & ". Programming aborted, reset ecu and reprogram")
-                                K8FlashStatus.Close()
-                                B_FlashECU.Enabled = True
-                                FT_status = FT_Close(lngHandle)
-                                block_pgm = True
-                                Return
-                            End If
-                            loopcount = loopcount + 1
-                        End While
-
-                    End If
-                Next
-            End If
-        Next
-
-
-        '
-        ' Acquire sum value and compare checksum. This will be done every time as flashing always
-        ' starts by writing a new checksum to the image in computer memory
-        '
-        txbyte = &HE1
-        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-        txbyte = 0
-        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-        txbyte = 0
-        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-        txbyte = &HFF
-        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-        txbyte = &HF
-        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-        System.Threading.Thread.Sleep(200)
-        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-        If rxqueue <> 2 Then MsgBox("Error in reading checksum from ecu")
-        FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-        k = rxbyte
-        FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-        k = (k) + (rxbyte * &H100)
-
-
-        '
-        ' Flashing is finished, wait until switch is flipped back and then close com and activate enginedata if visible
-        '
-        do_once = True
-
-        timeEndPeriod(1)
-
-        If k <> &H5AA5 Then
-            MsgBox("Checksum error when validating the flash, please reflash your ecu before using it.")
-            K8FlashStatus.fmode.Text = "Checksum error, please reprogram"
-            reset_blocks()
-            block_pgm = True
-        Else
-            K8FlashStatus.fmode.Text = "Flash OK, turn switch to enginedata"
-            reset_blocks()
-            block_pgm = False
-        End If
-
-
-        endtime = Date.Now
-        totaltime = endtime.Subtract(starttime)
-        K8FlashStatus.L_elapsedtime.Text = totaltime.Minutes & ":" & totaltime.Seconds
-        K8FlashStatus.Refresh()
-        System.Windows.Forms.Application.DoEvents()
-
-        FT_status = FT_GetModemStatus(lngHandle, modemstat)
-        While ((modemstat = &H6000) Or (modemstat = &H6200))
-            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            System.Threading.Thread.Sleep(200)
-            FT_status = FT_GetModemStatus(lngHandle, modemstat)
-        End While
-        K8FlashStatus.Close()
-        B_FlashECU.Enabled = True
-
-        FT_status = FT_ClrDtr(lngHandle) 'new for Interface V1.1
-
-        FT_status = FT_Close(lngHandle)
-        If (FT_status = 0) Then
-            If K8Datastream.Visible() Then
-                K8Datastream.startenginedatacomms()
-            End If
-        Else
-            MsgBox("Can not close com port, please save the bin and reboot your computer and reflash just in case.")
-        End If
-
-        '
-        ' generate the bin that was flashed as a backup file
-        '
-        flashfile = "ecuflash.bin"
-        binpath = Application.StartupPath
-        binfile = "ecuflash.bin"
-        path = binpath & flashfile
-        ' if the temporary file exists for any reason, delete it
-        If File.Exists(path) = True Then
-            File.Delete(path)
-        End If
-        ' create the temporary file from current memory
-        fs = File.Open(path, FileMode.CreateNew)
-        fs.Write(Flash, 0, (262144 * 4))
-        fs.Close()
-        '
-        ' Generate a backup copy of the flashed file just flashed
-        '
-        binfile = ECUID.Text & "-"
-        binfile = binfile & My.Computer.Clock.LocalTime.Date.Day & "-"
-        binfile = binfile & My.Computer.Clock.LocalTime.Date.Month & "-"
-        binfile = binfile & My.Computer.Clock.LocalTime.Date.Year & "-"
-        binfile = binfile & My.Computer.Clock.LocalTime.Hour & "-"
-        binfile = binfile & My.Computer.Clock.LocalTime.Minute
-        binfile = binfile & ".bin"
-        path = binpath & binfile
-        ' if the temporary file exists for any reason, delete it
-        If File.Exists(path) = True Then
-            File.Delete(path)
-        End If
-        ' create the temporary file from curren memory
-        fs = File.Open(path, FileMode.CreateNew)
-        fs.Write(Flash, 0, (262144 * 4))
-        fs.Close()
-        ' cleanup of old backup files
-        cleanupFDTdir(binpath)
-
-
-    End Sub
-
-    Private Sub blockok(ByVal b As Integer)
+    Private Sub BlockOK(ByVal b As Integer)
         Select Case b
-            Case b = 0 : block0 = False
-            Case b = 1 : block1 = False
-            Case b = 2 : block2 = False
-            Case b = 3 : block3 = False
-            Case b = 4 : block4 = False
-            Case b = 5 : block5 = False
-            Case b = 6 : block6 = False
-            Case b = 7 : block7 = False
-            Case b = 8 : block8 = False
-            Case b = 9 : block9 = False
-            Case b = 10 : blockA = False
-            Case b = 11 : blockB = False
-            Case b = 12 : blockC = False
-            Case b = 13 : blockD = False
-            Case b = 14 : blockE = False
-            Case b = 15 : blockF = False
+            Case b = 0 : Block0 = False
+            Case b = 1 : Block1 = False
+            Case b = 2 : Block2 = False
+            Case b = 3 : Block3 = False
+            Case b = 4 : Block4 = False
+            Case b = 5 : Block5 = False
+            Case b = 6 : Block6 = False
+            Case b = 7 : Block7 = False
+            Case b = 8 : Block8 = False
+            Case b = 9 : Block9 = False
+            Case b = 10 : BlockA = False
+            Case b = 11 : BlockB = False
+            Case b = 12 : BlockC = False
+            Case b = 13 : BlockD = False
+            Case b = 14 : BlockE = False
+            Case b = 15 : BlockF = False
         End Select
     End Sub
 
-    Sub readecu()
+    Sub ReadECU()
         '
         ' This subroutine reads the ecu contents into memory
         '
@@ -3311,8 +2446,8 @@ Public Class main
             ' against whats in the memory. Variable flash(i) contains the information read from ecu
             ' the variable flashcopy(i) is the one that the verification against is made to.
             '
-            Verifyinprogress.ProgressBar_verify.Value = 50
-            Verifyinprogress.Show()
+            VerifyInProgress.ProgressBar_Verify.Value = 50
+            VerifyInProgress.Show()
             imageidentical = True
             k = 0
             imagelength = 0
@@ -3397,14 +2532,14 @@ Public Class main
                             If Len(diffstr) < 100 Then diffstr = diffstr & " " & Hex((midorder * &H100) + (highorder * &H10000) + j)
                         End If
                     Next
-                    Verifyinprogress.Select()
-                    Verifyinprogress.L_txt.Text = Hex(highorder) & " " & Hex(midorder) & " - " & imageidentical & " " & diffstr & " "
-                    Verifyinprogress.ProgressBar_verify.Value = Int(((highorder * &HF) + Int(midorder / &HF)) / 2.56)
-                    Verifyinprogress.Refresh()
+                    VerifyInProgress.Select()
+                    VerifyInProgress.L_Txt.Text = Hex(highorder) & " " & Hex(midorder) & " - " & imageidentical & " " & diffstr & " "
+                    VerifyInProgress.ProgressBar_Verify.Value = Int(((highorder * &HF) + Int(midorder / &HF)) / 2.56)
+                    VerifyInProgress.Refresh()
                     System.Windows.Forms.Application.DoEvents()
                 Next
             Next
-            Verifyinprogress.Close()
+            VerifyInProgress.Close()
 
             '
             ' All done, close comms
@@ -3423,25 +2558,25 @@ Public Class main
             '
             L_File.Text = ""
             L_Comparefile.Text = ""
-            disablebuttons()
+            DisableButtons()
 
 
             If imageidentical Then
                 MsgBox("Ecu verify complete, image same as comparemap. Ecu image is in ecueditor memory.")
-                reset_blocks()
-                block_pgm = False
+                ResetBlocks()
+                BlockPgm = False
             Else
                 '
                 ' Check that the binary lenght matches just in case
                 '
                 If imagelength <> (262144 * 4) Then
-                    ECUnotsupported.ShowDialog()
+                    ECUNotSupported.ShowDialog()
                 End If
                 '
                 ' Same lenght, just inform the user that he has a new bin in the memory
                 '
                 MsgBox("Ecu image is not same as comparemap. Ecu image copied into ecueditor memory.", MsgBoxStyle.Exclamation)
-                block_pgm = True
+                BlockPgm = True
             End If
 
 
@@ -3466,14 +2601,14 @@ Public Class main
             Loop
             SaveToolStripMenuItem.Enabled = True
             '
-            ' ECUtype does not really need to be checked here, the setecutype function should do that
+            ' ECUtype does not really need to be checked here, the SetECUType function should do that
             '
             B_FlashECU.Enabled = True
             If (Mid(ECUID.Text, 1, 4) = "DJ18") Then
-                setecutype()
+                SetECUType()
 
             ElseIf (Mid(ECUID.Text, 1, 4) = "DJ47") Then
-                setecutype()
+                SetECUType()
             Else
                 ECUversion = "unknown"
                 MsgBox("This is not a Hayabusa or Bking ECU, please do not flash it !!!")
@@ -3486,8 +2621,7 @@ Public Class main
 
     End Sub
 
-    Private Sub erase_ecu()
-
+    Private Sub EraseECU()
 
         Dim cb(4) As Byte
         Dim FT_status As Long
@@ -3791,7 +2925,7 @@ Public Class main
                 K8FlashStatus.Close()
                 B_FlashECU.Enabled = True
                 FT_status = FT_Close(lngHandle)
-                block_pgm = True
+                BlockPgm = True
                 Return
             End If
             loopcount = loopcount + 1
@@ -3805,8 +2939,8 @@ Public Class main
         timeEndPeriod(1)
         B_FlashECU.Enabled = True
         MsgBox("Full erase done, you can now flash the ecu")
-        reset_blocks()
-        block_pgm = True
+        ResetBlocks()
+        BlockPgm = True
 
 
         FT_status = FT_GetModemStatus(lngHandle, modemstat)
@@ -3831,7 +2965,7 @@ Public Class main
 
     End Sub
 
-    Public Sub setecutype()
+    Public Sub SetECUType()
         '
         ' ECU is DJ18SE type
         '
@@ -3866,7 +3000,7 @@ Public Class main
 
     End Sub
 
-    Private Sub testchecksum()
+    Private Sub TestCheckSum()
 
         Dim cb(4) As Byte
         Dim FT_status As Long
@@ -4142,7 +3276,7 @@ Public Class main
             FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
             If rxqueue <> 2 Then
                 MsgBox("Error in reading checksum from ecu")
-                block_pgm = True
+                BlockPgm = True
             End If
             FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
             k = rxbyte
@@ -4174,7 +3308,7 @@ Public Class main
             If chksumfirmware <> chksumflash Then
                 chksumdiff = True
             Else
-                blockok(block)
+                BlockOK(block)
             End If
         Next
 
@@ -4189,10 +3323,10 @@ Public Class main
 
         If chksumdiff Then
             MsgBox("Checksum does not match with flash, please verify or flash your ecu before making changes. Turn switch to enginedata.")
-            block_pgm = True
+            BlockPgm = True
         Else
             MsgBox("Flash checksum match, the computer and ecu memory are likely to be identical. You should be able to use the image in computer memory for changes. Turn switch to enginedata")
-            block_pgm = False
+            BlockPgm = False
         End If
     End Sub
 
@@ -4202,23 +3336,878 @@ Public Class main
 
     Private Sub B_MapSharing_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
-        mapsharing.Show()
-        mapsharing.Select()
+        MapSharing.Show()
+        MapSharing.Select()
 
     End Sub
 
-    Private Sub B_readecu_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub B_ReadECU_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         '
         ' Lets put the verify function running in another thread, not for any particular reason
         '
-        'Dim th As New System.Threading.Thread(AddressOf readecu)
+        'Dim th As New System.Threading.Thread(AddressOf ReadECU)
         'th.Start()
 
-        readecu()
+        ReadECU()
     End Sub
 
     Private Sub Button1_Click_3(ByVal sender As System.Object, ByVal e As System.EventArgs)
         K8enginedatalog.Show()
+
+    End Sub
+
+    Private Sub FlashSerial_old()
+
+        Dim path As String
+        Dim flashfile As String
+        Dim binfile As String
+        Dim binpath As String
+        Dim cb(4) As Byte
+        Dim FT_status As Long
+        Dim lngHandle As Long
+        Dim rxbyte, txbyte As Byte
+        Dim rxqueue, txqueue, eventstat As Integer
+        Dim i, x, y, comportnum As Integer
+        Dim ACK As Integer = &H6
+        Dim NAK As Integer = &H15
+        Dim block As Integer
+        Dim cp As Integer
+        Dim buff(&HFF) As Byte
+        Dim j As Integer
+        Dim k As Integer
+        Dim blk5 As Boolean
+        Dim startaddr As Integer
+        Dim modemstat As Integer
+        Dim im, chksumflash, chksum As Long
+        Dim blkF As Boolean
+        Dim loopuntilack As Boolean
+        Dim loopcount As Integer
+        Dim do_once As Boolean
+        Dim starttime As Date
+        Dim endtime As Date
+        Dim totaltime As TimeSpan
+
+        endtime = Date.Now
+        starttime = Date.Now
+        totaltime = endtime.Subtract(starttime)
+        K8FlashStatus.L_elapsedtime.Text = totaltime.Minutes & ":" & totaltime.Seconds
+
+        K8FlashStatus.Show()
+        K8FlashStatus.Progressbar_Flashstatus.Maximum = &HFF
+        K8FlashStatus.Progressbar_Flashstatus.Value = 1
+
+
+        K8FlashStatus.fmode.ForeColor = Color.DarkGray
+        K8FlashStatus.Progressbar_Flashstatus.Value = 0
+        K8FlashStatus.Progressbar_Flashstatus.Refresh()
+        K8FlashStatus.Refresh()
+        System.Windows.Forms.Application.DoEvents()
+
+        '
+        ' Lets calculate checksum for the bin
+        '
+        chksum = ReadFlashWord(&HFFFF8) 'old checksum
+        WriteFlashWord(&HFFFF8, 0)
+        For im = 0 To &HFFFFF
+            If k = 0 Then
+                chksumflash = chksumflash + (Flash(im) * &H100)
+                k = 1
+            Else
+                k = 0
+                chksumflash = chksumflash + Flash(im)
+            End If
+            If chksumflash > &HFFFF Then
+                chksumflash = chksumflash - &H10000
+            End If
+        Next
+        chksumflash = (&H5AA5 - chksumflash) And &HFFFF
+        WriteFlashWord(&HFFFF8, chksumflash) 'new checksum to written to .bin
+
+        If K8Datastream.Visible() Then
+            K8Datastream.closeenginedatacomms()
+        End If
+        '
+        ' Get the FTDI device handle based on com port number and leave that port open
+        '
+        B_FlashECU.Enabled = False ' can not restart while flashing active
+        timeBeginPeriod(1)
+        comportnum = Val(Mid$(My.Settings.Item("ComPort"), 4))
+        FT_status = FT_GetNumberOfDevices(i, 0, &H80000000)
+        i = i - 1
+        For x = 0 To i
+            FT_status = FT_Open(x, lngHandle) ' only one
+            FT_status = FT_GetComPortNumber(lngHandle, y)
+            If y = comportnum Then
+                cp = x
+                x = i
+            End If
+            FT_status = FT_Close(lngHandle)
+        Next
+        If FT_status <> 0 Then
+            MsgBox("Could not open com port, please set correct port on K8 enginedata screen. Programming aborted, reset ecu and reprogram")
+            B_FlashECU.Enabled = True
+            FT_status = FT_Close(lngHandle)
+            K8FlashStatus.Close()
+            Return
+        End If
+        '
+        ' Open, Reset, set timeouts and set baud rate
+        '
+        FT_status = FT_Open(cp, lngHandle)
+        FT_status = FT_ResetDevice(lngHandle, 3)                                'set device to default status
+        FT_status = FT_status + FT_Purge(lngHandle)                             'clear rx and tx buffers
+        FT_status = FT_status + FT_SetBaudRate(lngHandle, 57600)                'set speed 57600
+        FT_status = FT_status + FT_SetDataCharacteristics(lngHandle, 8, 1, 0)   ' 8bits ,1 stop, parity none
+        FT_status = FT_status + FT_SetTimeouts(lngHandle, 50, 50)                 'rx and tx timeouts ms
+        FT_status = FT_status + FT_SetLatencyTimer(lngHandle, 8)               'ms
+        FT_status = FT_status + FT_SetUSBParameters(lngHandle, 4096, 4096)      'only rx is active by FTDI
+        If FT_status <> 0 Then
+            MsgBox("Could not set Com port parameters. Programming aborted, set correct com port for the interface using data monitoring screen")
+            B_FlashECU.Enabled = True
+            K8FlashStatus.Close()
+            FT_status = FT_Close(lngHandle)
+            Return
+        End If
+
+        '
+        ' Lets test that the interface is in the programming mode
+        '
+        FT_status = FT_SetDtr(lngHandle) 'new for Interface V1.1
+        FT_status = FT_GetModemStatus(lngHandle, modemstat)
+        If FT_status <> 0 Then
+            MsgBox("Set the correct Com port for the interface using data monitoring screen")
+            K8FlashStatus.Close()
+            B_FlashECU.Enabled = True
+            K8FlashStatus.Close()
+            Return
+        End If
+        If Not ((modemstat = &H6000) Or (modemstat = &H6200)) Then
+            MsgBox("Interface is not on or it is not in programming mode, set programming switch to programming mode and retry")
+            K8FlashStatus.Close()
+            B_FlashECU.Enabled = True
+            FT_status = FT_Close(lngHandle)
+            Return
+        Else
+            '
+            ' Reset ecu
+            '
+            FT_status = FT_SetRts(lngHandle)
+            System.Threading.Thread.Sleep(300)
+            FT_status = FT_ClrRts(lngHandle)
+            System.Threading.Thread.Sleep(300)
+        End If
+
+
+        i = 0
+        rxqueue = 0
+        '
+        ' Sync baud rate with ecu 18 x 0x00, get ack as a reply
+        '
+        x = 18 'default is 18
+        For i = 1 To x
+            txbyte = &H0
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            System.Threading.Thread.Sleep(40)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            If rxqueue <> 0 Then i = x
+        Next
+        System.Threading.Thread.Sleep(2)
+        For x = 1 To rxqueue
+            FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+        Next
+        If (rxbyte <> ACK) Then
+            MsgBox("Unexpected or missing ECU response during intialization. Programming aborted, reset ecu and reprogram." & Hex(rxqueue) & " " & Hex(rxbyte))
+            K8FlashStatus.Close()
+            B_FlashECU.Enabled = True
+            FT_status = FT_Close(lngHandle)
+            Return
+        End If
+        '
+        ' check key status and send key if necessary
+        '
+        rxbyte = 0
+        i = 0
+        rxqueue = 0
+        While (rxqueue = 0) And (i < 10)
+            txbyte = &H70
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            System.Threading.Thread.Sleep(40)
+            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            i = i + 1
+        End While
+        For x = 1 To rxqueue
+            FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+        Next
+        If rxbyte <> &H8C Then
+            txbyte = &HF5
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H84
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H0
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H0
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &HC
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H53
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H55
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H45
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H46
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H49
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H4D
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &HFF
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &HFF
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &HFF
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &HFF
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H56
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H30
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            '
+            ' Receive ACK if unlock code succesfull
+            '
+            System.Threading.Thread.Sleep(100)
+            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            For i = 1 To rxqueue
+                FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+            Next
+            If rxbyte <> ACK Then
+                MsgBox("No ACK received after sending unlock code. Programming aborted, reset ecu and reprogram")
+                K8FlashStatus.Close()
+                B_FlashECU.Enabled = True
+                FT_status = FT_Close(lngHandle)
+                Return
+            End If
+        End If
+        '
+        ' Check status after unlock code
+        '
+        txqueue = 0
+        i = 0
+        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+        System.Threading.Thread.Sleep(50)
+        While rxqueue = 0 And i < 10
+            txbyte = &H70
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            System.Threading.Thread.Sleep(40)
+            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            i = i + 1
+        End While
+        If (i >= 10) Or (rxqueue = 0) Then
+            MsgBox("Error in validating the unlock code from ECU. Programming aborted, reset ecu and reprogram")
+            K8FlashStatus.Close()
+            B_FlashECU.Enabled = True
+            FT_status = FT_Close(lngHandle)
+            Return
+        Else
+            FT_Read_Bytes(lngHandle, rxbyte, 1, 1) '128
+            System.Threading.Thread.Sleep(50)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            FT_Read_Bytes(lngHandle, rxbyte, 1, 1) '140
+            System.Threading.Thread.Sleep(50)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+        End If
+        If (rxbyte <> &H8C) Or (FT_status <> 0) Then
+            MsgBox("Was not able to set the ecu key. Programming aborted, reset ecu and reprogram")
+            K8FlashStatus.Close()
+            B_FlashECU.Enabled = True
+            FT_status = FT_Close(lngHandle)
+            Return
+        End If
+        '
+        ' Clear status register just in case
+        '
+        txbyte = &H50
+        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+        System.Threading.Thread.Sleep(50)
+        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+        For i = 1 To rxqueue
+            FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+        Next
+        If rxbyte <> ACK Then
+            MsgBox("Status query error 1. Programming aborted, reset ecu and reprogram")
+            K8FlashStatus.Close()
+            B_FlashECU.Enabled = True
+            FT_status = FT_Close(lngHandle)
+            Return
+        End If
+
+        '
+        ' New command added, to be tested
+        '
+        'timeBeginPeriod(0)
+
+        '
+        ' Lets verify that this really is suzuki hayabusa ecu, flashing any other ecu type may damage the ecu and the bike
+        '
+        System.Threading.Thread.Sleep(100)
+        txbyte = &HFF
+        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+        txbyte = &HFF
+        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+        txbyte = &HF
+        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+        System.Threading.Thread.Sleep(100)
+        k = 0
+        Dim s As String
+        s = ""
+        For j = 0 To &HFF
+            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            For i = 1 To rxqueue
+                FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+                '
+                ' Lets test that the ecu id matches close enought to Hayabusa ecu
+                ' if rxbyte = &HFF then its likely that the ecu has been fully erased and can be reflashed
+                '
+                If (k >= &HF0) And (k <= &HF5) Then
+                    If (rxbyte <> ReadFlashByte(&HFFF00 + k)) And (rxbyte <> &HFF) Then
+                        If MsgBox("Not same ECU ID in memory and inside the ecu. Possibly ecu is not from a Hayabusa. You can stop the flashing by pressing cancel.", MsgBoxStyle.OkCancel) = MsgBoxResult.Cancel Then
+                            K8FlashStatus.Close()
+                            B_FlashECU.Enabled = True
+                            FT_status = FT_Close(lngHandle)
+                        End If
+                    End If
+                End If
+                If (k >= &HF6) And (k <= &HF7) Then
+                    If (rxbyte <> &H30) And (rxbyte <> &H31) And (rxbyte <> &H32) And (rxbyte <> &H35) And (rxbyte <> &HFF) Then
+                        If MsgBox("Not a Hayabusa 15H00, 15H10, 15H20 or 15Hxx Generic ecu. Programming stopped to avoid damage to ecu or bike. Press cancel to stop, ok to continue", MsgBoxStyle.OkCancel) = MsgBoxResult.Cancel Then
+                            K8FlashStatus.Close()
+                            B_FlashECU.Enabled = True
+                            FT_status = FT_Close(lngHandle)
+                        End If
+                    End If
+                End If
+                k = k + 1
+            Next
+        Next
+        '
+        ' Lets read what is the flashingmode in ecu if memory is set to fast flashmode
+        ' if fastflash then...
+        '
+        If ReadFlashLongWord(&H51F10) = &H536C4 Then
+            System.Threading.Thread.Sleep(100)
+            txbyte = &HFF
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            txbyte = &H1F
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            txbyte = &H5
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            System.Threading.Thread.Sleep(100)
+            k = 0
+            For j = 0 To &HFF
+                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                For i = 1 To rxqueue
+                    FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+                    If k = 19 Then
+                        i = ReadFlashByte(&H51F10 + 3)
+                        Select Case rxbyte
+                            Case &H18 ' stock setting not fastmode, reflash block 5 is memory in fast mode
+                                If ReadFlashLongWord(&H51F10) = &H536C4 Then
+                                    blk5 = True
+                                Else
+                                    blk5 = False
+                                End If
+                            Case &HC4 ' ecu already in fast mode, no reflashing is needed
+                                blk5 = False
+                            Case &HFF ' block5 is empty, may be reflashing error. reflash block 5
+                                blk5 = True
+                            Case Else
+                                MsgBox("Error in reading flashingmode from ECU, programming aborted. Please reboot ecu and reflash")
+                                BlockPgm = True
+                                K8FlashStatus.Close()
+                                B_FlashECU.Enabled = True
+                                FT_status = FT_Close(lngHandle)
+                        End Select
+                    End If
+                    k = k + 1
+                Next
+            Next
+        End If
+        timeBeginPeriod(1)
+        System.Threading.Thread.Sleep(300)
+
+        '
+        ' For a reason or another block 0 requires full erase
+        '
+        If BlockChanged(0) = True Then
+            BlockPgm = True
+        End If
+
+        blkF = False ' this is just used for check sum testing
+
+        '
+        ' Here is an erase for the full ecu
+        '
+        If BlockPgm Then
+            endtime = Date.Now
+            totaltime = endtime.Subtract(starttime)
+            K8FlashStatus.L_elapsedtime.Text = totaltime.Minutes & ":" & totaltime.Seconds
+            K8FlashStatus.fmode.Text = "Performing full erase, please wait"
+            K8FlashStatus.fmode.ForeColor = Color.Gray
+            K8FlashStatus.Progressbar_Flashstatus.Value = 0
+            K8FlashStatus.Progressbar_Flashstatus.Refresh()
+            K8FlashStatus.Refresh()
+            System.Windows.Forms.Application.DoEvents()
+            '
+            ' Send Erase full memory command
+            '
+            txbyte = &HA7
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &HD0
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            '
+            ' ECU confirms a succesfull erase by sending ACK
+            '
+            loopcount = 0
+            loopuntilack = False
+            While Not loopuntilack
+                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                While (rxqueue = 0) And (i < 100)
+                    System.Threading.Thread.Sleep(50)
+                    FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                    i = i + 1
+                End While
+                For i = 1 To rxqueue
+                    FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+                    If rxbyte = ACK Then
+                        loopuntilack = True
+                    End If
+                Next
+                If loopcount > 10 Then
+                    '
+                    ' Clear program lock bit and status register
+                    '
+                    txbyte = &H75
+                    FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                    FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                    FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+                    txbyte = &H50
+                    FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                    FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                    FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+
+                End If
+                If loopcount > 20 Then
+                    MsgBox("No ACK after full erase, Programming aborted, reset ecu and reprogram.")
+                    K8FlashStatus.Close()
+                    B_FlashECU.Enabled = True
+                    FT_status = FT_Close(lngHandle)
+                    BlockPgm = True
+                    Return
+                End If
+                loopcount = loopcount + 1
+            End While
+
+        End If
+
+
+        '
+        ' Now programmings starts
+        '
+        j = ReadFlashLongWord(&H51F10)
+        If ReadFlashLongWord(&H51F10) <> &H536C4 Then
+            K8FlashStatus.fmode.Text = "Normal flash "
+        Else
+            K8FlashStatus.fmode.Text = "Fast flash "
+        End If
+        K8FlashStatus.fmode.ForeColor = Color.Black
+        K8FlashStatus.Progressbar_Flashstatus.Value = 0
+        K8FlashStatus.Progressbar_Flashstatus.Refresh()
+        K8FlashStatus.Refresh()
+        System.Windows.Forms.Application.DoEvents()
+
+        startaddr = 0
+        For block = startaddr To &HF
+            ' BlockChanged returns true if there has been any changes to that block
+            ' BlockPgm is a global variable that forces all blocks to be written
+            If BlockChanged(block) Or BlockPgm Then
+
+                endtime = Date.Now
+                totaltime = endtime.Subtract(starttime)
+                K8FlashStatus.L_elapsedtime.Text = totaltime.Minutes & ":" & totaltime.Seconds
+                K8FlashStatus.fmode.Text = K8FlashStatus.fmode.Text & Hex(block)
+                K8FlashStatus.Progressbar_Flashstatus.Refresh()
+                K8FlashStatus.Refresh()
+                System.Windows.Forms.Application.DoEvents()
+
+                If block = &HF Then blkF = True
+
+
+                '
+                ' Erase block
+                '
+                txbyte = &H20
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                txbyte = &H0
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                txbyte = block
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                txbyte = &HD0
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+
+                '
+                ' ECU confirms a succesfull erase by sending ACK
+                '
+
+                loopcount = 0
+                loopuntilack = False
+
+                While Not loopuntilack
+                    FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                    i = 0
+                    While (rxqueue = 0) And (i < 100)
+                        System.Threading.Thread.Sleep(50)
+                        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                        i = i + 1
+                    End While
+                    For i = 1 To rxqueue
+                        FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+                        If rxbyte = ACK Then loopuntilack = True
+                    Next
+                    If rxbyte = NAK Then
+                        '
+                        ' Lets inform the user that something is wrong
+                        '
+                        K8FlashStatus.fmode.ForeColor = Color.Orange
+                        '
+                        ' Clear status register
+                        '
+                        System.Threading.Thread.Sleep(200)
+                        txbyte = &H50
+                        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                        i = 0
+                        While (rxqueue = 0) And (i < 10)
+                            System.Threading.Thread.Sleep(50)
+                            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                            i = i + 1
+                        End While
+                        For i = 1 To rxqueue
+                            FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+                        Next
+                        '
+                        ' Disable lock bit
+                        '
+                        System.Threading.Thread.Sleep(200)
+                        txbyte = &H75
+                        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                        i = 0
+                        While (rxqueue = 0) And (i < 10)
+                            System.Threading.Thread.Sleep(50)
+                            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                            i = i + 1
+                        End While
+                        For i = 1 To rxqueue
+                            FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+                        Next
+                        '
+                        ' Erase block again
+                        '
+                        System.Threading.Thread.Sleep(200)
+                        txbyte = &H20
+                        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                        txbyte = &H0
+                        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                        txbyte = block
+                        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                        txbyte = &HD0
+                        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                        System.Threading.Thread.Sleep(200)
+                    End If
+                    If loopcount > 100 Then
+                        MsgBox("No ACK after erasing a block=" & Str(block) & " Programming aborted, reset ecu and reprogram")
+                        K8FlashStatus.Close()
+                        B_FlashECU.Enabled = True
+                        FT_status = FT_Close(lngHandle)
+                        BlockPgm = True
+                        Return
+                    End If
+                    endtime = Date.Now
+                    totaltime = endtime.Subtract(starttime)
+                    K8FlashStatus.L_elapsedtime.Text = totaltime.Minutes & ":" & totaltime.Seconds
+                    K8FlashStatus.L_elapsedtime.Text = TimeOfDay
+                    K8FlashStatus.Progressbar_Flashstatus.Value = loopcount
+                    K8FlashStatus.Progressbar_Flashstatus.Refresh()
+                    K8FlashStatus.Refresh()
+                    System.Windows.Forms.Application.DoEvents()
+
+                    loopcount = loopcount + 1
+                End While
+
+                rxqueue = 0
+                i = 0
+
+                '
+                ' Write block using page write
+                '
+                K8FlashStatus.fmode.ForeColor = Color.Black
+
+                Dim page As Integer
+                For page = 0 To &HFF
+                    '
+                    ' Write one page at time
+                    '
+                    endtime = Date.Now
+                    totaltime = endtime.Subtract(starttime)
+                    K8FlashStatus.L_elapsedtime.Text = totaltime.Minutes & ":" & totaltime.Seconds
+                    K8FlashStatus.Progressbar_Flashstatus.Value = page
+                    K8FlashStatus.Progressbar_Flashstatus.Refresh()
+                    K8FlashStatus.Refresh()
+                    System.Windows.Forms.Application.DoEvents()
+                    '
+                    ' Check if the page is filled with 0xFF, no need to program
+                    '
+                    i = 0
+                    For y = 0 To &HFF
+                        buff(y) = ReadFlashByte((block * &H10000) + (page * &H100) + y)
+                        If buff(y) <> &HFF Then
+                            i = i + 1
+                        End If
+                    Next
+                    If i > 0 Then ' there is something in the page that is not 0xFF
+
+
+                        loopcount = 0
+                        loopuntilack = False
+
+                        While Not loopuntilack
+                            '
+                            ' write a page
+                            '
+                            txbyte = &H41
+                            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                            txbyte = page
+                            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                            txbyte = block
+                            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                            For y = 0 To &HFF
+                                txbyte = buff(y)
+                                'FT_status = FT_Write_Bytes(lngHandle, txbyte, 1, txqueue)
+                            Next
+
+                            FT_status = FT_Write(lngHandle, buff, &HFF + 1, &HFF + 1)
+
+                            '
+                            ' this should be ack from page write
+                            '
+                            rxbyte = 0
+                            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                            i = 0
+                            While (rxqueue = 0) And (i < 30)
+                                System.Threading.Thread.Sleep(25)
+                                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                                If rxqueue > 0 Then i = 30
+                                i = i + 1
+                            End While
+                            For i = 1 To rxqueue
+                                FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+                                If rxbyte = ACK Then loopuntilack = True
+                            Next
+                            If loopcount > 5 Then
+                                '
+                                ' Clear program lock bit and status register
+                                '
+                                K8FlashStatus.fmode.ForeColor = Color.Orange
+                                K8FlashStatus.Refresh()
+                                System.Windows.Forms.Application.DoEvents()
+                                System.Threading.Thread.Sleep(100)
+
+                                txbyte = &H75
+                                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                                FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+                                System.Threading.Thread.Sleep(100)
+                                rxbyte = 0
+                                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                                i = 0
+                                While (rxqueue = 0) And (i < 30)
+                                    System.Threading.Thread.Sleep(25)
+                                    FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                                    If rxqueue > 0 Then i = 30
+                                    i = i + 1
+                                End While
+                                For i = 1 To rxqueue
+                                    FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+                                Next
+
+                                txbyte = &H50
+                                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                                FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+                                System.Threading.Thread.Sleep(100)
+                                rxbyte = 0
+                                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                                i = 0
+                                While (rxqueue = 0) And (i < 30)
+                                    System.Threading.Thread.Sleep(25)
+                                    FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                                    If rxqueue > 0 Then i = 30
+                                    i = i + 1
+                                End While
+                                For i = 1 To rxqueue
+                                    FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+                                Next
+
+                            End If
+                            If loopcount > 10 Then
+
+                                MsgBox("No ACK after writing a block=" & Str(block) & " page=" & Str(page) & ". Programming aborted, reset ecu and reprogram")
+                                K8FlashStatus.Close()
+                                B_FlashECU.Enabled = True
+                                FT_status = FT_Close(lngHandle)
+                                BlockPgm = True
+                                Return
+                            End If
+                            loopcount = loopcount + 1
+                        End While
+
+                    End If
+                Next
+            End If
+        Next
+
+
+        '
+        ' Acquire sum value and compare checksum. This will be done every time as flashing always
+        ' starts by writing a new checksum to the image in computer memory
+        '
+        txbyte = &HE1
+        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+        txbyte = 0
+        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+        txbyte = 0
+        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+        txbyte = &HFF
+        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+        txbyte = &HF
+        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+        System.Threading.Thread.Sleep(200)
+        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+        If rxqueue <> 2 Then MsgBox("Error in reading checksum from ecu")
+        FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+        k = rxbyte
+        FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+        k = (k) + (rxbyte * &H100)
+
+
+        '
+        ' Flashing is finished, wait until switch is flipped back and then close com and activate enginedata if visible
+        '
+        do_once = True
+
+        timeEndPeriod(1)
+
+        If k <> &H5AA5 Then
+            MsgBox("Checksum error when validating the flash, please reflash your ecu before using it.")
+            K8FlashStatus.fmode.Text = "Checksum error, please reprogram"
+            ResetBlocks()
+            BlockPgm = True
+        Else
+            K8FlashStatus.fmode.Text = "Flash OK, turn switch to enginedata"
+            ResetBlocks()
+            BlockPgm = False
+        End If
+
+
+        endtime = Date.Now
+        totaltime = endtime.Subtract(starttime)
+        K8FlashStatus.L_elapsedtime.Text = totaltime.Minutes & ":" & totaltime.Seconds
+        K8FlashStatus.Refresh()
+        System.Windows.Forms.Application.DoEvents()
+
+        FT_status = FT_GetModemStatus(lngHandle, modemstat)
+        While ((modemstat = &H6000) Or (modemstat = &H6200))
+            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            System.Threading.Thread.Sleep(200)
+            FT_status = FT_GetModemStatus(lngHandle, modemstat)
+        End While
+        K8FlashStatus.Close()
+        B_FlashECU.Enabled = True
+
+        FT_status = FT_ClrDtr(lngHandle) 'new for Interface V1.1
+
+        FT_status = FT_Close(lngHandle)
+        If (FT_status = 0) Then
+            If K8Datastream.Visible() Then
+                K8Datastream.startenginedatacomms()
+            End If
+        Else
+            MsgBox("Can not close com port, please save the bin and reboot your computer and reflash just in case.")
+        End If
+
+        '
+        ' generate the bin that was flashed as a backup file
+        '
+        flashfile = "ecuflash.bin"
+        binpath = Application.StartupPath
+        binfile = "ecuflash.bin"
+        path = binpath & flashfile
+        ' if the temporary file exists for any reason, delete it
+        If File.Exists(path) = True Then
+            File.Delete(path)
+        End If
+        ' create the temporary file from current memory
+        fs = File.Open(path, FileMode.CreateNew)
+        fs.Write(Flash, 0, (262144 * 4))
+        fs.Close()
+        '
+        ' Generate a backup copy of the flashed file just flashed
+        '
+        binfile = ECUID.Text & "-"
+        binfile = binfile & My.Computer.Clock.LocalTime.Date.Day & "-"
+        binfile = binfile & My.Computer.Clock.LocalTime.Date.Month & "-"
+        binfile = binfile & My.Computer.Clock.LocalTime.Date.Year & "-"
+        binfile = binfile & My.Computer.Clock.LocalTime.Hour & "-"
+        binfile = binfile & My.Computer.Clock.LocalTime.Minute
+        binfile = binfile & ".bin"
+        path = binpath & binfile
+        ' if the temporary file exists for any reason, delete it
+        If File.Exists(path) = True Then
+            File.Delete(path)
+        End If
+        ' create the temporary file from curren memory
+        fs = File.Open(path, FileMode.CreateNew)
+        fs.Write(Flash, 0, (262144 * 4))
+        fs.Close()
+        ' cleanup of old backup files
+        CleanUpFDTDirectory(binpath)
+
 
     End Sub
 

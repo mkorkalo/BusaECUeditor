@@ -58,7 +58,7 @@ Public Class BKingShifter
             ReadShifterSettings()
             ShifterCodeInMemory(True, _shifterCodeLength)
 
-            If (readflashword(_IDTAG) <> _shifter2Version) Then
+            If (ReadFlashword(_IDTAG) <> _shifter2Version) Then
                 MsgBox("Shifter code incompatible with this version, please reactivate the shifter on this map")
                 C_shifter_activation.Checked = False
                 HideShifterSettings()
@@ -112,7 +112,7 @@ Public Class BKingShifter
 
             C_shifter_activation.Text = "Shifter active"
 
-            If (readflashbyte(_ADJ) = &HFF) Then
+            If (ReadFlashByte(_ADJ) = &HFF) Then
                 ModifyOriginalECUCode(True)
                 ShifterCodeInMemory(True, _shifterCodeLength)
             End If
@@ -250,7 +250,7 @@ Public Class BKingShifter
 
             fs.Close()
 
-            If readflashword(_IDTAG) <> _shifter2Version Then
+            If ReadFlashWord(_IDTAG) <> _shifter2Version Then
                 MsgBox("This shifter code is not compatible with this ECUeditor version !!!")
                 For i = 0 To length
                     writeflashbyte(i + _ADJ, &HFF)
@@ -282,27 +282,27 @@ Public Class BKingShifter
         C_Fuelcut.Visible = True
         C_igncut.Visible = True
 
-        T_Gear1.Text = round5(readflashword(_ADJ + 2) * _timerConst)
-        T_Gear2.Text = round5(readflashword(_ADJ + 4) * _timerConst)
-        T_Gear3.Text = round5(readflashword(_ADJ + 6) * _timerConst)
-        T_Gear4.Text = round5(readflashword(_ADJ + 8) * _timerConst)
-        T_Gear5.Text = round5(readflashword(_ADJ + 10) * _timerConst)
-        T_Gear6.Text = round5(readflashword(_ADJ + 12) * _timerConst)
+        T_Gear1.Text = round5(ReadFlashWord(_ADJ + 2) * _timerConst)
+        T_Gear2.Text = round5(ReadFlashWord(_ADJ + 4) * _timerConst)
+        T_Gear3.Text = round5(ReadFlashWord(_ADJ + 6) * _timerConst)
+        T_Gear4.Text = round5(ReadFlashWord(_ADJ + 8) * _timerConst)
+        T_Gear5.Text = round5(ReadFlashWord(_ADJ + 10) * _timerConst)
+        T_Gear6.Text = round5(ReadFlashWord(_ADJ + 12) * _timerConst)
 
-        If readflashword(_ADJ + 26) = 1 Then
+        If ReadFlashWord(_ADJ + 26) = 1 Then
             C_Fuelcut.Checked = True
         Else
             C_Fuelcut.Checked = False
         End If
 
-        If readflashword(_ADJ + 28) = 1 Then
+        If ReadFlashWord(_ADJ + 28) = 1 Then
             C_igncut.Checked = True
         Else
             C_igncut.Checked = False
         End If
 
-        T_minkillactive.Text = readflashword(_minKillActive)
-        T_killcountdelay.Text = readflashword(_killCountDelay)
+        T_minkillactive.Text = ReadFlashWord(_minKillActive)
+        T_killcountdelay.Text = ReadFlashWord(_killCountDelay)
 
     End Sub
 

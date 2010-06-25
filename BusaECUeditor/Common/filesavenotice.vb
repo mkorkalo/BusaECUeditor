@@ -22,21 +22,17 @@
 
 Imports System.Windows.Forms
 
-Public Class filesavenotice
+Public Class FileSaveNotice
 
-    Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
+#Region "Control Events"
+
+    Private Sub B_OK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Ok.Click
+
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
-    End Sub
-
-
-    Private Sub LinkLabel1_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
-
-        '  System.Diagnostics.Process.Start("http://")
 
     End Sub
 
-    Private Sub filesavenotice_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+#End Region
 
-    End Sub
 End Class

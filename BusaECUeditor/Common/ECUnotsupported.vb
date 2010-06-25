@@ -22,27 +22,16 @@
 
 Imports System.Windows.Forms
 
-Public Class ECUnotsupported
+Public Class ECUNotSupported
 
-    Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Me.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.Close()
-    End Sub
+#Region "Control Events"
 
-    Private Sub Cancel_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Close()
-    End Sub
+    Private Sub B_End_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_End.Click
 
-    Private Sub Label1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label1.Click
-
-    End Sub
-
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         End
-    End Sub
-
-    Private Sub Dialog1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
     End Sub
+
+#End Region
+
 End Class

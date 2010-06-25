@@ -41,7 +41,7 @@ Partial Class K8ramair
         '
         Me.D_ramair.AllowUserToAddRows = False
         Me.D_ramair.AllowUserToDeleteRows = False
-        Me.D_ramair.BackgroundColor = System.Drawing.SystemColors.Control
+        Me.D_ramair.BackgRoundColor = System.Drawing.SystemColors.Control
         Me.D_ramair.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.D_ramair.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.D_ramair.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically

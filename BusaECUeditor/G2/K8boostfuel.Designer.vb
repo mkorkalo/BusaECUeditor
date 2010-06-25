@@ -96,7 +96,7 @@ Partial Class K8boostfuel
         '
         Me.D_boostfuel.AllowUserToAddRows = False
         Me.D_boostfuel.AllowUserToDeleteRows = False
-        Me.D_boostfuel.BackgroundColor = System.Drawing.SystemColors.Control
+        Me.D_boostfuel.BackgRoundColor = System.Drawing.SystemColors.Control
         Me.D_boostfuel.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.D_boostfuel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.D_boostfuel.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
@@ -147,7 +147,7 @@ Partial Class K8boostfuel
         '
         Me.D_duty.AllowUserToAddRows = False
         Me.D_duty.AllowUserToDeleteRows = False
-        Me.D_duty.BackgroundColor = System.Drawing.SystemColors.Control
+        Me.D_duty.BackgRoundColor = System.Drawing.SystemColors.Control
         Me.D_duty.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.D_duty.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.D_duty.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically

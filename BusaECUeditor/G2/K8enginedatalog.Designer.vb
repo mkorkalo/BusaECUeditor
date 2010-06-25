@@ -65,8 +65,8 @@ Partial Class K8enginedatalog
         ChartPen1.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid
         ChartPen1.Width = 1.0!
         Me.P_RPM.PerfChartStyle.AvgLinePen = ChartPen1
-        Me.P_RPM.PerfChartStyle.BackgroundColorBottom = System.Drawing.Color.Gray
-        Me.P_RPM.PerfChartStyle.BackgroundColorTop = System.Drawing.Color.Gray
+        Me.P_RPM.PerfChartStyle.BackgRoundColorBottom = System.Drawing.Color.Gray
+        Me.P_RPM.PerfChartStyle.BackgRoundColorTop = System.Drawing.Color.Gray
         ChartPen2.Color = System.Drawing.Color.White
         ChartPen2.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid
         ChartPen2.Width = 1.0!
@@ -109,8 +109,8 @@ Partial Class K8enginedatalog
         ChartPen5.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid
         ChartPen5.Width = 1.0!
         Me.P_TPS.PerfChartStyle.AvgLinePen = ChartPen5
-        Me.P_TPS.PerfChartStyle.BackgroundColorBottom = System.Drawing.Color.Gray
-        Me.P_TPS.PerfChartStyle.BackgroundColorTop = System.Drawing.Color.Gray
+        Me.P_TPS.PerfChartStyle.BackgRoundColorBottom = System.Drawing.Color.Gray
+        Me.P_TPS.PerfChartStyle.BackgRoundColorTop = System.Drawing.Color.Gray
         ChartPen6.Color = System.Drawing.Color.White
         ChartPen6.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid
         ChartPen6.Width = 1.0!
@@ -144,8 +144,8 @@ Partial Class K8enginedatalog
         ChartPen9.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid
         ChartPen9.Width = 1.0!
         Me.P_AFR.PerfChartStyle.AvgLinePen = ChartPen9
-        Me.P_AFR.PerfChartStyle.BackgroundColorBottom = System.Drawing.Color.Gray
-        Me.P_AFR.PerfChartStyle.BackgroundColorTop = System.Drawing.Color.Gray
+        Me.P_AFR.PerfChartStyle.BackgRoundColorBottom = System.Drawing.Color.Gray
+        Me.P_AFR.PerfChartStyle.BackgRoundColorTop = System.Drawing.Color.Gray
         ChartPen10.Color = System.Drawing.Color.White
         ChartPen10.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid
         ChartPen10.Width = 1.0!

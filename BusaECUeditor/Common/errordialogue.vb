@@ -22,27 +22,16 @@
 
 Imports System.Windows.Forms
 
-Public Class Dialog_Error
+Public Class ErrorDialog
 
-    Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Me.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.Close()
-    End Sub
+#Region "Form Events"
 
-    Private Sub Cancel_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Close()
-    End Sub
+    Private Sub B_End_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_End.Click
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         End
-    End Sub
-
-    Private Sub Dialog_Error_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
     End Sub
 
-    Private Sub Label1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label1.Click
+#End Region
 
-    End Sub
 End Class
