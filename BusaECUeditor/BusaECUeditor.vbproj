@@ -293,16 +293,16 @@
     <Compile Include="G2\K8Limiters.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="G1\Datastream.Designer.vb">
-      <DependentUpon>Datastream.vb</DependentUpon>
+    <Compile Include="G1\DataStream.Designer.vb">
+      <DependentUpon>DataStream.vb</DependentUpon>
     </Compile>
-    <Compile Include="G1\Datastream.vb">
+    <Compile Include="G1\DataStream.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="G1\Datalogger.Designer.vb">
-      <DependentUpon>Datalogger.vb</DependentUpon>
+    <Compile Include="G1\DataLogger.Designer.vb">
+      <DependentUpon>DataLogger.vb</DependentUpon>
     </Compile>
-    <Compile Include="G1\Datalogger.vb">
+    <Compile Include="G1\DataLogger.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Common\AcceptTerms.Designer.vb">
@@ -341,10 +341,10 @@
     <Compile Include="G1\Shifter.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="G1\Advsettings.Designer.vb">
-      <DependentUpon>Advsettings.vb</DependentUpon>
+    <Compile Include="G1\AdvSettings.Designer.vb">
+      <DependentUpon>AdvSettings.vb</DependentUpon>
     </Compile>
-    <Compile Include="G1\Advsettings.vb">
+    <Compile Include="G1\AdvSettings.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="G1\Ignitionmap.Designer.vb">
@@ -405,10 +405,10 @@
       <DependentUpon>Main.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="G1\Fuelmap.Designer.vb">
-      <DependentUpon>Fuelmap.vb</DependentUpon>
+    <Compile Include="G1\FuelMap.Designer.vb">
+      <DependentUpon>FuelMap.vb</DependentUpon>
     </Compile>
-    <Compile Include="G1\Fuelmap.vb">
+    <Compile Include="G1\FuelMap.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Common\CommonFunctions.vb" />
@@ -445,9 +445,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>AboutBox.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="G1\Datastream.resx">
+    <EmbeddedResource Include="G1\DataStream.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>Datastream.vb</DependentUpon>
+      <DependentUpon>DataStream.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="G1\ldGuage.resx">
       <DependentUpon>ldGuage.vb</DependentUpon>
@@ -473,9 +473,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>Main.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="G1\Fuelmap.resx">
+    <EmbeddedResource Include="G1\FuelMap.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>Fuelmap.vb</DependentUpon>
+      <DependentUpon>FuelMap.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -607,9 +607,9 @@
       <DependentUpon>K8Limiters.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="G1\Datalogger.resx">
+    <EmbeddedResource Include="G1\DataLogger.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>Datalogger.vb</DependentUpon>
+      <DependentUpon>DataLogger.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="G1\Interfacedlg.resx">
       <SubType>Designer</SubType>
@@ -627,9 +627,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>Shifter.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="G1\Advsettings.resx">
+    <EmbeddedResource Include="G1\AdvSettings.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>Advsettings.vb</DependentUpon>
+      <DependentUpon>AdvSettings.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="G1\Ignitionmap.resx">
       <SubType>Designer</SubType>

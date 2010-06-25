@@ -24,61 +24,47 @@ Imports System.Management ' required by WMI queries
 
 Public Class Datastream
 
-    Dim bit15 As UInt16 = &H2 ^ 15
-    Dim bit14 As UInt16 = &H2 ^ 14
-    Dim bit13 As UInt16 = &H2 ^ 13
-    Dim bit12 As UInt16 = &H2 ^ 12
-    Dim bit11 As UInt16 = &H2 ^ 11
-    Dim bit10 As UInt16 = &H2 ^ 10
-    Dim bit9 As UInt16 = &H2 ^ 9
-    Dim bit8 As UInt16 = &H2 ^ 8
-    Dim bit7 As UInt16 = &H2 ^ 7
-    Dim bit6 As UInt16 = &H2 ^ 6
-    Dim bit5 As UInt16 = &H2 ^ 5
-    Dim bit4 As UInt16 = &H2 ^ 4
-    Dim bit3 As UInt16 = &H2 ^ 3
-    Dim bit2 As UInt16 = &H2 ^ 2
-    Dim bit1 As UInt16 = &H2 ^ 1
-    Dim bit0 As UInt16 = &H2 ^ 0
+#Region "Variables"
 
-    Dim h_received As Boolean = False
+    Dim _bit15 As UInt16 = &H2 ^ 15
+    Dim _bit14 As UInt16 = &H2 ^ 14
+    Dim _bit13 As UInt16 = &H2 ^ 13
+    Dim _bit12 As UInt16 = &H2 ^ 12
+    Dim _bit11 As UInt16 = &H2 ^ 11
+    Dim _bit10 As UInt16 = &H2 ^ 10
+    Dim _bit9 As UInt16 = &H2 ^ 9
+    Dim _bit8 As UInt16 = &H2 ^ 8
+    Dim _bit7 As UInt16 = &H2 ^ 7
+    Dim _bit6 As UInt16 = &H2 ^ 6
+    Dim _bit5 As UInt16 = &H2 ^ 5
+    Dim _bit4 As UInt16 = &H2 ^ 4
+    Dim _bit3 As UInt16 = &H2 ^ 3
+    Dim _bit2 As UInt16 = &H2 ^ 2
+    Dim _bit1 As UInt16 = &H2 ^ 1
+    Dim _bit0 As UInt16 = &H2 ^ 0
 
-    Dim bytecount As Integer
-    Dim checksum As Integer
-    Dim serialbyte(12) As Byte
-    Dim temperature As Integer
-    Dim checksumerror As Integer
-    Dim CLT_high As Boolean
-    Dim iactive As Boolean
-    Dim onceactive As Boolean
-    Dim ch_TPS As Integer
-    Dim ch_IAP As Integer
-    Dim ch_RPM As Integer
-    Dim ch_CLT As Integer
-    Dim ch_IGN As Integer
-    Dim ch_USR As Integer
+    Dim _hReceived As Boolean = False
 
+    Dim _byteCount As Integer
+    Dim _checkSum As Integer
+    Dim _serialByte(12) As Byte
+    Dim _temperature As Integer
+    Dim _checkSumError As Integer
+    Dim _CLTHigh As Boolean
+    Dim _iActive As Boolean
+    Dim _onceActive As Boolean
+    Dim _chTPS As Integer
+    Dim _chIAP As Integer
+    Dim _chRPM As Integer
+    Dim _chCLT As Integer
+    Dim _chIGN As Integer
+    Dim _chUSR As Integer
 
-    Private Sub Datastream_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        If SerialPort1.IsOpen() Then
-            Try
-                SerialPort1.Close()
-            Catch ex As Exception
-                MsgBox("Closing")
-            End Try
-        End If
-        Me.MapSelected.Text = ""
+#End Region
 
-    End Sub
+#Region "Form Events"
 
-    Private Sub Datastream_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
-        If e.KeyChar = Chr(27) Then Me.Close()
-    End Sub
-
-
-
-
-    Private Sub datastream_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub DataStream_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Dim i As Integer
         Dim j As Integer
         Dim s As String
@@ -86,9 +72,9 @@ Public Class Datastream
         Dim pvs As String
         Dim searcher As New ManagementObjectSearcher("root\WMI", "SELECT * FROM MSSerial_PortName WHERE InstanceName LIKE 'FTDI%'")
         Dim OKtoactivate As Boolean
-        CLT_high = False
-        iactive = False
-        onceactive = False
+        _CLTHigh = False
+        _iActive = False
+        _onceActive = False
 
         j = 0
         i = 1
@@ -102,7 +88,7 @@ Public Class Datastream
                     pvs = queryObj("InstanceName")
                     j = i 'Val(Mid(ps, 4, 1))
                 End If
-                ComboBox_Serialport.Items.Add(ps)
+                C_SerialPort.Items.Add(ps)
                 i = i + 1
             Next
         Catch ex As Exception
@@ -110,7 +96,7 @@ Public Class Datastream
             OKtoactivate = False
         End Try
         If j > 0 Then
-            ComboBox_Serialport.SelectedIndex = j - 1
+            C_SerialPort.SelectedIndex = j - 1
             If j = 1 Then OKtoactivate = True ' only one FTDI comport found, ok to activate
         Else
             OKtoactivate = False
@@ -123,72 +109,285 @@ Public Class Datastream
             End
         End If
 
-        Combobox_Uservar1.Items.Add("Air Temp") '0-
-        Combobox_Uservar1.Items.Add("Amb pre") '1-
-        Combobox_Uservar1.Items.Add("ECU Voltage") '2-
-        Combobox_Uservar1.Items.Add("Air pre") '3-
-        Combobox_Uservar1.Items.Add("AFR (EU)") '4-
-        Combobox_Uservar1.Items.Add("Yoshbox Cyl F1 adj") '5-30
-        Combobox_Uservar1.Items.Add("Yoshbox Cyl R2 adj") '6-31
-        Combobox_Uservar1.Items.Add("Yoshbox Cyl 3 adj") '7-32
-        Combobox_Uservar1.Items.Add("Yoshbox Cyl 4 adj") '8-33
-        Combobox_Uservar1.Items.Add("Yoshbox L/M/H") '9-42
-        Combobox_Uservar1.Items.Add("Oxy sens (EU)") '10-
-        Combobox_Uservar1.Items.Add("GPS sensor") '11-
-        Combobox_Uservar1.Items.Add("Sensor Error") '12-
+        C_Uservar1.Items.Add("Air Temp") '0-
+        C_Uservar1.Items.Add("Amb pre") '1-
+        C_Uservar1.Items.Add("ECU Voltage") '2-
+        C_Uservar1.Items.Add("Air pre") '3-
+        C_Uservar1.Items.Add("AFR (EU)") '4-
+        C_Uservar1.Items.Add("Yoshbox Cyl F1 adj") '5-30
+        C_Uservar1.Items.Add("Yoshbox Cyl R2 adj") '6-31
+        C_Uservar1.Items.Add("Yoshbox Cyl 3 adj") '7-32
+        C_Uservar1.Items.Add("Yoshbox Cyl 4 adj") '8-33
+        C_Uservar1.Items.Add("Yoshbox L/M/H") '9-42
+        C_Uservar1.Items.Add("Oxy sens (EU)") '10-
+        C_Uservar1.Items.Add("GPS sensor") '11-
+        C_Uservar1.Items.Add("Sensor Error") '12-
 
         RAMVAR_USR1 = Val(My.Settings.Item("User1")) 'case else
 
-        bytecount = 0
-        checksum = 0
+        _byteCount = 0
+        _checkSum = 0
         Try
-            SerialPort1.PortName = ComboBox_Serialport.Text
+            SerialPort1.PortName = C_SerialPort.Text
             SerialPort1.Open()
             SerialPort1.Close()
         Catch ex As Exception
             TextBox1.Text = ex.Message
         End Try
 
-        B_logging.Enabled = False
-        Combobox_Uservar1.Enabled = True
-        Datalog_trackbar.Enabled = False
-        Timer2.Interval = timerinterval
+        B_Logging.Enabled = False
+        C_Uservar1.Enabled = True
+        TrackBar_Datalog.Enabled = False
+        Timer2.Interval = TimerInterval
         Timer2.Enabled = False
-        datalogpointer = 0
-        checksumerror = 0
+        DataLogPointer = 0
+        _checksumerror = 0
 
-        If OKtoactivate Then Button5_Click(Me, System.EventArgs.Empty)
+        If OKtoactivate Then B_DataStreamOn_Click(Me, System.EventArgs.Empty)
 
         If main.ECUID.Text.Contains("BB34BB") Then
-            R_oxysensor.Visible = True
+            R_OxySensor.Visible = True
         Else
-            R_oxysensor.Visible = False
+            R_OxySensor.Visible = False
         End If
     End Sub
 
+    Private Sub DataStream_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
+        If e.KeyChar = Chr(27) Then Me.Close()
+    End Sub
 
-    Private Sub ComboBox1_SelectedIndexChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ComboBox_Serialport.SelectedIndexChanged
+    Private Sub DataStream_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+        If SerialPort1.IsOpen() Then
+            Try
+                SerialPort1.Close()
+            Catch ex As Exception
+                MsgBox("Closing")
+            End Try
+        End If
+        Me.T_MapSelected.Text = ""
+
+    End Sub
+#End Region
+
+#Region "Control Events"
+
+    Private Sub C_SerialPort_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_SerialPort.SelectedIndexChanged
 
         Try
             If SerialPort1.IsOpen Then
                 SerialPort1.Close()
-                SerialPort1.PortName = ComboBox_Serialport.Text
+                SerialPort1.PortName = C_SerialPort.Text
                 SerialPort1.Open()
             Else
-                SerialPort1.PortName = ComboBox_Serialport.Text
+                SerialPort1.PortName = C_SerialPort.Text
                 SerialPort1.Open()
                 SerialPort1.Close()
             End If
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.OkOnly)
         End Try
-        My.Settings.Item("ComPort") = ComboBox_Serialport.Text
+        My.Settings.Item("ComPort") = C_SerialPort.Text
 
 
     End Sub
 
+    Private Sub B_DataStreamOn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_DataStreamOn.Click
+        Timer2.Enabled = Not Timer2.Enabled
+        Me.Text = "Datastream"
+        If Timer2.Enabled Then
 
-    Private Sub wait(ByVal i As Integer)
+            B_DataStreamOn.Text = "Data OFF"
+            B_Logging.Enabled = True
+            C_SerialPort.Enabled = False
+            C_Uservar1.Enabled = False
+            Try
+                SerialPort1.Open()
+            Catch ex As Exception
+                TextBox1.Text = ex.Message
+                If Not SerialPort1.IsOpen() Then
+                    B_DataStreamOn.Text = "Data ON"
+                    B_Logging.Enabled = False
+                    _CLTHigh = False
+                    C_SerialPort.Enabled = True
+                    C_Uservar1.Enabled = True
+                    T_MapSelected.Text = ""
+                    Timer2.Enabled = False
+                End If
+            End Try
+        Else
+            B_DataStreamOn.Text = "Data ON"
+            B_Logging.Enabled = False
+            _CLTHigh = False
+            C_SerialPort.Enabled = True
+            C_Uservar1.Enabled = True
+            T_MapSelected.Text = ""
+            Timer2.Enabled = False
+            Try
+                SerialPort1.Close()
+            Catch ex As Exception
+                TextBox1.Text = ex.Message
+            End Try
+        End If
+    End Sub
+
+    Private Sub B_Logging_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Logging.Click
+        If B_Logging.Text = "Logging ON" Then
+            B_Logging.Text = "Logging OFF"
+            DataLogPointer = 1
+            TrackBar_Datalog.Enabled = False
+            Datalogger.Show()
+        Else
+            B_Logging.Text = "Logging ON"
+            DataLogLength = DataLogPointer
+            DataLogPointer = 0
+            TrackBar_Datalog.Enabled = True
+            TrackBar_Datalog.Maximum = DataLogLength
+            TrackBar_Datalog.Value = DataLogLength
+            TextBox1.Text = Str(DataLogLength)
+            Datalogger.Close()
+        End If
+    End Sub
+
+    Private Sub C_UserVar1_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles C_Uservar1.TextChanged
+        Select Case C_Uservar1.SelectedIndex
+            Case 0 ' air temperature
+                RAMVAR_USR1 = 8
+            Case 1 ' Ambient pressure
+                RAMVAR_USR1 = 9
+            Case 2 ' Voltage compensation
+                RAMVAR_USR1 = 10
+            Case 3 ' Air Pressure
+                RAMVAR_USR1 = 21
+            Case 4 ' Oxy sensor (EU models)
+                RAMVAR_USR1 = 76
+            Case 5
+                RAMVAR_USR1 = 30
+            Case 6
+                RAMVAR_USR1 = 31
+            Case 7
+                RAMVAR_USR1 = 32
+            Case 8
+                RAMVAR_USR1 = 33
+            Case 9
+                RAMVAR_USR1 = 42
+            Case 10
+                RAMVAR_USR1 = 76
+            Case 11
+                'GPS sensor
+                RAMVAR_USR1 = 62
+            Case 12
+                'Sensor error
+                RAMVAR_USR1 = 0
+            Case Else
+                RAMVAR_USR1 = Val(C_Uservar1.Text)
+        End Select
+
+        If RAMVAR_USR1 < 0 Or RAMVAR_USR1 > 255 Then
+            RAMVAR_USR1 = 0
+            MsgBox("Invalid USR1 parameter value(", MsgBoxStyle.OkOnly)
+        Else
+            My.Settings.Item("User1") = Str(RAMVAR_USR1)
+        End If
+
+    End Sub
+
+    Private Sub Timer2_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer2.Tick
+        Dim d As Double
+
+        '
+        ' in case the coolant is dangerously high, inform the user as the clt sensor is not working
+        '
+        If _CLTHigh Then
+            SendGaugeData()
+        Else
+            ReadProcessOnGoing = True
+            ReadRamVar()
+            ReadProcessOnGoing = False
+            If FuelMapVisible Then Fuelmap.tracemap()
+            If IgnitionMapVisible Then Ignitionmap.tracemap()
+        End If
+
+        If _checksumerror <> 0 Then
+            'sendreset()
+            TextBox1.Text = "Checksum general error in program"
+        Else
+            WriteLabels()
+
+
+            If DataLogPointer > 0 Then
+                DataLogLength = DataLogPointer
+                DataLog(DataLogPointer, 0) = DataLogPointer
+                DataLog(DataLogPointer, 2) = RPM
+                DataLog(DataLogPointer, 3) = TPS
+                DataLog(DataLogPointer, 4) = IAP
+                DataLog(DataLogPointer, 5) = AP
+                DataLog(DataLogPointer, 6) = CLT
+                DataLog(DataLogPointer, 7) = USR1
+                DataLog(DataLogPointer, 8) = Fuel
+                DataLog(DataLogPointer, 9) = IGN
+                DataLog(DataLogPointer, 10) = AFR
+
+                DataLogPointer = DataLogPointer + 1
+
+                If DataLogPointer >= MaxDataLog Then
+                    B_Logging.Text = "Logging ON"
+                    DataLogLength = DataLogPointer
+                    DataLogPointer = 0
+                    TrackBar_Datalog.Enabled = True
+                    TrackBar_Datalog.Maximum = DataLogLength
+                    TextBox1.Text = Str(DataLogLength)
+                    Datalogger.Close()
+                    MsgBox("Maximum datalog length exceeded", MsgBoxStyle.Information)
+                End If
+                '
+                ' Lets show some fancy gauges here while datalogging
+                '
+                d = RPM
+                Datalogger.AxEChartCtl1.SetValue(d)
+                d = CalcTPS(TPS)
+                Datalogger.AxEChartCtl2.SetValue(d)
+                Datalogger.AxEChartCtl1.Update()
+                Datalogger.AxEChartCtl2.Update()
+                Datalogger.L_capleft.Text = Str(Int(DataLogPointer * 100 / MaxDataLog)) & "%"
+                If ((DataLogPointer / MaxDataLog) * 100) > 90 Then
+                    Datalogger.L_capleft.ForeColor = Color.Red
+                Else
+                    Datalogger.L_capleft.ForeColor = Color.Black
+                End If
+
+
+            End If
+        End If
+
+    End Sub
+
+    Private Sub TrackBar_Datalog_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrackBar_Datalog.Scroll
+
+        DataLogPointer = TrackBar_Datalog.Value
+        TextBox1.Text = Str(TrackBar_Datalog.Value)
+
+
+        RPM = DataLog(TrackBar_Datalog.Value, 2)
+        TPS = DataLog(TrackBar_Datalog.Value, 3)
+        IAP = DataLog(TrackBar_Datalog.Value, 4)
+        OXY = DataLog(TrackBar_Datalog.Value, 5)
+        CLT = DataLog(TrackBar_Datalog.Value, 6)
+        USR1 = DataLog(TrackBar_Datalog.Value, 7)
+        Fuel = DataLog(TrackBar_Datalog.Value, 8)
+        IGN = DataLog(TrackBar_Datalog.Value, 9)
+        AFR = DataLog(TrackBar_Datalog.Value, 10)
+        If FuelMapVisible Then Fuelmap.tracemap()
+        If IgnitionMapVisible Then Ignitionmap.tracemap()
+
+        writelabels()
+
+    End Sub
+
+#End Region
+
+#Region "Functions"
+
+    Private Sub Wait(ByVal i As Integer)
         Dim cnt As Integer
         cnt = 0
         Do While cnt < i
@@ -197,7 +396,7 @@ Public Class Datastream
 
     End Sub
 
-    Private Sub readramvar()
+    Private Sub ReadRamVar()
         Dim b(16) As Byte
         Dim i As Integer
         Dim c As Integer
@@ -238,7 +437,7 @@ Public Class Datastream
             If SerialPort1.IsOpen Then
                 SerialPort1.Write(b, 0, l)
                 SerialPort1.Read(b, 0, l)
-                wait(1500)
+                Wait(1500)
                 SerialPort1.Read(b, 0, l)
             End If
 
@@ -264,7 +463,7 @@ Public Class Datastream
             CLT = b(6)
             'FUEL = CInt(((b(8) * 256) - 1024) * 2.47 / 100) * 2 ' if 48, then *1, if 24 then*2
             'FUEL = Int(((b(8) * 12.8) - 64))
-            FUEL = Int(((b(8) * 12.2) - 48))
+            Fuel = Int(((b(8) * 12.2) - 48))
             IGN = CInt(((b(9) * 2.56 / 10) * 1.31) - 3.5) + (0.75 * RPM / 1000)
             'IGN = CInt(b(9) * 2.56 / 10)
 
@@ -293,12 +492,12 @@ Public Class Datastream
             End If
 
             If ((((CLT - 32) * 10) / 18) > 110) Then
-                CLT_high = True
+                _CLTHigh = True
                 Me.Text = "Datastream COOLANT TEMPERATURE WARNING, pgm restart required"
                 MsgBox("Coolant temperature high, pgm restart required", MsgBoxStyle.Critical)
                 Me.Close()
             Else
-                CLT_high = False
+                _CLTHigh = False
                 TextBox1.Text = "Datastream active" & Str(b(l - 1)) & "=" & Str(256 - c)
                 Me.Text = "Datastream active"
             End If
@@ -316,22 +515,21 @@ Public Class Datastream
         ' not fully tested and validated. Based on assumptions of reading the disassembler.
         '
         oxysensoractive = False
-        If IAP > ReadFlashByte(&H295E2) And IAP < ReadFlashByte(&H295E3) And main.ECUID.Text.Contains("BB34BB51") And MapSelected.Text.Contains("IAP") Then
+        If IAP > ReadFlashByte(&H295E2) And IAP < ReadFlashByte(&H295E3) And main.ECUID.Text.Contains("BB34BB51") And T_MapSelected.Text.Contains("IAP") Then
             oxysensoractive = True
         End If
-        If TPS > ReadFlashByte(&H295E0) And TPS < ReadFlashByte(&H295E1) And main.ECUID.Text.Contains("BB34BB51") And MapSelected.Text.Contains("TPS") Then
+        If TPS > ReadFlashByte(&H295E0) And TPS < ReadFlashByte(&H295E1) And main.ECUID.Text.Contains("BB34BB51") And T_MapSelected.Text.Contains("TPS") Then
             oxysensoractive = True
         End If
         If Not (oxysensoractive And RPM > ReadFlashWord(&H28C2E) / 2.56 And RPM < ReadFlashWord(&H28C2C) / 2.56 And CLT > ReadFlashByte(&H295DF)) Then
             oxysensoractive = False
         End If
-        R_oxysensor.Checked = oxysensoractive
+        R_OxySensor.Checked = oxysensoractive
 
 
     End Sub
 
-
-    Private Sub sendgaugedata()
+    Private Sub SendGaugeData()
 
         Dim b(10) As Byte
         Dim i As Integer
@@ -371,13 +569,13 @@ Public Class Datastream
         End Try
 
         If (b(l - 1) <> (256 - c)) Then
-            checksumerror = 3
+            _checksumerror = 3
             TextBox1.Text = "Checksum error in sending gauge data"
         End If
 
     End Sub
 
-    Private Sub sendreset()
+    Private Sub SendReset()
 
         Dim b(10) As Byte
         Dim i As Integer
@@ -417,164 +615,13 @@ Public Class Datastream
         End Try
 
         If (b(l - 1) <> (256 - c)) Then
-            checksumerror = 3
+            _checksumerror = 3
             TextBox1.Text = "Checksum error in sending reset data"
         End If
 
     End Sub
 
-
-    Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_DatastreamON.Click
-        Timer2.Enabled = Not Timer2.Enabled
-        Me.Text = "Datastream"
-        If Timer2.Enabled Then
-
-            B_DatastreamON.Text = "Data OFF"
-            B_logging.Enabled = True
-            ComboBox_Serialport.Enabled = False
-            Combobox_Uservar1.Enabled = False
-            Try
-                SerialPort1.Open()
-            Catch ex As Exception
-                TextBox1.Text = ex.Message
-                If Not SerialPort1.IsOpen() Then
-                    B_DatastreamON.Text = "Data ON"
-                    B_logging.Enabled = False
-                    CLT_high = False
-                    ComboBox_Serialport.Enabled = True
-                    Combobox_Uservar1.Enabled = True
-                    MapSelected.Text = ""
-                    Timer2.Enabled = False
-                End If
-            End Try
-        Else
-            B_DatastreamON.Text = "Data ON"
-            B_logging.Enabled = False
-            CLT_high = False
-            ComboBox_Serialport.Enabled = True
-            Combobox_Uservar1.Enabled = True
-            MapSelected.Text = ""
-            Timer2.Enabled = False
-            Try
-                SerialPort1.Close()
-            Catch ex As Exception
-                TextBox1.Text = ex.Message
-            End Try
-        End If
-    End Sub
-
-    Private Sub Timer2_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer2.Tick
-        Dim d As Double
-
-        '
-        ' in case the coolant is dangerously high, inform the user as the clt sensor is not working
-        '
-        If CLT_high Then
-            sendgaugedata()
-        Else
-            readprocessongoing = True
-            readramvar()
-            readprocessongoing = False
-            If fuelmapvisible Then Fuelmap.tracemap()
-            If Ignitionmapvisible Then Ignitionmap.tracemap()
-        End If
-
-        If checksumerror <> 0 Then
-            'sendreset()
-            TextBox1.Text = "Checksum general error in program"
-        Else
-            writelabels()
-
-
-            If datalogpointer > 0 Then
-                DataLogLength = DataLogPointer
-                DataLog(DataLogPointer, 0) = DataLogPointer
-                DataLog(DataLogPointer, 2) = RPM
-                DataLog(DataLogPointer, 3) = TPS
-                DataLog(DataLogPointer, 4) = IAP
-                DataLog(DataLogPointer, 5) = AP
-                DataLog(DataLogPointer, 6) = CLT
-                DataLog(DataLogPointer, 7) = USR1
-                DataLog(DataLogPointer, 8) = Fuel
-                DataLog(DataLogPointer, 9) = IGN
-                DataLog(DataLogPointer, 10) = AFR
-
-                DataLogPointer = DataLogPointer + 1
-
-                If DataLogPointer >= MaxDataLog Then
-                    B_logging.Text = "Logging ON"
-                    DataLogLength = DataLogPointer
-                    DataLogPointer = 0
-                    Datalog_trackbar.Enabled = True
-                    Datalog_trackbar.Maximum = DataLogLength
-                    TextBox1.Text = Str(DataLogLength)
-                    Datalogger.Close()
-                    MsgBox("Maximum datalog length exceeded", MsgBoxStyle.Information)
-                End If
-                '
-                ' Lets show some fancy gauges here while datalogging
-                '
-                d = RPM
-                Datalogger.AxEChartCtl1.SetValue(d)
-                d = CalcTPS(TPS)
-                Datalogger.AxEChartCtl2.SetValue(d)
-                Datalogger.AxEChartCtl1.Update()
-                Datalogger.AxEChartCtl2.Update()
-                Datalogger.L_capleft.Text = Str(Int(datalogpointer * 100 / maxdatalog)) & "%"
-                If ((datalogpointer / maxdatalog) * 100) > 90 Then
-                    Datalogger.L_capleft.ForeColor = Color.Red
-                Else
-                    Datalogger.L_capleft.ForeColor = Color.Black
-                End If
-
-
-            End If
-        End If
-
-    End Sub
-
-
-    Private Sub B_logging_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_logging.Click
-        If B_logging.Text = "Logging ON" Then
-            B_logging.Text = "Logging OFF"
-            datalogpointer = 1
-            Datalog_trackbar.Enabled = False
-            Datalogger.Show()
-        Else
-            B_logging.Text = "Logging ON"
-            DataLogLength = DataLogPointer
-            datalogpointer = 0
-            Datalog_trackbar.Enabled = True
-            Datalog_trackbar.Maximum = DataLogLength
-            Datalog_trackbar.Value = DataLogLength
-            TextBox1.Text = Str(DataLogLength)
-            Datalogger.Close()
-        End If
-    End Sub
-
-    Private Sub Datalog_trackbar_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Datalog_trackbar.Scroll
-
-        datalogpointer = Datalog_trackbar.Value
-        TextBox1.Text = Str(Datalog_trackbar.Value)
-
-
-        RPM = datalog(Datalog_trackbar.Value, 2)
-        TPS = datalog(Datalog_trackbar.Value, 3)
-        IAP = datalog(Datalog_trackbar.Value, 4)
-        OXY = datalog(Datalog_trackbar.Value, 5)
-        CLT = datalog(Datalog_trackbar.Value, 6)
-        USR1 = datalog(Datalog_trackbar.Value, 7)
-        FUEL = datalog(Datalog_trackbar.Value, 8)
-        IGN = datalog(Datalog_trackbar.Value, 9)
-        AFR = datalog(Datalog_trackbar.Value, 10)
-        If fuelmapvisible Then Fuelmap.tracemap()
-        If Ignitionmapvisible Then Ignitionmap.tracemap()
-
-        writelabels()
-
-    End Sub
-
-    Private Sub writelabels()
+    Private Sub WriteLabels()
 
         RPMGauge.Deflection = RPM
 
@@ -597,12 +644,12 @@ Public Class Datastream
 
         ' Select which map is currently in use. IDLE Map is always assumed non TPS map...
         If Int(((TPS - 55) / (256 - 55)) * 100) >= 7 Then
-            MapSelected.Text = "TPS"
+            T_MapSelected.Text = "TPS"
         Else
             If RPM < 2000 Then
-                MapSelected.Text = "IDLE"
+                T_MapSelected.Text = "IDLE"
             Else
-                MapSelected.Text = "IAP"
+                T_MapSelected.Text = "IAP"
             End If
         End If
 
@@ -610,13 +657,13 @@ Public Class Datastream
         LED_TPS.Text = CalcTPS(TPS)
         LED_IAP.Text = Str(IAP)
 
-        If metric Then
+        If Metric Then
             LED_CLT.Text = Str(Int(((CLT - 32) * 10) / 18)) ' temperature in celsius
         Else
             LED_CLT.Text = Str(((9 / 5) * (Int(((CLT - 32) * 10) / 18))) - 32) ' temperature in fahrenheit
         End If
 
-        LED_FUEL.Text = Str(FUEL)
+        LED_FUEL.Text = Str(Fuel)
         LED_IGN.Text = Str(IGN)
 
         If RAMVAR_USR1 = 0 Then ' sensor error, codes tested unless otherwise noted
@@ -636,57 +683,18 @@ Public Class Datastream
 
     End Sub
 
+    Private Function NotValidInterface(ByVal pvs As String) As Boolean
+        Return (False)
+    End Function
+
+#End Region
+
+#Region "Not Used"
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         sendreset()
     End Sub
 
-    Private Sub Combobox_Uservar1_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Combobox_Uservar1.TextChanged
-        Select Case Combobox_Uservar1.SelectedIndex
-            Case 0 ' air temperature
-                RAMVAR_USR1 = 8
-            Case 1 ' Ambient pressure
-                RAMVAR_USR1 = 9
-            Case 2 ' Voltage compensation
-                RAMVAR_USR1 = 10
-            Case 3 ' Air Pressure
-                RAMVAR_USR1 = 21
-            Case 4 ' Oxy sensor (EU models)
-                RAMVAR_USR1 = 76
-            Case 5
-                RAMVAR_USR1 = 30
-            Case 6
-                RAMVAR_USR1 = 31
-            Case 7
-                RAMVAR_USR1 = 32
-            Case 8
-                RAMVAR_USR1 = 33
-            Case 9
-                RAMVAR_USR1 = 42
-            Case 10
-                RAMVAR_USR1 = 76
-            Case 11
-                'GPS sensor
-                RAMVAR_USR1 = 62
-            Case 12
-                'Sensor error
-                RAMVAR_USR1 = 0
-            Case Else
-                RAMVAR_USR1 = Val(Combobox_Uservar1.Text)
-        End Select
+#End Region
 
-        If RAMVAR_USR1 < 0 Or RAMVAR_USR1 > 255 Then
-            RAMVAR_USR1 = 0
-            MsgBox("Invalid USR1 parameter value(", MsgBoxStyle.OkOnly)
-        Else
-            My.Settings.Item("User1") = Str(RAMVAR_USR1)
-        End If
-
-    End Sub
-
-    Private Function notvalidinterface(ByVal pvs As String) As Boolean
-        Return (False)
-    End Function
-
- 
 End Class
