@@ -22,22 +22,22 @@ Partial Class Advsettings
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Advsettings))
         Me.B_Close = New System.Windows.Forms.Button
-        Me.C_solenoid_on = New System.Windows.Forms.ComboBox
+        Me.C_SolenoidOn = New System.Windows.Forms.ComboBox
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.Solenoid_TPS = New System.Windows.Forms.CheckBox
+        Me.C_SolenoidTPS = New System.Windows.Forms.CheckBox
         Me.Label15 = New System.Windows.Forms.Label
         Me.Label3 = New System.Windows.Forms.Label
         Me.Label2 = New System.Windows.Forms.Label
-        Me.C_solenoid_off = New System.Windows.Forms.ComboBox
+        Me.C_SolenoidOff = New System.Windows.Forms.ComboBox
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
         Me.C_Gearing = New System.Windows.Forms.ComboBox
-        Me.IAT_disable = New System.Windows.Forms.CheckBox
+        Me.C_IATDisable = New System.Windows.Forms.CheckBox
         Me.Label20 = New System.Windows.Forms.Label
         Me.Label5 = New System.Windows.Forms.Label
         Me.GroupBox3 = New System.Windows.Forms.GroupBox
         Me.Label1 = New System.Windows.Forms.Label
         Me.Label6 = New System.Windows.Forms.Label
-        Me.C_injectorsize = New System.Windows.Forms.ComboBox
+        Me.C_InjectorSize = New System.Windows.Forms.ComboBox
         Me.GroupBox4 = New System.Windows.Forms.GroupBox
         Me.Label7 = New System.Windows.Forms.Label
         Me.C_Accel = New System.Windows.Forms.ComboBox
@@ -55,27 +55,27 @@ Partial Class Advsettings
         Me.Label9 = New System.Windows.Forms.Label
         Me.GroupBox6 = New System.Windows.Forms.GroupBox
         Me.Label14 = New System.Windows.Forms.Label
-        Me.IAP_range = New System.Windows.Forms.CheckBox
+        Me.C_IAPRange = New System.Windows.Forms.CheckBox
         Me.GroupBox7 = New System.Windows.Forms.GroupBox
         Me.Label16 = New System.Windows.Forms.Label
         Me.Label17 = New System.Windows.Forms.Label
-        Me.C_fuelconsumption = New System.Windows.Forms.ComboBox
+        Me.C_FuelConsumption = New System.Windows.Forms.ComboBox
         Me.LLL = New System.Windows.Forms.GroupBox
-        Me.C_IAPTPSswitchingpoint = New System.Windows.Forms.ComboBox
+        Me.C_IAPTPSSwitchingPoint = New System.Windows.Forms.ComboBox
         Me.Label21 = New System.Windows.Forms.Label
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.GroupBox8 = New System.Windows.Forms.GroupBox
-        Me.C_antitheft = New System.Windows.Forms.CheckBox
+        Me.C_Antitheft = New System.Windows.Forms.CheckBox
         Me.Label4 = New System.Windows.Forms.Label
         Me.GroupBox9 = New System.Windows.Forms.GroupBox
-        Me.C_cranking = New System.Windows.Forms.CheckBox
+        Me.C_Cranking = New System.Windows.Forms.CheckBox
         Me.Label8 = New System.Windows.Forms.Label
-        Me.GroupBox10 = New System.Windows.Forms.GroupBox
-        Me.C_yoshbox = New System.Windows.Forms.CheckBox
-        Me.Label13 = New System.Windows.Forms.Label
         Me.GroupBox11 = New System.Windows.Forms.GroupBox
-        Me.C_dwell = New System.Windows.Forms.ComboBox
+        Me.C_Dwell = New System.Windows.Forms.ComboBox
         Me.Label18 = New System.Windows.Forms.Label
+        Me.GroupBox10 = New System.Windows.Forms.GroupBox
+        Me.C_Yoshbox = New System.Windows.Forms.CheckBox
+        Me.Label13 = New System.Windows.Forms.Label
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -86,8 +86,8 @@ Partial Class Advsettings
         Me.LLL.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox9.SuspendLayout()
-        Me.GroupBox10.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
+        Me.GroupBox10.SuspendLayout()
         Me.SuspendLayout()
         '
         'B_Close
@@ -99,23 +99,23 @@ Partial Class Advsettings
         Me.B_Close.Text = "Close"
         Me.B_Close.UseVisualStyleBackColor = True
         '
-        'C_solenoid_on
+        'C_SolenoidOn
         '
-        Me.C_solenoid_on.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.C_solenoid_on.FormattingEnabled = True
-        Me.C_solenoid_on.Location = New System.Drawing.Point(150, 19)
-        Me.C_solenoid_on.Name = "C_solenoid_on"
-        Me.C_solenoid_on.Size = New System.Drawing.Size(88, 21)
-        Me.C_solenoid_on.TabIndex = 2
+        Me.C_SolenoidOn.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.C_SolenoidOn.FormattingEnabled = True
+        Me.C_SolenoidOn.Location = New System.Drawing.Point(150, 19)
+        Me.C_SolenoidOn.Name = "C_SolenoidOn"
+        Me.C_SolenoidOn.Size = New System.Drawing.Size(88, 21)
+        Me.C_SolenoidOn.TabIndex = 2
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.Solenoid_TPS)
+        Me.GroupBox1.Controls.Add(Me.C_SolenoidTPS)
         Me.GroupBox1.Controls.Add(Me.Label15)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.Label2)
-        Me.GroupBox1.Controls.Add(Me.C_solenoid_off)
-        Me.GroupBox1.Controls.Add(Me.C_solenoid_on)
+        Me.GroupBox1.Controls.Add(Me.C_SolenoidOff)
+        Me.GroupBox1.Controls.Add(Me.C_SolenoidOn)
         Me.GroupBox1.Location = New System.Drawing.Point(15, 12)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(246, 100)
@@ -124,15 +124,15 @@ Partial Class Advsettings
         Me.GroupBox1.Text = "Reprogram IAC to Nitrous or Shift light Control"
         Me.ToolTip1.SetToolTip(Me.GroupBox1, resources.GetString("GroupBox1.ToolTip"))
         '
-        'Solenoid_TPS
+        'C_SolenoidTPS
         '
-        Me.Solenoid_TPS.AutoSize = True
-        Me.Solenoid_TPS.Location = New System.Drawing.Point(150, 73)
-        Me.Solenoid_TPS.Name = "Solenoid_TPS"
-        Me.Solenoid_TPS.Size = New System.Drawing.Size(59, 17)
-        Me.Solenoid_TPS.TabIndex = 4
-        Me.Solenoid_TPS.Text = "Normal"
-        Me.Solenoid_TPS.UseVisualStyleBackColor = True
+        Me.C_SolenoidTPS.AutoSize = True
+        Me.C_SolenoidTPS.Location = New System.Drawing.Point(150, 73)
+        Me.C_SolenoidTPS.Name = "C_SolenoidTPS"
+        Me.C_SolenoidTPS.Size = New System.Drawing.Size(59, 17)
+        Me.C_SolenoidTPS.TabIndex = 4
+        Me.C_SolenoidTPS.Text = "Normal"
+        Me.C_SolenoidTPS.UseVisualStyleBackColor = True
         '
         'Label15
         '
@@ -161,19 +161,19 @@ Partial Class Advsettings
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "Solenoid on RPM"
         '
-        'C_solenoid_off
+        'C_SolenoidOff
         '
-        Me.C_solenoid_off.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.C_solenoid_off.FormattingEnabled = True
-        Me.C_solenoid_off.Location = New System.Drawing.Point(150, 46)
-        Me.C_solenoid_off.Name = "C_solenoid_off"
-        Me.C_solenoid_off.Size = New System.Drawing.Size(88, 21)
-        Me.C_solenoid_off.TabIndex = 3
+        Me.C_SolenoidOff.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.C_SolenoidOff.FormattingEnabled = True
+        Me.C_SolenoidOff.Location = New System.Drawing.Point(150, 46)
+        Me.C_SolenoidOff.Name = "C_SolenoidOff"
+        Me.C_SolenoidOff.Size = New System.Drawing.Size(88, 21)
+        Me.C_SolenoidOff.TabIndex = 3
         '
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.C_Gearing)
-        Me.GroupBox2.Controls.Add(Me.IAT_disable)
+        Me.GroupBox2.Controls.Add(Me.C_IATDisable)
         Me.GroupBox2.Controls.Add(Me.Label20)
         Me.GroupBox2.Controls.Add(Me.Label5)
         Me.GroupBox2.Location = New System.Drawing.Point(277, 12)
@@ -195,15 +195,15 @@ Partial Class Advsettings
         Me.C_Gearing.Size = New System.Drawing.Size(100, 21)
         Me.C_Gearing.TabIndex = 0
         '
-        'IAT_disable
+        'C_IATDisable
         '
-        Me.IAT_disable.AutoSize = True
-        Me.IAT_disable.Location = New System.Drawing.Point(146, 19)
-        Me.IAT_disable.Name = "IAT_disable"
-        Me.IAT_disable.Size = New System.Drawing.Size(77, 17)
-        Me.IAT_disable.TabIndex = 3
-        Me.IAT_disable.Text = "IAT normal"
-        Me.IAT_disable.UseVisualStyleBackColor = True
+        Me.C_IATDisable.AutoSize = True
+        Me.C_IATDisable.Location = New System.Drawing.Point(146, 19)
+        Me.C_IATDisable.Name = "C_IATDisable"
+        Me.C_IATDisable.Size = New System.Drawing.Size(77, 17)
+        Me.C_IATDisable.TabIndex = 3
+        Me.C_IATDisable.Text = "IAT normal"
+        Me.C_IATDisable.UseVisualStyleBackColor = True
         '
         'Label20
         '
@@ -227,7 +227,7 @@ Partial Class Advsettings
         '
         Me.GroupBox3.Controls.Add(Me.Label1)
         Me.GroupBox3.Controls.Add(Me.Label6)
-        Me.GroupBox3.Controls.Add(Me.C_injectorsize)
+        Me.GroupBox3.Controls.Add(Me.C_InjectorSize)
         Me.GroupBox3.Location = New System.Drawing.Point(15, 118)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(246, 66)
@@ -254,14 +254,14 @@ Partial Class Advsettings
         Me.Label6.TabIndex = 1
         Me.Label6.Text = "Fuel pressure setting %"
         '
-        'C_injectorsize
+        'C_InjectorSize
         '
-        Me.C_injectorsize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.C_injectorsize.FormattingEnabled = True
-        Me.C_injectorsize.Location = New System.Drawing.Point(150, 19)
-        Me.C_injectorsize.Name = "C_injectorsize"
-        Me.C_injectorsize.Size = New System.Drawing.Size(90, 21)
-        Me.C_injectorsize.TabIndex = 0
+        Me.C_InjectorSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.C_InjectorSize.FormattingEnabled = True
+        Me.C_InjectorSize.Location = New System.Drawing.Point(150, 19)
+        Me.C_InjectorSize.Name = "C_InjectorSize"
+        Me.C_InjectorSize.Size = New System.Drawing.Size(90, 21)
+        Me.C_InjectorSize.TabIndex = 0
         '
         'GroupBox4
         '
@@ -414,7 +414,7 @@ Partial Class Advsettings
         'GroupBox6
         '
         Me.GroupBox6.Controls.Add(Me.Label14)
-        Me.GroupBox6.Controls.Add(Me.IAP_range)
+        Me.GroupBox6.Controls.Add(Me.C_IAPRange)
         Me.GroupBox6.Location = New System.Drawing.Point(279, 159)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(261, 43)
@@ -434,21 +434,21 @@ Partial Class Advsettings
         Me.Label14.TabIndex = 1
         Me.Label14.Text = "IAP sensor range"
         '
-        'IAP_range
+        'C_IAPRange
         '
-        Me.IAP_range.AutoSize = True
-        Me.IAP_range.Location = New System.Drawing.Point(146, 19)
-        Me.IAP_range.Name = "IAP_range"
-        Me.IAP_range.Size = New System.Drawing.Size(107, 17)
-        Me.IAP_range.TabIndex = 0
-        Me.IAP_range.Text = "IAP range normal"
-        Me.IAP_range.UseVisualStyleBackColor = True
+        Me.C_IAPRange.AutoSize = True
+        Me.C_IAPRange.Location = New System.Drawing.Point(146, 19)
+        Me.C_IAPRange.Name = "C_IAPRange"
+        Me.C_IAPRange.Size = New System.Drawing.Size(107, 17)
+        Me.C_IAPRange.TabIndex = 0
+        Me.C_IAPRange.Text = "IAP range normal"
+        Me.C_IAPRange.UseVisualStyleBackColor = True
         '
         'GroupBox7
         '
         Me.GroupBox7.Controls.Add(Me.Label16)
         Me.GroupBox7.Controls.Add(Me.Label17)
-        Me.GroupBox7.Controls.Add(Me.C_fuelconsumption)
+        Me.GroupBox7.Controls.Add(Me.C_FuelConsumption)
         Me.GroupBox7.Location = New System.Drawing.Point(15, 190)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Size = New System.Drawing.Size(246, 65)
@@ -477,18 +477,18 @@ Partial Class Advsettings
         Me.Label17.TabIndex = 1
         Me.Label17.Text = "Fuel consumption setting %"
         '
-        'C_fuelconsumption
+        'C_FuelConsumption
         '
-        Me.C_fuelconsumption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.C_fuelconsumption.FormattingEnabled = True
-        Me.C_fuelconsumption.Location = New System.Drawing.Point(150, 19)
-        Me.C_fuelconsumption.Name = "C_fuelconsumption"
-        Me.C_fuelconsumption.Size = New System.Drawing.Size(90, 21)
-        Me.C_fuelconsumption.TabIndex = 0
+        Me.C_FuelConsumption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.C_FuelConsumption.FormattingEnabled = True
+        Me.C_FuelConsumption.Location = New System.Drawing.Point(150, 19)
+        Me.C_FuelConsumption.Name = "C_FuelConsumption"
+        Me.C_FuelConsumption.Size = New System.Drawing.Size(90, 21)
+        Me.C_FuelConsumption.TabIndex = 0
         '
         'LLL
         '
-        Me.LLL.Controls.Add(Me.C_IAPTPSswitchingpoint)
+        Me.LLL.Controls.Add(Me.C_IAPTPSSwitchingPoint)
         Me.LLL.Controls.Add(Me.Label21)
         Me.LLL.Location = New System.Drawing.Point(279, 209)
         Me.LLL.Name = "LLL"
@@ -498,14 +498,14 @@ Partial Class Advsettings
         Me.LLL.Text = "IAP/TPS switching point"
         Me.ToolTip1.SetToolTip(Me.LLL, resources.GetString("LLL.ToolTip"))
         '
-        'C_IAPTPSswitchingpoint
+        'C_IAPTPSSwitchingPoint
         '
-        Me.C_IAPTPSswitchingpoint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.C_IAPTPSswitchingpoint.FormattingEnabled = True
-        Me.C_IAPTPSswitchingpoint.Location = New System.Drawing.Point(146, 22)
-        Me.C_IAPTPSswitchingpoint.Name = "C_IAPTPSswitchingpoint"
-        Me.C_IAPTPSswitchingpoint.Size = New System.Drawing.Size(100, 21)
-        Me.C_IAPTPSswitchingpoint.TabIndex = 4
+        Me.C_IAPTPSSwitchingPoint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.C_IAPTPSSwitchingPoint.FormattingEnabled = True
+        Me.C_IAPTPSSwitchingPoint.Location = New System.Drawing.Point(146, 22)
+        Me.C_IAPTPSSwitchingPoint.Name = "C_IAPTPSSwitchingPoint"
+        Me.C_IAPTPSSwitchingPoint.Size = New System.Drawing.Size(100, 21)
+        Me.C_IAPTPSSwitchingPoint.TabIndex = 4
         '
         'Label21
         '
@@ -518,7 +518,7 @@ Partial Class Advsettings
         '
         'GroupBox8
         '
-        Me.GroupBox8.Controls.Add(Me.C_antitheft)
+        Me.GroupBox8.Controls.Add(Me.C_Antitheft)
         Me.GroupBox8.Controls.Add(Me.Label4)
         Me.GroupBox8.Location = New System.Drawing.Point(280, 270)
         Me.GroupBox8.Name = "GroupBox8"
@@ -529,15 +529,15 @@ Partial Class Advsettings
         Me.ToolTip1.SetToolTip(Me.GroupBox8, "Set lock compatible if running US ecu in EU bike or vice versa" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "if you are gettin" & _
                 "g error code C42.")
         '
-        'C_antitheft
+        'C_Antitheft
         '
-        Me.C_antitheft.AutoSize = True
-        Me.C_antitheft.Location = New System.Drawing.Point(146, 15)
-        Me.C_antitheft.Name = "C_antitheft"
-        Me.C_antitheft.Size = New System.Drawing.Size(84, 17)
-        Me.C_antitheft.TabIndex = 4
-        Me.C_antitheft.Text = "Lock normal"
-        Me.C_antitheft.UseVisualStyleBackColor = True
+        Me.C_Antitheft.AutoSize = True
+        Me.C_Antitheft.Location = New System.Drawing.Point(146, 15)
+        Me.C_Antitheft.Name = "C_Antitheft"
+        Me.C_Antitheft.Size = New System.Drawing.Size(84, 17)
+        Me.C_Antitheft.TabIndex = 4
+        Me.C_Antitheft.Text = "Lock normal"
+        Me.C_Antitheft.UseVisualStyleBackColor = True
         '
         'Label4
         '
@@ -550,7 +550,7 @@ Partial Class Advsettings
         '
         'GroupBox9
         '
-        Me.GroupBox9.Controls.Add(Me.C_cranking)
+        Me.GroupBox9.Controls.Add(Me.C_Cranking)
         Me.GroupBox9.Controls.Add(Me.Label8)
         Me.GroupBox9.Location = New System.Drawing.Point(279, 310)
         Me.GroupBox9.Name = "GroupBox9"
@@ -561,15 +561,15 @@ Partial Class Advsettings
         Me.ToolTip1.SetToolTip(Me.GroupBox9, "Set Lower RPM to enable 250rpm cranking low limit. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "RPM Normal limit is 312rpm w" & _
                 "hich may be too high for" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "some big block higher compression engines.")
         '
-        'C_cranking
+        'C_Cranking
         '
-        Me.C_cranking.AutoSize = True
-        Me.C_cranking.Location = New System.Drawing.Point(147, 16)
-        Me.C_cranking.Name = "C_cranking"
-        Me.C_cranking.Size = New System.Drawing.Size(84, 17)
-        Me.C_cranking.TabIndex = 5
-        Me.C_cranking.Text = "RPM normal"
-        Me.C_cranking.UseVisualStyleBackColor = True
+        Me.C_Cranking.AutoSize = True
+        Me.C_Cranking.Location = New System.Drawing.Point(147, 16)
+        Me.C_Cranking.Name = "C_Cranking"
+        Me.C_Cranking.Size = New System.Drawing.Size(84, 17)
+        Me.C_Cranking.TabIndex = 5
+        Me.C_Cranking.Text = "RPM normal"
+        Me.C_Cranking.UseVisualStyleBackColor = True
         '
         'Label8
         '
@@ -580,39 +580,9 @@ Partial Class Advsettings
         Me.Label8.TabIndex = 5
         Me.Label8.Text = "Set cranking RPM"
         '
-        'GroupBox10
-        '
-        Me.GroupBox10.Controls.Add(Me.C_yoshbox)
-        Me.GroupBox10.Controls.Add(Me.Label13)
-        Me.GroupBox10.Location = New System.Drawing.Point(15, 330)
-        Me.GroupBox10.Name = "GroupBox10"
-        Me.GroupBox10.Size = New System.Drawing.Size(246, 53)
-        Me.GroupBox10.TabIndex = 11
-        Me.GroupBox10.TabStop = False
-        Me.GroupBox10.Text = "Yoshbox settings"
-        '
-        'C_yoshbox
-        '
-        Me.C_yoshbox.AutoSize = True
-        Me.C_yoshbox.Location = New System.Drawing.Point(150, 25)
-        Me.C_yoshbox.Name = "C_yoshbox"
-        Me.C_yoshbox.Size = New System.Drawing.Size(59, 17)
-        Me.C_yoshbox.TabIndex = 7
-        Me.C_yoshbox.Text = "Normal"
-        Me.C_yoshbox.UseVisualStyleBackColor = True
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(6, 26)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(117, 13)
-        Me.Label13.TabIndex = 6
-        Me.Label13.Text = "Yoshbox compensation"
-        '
         'GroupBox11
         '
-        Me.GroupBox11.Controls.Add(Me.C_dwell)
+        Me.GroupBox11.Controls.Add(Me.C_Dwell)
         Me.GroupBox11.Controls.Add(Me.Label18)
         Me.GroupBox11.Location = New System.Drawing.Point(15, 389)
         Me.GroupBox11.Name = "GroupBox11"
@@ -622,14 +592,14 @@ Partial Class Advsettings
         Me.GroupBox11.Text = "Ignition Dwell"
         Me.ToolTip1.SetToolTip(Me.GroupBox11, resources.GetString("GroupBox11.ToolTip"))
         '
-        'C_dwell
+        'C_Dwell
         '
-        Me.C_dwell.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.C_dwell.FormattingEnabled = True
-        Me.C_dwell.Location = New System.Drawing.Point(150, 25)
-        Me.C_dwell.Name = "C_dwell"
-        Me.C_dwell.Size = New System.Drawing.Size(88, 21)
-        Me.C_dwell.TabIndex = 4
+        Me.C_Dwell.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.C_Dwell.FormattingEnabled = True
+        Me.C_Dwell.Location = New System.Drawing.Point(150, 25)
+        Me.C_Dwell.Name = "C_Dwell"
+        Me.C_Dwell.Size = New System.Drawing.Size(88, 21)
+        Me.C_Dwell.TabIndex = 4
         '
         'Label18
         '
@@ -639,6 +609,36 @@ Partial Class Advsettings
         Me.Label18.Size = New System.Drawing.Size(66, 13)
         Me.Label18.TabIndex = 3
         Me.Label18.Text = "Dwell time %"
+        '
+        'GroupBox10
+        '
+        Me.GroupBox10.Controls.Add(Me.C_Yoshbox)
+        Me.GroupBox10.Controls.Add(Me.Label13)
+        Me.GroupBox10.Location = New System.Drawing.Point(15, 330)
+        Me.GroupBox10.Name = "GroupBox10"
+        Me.GroupBox10.Size = New System.Drawing.Size(246, 53)
+        Me.GroupBox10.TabIndex = 11
+        Me.GroupBox10.TabStop = False
+        Me.GroupBox10.Text = "Yoshbox settings"
+        '
+        'C_Yoshbox
+        '
+        Me.C_Yoshbox.AutoSize = True
+        Me.C_Yoshbox.Location = New System.Drawing.Point(150, 25)
+        Me.C_Yoshbox.Name = "C_Yoshbox"
+        Me.C_Yoshbox.Size = New System.Drawing.Size(59, 17)
+        Me.C_Yoshbox.TabIndex = 7
+        Me.C_Yoshbox.Text = "Normal"
+        Me.C_Yoshbox.UseVisualStyleBackColor = True
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(6, 26)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(117, 13)
+        Me.Label13.TabIndex = 6
+        Me.Label13.Text = "Yoshbox compensation"
         '
         'Advsettings
         '
@@ -683,25 +683,25 @@ Partial Class Advsettings
         Me.GroupBox8.PerformLayout()
         Me.GroupBox9.ResumeLayout(False)
         Me.GroupBox9.PerformLayout()
-        Me.GroupBox10.ResumeLayout(False)
-        Me.GroupBox10.PerformLayout()
         Me.GroupBox11.ResumeLayout(False)
         Me.GroupBox11.PerformLayout()
+        Me.GroupBox10.ResumeLayout(False)
+        Me.GroupBox10.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents B_Close As System.Windows.Forms.Button
-    Friend WithEvents C_solenoid_on As System.Windows.Forms.ComboBox
+    Friend WithEvents C_SolenoidOn As System.Windows.Forms.ComboBox
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents C_solenoid_off As System.Windows.Forms.ComboBox
+    Friend WithEvents C_SolenoidOff As System.Windows.Forms.ComboBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
-    Friend WithEvents IAT_disable As System.Windows.Forms.CheckBox
+    Friend WithEvents C_IATDisable As System.Windows.Forms.CheckBox
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents C_injectorsize As System.Windows.Forms.ComboBox
+    Friend WithEvents C_InjectorSize As System.Windows.Forms.ComboBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
     Friend WithEvents Label7 As System.Windows.Forms.Label
@@ -720,29 +720,29 @@ Partial Class Advsettings
     Friend WithEvents IAPLow As System.Windows.Forms.Label
     Friend WithEvents GroupBox6 As System.Windows.Forms.GroupBox
     Friend WithEvents Label14 As System.Windows.Forms.Label
-    Friend WithEvents IAP_range As System.Windows.Forms.CheckBox
-    Friend WithEvents Solenoid_TPS As System.Windows.Forms.CheckBox
+    Friend WithEvents C_IAPRange As System.Windows.Forms.CheckBox
+    Friend WithEvents C_SolenoidTPS As System.Windows.Forms.CheckBox
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents GroupBox7 As System.Windows.Forms.GroupBox
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents Label17 As System.Windows.Forms.Label
-    Friend WithEvents C_fuelconsumption As System.Windows.Forms.ComboBox
+    Friend WithEvents C_FuelConsumption As System.Windows.Forms.ComboBox
     Friend WithEvents Label20 As System.Windows.Forms.Label
     Friend WithEvents C_Gearing As System.Windows.Forms.ComboBox
     Friend WithEvents LLL As System.Windows.Forms.GroupBox
     Friend WithEvents Label21 As System.Windows.Forms.Label
-    Friend WithEvents C_IAPTPSswitchingpoint As System.Windows.Forms.ComboBox
+    Friend WithEvents C_IAPTPSSwitchingPoint As System.Windows.Forms.ComboBox
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
     Friend WithEvents GroupBox8 As System.Windows.Forms.GroupBox
-    Friend WithEvents C_antitheft As System.Windows.Forms.CheckBox
+    Friend WithEvents C_Antitheft As System.Windows.Forms.CheckBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents GroupBox9 As System.Windows.Forms.GroupBox
-    Friend WithEvents C_cranking As System.Windows.Forms.CheckBox
+    Friend WithEvents C_Cranking As System.Windows.Forms.CheckBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents GroupBox10 As System.Windows.Forms.GroupBox
-    Friend WithEvents C_yoshbox As System.Windows.Forms.CheckBox
+    Friend WithEvents C_Yoshbox As System.Windows.Forms.CheckBox
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents GroupBox11 As System.Windows.Forms.GroupBox
-    Friend WithEvents C_dwell As System.Windows.Forms.ComboBox
+    Friend WithEvents C_Dwell As System.Windows.Forms.ComboBox
     Friend WithEvents Label18 As System.Windows.Forms.Label
 End Class

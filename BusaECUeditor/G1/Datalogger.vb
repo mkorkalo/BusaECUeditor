@@ -1,4 +1,5 @@
 Public Class Datalogger
+
     Private Sub Datalogger_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         AxEChartCtl1.GraphUpdateSpeedInMS = 500
         AxEChartCtl2.GraphUpdateSpeedInMS = 500
