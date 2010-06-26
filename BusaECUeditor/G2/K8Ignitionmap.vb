@@ -127,6 +127,10 @@ Public Class K8Ignitionmap
             Case "-"
                 DecreaseSelectedCells()
                 show_values()
+            Case "n"
+                selectmap(0)
+            Case "N"
+                selectmap(0)
             Case "0"
                 selectmap(1)
             Case "1"
@@ -579,6 +583,10 @@ Public Class K8Ignitionmap
         ' of how Ecueditor assumes .bin being built.
         '
         Select Case map
+            Case 0
+                map_structure_table = &H51D94 'group1 &H51DF4, group3 &H51EB4
+                Me.Text = "ECUeditor - Ignition Neutral TPS/RPM map"
+                ms01 = 0            ' 0,1
             Case 1
                 map_structure_table = &H51DF4 'group1 &H51DF4, group3 &H51EB4
                 Me.Text = "ECUeditor - Ignition TPS/RPM map"
@@ -679,4 +687,7 @@ Public Class K8Ignitionmap
         End If
     End Sub
 
+    Private Sub Button1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        selectmap(0)
+    End Sub
 End Class
