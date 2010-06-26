@@ -1,6 +1,6 @@
 /*
 
-	shiftergen2.c
+	shifterBKing.c
 	
     This file is part of BusaECUeditor - Hayabusa ECUeditor
 
