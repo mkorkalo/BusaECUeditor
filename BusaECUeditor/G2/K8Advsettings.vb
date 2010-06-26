@@ -233,9 +233,11 @@ Public Class K8Advsettings
         End If
 
         If ReadFlashByte(&H7D138) = 0 Then
+            C_coolingfan.Checked = True
             C_coolingfan.Text = "Cooling fan FI disabled"
             WriteFlashByte(&H7D138, &H0)
         Else
+            C_coolingfan.Checked = False
             C_coolingfan.Text = "Cooling fan normal"
             WriteFlashByte(&H7D138, &HFF)
         End If
