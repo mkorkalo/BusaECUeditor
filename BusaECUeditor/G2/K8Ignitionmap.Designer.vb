@@ -30,6 +30,7 @@ Partial Class K8Ignitionmap
         Me.T_DEG = New System.Windows.Forms.TextBox
         Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.Label1 = New System.Windows.Forms.Label
+        Me.Button1 = New System.Windows.Forms.Button
         CType(Me.Ignitionmapgrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -82,16 +83,16 @@ Partial Class K8Ignitionmap
         '
         Me.B_MS0.Location = New System.Drawing.Point(12, 14)
         Me.B_MS0.Name = "B_MS0"
-        Me.B_MS0.Size = New System.Drawing.Size(80, 23)
+        Me.B_MS0.Size = New System.Drawing.Size(63, 23)
         Me.B_MS0.TabIndex = 18
         Me.B_MS0.Text = "TPS MS0"
         Me.B_MS0.UseVisualStyleBackColor = True
         '
         'B_MS1
         '
-        Me.B_MS1.Location = New System.Drawing.Point(98, 14)
+        Me.B_MS1.Location = New System.Drawing.Point(81, 14)
         Me.B_MS1.Name = "B_MS1"
-        Me.B_MS1.Size = New System.Drawing.Size(80, 23)
+        Me.B_MS1.Size = New System.Drawing.Size(62, 23)
         Me.B_MS1.TabIndex = 19
         Me.B_MS1.Text = "TPS MS1"
         Me.B_MS1.UseVisualStyleBackColor = True
@@ -102,9 +103,9 @@ Partial Class K8Ignitionmap
         Me.T_DEG.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.T_DEG.Enabled = False
         Me.T_DEG.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.T_DEG.Location = New System.Drawing.Point(206, 16)
+        Me.T_DEG.Location = New System.Drawing.Point(216, 16)
         Me.T_DEG.Name = "T_DEG"
-        Me.T_DEG.Size = New System.Drawing.Size(134, 22)
+        Me.T_DEG.Size = New System.Drawing.Size(124, 22)
         Me.T_DEG.TabIndex = 20
         Me.T_DEG.WordWrap = False
         '
@@ -125,11 +126,21 @@ Partial Class K8Ignitionmap
         Me.Label1.TabIndex = 21
         Me.Label1.Text = "Note: press 'c' to copy this map to ms01 or unify cylinders"
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(149, 14)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(61, 23)
+        Me.Button1.TabIndex = 22
+        Me.Button1.Text = "TPS NT"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'K8Ignitionmap
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(673, 656)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.T_DEG)
         Me.Controls.Add(Me.B_MS1)
@@ -154,4 +165,5 @@ Partial Class K8Ignitionmap
     Friend WithEvents T_DEG As System.Windows.Forms.TextBox
     Friend WithEvents PrintForm1 As Microsoft.VisualBasic.PowerPacks.Printing.PrintForm
     Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 End Class
