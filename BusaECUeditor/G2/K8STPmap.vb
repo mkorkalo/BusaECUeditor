@@ -303,7 +303,7 @@ Public Class K8STPmap
 
         n = STPmapgrid.SelectedCells.Count()
 
-        Do While (r < (map_number_of_rows - 1)) And n > 0
+        Do While (r < (map_number_of_rows)) And n > 0
 
             If STPmapgrid.Item(c, r).Selected And n > 0 Then
                 STPmapgrid.Item(c, r).Value = STPmapgrid.Item(c, r).Value + increase
@@ -333,7 +333,7 @@ Public Class K8STPmap
         Dim m1 As Integer
 
 
-        maxval = 255   ' not validated from ecu, maximum value to which the map item can be set
+        maxval = &HFF   ' not validated from ecu, maximum value to which the map item can be set
         minval = 0   ' not validated from ecu, minimum value to which the map item can be set
 
         If fuelmap Then
@@ -351,6 +351,13 @@ Public Class K8STPmap
         If m1 > maxval Then m1 = maxval
 
         WriteFlashByte(editing_map + (1 * (c + (r * map_number_of_columns))), (m1))
+
+        If fuelmap Then
+            STPmapgrid.Item(c, r).Value = CInt(m1 * 100 / 128)
+        Else
+            STPmapgrid.Item(c, r).Value = CInt(m1 * 100 / 255)
+        End If
+
 
     End Sub
 
