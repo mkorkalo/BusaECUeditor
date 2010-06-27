@@ -47,6 +47,7 @@ Partial Class K8STPmap
         Me.Button7 = New System.Windows.Forms.Button
         Me.Button8 = New System.Windows.Forms.Button
         Me.Button9 = New System.Windows.Forms.Button
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         CType(Me.STPmapgrid, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_GEAR, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -239,6 +240,7 @@ Partial Class K8STPmap
         Me.Button1.Size = New System.Drawing.Size(116, 24)
         Me.Button1.TabIndex = 100
         Me.Button1.Text = "Select gear NT"
+        Me.ToolTip1.SetToolTip(Me.Button1, "Select gear to modify the maps")
         Me.Button1.UseVisualStyleBackColor = True
         '
         'Button2
@@ -248,6 +250,7 @@ Partial Class K8STPmap
         Me.Button2.Size = New System.Drawing.Size(114, 24)
         Me.Button2.TabIndex = 101
         Me.Button2.Text = "Select gear 1"
+        Me.ToolTip1.SetToolTip(Me.Button2, "Select gear to modify the maps")
         Me.Button2.UseVisualStyleBackColor = True
         '
         'Button3
@@ -257,6 +260,7 @@ Partial Class K8STPmap
         Me.Button3.Size = New System.Drawing.Size(114, 24)
         Me.Button3.TabIndex = 102
         Me.Button3.Text = "Select gear 2"
+        Me.ToolTip1.SetToolTip(Me.Button3, "Select gear to modify the maps")
         Me.Button3.UseVisualStyleBackColor = True
         '
         'Button4
@@ -266,6 +270,7 @@ Partial Class K8STPmap
         Me.Button4.Size = New System.Drawing.Size(114, 24)
         Me.Button4.TabIndex = 103
         Me.Button4.Text = "Select gear 3"
+        Me.ToolTip1.SetToolTip(Me.Button4, "Select gear to modify the maps")
         Me.Button4.UseVisualStyleBackColor = True
         '
         'Button5
@@ -275,6 +280,7 @@ Partial Class K8STPmap
         Me.Button5.Size = New System.Drawing.Size(114, 24)
         Me.Button5.TabIndex = 104
         Me.Button5.Text = "Select gear 4"
+        Me.ToolTip1.SetToolTip(Me.Button5, "Select gear to modify the maps")
         Me.Button5.UseVisualStyleBackColor = True
         '
         'Button6
@@ -284,6 +290,7 @@ Partial Class K8STPmap
         Me.Button6.Size = New System.Drawing.Size(114, 24)
         Me.Button6.TabIndex = 105
         Me.Button6.Text = "Select gear 5"
+        Me.ToolTip1.SetToolTip(Me.Button6, "Select gear to modify the maps")
         Me.Button6.UseVisualStyleBackColor = True
         '
         'Button7
@@ -293,6 +300,7 @@ Partial Class K8STPmap
         Me.Button7.Size = New System.Drawing.Size(114, 24)
         Me.Button7.TabIndex = 106
         Me.Button7.Text = "Select gear 6"
+        Me.ToolTip1.SetToolTip(Me.Button7, "Select gear to modify the maps")
         Me.Button7.UseVisualStyleBackColor = True
         '
         'Button8
@@ -302,6 +310,7 @@ Partial Class K8STPmap
         Me.Button8.Size = New System.Drawing.Size(114, 24)
         Me.Button8.TabIndex = 107
         Me.Button8.Text = "Select STP opening"
+        Me.ToolTip1.SetToolTip(Me.Button8, resources.GetString("Button8.ToolTip"))
         Me.Button8.UseVisualStyleBackColor = True
         '
         'Button9
@@ -311,7 +320,14 @@ Partial Class K8STPmap
         Me.Button9.Size = New System.Drawing.Size(114, 24)
         Me.Button9.TabIndex = 108
         Me.Button9.Text = "Select STP fuel"
+        Me.ToolTip1.SetToolTip(Me.Button9, resources.GetString("Button9.ToolTip"))
         Me.Button9.UseVisualStyleBackColor = True
+        '
+        'ToolTip1
+        '
+        Me.ToolTip1.AutoPopDelay = 10000
+        Me.ToolTip1.InitialDelay = 500
+        Me.ToolTip1.ReshowDelay = 100
         '
         'K8STPmap
         '
@@ -381,4 +397,5 @@ Partial Class K8STPmap
     Friend WithEvents Button3 As System.Windows.Forms.Button
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
 End Class

@@ -373,7 +373,8 @@ Public Class K8shifter
         Else
             If Not C_DSMactivation.Checked Then C_Fuelcut.Checked = True
             C_DSMactivation.Text = "GPS resistor and DSM2 activation"
-            WriteFlashByte(&H55420, 2)
+            K8Advsettings.C_ABCmode.Checked = False
+            WriteFlashByte(&H55420, 1) ' 1 = DSM2, 2 = DSM1
         End If
 
     End Sub

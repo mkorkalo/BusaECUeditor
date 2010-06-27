@@ -259,6 +259,33 @@ Public Class K8Advsettings
             writeflashbyte(&H3E6BF, &HCD)
         End If
 
+        '
+        ' Set IAPTPS switching mode
+        '
+        ' Normal
+        C_IAPTPS.Items.Add("Normal")
+        C_IAPTPS.Items.Add("TPS only")
+        C_IAPTPS.Items.Add("IAP only")
+        Select Case ReadFlashByte(&H420B3)
+            Case &HC
+                WriteFlashByte(&H420B0, &HA1)
+                WriteFlashByte(&H420B1, &H9F)
+                WriteFlashByte(&H420B2, &H0)
+                WriteFlashByte(&H420B3, &HC)
+                C_IAPTPS.SelectedIndex = 0
+            Case &HFF
+                WriteFlashByte(&H420B0, &H91)
+                WriteFlashByte(&H420B1, &HF0)
+                WriteFlashByte(&H420B2, &H0)
+                WriteFlashByte(&H420B3, &HFF)
+                C_IAPTPS.SelectedIndex = 1
+            Case &H0
+                WriteFlashByte(&H420B0, &H91)
+                WriteFlashByte(&H420B1, &HF0)
+                WriteFlashByte(&H420B2, &H0)
+                WriteFlashByte(&H420B3, &H0)
+                C_IAPTPS.SelectedIndex = 2
+        End Select
 
         loading = False
 
@@ -953,6 +980,37 @@ Public Class K8Advsettings
                 writeflashbyte(&H3E6BF, &HCD)
             End If
         End If
+
+    End Sub
+
+
+    Private Sub ComboBox1_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_IAPTPS.SelectedIndexChanged
+
+        If Not loading Then
+
+            Select Case C_IAPTPS.Text
+                Case "Normal"
+                    WriteFlashByte(&H420B0, &HA1)
+                    WriteFlashByte(&H420B1, &H9F)
+                    WriteFlashByte(&H420B2, &H0)
+                    WriteFlashByte(&H420B3, &HC)
+                    'C_IAPTPS.SelectedIndex = 0
+                Case "TPS only"
+                    WriteFlashByte(&H420B0, &H91)
+                    WriteFlashByte(&H420B1, &HF0)
+                    WriteFlashByte(&H420B2, &H0)
+                    WriteFlashByte(&H420B3, &HFF)
+                    'C_IAPTPS.SelectedIndex = 1
+                Case "IAP only"
+                    WriteFlashByte(&H420B0, &H91)
+                    WriteFlashByte(&H420B1, &HF0)
+                    WriteFlashByte(&H420B2, &H0)
+                    WriteFlashByte(&H420B3, &H0)
+                    'C_IAPTPS.SelectedIndex = 2
+            End Select
+
+        End If
+
 
     End Sub
 End Class

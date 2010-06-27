@@ -188,11 +188,10 @@ turbo bike before you are using this feature.
   </data>
   <data name="Button1.ToolTip" xml:space="preserve">
     <value>What are the STP maps?
+
 The Secondary Throttle Plate maps will allow adjustment of how much and when the secondary throttle blades open using a TPS vs RPM table. 
-To my knowledge this has yet to be tested by anyone on a bike and caution should be exercised if doing so. 
-Also keep in mind, there are several of these tables, they haven't been combined into 1. 
-Keyboard commands of 0123456 can be used to see the nuetral though 6th gear maps. 
-ABC can be used to see the ABC mode maps. M can be used to toggle back and forth between MS0 and MS1 in each of the corresponding maps above.
+Also fuel adjustments by gear can be done using these maps.
+
 
 </value>
   </data>
@@ -224,6 +223,16 @@ making the installation simplier and less fault prone.
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>117</value>
   </metadata>
+  <data name="C_IAPTPS.ToolTip" xml:space="preserve">
+    <value>Set which map is used. Set Normal for normal driving. For dyno sometimes it may be 
+beneficial to set the bike to IAP only or TPS only mode.  Allows particularly tuning the
+map swiching area.
+
+Please note that if there is a DTC errorcode indicating IAP or TPS error this switch will not 
+work reliably.
+
+NOTE: This is untested feature for dyno testing only</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
