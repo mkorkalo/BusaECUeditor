@@ -68,20 +68,17 @@ Public Class K8STPmap
         Me.Text = "ECUeditor - STP map editing - STP opening"
         fuelmap = False
         selectmap()
-
+        LED_GEAR.Text = gear.ToString
 
     End Sub
-
-
-    Private Sub Fuelmapgrid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles STPmapgrid.KeyPress
-
+    Private Sub parsecommands(ByVal comm As String)
         Dim c As Integer
         Dim r As Integer
         c = STPmapgrid.CurrentCell.ColumnIndex
         r = STPmapgrid.CurrentCell.RowIndex
 
         ' this is the user interface shortcut keys processor
-        Select Case e.KeyChar
+        Select Case comm
             Case "*"
                 MultiplySelectedCells()
 
@@ -115,15 +112,15 @@ Public Class K8STPmap
             Case "6"
                 gear = 6
                 selectmap()
-              Case "f"
+            Case "f"
                 map_structure_table = &H523E4
-                Me.Text = "ECUeditor - STP map editing - STP FUEL deduction"
-                Fuelmap = True
+                Me.Text = "ECUeditor - STP map editing - STP FUEL adjustment"
+                fuelmap = True
                 selectmap()
             Case "F"
                 map_structure_table = &H523E4
-                Me.Text = "ECUeditor - STP map editing - STP FUEL deduction"
-                Fuelmap = True
+                Me.Text = "ECUeditor - STP map editing - STP FUEL adjustment"
+                fuelmap = True
                 selectmap()
             Case "s"
                 map_structure_table = &H517B8
@@ -176,10 +173,18 @@ Public Class K8STPmap
                 PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Right = 10
                 PrintForm1.Print()
             Case Else
-                L_STPMAP.Text = Asc(e.KeyChar)
+                L_STPMAP.Text = Asc(comm)
 
 
         End Select
+        LED_GEAR.Text = gear.ToString
+
+    End Sub
+
+
+    Private Sub Fuelmapgrid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles STPmapgrid.KeyPress
+
+        parsecommands(e.KeyChar)
 
     End Sub
     Private Sub DecreaseSelectedCells()
@@ -342,8 +347,8 @@ Public Class K8STPmap
         If m1 <= minval Then m1 = minval
 
         ' lets check that we do not exceed Ignitionmap values that the ecu can handle
-        If ((m1 >= maxval)) Then MsgBox("Maximum cell value exceeded", MsgBoxStyle.Information)
-        If m1 >= maxval Then m1 = maxval
+        If ((m1 > maxval)) Then MsgBox("Maximum cell value exceeded", MsgBoxStyle.Information)
+        If m1 > maxval Then m1 = maxval
 
         WriteFlashByte(editing_map + (1 * (c + (r * map_number_of_columns))), (m1))
 
@@ -370,7 +375,7 @@ Public Class K8STPmap
         map_number_of_columns = ReadFlashByte(ReadFlashLongWord(i) + 1)
         map_number_of_rows = ReadFlashByte(ReadFlashLongWord(i) + 2)
 
-        mapvisible = Me.Text
+        MapVisible = Me.Text
 
         loadmap()
 
@@ -470,7 +475,7 @@ Public Class K8STPmap
     End Sub
 
 
- 
+
 
 
 
@@ -563,5 +568,92 @@ Public Class K8STPmap
         End If
 
     End Sub
+    Private Sub STPMapgrid_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles STPmapgrid.KeyDown
 
+        If (e.Control = True And e.KeyCode = Keys.V) Then
+            Dim rowIndex As Integer
+            Dim lines As String()
+
+            Dim columnStartIndex As Integer
+
+            rowIndex = Integer.MaxValue
+            columnStartIndex = Integer.MaxValue
+
+            For Each cell As DataGridViewCell In STPmapgrid.SelectedCells()
+                If cell.RowIndex < rowIndex Then
+                    rowIndex = cell.RowIndex
+                End If
+
+                If cell.ColumnIndex < columnStartIndex Then
+                    columnStartIndex = cell.ColumnIndex
+                End If
+            Next
+
+
+
+            rowIndex = STPmapgrid.CurrentCell.RowIndex
+
+            lines = Clipboard.GetText().Split(ControlChars.CrLf)
+
+            For Each line As String In lines
+                Dim columnIndex As Integer
+                Dim values As String()
+
+                values = line.Split(ControlChars.Tab)
+                columnIndex = columnStartIndex
+
+                For Each value As String In values
+                    If columnIndex < STPmapgrid.ColumnCount And rowIndex < STPmapgrid.RowCount Then
+                        If IsNumeric(value) Then
+                            STPmapgrid(columnIndex, rowIndex).Value = value
+                            SetFlashItem(columnIndex, rowIndex)
+                        End If
+                    End If
+
+                    columnIndex = columnIndex + 1
+                Next
+
+                rowIndex = rowIndex + 1
+            Next
+
+        End If
+
+
+    End Sub
+
+    Private Sub Button1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        parsecommands("0")
+    End Sub
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        parsecommands("1")
+    End Sub
+
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
+        parsecommands("2")
+    End Sub
+
+    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
+        parsecommands("3")
+    End Sub
+
+    Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
+        parsecommands("4")
+    End Sub
+
+    Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button6.Click
+        parsecommands("5")
+    End Sub
+
+    Private Sub Button7_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button7.Click
+        parsecommands("6")
+    End Sub
+
+    Private Sub Button8_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button8.Click
+        parsecommands("S")
+    End Sub
+
+    Private Sub Button9_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button9.Click
+        parsecommands("F")
+    End Sub
 End Class
