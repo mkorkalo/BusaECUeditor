@@ -40,6 +40,7 @@ Partial Class K8Advsettings
         Me.Button4 = New System.Windows.Forms.Button
         Me.C_coil_fi_disable = New System.Windows.Forms.CheckBox
         Me.C_coolingfan = New System.Windows.Forms.CheckBox
+        Me.C_secondaries = New System.Windows.Forms.CheckBox
         Me.B_ramairadjust = New System.Windows.Forms.Button
         Me.GroupBox6 = New System.Windows.Forms.GroupBox
         Me.C_PAIR = New System.Windows.Forms.CheckBox
@@ -66,7 +67,8 @@ Partial Class K8Advsettings
         Me.GroupBox4 = New System.Windows.Forms.GroupBox
         Me.GroupBox7 = New System.Windows.Forms.GroupBox
         Me.C_ABCmode = New System.Windows.Forms.CheckBox
-        Me.C_secondaries = New System.Windows.Forms.CheckBox
+        Me.C_IAPTPS = New System.Windows.Forms.ComboBox
+        Me.Label5 = New System.Windows.Forms.Label
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -286,6 +288,18 @@ Partial Class K8Advsettings
         Me.ToolTip1.SetToolTip(Me.C_coolingfan, "With this setting you can disable the FI code from a missing cooling fan relay - " & _
                 "only for race purposes.")
         Me.C_coolingfan.UseVisualStyleBackColor = True
+        '
+        'C_secondaries
+        '
+        Me.C_secondaries.AutoSize = True
+        Me.C_secondaries.Location = New System.Drawing.Point(171, 63)
+        Me.C_secondaries.Name = "C_secondaries"
+        Me.C_secondaries.Size = New System.Drawing.Size(131, 17)
+        Me.C_secondaries.TabIndex = 8
+        Me.C_secondaries.Text = "Secondaries FI normal"
+        Me.ToolTip1.SetToolTip(Me.C_secondaries, "With this setting you can disable the FI code from missing secondaries - only for" & _
+                " race purposes.")
+        Me.C_secondaries.UseVisualStyleBackColor = True
         '
         'B_ramairadjust
         '
@@ -528,6 +542,8 @@ Partial Class K8Advsettings
         '
         'GroupBox7
         '
+        Me.GroupBox7.Controls.Add(Me.Label5)
+        Me.GroupBox7.Controls.Add(Me.C_IAPTPS)
         Me.GroupBox7.Controls.Add(Me.C_secondaries)
         Me.GroupBox7.Controls.Add(Me.C_coolingfan)
         Me.GroupBox7.Controls.Add(Me.C_ABCmode)
@@ -550,23 +566,30 @@ Partial Class K8Advsettings
         Me.C_ABCmode.Text = "ABC fixed to A"
         Me.C_ABCmode.UseVisualStyleBackColor = True
         '
-        'C_secondaries
+        'C_IAPTPS
         '
-        Me.C_secondaries.AutoSize = True
-        Me.C_secondaries.Location = New System.Drawing.Point(171, 63)
-        Me.C_secondaries.Name = "C_secondaries"
-        Me.C_secondaries.Size = New System.Drawing.Size(131, 17)
-        Me.C_secondaries.TabIndex = 8
-        Me.C_secondaries.Text = "Secondaries FI normal"
-        Me.ToolTip1.SetToolTip(Me.C_secondaries, "With this setting you can disable the FI code from missing secondaries - only for" & _
-                " race purposes.")
-        Me.C_secondaries.UseVisualStyleBackColor = True
+        Me.C_IAPTPS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.C_IAPTPS.FormattingEnabled = True
+        Me.C_IAPTPS.Location = New System.Drawing.Point(62, 59)
+        Me.C_IAPTPS.Name = "C_IAPTPS"
+        Me.C_IAPTPS.Size = New System.Drawing.Size(73, 21)
+        Me.C_IAPTPS.TabIndex = 8
+        Me.ToolTip1.SetToolTip(Me.C_IAPTPS, resources.GetString("C_IAPTPS.ToolTip"))
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(6, 63)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(50, 13)
+        Me.Label5.TabIndex = 8
+        Me.Label5.Text = "IAP/TPS"
         '
         'K8Advsettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(408, 437)
+        Me.ClientSize = New System.Drawing.Size(408, 477)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox9)
@@ -649,4 +672,6 @@ Partial Class K8Advsettings
     Friend WithEvents C_coil_fi_disable As System.Windows.Forms.CheckBox
     Friend WithEvents C_coolingfan As System.Windows.Forms.CheckBox
     Friend WithEvents C_secondaries As System.Windows.Forms.CheckBox
+    Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents C_IAPTPS As System.Windows.Forms.ComboBox
 End Class
