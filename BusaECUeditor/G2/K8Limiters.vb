@@ -100,11 +100,11 @@ Public Class K8Limiters
         ' RPM/Ignition limiters, these are set to around 150rpm higher than fuel limiters
         '
         writeflashword(&H72A68, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'normal limiter 11450rpm
-        writeflashword(&H72A6A, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'normal limiter 11601rpm
+        WriteFlashWord(&H72A6A, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'normal limiter 11601rpm
         writeflashword(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'clutch limiter at 10901 modified to same as normal ignition limiter
-        writeflashword(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'clutch limiter at 10997 modified to same as normal ignition limiter
+        WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'clutch limiter at 10997 modified to same as normal ignition limiter
         writeflashword(&H72A74, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'On TPS limiter 11450rpm - a bit unsure about condition triggering this one
-        writeflashword(&H72A76, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'On TPS limiter 11601rpm - a bit unsure about condition triggering this one
+        WriteFlashWord(&H72A76, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'On TPS limiter 11601rpm - a bit unsure about condition triggering this one
 
 
     End Sub

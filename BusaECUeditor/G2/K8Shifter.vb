@@ -253,6 +253,17 @@ Public Class K8shifter
         Me.RPM.SelectedIndex = 0
         Me.RPM.Enabled = True
 
+
+        If ReadFlashByte(&H55420) = 0 Then
+            C_DSMactivation.Text = "Normal GPS resistor activation"
+            WriteFlashByte(&H55420, 0)
+        Else
+            C_DSMactivation.Text = "GPS resistor and DSM2 activation"
+            K8Advsettings.C_ABCmode.Checked = False
+            WriteFlashByte(&H55420, 1) ' 1 = DSM2, 2 = DSM1
+        End If
+
+
     End Sub
 
     Private Sub hide_shifter_settings()
@@ -371,7 +382,6 @@ Public Class K8shifter
             C_DSMactivation.Text = "Normal GPS resistor activation"
             WriteFlashByte(&H55420, 0)
         Else
-            If Not C_DSMactivation.Checked Then C_Fuelcut.Checked = True
             C_DSMactivation.Text = "GPS resistor and DSM2 activation"
             K8Advsettings.C_ABCmode.Checked = False
             WriteFlashByte(&H55420, 1) ' 1 = DSM2, 2 = DSM1
