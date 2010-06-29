@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Ignitionmap
+Partial Class IgnitionMap
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -20,18 +20,18 @@ Partial Class Ignitionmap
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Ignitionmap))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IgnitionMap))
         Me.B_MSIGN = New System.Windows.Forms.Button
         Me.Label1 = New System.Windows.Forms.Label
         Me.T_TPSIAP = New System.Windows.Forms.TextBox
         Me.T_RPM = New System.Windows.Forms.TextBox
-        Me.Button1 = New System.Windows.Forms.Button
+        Me.B_Close = New System.Windows.Forms.Button
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.B_IGN = New System.Windows.Forms.Button
-        Me.Ignitionmapgrid = New System.Windows.Forms.DataGridView
+        Me.IgnitionMapGrid = New System.Windows.Forms.DataGridView
         Me.T_valdiff = New System.Windows.Forms.TextBox
-        Me.B_unify = New System.Windows.Forms.Button
-        CType(Me.Ignitionmapgrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.B_Unify = New System.Windows.Forms.Button
+        CType(Me.IgnitionMapGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'B_MSIGN
@@ -75,14 +75,14 @@ Partial Class Ignitionmap
         Me.T_RPM.TabIndex = 16
         Me.T_RPM.WordWrap = False
         '
-        'Button1
+        'B_Close
         '
-        Me.Button1.Location = New System.Drawing.Point(637, 22)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(102, 23)
-        Me.Button1.TabIndex = 15
-        Me.Button1.Text = "Close"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.B_Close.Location = New System.Drawing.Point(637, 22)
+        Me.B_Close.Name = "B_Close"
+        Me.B_Close.Size = New System.Drawing.Size(102, 23)
+        Me.B_Close.TabIndex = 15
+        Me.B_Close.Text = "Close"
+        Me.B_Close.UseVisualStyleBackColor = True
         '
         'Timer1
         '
@@ -97,21 +97,21 @@ Partial Class Ignitionmap
         Me.B_IGN.Text = "Ignitionmap"
         Me.B_IGN.UseVisualStyleBackColor = True
         '
-        'Ignitionmapgrid
+        'IgnitionMapGrid
         '
-        Me.Ignitionmapgrid.AllowUserToAddRows = False
-        Me.Ignitionmapgrid.AllowUserToDeleteRows = False
-        Me.Ignitionmapgrid.AllowUserToResizeColumns = False
-        Me.Ignitionmapgrid.AllowUserToResizeRows = False
-        Me.Ignitionmapgrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.Ignitionmapgrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.Ignitionmapgrid.Location = New System.Drawing.Point(11, 51)
-        Me.Ignitionmapgrid.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
-        Me.Ignitionmapgrid.Name = "Ignitionmapgrid"
-        Me.Ignitionmapgrid.ReadOnly = True
-        Me.Ignitionmapgrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.Ignitionmapgrid.Size = New System.Drawing.Size(731, 593)
-        Me.Ignitionmapgrid.TabIndex = 12
+        Me.IgnitionMapGrid.AllowUserToAddRows = False
+        Me.IgnitionMapGrid.AllowUserToDeleteRows = False
+        Me.IgnitionMapGrid.AllowUserToResizeColumns = False
+        Me.IgnitionMapGrid.AllowUserToResizeRows = False
+        Me.IgnitionMapGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.IgnitionMapGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.IgnitionMapGrid.Location = New System.Drawing.Point(11, 51)
+        Me.IgnitionMapGrid.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
+        Me.IgnitionMapGrid.Name = "IgnitionMapGrid"
+        Me.IgnitionMapGrid.ReadOnly = True
+        Me.IgnitionMapGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
+        Me.IgnitionMapGrid.Size = New System.Drawing.Size(731, 593)
+        Me.IgnitionMapGrid.TabIndex = 12
         '
         'T_valdiff
         '
@@ -124,33 +124,33 @@ Partial Class Ignitionmap
         Me.T_valdiff.TabIndex = 20
         Me.T_valdiff.WordWrap = False
         '
-        'B_unify
+        'B_Unify
         '
-        Me.B_unify.Location = New System.Drawing.Point(185, 23)
-        Me.B_unify.Name = "B_unify"
-        Me.B_unify.Size = New System.Drawing.Size(22, 23)
-        Me.B_unify.TabIndex = 21
-        Me.B_unify.Text = "U"
-        Me.B_unify.UseVisualStyleBackColor = True
+        Me.B_Unify.Location = New System.Drawing.Point(185, 23)
+        Me.B_Unify.Name = "B_Unify"
+        Me.B_Unify.Size = New System.Drawing.Size(22, 23)
+        Me.B_Unify.TabIndex = 21
+        Me.B_Unify.Text = "U"
+        Me.B_Unify.UseVisualStyleBackColor = True
         '
-        'Ignitionmap
+        'IgnitionMap
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(756, 656)
-        Me.Controls.Add(Me.B_unify)
+        Me.Controls.Add(Me.B_Unify)
         Me.Controls.Add(Me.T_valdiff)
         Me.Controls.Add(Me.B_MSIGN)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.T_TPSIAP)
         Me.Controls.Add(Me.T_RPM)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.B_Close)
         Me.Controls.Add(Me.B_IGN)
-        Me.Controls.Add(Me.Ignitionmapgrid)
+        Me.Controls.Add(Me.IgnitionMapGrid)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Name = "Ignitionmap"
+        Me.Name = "IgnitionMap"
         Me.Text = "ECUeditor Ignitionmap"
-        CType(Me.Ignitionmapgrid, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.IgnitionMapGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -159,10 +159,10 @@ Partial Class Ignitionmap
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents T_TPSIAP As System.Windows.Forms.TextBox
     Friend WithEvents T_RPM As System.Windows.Forms.TextBox
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents B_Close As System.Windows.Forms.Button
     Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents B_IGN As System.Windows.Forms.Button
-    Friend WithEvents Ignitionmapgrid As System.Windows.Forms.DataGridView
+    Friend WithEvents IgnitionMapGrid As System.Windows.Forms.DataGridView
     Friend WithEvents T_valdiff As System.Windows.Forms.TextBox
-    Friend WithEvents B_unify As System.Windows.Forms.Button
+    Friend WithEvents B_Unify As System.Windows.Forms.Button
 End Class

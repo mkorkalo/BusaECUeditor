@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Fuelmap
+Partial Class FuelMap
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -20,36 +20,36 @@ Partial Class Fuelmap
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Fuelmap))
-        Me.Fuelmapgrid = New System.Windows.Forms.DataGridView
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FuelMap))
+        Me.FuelMapGrid = New System.Windows.Forms.DataGridView
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.B_TPS = New System.Windows.Forms.Button
         Me.B_IAP = New System.Windows.Forms.Button
-        Me.Button1 = New System.Windows.Forms.Button
+        Me.B_Close = New System.Windows.Forms.Button
         Me.T_RPM = New System.Windows.Forms.TextBox
         Me.T_TPSIAP = New System.Windows.Forms.TextBox
         Me.Label1 = New System.Windows.Forms.Label
         Me.B_MSTP = New System.Windows.Forms.Button
-        Me.B_unify = New System.Windows.Forms.Button
+        Me.B_Unify = New System.Windows.Forms.Button
         Me.T_valdiff = New System.Windows.Forms.TextBox
-        CType(Me.Fuelmapgrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.FuelMapGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'Fuelmapgrid
+        'FuelMapGrid
         '
-        Me.Fuelmapgrid.AllowUserToAddRows = False
-        Me.Fuelmapgrid.AllowUserToDeleteRows = False
-        Me.Fuelmapgrid.AllowUserToResizeColumns = False
-        Me.Fuelmapgrid.AllowUserToResizeRows = False
-        Me.Fuelmapgrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.Fuelmapgrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.Fuelmapgrid.Location = New System.Drawing.Point(3, 31)
-        Me.Fuelmapgrid.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
-        Me.Fuelmapgrid.Name = "Fuelmapgrid"
-        Me.Fuelmapgrid.ReadOnly = True
-        Me.Fuelmapgrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.Fuelmapgrid.Size = New System.Drawing.Size(792, 675)
-        Me.Fuelmapgrid.TabIndex = 0
+        Me.FuelMapGrid.AllowUserToAddRows = False
+        Me.FuelMapGrid.AllowUserToDeleteRows = False
+        Me.FuelMapGrid.AllowUserToResizeColumns = False
+        Me.FuelMapGrid.AllowUserToResizeRows = False
+        Me.FuelMapGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.FuelMapGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.FuelMapGrid.Location = New System.Drawing.Point(3, 31)
+        Me.FuelMapGrid.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
+        Me.FuelMapGrid.Name = "FuelMapGrid"
+        Me.FuelMapGrid.ReadOnly = True
+        Me.FuelMapGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
+        Me.FuelMapGrid.Size = New System.Drawing.Size(792, 675)
+        Me.FuelMapGrid.TabIndex = 0
         '
         'Timer1
         '
@@ -73,14 +73,14 @@ Partial Class Fuelmap
         Me.B_IAP.Text = "IAP fuelmap"
         Me.B_IAP.UseVisualStyleBackColor = True
         '
-        'Button1
+        'B_Close
         '
-        Me.Button1.Location = New System.Drawing.Point(692, 2)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(102, 23)
-        Me.Button1.TabIndex = 3
-        Me.Button1.Text = "Close"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.B_Close.Location = New System.Drawing.Point(692, 2)
+        Me.B_Close.Name = "B_Close"
+        Me.B_Close.Size = New System.Drawing.Size(102, 23)
+        Me.B_Close.TabIndex = 3
+        Me.B_Close.Text = "Close"
+        Me.B_Close.UseVisualStyleBackColor = True
         '
         'T_RPM
         '
@@ -123,14 +123,14 @@ Partial Class Fuelmap
         Me.B_MSTP.Text = "MS fuelmap"
         Me.B_MSTP.UseVisualStyleBackColor = True
         '
-        'B_unify
+        'B_Unify
         '
-        Me.B_unify.Location = New System.Drawing.Point(260, 2)
-        Me.B_unify.Name = "B_unify"
-        Me.B_unify.Size = New System.Drawing.Size(22, 23)
-        Me.B_unify.TabIndex = 12
-        Me.B_unify.Text = "U"
-        Me.B_unify.UseVisualStyleBackColor = True
+        Me.B_Unify.Location = New System.Drawing.Point(260, 2)
+        Me.B_Unify.Name = "B_Unify"
+        Me.B_Unify.Size = New System.Drawing.Size(22, 23)
+        Me.B_Unify.TabIndex = 12
+        Me.B_Unify.Text = "U"
+        Me.B_Unify.UseVisualStyleBackColor = True
         '
         'T_valdiff
         '
@@ -143,42 +143,42 @@ Partial Class Fuelmap
         Me.T_valdiff.TabIndex = 13
         Me.T_valdiff.WordWrap = False
         '
-        'Fuelmap
+        'FuelMap
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(5.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(796, 711)
         Me.Controls.Add(Me.T_valdiff)
-        Me.Controls.Add(Me.B_unify)
+        Me.Controls.Add(Me.B_Unify)
         Me.Controls.Add(Me.B_MSTP)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.T_TPSIAP)
         Me.Controls.Add(Me.T_RPM)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.B_Close)
         Me.Controls.Add(Me.B_IAP)
         Me.Controls.Add(Me.B_TPS)
-        Me.Controls.Add(Me.Fuelmapgrid)
+        Me.Controls.Add(Me.FuelMapGrid)
         Me.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "Fuelmap"
+        Me.Name = "FuelMap"
         Me.Text = "ECUeditor Fuelmap"
-        CType(Me.Fuelmapgrid, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.FuelMapGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Fuelmapgrid As System.Windows.Forms.DataGridView
+    Friend WithEvents FuelMapGrid As System.Windows.Forms.DataGridView
     Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents B_TPS As System.Windows.Forms.Button
     Friend WithEvents B_IAP As System.Windows.Forms.Button
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents B_Close As System.Windows.Forms.Button
     Friend WithEvents T_RPM As System.Windows.Forms.TextBox
     Friend WithEvents T_TPSIAP As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents B_MSTP As System.Windows.Forms.Button
-    Friend WithEvents B_unify As System.Windows.Forms.Button
+    Friend WithEvents B_Unify As System.Windows.Forms.Button
     Friend WithEvents T_valdiff As System.Windows.Forms.TextBox
 End Class

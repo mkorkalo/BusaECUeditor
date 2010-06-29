@@ -20,7 +20,7 @@
 '    of the GNU licence.
 '
 
-Public Class Advsettings
+Public Class AdvSettings
 #Region "Variables"
 
     Dim _solenoidOnLow As Integer
@@ -635,5 +635,5 @@ Public Class Advsettings
     End Sub
 
 #End Region
-   
+
 End Class
