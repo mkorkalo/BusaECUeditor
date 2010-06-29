@@ -120,7 +120,7 @@ Public Class K8Limiters
 
     Private Sub Limiters_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim i As Integer
-        rpmconv = 15000000
+        rpmconv = 3840000000 / &HFF
 
         '
         ' Determine if gear limiters are on or off
