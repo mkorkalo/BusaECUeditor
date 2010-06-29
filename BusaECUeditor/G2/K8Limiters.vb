@@ -154,7 +154,7 @@ Public Class K8Limiters
         Me.RPM.Items.Add(i.ToString())
 
         i = 10500
-        Do While i < 12500 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
+        Do While i < 14500 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
             Me.RPM.Items.Add(i.ToString())
             i = i + 100
         Loop
