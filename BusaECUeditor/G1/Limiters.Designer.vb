@@ -20,23 +20,23 @@ Partial Class Limiters
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Limiters))
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox
+        Me.C_TopSpeedLimiter = New System.Windows.Forms.CheckBox
         Me.Label3 = New System.Windows.Forms.Label
         Me.Label2 = New System.Windows.Forms.Label
-        Me.RPM = New System.Windows.Forms.ComboBox
-        Me.Hardcut = New System.Windows.Forms.CheckBox
+        Me.C_RPM = New System.Windows.Forms.ComboBox
+        Me.C_Hardcut = New System.Windows.Forms.CheckBox
         Me.Label1 = New System.Windows.Forms.Label
-        Me.Button1 = New System.Windows.Forms.Button
+        Me.B_Close = New System.Windows.Forms.Button
         Me.SuspendLayout()
         '
-        'CheckBox1
+        'C_TopSpeedLimiter
         '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(116, 57)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(15, 14)
-        Me.CheckBox1.TabIndex = 19
-        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.C_TopSpeedLimiter.AutoSize = True
+        Me.C_TopSpeedLimiter.Location = New System.Drawing.Point(116, 57)
+        Me.C_TopSpeedLimiter.Name = "C_TopSpeedLimiter"
+        Me.C_TopSpeedLimiter.Size = New System.Drawing.Size(15, 14)
+        Me.C_TopSpeedLimiter.TabIndex = 19
+        Me.C_TopSpeedLimiter.UseVisualStyleBackColor = True
         '
         'Label3
         '
@@ -56,24 +56,24 @@ Partial Class Limiters
         Me.Label2.TabIndex = 17
         Me.Label2.Text = "RPM limiter"
         '
-        'RPM
+        'C_RPM
         '
-        Me.RPM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.RPM.Enabled = False
-        Me.RPM.FormattingEnabled = True
-        Me.RPM.Location = New System.Drawing.Point(116, 18)
-        Me.RPM.Name = "RPM"
-        Me.RPM.Size = New System.Drawing.Size(121, 21)
-        Me.RPM.TabIndex = 16
+        Me.C_RPM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.C_RPM.Enabled = False
+        Me.C_RPM.FormattingEnabled = True
+        Me.C_RPM.Location = New System.Drawing.Point(116, 18)
+        Me.C_RPM.Name = "C_RPM"
+        Me.C_RPM.Size = New System.Drawing.Size(121, 21)
+        Me.C_RPM.TabIndex = 16
         '
-        'Hardcut
+        'C_Hardcut
         '
-        Me.Hardcut.AutoSize = True
-        Me.Hardcut.Location = New System.Drawing.Point(116, 89)
-        Me.Hardcut.Name = "Hardcut"
-        Me.Hardcut.Size = New System.Drawing.Size(15, 14)
-        Me.Hardcut.TabIndex = 21
-        Me.Hardcut.UseVisualStyleBackColor = True
+        Me.C_Hardcut.AutoSize = True
+        Me.C_Hardcut.Location = New System.Drawing.Point(116, 89)
+        Me.C_Hardcut.Name = "C_Hardcut"
+        Me.C_Hardcut.Size = New System.Drawing.Size(15, 14)
+        Me.C_Hardcut.TabIndex = 21
+        Me.C_Hardcut.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -84,27 +84,27 @@ Partial Class Limiters
         Me.Label1.TabIndex = 22
         Me.Label1.Text = "Softcut or Hardcut"
         '
-        'Button1
+        'B_Close
         '
-        Me.Button1.Location = New System.Drawing.Point(294, 90)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(92, 26)
-        Me.Button1.TabIndex = 23
-        Me.Button1.Text = "Close"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.B_Close.Location = New System.Drawing.Point(294, 90)
+        Me.B_Close.Name = "B_Close"
+        Me.B_Close.Size = New System.Drawing.Size(92, 26)
+        Me.B_Close.TabIndex = 23
+        Me.B_Close.Text = "Close"
+        Me.B_Close.UseVisualStyleBackColor = True
         '
         'Limiters
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(398, 126)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.B_Close)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.Hardcut)
-        Me.Controls.Add(Me.CheckBox1)
+        Me.Controls.Add(Me.C_Hardcut)
+        Me.Controls.Add(Me.C_TopSpeedLimiter)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.RPM)
+        Me.Controls.Add(Me.C_RPM)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -114,11 +114,11 @@ Partial Class Limiters
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
+    Friend WithEvents C_TopSpeedLimiter As System.Windows.Forms.CheckBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents RPM As System.Windows.Forms.ComboBox
-    Friend WithEvents Hardcut As System.Windows.Forms.CheckBox
+    Friend WithEvents C_RPM As System.Windows.Forms.ComboBox
+    Friend WithEvents C_Hardcut As System.Windows.Forms.CheckBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents B_Close As System.Windows.Forms.Button
 End Class

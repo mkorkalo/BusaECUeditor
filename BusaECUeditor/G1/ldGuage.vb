@@ -6,7 +6,6 @@ Imports System.Drawing
 Imports System.Drawing.Drawing2D
 Imports System.Windows.Forms
 
-
 Namespace ldGuage
 Public Delegate Sub DeflectionChangedEventHandler(ByVal sender As Object, ByVal e As EventArgs)
 
@@ -19,9 +18,13 @@ Public Delegate Sub DeflectionChangedEventHandler(ByVal sender As Object, ByVal 
 		''' <summary>
 		''' Required designer variable.
 		''' </summary>
-		Private components As System.ComponentModel.Container = Nothing
-		Public Event DeflectionChanged As DeflectionChangedEventHandler
-		Public Event InTheRed As DeflectionChangedEventHandler
+
+        Private components As System.ComponentModel.Container = Nothing
+
+        Public Event DeflectionChanged As DeflectionChangedEventHandler
+
+        Public Event InTheRed As DeflectionChangedEventHandler
+
 		Public Event OutOfTheRed As DeflectionChangedEventHandler
 
 		Public Sub New()
@@ -85,6 +88,7 @@ Public Delegate Sub DeflectionChangedEventHandler(ByVal sender As Object, ByVal 
                 End If
             End Set
         End Property
+
         <CategoryAttribute("Behavior"), DescriptionAttribute("Range of the red zone.")> _
         Public Property RedZone() As Single
             Get
@@ -95,6 +99,7 @@ Public Delegate Sub DeflectionChangedEventHandler(ByVal sender As Object, ByVal 
                 Me.Refresh()
             End Set
         End Property
+
         <CategoryAttribute("Behavior"), DescriptionAttribute("Range of the meter.")> _
         Public Property Range() As Single
             Get
@@ -105,6 +110,7 @@ Public Delegate Sub DeflectionChangedEventHandler(ByVal sender As Object, ByVal 
                 Me.Refresh()
             End Set
         End Property
+
         <CategoryAttribute("Appearance"), DescriptionAttribute("Color of the needle")> _
         Public Property Needle_Color() As Color
             Get
@@ -115,6 +121,7 @@ Public Delegate Sub DeflectionChangedEventHandler(ByVal sender As Object, ByVal 
                 Me.Refresh()
             End Set
         End Property
+
         <CategoryAttribute("Appearance"), DescriptionAttribute("Color of the ticks in the red zone")> _
         Public Property RedZone_Color() As Color
             Get
@@ -135,6 +142,7 @@ Public Delegate Sub DeflectionChangedEventHandler(ByVal sender As Object, ByVal 
             components = New System.ComponentModel.Container
         End Sub
 #End Region
+
         Protected Overrides Sub OnPaint(ByVal e As PaintEventArgs)
             Dim shorter As Integer
             Dim divisor As Single = range_Renamed / 260
@@ -195,12 +203,17 @@ Public Delegate Sub DeflectionChangedEventHandler(ByVal sender As Object, ByVal 
         End Sub
 
         Private deflection_Renamed As Single
+
         Private range_Renamed As Single
+
         Private redZone_Renamed As Single
+
         Private ncolor, rcolor As Color
+
         Private inTheRed1 As Boolean
 
     End Class
+
 End Namespace
 
 

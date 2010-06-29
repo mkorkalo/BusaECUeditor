@@ -312,10 +312,10 @@
     <Compile Include="Common\AcceptTerms.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="G1\Interfacedlg.Designer.vb">
-      <DependentUpon>Interfacedlg.vb</DependentUpon>
+    <Compile Include="G1\InterfaceDialog.Designer.vb">
+      <DependentUpon>InterfaceDialog.vb</DependentUpon>
     </Compile>
-    <Compile Include="G1\Interfacedlg.vb">
+    <Compile Include="G1\InterfaceDialog.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Common\LoginForm.Designer.vb">
@@ -324,10 +324,10 @@
     <Compile Include="Common\LoginForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="G1\Shifter_Instructions.Designer.vb">
-      <DependentUpon>Shifter_Instructions.vb</DependentUpon>
+    <Compile Include="G1\ShifterInstructions.Designer.vb">
+      <DependentUpon>ShifterInstructions.vb</DependentUpon>
     </Compile>
-    <Compile Include="G1\Shifter_Instructions.vb">
+    <Compile Include="G1\ShifterInstructions.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Common\MapSharing.Designer.vb">
@@ -348,10 +348,10 @@
     <Compile Include="G1\AdvSettings.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="G1\Ignitionmap.Designer.vb">
-      <DependentUpon>Ignitionmap.vb</DependentUpon>
+    <Compile Include="G1\IgnitionMap.Designer.vb">
+      <DependentUpon>IgnitionMap.vb</DependentUpon>
     </Compile>
-    <Compile Include="G1\Ignitionmap.vb">
+    <Compile Include="G1\IgnitionMap.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Common\ProgramHomepage.Designer.vb">
@@ -375,10 +375,10 @@
     <Compile Include="Common\ProgramUpdate.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="G1\Fuelmapediting.Designer.vb">
-      <DependentUpon>Fuelmapediting.vb</DependentUpon>
+    <Compile Include="G1\FuelMapEditing.Designer.vb">
+      <DependentUpon>FuelMapEditing.vb</DependentUpon>
     </Compile>
-    <Compile Include="G1\Fuelmapediting.vb">
+    <Compile Include="G1\FuelMapEditing.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Common\ECUNotSupported.Designer.vb">
@@ -458,9 +458,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>ProgramUpdate.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="G1\Fuelmapediting.resx">
+    <EmbeddedResource Include="G1\FuelMapEditing.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>Fuelmapediting.vb</DependentUpon>
+      <DependentUpon>FuelMapEditing.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Common\ECUNotSupported.resx">
       <SubType>Designer</SubType>
@@ -612,13 +612,13 @@
       <SubType>Designer</SubType>
       <DependentUpon>DataLogger.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="G1\Interfacedlg.resx">
+    <EmbeddedResource Include="G1\InterfaceDialog.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>Interfacedlg.vb</DependentUpon>
+      <DependentUpon>InterfaceDialog.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="G1\Shifter_Instructions.resx">
+    <EmbeddedResource Include="G1\ShifterInstructions.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>Shifter_Instructions.vb</DependentUpon>
+      <DependentUpon>ShifterInstructions.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Common\MapSharing.resx">
       <SubType>Designer</SubType>
@@ -632,9 +632,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>AdvSettings.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="G1\Ignitionmap.resx">
+    <EmbeddedResource Include="G1\IgnitionMap.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>Ignitionmap.vb</DependentUpon>
+      <DependentUpon>IgnitionMap.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Common\ProgramHomepage.resx">
       <SubType>Designer</SubType>

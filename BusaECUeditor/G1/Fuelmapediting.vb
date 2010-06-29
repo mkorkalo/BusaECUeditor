@@ -22,19 +22,15 @@
 
 Imports System.Windows.Forms
 
-Public Class Fuelmapediting
+#Region "Control Events"
 
-    Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
+Public Class FuelMapEditing
+
+    Private Sub B_OK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_OK.Click
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
     End Sub
 
-    Private Sub Cancel_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Close()
-    End Sub
-
-    Private Sub Fuelmapediting_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
-    End Sub
 End Class
+
+#End Region
