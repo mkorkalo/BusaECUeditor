@@ -958,7 +958,7 @@ Public Class K8Datastream
                         RPMhi = rxs(x)
                     Case 25
                         RPMlo = rxs(x)
-                        RPM = ((256 * RPMhi) + RPMlo) / 2.56
+                        RPM = ((&HFF * RPMhi) + RPMlo) / 2.55
                     Case 26
                         TPS = rxs(x)
                     Case 27
