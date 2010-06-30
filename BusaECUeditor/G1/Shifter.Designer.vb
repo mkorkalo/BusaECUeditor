@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class shifter
+Partial Class Shifter
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -19,8 +19,8 @@ Partial Class shifter
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.OK_Button = New System.Windows.Forms.Button
-        Me.C_shifter_activation = New System.Windows.Forms.CheckBox
+        Me.B_Close = New System.Windows.Forms.Button
+        Me.C_ShifterActivation = New System.Windows.Forms.CheckBox
         Me.Label1 = New System.Windows.Forms.Label
         Me.T_12000 = New System.Windows.Forms.TextBox
         Me.T_11000 = New System.Windows.Forms.TextBox
@@ -43,51 +43,51 @@ Partial Class shifter
         Me.L6 = New System.Windows.Forms.Label
         Me.L7 = New System.Windows.Forms.Label
         Me.Label13 = New System.Windows.Forms.Label
-        Me.C_killtime = New System.Windows.Forms.ComboBox
+        Me.C_KillTime = New System.Windows.Forms.ComboBox
         Me.Label14 = New System.Windows.Forms.Label
         Me.Label2 = New System.Windows.Forms.Label
-        Me.B_install = New System.Windows.Forms.Button
+        Me.B_Install = New System.Windows.Forms.Button
         Me.L_Neutral = New System.Windows.Forms.Label
-        Me.C_pair = New System.Windows.Forms.CheckBox
+        Me.C_Pair = New System.Windows.Forms.CheckBox
         Me.Label3 = New System.Windows.Forms.Label
-        Me.C_fuelcut = New System.Windows.Forms.CheckBox
-        Me.C_Igncut = New System.Windows.Forms.CheckBox
-        Me.C_pairrpm12 = New System.Windows.Forms.ComboBox
+        Me.C_FuelCut = New System.Windows.Forms.CheckBox
+        Me.C_IgnCut = New System.Windows.Forms.CheckBox
+        Me.C_PairRpm12 = New System.Windows.Forms.ComboBox
         Me.Label4 = New System.Windows.Forms.Label
         Me.Label5 = New System.Windows.Forms.Label
-        Me.C_pairrpm36 = New System.Windows.Forms.ComboBox
+        Me.C_PairRpm36 = New System.Windows.Forms.ComboBox
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
+        Me.L2 = New System.Windows.Forms.Label
+        Me.T_2000 = New System.Windows.Forms.TextBox
         Me.L_killcountdelay = New System.Windows.Forms.Label
         Me.L_minkillactive = New System.Windows.Forms.Label
-        Me.T_killcountdelay = New System.Windows.Forms.TextBox
-        Me.T_minkillactive = New System.Windows.Forms.TextBox
+        Me.T_KillCountDelay = New System.Windows.Forms.TextBox
+        Me.T_MinKillActive = New System.Windows.Forms.TextBox
         Me.C_6thGearKill = New System.Windows.Forms.CheckBox
         Me.Label6 = New System.Windows.Forms.Label
-        Me.T_2000 = New System.Windows.Forms.TextBox
-        Me.L2 = New System.Windows.Forms.Label
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
-        'OK_Button
+        'B_Close
         '
-        Me.OK_Button.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.OK_Button.Location = New System.Drawing.Point(412, 290)
-        Me.OK_Button.Name = "OK_Button"
-        Me.OK_Button.Size = New System.Drawing.Size(67, 23)
-        Me.OK_Button.TabIndex = 0
-        Me.OK_Button.Text = "Close"
+        Me.B_Close.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.B_Close.Location = New System.Drawing.Point(412, 290)
+        Me.B_Close.Name = "B_Close"
+        Me.B_Close.Size = New System.Drawing.Size(67, 23)
+        Me.B_Close.TabIndex = 0
+        Me.B_Close.Text = "Close"
         '
-        'C_shifter_activation
+        'C_ShifterActivation
         '
-        Me.C_shifter_activation.AutoSize = True
-        Me.C_shifter_activation.Location = New System.Drawing.Point(132, 22)
-        Me.C_shifter_activation.Name = "C_shifter_activation"
-        Me.C_shifter_activation.Size = New System.Drawing.Size(106, 17)
-        Me.C_shifter_activation.TabIndex = 1
-        Me.C_shifter_activation.Text = "Shifter not active"
-        Me.C_shifter_activation.UseVisualStyleBackColor = True
+        Me.C_ShifterActivation.AutoSize = True
+        Me.C_ShifterActivation.Location = New System.Drawing.Point(132, 22)
+        Me.C_ShifterActivation.Name = "C_ShifterActivation"
+        Me.C_ShifterActivation.Size = New System.Drawing.Size(106, 17)
+        Me.C_ShifterActivation.TabIndex = 1
+        Me.C_ShifterActivation.Text = "Shifter not active"
+        Me.C_ShifterActivation.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -267,15 +267,15 @@ Partial Class shifter
         Me.Label13.TabIndex = 25
         Me.Label13.Text = "Kill time (~ms)"
         '
-        'C_killtime
+        'C_KillTime
         '
-        Me.C_killtime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.C_killtime.FormattingEnabled = True
-        Me.C_killtime.Location = New System.Drawing.Point(122, 73)
-        Me.C_killtime.MaxDropDownItems = 12
-        Me.C_killtime.Name = "C_killtime"
-        Me.C_killtime.Size = New System.Drawing.Size(65, 21)
-        Me.C_killtime.TabIndex = 26
+        Me.C_KillTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.C_KillTime.FormattingEnabled = True
+        Me.C_KillTime.Location = New System.Drawing.Point(122, 73)
+        Me.C_KillTime.MaxDropDownItems = 12
+        Me.C_KillTime.Name = "C_KillTime"
+        Me.C_KillTime.Size = New System.Drawing.Size(65, 21)
+        Me.C_KillTime.TabIndex = 26
         '
         'Label14
         '
@@ -295,14 +295,14 @@ Partial Class shifter
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "Shifter module v200 ready for testing"
         '
-        'B_install
+        'B_Install
         '
-        Me.B_install.Location = New System.Drawing.Point(12, 290)
-        Me.B_install.Name = "B_install"
-        Me.B_install.Size = New System.Drawing.Size(159, 23)
-        Me.B_install.TabIndex = 29
-        Me.B_install.Text = "Install Instructions"
-        Me.B_install.UseVisualStyleBackColor = True
+        Me.B_Install.Location = New System.Drawing.Point(12, 290)
+        Me.B_Install.Name = "B_Install"
+        Me.B_Install.Size = New System.Drawing.Size(159, 23)
+        Me.B_Install.TabIndex = 29
+        Me.B_Install.Text = "Install Instructions"
+        Me.B_Install.UseVisualStyleBackColor = True
         '
         'L_Neutral
         '
@@ -313,15 +313,15 @@ Partial Class shifter
         Me.L_Neutral.TabIndex = 30
         Me.L_Neutral.Text = "Map for operation"
         '
-        'C_pair
+        'C_Pair
         '
-        Me.C_pair.AutoSize = True
-        Me.C_pair.Location = New System.Drawing.Point(122, 16)
-        Me.C_pair.Name = "C_pair"
-        Me.C_pair.Size = New System.Drawing.Size(79, 17)
-        Me.C_pair.TabIndex = 32
-        Me.C_pair.Text = "Pair control"
-        Me.C_pair.UseVisualStyleBackColor = True
+        Me.C_Pair.AutoSize = True
+        Me.C_Pair.Location = New System.Drawing.Point(122, 16)
+        Me.C_Pair.Name = "C_Pair"
+        Me.C_Pair.Size = New System.Drawing.Size(79, 17)
+        Me.C_Pair.TabIndex = 32
+        Me.C_Pair.Text = "Pair control"
+        Me.C_Pair.UseVisualStyleBackColor = True
         '
         'Label3
         '
@@ -332,35 +332,35 @@ Partial Class shifter
         Me.Label3.TabIndex = 31
         Me.Label3.Text = "Pair solenoid control"
         '
-        'C_fuelcut
+        'C_FuelCut
         '
-        Me.C_fuelcut.AutoSize = True
-        Me.C_fuelcut.Location = New System.Drawing.Point(122, 25)
-        Me.C_fuelcut.Name = "C_fuelcut"
-        Me.C_fuelcut.Size = New System.Drawing.Size(61, 17)
-        Me.C_fuelcut.TabIndex = 33
-        Me.C_fuelcut.Text = "Fuelcut"
-        Me.C_fuelcut.UseVisualStyleBackColor = True
+        Me.C_FuelCut.AutoSize = True
+        Me.C_FuelCut.Location = New System.Drawing.Point(122, 25)
+        Me.C_FuelCut.Name = "C_FuelCut"
+        Me.C_FuelCut.Size = New System.Drawing.Size(61, 17)
+        Me.C_FuelCut.TabIndex = 33
+        Me.C_FuelCut.Text = "Fuelcut"
+        Me.C_FuelCut.UseVisualStyleBackColor = True
         '
-        'C_Igncut
+        'C_IgnCut
         '
-        Me.C_Igncut.AutoSize = True
-        Me.C_Igncut.Location = New System.Drawing.Point(122, 42)
-        Me.C_Igncut.Name = "C_Igncut"
-        Me.C_Igncut.Size = New System.Drawing.Size(56, 17)
-        Me.C_Igncut.TabIndex = 34
-        Me.C_Igncut.Text = "Igncut"
-        Me.C_Igncut.UseVisualStyleBackColor = True
+        Me.C_IgnCut.AutoSize = True
+        Me.C_IgnCut.Location = New System.Drawing.Point(122, 42)
+        Me.C_IgnCut.Name = "C_IgnCut"
+        Me.C_IgnCut.Size = New System.Drawing.Size(56, 17)
+        Me.C_IgnCut.TabIndex = 34
+        Me.C_IgnCut.Text = "Igncut"
+        Me.C_IgnCut.UseVisualStyleBackColor = True
         '
-        'C_pairrpm12
+        'C_PairRpm12
         '
-        Me.C_pairrpm12.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.C_pairrpm12.FormattingEnabled = True
-        Me.C_pairrpm12.Location = New System.Drawing.Point(396, 14)
-        Me.C_pairrpm12.MaxDropDownItems = 12
-        Me.C_pairrpm12.Name = "C_pairrpm12"
-        Me.C_pairrpm12.Size = New System.Drawing.Size(65, 21)
-        Me.C_pairrpm12.TabIndex = 35
+        Me.C_PairRpm12.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.C_PairRpm12.FormattingEnabled = True
+        Me.C_PairRpm12.Location = New System.Drawing.Point(396, 14)
+        Me.C_PairRpm12.MaxDropDownItems = 12
+        Me.C_PairRpm12.Name = "C_PairRpm12"
+        Me.C_PairRpm12.Size = New System.Drawing.Size(65, 21)
+        Me.C_PairRpm12.TabIndex = 35
         '
         'Label4
         '
@@ -380,22 +380,22 @@ Partial Class shifter
         Me.Label5.TabIndex = 37
         Me.Label5.Text = "Solenoid ON rpm Gear 3-6"
         '
-        'C_pairrpm36
+        'C_PairRpm36
         '
-        Me.C_pairrpm36.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.C_pairrpm36.FormattingEnabled = True
-        Me.C_pairrpm36.Location = New System.Drawing.Point(396, 45)
-        Me.C_pairrpm36.MaxDropDownItems = 12
-        Me.C_pairrpm36.Name = "C_pairrpm36"
-        Me.C_pairrpm36.Size = New System.Drawing.Size(65, 21)
-        Me.C_pairrpm36.TabIndex = 38
+        Me.C_PairRpm36.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.C_PairRpm36.FormattingEnabled = True
+        Me.C_PairRpm36.Location = New System.Drawing.Point(396, 45)
+        Me.C_PairRpm36.MaxDropDownItems = 12
+        Me.C_PairRpm36.Name = "C_PairRpm36"
+        Me.C_PairRpm36.Size = New System.Drawing.Size(65, 21)
+        Me.C_PairRpm36.TabIndex = 38
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.C_pair)
+        Me.GroupBox1.Controls.Add(Me.C_Pair)
         Me.GroupBox1.Controls.Add(Me.Label3)
-        Me.GroupBox1.Controls.Add(Me.C_pairrpm36)
-        Me.GroupBox1.Controls.Add(Me.C_pairrpm12)
+        Me.GroupBox1.Controls.Add(Me.C_PairRpm36)
+        Me.GroupBox1.Controls.Add(Me.C_PairRpm12)
         Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 209)
@@ -411,21 +411,21 @@ Partial Class shifter
         Me.GroupBox2.Controls.Add(Me.T_2000)
         Me.GroupBox2.Controls.Add(Me.L_killcountdelay)
         Me.GroupBox2.Controls.Add(Me.L_minkillactive)
-        Me.GroupBox2.Controls.Add(Me.T_killcountdelay)
-        Me.GroupBox2.Controls.Add(Me.T_minkillactive)
+        Me.GroupBox2.Controls.Add(Me.T_KillCountDelay)
+        Me.GroupBox2.Controls.Add(Me.T_MinKillActive)
         Me.GroupBox2.Controls.Add(Me.C_6thGearKill)
         Me.GroupBox2.Controls.Add(Me.Label6)
         Me.GroupBox2.Controls.Add(Me.L4)
         Me.GroupBox2.Controls.Add(Me.L5)
         Me.GroupBox2.Controls.Add(Me.L6)
-        Me.GroupBox2.Controls.Add(Me.C_Igncut)
+        Me.GroupBox2.Controls.Add(Me.C_IgnCut)
         Me.GroupBox2.Controls.Add(Me.L7)
-        Me.GroupBox2.Controls.Add(Me.C_fuelcut)
+        Me.GroupBox2.Controls.Add(Me.C_FuelCut)
         Me.GroupBox2.Controls.Add(Me.L8)
         Me.GroupBox2.Controls.Add(Me.L9)
         Me.GroupBox2.Controls.Add(Me.L10)
         Me.GroupBox2.Controls.Add(Me.Label14)
-        Me.GroupBox2.Controls.Add(Me.C_killtime)
+        Me.GroupBox2.Controls.Add(Me.C_KillTime)
         Me.GroupBox2.Controls.Add(Me.L11)
         Me.GroupBox2.Controls.Add(Me.Label13)
         Me.GroupBox2.Controls.Add(Me.L3)
@@ -447,6 +447,22 @@ Partial Class shifter
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Shifter settings"
         '
+        'L2
+        '
+        Me.L2.AutoSize = True
+        Me.L2.Location = New System.Drawing.Point(433, 55)
+        Me.L2.Name = "L2"
+        Me.L2.Size = New System.Drawing.Size(31, 13)
+        Me.L2.TabIndex = 42
+        Me.L2.Text = "2000"
+        '
+        'T_2000
+        '
+        Me.T_2000.Location = New System.Drawing.Point(429, 73)
+        Me.T_2000.Name = "T_2000"
+        Me.T_2000.Size = New System.Drawing.Size(35, 20)
+        Me.T_2000.TabIndex = 41
+        '
         'L_killcountdelay
         '
         Me.L_killcountdelay.AutoSize = True
@@ -465,19 +481,19 @@ Partial Class shifter
         Me.L_minkillactive.TabIndex = 39
         Me.L_minkillactive.Text = "Activation"
         '
-        'T_killcountdelay
+        'T_KillCountDelay
         '
-        Me.T_killcountdelay.Location = New System.Drawing.Point(429, 106)
-        Me.T_killcountdelay.Name = "T_killcountdelay"
-        Me.T_killcountdelay.Size = New System.Drawing.Size(35, 20)
-        Me.T_killcountdelay.TabIndex = 38
+        Me.T_KillCountDelay.Location = New System.Drawing.Point(429, 106)
+        Me.T_KillCountDelay.Name = "T_KillCountDelay"
+        Me.T_KillCountDelay.Size = New System.Drawing.Size(35, 20)
+        Me.T_KillCountDelay.TabIndex = 38
         '
-        'T_minkillactive
+        'T_MinKillActive
         '
-        Me.T_minkillactive.Location = New System.Drawing.Point(323, 106)
-        Me.T_minkillactive.Name = "T_minkillactive"
-        Me.T_minkillactive.Size = New System.Drawing.Size(35, 20)
-        Me.T_minkillactive.TabIndex = 37
+        Me.T_MinKillActive.Location = New System.Drawing.Point(323, 106)
+        Me.T_MinKillActive.Name = "T_MinKillActive"
+        Me.T_MinKillActive.Size = New System.Drawing.Size(35, 20)
+        Me.T_MinKillActive.TabIndex = 37
         '
         'C_6thGearKill
         '
@@ -498,36 +514,20 @@ Partial Class shifter
         Me.Label6.TabIndex = 35
         Me.Label6.Text = "6th Gear kill"
         '
-        'T_2000
-        '
-        Me.T_2000.Location = New System.Drawing.Point(429, 73)
-        Me.T_2000.Name = "T_2000"
-        Me.T_2000.Size = New System.Drawing.Size(35, 20)
-        Me.T_2000.TabIndex = 41
-        '
-        'L2
-        '
-        Me.L2.AutoSize = True
-        Me.L2.Location = New System.Drawing.Point(433, 55)
-        Me.L2.Name = "L2"
-        Me.L2.Size = New System.Drawing.Size(31, 13)
-        Me.L2.TabIndex = 42
-        Me.L2.Text = "2000"
-        '
         'shifter
         '
-        Me.AcceptButton = Me.OK_Button
+        Me.AcceptButton = Me.B_Close
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(491, 325)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.L_Neutral)
-        Me.Controls.Add(Me.B_install)
+        Me.Controls.Add(Me.B_Install)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.C_shifter_activation)
-        Me.Controls.Add(Me.OK_Button)
+        Me.Controls.Add(Me.C_ShifterActivation)
+        Me.Controls.Add(Me.B_Close)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -543,8 +543,8 @@ Partial Class shifter
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents OK_Button As System.Windows.Forms.Button
-    Friend WithEvents C_shifter_activation As System.Windows.Forms.CheckBox
+    Friend WithEvents B_Close As System.Windows.Forms.Button
+    Friend WithEvents C_ShifterActivation As System.Windows.Forms.CheckBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents T_12000 As System.Windows.Forms.TextBox
     Friend WithEvents T_11000 As System.Windows.Forms.TextBox
@@ -567,27 +567,27 @@ Partial Class shifter
     Friend WithEvents L6 As System.Windows.Forms.Label
     Friend WithEvents L7 As System.Windows.Forms.Label
     Friend WithEvents Label13 As System.Windows.Forms.Label
-    Friend WithEvents C_killtime As System.Windows.Forms.ComboBox
+    Friend WithEvents C_KillTime As System.Windows.Forms.ComboBox
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents B_install As System.Windows.Forms.Button
+    Friend WithEvents B_Install As System.Windows.Forms.Button
     Friend WithEvents L_Neutral As System.Windows.Forms.Label
-    Friend WithEvents C_pair As System.Windows.Forms.CheckBox
+    Friend WithEvents C_Pair As System.Windows.Forms.CheckBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents C_fuelcut As System.Windows.Forms.CheckBox
-    Friend WithEvents C_Igncut As System.Windows.Forms.CheckBox
-    Friend WithEvents C_pairrpm12 As System.Windows.Forms.ComboBox
+    Friend WithEvents C_FuelCut As System.Windows.Forms.CheckBox
+    Friend WithEvents C_IgnCut As System.Windows.Forms.CheckBox
+    Friend WithEvents C_PairRpm12 As System.Windows.Forms.ComboBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents C_pairrpm36 As System.Windows.Forms.ComboBox
+    Friend WithEvents C_PairRpm36 As System.Windows.Forms.ComboBox
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents C_6thGearKill As System.Windows.Forms.CheckBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents T_killcountdelay As System.Windows.Forms.TextBox
-    Friend WithEvents T_minkillactive As System.Windows.Forms.TextBox
-    Friend WithEvents L_killcountdelay As System.Windows.Forms.Label
-    Friend WithEvents L_minkillactive As System.Windows.Forms.Label
+    Friend WithEvents T_KillCountDelay As System.Windows.Forms.TextBox
+    Friend WithEvents T_MinKillActive As System.Windows.Forms.TextBox
+    Friend WithEvents L_KillCountDelay As System.Windows.Forms.Label
+    Friend WithEvents L_MinKillActive As System.Windows.Forms.Label
     Friend WithEvents L2 As System.Windows.Forms.Label
     Friend WithEvents T_2000 As System.Windows.Forms.TextBox
 

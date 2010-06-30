@@ -20,34 +20,43 @@
 '    of the GNU licence.
 '
 
-Public Class Fuelmap
-    Dim change As Integer
-    Dim previousrow As Integer
-    Dim toprow(50) As Integer
-    Dim TPSmap As Boolean
-    Dim previouscolour As Color
+Public Class FuelMap
 
-    Private Sub Fuelmap_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        fuelmapvisible = False
+#Region "Variables"
+
+    Dim _change As Integer
+    Dim _previousRow As Integer
+    Dim _tPSmap As Boolean
+
+#End Region
+
+#Region "Form Events"
+
+    Private Sub FuelMap_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+        SelectMap(1)
+        _change = 1 ' default _change to map when pressing +,- or *,/
+        _previousRow = 0
+        FuelMapVisible = True
+
     End Sub
 
-    Private Sub Fuelmap_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        selectmap(1)
-        change = 1 ' default change to map when pressing +,- or *,/
-        previousrow = 0
-        fuelmapvisible = True
+    Private Sub FuelMap_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+
+        FuelMapVisible = False
 
     End Sub
 
+#End Region
 
+#Region "Control Events"
 
-
-    Private Sub Fuelmapgrid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Fuelmapgrid.KeyPress
+    Private Sub FuelMapGrid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles FuelMapGrid.KeyPress
 
         Dim c As Integer
         Dim r As Integer
-        c = Fuelmapgrid.CurrentCell.ColumnIndex
-        r = Fuelmapgrid.CurrentCell.RowIndex
+        c = FuelMapGrid.CurrentCell.ColumnIndex
+        r = FuelMapGrid.CurrentCell.RowIndex
 
         ' this is the user interface shortcut keys processor
         Select Case e.KeyChar
@@ -60,28 +69,74 @@ Public Class Fuelmap
             Case "-"
                 DecreaseSelectedCells()
             Case "1"
-                selectmap(1)
+                SelectMap(1)
             Case "T"
-                selectmap(1)
+                SelectMap(1)
             Case "t"
-                selectmap(1)
+                SelectMap(1)
             Case "2"
-                selectmap(2)
+                SelectMap(2)
             Case "I"
-                selectmap(2)
+                SelectMap(2)
             Case "i"
-                selectmap(2)
+                SelectMap(2)
             Case "3"
-                selectmap(3)
+                SelectMap(3)
             Case "4"
-                selectmap(4)
+                SelectMap(4)
             Case Chr(27)
                 Me.Close()
             Case "c"
-                copy_tps_to_ms_map()
+                CopyTpsToMsMap()
         End Select
 
     End Sub
+
+    Private Sub FuelMapGrid_MouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles FuelMapGrid.MouseClick
+
+        ShowValues()
+
+    End Sub
+
+    Private Sub FuelMapGrid_CellEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles FuelMapGrid.CellEnter
+
+        ShowValues()
+
+    End Sub
+
+    Private Sub B__tPSmap_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_TPS.Click
+        SelectMap(1)
+    End Sub
+
+    Private Sub B_IAP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_IAP.Click
+        SelectMap(2)
+    End Sub
+
+    Private Sub B_Idle_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        SelectMap(3)
+    End Sub
+
+    Private Sub B_MSTP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_MSTP.Click
+        SelectMap(4)
+    End Sub
+
+    Private Sub B_Close_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Close.Click
+        Me.Close()
+    End Sub
+
+    Private Sub B_Unify_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Unify.Click
+
+        If MsgBox("This will unify cylinder specific fuelmaps to this map, do you agree", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            Unify()
+            B_Unify.Visible = False
+        End If
+
+    End Sub
+
+#End Region
+
+#Region "Functions"
+
     Private Sub DecreaseSelectedCells()
         Dim c As Integer
         Dim r As Integer
@@ -91,22 +146,22 @@ Public Class Fuelmap
 
         Dim decrease As Integer
 
-        decrease = change ' This is the amount that value is decreased when pressing "-"
+        decrease = _change ' This is the amount that value is decreased when pressing "-"
 
         i = 0
 
-        n = Fuelmapgrid.SelectedCells.Count()
+        n = FuelMapGrid.SelectedCells.Count()
 
-        Do While (r < maprows) And (r < 42)
+        Do While (r < MapRows) And (r < 42)
 
-            If Fuelmapgrid.Item(c, r).Selected And n > 0 Then
-                Fuelmapgrid.Item(c, r).Value = Fuelmapgrid.Item(c, r).Value - decrease
+            If FuelMapGrid.Item(c, r).Selected And n > 0 Then
+                FuelMapGrid.Item(c, r).Value = FuelMapGrid.Item(c, r).Value - decrease
                 SetFlashItem(c, r)
-                setCellColour(c, r)
+                SetCellColour(c, r)
                 n = n - 1
             End If
 
-            If c < mapcolumns - 1 Then
+            If c < MapColumns - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -135,18 +190,18 @@ Public Class Fuelmap
 
         i = 0
 
-        n = Fuelmapgrid.SelectedCells.Count()
+        n = FuelMapGrid.SelectedCells.Count()
 
-        Do While (r < maprows) And (r < 42)
+        Do While (r < MapRows) And (r < 42)
 
-            If Fuelmapgrid.Item(c, r).Selected And n > 0 Then
-                Fuelmapgrid.Item(c, r).Value = CInt((Fuelmapgrid.Item(c, r).Value * 100) / (5 + 100))
+            If FuelMapGrid.Item(c, r).Selected And n > 0 Then
+                FuelMapGrid.Item(c, r).Value = CInt((FuelMapGrid.Item(c, r).Value * 100) / (5 + 100))
                 SetFlashItem(c, r)
-                setCellColour(c, r)
+                SetCellColour(c, r)
                 n = n - 1
             End If
 
-            If c < mapcolumns - 1 Then
+            If c < MapColumns - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -156,7 +211,7 @@ Public Class Fuelmap
         Loop
 
         v = Val(T_valdiff.Text)
-        v = Int(v * (100 / (change + 100)))
+        v = Int(v * (100 / (_change + 100)))
         If v > 0 Then
             T_valdiff.Text = "+" & Str(v)
         Else
@@ -175,18 +230,18 @@ Public Class Fuelmap
 
         i = 0
 
-        n = Fuelmapgrid.SelectedCells.Count()
+        n = FuelMapGrid.SelectedCells.Count()
 
-        Do While (r < maprows) And (r < 42)
+        Do While (r < MapRows) And (r < 42)
 
-            If Fuelmapgrid.Item(c, r).Selected And n > 0 Then
-                Fuelmapgrid.Item(c, r).Value = CInt((Fuelmapgrid.Item(c, r).Value * (5 + 100)) / 100)
+            If FuelMapGrid.Item(c, r).Selected And n > 0 Then
+                FuelMapGrid.Item(c, r).Value = CInt((FuelMapGrid.Item(c, r).Value * (5 + 100)) / 100)
                 SetFlashItem(c, r)
-                setCellColour(c, r)
+                SetCellColour(c, r)
                 n = n - 1
             End If
 
-            If c < mapcolumns - 1 Then
+            If c < MapColumns - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -196,7 +251,7 @@ Public Class Fuelmap
         Loop
 
         v = Val(T_valdiff.Text)
-        v = Int(v * ((change + 100) / 100))
+        v = Int(v * ((_change + 100) / 100))
         If v > 0 Then
             T_valdiff.Text = "+" & Str(v)
         Else
@@ -215,21 +270,21 @@ Public Class Fuelmap
 
         Dim increase As Integer
 
-        increase = change ' this is the value how much the cell is increased when pressing "+"
+        increase = _change ' this is the value how much the cell is increased when pressing "+"
         i = 0
 
-        n = Fuelmapgrid.SelectedCells.Count()
+        n = FuelMapGrid.SelectedCells.Count()
 
-        Do While (r < (maprows - 1)) And (r < 42) And n > 0
+        Do While (r < (MapRows - 1)) And (r < 42) And n > 0
 
-            If Fuelmapgrid.Item(c, r).Selected And n > 0 Then
-                Fuelmapgrid.Item(c, r).Value = Fuelmapgrid.Item(c, r).Value + increase
+            If FuelMapGrid.Item(c, r).Selected And n > 0 Then
+                FuelMapGrid.Item(c, r).Value = FuelMapGrid.Item(c, r).Value + increase
                 SetFlashItem(c, r)
-                setCellColour(c, r)
+                SetCellColour(c, r)
                 n = n - 1
             End If
 
-            If c < mapcolumns - 1 Then
+            If c < MapColumns - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -248,7 +303,8 @@ Public Class Fuelmap
 
 
     End Sub
-    Private Sub setCellColour(ByVal c As Integer, ByVal r As Integer)
+
+    Private Sub SetCellColour(ByVal c As Integer, ByVal r As Integer)
         '
         ' this subroutine compares the cell value to the value of the flash image initially read from the disk with open file
         ' and sets cell colour accordingly based on that comparison
@@ -257,23 +313,21 @@ Public Class Fuelmap
 
         diff = (((ReadFlashWord(MapAddr1 + (2 * (c + (r * MapColumns))))))) - (((ReadFlashWordCopy(MapAddr1 + (2 * (c + (r * MapColumns)))))))
 
-        Fuelmapgrid.Item(c, r).Style.ForeColor = Color.Black
-        If Me.Text.Contains("TPS") And c < 11 Then Fuelmapgrid.Item(c, r).Style.ForeColor = Color.Gray
-        Fuelmapgrid.Item(c, r).Style.BackColor = Color.White
-        If CInt(diff) < -1 Then Fuelmapgrid.Item(c, r).Style.BackColor = Color.Yellow
-        If CInt(diff) < -2 * 24 Then Fuelmapgrid.Item(c, r).Style.BackColor = Color.Pink
-        If CInt(diff) < -5 * 24 Then Fuelmapgrid.Item(c, r).Style.BackColor = Color.Red
-        If CInt(diff) > 1 Then Fuelmapgrid.Item(c, r).Style.BackColor = Color.LightGreen
-        If CInt(diff) > 2 * 24 Then Fuelmapgrid.Item(c, r).Style.BackColor = Color.YellowGreen
-        If CInt(diff) > 5 * 24 Then Fuelmapgrid.Item(c, r).Style.BackColor = Color.Green
-
+        FuelMapGrid.Item(c, r).Style.ForeColor = Color.Black
+        If Me.Text.Contains("TPS") And c < 11 Then FuelMapGrid.Item(c, r).Style.ForeColor = Color.Gray
+        FuelMapGrid.Item(c, r).Style.BackColor = Color.White
+        If CInt(diff) < -1 Then FuelMapGrid.Item(c, r).Style.BackColor = Color.Yellow
+        If CInt(diff) < -2 * 24 Then FuelMapGrid.Item(c, r).Style.BackColor = Color.Pink
+        If CInt(diff) < -5 * 24 Then FuelMapGrid.Item(c, r).Style.BackColor = Color.Red
+        If CInt(diff) > 1 Then FuelMapGrid.Item(c, r).Style.BackColor = Color.LightGreen
+        If CInt(diff) > 2 * 24 Then FuelMapGrid.Item(c, r).Style.BackColor = Color.YellowGreen
+        If CInt(diff) > 5 * 24 Then FuelMapGrid.Item(c, r).Style.BackColor = Color.Green
 
     End Sub
 
-
     Private Sub SetFlashItem(ByVal c As Integer, ByVal r As Integer)
 
-        Dim diff As Integer ' diff is the falue how much it is changed compared to the visible map
+        Dim diff As Integer ' diff is the falue how much it is _changed compared to the visible map
         Dim m1 As Integer 'map1 new value
         Dim m2 As Integer 'map2 new value
         Dim m3 As Integer 'map3 new value
@@ -291,10 +345,10 @@ Public Class Fuelmap
         maxval = 32 * 2 * 128   ' not validated from ecu, maximum value to which the fuelmap item can be set
         minval = 12 * 2 * 5     ' not validated from ecu, minimum value to which the fuelmap item can be set
 
-        m1 = Fuelmapgrid.Item(c, r).Value
+        m1 = FuelMapGrid.Item(c, r).Value
         m2 = Int(ReadFlashWord(MapAddr1 + (2 * (c + (r * MapColumns)))) / 24) 'Int(ReadFlashWord((i * 2) + MapAddr1) / 48)
 
-        diff = Int(ReadFlashWord(MapAddr1 + (2 * (c + (r * MapColumns)))) / 24) - (Fuelmapgrid.Item(c, r).Value)
+        diff = Int(ReadFlashWord(MapAddr1 + (2 * (c + (r * MapColumns)))) / 24) - (FuelMapGrid.Item(c, r).Value)
 
         m1 = (Int(ReadFlashWord(MapAddr1 + (2 * (c + (r * MapColumns)))) / 24) - diff) * 24
         m2 = (Int(ReadFlashWord(MapAddr2 + (2 * (c + (r * MapColumns)))) / 24) - diff) * 24
@@ -321,7 +375,7 @@ Public Class Fuelmap
         WriteFlashWord(MapAddr3 + (2 * (c + (r * MapColumns))), m3)
         WriteFlashWord(MapAddr4 + (2 * (c + (r * MapColumns))), m4)
 
-        ' now lets also update both IAP idlemaps if there are any changes to the idlemap area
+        ' now lets also update both IAP idlemaps if there are any _changes to the idlemap area
         ' and also the other full size IAP map
         If Me.Text.Contains("IAP") Then
 
@@ -452,9 +506,9 @@ Public Class Fuelmap
 
     End Sub
 
-    Public Sub selectmap(ByVal map As Integer)
-        ' map tracing function to be disabled when map is changed
-        previousrow = 0
+    Public Sub SelectMap(ByVal map As Integer)
+        ' map tracing function to be disabled when map is _changed
+        _previousRow = 0
 
         Select Case map
             Case 1
@@ -500,24 +554,25 @@ Public Class Fuelmap
         CC = 0
 
         MapVisible = Me.Text
-        If Me.Text.Contains("TPS") Then TPSmap = True Else TPSmap = False
-        loadmap()
+        If Me.Text.Contains("TPS") Then _tPSmap = True Else _tPSmap = False
+        LoadMap()
     End Sub
-    Public Sub loadmap()
+
+    Public Sub LoadMap()
 
         Dim i As Integer
         Dim ii As Integer
         Dim c As Integer
         Dim r As Integer
-        B_unify.Visible = False
+        B_Unify.Visible = False
         i = 0
         ii = 0
 
-        Fuelmapgrid.ColumnCount = MapColumns
+        FuelMapGrid.ColumnCount = MapColumns
         If MapRows > 42 Then
-            Fuelmapgrid.RowCount = 42
+            FuelMapGrid.RowCount = 42
         Else
-            Fuelmapgrid.RowCount = MapRows
+            FuelMapGrid.RowCount = MapRows
         End If
 
 
@@ -525,22 +580,22 @@ Public Class Fuelmap
         r = 0
         Do While c < MapColumns
             i = Int((ReadFlashWord(MapAddr1 - (2 * MapRows) - (2 * MapColumns) + (c * 2))) / 256) ' * 0.00152587890625)
-            If TPSmap Then
-                Fuelmapgrid.Columns.Item(c).HeaderText = CalcTPS(i)
+            If _tPSmap Then
+                FuelMapGrid.Columns.Item(c).HeaderText = CalcTPS(i)
             Else
-                Fuelmapgrid.Columns.Item(c).HeaderText = Str(i)
+                FuelMapGrid.Columns.Item(c).HeaderText = Str(i)
             End If
-            Fuelmapgrid.Columns.Item(c).Width = 26
+            FuelMapGrid.Columns.Item(c).Width = 26
             c = c + 1
         Loop
 
         c = 0
         r = 0
 
-        Fuelmapgrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
+        FuelMapGrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
         Do While (r < MapRows) And (r < 42)
-            Fuelmapgrid.Rows.Item(r).HeaderCell.Value = Str((ReadFlashWord(MapAddr1 - (2 * MapRows) + (r * 2)) / 2.56))
-            Fuelmapgrid.Rows.Item(r).Height = 15
+            FuelMapGrid.Rows.Item(r).HeaderCell.Value = Str((ReadFlashWord(MapAddr1 - (2 * MapRows) + (r * 2)) / 2.56))
+            FuelMapGrid.Rows.Item(r).Height = 15
             r = r + 1
         Loop
 
@@ -550,10 +605,10 @@ Public Class Fuelmap
         i = 0
         Do While (r < MapRows) And (r < 42)
 
-            Fuelmapgrid.Item(c, r).Value = Int(ReadFlashWord((i * 2) + MapAddr1) / 24) '48
-            setCellColour(c, r)
+            FuelMapGrid.Item(c, r).Value = Int(ReadFlashWord((i * 2) + MapAddr1) / 24) '48
+            SetCellColour(c, r)
             If Not (ReadFlashWord((i * 2) + MapAddr1) = ReadFlashWord((i * 2) + MapAddr2)) Then
-                B_unify.Visible = True
+                B_Unify.Visible = True
             End If
 
             If c < MapColumns - 1 Then
@@ -565,19 +620,18 @@ Public Class Fuelmap
             i = i + 1
         Loop
 
-        Fuelmapgrid.AllowUserToAddRows = False
-        Fuelmapgrid.AllowUserToDeleteRows = False
-        Fuelmapgrid.AllowUserToOrderColumns = False
-        Fuelmapgrid.SelectionMode = DataGridViewSelectionMode.CellSelect
+        FuelMapGrid.AllowUserToAddRows = False
+        FuelMapGrid.AllowUserToDeleteRows = False
+        FuelMapGrid.AllowUserToOrderColumns = False
+        FuelMapGrid.SelectionMode = DataGridViewSelectionMode.CellSelect
 
     End Sub
 
-
-    Public Sub tracemap()
+    Public Sub TraceMap()
         Dim c As Integer
         Dim r As Integer
 
-        setCellColour(CC, RR)
+        SetCellColour(CC, RR)
 
         ' enable automatic map switching when tracing and datastream on
 
@@ -587,29 +641,29 @@ Public Class Fuelmap
         r = 0
         RR = 0
         Do While (r < MapRows - 1)
-            If RPM >= RR And RPM < Int(Fuelmapgrid.Rows(r + 1).HeaderCell.Value) Then
+            If RPM >= RR And RPM < Int(FuelMapGrid.Rows(r + 1).HeaderCell.Value) Then
                 RR = r
                 r = 256
             Else
                 r = r + 1
-                RR = Int(Fuelmapgrid.Rows(r).HeaderCell.Value)
+                RR = Int(FuelMapGrid.Rows(r).HeaderCell.Value)
             End If
         Loop
 
-        If TPSmap Then
+        If _tPSmap Then
             '
             ' Process TPS maps
             '
             c = 0
             CC = 0
-            If CalcTPSDec(TPS) < Val(Fuelmapgrid.Columns.Item(MapColumns - 1).HeaderCell.Value) Then
+            If CalcTPSDec(TPS) < Val(FuelMapGrid.Columns.Item(MapColumns - 1).HeaderCell.Value) Then
                 Do While (c < MapColumns - 1)
-                    If CalcTPSDec(TPS) >= CC And CalcTPSDec(TPS) < Fuelmapgrid.Columns.Item(c + 1).HeaderCell.Value Then
+                    If CalcTPSDec(TPS) >= CC And CalcTPSDec(TPS) < FuelMapGrid.Columns.Item(c + 1).HeaderCell.Value Then
                         CC = c
                         c = 256
                     Else
                         c = c + 1
-                        CC = Int(Fuelmapgrid.Columns.Item(c).HeaderCell.Value)
+                        CC = Int(FuelMapGrid.Columns.Item(c).HeaderCell.Value)
                     End If
                 Loop
             Else
@@ -622,12 +676,12 @@ Public Class Fuelmap
             c = 0
             CC = 256
             Do While (c < MapColumns - 1)
-                If IAP <= CC And IAP > CInt(Fuelmapgrid.Columns.Item(c + 1).HeaderCell.Value) Then
+                If IAP <= CC And IAP > CInt(FuelMapGrid.Columns.Item(c + 1).HeaderCell.Value) Then
                     CC = c
                     c = 256
                 Else
                     c = c + 1
-                    CC = CInt(Fuelmapgrid.Columns.Item(c).HeaderCell.Value)
+                    CC = CInt(FuelMapGrid.Columns.Item(c).HeaderCell.Value)
                 End If
             Loop
         End If
@@ -637,94 +691,32 @@ Public Class Fuelmap
         If CC > MapColumns Then CC = 0
         If CC < 0 Then CC = 0
         If RR <> 0 Or CC <> 0 Then
-            Fuelmapgrid.Item(CC, RR).Style.BackColor = Color.Blue
+            FuelMapGrid.Item(CC, RR).Style.BackColor = Color.Blue
         Else
-            setCellColour(CC, RR)
+            SetCellColour(CC, RR)
         End If
     End Sub
-    Private Sub B_TPSMAP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_TPS.Click
-        selectmap(1)
-    End Sub
 
-    Private Sub B_IAP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_IAP.Click
-        selectmap(2)
-    End Sub
+    Private Sub Unify()
 
-    Private Sub B_Idle_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        selectmap(3)
-    End Sub
-    Private Sub B_MSTP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_MSTP.Click
-        selectmap(4)
-    End Sub
+        Dim i As Integer
 
-
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        Me.Close()
-    End Sub
-
-
-
-    Private Sub show_values()
-        Dim istr As String
-        Dim r As Integer
-        Dim c As Integer
-        Dim v As Integer
-        Dim msrpm As Integer
-
-        istr = ""
-
-        RowSelected = Fuelmapgrid.CurrentRow.Index
-
-        Try
-            If Fuelmapgrid.CurrentRow.Index <> previousrow And previousrow <= MapRows Then
-                Fuelmapgrid.CurrentRow.Height = 20
-                Fuelmapgrid.Rows.Item(previousrow).Height = 15
-                previousrow = Fuelmapgrid.CurrentRow.Index
-            Else
-                previousrow = Fuelmapgrid.CurrentRow.Index
-            End If
-
-            istr = Str(Fuelmapgrid.Columns.Item(Fuelmapgrid.CurrentCell.ColumnIndex).HeaderCell.Value)
-
-            T_RPM.Text = Fuelmapgrid.CurrentRow.HeaderCell.Value & " rpm"
-            If Me.Text.Contains("TPS") Then
-                T_TPSIAP.Text = "TPS = " & istr & "%"
-            Else
-                T_TPSIAP.Text = "IAP = " & istr
-            End If
-
-            r = Fuelmapgrid.CurrentRow.Index
-            c = Fuelmapgrid.CurrentCell.ColumnIndex
-            v = Int(ReadFlashWord(((((MapColumns * r) + c) * 2) + MapAddr1)) / 24) - Int(ReadFlashWordCopy((((MapColumns * r) + c) * 2) + MapAddr1) / 24)
-            If v > 0 Then
-                T_valdiff.Text = "+" & Str(v)
-            Else
-                T_valdiff.Text = Str(v)
-            End If
-
-            msrpm = 1 / (Fuelmapgrid.CurrentRow.HeaderCell.Value / 60) * 1000 * 2
-            'T_duty.Text = Int((100 * Int(ReadFlashWord(((((mapcolumns * r) + c) * 2) + MapAddr1)) / 24) / 19) / msrpm) & "%"
-
-
-        Catch ex As Exception
-        End Try
+        Do While (i < (((MapRows) * (MapColumns))))
+            WriteFlashWord(((i * 2) + MapAddr2), ReadFlashWord((i * 2) + MapAddr1))
+            WriteFlashWord(((i * 2) + MapAddr3), ReadFlashWord((i * 2) + MapAddr1))
+            WriteFlashWord(((i * 2) + MapAddr4), ReadFlashWord((i * 2) + MapAddr1))
+            i = i + 1
+        Loop
+        B_Unify.Visible = False
 
     End Sub
-    Private Sub Fuelmapgrid_MouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Fuelmapgrid.MouseClick
-        show_values()
-    End Sub
 
-    Private Sub Fuelmapgrid_CellEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles Fuelmapgrid.CellEnter
-        show_values()
-    End Sub
-
-
-    Private Sub copy_tps_to_ms_map()
+    Private Sub CopyTpsToMsMap()
         '
         ' This subroutine copies the TPS map contents into MS map
         '
         Dim i As Integer
-        If TPSmap Then
+        If _tPSmap Then
             i = MsgBox("Copy the TPS map contents to MS map, the old MS map will be deleted", MsgBoxStyle.OkCancel)
             If i = 1 Then ' OK pressed
                 i = 0
@@ -740,24 +732,53 @@ Public Class Fuelmap
 
     End Sub
 
-    Private Sub unify()
-        Dim i As Integer
+    Private Sub ShowValues()
+        Dim istr As String
+        Dim r As Integer
+        Dim c As Integer
+        Dim v As Integer
+        Dim msrpm As Integer
 
-        Do While (i < (((MapRows) * (MapColumns))))
-            WriteFlashWord(((i * 2) + MapAddr2), ReadFlashWord((i * 2) + MapAddr1))
-            WriteFlashWord(((i * 2) + MapAddr3), ReadFlashWord((i * 2) + MapAddr1))
-            WriteFlashWord(((i * 2) + MapAddr4), ReadFlashWord((i * 2) + MapAddr1))
-            i = i + 1
-        Loop
-        B_unify.Visible = False
+        istr = ""
+
+        RowSelected = FuelMapGrid.CurrentRow.Index
+
+        Try
+            If FuelMapGrid.CurrentRow.Index <> _previousRow And _previousRow <= MapRows Then
+                FuelMapGrid.CurrentRow.Height = 20
+                FuelMapGrid.Rows.Item(_previousRow).Height = 15
+                _previousRow = FuelMapGrid.CurrentRow.Index
+            Else
+                _previousRow = FuelMapGrid.CurrentRow.Index
+            End If
+
+            istr = Str(FuelMapGrid.Columns.Item(FuelMapGrid.CurrentCell.ColumnIndex).HeaderCell.Value)
+
+            T_RPM.Text = FuelMapGrid.CurrentRow.HeaderCell.Value & " rpm"
+            If Me.Text.Contains("TPS") Then
+                T_TPSIAP.Text = "TPS = " & istr & "%"
+            Else
+                T_TPSIAP.Text = "IAP = " & istr
+            End If
+
+            r = FuelMapGrid.CurrentRow.Index
+            c = FuelMapGrid.CurrentCell.ColumnIndex
+            v = Int(ReadFlashWord(((((MapColumns * r) + c) * 2) + MapAddr1)) / 24) - Int(ReadFlashWordCopy((((MapColumns * r) + c) * 2) + MapAddr1) / 24)
+            If v > 0 Then
+                T_valdiff.Text = "+" & Str(v)
+            Else
+                T_valdiff.Text = Str(v)
+            End If
+
+            msrpm = 1 / (FuelMapGrid.CurrentRow.HeaderCell.Value / 60) * 1000 * 2
+            'T_duty.Text = Int((100 * Int(ReadFlashWord(((((mapcolumns * r) + c) * 2) + MapAddr1)) / 24) / 19) / msrpm) & "%"
+
+
+        Catch ex As Exception
+        End Try
+
     End Sub
 
-    Private Sub B_unify_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_unify.Click
-        If MsgBox("This will unify cylinder specific fuelmaps to this map, do you agree", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            unify()
-            B_unify.Visible = False
-        End If
-    End Sub
-
+#End Region
 
 End Class

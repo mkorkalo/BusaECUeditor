@@ -303,7 +303,7 @@ Public Class Datastream
             ReadProcessOnGoing = True
             ReadRamVar()
             ReadProcessOnGoing = False
-            If FuelMapVisible Then Fuelmap.tracemap()
+            If FuelMapVisible Then FuelMap.tracemap()
             If IgnitionMapVisible Then Ignitionmap.tracemap()
         End If
 
@@ -376,7 +376,7 @@ Public Class Datastream
         Fuel = DataLog(TrackBar_Datalog.Value, 8)
         IGN = DataLog(TrackBar_Datalog.Value, 9)
         AFR = DataLog(TrackBar_Datalog.Value, 10)
-        If FuelMapVisible Then Fuelmap.tracemap()
+        If FuelMapVisible Then FuelMap.tracemap()
         If IgnitionMapVisible Then Ignitionmap.tracemap()
 
         writelabels()

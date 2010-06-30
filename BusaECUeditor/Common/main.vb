@@ -105,8 +105,8 @@ Public Class main
     Private Sub B_FuelMap_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_FuelMap.Click
         Select Case ECUversion
             Case "gen1"
-                Fuelmap.Show()
-                Fuelmap.Select()
+                FuelMap.Show()
+                FuelMap.Select()
             Case "gen2"
                 K8Fuelmap.Show()
                 K8Fuelmap.Select()
@@ -177,10 +177,10 @@ Public Class main
 
     Private Sub B_AdvancedSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_AdvancedSettings.Click
 
-        Select Case ECUversion
+        Select Case ECUVersion
             Case "gen1"
-                Advsettings.Show()
-                Advsettings.Select()
+                AdvSettings.Show()
+                AdvSettings.Select()
             Case "gen2"
                 K8Advsettings.Show()
                 K8Advsettings.Select()
@@ -194,10 +194,10 @@ Public Class main
     End Sub
 
     Private Sub B_Shifter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Shifter.Click
-        Select Case ECUversion
+        Select Case ECUVersion
             Case "gen1"
-                shifter.Show()
-                shifter.Select()
+                Shifter.Show()
+                Shifter.Select()
             Case "gen2"
                 K8shifter.Show()
                 K8shifter.Select()
@@ -254,21 +254,21 @@ Public Class main
             Select Case Mid(ECUID.Text, 1, 8)
                 Case "BB34BB51"
                     Hayabusa.Text = "Hayabusa EU"
-                    metric = True
-                    ECUversion = "gen1"
+                    Metric = True
+                    ECUVersion = "gen1"
                 Case "BB34BB35"
                     Hayabusa.Text = "Hayabusa USA"
-                    metric = False
-                    ECUversion = "gen1"
+                    Metric = False
+                    ECUVersion = "gen1"
                 Case Else
                     Hayabusa.Text = "Unknown model"
-                    metric = True
-                    ECUversion = ""
+                    Metric = True
+                    ECUVersion = ""
             End Select
         End If
 
         ' enable controls, otherwise at form load an event will occur
-        Limiters.RPM.Enabled = True
+        Limiters.C_RPM.Enabled = True
         SaveToolStripMenuItem.Enabled = True
         B_FlashECU.Enabled = True
         B_Limiters.Enabled = True
@@ -313,7 +313,7 @@ Public Class main
             ECUNotSupported.ShowDialog()
         End If
 
-        ECUversion = "gen2"
+        ECUVersion = "gen2"
         '
         ' Make sure the ECU id is supported type
         '
@@ -332,7 +332,7 @@ Public Class main
         End If
 
         ' enable controls, otherwise at form load an event will occur
-        Limiters.RPM.Enabled = True
+        Limiters.C_RPM.Enabled = True
         SaveToolStripMenuItem.Enabled = True
         B_FlashECU.Enabled = True
         B_Limiters.Enabled = True
@@ -380,7 +380,7 @@ Public Class main
             ECUNotSupported.ShowDialog()
         End If
 
-        ECUversion = "bking"
+        ECUVersion = "bking"
         '
         ' Make sure the ECU id is supported type
         '
@@ -399,7 +399,7 @@ Public Class main
         End If
 
         ' enable controls, otherwise at form load an event will occur
-        Limiters.RPM.Enabled = True
+        Limiters.C_RPM.Enabled = True
         SaveToolStripMenuItem.Enabled = True
         B_FlashECU.Enabled = True
         B_Limiters.Enabled = True
@@ -447,7 +447,7 @@ Public Class main
             ECUNotSupported.ShowDialog()
         End If
 
-        ECUversion = "bking"
+        ECUVersion = "bking"
         '
         ' Make sure the ECU id is supported type
         '
@@ -466,7 +466,7 @@ Public Class main
         End If
 
         ' enable controls, otherwise at form load an event will occur
-        Limiters.RPM.Enabled = True
+        Limiters.C_RPM.Enabled = True
         SaveToolStripMenuItem.Enabled = True
         B_FlashECU.Enabled = True
         B_Limiters.Enabled = True
@@ -533,7 +533,7 @@ Public Class main
 
             Select Case i
                 Case (262144 * 4)
-                    ECUversion = "gen2"
+                    ECUVersion = "gen2"
                     '
                     ' Make sure the ECU id is supported type
                     '
@@ -553,7 +553,7 @@ Public Class main
                     BlockPgm = True
                     CloseChildWindows()
                 Case (262144)
-                    ECUversion = "gen1"
+                    ECUVersion = "gen1"
                     FlashToolStripMenuItem.Visible = False
 
                     ' Make sure the ECU id is supported type
@@ -572,28 +572,28 @@ Public Class main
                         Select Case Mid(ECUID.Text, 1, 8)
                             Case "BB34BB51"
                                 Hayabusa.Text = "Hayabusa EU"
-                                metric = True
-                                ECUversion = "gen1"
+                                Metric = True
+                                ECUVersion = "gen1"
                             Case "BB34BB35"
                                 Hayabusa.Text = "Hayabusa USA"
-                                metric = False
-                                ECUversion = "gen1"
+                                Metric = False
+                                ECUVersion = "gen1"
                             Case Else
                                 Hayabusa.Text = "Unknown model"
-                                metric = True
-                                ECUversion = ""
+                                Metric = True
+                                ECUVersion = ""
                         End Select
                     End If
 
                 Case Else
-                    ECUversion = ""
+                    ECUVersion = ""
                     ECUNotSupported.ShowDialog()
             End Select
 
             My.Settings.Item("path") = path
             My.Settings.Item("comparepath") = comparepath
             ' enable controls, otherwise at form load an event will occur
-            Limiters.RPM.Enabled = True
+            Limiters.C_RPM.Enabled = True
             SaveToolStripMenuItem.Enabled = True
             B_FlashECU.Enabled = True
             B_Limiters.Enabled = True
@@ -602,11 +602,11 @@ Public Class main
             B_IgnitionMap.Enabled = True
             B_AdvancedSettings.Enabled = True
 
-            Select Case ECUversion
+            Select Case ECUVersion
                 Case "gen1"
                     B_EngineData.Enabled = True
-                    Fuelmap.Close()
-                    Ignitionmap.Close()
+                    FuelMap.Close()
+                    IgnitionMap.Close()
                     FlashToolStripMenuItem.Visible = False
 
                 Case "gen2"
@@ -637,7 +637,7 @@ Public Class main
         fdlg.FileName = path
 
 
-        Select Case ECUversion
+        Select Case ECUVersion
             Case "gen1"
                 ' First, lets show a warning dialogue about dangers of updating the ecu
                 'If filesavenotice.ShowDialog = Windows.Forms.DialogResult.OK Then
@@ -739,7 +739,7 @@ Public Class main
 
         CloseChildWindows()
 
-        Select Case ECUversion
+        Select Case ECUVersion
             Case "gen1"
                 fdlg.InitialDirectory = comparepath 'My.Application.Info.DirectoryPath
                 fdlg.Title = "Open ECU .bin file"
@@ -779,8 +779,8 @@ Public Class main
                 ' Lets write this value into the memory so that its easier for the user to know
                 '
                 My.Settings.Item("comparepath") = comparepath
-                Fuelmap.Close()
-                Ignitionmap.Close()
+                FuelMap.Close()
+                IgnitionMap.Close()
             Case "gen2"
                 fdlg.InitialDirectory = comparepath 'My.Application.Info.DirectoryPath
                 fdlg.Title = "Open ECU .bin file"
@@ -820,8 +820,8 @@ Public Class main
                 ' Lets write this value into the memory so that its easier for the user to know
                 '
                 My.Settings.Item("comparepath") = comparepath
-                Fuelmap.Close()
-                Ignitionmap.Close()
+                FuelMap.Close()
+                IgnitionMap.Close()
             Case "bking"
                 fdlg.InitialDirectory = comparepath 'My.Application.Info.DirectoryPath
                 fdlg.Title = "Open ECU .bin file"
@@ -861,8 +861,8 @@ Public Class main
                 ' Lets write this value into the memory so that its easier for the user to know
                 '
                 My.Settings.Item("comparepath") = comparepath
-                Fuelmap.Close()
-                Ignitionmap.Close()
+                FuelMap.Close()
+                IgnitionMap.Close()
         End Select
     End Sub
 
@@ -973,7 +973,7 @@ Public Class main
     End Sub
 
     Private Sub VerifyChecksumToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VerifyChecksumToolStripMenuItem.Click
-        Select Case ECUversion
+        Select Case ECUVersion
             Case "gen1"
                 MsgBox("Command not supported with gen1 ecu.")
             Case "gen2"
@@ -984,7 +984,7 @@ Public Class main
     End Sub
 
     Private Sub VerifyECUToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VerifyECUToolStripMenuItem.Click
-        Select Case ECUversion
+        Select Case ECUVersion
             Case "gen1"
                 MsgBox("Command not supported with gen1 ecu.")
             Case "gen2"
@@ -997,7 +997,7 @@ Public Class main
     End Sub
 
     Private Sub FullEraseToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FullEraseToolStripMenuItem.Click
-        Select Case ECUversion
+        Select Case ECUVersion
             Case "gen1"
                 MsgBox("Command not supported with gen1 ecu.")
             Case "gen2"
@@ -1010,7 +1010,7 @@ Public Class main
     End Sub
 
     Private Sub FlashTheECUToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FlashTheECUToolStripMenuItem.Click
-        Select Case ECUversion
+        Select Case ECUVersion
             Case "gen1"
                 MsgBox("Command not supported with gen1 ecu.")
             Case "gen2"
@@ -1053,9 +1053,9 @@ Public Class main
         B_IgnitionMap.Enabled = False
         B_AdvancedSettings.Enabled = False
         B_EngineData.Enabled = False
-        readprocessongoing = False
-        fuelmapvisible = False
-        Ignitionmapvisible = False
+        ReadProcessOnGoing = False
+        FuelMapVisible = False
+        IgnitionMapVisible = False
 
     End Sub
 
@@ -1078,10 +1078,10 @@ Public Class main
         K8Limiters.Close()
 
         'gen1 
-        Fuelmap.Close()
-        Ignitionmap.Close()
-        Advsettings.Close()
-        shifter.Close()
+        FuelMap.Close()
+        IgnitionMap.Close()
+        AdvSettings.Close()
+        Shifter.Close()
         Limiters.Close()
 
         'BKing
@@ -1094,7 +1094,7 @@ Public Class main
     End Sub
 
     Private Sub FlashTheECU()
-        Select Case ECUversion
+        Select Case ECUVersion
             Case "gen1"
                 RenesasFDT()
             Case "gen2"
@@ -2581,7 +2581,7 @@ Public Class main
 
 
             ' enable controls, otherwise at form load an event will occur
-            Limiters.RPM.Enabled = True
+            Limiters.C_RPM.Enabled = True
             SaveToolStripMenuItem.Enabled = True
             B_FlashECU.Enabled = True
             B_Limiters.Enabled = True
