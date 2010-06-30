@@ -20,52 +20,61 @@
 '    of the GNU licence.
 '
 
-Public Class Ignitionmap
-    Dim change As Integer
-    Dim previousrow As Integer
+Public Class IgnitionMap
 
-    Dim IgnMapAddrA1 As Integer
-    Dim IgnMapAddrB1 As Integer
-    Dim IgnMapAddrA2 As Integer
-    Dim IgnMapAddrB2 As Integer
-    Dim IgnMapAddrA34 As Integer
-    Dim IgnMapAddrB34 As Integer
-    Dim IgnMapAddrA56 As Integer
-    Dim IgnMapAddrB56 As Integer
+#Region "Variables"
 
-    Dim ign_sub As Decimal
-    Dim ign_div As Integer
-    Dim ign_mul As Integer
-    Dim ign_rpmcomp As Integer
+    Dim _change As Integer
+    Dim _previousRow As Integer
 
+    Dim _ignMapAddrA1 As Integer
+    Dim _ignMapAddrB1 As Integer
+    Dim _ignMapAddrA2 As Integer
+    Dim _ignMapAddrB2 As Integer
+    Dim _ignMapAddrA34 As Integer
+    Dim _ignMapAddrB34 As Integer
+    Dim _ignMapAddrA56 As Integer
+    Dim _ignMapAddrB56 As Integer
 
-    Private Function igndeg(ByVal i As Integer)
-        '(CInt((i * 1.31) - 3.5) + (0.75 * RPM / 1000))
-        Return CInt(i)
-    End Function
-    Private Sub Ignitionmap_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        IgnitionMapVisible = False
-    End Sub
+    Dim _ignSub As Decimal
+    Dim _ignDiv As Integer
+    Dim _ignMul As Integer
+    Dim _ignRpmComp As Integer
 
-    Private Sub Ignitionmap_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+#End Region
 
-        change = 1 ' default change to map when pressing +/-
-        previousrow = 0
-        ign_sub = 0
-        ign_div = 256
-        ign_mul = 66
-        selectmap(1)
+#Region "Form Events"
+
+    Private Sub IgnitionMap_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+        _change = 1 ' default _change to map when pressing +/-
+        _previousRow = 0
+        _ignSub = 0
+        _ignDiv = 256
+        _ignMul = 66
+        SelectMap(1)
         IgnitionMapVisible = True
 
     End Sub
 
+    Private Sub IgnitionMap_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+        IgnitionMapVisible = False
+    End Sub
 
-    Private Sub Ignitionmapgrid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Ignitionmapgrid.KeyPress
+#End Region
+
+#Region "Control Events"
+
+    Private Sub IgnitionMapGrid_MouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles IgnitionMapGrid.MouseClick
+        ShowValues()
+    End Sub
+
+    Private Sub IgnitionMapGrid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles IgnitionMapGrid.KeyPress
 
         Dim c As Integer
         Dim r As Integer
-        c = Ignitionmapgrid.CurrentCell.ColumnIndex
-        r = Ignitionmapgrid.CurrentCell.RowIndex
+        c = IgnitionMapGrid.CurrentCell.ColumnIndex
+        r = IgnitionMapGrid.CurrentCell.RowIndex
 
         ' this is the user interface shortcut keys processor
         Select Case e.KeyChar
@@ -74,16 +83,44 @@ Public Class Ignitionmap
             Case "-"
                 DecreaseSelectedCells()
             Case "1"
-                selectmap(1)
+                SelectMap(1)
             Case "2"
-                selectmap(2)
+                SelectMap(2)
             Case "c"
-                copy_tps_to_ms_map()
+                CopyTpsToMsMap()
             Case Chr(27)
                 Me.Close()
         End Select
 
     End Sub
+
+    Private Sub IgnitionMapGrid_CellEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles IgnitionMapGrid.CellEnter
+        ShowValues()
+    End Sub
+
+    Private Sub B_TPSMAP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_IGN.Click
+        SelectMap(1)
+    End Sub
+
+    Private Sub B_MSTP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_MSIGN.Click
+        SelectMap(2)
+    End Sub
+
+    Private Sub B_Close_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Close.Click
+        Me.Close()
+    End Sub
+
+    Private Sub B_Unify_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Unify.Click
+        If MsgBox("This will unify cylinderbank specific ignitionmaps to this map, do you agree", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            Unify()
+            B_Unify.Visible = False
+        End If
+    End Sub
+
+#End Region
+
+#Region "Functions"
+
     Private Sub DecreaseSelectedCells()
         Dim c As Integer
         Dim r As Integer
@@ -93,18 +130,18 @@ Public Class Ignitionmap
 
         Dim decrease As Integer
 
-        decrease = change ' This is the amount that value is decreased when pressing "-"
+        decrease = _change ' This is the amount that value is decreased when pressing "-"
 
         i = 0
 
-        n = Ignitionmapgrid.SelectedCells.Count()
+        n = IgnitionMapGrid.SelectedCells.Count()
 
         Do While (r < IgnMapRows) And (r < 42)
 
-            If Ignitionmapgrid.Item(c, r).Selected And n > 0 Then
-                Ignitionmapgrid.Item(c, r).Value = Ignitionmapgrid.Item(c, r).Value - decrease
+            If IgnitionMapGrid.Item(c, r).Selected And n > 0 Then
+                IgnitionMapGrid.Item(c, r).Value = IgnitionMapGrid.Item(c, r).Value - decrease
                 SetFlashItem(c, r)
-                setCellColour(c, r)
+                SetCellColour(c, r)
                 n = n - 1
             End If
 
@@ -127,7 +164,7 @@ Public Class Ignitionmap
 
     End Sub
 
-    Private Sub setCellColour(ByVal c As Integer, ByVal r As Integer)
+    Private Sub SetCellColour(ByVal c As Integer, ByVal r As Integer)
         '
         ' this subroutine compares the cell value to the value of the flash image initially read from the disk with open file
         ' and sets cell colour aiccordingly based on that comparison
@@ -136,16 +173,17 @@ Public Class Ignitionmap
 
         diff = (((ReadFlashByte(IgnMapAddrA + (1 * (c + (r * IgnMapColumns))))))) - (((ReadFlashByteCopy(IgnMapAddrA + (1 * (c + (r * IgnMapColumns)))))))
 
-        Ignitionmapgrid.Item(c, r).Style.ForeColor = Color.Black
-        Ignitionmapgrid.Item(c, r).Style.BackColor = Color.White
-        If CInt(diff) <> 0 Then Ignitionmapgrid.Item(c, r).Style.BackColor = Color.LightGray
-        If CInt(diff) < -2 Then Ignitionmapgrid.Item(c, r).Style.BackColor = Color.DarkGray
-        If CInt(diff) < -5 Then Ignitionmapgrid.Item(c, r).Style.BackColor = Color.Gray
-        If CInt(diff) > 2 Then Ignitionmapgrid.Item(c, r).Style.BackColor = Color.LightBlue
-        If CInt(diff) > 5 Then Ignitionmapgrid.Item(c, r).Style.BackColor = Color.Blue
+        IgnitionMapGrid.Item(c, r).Style.ForeColor = Color.Black
+        IgnitionMapGrid.Item(c, r).Style.BackColor = Color.White
+        If CInt(diff) <> 0 Then IgnitionMapGrid.Item(c, r).Style.BackColor = Color.LightGray
+        If CInt(diff) < -2 Then IgnitionMapGrid.Item(c, r).Style.BackColor = Color.DarkGray
+        If CInt(diff) < -5 Then IgnitionMapGrid.Item(c, r).Style.BackColor = Color.Gray
+        If CInt(diff) > 2 Then IgnitionMapGrid.Item(c, r).Style.BackColor = Color.LightBlue
+        If CInt(diff) > 5 Then IgnitionMapGrid.Item(c, r).Style.BackColor = Color.Blue
 
 
     End Sub
+
     Private Sub IncreaseSelectedCells()
         Dim c As Integer
         Dim r As Integer
@@ -155,17 +193,17 @@ Public Class Ignitionmap
 
         Dim increase As Integer
 
-        increase = change ' this is the value how much the cell is increased when pressing "+"
+        increase = _change ' this is the value how much the cell is increased when pressing "+"
         i = 0
 
-        n = Ignitionmapgrid.SelectedCells.Count()
+        n = IgnitionMapGrid.SelectedCells.Count()
 
         Do While (r < (IgnMapRows - 1)) And (r < 42) And n > 0
 
-            If Ignitionmapgrid.Item(c, r).Selected And n > 0 Then
-                Ignitionmapgrid.Item(c, r).Value = Ignitionmapgrid.Item(c, r).Value + increase
+            If IgnitionMapGrid.Item(c, r).Selected And n > 0 Then
+                IgnitionMapGrid.Item(c, r).Value = IgnitionMapGrid.Item(c, r).Value + increase
                 SetFlashItem(c, r)
-                setCellColour(c, r)
+                SetCellColour(c, r)
                 n = n - 1
             End If
 
@@ -189,10 +227,9 @@ Public Class Ignitionmap
 
     End Sub
 
-
     Private Sub SetFlashItem(ByVal c As Integer, ByVal r As Integer)
 
-        Dim diff As Integer ' diff is the falue how much it is changed compared to the visible map
+        Dim diff As Integer ' diff is the falue how much it is _changed compared to the visible map
         Dim m1 As Integer 'map1 new value
         Dim m2 As Integer 'map2 new value
         Dim maxval As Integer
@@ -202,13 +239,13 @@ Public Class Ignitionmap
         maxval = 175   ' not validated from ecu, maximum value to which the Ignitionmap item can be set
         minval = 32   ' not validated from ecu, minimum value to which the Ignitionmap item can be set
 
-        m1 = Ignitionmapgrid.Item(c, r).Value
-        m2 = igndeg((ReadFlashByte(IgnMapAddrA + (1 * (c + (r * IgnMapColumns)))) / ign_div) * ign_mul - ign_sub)
+        m1 = IgnitionMapGrid.Item(c, r).Value
+        m2 = IgnDeg((ReadFlashByte(IgnMapAddrA + (1 * (c + (r * IgnMapColumns)))) / _ignDiv) * _ignMul - _ignSub)
 
         diff = m2 - m1
 
-        m1 = (((CInt((ReadFlashByte(IgnMapAddrA + (1 * (c + (r * IgnMapColumns)))) / ign_div) * ign_mul - ign_sub) - diff) + ign_sub) / ign_mul * ign_div)
-        m2 = (((CInt((ReadFlashByte(IgnMapAddrB + (1 * (c + (r * IgnMapColumns)))) / ign_div) * ign_mul - ign_sub) - diff) + ign_sub) / ign_mul * ign_div)
+        m1 = (((CInt((ReadFlashByte(IgnMapAddrA + (1 * (c + (r * IgnMapColumns)))) / _ignDiv) * _ignMul - _ignSub) - diff) + _ignSub) / _ignMul * _ignDiv)
+        m2 = (((CInt((ReadFlashByte(IgnMapAddrB + (1 * (c + (r * IgnMapColumns)))) / _ignDiv) * _ignMul - _ignSub) - diff) + _ignSub) / _ignMul * _ignDiv)
 
         ' lets check that we do not have too small values that the ecu can not handle
         If ((m1 < minval) Or (m2 < minval)) Then MsgBox("Minimum cell value exceeded", MsgBoxStyle.Information)
@@ -223,50 +260,50 @@ Public Class Ignitionmap
         '
         ' All ignitionmaps will be now flashed with the same values
         '
-        WriteFlashByte(IgnMapAddrA1 + (1 * (c + (r * IgnMapColumns))), m1)
-        WriteFlashByte(IgnMapAddrB1 + (1 * (c + (r * IgnMapColumns))), m2)
-        WriteFlashByte(IgnMapAddrA2 + (1 * (c + (r * IgnMapColumns))), m1)
-        WriteFlashByte(IgnMapAddrB2 + (1 * (c + (r * IgnMapColumns))), m2)
-        WriteFlashByte(IgnMapAddrA34 + (1 * (c + (r * IgnMapColumns))), m1)
-        WriteFlashByte(IgnMapAddrB34 + (1 * (c + (r * IgnMapColumns))), m2)
-        WriteFlashByte(IgnMapAddrA56 + (1 * (c + (r * IgnMapColumns))), m1)
-        WriteFlashByte(IgnMapAddrB56 + (1 * (c + (r * IgnMapColumns))), m2)
+        WriteFlashByte(_ignMapAddrA1 + (1 * (c + (r * IgnMapColumns))), m1)
+        WriteFlashByte(_ignMapAddrB1 + (1 * (c + (r * IgnMapColumns))), m2)
+        WriteFlashByte(_ignMapAddrA2 + (1 * (c + (r * IgnMapColumns))), m1)
+        WriteFlashByte(_ignMapAddrB2 + (1 * (c + (r * IgnMapColumns))), m2)
+        WriteFlashByte(_ignMapAddrA34 + (1 * (c + (r * IgnMapColumns))), m1)
+        WriteFlashByte(_ignMapAddrB34 + (1 * (c + (r * IgnMapColumns))), m2)
+        WriteFlashByte(_ignMapAddrA56 + (1 * (c + (r * IgnMapColumns))), m1)
+        WriteFlashByte(_ignMapAddrB56 + (1 * (c + (r * IgnMapColumns))), m2)
 
     End Sub
 
-    Public Sub selectmap(ByVal map As Integer)
+    Public Sub SelectMap(ByVal map As Integer)
 
-        ' map tracing function to be disabled when map is changed
-        previousrow = 0
+        ' map tracing function to be disabled when map is _changed
+        _previousRow = 0
 
         Select Case map
             Case 1
-                IgnMapAddrA1 = &H32D12
-                IgnMapAddrB1 = &H330C4
-                IgnMapAddrA2 = &H33476
-                IgnMapAddrB2 = &H33828
-                IgnMapAddrA34 = &H33BDA
-                IgnMapAddrB34 = &H33F8C
-                IgnMapAddrA56 = &H3433E
-                IgnMapAddrB56 = &H346F0
+                _ignMapAddrA1 = &H32D12
+                _ignMapAddrB1 = &H330C4
+                _ignMapAddrA2 = &H33476
+                _ignMapAddrB2 = &H33828
+                _ignMapAddrA34 = &H33BDA
+                _ignMapAddrB34 = &H33F8C
+                _ignMapAddrA56 = &H3433E
+                _ignMapAddrB56 = &H346F0
 
-                IgnMapAddrA = IgnMapAddrA56
-                IgnMapAddrB = IgnMapAddrB56
+                IgnMapAddrA = _ignMapAddrA56
+                IgnMapAddrB = _ignMapAddrB56
                 IgnMapRows = 36
                 IgnMapColumns = 23
                 Me.Text = "ECUeditor - Ignitionmap for all gears"
             Case 2
-                IgnMapAddrA1 = &H34AA2
-                IgnMapAddrB1 = &H34E54
-                IgnMapAddrA2 = &H35206
-                IgnMapAddrB2 = &H355B8
-                IgnMapAddrA34 = &H3596A
-                IgnMapAddrB34 = &H35D1C
-                IgnMapAddrA56 = &H360CE
-                IgnMapAddrB56 = &H36480
+                _ignMapAddrA1 = &H34AA2
+                _ignMapAddrB1 = &H34E54
+                _ignMapAddrA2 = &H35206
+                _ignMapAddrB2 = &H355B8
+                _ignMapAddrA34 = &H3596A
+                _ignMapAddrB34 = &H35D1C
+                _ignMapAddrA56 = &H360CE
+                _ignMapAddrB56 = &H36480
 
-                IgnMapAddrA = IgnMapAddrA56
-                IgnMapAddrB = IgnMapAddrB56
+                IgnMapAddrA = _ignMapAddrA56
+                IgnMapAddrB = _ignMapAddrB56
 
                 IgnMapRows = 36
                 IgnMapColumns = 23
@@ -274,19 +311,19 @@ Public Class Ignitionmap
         End Select
         IRR = 0
         ICC = 0
-        loadmap()
+        LoadMap()
         '
         ' Inform the user that individual gear specific ignitionmaps are now gone
         ' and copy gear 56 map to all maps
         '
-        If ReadFlashWord(IgnMapAddrA56 + (IgnMapRows * IgnMapColumns) - 12) <> ReadFlashWord(IgnMapAddrA1 + (IgnMapRows * IgnMapColumns) - 12) Then
+        If ReadFlashWord(_ignMapAddrA56 + (IgnMapRows * IgnMapColumns) - 12) <> ReadFlashWord(_ignMapAddrA1 + (IgnMapRows * IgnMapColumns) - 12) Then
             MsgBox("Please note, from now on all gears will be using this ignitionmap when flashed", MsgBoxStyle.Information)
-            copymaps()
+            CopyMaps()
         End If
 
     End Sub
 
-    Private Sub copymaps()
+    Private Sub CopyMaps()
         '
         ' This function will copy all the maps to be the same gear 5 maps
         '
@@ -300,12 +337,12 @@ Public Class Ignitionmap
         i = 0
         Do While (r < IgnMapRows) And (r < 42)
 
-            WriteFlashByte(i + IgnMapAddrA1, (ReadFlashByte(i + IgnMapAddrA)))
-            WriteFlashByte(i + IgnMapAddrB1, (ReadFlashByte(i + IgnMapAddrB)))
-            WriteFlashByte(i + IgnMapAddrA2, (ReadFlashByte(i + IgnMapAddrA)))
-            WriteFlashByte(i + IgnMapAddrB2, (ReadFlashByte(i + IgnMapAddrB)))
-            WriteFlashByte(i + IgnMapAddrA34, (ReadFlashByte(i + IgnMapAddrA)))
-            WriteFlashByte(i + IgnMapAddrB34, (ReadFlashByte(i + IgnMapAddrB)))
+            WriteFlashByte(i + _ignMapAddrA1, (ReadFlashByte(i + IgnMapAddrA)))
+            WriteFlashByte(i + _ignMapAddrB1, (ReadFlashByte(i + IgnMapAddrB)))
+            WriteFlashByte(i + _ignMapAddrA2, (ReadFlashByte(i + IgnMapAddrA)))
+            WriteFlashByte(i + _ignMapAddrB2, (ReadFlashByte(i + IgnMapAddrB)))
+            WriteFlashByte(i + _ignMapAddrA34, (ReadFlashByte(i + IgnMapAddrA)))
+            WriteFlashByte(i + _ignMapAddrB34, (ReadFlashByte(i + IgnMapAddrB)))
 
             If c < IgnMapColumns - 1 Then
                 c = c + 1
@@ -318,22 +355,22 @@ Public Class Ignitionmap
 
     End Sub
 
-    Public Sub loadmap()
+    Public Sub LoadMap()
 
         Dim i As Integer
         Dim ii As Integer
         Dim c As Integer
         Dim r As Integer
-        B_unify.Visible = False
+        B_Unify.Visible = False
 
         i = 0
         ii = 0
 
-        Ignitionmapgrid.ColumnCount = IgnMapColumns
+        IgnitionMapGrid.ColumnCount = IgnMapColumns
         If MapRows > 42 Then
-            Ignitionmapgrid.RowCount = 42
+            IgnitionMapGrid.RowCount = 42
         Else
-            Ignitionmapgrid.RowCount = IgnMapRows
+            IgnitionMapGrid.RowCount = IgnMapRows
         End If
 
 
@@ -341,18 +378,18 @@ Public Class Ignitionmap
         r = 0
         Do While c < IgnMapColumns
             i = Int((ReadFlashWord(IgnMapAddrA - (2 * IgnMapRows) - (2 * IgnMapColumns) + (c * 2))) / 256) ' * 0.00152587890625)
-            Ignitionmapgrid.Columns.Item(c).HeaderText = CalcTPS(i)
-            Ignitionmapgrid.Columns.Item(c).Width = 26
+            IgnitionMapGrid.Columns.Item(c).HeaderText = CalcTPS(i)
+            IgnitionMapGrid.Columns.Item(c).Width = 26
             c = c + 1
         Loop
 
         c = 0
         r = 0
 
-        Ignitionmapgrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
+        IgnitionMapGrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
         Do While (r < IgnMapRows) And (r < 42)
-            Ignitionmapgrid.Rows.Item(r).HeaderCell.Value = Str((ReadFlashWord(IgnMapAddrA - (2 * IgnMapRows) + (r * 2)) / 2.56))
-            Ignitionmapgrid.Rows.Item(r).Height = 15
+            IgnitionMapGrid.Rows.Item(r).HeaderCell.Value = Str((ReadFlashWord(IgnMapAddrA - (2 * IgnMapRows) + (r * 2)) / 2.56))
+            IgnitionMapGrid.Rows.Item(r).Height = 15
             r = r + 1
         Loop
 
@@ -362,10 +399,10 @@ Public Class Ignitionmap
         i = 0
         Do While (r < IgnMapRows) And (r < 42)
 
-            Ignitionmapgrid.Item(c, r).Value = igndeg(ReadFlashByte((i) + IgnMapAddrA) / ign_div * ign_mul - ign_sub)
-            setCellColour(c, r)
+            IgnitionMapGrid.Item(c, r).Value = IgnDeg(ReadFlashByte((i) + IgnMapAddrA) / _ignDiv * _ignMul - _ignSub)
+            SetCellColour(c, r)
             If Not (ReadFlashWord(i + IgnMapAddrA) = ReadFlashWord(i + IgnMapAddrB)) Then
-                B_unify.Visible = True
+                B_Unify.Visible = True
             End If
 
             If c < IgnMapColumns - 1 Then
@@ -377,18 +414,18 @@ Public Class Ignitionmap
             i = i + 1
         Loop
 
-        Ignitionmapgrid.AllowUserToAddRows = False
-        Ignitionmapgrid.AllowUserToDeleteRows = False
-        Ignitionmapgrid.AllowUserToOrderColumns = False
-        Ignitionmapgrid.SelectionMode = DataGridViewSelectionMode.CellSelect
+        IgnitionMapGrid.AllowUserToAddRows = False
+        IgnitionMapGrid.AllowUserToDeleteRows = False
+        IgnitionMapGrid.AllowUserToOrderColumns = False
+        IgnitionMapGrid.SelectionMode = DataGridViewSelectionMode.CellSelect
 
     End Sub
 
-    Public Sub tracemap()
+    Public Sub TraceMap()
         Dim c As Integer
         Dim r As Integer
 
-        setCellColour(ICC, IRR)
+        SetCellColour(ICC, IRR)
 
         ' enable automatic map switching when tracing and datastream on
 
@@ -398,25 +435,25 @@ Public Class Ignitionmap
         r = 0
         IRR = 0
         Do While (r < IgnMapRows - 1)
-            If RPM >= IRR And RPM < Int(Ignitionmapgrid.Rows(r + 1).HeaderCell.Value) Then
+            If RPM >= IRR And RPM < Int(IgnitionMapGrid.Rows(r + 1).HeaderCell.Value) Then
                 IRR = r
                 r = 256
             Else
                 r = r + 1
-                IRR = Int(Ignitionmapgrid.Rows(r).HeaderCell.Value)
+                IRR = Int(IgnitionMapGrid.Rows(r).HeaderCell.Value)
             End If
         Loop
 
         c = 0
         ICC = 0
-        If CalcTPSDec(TPS) < Val(Ignitionmapgrid.Columns.Item(IgnMapColumns - 1).HeaderCell.Value) Then
+        If CalcTPSDec(TPS) < Val(IgnitionMapGrid.Columns.Item(IgnMapColumns - 1).HeaderCell.Value) Then
             Do While (c < IgnMapColumns - 1)
-                If CalcTPSDec(TPS) >= ICC And CalcTPSDec(TPS) < Ignitionmapgrid.Columns.Item(c + 1).HeaderCell.Value Then
+                If CalcTPSDec(TPS) >= ICC And CalcTPSDec(TPS) < IgnitionMapGrid.Columns.Item(c + 1).HeaderCell.Value Then
                     ICC = c
                     c = 256
                 Else
                     c = c + 1
-                    ICC = Int(Ignitionmapgrid.Columns.Item(c).HeaderCell.Value)
+                    ICC = Int(IgnitionMapGrid.Columns.Item(c).HeaderCell.Value)
                 End If
             Loop
         Else
@@ -428,49 +465,44 @@ Public Class Ignitionmap
         If ICC > IgnMapColumns Then ICC = 0
         If ICC < 0 Then ICC = 0
         If IRR <> 0 Or ICC <> 0 Then
-            Ignitionmapgrid.Item(ICC, IRR).Style.BackColor = Color.Blue
+            IgnitionMapGrid.Item(ICC, IRR).Style.BackColor = Color.Blue
         Else
-            setCellColour(ICC, IRR)
+            SetCellColour(ICC, IRR)
         End If
     End Sub
-    Private Sub B_TPSMAP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_IGN.Click
-        selectmap(1)
-    End Sub
 
-    Private Sub B_MSTP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_MSIGN.Click
-        selectmap(2)
-    End Sub
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        Me.Close()
-    End Sub
+    Private Function IgnDeg(ByVal i As Integer)
+        '(CInt((i * 1.31) - 3.5) + (0.75 * RPM / 1000))
+        Return CInt(i)
+    End Function
 
-    Private Sub show_values()
+    Private Sub ShowValues()
         Dim istr As String
         Dim r As Integer
         Dim c As Integer
         Dim v As Integer
 
         istr = ""
-        IgnRowSelected = Ignitionmapgrid.CurrentRow.Index
+        IgnRowSelected = IgnitionMapGrid.CurrentRow.Index
 
 
         Try
-            If Ignitionmapgrid.CurrentRow.Index <> previousrow And previousrow <= IgnMapRows Then
-                Ignitionmapgrid.CurrentRow.Height = 20
-                Ignitionmapgrid.Rows.Item(previousrow).Height = 15
-                previousrow = Ignitionmapgrid.CurrentRow.Index
+            If IgnitionMapGrid.CurrentRow.Index <> _previousRow And _previousRow <= IgnMapRows Then
+                IgnitionMapGrid.CurrentRow.Height = 20
+                IgnitionMapGrid.Rows.Item(_previousRow).Height = 15
+                _previousRow = IgnitionMapGrid.CurrentRow.Index
             Else
-                previousrow = Ignitionmapgrid.CurrentRow.Index
+                _previousRow = IgnitionMapGrid.CurrentRow.Index
             End If
 
-            istr = Str(Ignitionmapgrid.Columns.Item(Ignitionmapgrid.CurrentCell.ColumnIndex).HeaderCell.Value)
+            istr = Str(IgnitionMapGrid.Columns.Item(IgnitionMapGrid.CurrentCell.ColumnIndex).HeaderCell.Value)
 
-            T_RPM.Text = Ignitionmapgrid.CurrentRow.HeaderCell.Value & " rpm"
+            T_RPM.Text = IgnitionMapGrid.CurrentRow.HeaderCell.Value & " rpm"
             T_TPSIAP.Text = "TPS = " & istr & "%"
 
-            r = Ignitionmapgrid.CurrentRow.Index
-            c = Ignitionmapgrid.CurrentCell.ColumnIndex
-            v = (Int(ReadFlashByte(((((IgnMapColumns * r) + c)) + IgnMapAddrA)) / ign_div * ign_mul - ign_sub) - Int(ReadFlashByteCopy((((IgnMapColumns * r) + c)) + IgnMapAddrA) / ign_div * ign_mul - ign_sub))
+            r = IgnitionMapGrid.CurrentRow.Index
+            c = IgnitionMapGrid.CurrentCell.ColumnIndex
+            v = (Int(ReadFlashByte(((((IgnMapColumns * r) + c)) + IgnMapAddrA)) / _ignDiv * _ignMul - _ignSub) - Int(ReadFlashByteCopy((((IgnMapColumns * r) + c)) + IgnMapAddrA) / _ignDiv * _ignMul - _ignSub))
             If v > 0 Then
                 T_valdiff.Text = "+" & Str(v)
             Else
@@ -482,42 +514,27 @@ Public Class Ignitionmap
 
     End Sub
 
-    Private Sub Ignitionmapgrid_MouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Ignitionmapgrid.MouseClick
-        show_values()
-    End Sub
-
-    Private Sub Ignitionmapgrid_CellEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles Ignitionmapgrid.CellEnter
-        show_values()
-    End Sub
-
-
-    Private Sub B_unify_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_unify.Click
-        If MsgBox("This will unify cylinderbank specific ignitionmaps to this map, do you agree", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-            unify()
-            B_unify.Visible = False
-        End If
-    End Sub
-
-    Private Sub unify()
+    Private Sub Unify()
         Dim i As Integer
         i = 0
 
         Do While (i < (IgnMapRows * IgnMapColumns))
             WriteFlashWord((i + IgnMapAddrB), ReadFlashWord(i + IgnMapAddrA))
-            WriteFlashWord((i + IgnMapAddrA1), ReadFlashWord(i + IgnMapAddrA))
-            WriteFlashWord((i + IgnMapAddrB1), ReadFlashWord(i + IgnMapAddrA))
-            WriteFlashWord((i + IgnMapAddrA2), ReadFlashWord(i + IgnMapAddrA))
-            WriteFlashWord((i + IgnMapAddrB2), ReadFlashWord(i + IgnMapAddrA))
-            WriteFlashWord((i + IgnMapAddrA34), ReadFlashWord(i + IgnMapAddrA))
-            WriteFlashWord((i + IgnMapAddrB34), ReadFlashWord(i + IgnMapAddrA))
-            WriteFlashWord((i + IgnMapAddrA56), ReadFlashWord(i + IgnMapAddrA))
-            WriteFlashWord((i + IgnMapAddrB56), ReadFlashWord(i + IgnMapAddrA))
+            WriteFlashWord((i + _ignMapAddrA1), ReadFlashWord(i + IgnMapAddrA))
+            WriteFlashWord((i + _ignMapAddrB1), ReadFlashWord(i + IgnMapAddrA))
+            WriteFlashWord((i + _ignMapAddrA2), ReadFlashWord(i + IgnMapAddrA))
+            WriteFlashWord((i + _ignMapAddrB2), ReadFlashWord(i + IgnMapAddrA))
+            WriteFlashWord((i + _ignMapAddrA34), ReadFlashWord(i + IgnMapAddrA))
+            WriteFlashWord((i + _ignMapAddrB34), ReadFlashWord(i + IgnMapAddrA))
+            WriteFlashWord((i + _ignMapAddrA56), ReadFlashWord(i + IgnMapAddrA))
+            WriteFlashWord((i + _ignMapAddrB56), ReadFlashWord(i + IgnMapAddrA))
             i = i + 1
         Loop
-        B_unify.Visible = False
+        B_Unify.Visible = False
 
     End Sub
-    Private Sub copy_tps_to_ms_map()
+
+    Private Sub CopyTpsToMsMap()
         '
         ' This soubroutine copies the TPS map contents into MS map
         '
@@ -525,7 +542,7 @@ Public Class Ignitionmap
         i = MsgBox("Copy the Ignition map contents to MS map, the old MS map will be deleted", MsgBoxStyle.OkCancel)
         If i = 1 Then ' OK pressed
             i = 0
-            Do While (i < (((ignmaprows) * (ignmapcolumns))))
+            Do While (i < (((IgnMapRows) * (IgnMapColumns))))
                 WriteFlashWord((i + &H34AA2), ReadFlashWord(i + &H32D12))
                 WriteFlashWord((i + &H34E54), ReadFlashWord(i + &H330C4))
                 WriteFlashWord((i + &H35206), ReadFlashWord(i + &H33476))
@@ -539,5 +556,7 @@ Public Class Ignitionmap
         End If
 
     End Sub
+
+#End Region
 
 End Class

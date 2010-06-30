@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Fuelmapediting
+Partial Class FuelMapEditing
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -19,19 +19,19 @@ Partial Class Fuelmapediting
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Fuelmapediting))
-        Me.OK_Button = New System.Windows.Forms.Button
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FuelMapEditing))
+        Me.B_OK = New System.Windows.Forms.Button
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox
         Me.SuspendLayout()
         '
-        'OK_Button
+        'B_OK
         '
-        Me.OK_Button.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.OK_Button.Location = New System.Drawing.Point(356, 280)
-        Me.OK_Button.Name = "OK_Button"
-        Me.OK_Button.Size = New System.Drawing.Size(67, 23)
-        Me.OK_Button.TabIndex = 0
-        Me.OK_Button.Text = "OK"
+        Me.B_OK.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.B_OK.Location = New System.Drawing.Point(356, 280)
+        Me.B_OK.Name = "B_OK"
+        Me.B_OK.Size = New System.Drawing.Size(67, 23)
+        Me.B_OK.TabIndex = 0
+        Me.B_OK.Text = "OK"
         '
         'RichTextBox1
         '
@@ -49,7 +49,7 @@ Partial Class Fuelmapediting
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(435, 315)
         Me.Controls.Add(Me.RichTextBox1)
-        Me.Controls.Add(Me.OK_Button)
+        Me.Controls.Add(Me.B_OK)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -60,7 +60,7 @@ Partial Class Fuelmapediting
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents OK_Button As System.Windows.Forms.Button
+    Friend WithEvents B_OK As System.Windows.Forms.Button
     Friend WithEvents RichTextBox1 As System.Windows.Forms.RichTextBox
 
 End Class
