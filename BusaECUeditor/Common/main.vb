@@ -209,79 +209,25 @@ Public Class main
         End Select
     End Sub
 
-    Private Sub NewToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewToolStripMenuItem.Click
+    Private Sub G1NewBaseMapUSToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles G1NewBaseMapUSToolStripMenuItem.Click
+        'JaSa 01.July.2010
+        'G1 US base map selected --> reading of bin will hapen on G1ReadMap procedure
+
+        Dim defpath As String ' this is for this subroutine only
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\G1BusaUSdefault.bin"
+        G1ReadMap(defpath)
+
+    End Sub
+
+    Private Sub G1NewBaseMapEUToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles G1NewBaseMapEUToolStripMenuItem.Click
+        'JaSa 01.July.2010
+        'G1 EU base map selected --> reading of bin will hapen on G1ReadMap procedure
 
         Dim defpath As String ' this is for this subroutine only
 
         ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\default.bin"
-
-        L_File.Text = ""
-        L_Comparefile.Text = ""
-
-        ' Open the stream and read it to global variable "Flash". 
-        fs = File.OpenRead(defpath)
-        Dim b(1) As Byte
-        Dim i As Integer
-        i = 0
-        Do While fs.Read(b, 0, 1) > 0
-            Flash(i) = b(0)
-            FlashCopy(i) = b(0)
-            i = i + 1
-        Loop
-        fs.Close()
-
-        ' Check that the binary lenght matches expected ecu
-        If i <> 262144 Then
-            ECUNotSupported.ShowDialog()
-        End If
-        '
-        ' Make sure the ECU id is supported type
-        '
-        i = 0
-        ECUID.Text = ""
-        Do While i < 8
-            ECUID.Text = ECUID.Text & Chr(Flash(&H3FFF0 + i))
-            i = i + 1
-        Loop
-
-        ' check the ecu id bytes and validate that the ecu flash image is supported
-        If Mid(ECUID.Text, 1, 6) <> "BB34BB" Then
-            ECUNotSupported.ShowDialog()
-        Else
-            Hayabusa.Visible = True
-            FlashToolStripMenuItem.Visible = False
-            Select Case Mid(ECUID.Text, 1, 8)
-                Case "BB34BB51"
-                    Hayabusa.Text = "Hayabusa EU"
-                    Metric = True
-                    ECUVersion = "gen1"
-                Case "BB34BB35"
-                    Hayabusa.Text = "Hayabusa USA"
-                    Metric = False
-                    ECUVersion = "gen1"
-                Case Else
-                    Hayabusa.Text = "Unknown model"
-                    Metric = True
-                    ECUVersion = ""
-            End Select
-        End If
-
-        ' enable controls, otherwise at form load an event will occur
-        Limiters.C_RPM.Enabled = True
-        SaveToolStripMenuItem.Enabled = True
-        B_FlashECU.Enabled = True
-        B_Limiters.Enabled = True
-        B_Shifter.Enabled = True
-        B_FuelMap.Enabled = True
-        B_IgnitionMap.Enabled = True
-        B_AdvancedSettings.Enabled = True
-        B_EngineData.Enabled = True
-
-        ' if the computername does not match to the stored computername, do not use the email address from this map
-        CloseChildWindows()
-
-        MsgBox("A new gen1 basemap is generated", MsgBoxStyle.Information)
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\G1BusaEUdefault.bin"
+        G1ReadMap(defpath)
 
     End Sub
 
@@ -1037,6 +983,81 @@ Public Class main
 #End Region
 
 #Region "Functions"
+
+    Private Sub G1ReadMap(ByVal defpath)
+        'this procedure reads base map from the location given as parameter
+        'this procedure is for G1 only
+        'JaSa 01.July.2010
+
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+
+        ' Open the stream and read it to global variable "Flash". 
+        fs = File.OpenRead(defpath)
+        Dim b(1) As Byte
+        Dim i As Integer
+        i = 0
+        Do While fs.Read(b, 0, 1) > 0
+            Flash(i) = b(0)
+            FlashCopy(i) = b(0)
+            i = i + 1
+        Loop
+        fs.Close()
+
+        ' Check that the binary lenght matches expected ecu
+        If i <> 262144 Then
+            ECUNotSupported.ShowDialog()
+        End If
+        '
+        ' Make sure the ECU id is supported type
+        '
+        i = 0
+        ECUID.Text = ""
+        Do While i < 8
+            ECUID.Text = ECUID.Text & Chr(Flash(&H3FFF0 + i))
+            i = i + 1
+        Loop
+
+        ' check the ecu id bytes and validate that the ecu flash image is supported
+        If Mid(ECUID.Text, 1, 6) <> "BB34BB" Then
+            ECUNotSupported.ShowDialog()
+        Else
+            Hayabusa.Visible = True
+            FlashToolStripMenuItem.Visible = False
+            Select Case Mid(ECUID.Text, 1, 8)
+                Case "BB34BB51"
+                    Hayabusa.Text = "Hayabusa EU"
+                    Metric = True
+                    ECUVersion = "gen1"
+                Case "BB34BB35"
+                    Hayabusa.Text = "Hayabusa USA"
+                    Metric = False
+                    ECUVersion = "gen1"
+                Case Else
+                    Hayabusa.Text = "Unknown model"
+                    Metric = True
+                    ECUVersion = ""
+            End Select
+        End If
+
+        ' enable controls, otherwise at form load an event will occur
+        Limiters.C_RPM.Enabled = True
+        SaveToolStripMenuItem.Enabled = True
+        B_FlashECU.Enabled = True
+        B_Limiters.Enabled = True
+        B_Shifter.Enabled = True
+        B_FuelMap.Enabled = True
+        B_IgnitionMap.Enabled = True
+        B_AdvancedSettings.Enabled = True
+        B_EngineData.Enabled = True
+
+        ' if the computername does not match to the stored computername, do not use the email address from this map
+        CloseChildWindows()
+
+        MsgBox("A new gen1 EU basemap is generated", MsgBoxStyle.Information)
+
+    End Sub
+
 
     Private Sub DisableButtons()
         '

@@ -26,7 +26,7 @@ Partial Class main
         Me.B_EngineData = New System.Windows.Forms.Button
         Me.MenuStrip = New System.Windows.Forms.MenuStrip
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.NewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.G1NewBaseMapUSToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.NewK8ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.NewStockBkingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.NewStockBkingUSToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -65,6 +65,7 @@ Partial Class main
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.WebBrowser1 = New System.Windows.Forms.WebBrowser
         Me.L_ProgramHomepage = New System.Windows.Forms.LinkLabel
+        Me.G1NewBaseMapEUToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -106,16 +107,16 @@ Partial Class main
         '
         'FileToolStripMenuItem
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewToolStripMenuItem, Me.NewK8ToolStripMenuItem, Me.NewStockBkingToolStripMenuItem, Me.NewStockBkingUSToolStripMenuItem, Me.OpenToolStripMenuItem, Me.SaveToolStripMenuItem, Me.OpenComparemapToolStripMenuItem, Me.ExitToolStripMenuItem})
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.G1NewBaseMapUSToolStripMenuItem, Me.G1NewBaseMapEUToolStripMenuItem, Me.NewK8ToolStripMenuItem, Me.NewStockBkingToolStripMenuItem, Me.NewStockBkingUSToolStripMenuItem, Me.OpenToolStripMenuItem, Me.SaveToolStripMenuItem, Me.OpenComparemapToolStripMenuItem, Me.ExitToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
         Me.FileToolStripMenuItem.Text = "File"
         '
-        'NewToolStripMenuItem
+        'G1NewBaseMapUSToolStripMenuItem
         '
-        Me.NewToolStripMenuItem.Name = "NewToolStripMenuItem"
-        Me.NewToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
-        Me.NewToolStripMenuItem.Text = "New/Stock K2-K7"
+        Me.G1NewBaseMapUSToolStripMenuItem.Name = "G1NewBaseMapUSToolStripMenuItem"
+        Me.G1NewBaseMapUSToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
+        Me.G1NewBaseMapUSToolStripMenuItem.Text = "New/Stock K2-K7 (US)"
         '
         'NewK8ToolStripMenuItem
         '
@@ -169,13 +170,13 @@ Partial Class main
         'ProgramInfoToolStripMenuItem
         '
         Me.ProgramInfoToolStripMenuItem.Name = "ProgramInfoToolStripMenuItem"
-        Me.ProgramInfoToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ProgramInfoToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
         Me.ProgramInfoToolStripMenuItem.Text = "Program info"
         '
         'VersionToolStripMenuItem
         '
         Me.VersionToolStripMenuItem.Name = "VersionToolStripMenuItem"
-        Me.VersionToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.VersionToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
         Me.VersionToolStripMenuItem.Text = "Version"
         '
         'UpdatesToolStripMenuItem
@@ -425,6 +426,12 @@ Partial Class main
         Me.L_ProgramHomepage.TabStop = True
         Me.L_ProgramHomepage.Text = "Click here to visit: http//www.ecueditor.com"
         '
+        'G1NewBaseMapEUToolStripMenuItem
+        '
+        Me.G1NewBaseMapEUToolStripMenuItem.Name = "G1NewBaseMapEUToolStripMenuItem"
+        Me.G1NewBaseMapEUToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
+        Me.G1NewBaseMapEUToolStripMenuItem.Text = "New/Stock K2-K7 (EU)"
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -487,7 +494,7 @@ Partial Class main
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Hayabusa As System.Windows.Forms.Label
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
-    Friend WithEvents NewToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents G1NewBaseMapUSToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ProgramInfoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NewK8ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents WebBrowser1 As System.Windows.Forms.WebBrowser
@@ -504,5 +511,6 @@ Partial Class main
     Friend WithEvents VersionToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents L_ProgramHomepage As System.Windows.Forms.LinkLabel
     Friend WithEvents ECUID As System.Windows.Forms.Label
+    Friend WithEvents G1NewBaseMapEUToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class
