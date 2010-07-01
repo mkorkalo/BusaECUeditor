@@ -897,10 +897,12 @@ Public Class K8Advsettings
         If Not loading Then
             If C_ICS.Checked = True Then
                 C_ICS.Text = "ICS ON"
-                WriteFlashByte(&H7CAC0, &HFF)
+                WriteFlashByte(&H7CAC0, &HFF) 'error code disable
+                WriteFlashByte(&H7CADC, &HFF) 'rpm window error disable
             Else
                 C_ICS.Text = "ISC OFF"
-                WriteFlashByte(&H7CAC0, &H0)
+                WriteFlashByte(&H7CAC0, &H0) 'error code disable
+                WriteFlashByte(&H7CADC, &H0) 'rpm window error disable
             End If
         End If
 
