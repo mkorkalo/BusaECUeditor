@@ -992,6 +992,7 @@ Public Class main
         L_File.Text = ""
         L_Comparefile.Text = ""
 
+
         ' Open the stream and read it to global variable "Flash". 
         fs = File.OpenRead(defpath)
         Dim b(1) As Byte
@@ -1054,7 +1055,7 @@ Public Class main
         ' if the computername does not match to the stored computername, do not use the email address from this map
         CloseChildWindows()
 
-        MsgBox("A new gen1 EU basemap is generated", MsgBoxStyle.Information)
+        MsgBox("A new gen1 " & Hayabusa.Text & " basemap is generated", MsgBoxStyle.Information)
 
     End Sub
 
