@@ -23,8 +23,8 @@ Imports System.IO
 
 Public Class K8STPmap
     '
-    ' Fuelmap.vb contains all functions to edit fuelmaps in ecueditor. it uses a global variable flash(addr) that
-    ' has the full ecu image loaded as byte values. the fuelmap is edited on a grid and changed values are
+    ' STPmap.vb contains all functions to edit STPmaps in ecueditor. it uses a global variable flash(addr) that
+    ' has the full ecu image loaded as byte values. the STPmap is edited on a grid and changed values are
     ' written to the global variable flash(addr).
     '
     Dim change As Integer
@@ -33,7 +33,7 @@ Public Class K8STPmap
     Dim TPSmap As Boolean
     Dim previouscolour As Color
     Dim gear, ms01, modeabc As Integer
-    Dim fuelmap As Boolean
+    Dim STPmap As Boolean
     Dim map_structure_table As Long
     Dim map_number_of_structures As Integer
     Dim map_number_of_columns, map_number_of_rows As Integer
@@ -45,20 +45,42 @@ Public Class K8STPmap
 
 
 
-    Private Sub Fuelmap_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        fuelmapvisible = False
+    Private Sub STPmap_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+        Me.Visible = False
     End Sub
 
-    Private Sub Fuelmap_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub STPmap_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         change = 1 ' default change to map when pressing +,- or *,/
         previousrow = 0
-        fuelmapvisible = True
+        Me.Visible = True
         stptrace = False
+
+        '
+        ' Extend STP opening map to higher rpm
+        '
+        WriteFlashWord(&H7006C, &H7D00) 'Gear 0
+        WriteFlashWord(&H700AA, &H7D00) 'Gear 1
+        WriteFlashWord(&H700E8, &H7D00) 'Gear 2
+        WriteFlashWord(&H70126, &H7D00) 'Gear 3
+        WriteFlashWord(&H70164, &H7D00) 'Gear 4
+        WriteFlashWord(&H701A2, &H7D00) 'Gear 5
+        WriteFlashWord(&H701E0, &H7D00) 'Gear 6
+
+        '
+        ' Extend STP fuelling map to higher rpm
+        '
+        WriteFlashWord(&H79002, &H7D00) 'Gear 0
+        WriteFlashWord(&H79040, &H7D00) 'Gear 1
+        WriteFlashWord(&H7907E, &H7D00) 'Gear 2
+        WriteFlashWord(&H790BC, &H7D00) 'Gear 3
+        WriteFlashWord(&H790FA, &H7D00) 'Gear 4
+        WriteFlashWord(&H79138, &H7D00) 'Gear 5
+        WriteFlashWord(&H79176, &H7D00) 'Gear 6
 
 
         '
-        ' select tpsmap as first map to show, this will unify cylinder specific fuelmaps
+        ' select tpsmap as first map to show, this will unify cylinder specific STPmaps
         '
         ms01 = 0
         modeabc = 0
@@ -66,7 +88,7 @@ Public Class K8STPmap
 
         map_structure_table = &H517B8
         Me.Text = "ECUeditor - STP map editing - STP opening"
-        fuelmap = False
+        STPmap = False
         selectmap()
         LED_GEAR.Text = gear.ToString
 
@@ -115,22 +137,22 @@ Public Class K8STPmap
             Case "f"
                 map_structure_table = &H523E4
                 Me.Text = "ECUeditor - STP map editing - STP FUEL adjustment"
-                fuelmap = True
+                STPmap = True
                 selectmap()
             Case "F"
                 map_structure_table = &H523E4
                 Me.Text = "ECUeditor - STP map editing - STP FUEL adjustment"
-                fuelmap = True
+                STPmap = True
                 selectmap()
             Case "s"
                 map_structure_table = &H517B8
                 Me.Text = "ECUeditor - STP map editing - STP opening"
-                fuelmap = False
+                STPmap = False
                 selectmap()
             Case "S"
                 map_structure_table = &H517B8
                 Me.Text = "ECUeditor - STP map editing - STP opening"
-                fuelmap = False
+                STPmap = False
                 selectmap()
             Case "a"
                 modeabc = 0
@@ -182,7 +204,7 @@ Public Class K8STPmap
     End Sub
 
 
-    Private Sub Fuelmapgrid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles STPmapgrid.KeyPress
+    Private Sub STPmapgrid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles STPmapgrid.KeyPress
 
         parsecommands(e.KeyChar)
 
@@ -336,7 +358,7 @@ Public Class K8STPmap
         maxval = &HFF   ' not validated from ecu, maximum value to which the map item can be set
         minval = 0   ' not validated from ecu, minimum value to which the map item can be set
 
-        If fuelmap Then
+        If STPmap Then
             m1 = STPmapgrid.Item(c, r).Value * 128 / 100
         Else
             m1 = STPmapgrid.Item(c, r).Value * 255 / 100
@@ -352,7 +374,7 @@ Public Class K8STPmap
 
         WriteFlashByte(editing_map + (1 * (c + (r * map_number_of_columns))), (m1))
 
-        If fuelmap Then
+        If STPmap Then
             STPmapgrid.Item(c, r).Value = CInt(m1 * 100 / 128)
         Else
             STPmapgrid.Item(c, r).Value = CInt(m1 * 100 / 255)
@@ -434,7 +456,7 @@ Public Class K8STPmap
         r = 0
         i = 0
         Do While (r < map_number_of_rows)
-            If fuelmap Then
+            If STPmap Then
                 STPmapgrid.Item(c, r).Value = Int(ReadFlashByte(i + editing_map) * 100 / 128)
             Else
                 STPmapgrid.Item(c, r).Value = Int(ReadFlashByte(i + editing_map) * 100 / 255)

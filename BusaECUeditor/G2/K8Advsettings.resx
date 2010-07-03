@@ -217,12 +217,6 @@ coil errors are disabled and you can run aftermarket ignition module like NLR SI
 making the installation simplier and less fault prone.
 </value>
   </data>
-  <metadata name="PrintForm1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>116, 17</value>
-  </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>117</value>
-  </metadata>
   <data name="C_IAPTPS.ToolTip" xml:space="preserve">
     <value>Set which map is used. Set Normal for normal driving. For dyno sometimes it may be 
 beneficial to set the bike to IAP only or TPS only mode.  Allows particularly tuning the
@@ -233,6 +227,12 @@ work reliably.
 
 NOTE: This is untested feature for dyno testing only</value>
   </data>
+  <metadata name="PrintForm1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>116, 17</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>117</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
