@@ -771,10 +771,11 @@ Public Class K8Advsettings
 
 
     Private Sub T_hexaddr_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_hexaddr.TextChanged
+        Dim L As Long
         If T_hexaddr.Text.Contains("&H") Then
-            T_hexvaluehi.Text = "&H" & Hex(Flash(Val(T_hexaddr.Text)))
+            T_hexvaluehi.Text = "&H" & Hex(Flash(CInt(T_hexaddr.Text)))
         Else
-            T_hexvaluehi.Text = "&H" & Hex(Flash(Val("&H" & T_hexaddr.Text)))
+            T_hexvaluehi.Text = "&H" & Hex(Flash(CInt("&H" & T_hexaddr.Text)))
         End If
     End Sub
 
@@ -785,7 +786,7 @@ Public Class K8Advsettings
         If Not T_hexvaluehi.Text.Contains("&H") Then hi = "&H" & T_hexvaluehi.Text Else hi = T_hexvaluehi.Text
         If Not T_hexaddr.Text.Contains("&H") Then addr = "&H" & T_hexaddr.Text Else addr = T_hexaddr.Text
 
-        WriteFlashByte(Val(addr), Val(hi))
+        WriteFlashByte(CInt(addr), Val(hi))
 
     End Sub
 
@@ -897,12 +898,16 @@ Public Class K8Advsettings
         If Not loading Then
             If C_ICS.Checked = True Then
                 C_ICS.Text = "ICS ON"
-                WriteFlashByte(&H7CAC0, &HFF) 'error code disable
+                WriteFlashByte(&H7CAC0, &HFF) 'ICS solenoid port test error code disable
+                WriteFlashByte(&H7CAB6, &HFF) 'ICS port config const
                 WriteFlashByte(&H7CADC, &HFF) 'rpm window error disable
+                WriteFlashWord(&H7CA6A, &H1400) 'idle RPM limit normal 2000rpm
             Else
                 C_ICS.Text = "ISC OFF"
-                WriteFlashByte(&H7CAC0, &H0) 'error code disable
+                WriteFlashByte(&H7CAC0, &H0)  'ICS solenoid port test error code disable
+                WriteFlashByte(&H7CAB6, &H0) 'ICS port config const
                 WriteFlashByte(&H7CADC, &H0) 'rpm window error disable
+                WriteFlashWord(&H7CA6A, &H7800) 'idle RPM high limit set to 12000rpm
             End If
         End If
 
@@ -1013,6 +1018,10 @@ Public Class K8Advsettings
 
         End If
 
+
+    End Sub
+
+    Private Sub R_dynomode_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles R_dynomode.CheckedChanged
 
     End Sub
 End Class

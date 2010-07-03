@@ -41,6 +41,7 @@ Partial Class K8Advsettings
         Me.C_coil_fi_disable = New System.Windows.Forms.CheckBox
         Me.C_coolingfan = New System.Windows.Forms.CheckBox
         Me.C_secondaries = New System.Windows.Forms.CheckBox
+        Me.C_IAPTPS = New System.Windows.Forms.ComboBox
         Me.B_ramairadjust = New System.Windows.Forms.Button
         Me.GroupBox6 = New System.Windows.Forms.GroupBox
         Me.C_PAIR = New System.Windows.Forms.CheckBox
@@ -66,9 +67,8 @@ Partial Class K8Advsettings
         Me.Label7 = New System.Windows.Forms.Label
         Me.GroupBox4 = New System.Windows.Forms.GroupBox
         Me.GroupBox7 = New System.Windows.Forms.GroupBox
-        Me.C_ABCmode = New System.Windows.Forms.CheckBox
-        Me.C_IAPTPS = New System.Windows.Forms.ComboBox
         Me.Label5 = New System.Windows.Forms.Label
+        Me.C_ABCmode = New System.Windows.Forms.CheckBox
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -129,7 +129,7 @@ Partial Class K8Advsettings
         Me.GroupBox3.Controls.Add(Me.Label3)
         Me.GroupBox3.Location = New System.Drawing.Point(16, 12)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(147, 50)
+        Me.GroupBox3.Size = New System.Drawing.Size(155, 50)
         Me.GroupBox3.TabIndex = 8
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "ECU mode"
@@ -161,10 +161,10 @@ Partial Class K8Advsettings
         Me.GroupBox2.Controls.Add(Me.R_dynomode)
         Me.GroupBox2.Location = New System.Drawing.Point(16, 69)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(148, 67)
+        Me.GroupBox2.Size = New System.Drawing.Size(156, 67)
         Me.GroupBox2.TabIndex = 4
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Dynomode"
+        Me.GroupBox2.Text = "Ramair mode"
         Me.ToolTip1.SetToolTip(Me.GroupBox2, "Set ram air compensation mode" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10))
         '
         'R_dynomode_normal
@@ -183,10 +183,10 @@ Partial Class K8Advsettings
         Me.R_dynomode.AutoSize = True
         Me.R_dynomode.Location = New System.Drawing.Point(6, 19)
         Me.R_dynomode.Name = "R_dynomode"
-        Me.R_dynomode.Size = New System.Drawing.Size(131, 17)
+        Me.R_dynomode.Size = New System.Drawing.Size(149, 17)
         Me.R_dynomode.TabIndex = 0
         Me.R_dynomode.TabStop = True
-        Me.R_dynomode.Text = "Dynomode/turbomode"
+        Me.R_dynomode.Text = "Flat dynomode/turbomode"
         Me.R_dynomode.UseVisualStyleBackColor = True
         '
         'C_HOX
@@ -301,6 +301,16 @@ Partial Class K8Advsettings
                 " race purposes.")
         Me.C_secondaries.UseVisualStyleBackColor = True
         '
+        'C_IAPTPS
+        '
+        Me.C_IAPTPS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.C_IAPTPS.FormattingEnabled = True
+        Me.C_IAPTPS.Location = New System.Drawing.Point(62, 59)
+        Me.C_IAPTPS.Name = "C_IAPTPS"
+        Me.C_IAPTPS.Size = New System.Drawing.Size(73, 21)
+        Me.C_IAPTPS.TabIndex = 8
+        Me.ToolTip1.SetToolTip(Me.C_IAPTPS, resources.GetString("C_IAPTPS.ToolTip"))
+        '
         'B_ramairadjust
         '
         Me.B_ramairadjust.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -319,7 +329,7 @@ Partial Class K8Advsettings
         Me.GroupBox6.Controls.Add(Me.R_IAT_dynomode)
         Me.GroupBox6.Location = New System.Drawing.Point(17, 142)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(147, 112)
+        Me.GroupBox6.Size = New System.Drawing.Size(154, 112)
         Me.GroupBox6.TabIndex = 10
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Dynomode settings"
@@ -556,6 +566,15 @@ Partial Class K8Advsettings
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Misc settings"
         '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(6, 63)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(50, 13)
+        Me.Label5.TabIndex = 8
+        Me.Label5.Text = "IAP/TPS"
+        '
         'C_ABCmode
         '
         Me.C_ABCmode.AutoSize = True
@@ -566,30 +585,11 @@ Partial Class K8Advsettings
         Me.C_ABCmode.Text = "ABC fixed to A"
         Me.C_ABCmode.UseVisualStyleBackColor = True
         '
-        'C_IAPTPS
-        '
-        Me.C_IAPTPS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.C_IAPTPS.FormattingEnabled = True
-        Me.C_IAPTPS.Location = New System.Drawing.Point(62, 59)
-        Me.C_IAPTPS.Name = "C_IAPTPS"
-        Me.C_IAPTPS.Size = New System.Drawing.Size(73, 21)
-        Me.C_IAPTPS.TabIndex = 8
-        Me.ToolTip1.SetToolTip(Me.C_IAPTPS, resources.GetString("C_IAPTPS.ToolTip"))
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(6, 63)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(50, 13)
-        Me.Label5.TabIndex = 8
-        Me.Label5.Text = "IAP/TPS"
-        '
         'K8Advsettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(408, 477)
+        Me.ClientSize = New System.Drawing.Size(397, 427)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox9)
