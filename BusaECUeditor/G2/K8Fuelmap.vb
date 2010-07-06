@@ -399,6 +399,11 @@ Public Class K8Fuelmap
                     For modeabc = setmode To setmode
                         copy_to_map = ReadFlashLongWord(ReadFlashLongWord((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                         WriteFlashWord(copy_to_map + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
+                        '
+                        ' Need to write the values also to idle neutral map
+                        '
+                        copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((&H52364 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        WriteFlashWord(copy_to_map2 + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
                     Next
                 Next
             Next
@@ -417,6 +422,11 @@ Public Class K8Fuelmap
                     For modeabc = setmode To setmode
                         copy_to_map = ReadFlashLongWord(ReadFlashLongWord((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                         WriteFlashWord(copy_to_map + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
+                        '
+                        ' Need to write the values also to idle neutral map
+                        '
+                        copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((&H52364 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        WriteFlashWord(copy_to_map2 + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
                     Next
                 Next
             Next
@@ -577,6 +587,7 @@ Public Class K8Fuelmap
         '
         Dim c As Integer
         Dim r As Integer
+        Dim cIAP As Integer
 
         setCellColour(cc, rr)
 
@@ -622,29 +633,40 @@ Public Class K8Fuelmap
             ' Process IAP maps
             '
             c = 0
-            cc = 256
+            CC = 256
+            cIAP = IAP
+            If IAP < 1 Then cIAP = 1
+            If IAP >= 70 Then cIAP = 70
 
             Do While (c < map_number_of_columns - 1)
-                If IAP <= cc And IAP > Int(Fuelmapgrid.Columns.Item(c + 1).HeaderCell.Value) Then
-                    cc = c
+                If cIAP <= CC And cIAP > Int(Fuelmapgrid.Columns.Item(c + 1).HeaderCell.Value) Then
+                    CC = c
                     c = 256
                 Else
                     c = c + 1
-                    cc = Int(Fuelmapgrid.Columns.Item(c).HeaderCell.Value)
+                    CC = Int(Fuelmapgrid.Columns.Item(c).HeaderCell.Value)
                 End If
             Loop
         End If
 
         If rr > map_number_of_rows Then rr = 0
-        If rr < 0 Then rr = 0
-        If cc > map_number_of_columns Then cc = 0
-        If cc < 0 Then cc = 0
+        If RR <= 0 Then RR = 0
+        If CC >= map_number_of_columns Then CC = map_number_of_columns
+        If CC <= 0 Then CC = 0
         If rr <> 0 Or cc <> 0 Then
             setCellColour(0, rr)
             Fuelmapgrid.Item(cc, rr).Style.BackColor = Color.Blue
         Else
-            setCellColour(cc, rr)
+            setCellColour(CC, RR)
         End If
+        'Me.Text = "EcuEditor.com - Fuelmap module"
+        'If TPSmap And CalcTPSDec(TPS) < 10 Then
+        'Me.Text = "EcuEditor.com - You are trying to adjust an inactive TPS map"
+        'End If
+        'If Not TPSmap And CalcTPSDec(TPS) >= 10 Then
+        'Me.Text = "EcuEditor.com - You are trying to adjust an inactive IAP map"
+        'End If
+
     End Sub
     Private Sub B_TPSMAP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_TPS.Click
         selectmap(1)
@@ -731,6 +753,13 @@ Public Class K8Fuelmap
                         '
                         If map_structure_table = &H52244 Then
                             copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((&H522A4 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                            WriteFlashWord(copy_to_map2 + (cell * 2), ReadFlashWord(copy_from_map + (cell * 2)))
+                        End If
+                        '
+                        ' Need to write the values also to idle neutral map
+                        ' &G52304 on gear, &H52364 on Neutral
+                        If map_structure_table = &H52304 Then
+                            copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((&H52364 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                             WriteFlashWord(copy_to_map2 + (cell * 2), ReadFlashWord(copy_from_map + (cell * 2)))
                         End If
 

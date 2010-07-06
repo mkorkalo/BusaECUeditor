@@ -958,29 +958,28 @@ Public Class K8Datastream
                         RPMhi = rxs(x)
                     Case 25
                         RPMlo = rxs(x)
-                        RPM = ((&HFF * RPMhi) + RPMlo) / 2.55
+                        RPM = CInt((((&HFF * RPMhi) + RPMlo) / 2.55) / 50) * 50
                     Case 26
                         TPS = rxs(x)
                     Case 27
                         IP = rxs(x)
                         IAPabs = rxs(x)
                     Case 28
-                        ' conversion formula usinng known thermostat and room pressure
+                        ' conversion formula using known thermostat and room temperature
                         CLT = ((rxs(x)) - 15) * 1.1
                     Case 29
-                        ' conversion formula usinng known thermostat and room pressure
+                        ' conversion formula using known thermostat and room temperature
                         IAT = ((rxs(x)) - 15) * 1.1
                     Case 30
                         AP = rxs(x)
                         SAPabs = rxs(x)
                         IAP = (AP * 4 * 0.136) - (IP * 4 * 0.136)
-                        If IAP < 0 Then IAP = 0
                     Case 31
                         BATT = rxs(x)
                     Case 32
                         HO2 = rxs(x)
                     Case 33
-                        GEAR = rxs(x)
+                        Gear = rxs(x)
                     Case 38
                         FUELhi1 = rxs(x)
                     Case 39
@@ -1306,10 +1305,7 @@ Public Class K8Datastream
             End If
         End If
 
-        'If hox_on Then
-        If h < 15 Then Return "lean"
-        If h < 18 Then Return "15.2"
-        If h < 19 Then Return "15.1"
+        If h < 19 Then Return "lean"
         If h < 20 Then Return "15.0"
         If h < 21 Then Return "14.9"
         If h < 22 Then Return "14.8"
@@ -1331,10 +1327,6 @@ Public Class K8Datastream
         If h < 48 Then Return "12.7"
         If h < 49 Then Return "12.6"
         If h < 50 Then Return "12.5" Else Return "rich"
-        'Else
-        'LED_HO2.ForeColor = Color.Gray
-        'Return "OFF"
-        'End If
 
     End Function
 
