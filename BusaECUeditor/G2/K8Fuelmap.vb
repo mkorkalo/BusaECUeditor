@@ -114,18 +114,18 @@ Public Class K8Fuelmap
                 selectmap(3)
             Case "4"
                 selectmap(4)
-            Case "a"
-                setmode = 0
-                selectmap(1)
-            Case "A"
-                setmode = 0
-                selectmap(1)
-            Case "b"
-                setmode = 1
-                selectmap(1)
-            Case "B"
-                setmode = 1
-                selectmap(1)
+                'Case "a"
+                '   setmode = 0
+                '  selectmap(1)
+                'Case "A"
+                '   setmode = 0
+                '  selectmap(1)
+                'Case "b"
+                '   setmode = 1
+                '  selectmap(1)
+                'Case "B"
+                '   setmode = 1
+                '  selectmap(1)
             Case "c"
                 copymaps(2)
             Case "C"
@@ -400,7 +400,7 @@ Public Class K8Fuelmap
                         copy_to_map = ReadFlashLongWord(ReadFlashLongWord((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                         WriteFlashWord(copy_to_map + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
                         '
-                        ' Need to write the values also to idle neutral map
+                        ' Need to write the values also to IAP idle neutral map
                         '
                         copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((&H52364 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                         WriteFlashWord(copy_to_map2 + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
@@ -423,10 +423,10 @@ Public Class K8Fuelmap
                         copy_to_map = ReadFlashLongWord(ReadFlashLongWord((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                         WriteFlashWord(copy_to_map + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
                         '
-                        ' Need to write the values also to idle neutral map
+                        ' Need to write the values also to TPS idle neutral map
                         '
-                        copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((&H52364 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        WriteFlashWord(copy_to_map2 + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
+                        'copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((&H52364 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        'WriteFlashWord(copy_to_map2 + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
                     Next
                 Next
             Next
@@ -651,7 +651,7 @@ Public Class K8Fuelmap
 
         If rr > map_number_of_rows Then rr = 0
         If RR <= 0 Then RR = 0
-        If CC >= map_number_of_columns Then CC = map_number_of_columns
+        If CC >= map_number_of_columns Then CC = 0
         If CC <= 0 Then CC = 0
         If rr <> 0 Or cc <> 0 Then
             setCellColour(0, rr)
@@ -659,6 +659,7 @@ Public Class K8Fuelmap
         Else
             setCellColour(CC, RR)
         End If
+
         'Me.Text = "EcuEditor.com - Fuelmap module"
         'If TPSmap And CalcTPSDec(TPS) < 10 Then
         'Me.Text = "EcuEditor.com - You are trying to adjust an inactive TPS map"
