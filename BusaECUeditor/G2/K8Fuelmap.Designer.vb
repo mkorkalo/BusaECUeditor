@@ -92,6 +92,7 @@ Partial Class K8Fuelmap
         Me.B_Apply_MAP.TabIndex = 12
         Me.B_Apply_MAP.Text = "Apply map"
         Me.B_Apply_MAP.UseVisualStyleBackColor = True
+        Me.B_Apply_MAP.Visible = False
         '
         'T_TPSIAP
         '
