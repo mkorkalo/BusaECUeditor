@@ -129,7 +129,7 @@ Partial Class K8Advsettings
         Me.GroupBox3.Controls.Add(Me.Label3)
         Me.GroupBox3.Location = New System.Drawing.Point(16, 12)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(147, 50)
+        Me.GroupBox3.Size = New System.Drawing.Size(155, 50)
         Me.GroupBox3.TabIndex = 8
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "ECU mode"
@@ -161,10 +161,10 @@ Partial Class K8Advsettings
         Me.GroupBox2.Controls.Add(Me.R_dynomode)
         Me.GroupBox2.Location = New System.Drawing.Point(16, 69)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(148, 67)
+        Me.GroupBox2.Size = New System.Drawing.Size(156, 67)
         Me.GroupBox2.TabIndex = 4
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Dynomode"
+        Me.GroupBox2.Text = "Ramair mode"
         Me.ToolTip1.SetToolTip(Me.GroupBox2, "Set ram air compensation mode" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10))
         '
         'R_dynomode_normal
@@ -183,10 +183,10 @@ Partial Class K8Advsettings
         Me.R_dynomode.AutoSize = True
         Me.R_dynomode.Location = New System.Drawing.Point(6, 19)
         Me.R_dynomode.Name = "R_dynomode"
-        Me.R_dynomode.Size = New System.Drawing.Size(131, 17)
+        Me.R_dynomode.Size = New System.Drawing.Size(149, 17)
         Me.R_dynomode.TabIndex = 0
         Me.R_dynomode.TabStop = True
-        Me.R_dynomode.Text = "Dynomode/turbomode"
+        Me.R_dynomode.Text = "Flat dynomode/turbomode"
         Me.R_dynomode.UseVisualStyleBackColor = True
         '
         'C_HOX
@@ -329,7 +329,7 @@ Partial Class K8Advsettings
         Me.GroupBox6.Controls.Add(Me.R_IAT_dynomode)
         Me.GroupBox6.Location = New System.Drawing.Point(17, 142)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(147, 112)
+        Me.GroupBox6.Size = New System.Drawing.Size(154, 112)
         Me.GroupBox6.TabIndex = 10
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Dynomode settings"
@@ -589,7 +589,7 @@ Partial Class K8Advsettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(408, 477)
+        Me.ClientSize = New System.Drawing.Size(397, 427)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox9)

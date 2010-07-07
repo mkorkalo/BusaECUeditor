@@ -1105,7 +1105,11 @@ Public Class K8Datastream
         '
         ' Set RPM gauge to red if exeeding std limiter
         '
-        AquaGauge1.Value = RPM / 1000
+        If RPM > 13000 Then
+            AquaGauge1.Value = 13
+        Else
+            AquaGauge1.Value = RPM / 1000
+        End If
         AquaGauge1.DialText = "x1000r/min"
 
         If RPM > 11000 Then
