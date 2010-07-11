@@ -734,8 +734,6 @@ Public Class K8Advsettings
                 C_PAIR.Checked = False
             Else
                 IAT_dynomode_normal()
-                C_HOX.Checked = True
-                C_PAIR.Checked = True
             End If
         End If
 
@@ -771,7 +769,6 @@ Public Class K8Advsettings
 
 
     Private Sub T_hexaddr_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_hexaddr.TextChanged
-        Dim L As Long
         If T_hexaddr.Text.Contains("&H") Then
             T_hexvaluehi.Text = "&H" & Hex(Flash(CInt(T_hexaddr.Text)))
         Else

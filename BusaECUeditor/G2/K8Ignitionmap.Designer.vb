@@ -31,6 +31,7 @@ Partial Class K8Ignitionmap
         Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.Label1 = New System.Windows.Forms.Label
         Me.Button1 = New System.Windows.Forms.Button
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         CType(Me.Ignitionmapgrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -86,6 +87,7 @@ Partial Class K8Ignitionmap
         Me.B_MS0.Size = New System.Drawing.Size(63, 23)
         Me.B_MS0.TabIndex = 18
         Me.B_MS0.Text = "TPS MS0"
+        Me.ToolTip1.SetToolTip(Me.B_MS0, "Normal gear 1-6 ignition map")
         Me.B_MS0.UseVisualStyleBackColor = True
         '
         'B_MS1
@@ -95,6 +97,9 @@ Partial Class K8Ignitionmap
         Me.B_MS1.Size = New System.Drawing.Size(62, 23)
         Me.B_MS1.TabIndex = 19
         Me.B_MS1.Text = "TPS MS1"
+        Me.ToolTip1.SetToolTip(Me.B_MS1, "MS1 (map select 1) ignitionmap. When MS pin is not grounded, map 1 (MS1) is selec" & _
+                "ted instead of map 0 (MS0). You can see which map MS0 or MS1 is active from engi" & _
+                "ne data screen.")
         Me.B_MS1.UseVisualStyleBackColor = True
         '
         'T_DEG
@@ -133,7 +138,14 @@ Partial Class K8Ignitionmap
         Me.Button1.Size = New System.Drawing.Size(61, 23)
         Me.Button1.TabIndex = 22
         Me.Button1.Text = "TPS NT"
+        Me.ToolTip1.SetToolTip(Me.Button1, "Neutral and Clucthed ignitionmap")
         Me.Button1.UseVisualStyleBackColor = True
+        '
+        'ToolTip1
+        '
+        Me.ToolTip1.AutoPopDelay = 10000
+        Me.ToolTip1.InitialDelay = 500
+        Me.ToolTip1.ReshowDelay = 100
         '
         'K8Ignitionmap
         '
@@ -166,4 +178,5 @@ Partial Class K8Ignitionmap
     Friend WithEvents PrintForm1 As Microsoft.VisualBasic.PowerPacks.Printing.PrintForm
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
 End Class

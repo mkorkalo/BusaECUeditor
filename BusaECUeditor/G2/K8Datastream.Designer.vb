@@ -904,7 +904,7 @@ Partial Class K8Datastream
         Me.B_Enginedatalog.Name = "B_Enginedatalog"
         Me.B_Enginedatalog.Size = New System.Drawing.Size(61, 27)
         Me.B_Enginedatalog.TabIndex = 106
-        Me.B_Enginedatalog.Text = "Graph"
+        Me.B_Enginedatalog.Text = "Log a run"
         Me.B_Enginedatalog.UseVisualStyleBackColor = True
         '
         'L_comms
