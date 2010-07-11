@@ -127,6 +127,7 @@ Partial Class K8Datastream
         Me.Label31 = New System.Windows.Forms.Label
         Me.C_debug = New System.Windows.Forms.Button
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.L_ho2raw = New System.Windows.Forms.Label
         CType(Me.LED_RPM, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_IGN, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_CLT, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1396,12 +1397,22 @@ Partial Class K8Datastream
         Me.ToolTip1.InitialDelay = 500
         Me.ToolTip1.ReshowDelay = 100
         '
+        'L_ho2raw
+        '
+        Me.L_ho2raw.AutoSize = True
+        Me.L_ho2raw.Location = New System.Drawing.Point(383, 772)
+        Me.L_ho2raw.Name = "L_ho2raw"
+        Me.L_ho2raw.Size = New System.Drawing.Size(24, 13)
+        Me.L_ho2raw.TabIndex = 118
+        Me.L_ho2raw.Text = "n/a"
+        '
         'K8Datastream
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Silver
-        Me.ClientSize = New System.Drawing.Size(731, 535)
+        Me.ClientSize = New System.Drawing.Size(731, 536)
+        Me.Controls.Add(Me.L_ho2raw)
         Me.Controls.Add(Me.C_debug)
         Me.Controls.Add(Me.B_Clear_DTC)
         Me.Controls.Add(Me.L_cov4)
@@ -1578,4 +1589,5 @@ Partial Class K8Datastream
     Friend WithEvents Label33 As System.Windows.Forms.Label
     Friend WithEvents C_debug As System.Windows.Forms.Button
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
+    Friend WithEvents L_ho2raw As System.Windows.Forms.Label
 End Class
