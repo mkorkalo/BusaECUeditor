@@ -958,7 +958,7 @@ Public Class K8Datastream
                         RPMhi = rxs(x)
                     Case 25
                         RPMlo = rxs(x)
-                        RPM = CInt((((&HFF * RPMhi) + RPMlo) / 2.55) / 50) * 50
+                        RPM = CInt((((&HFF * RPMhi) + RPMlo) / 2.55) / 10) * 10
                     Case 26
                         TPS = rxs(x)
                     Case 27
@@ -1299,6 +1299,14 @@ Public Class K8Datastream
 
     Public Function ho2toafr(ByVal h As Integer) As String
 
+        '
+        ' Hox sensor is either disabled of acting funny
+        '
+        If (h = 0) Or (h = &HFF) Then
+            LED_HO2.ForeColor = Color.Black
+            Return "---"
+        End If
+
         If h <= 20 Then
             LED_HO2.ForeColor = Color.Red
         Else
@@ -1308,6 +1316,7 @@ Public Class K8Datastream
                 LED_HO2.ForeColor = Color.Black
             End If
         End If
+
 
         If h < 19 Then Return "lean"
         If h < 20 Then Return "15.0"

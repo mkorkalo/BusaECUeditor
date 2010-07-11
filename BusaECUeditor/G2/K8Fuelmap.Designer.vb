@@ -32,6 +32,7 @@ Partial Class K8Fuelmap
         Me.T_change = New System.Windows.Forms.TextBox
         Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.L_modeabc = New System.Windows.Forms.Label
+        Me.B_MSIAP = New System.Windows.Forms.Button
         CType(Me.Fuelmapgrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -59,40 +60,39 @@ Partial Class K8Fuelmap
         '
         'B_TPS
         '
-        Me.B_TPS.Location = New System.Drawing.Point(3, 2)
+        Me.B_TPS.Location = New System.Drawing.Point(3, 3)
         Me.B_TPS.Name = "B_TPS"
-        Me.B_TPS.Size = New System.Drawing.Size(82, 23)
+        Me.B_TPS.Size = New System.Drawing.Size(49, 23)
         Me.B_TPS.TabIndex = 1
-        Me.B_TPS.Text = "TPS fuelmap"
+        Me.B_TPS.Text = "TPS"
         Me.B_TPS.UseVisualStyleBackColor = True
         '
         'B_IAP
         '
-        Me.B_IAP.Location = New System.Drawing.Point(91, 2)
+        Me.B_IAP.Location = New System.Drawing.Point(58, 3)
         Me.B_IAP.Name = "B_IAP"
-        Me.B_IAP.Size = New System.Drawing.Size(80, 23)
+        Me.B_IAP.Size = New System.Drawing.Size(49, 23)
         Me.B_IAP.TabIndex = 2
-        Me.B_IAP.Text = "IAP fuelmap"
+        Me.B_IAP.Text = "IAP"
         Me.B_IAP.UseVisualStyleBackColor = True
         '
         'B_MSTP
         '
-        Me.B_MSTP.Location = New System.Drawing.Point(177, 2)
+        Me.B_MSTP.Location = New System.Drawing.Point(113, 3)
         Me.B_MSTP.Name = "B_MSTP"
-        Me.B_MSTP.Size = New System.Drawing.Size(80, 23)
+        Me.B_MSTP.Size = New System.Drawing.Size(56, 23)
         Me.B_MSTP.TabIndex = 11
-        Me.B_MSTP.Text = "MS fuelmap"
+        Me.B_MSTP.Text = "MS TPS"
         Me.B_MSTP.UseVisualStyleBackColor = True
         '
         'B_Apply_MAP
         '
-        Me.B_Apply_MAP.Location = New System.Drawing.Point(263, 2)
+        Me.B_Apply_MAP.Location = New System.Drawing.Point(252, 3)
         Me.B_Apply_MAP.Name = "B_Apply_MAP"
         Me.B_Apply_MAP.Size = New System.Drawing.Size(78, 23)
         Me.B_Apply_MAP.TabIndex = 12
         Me.B_Apply_MAP.Text = "Apply map"
         Me.B_Apply_MAP.UseVisualStyleBackColor = True
-        Me.B_Apply_MAP.Visible = False
         '
         'T_TPSIAP
         '
@@ -148,11 +148,21 @@ Partial Class K8Fuelmap
         Me.L_modeabc.TabIndex = 22
         Me.L_modeabc.Text = "A/B/C"
         '
+        'B_MSIAP
+        '
+        Me.B_MSIAP.Location = New System.Drawing.Point(175, 3)
+        Me.B_MSIAP.Name = "B_MSIAP"
+        Me.B_MSIAP.Size = New System.Drawing.Size(56, 23)
+        Me.B_MSIAP.TabIndex = 23
+        Me.B_MSIAP.Text = "MS TPS"
+        Me.B_MSIAP.UseVisualStyleBackColor = True
+        '
         'K8Fuelmap
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(5.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(796, 711)
+        Me.Controls.Add(Me.B_MSIAP)
         Me.Controls.Add(Me.L_modeabc)
         Me.Controls.Add(Me.T_change)
         Me.Controls.Add(Me.T_TPSIAP)
@@ -185,4 +195,5 @@ Partial Class K8Fuelmap
     Friend WithEvents T_change As System.Windows.Forms.TextBox
     Friend WithEvents PrintForm1 As Microsoft.VisualBasic.PowerPacks.Printing.PrintForm
     Friend WithEvents L_modeabc As System.Windows.Forms.Label
+    Friend WithEvents B_MSIAP As System.Windows.Forms.Button
 End Class
