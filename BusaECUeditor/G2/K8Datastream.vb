@@ -1299,6 +1299,8 @@ Public Class K8Datastream
 
     Public Function ho2toafr(ByVal h As Integer) As String
 
+        L_ho2raw.Text = h
+
         '
         ' Hox sensor is either disabled of acting funny
         '
@@ -1317,29 +1319,47 @@ Public Class K8Datastream
             End If
         End If
 
+        '
+        ' Bosch LSM-11 narrowband according to who2.com converted with raw voltage values
+        '
+        If h < 6 Then Return "lean"
+        If h < 8 Then Return "14.8"
+        If h < 28 Then Return "14.4"
+        If h < 32 Then Return "14.1"
+        If h < 33 Then Return "13.8"
+        If h < 34 Then Return "13.6"
+        If h < 35 Then Return "13.4"
+        If h < 36 Then Return "13.2"
+        If h < 37 Then Return "12.8"
+        If h < 38 Then Return "12.6"
+        If h < 39 Then Return "12.4"
+        If h < 40 Then Return "12.0" Else Return "rich"
 
-        If h < 19 Then Return "lean"
-        If h < 20 Then Return "15.0"
-        If h < 21 Then Return "14.9"
-        If h < 22 Then Return "14.8"
-        If h < 23 Then Return "14.7"
-        If h < 25 Then Return "14.6"
-        If h < 35 Then Return "14.5"
-        If h < 36 Then Return "14.4"
-        If h < 37 Then Return "14.3"
-        If h < 38 Then Return "14.2"
-        If h < 39 Then Return "14.1"
-        If h < 40 Then Return "14.0"
-        If h < 41 Then Return "13.8"
-        If h < 42 Then Return "13.7"
-        If h < 43 Then Return "13.5"
-        If h < 44 Then Return "13.4"
-        If h < 45 Then Return "13.2"
-        If h < 46 Then Return "13.0"
-        If h < 47 Then Return "12.9"
-        If h < 48 Then Return "12.7"
-        If h < 49 Then Return "12.6"
-        If h < 50 Then Return "12.5" Else Return "rich"
+        '
+        ' Old conversion
+        '
+        'If h < 19 Then Return "lean"
+        'If h < 20 Then Return "15.0"
+        'If h < 21 Then Return "14.9"
+        'If h < 22 Then Return "14.8"
+        'If h < 23 Then Return "14.7"
+        'If h < 25 Then Return "14.6"
+        'If h < 35 Then Return "14.5"
+        'If h < 36 Then Return "14.4"
+        'If h < 37 Then Return "14.3"
+        'If h < 38 Then Return "14.2"
+        'If h < 39 Then Return "14.1"
+        'If h < 40 Then Return "14.0"
+        'If h < 41 Then Return "13.8"
+        'If h < 42 Then Return "13.7"
+        'If h < 43 Then Return "13.5"
+        'If h < 44 Then Return "13.4"
+        'If h < 45 Then Return "13.2"
+        'If h < 46 Then Return "13.0"
+        'If h < 47 Then Return "12.9"
+        'If h < 48 Then Return "12.7"
+        'If h < 49 Then Return "12.6"
+        'If h < 50 Then Return "12.5" Else Return "rich"
 
     End Function
 
