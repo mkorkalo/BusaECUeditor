@@ -81,13 +81,13 @@ Public Class K8Advsettings
         '
         ' Check if dynomode is on or off
         '
-        R_dynomode.Enabled = False
-        If ReadFlashByte(&H728A9) <> &H20 Then
-            R_dynomode_normal.Checked = True
-            R_dynomode.Checked = False
+        C_ramairmode.Enabled = False
+        If ReadFlashByte(&H728BD + 19) = &H20 Then
+            C_ramairmode.Checked = False
+            C_ramairmode.Text = "Turbomode/Dynomode"
         Else
-            R_dynomode_normal.Checked = False
-            R_dynomode.Checked = True
+            C_ramairmode.Checked = True
+            C_ramairmode.Text = "Normal ramair"
         End If
 
         If ReadFlashByte(&H7F004) = &HFF Then
@@ -95,7 +95,7 @@ Public Class K8Advsettings
         Else
             R_IAT_dynomode.Checked = True
         End If
-        R_dynomode.Enabled = True
+        C_ramairmode.Enabled = True
 
         '
         ' The flashmode_fast will be detected 
@@ -451,15 +451,15 @@ Public Class K8Advsettings
 
     End Sub
 
-    Private Sub R_dynomode_normal_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles R_dynomode_normal.CheckedChanged
-        R_dynomode.Checked = Not R_dynomode_normal.Checked
+    Private Sub R_dynomode_normal_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        C_ramairmode.Checked = Not C_ramairmode.Checked
         If Not loading Then
 
-            If R_dynomode_normal.Checked Then
-                dynomode_normal()
+            If C_ramairmode.Checked Then
+                ramairmode_normal()
                 B_ramairadjust.Enabled = True
             Else
-                dynomode_on()
+                ramairmode_dynomode_on()
                 B_ramairadjust.Enabled = False
             End If
         End If
@@ -520,7 +520,7 @@ Public Class K8Advsettings
 
     End Sub
 
-    Private Sub dynomode_normal()
+    Private Sub ramairmode_normal()
         '
         ' Set 1st gear ram air compensation to normal
         '
@@ -661,7 +661,7 @@ Public Class K8Advsettings
         WriteFlashByte(&H728BD + 19, &HE3)
 
     End Sub
-    Private Sub dynomode_on()
+    Private Sub ramairmode_dynomode_on()
         Dim i As Integer
         If Not loading Then
 
@@ -1018,7 +1018,17 @@ Public Class K8Advsettings
 
     End Sub
 
-    Private Sub R_dynomode_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles R_dynomode.CheckedChanged
+    Private Sub CheckBox1_CheckedChanged_3(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_ramairmode.CheckedChanged
+
+        If C_ramairmode.Checked Then
+            C_ramairmode.Text = "Normal ramair"
+            ramairmode_normal()
+            B_ramairadjust.Enabled = True
+        Else
+            C_ramairmode.Text = "Turbomode/Dynomode"
+            ramairmode_dynomode_on()
+            B_ramairadjust.Enabled = False
+        End If
 
     End Sub
 End Class
