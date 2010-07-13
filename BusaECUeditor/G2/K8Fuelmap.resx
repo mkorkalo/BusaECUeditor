@@ -120,15 +120,53 @@
   <metadata name="Timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>218, 17</value>
+  </metadata>
+  <data name="B_TPS.ToolTip" xml:space="preserve">
+    <value>TPS map which is the main fuel map for Throttle position over 10% TPS.  
+Practical limit is 400 after which the injectors are getting maxed out.
++ key to add fuelpulse. 
+- key to reduce fuelpulse
+* to add 5% to fuelpulse
+/ to reduce 5% from fuelpulse.</value>
+  </data>
+  <data name="B_IAP.ToolTip" xml:space="preserve">
+    <value>IAP i.e. intake vacuum map which is the main fuel map for Throttle position &lt; 10% TPS.  
+
+Practical limit is 400 after which the injectors are getting maxed out.
++ key to add fuelpulse. 
+- key to reduce fuelpulse
+* to add 5% to fuelpulse
+/ to reduce 5% from fuelpulse.
+</value>
+  </data>
+  <data name="B_MSTP.ToolTip" xml:space="preserve">
+    <value>
+MS TPS map is active when ecu pin 58 is not grounded.
+
+As stock the pin 58 is grounded and MS0 i.e. normal TPS and IAP maps are active. 
+
+You can put a switch into the pin 58 wire. To select the MS0 and MS1 mode.
+</value>
+  </data>
   <metadata name="PrintForm1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>106, 17</value>
-  </metadata>
-  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>78</value>
   </metadata>
+  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="B_MSIAP.ToolTip" xml:space="preserve">
+    <value>
+MS IAP map is active when ecu pin 58 is not grounded.
+
+As stock the pin 58 is grounded and MS0 i.e. normal TPS and IAP maps are active. 
+
+You can put a switch into the pin 58 wire. To select the MS0 and MS1 mode.</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
