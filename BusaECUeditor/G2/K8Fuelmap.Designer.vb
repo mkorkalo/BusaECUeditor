@@ -33,6 +33,8 @@ Partial Class K8Fuelmap
         Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.L_modeabc = New System.Windows.Forms.Label
         Me.B_MSIAP = New System.Windows.Forms.Button
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.B_copy = New System.Windows.Forms.Button
         CType(Me.Fuelmapgrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -65,6 +67,7 @@ Partial Class K8Fuelmap
         Me.B_TPS.Size = New System.Drawing.Size(49, 23)
         Me.B_TPS.TabIndex = 1
         Me.B_TPS.Text = "TPS"
+        Me.ToolTip1.SetToolTip(Me.B_TPS, resources.GetString("B_TPS.ToolTip"))
         Me.B_TPS.UseVisualStyleBackColor = True
         '
         'B_IAP
@@ -74,6 +77,7 @@ Partial Class K8Fuelmap
         Me.B_IAP.Size = New System.Drawing.Size(49, 23)
         Me.B_IAP.TabIndex = 2
         Me.B_IAP.Text = "IAP"
+        Me.ToolTip1.SetToolTip(Me.B_IAP, resources.GetString("B_IAP.ToolTip"))
         Me.B_IAP.UseVisualStyleBackColor = True
         '
         'B_MSTP
@@ -83,15 +87,17 @@ Partial Class K8Fuelmap
         Me.B_MSTP.Size = New System.Drawing.Size(56, 23)
         Me.B_MSTP.TabIndex = 11
         Me.B_MSTP.Text = "MS TPS"
+        Me.ToolTip1.SetToolTip(Me.B_MSTP, resources.GetString("B_MSTP.ToolTip"))
         Me.B_MSTP.UseVisualStyleBackColor = True
         '
         'B_Apply_MAP
         '
-        Me.B_Apply_MAP.Location = New System.Drawing.Point(252, 3)
+        Me.B_Apply_MAP.Location = New System.Drawing.Point(237, 3)
         Me.B_Apply_MAP.Name = "B_Apply_MAP"
-        Me.B_Apply_MAP.Size = New System.Drawing.Size(78, 23)
+        Me.B_Apply_MAP.Size = New System.Drawing.Size(67, 23)
         Me.B_Apply_MAP.TabIndex = 12
         Me.B_Apply_MAP.Text = "Apply map"
+        Me.ToolTip1.SetToolTip(Me.B_Apply_MAP, "To import map settings from e.g. another .bin to TPS and IAP maps")
         Me.B_Apply_MAP.UseVisualStyleBackColor = True
         '
         'T_TPSIAP
@@ -124,9 +130,9 @@ Partial Class K8Fuelmap
         Me.T_change.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.T_change.Enabled = False
         Me.T_change.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.T_change.Location = New System.Drawing.Point(373, 2)
+        Me.T_change.Location = New System.Drawing.Point(385, 2)
         Me.T_change.Name = "T_change"
-        Me.T_change.Size = New System.Drawing.Size(92, 19)
+        Me.T_change.Size = New System.Drawing.Size(80, 19)
         Me.T_change.TabIndex = 20
         Me.T_change.WordWrap = False
         '
@@ -154,14 +160,32 @@ Partial Class K8Fuelmap
         Me.B_MSIAP.Name = "B_MSIAP"
         Me.B_MSIAP.Size = New System.Drawing.Size(56, 23)
         Me.B_MSIAP.TabIndex = 23
-        Me.B_MSIAP.Text = "MS TPS"
+        Me.B_MSIAP.Text = "MS IAP"
+        Me.ToolTip1.SetToolTip(Me.B_MSIAP, resources.GetString("B_MSIAP.ToolTip"))
         Me.B_MSIAP.UseVisualStyleBackColor = True
+        '
+        'ToolTip1
+        '
+        Me.ToolTip1.AutoPopDelay = 10000
+        Me.ToolTip1.InitialDelay = 500
+        Me.ToolTip1.ReshowDelay = 100
+        '
+        'B_copy
+        '
+        Me.B_copy.Location = New System.Drawing.Point(310, 3)
+        Me.B_copy.Name = "B_copy"
+        Me.B_copy.Size = New System.Drawing.Size(69, 23)
+        Me.B_copy.TabIndex = 24
+        Me.B_copy.Text = "MS0->MS1"
+        Me.ToolTip1.SetToolTip(Me.B_copy, "Copy MS0 map to MS1 map press either c or click this button.")
+        Me.B_copy.UseVisualStyleBackColor = True
         '
         'K8Fuelmap
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(5.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(796, 711)
+        Me.Controls.Add(Me.B_copy)
         Me.Controls.Add(Me.B_MSIAP)
         Me.Controls.Add(Me.L_modeabc)
         Me.Controls.Add(Me.T_change)
@@ -196,4 +220,6 @@ Partial Class K8Fuelmap
     Friend WithEvents PrintForm1 As Microsoft.VisualBasic.PowerPacks.Printing.PrintForm
     Friend WithEvents L_modeabc As System.Windows.Forms.Label
     Friend WithEvents B_MSIAP As System.Windows.Forms.Button
+    Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
+    Friend WithEvents B_copy As System.Windows.Forms.Button
 End Class
