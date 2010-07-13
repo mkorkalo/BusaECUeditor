@@ -49,7 +49,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>ecueditor_prerelease.htm</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>11</ApplicationRevision>
+    <ApplicationRevision>12</ApplicationRevision>
     <ApplicationVersion>2.4.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -190,6 +190,12 @@
       <DependentUpon>BKingIgnitionMap.vb</DependentUpon>
     </Compile>
     <Compile Include="BKing\BKingIgnitionMap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8gen2tools.Designer.vb">
+      <DependentUpon>K8gen2tools.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8gen2tools.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="G2\K8boostdiagram.Designer.vb">
@@ -518,6 +524,9 @@
     <Content Include="ecu.bin\G1BusaUSdefault.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ecu.bin\gen2tools.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -678,6 +687,9 @@
     <EmbeddedResource Include="BKing\BKingIgnitionMap.resx">
       <DependentUpon>BKingIgnitionMap.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8gen2tools.resx">
+      <DependentUpon>K8gen2tools.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8boostdiagram.resx">
       <DependentUpon>K8boostdiagram.vb</DependentUpon>

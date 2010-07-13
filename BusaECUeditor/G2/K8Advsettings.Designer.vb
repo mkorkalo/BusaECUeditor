@@ -39,6 +39,7 @@ Partial Class K8Advsettings
         Me.C_coolingfan = New System.Windows.Forms.CheckBox
         Me.C_secondaries = New System.Windows.Forms.CheckBox
         Me.C_IAPTPS = New System.Windows.Forms.ComboBox
+        Me.C_ramairmode = New System.Windows.Forms.CheckBox
         Me.B_ramairadjust = New System.Windows.Forms.Button
         Me.GroupBox6 = New System.Windows.Forms.GroupBox
         Me.C_PAIR = New System.Windows.Forms.CheckBox
@@ -60,13 +61,14 @@ Partial Class K8Advsettings
         Me.GroupBox9 = New System.Windows.Forms.GroupBox
         Me.Label11 = New System.Windows.Forms.Label
         Me.Label10 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
         Me.Label7 = New System.Windows.Forms.Label
         Me.GroupBox4 = New System.Windows.Forms.GroupBox
         Me.GroupBox7 = New System.Windows.Forms.GroupBox
         Me.Label5 = New System.Windows.Forms.Label
         Me.C_ABCmode = New System.Windows.Forms.CheckBox
-        Me.C_ramairmode = New System.Windows.Forms.CheckBox
+        Me.Label9 = New System.Windows.Forms.Label
+        Me.Button5 = New System.Windows.Forms.Button
+        Me.Label12 = New System.Windows.Forms.Label
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -190,7 +192,7 @@ Partial Class K8Advsettings
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(110, 77)
+        Me.Button3.Location = New System.Drawing.Point(110, 50)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(80, 23)
         Me.Button3.TabIndex = 4
@@ -221,7 +223,7 @@ Partial Class K8Advsettings
         '
         'Button4
         '
-        Me.Button4.Location = New System.Drawing.Point(110, 105)
+        Me.Button4.Location = New System.Drawing.Point(110, 78)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(80, 23)
         Me.Button4.TabIndex = 6
@@ -274,10 +276,21 @@ Partial Class K8Advsettings
         Me.C_IAPTPS.TabIndex = 8
         Me.ToolTip1.SetToolTip(Me.C_IAPTPS, resources.GetString("C_IAPTPS.ToolTip"))
         '
+        'C_ramairmode
+        '
+        Me.C_ramairmode.AutoSize = True
+        Me.C_ramairmode.Location = New System.Drawing.Point(7, 161)
+        Me.C_ramairmode.Name = "C_ramairmode"
+        Me.C_ramairmode.Size = New System.Drawing.Size(88, 17)
+        Me.C_ramairmode.TabIndex = 2
+        Me.C_ramairmode.Text = "Ramair mode"
+        Me.ToolTip1.SetToolTip(Me.C_ramairmode, resources.GetString("C_ramairmode.ToolTip"))
+        Me.C_ramairmode.UseVisualStyleBackColor = True
+        '
         'B_ramairadjust
         '
         Me.B_ramairadjust.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.B_ramairadjust.Location = New System.Drawing.Point(110, 49)
+        Me.B_ramairadjust.Location = New System.Drawing.Point(110, 107)
         Me.B_ramairadjust.Name = "B_ramairadjust"
         Me.B_ramairadjust.Size = New System.Drawing.Size(79, 22)
         Me.B_ramairadjust.TabIndex = 2
@@ -293,7 +306,7 @@ Partial Class K8Advsettings
         Me.GroupBox6.Controls.Add(Me.R_IAT_dynomode)
         Me.GroupBox6.Location = New System.Drawing.Point(17, 71)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(154, 175)
+        Me.GroupBox6.Size = New System.Drawing.Size(154, 188)
         Me.GroupBox6.TabIndex = 10
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Dynomode settings"
@@ -319,13 +332,15 @@ Partial Class K8Advsettings
         '
         'GroupBox5
         '
+        Me.GroupBox5.Controls.Add(Me.Button5)
+        Me.GroupBox5.Controls.Add(Me.Label9)
         Me.GroupBox5.Controls.Add(Me.Label8)
         Me.GroupBox5.Controls.Add(Me.Label1)
         Me.GroupBox5.Controls.Add(Me.Button2)
         Me.GroupBox5.Controls.Add(Me.B_boostfuel)
         Me.GroupBox5.Location = New System.Drawing.Point(179, 12)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(213, 85)
+        Me.GroupBox5.Size = New System.Drawing.Size(213, 106)
         Me.GroupBox5.TabIndex = 40
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Powertools"
@@ -391,7 +406,7 @@ Partial Class K8Advsettings
         Me.GroupBox8.Controls.Add(Me.Label4)
         Me.GroupBox8.Controls.Add(Me.Label2)
         Me.GroupBox8.Controls.Add(Me.T_hexaddr)
-        Me.GroupBox8.Location = New System.Drawing.Point(15, 350)
+        Me.GroupBox8.Location = New System.Drawing.Point(15, 361)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(376, 65)
         Me.GroupBox8.TabIndex = 42
@@ -451,17 +466,17 @@ Partial Class K8Advsettings
         '
         'GroupBox9
         '
+        Me.GroupBox9.Controls.Add(Me.Label12)
         Me.GroupBox9.Controls.Add(Me.Button4)
+        Me.GroupBox9.Controls.Add(Me.B_ramairadjust)
         Me.GroupBox9.Controls.Add(Me.Label11)
         Me.GroupBox9.Controls.Add(Me.Button3)
         Me.GroupBox9.Controls.Add(Me.Label10)
-        Me.GroupBox9.Controls.Add(Me.B_ramairadjust)
-        Me.GroupBox9.Controls.Add(Me.Label9)
         Me.GroupBox9.Controls.Add(Me.Button1)
         Me.GroupBox9.Controls.Add(Me.Label7)
-        Me.GroupBox9.Location = New System.Drawing.Point(178, 103)
+        Me.GroupBox9.Location = New System.Drawing.Point(179, 124)
         Me.GroupBox9.Name = "GroupBox9"
-        Me.GroupBox9.Size = New System.Drawing.Size(214, 143)
+        Me.GroupBox9.Size = New System.Drawing.Size(214, 135)
         Me.GroupBox9.TabIndex = 44
         Me.GroupBox9.TabStop = False
         Me.GroupBox9.Text = "Misc maps"
@@ -469,7 +484,7 @@ Partial Class K8Advsettings
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(7, 110)
+        Me.Label11.Location = New System.Drawing.Point(7, 83)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(56, 13)
         Me.Label11.TabIndex = 5
@@ -478,20 +493,11 @@ Partial Class K8Advsettings
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(8, 82)
+        Me.Label10.Location = New System.Drawing.Point(8, 55)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(93, 13)
         Me.Label10.TabIndex = 3
         Me.Label10.Text = "Inj Bal map editing"
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(8, 54)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(74, 13)
-        Me.Label9.TabIndex = 2
-        Me.Label9.Text = "Ramair editing"
         '
         'Label7
         '
@@ -523,7 +529,7 @@ Partial Class K8Advsettings
         Me.GroupBox7.Controls.Add(Me.C_ABCmode)
         Me.GroupBox7.Controls.Add(Me.C_coil_fi_disable)
         Me.GroupBox7.Controls.Add(Me.C_ICS)
-        Me.GroupBox7.Location = New System.Drawing.Point(18, 252)
+        Me.GroupBox7.Location = New System.Drawing.Point(15, 265)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Size = New System.Drawing.Size(374, 90)
         Me.GroupBox7.TabIndex = 46
@@ -549,16 +555,32 @@ Partial Class K8Advsettings
         Me.C_ABCmode.Text = "ABC fixed to A"
         Me.C_ABCmode.UseVisualStyleBackColor = True
         '
-        'C_ramairmode
+        'Label9
         '
-        Me.C_ramairmode.AutoSize = True
-        Me.C_ramairmode.Location = New System.Drawing.Point(6, 111)
-        Me.C_ramairmode.Name = "C_ramairmode"
-        Me.C_ramairmode.Size = New System.Drawing.Size(88, 17)
-        Me.C_ramairmode.TabIndex = 2
-        Me.C_ramairmode.Text = "Ramair mode"
-        Me.ToolTip1.SetToolTip(Me.C_ramairmode, resources.GetString("C_ramairmode.ToolTip"))
-        Me.C_ramairmode.UseVisualStyleBackColor = True
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(8, 78)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(54, 13)
+        Me.Label9.TabIndex = 43
+        Me.Label9.Text = "Misc tools"
+        '
+        'Button5
+        '
+        Me.Button5.Location = New System.Drawing.Point(111, 74)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(81, 22)
+        Me.Button5.TabIndex = 44
+        Me.Button5.Text = "Misc tools"
+        Me.Button5.UseVisualStyleBackColor = True
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(8, 112)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(63, 13)
+        Me.Label12.TabIndex = 7
+        Me.Label12.Text = "Ramair map"
         '
         'K8Advsettings
         '
@@ -630,7 +652,6 @@ Partial Class K8Advsettings
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents B_ramairadjust As System.Windows.Forms.Button
-    Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents Button3 As System.Windows.Forms.Button
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents GroupBox7 As System.Windows.Forms.GroupBox
@@ -644,4 +665,7 @@ Partial Class K8Advsettings
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents C_IAPTPS As System.Windows.Forms.ComboBox
     Friend WithEvents C_ramairmode As System.Windows.Forms.CheckBox
+    Friend WithEvents Button5 As System.Windows.Forms.Button
+    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents Label12 As System.Windows.Forms.Label
 End Class
