@@ -425,8 +425,8 @@ Public Class K8Fuelmap
                         '
                         ' Need to write the values also to TPS idle neutral map
                         '
-                        'copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((&H52364 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        'WriteFlashWord(copy_to_map2 + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
+                        copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((&H52364 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        WriteFlashWord(copy_to_map2 + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
                     Next
                 Next
             Next
@@ -458,6 +458,10 @@ Public Class K8Fuelmap
             Case 4
                 map_structure_table = &H52304
                 Me.Text = "ECUeditor - Fuel MS TPS/RPM map"
+                ms01 = 1            ' 0,1
+            Case 5
+                map_structure_table = &H52244 ' &H52244 on gear, &H522A4 on neutral
+                Me.Text = "ECUeditor - Fuel MS IAP/RPM map"
                 ms01 = 1            ' 0,1
         End Select
         rr = 0
@@ -655,18 +659,20 @@ Public Class K8Fuelmap
         If CC <= 0 Then CC = 0
         If rr <> 0 Or cc <> 0 Then
             setCellColour(0, rr)
-            Fuelmapgrid.Item(cc, rr).Style.BackColor = Color.Blue
+            If Not TPSmap And CalcTPSDec(TPS) >= 10 Then
+                '
+                ' Show here to the user that the active map is not right type of map by setting the color of the cursor to different
+                '
+                Fuelmapgrid.Item(CC, RR).Style.BackColor = Color.Red
+            Else
+                '
+                ' This is normal trace colour
+                '
+                Fuelmapgrid.Item(CC, RR).Style.BackColor = Color.Blue
+            End If
         Else
             setCellColour(CC, RR)
         End If
-
-        'Me.Text = "EcuEditor.com - Fuelmap module"
-        'If TPSmap And CalcTPSDec(TPS) < 10 Then
-        'Me.Text = "EcuEditor.com - You are trying to adjust an inactive TPS map"
-        'End If
-        'If Not TPSmap And CalcTPSDec(TPS) >= 10 Then
-        'Me.Text = "EcuEditor.com - You are trying to adjust an inactive IAP map"
-        'End If
 
     End Sub
     Private Sub B_TPSMAP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_TPS.Click
@@ -1288,4 +1294,17 @@ Public Class K8Fuelmap
     End Sub
 
    
+    Private Sub B_MSIAP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_MSIAP.Click
+
+        If FastMode() Then
+            MsgBox("Can only edit MS maps in Normal mode")
+        Else
+            selectmap(5)
+        End If
+
+    End Sub
+
+    Private Sub B_copy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_copy.Click
+        copymaps(2)
+    End Sub
 End Class

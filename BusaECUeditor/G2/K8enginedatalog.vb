@@ -16,15 +16,14 @@ Public Class K8enginedatalog
                 i = 15
             Case "rich"
                 i = 11
+            Case "---"
+                i = &H255
             Case Else
                 i = Val(Replace(K8Datastream.ho2toafr(HO2), ".", ","))
         End Select
         If RPM > 1500 Then
-            Me.P_RPM.AddValue(RPM)
-            Me.P_TPS.AddValue(Val(CalcTPS(TPS)))
-            Me.P_AFR.AddValue(i)
 
-            Me.L_datalog.Items.Add(Format(RPM, "00000   ") & Format(CalcTPSDec(TPS), "00.0   ") & Format(IAP, "00.0   ") & K8Datastream.ho2toafr(HO2) & " " & Format(BOOST, "000"))
+            Me.L_datalog.Items.Add(Format(RPM, "00000   ") & Format(CalcTPSDec(TPS), "00.0   ") & Format(IAP, "00.0   ") & K8Datastream.ho2toafr(HO2) & "   " & Format(BOOST, "000"))
             Me.L_record.ForeColor = Color.Green
 
         Else
@@ -47,9 +46,7 @@ Public Class K8enginedatalog
         '
         '
 
-        Me.P_RPM.TimerMode = SpPerfChart.TimerMode.Disabled
-        Me.P_TPS.TimerMode = SpPerfChart.TimerMode.Disabled
-        Me.P_AFR.TimerMode = SpPerfChart.TimerMode.Disabled
+  
     End Sub
 
     Private Sub traceitem()
@@ -62,7 +59,7 @@ Public Class K8enginedatalog
         ' Close enginedata so that it will not disturb, control is now with this screen
         '
         If K8Datastream.Visible() Then
-            K8Datastream.closeenginedatacomms()
+            K8Datastream.Close()
         End If
 
         '
@@ -71,7 +68,10 @@ Public Class K8enginedatalog
         RPM = Val(Mid$(L_datalog.Text, 1, 5))
         TPS = CalcTPSToVal(Mid$(L_datalog.Text, 8, 4))
         IAP = Val(Mid$(L_datalog.Text, 16, 4))
-        BOOST = Val(Mid$(L_datalog.Text, 28, 3))
+        BOOST = Val(Mid$(L_datalog.Text, 31, 3))
+        LED_RPM.Text = RPM
+        LED_TPS.Text = CalcTPS(TPS)
+        LED_IAP.Text = IAP
 
         '
         ' If fuelmap is not visible we will show it
@@ -112,5 +112,9 @@ Public Class K8enginedatalog
 
     Private Sub B_Clear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Clear.Click
         Me.L_datalog.Items.Clear()
+    End Sub
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_rerun.Click
+        traceitem()
     End Sub
 End Class

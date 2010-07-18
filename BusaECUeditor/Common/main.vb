@@ -4235,6 +4235,148 @@ Public Class main
 
 #End Region
 
+    Private Sub RecoveryToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RecoveryToolStripMenuItem.Click
+        ' Lets use OpenFileDialog to open a new flash image file
+        Dim fdlg As OpenFileDialog = New OpenFileDialog()
+        Dim fs As FileStream
+        fdlg.InitialDirectory = My.Application.Info.DirectoryPath 'My.Application.Info.DirectoryPath
+        fdlg.Title = "Open ECU .bin file from recovery location"
+        fdlg.Filter = "ECU definitions (*.bin)|*.bin"
+        fdlg.FilterIndex = 1
+        fdlg.RestoreDirectory = True
+        fdlg.FileName = My.Application.Info.DirectoryPath
+        CloseChildWindows()
+
+        If fdlg.ShowDialog() = Windows.Forms.DialogResult.OK Then
+
+            ' OK, so the file is found, now lets start processing it
+            path = fdlg.FileName
+            If path.Length > 15 Then
+                L_Comparefile.Text = "..." & path.Substring(path.Length - 15)
+                L_File.Text = L_Comparefile.Text
+            Else
+                L_Comparefile.Text = path
+                L_File.Text = L_Comparefile.Text
+            End If
+
+            ' Open the stream and read it to global variable "Flash". 
+            fs = File.OpenRead(path)
+            Dim b(1) As Byte
+            Dim i As Integer
+            i = 0
+            Do While fs.Read(b, 0, 1) > 0
+                Flash(i) = b(0)
+                FlashCopy(i) = b(0)
+                i = i + 1
+            Loop
+            fs.Close()
+
+            ' Check that the binary lenght matches expected ecu
+            ' and initialize variables and stuff as needed 
+            '
+            ' Remove v1.5 protection if exists
+            '
+            If Flash(&H2) = 0 Then
+                Flash(&H2) = 4
+                MsgBox("ECUeditor v1.5 protection detected and removed")
+            End If
+
+            Select Case i
+                Case (262144 * 4)
+                    ECUVersion = "gen2"
+                    '
+                    ' Make sure the ECU id is supported type
+                    '
+                    i = 0
+                    ECUID.Text = ""
+                    Do While i < 8
+                        ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
+                        i = i + 1
+                    Loop
+
+                    ' check the ecu id bytes and validate that the ecu flash image is supported
+                    If (Mid(ECUID.Text, 1, 6) <> "DJ18SE") And (Mid(ECUID.Text, 1, 6) <> "DJ47SE") Then
+                        ECUNotSupported.ShowDialog()
+                    Else
+                        SetECUType()
+                    End If
+                    BlockPgm = True
+                    CloseChildWindows()
+                Case (262144)
+                    ECUVersion = "gen1"
+                    FlashToolStripMenuItem.Visible = False
+
+                    ' Make sure the ECU id is supported type
+                    i = 0
+                    ECUID.Text = ""
+                    Do While i < 8
+                        ECUID.Text = ECUID.Text & Chr(Flash(&H3FFF0 + i))
+                        i = i + 1
+                    Loop
+
+                    ' check the ecu id bytes and validate that the ecu flash image is supported
+                    If Mid(ECUID.Text, 1, 6) <> "BB34BB" Then
+                        ECUNotSupported.ShowDialog()
+                    Else
+                        Hayabusa.Visible = True
+                        Select Case Mid(ECUID.Text, 1, 8)
+                            Case "BB34BB51"
+                                Hayabusa.Text = "Hayabusa EU"
+                                Metric = True
+                                ECUVersion = "gen1"
+                            Case "BB34BB35"
+                                Hayabusa.Text = "Hayabusa USA"
+                                Metric = False
+                                ECUVersion = "gen1"
+                            Case Else
+                                Hayabusa.Text = "Unknown model"
+                                Metric = True
+                                ECUVersion = ""
+                        End Select
+                    End If
+
+                Case Else
+                    ECUVersion = ""
+                    ECUNotSupported.ShowDialog()
+            End Select
+
+            My.Settings.Item("path") = path
+            My.Settings.Item("comparepath") = comparepath
+            ' enable controls, otherwise at form load an event will occur
+            Limiters.C_RPM.Enabled = True
+            SaveToolStripMenuItem.Enabled = True
+            B_FlashECU.Enabled = True
+            B_Limiters.Enabled = True
+            B_Shifter.Enabled = True
+            B_FuelMap.Enabled = True
+            B_IgnitionMap.Enabled = True
+            B_AdvancedSettings.Enabled = True
+
+            Select Case ECUVersion
+                Case "gen1"
+                    B_EngineData.Enabled = True
+                    FuelMap.Close()
+                    IgnitionMap.Close()
+                    FlashToolStripMenuItem.Visible = False
+
+                Case "gen2"
+                    B_EngineData.Enabled = True
+                    K8Ignitionmap.Close()
+                    K8Fuelmap.Close()
+                    FlashToolStripMenuItem.Visible = Enabled
+                Case "bking"
+                    B_EngineData.Enabled = True
+                    FlashToolStripMenuItem.Visible = Enabled
+
+                Case Else
+                    MsgBox("feature not yet implemented")
+            End Select
+
+            MsgBox("Now remember to save the file with a different name to your default ecueditor.com files directory")
+
+        End If
+
+    End Sub
 End Class
 
 
