@@ -28,9 +28,6 @@ Partial Class K8Advsettings
         Me.GroupBox3 = New System.Windows.Forms.GroupBox
         Me.C_ECU = New System.Windows.Forms.ComboBox
         Me.Label3 = New System.Windows.Forms.Label
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.R_dynomode_normal = New System.Windows.Forms.RadioButton
-        Me.R_dynomode = New System.Windows.Forms.RadioButton
         Me.C_HOX = New System.Windows.Forms.CheckBox
         Me.R_IAT_normal = New System.Windows.Forms.RadioButton
         Me.R_IAT_dynomode = New System.Windows.Forms.RadioButton
@@ -69,9 +66,9 @@ Partial Class K8Advsettings
         Me.GroupBox7 = New System.Windows.Forms.GroupBox
         Me.Label5 = New System.Windows.Forms.Label
         Me.C_ABCmode = New System.Windows.Forms.CheckBox
+        Me.C_ramairmode = New System.Windows.Forms.CheckBox
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
@@ -154,40 +151,6 @@ Partial Class K8Advsettings
         Me.Label3.Size = New System.Drawing.Size(29, 13)
         Me.Label3.TabIndex = 6
         Me.Label3.Text = "ECU"
-        '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.R_dynomode_normal)
-        Me.GroupBox2.Controls.Add(Me.R_dynomode)
-        Me.GroupBox2.Location = New System.Drawing.Point(16, 69)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(156, 67)
-        Me.GroupBox2.TabIndex = 4
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Ramair mode"
-        Me.ToolTip1.SetToolTip(Me.GroupBox2, "Set ram air compensation mode" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10))
-        '
-        'R_dynomode_normal
-        '
-        Me.R_dynomode_normal.AutoSize = True
-        Me.R_dynomode_normal.Location = New System.Drawing.Point(6, 42)
-        Me.R_dynomode_normal.Name = "R_dynomode_normal"
-        Me.R_dynomode_normal.Size = New System.Drawing.Size(92, 17)
-        Me.R_dynomode_normal.TabIndex = 1
-        Me.R_dynomode_normal.TabStop = True
-        Me.R_dynomode_normal.Text = "Normal ram air"
-        Me.R_dynomode_normal.UseVisualStyleBackColor = True
-        '
-        'R_dynomode
-        '
-        Me.R_dynomode.AutoSize = True
-        Me.R_dynomode.Location = New System.Drawing.Point(6, 19)
-        Me.R_dynomode.Name = "R_dynomode"
-        Me.R_dynomode.Size = New System.Drawing.Size(149, 17)
-        Me.R_dynomode.TabIndex = 0
-        Me.R_dynomode.TabStop = True
-        Me.R_dynomode.Text = "Flat dynomode/turbomode"
-        Me.R_dynomode.UseVisualStyleBackColor = True
         '
         'C_HOX
         '
@@ -323,13 +286,14 @@ Partial Class K8Advsettings
         '
         'GroupBox6
         '
+        Me.GroupBox6.Controls.Add(Me.C_ramairmode)
         Me.GroupBox6.Controls.Add(Me.C_PAIR)
         Me.GroupBox6.Controls.Add(Me.C_HOX)
         Me.GroupBox6.Controls.Add(Me.R_IAT_normal)
         Me.GroupBox6.Controls.Add(Me.R_IAT_dynomode)
-        Me.GroupBox6.Location = New System.Drawing.Point(17, 142)
+        Me.GroupBox6.Location = New System.Drawing.Point(17, 71)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(154, 112)
+        Me.GroupBox6.Size = New System.Drawing.Size(154, 175)
         Me.GroupBox6.TabIndex = 10
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Dynomode settings"
@@ -359,7 +323,7 @@ Partial Class K8Advsettings
         Me.GroupBox5.Controls.Add(Me.Label1)
         Me.GroupBox5.Controls.Add(Me.Button2)
         Me.GroupBox5.Controls.Add(Me.B_boostfuel)
-        Me.GroupBox5.Location = New System.Drawing.Point(178, 20)
+        Me.GroupBox5.Location = New System.Drawing.Point(179, 12)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Size = New System.Drawing.Size(213, 85)
         Me.GroupBox5.TabIndex = 40
@@ -427,7 +391,7 @@ Partial Class K8Advsettings
         Me.GroupBox8.Controls.Add(Me.Label4)
         Me.GroupBox8.Controls.Add(Me.Label2)
         Me.GroupBox8.Controls.Add(Me.T_hexaddr)
-        Me.GroupBox8.Location = New System.Drawing.Point(15, 356)
+        Me.GroupBox8.Location = New System.Drawing.Point(15, 350)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(376, 65)
         Me.GroupBox8.TabIndex = 42
@@ -495,7 +459,7 @@ Partial Class K8Advsettings
         Me.GroupBox9.Controls.Add(Me.Label9)
         Me.GroupBox9.Controls.Add(Me.Button1)
         Me.GroupBox9.Controls.Add(Me.Label7)
-        Me.GroupBox9.Location = New System.Drawing.Point(178, 111)
+        Me.GroupBox9.Location = New System.Drawing.Point(178, 103)
         Me.GroupBox9.Name = "GroupBox9"
         Me.GroupBox9.Size = New System.Drawing.Size(214, 143)
         Me.GroupBox9.TabIndex = 44
@@ -559,7 +523,7 @@ Partial Class K8Advsettings
         Me.GroupBox7.Controls.Add(Me.C_ABCmode)
         Me.GroupBox7.Controls.Add(Me.C_coil_fi_disable)
         Me.GroupBox7.Controls.Add(Me.C_ICS)
-        Me.GroupBox7.Location = New System.Drawing.Point(18, 260)
+        Me.GroupBox7.Location = New System.Drawing.Point(18, 252)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Size = New System.Drawing.Size(374, 90)
         Me.GroupBox7.TabIndex = 46
@@ -585,6 +549,17 @@ Partial Class K8Advsettings
         Me.C_ABCmode.Text = "ABC fixed to A"
         Me.C_ABCmode.UseVisualStyleBackColor = True
         '
+        'C_ramairmode
+        '
+        Me.C_ramairmode.AutoSize = True
+        Me.C_ramairmode.Location = New System.Drawing.Point(6, 111)
+        Me.C_ramairmode.Name = "C_ramairmode"
+        Me.C_ramairmode.Size = New System.Drawing.Size(88, 17)
+        Me.C_ramairmode.TabIndex = 2
+        Me.C_ramairmode.Text = "Ramair mode"
+        Me.ToolTip1.SetToolTip(Me.C_ramairmode, resources.GetString("C_ramairmode.ToolTip"))
+        Me.C_ramairmode.UseVisualStyleBackColor = True
+        '
         'K8Advsettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -596,7 +571,6 @@ Partial Class K8Advsettings
         Me.Controls.Add(Me.GroupBox8)
         Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.GroupBox6)
-        Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -609,8 +583,6 @@ Partial Class K8Advsettings
         Me.GroupBox1.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
         Me.GroupBox6.ResumeLayout(False)
         Me.GroupBox6.PerformLayout()
         Me.GroupBox5.ResumeLayout(False)
@@ -633,9 +605,6 @@ Partial Class K8Advsettings
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
     Friend WithEvents C_ECU As System.Windows.Forms.ComboBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
-    Friend WithEvents R_dynomode_normal As System.Windows.Forms.RadioButton
-    Friend WithEvents R_dynomode As System.Windows.Forms.RadioButton
     Friend WithEvents GroupBox6 As System.Windows.Forms.GroupBox
     Friend WithEvents R_IAT_normal As System.Windows.Forms.RadioButton
     Friend WithEvents R_IAT_dynomode As System.Windows.Forms.RadioButton
@@ -674,4 +643,5 @@ Partial Class K8Advsettings
     Friend WithEvents C_secondaries As System.Windows.Forms.CheckBox
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents C_IAPTPS As System.Windows.Forms.ComboBox
+    Friend WithEvents C_ramairmode As System.Windows.Forms.CheckBox
 End Class

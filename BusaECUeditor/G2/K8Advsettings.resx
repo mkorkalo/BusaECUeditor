@@ -228,6 +228,9 @@ work reliably.
 
 NOTE: This is untested feature for dyno testing only</value>
   </data>
+  <data name="C_ramairmode.ToolTip" xml:space="preserve">
+    <value>Ramair mode defines either a fixed ramair compensation (dynomode/turbomode) or alternatively gear based ramair compensation that can be adjusted with ramair map. Changing this setting will reset the ramair map to default map.</value>
+  </data>
   <metadata name="PrintForm1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>116, 17</value>
   </metadata>

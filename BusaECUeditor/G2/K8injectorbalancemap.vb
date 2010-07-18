@@ -109,7 +109,6 @@ Public Class K8injectorbalancemap
                 DecreaseSelectedCells()
             Case "0"
                 If L_gear.Visible Then
-
                     gear = 0
                     selectmap()
                 End If
@@ -149,13 +148,13 @@ Public Class K8injectorbalancemap
             Case "A"
                 modeabc = 0
                 selectmap()
-            Case "b"
-                modeabc = 1
-                selectmap()
-            Case "B"
-                modeabc = 1
-                selectmap()
-            Case "c"
+                'Case "b"
+                '    modeabc = 1
+                '    selectmap()
+                'Case "B"
+                '    modeabc = 1
+                '    selectmap()
+                'Case "c"
                 modeabc = 2
                 selectmap()
             Case "C"
