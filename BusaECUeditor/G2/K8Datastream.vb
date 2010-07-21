@@ -776,6 +776,90 @@ Public Class K8Datastream
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
                 kwpcomm = &H21
                 Timer2.Enabled = True
+            Case &H60180
+                '
+                ' Pair ON
+                '
+                txbyte = &H80
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H12
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &HF1
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H6
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &HA5
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H1
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H80
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H0
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H0
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H0
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = (&H80 + &H12 + &HF1 + &H6 + &HA5 + &H1 + &H80 + &H0 + &H0 + &H0) And &HFF
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                kwpcomm = &H21
+                Timer2.Enabled = True
+            Case &H60100
+                '
+                ' Pair OFF
+                '
+                txbyte = &H80
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H12
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &HF1
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H6
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &HA5
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H1
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H0
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H0
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H0
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H0
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = (&H80 + &H12 + &HF1 + &H6 + &HA5 + &H1 + &H0 + &H0 + &H0 + &H0) And &HFF
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                kwpcomm = &H21
+                Timer2.Enabled = True
+            Case &H60528
+                '
+                ' Set IDLE RPM to current RPM
+                '
+                txbyte = &H80
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H12
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &HF1
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H6
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &HA5
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H5
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H0
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H0
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = Int(RPM * 2.56 / (2 ^ 5))
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H0
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = (&H80 + &H12 + &HF1 + &H6 + &HA5 + &H5 + &H0 + &H0 + Int(RPM * 2.56 / (2 ^ 5)) + &H0) And &HFF
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                kwpcomm = &H21
+                Timer2.Enabled = True
             Case Else
                 T_datacomm.Text = T_datacomm.Text = " - unknown command - "
                 Timer2.Enabled = False ' justin case it should be false anyway
@@ -841,7 +925,13 @@ Public Class K8Datastream
         If K8STPmap.Visible Then K8STPmap.tracemap(GEAR, MS, MODE)
         If K8nitrouscontrol.Visible Then K8nitrouscontrol.tracemap()
 
-
+        If RPM = 0 Then
+            B_PAIR_ON.Visible = True
+            B_PAIR_OFF.Visible = True
+        Else
+            B_PAIR_ON.Visible = False
+            B_PAIR_OFF.Visible = False
+        End If
     End Sub
 
     Private Function getdtcdecription(ByVal dtc As String) As String
@@ -1572,6 +1662,33 @@ Public Class K8Datastream
         Else
             C_debug.Text = "debug is off"
         End If
+
+    End Sub
+
+    Private Sub Button1_Click_3(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_PAIR_ON.Click
+        '
+        ' Clear PAIR ON
+        '
+        ListBox1.Items.Clear()
+        kwpcomm = &H60180
+
+    End Sub
+
+    Private Sub Button2_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_PAIR_OFF.Click
+        '
+        ' Clear PAIR ON
+        '
+        ListBox1.Items.Clear()
+        kwpcomm = &H60100
+
+    End Sub
+
+    Private Sub B_IDLE_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_IDLE.Click
+        '
+        ' Clear Reset ICS
+        '
+        ListBox1.Items.Clear()
+        kwpcomm = &H60528
 
     End Sub
 End Class
