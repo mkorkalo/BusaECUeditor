@@ -1,0 +1,5 @@
+relre:BusaECUeditor/bin/Debug/
+relre:BusaECUeditor/bin/Release/
+relre:BusaECUeditor/obj/
+glob:BusaECUeditor/BusaECUeditor_TemporaryKey.pfx
+glob:*/Thumbs.db
