@@ -1027,11 +1027,11 @@ Public Class main
             FlashToolStripMenuItem.Visible = False
             Select Case Mid(ECUID.Text, 1, 8)
                 Case "BB34BB51"
-                    Hayabusa.Text = "Hayabusa EU"
+                    Hayabusa.Text = "Hayabusa EU 32920-24FK0"
                     Metric = True
                     ECUVersion = "gen1"
                 Case "BB34BB35"
-                    Hayabusa.Text = "Hayabusa USA"
+                    Hayabusa.Text = "Hayabusa USA 32920-24FG0"
                     Metric = False
                     ECUVersion = "gen1"
                 Case Else

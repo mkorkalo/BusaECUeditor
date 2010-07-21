@@ -166,11 +166,16 @@ Public Class AdvSettings
         C_SolenoidOff.Items.Add(Str(ReadFlashByte(_solenoidOffLow) * 100))
         C_SolenoidOn.SelectedIndex = 0
         C_SolenoidOff.SelectedIndex = 0
-        For i = 1 To 20
+
+        'add solenoid on and off list values on C_SolenoidOn & off comboboxes
+        For i = 1 To 20 'add items 500 - 10000, steps 500rpm
             C_SolenoidOn.Items.Add(Str(i * 500))
             C_SolenoidOff.Items.Add(Str(i * 500))
+            If i = 4 Then
+                C_SolenoidOff.Items.Add(Str(2200)) ' add original value on off list.
+            End If
         Next
-        For i = 101 To 120
+        For i = 101 To 120 'add items from 10100 to 12000, steps 100rpm
             C_SolenoidOn.Items.Add(Str(i * 100))
             C_SolenoidOff.Items.Add(Str(i * 100))
         Next
