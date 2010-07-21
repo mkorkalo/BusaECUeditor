@@ -1031,10 +1031,4 @@ Public Class K8Advsettings
         End If
 
     End Sub
-
-    Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
-        K8gen2tools.Show()
-        K8gen2tools.Select()
-
-    End Sub
 End Class
