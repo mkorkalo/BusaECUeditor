@@ -128,6 +128,9 @@ Partial Class K8Datastream
         Me.C_debug = New System.Windows.Forms.Button
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.L_ho2raw = New System.Windows.Forms.Label
+        Me.B_PAIR_ON = New System.Windows.Forms.Button
+        Me.B_PAIR_OFF = New System.Windows.Forms.Button
+        Me.B_IDLE = New System.Windows.Forms.Button
         CType(Me.LED_RPM, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_IGN, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_CLT, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -164,7 +167,7 @@ Partial Class K8Datastream
         '
         Me.T_datacomm.BackColor = System.Drawing.SystemColors.ButtonShadow
         Me.T_datacomm.Font = New System.Drawing.Font("Courier New", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.T_datacomm.Location = New System.Drawing.Point(17, 548)
+        Me.T_datacomm.Location = New System.Drawing.Point(17, 564)
         Me.T_datacomm.Multiline = True
         Me.T_datacomm.Name = "T_datacomm"
         Me.T_datacomm.Size = New System.Drawing.Size(347, 65)
@@ -923,7 +926,7 @@ Partial Class K8Datastream
         '
         Me.T_2180.BackColor = System.Drawing.SystemColors.ButtonShadow
         Me.T_2180.Font = New System.Drawing.Font("Courier New", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.T_2180.Location = New System.Drawing.Point(376, 619)
+        Me.T_2180.Location = New System.Drawing.Point(376, 635)
         Me.T_2180.Multiline = True
         Me.T_2180.Name = "T_2180"
         Me.T_2180.Size = New System.Drawing.Size(347, 127)
@@ -1122,7 +1125,7 @@ Partial Class K8Datastream
         '
         Me.T_21C0.BackColor = System.Drawing.SystemColors.ButtonShadow
         Me.T_21C0.Font = New System.Drawing.Font("Courier New", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.T_21C0.Location = New System.Drawing.Point(17, 619)
+        Me.T_21C0.Location = New System.Drawing.Point(17, 635)
         Me.T_21C0.Multiline = True
         Me.T_21C0.Name = "T_21C0"
         Me.T_21C0.Size = New System.Drawing.Size(347, 127)
@@ -1157,7 +1160,7 @@ Partial Class K8Datastream
         '
         Me.T_2108.BackColor = System.Drawing.SystemColors.ButtonShadow
         Me.T_2108.Font = New System.Drawing.Font("Courier New", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.T_2108.Location = New System.Drawing.Point(376, 548)
+        Me.T_2108.Location = New System.Drawing.Point(376, 564)
         Me.T_2108.Multiline = True
         Me.T_2108.Name = "T_2108"
         Me.T_2108.Size = New System.Drawing.Size(347, 65)
@@ -1382,9 +1385,9 @@ Partial Class K8Datastream
         '
         'C_debug
         '
-        Me.C_debug.Location = New System.Drawing.Point(175, 488)
+        Me.C_debug.Location = New System.Drawing.Point(173, 488)
         Me.C_debug.Name = "C_debug"
-        Me.C_debug.Size = New System.Drawing.Size(113, 28)
+        Me.C_debug.Size = New System.Drawing.Size(112, 28)
         Me.C_debug.TabIndex = 117
         Me.C_debug.Text = "Debug mode"
         Me.ToolTip1.SetToolTip(Me.C_debug, "Toggle error code checking at high rpm on of. Normally error codes are read only " & _
@@ -1406,12 +1409,42 @@ Partial Class K8Datastream
         Me.L_ho2raw.TabIndex = 118
         Me.L_ho2raw.Text = "n/a"
         '
+        'B_PAIR_ON
+        '
+        Me.B_PAIR_ON.Location = New System.Drawing.Point(12, 519)
+        Me.B_PAIR_ON.Name = "B_PAIR_ON"
+        Me.B_PAIR_ON.Size = New System.Drawing.Size(70, 23)
+        Me.B_PAIR_ON.TabIndex = 119
+        Me.B_PAIR_ON.Text = "Pair ON"
+        Me.B_PAIR_ON.UseVisualStyleBackColor = True
+        '
+        'B_PAIR_OFF
+        '
+        Me.B_PAIR_OFF.Location = New System.Drawing.Point(88, 519)
+        Me.B_PAIR_OFF.Name = "B_PAIR_OFF"
+        Me.B_PAIR_OFF.Size = New System.Drawing.Size(70, 23)
+        Me.B_PAIR_OFF.TabIndex = 120
+        Me.B_PAIR_OFF.Text = "Pair OFF"
+        Me.B_PAIR_OFF.UseVisualStyleBackColor = True
+        '
+        'B_IDLE
+        '
+        Me.B_IDLE.Location = New System.Drawing.Point(291, 517)
+        Me.B_IDLE.Name = "B_IDLE"
+        Me.B_IDLE.Size = New System.Drawing.Size(86, 28)
+        Me.B_IDLE.TabIndex = 121
+        Me.B_IDLE.Text = "Reset ICS"
+        Me.B_IDLE.UseVisualStyleBackColor = True
+        '
         'K8Datastream
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Silver
-        Me.ClientSize = New System.Drawing.Size(731, 536)
+        Me.ClientSize = New System.Drawing.Size(731, 551)
+        Me.Controls.Add(Me.B_IDLE)
+        Me.Controls.Add(Me.B_PAIR_OFF)
+        Me.Controls.Add(Me.B_PAIR_ON)
         Me.Controls.Add(Me.L_ho2raw)
         Me.Controls.Add(Me.C_debug)
         Me.Controls.Add(Me.B_Clear_DTC)
@@ -1590,4 +1623,7 @@ Partial Class K8Datastream
     Friend WithEvents C_debug As System.Windows.Forms.Button
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
     Friend WithEvents L_ho2raw As System.Windows.Forms.Label
+    Friend WithEvents B_PAIR_ON As System.Windows.Forms.Button
+    Friend WithEvents B_PAIR_OFF As System.Windows.Forms.Button
+    Friend WithEvents B_IDLE As System.Windows.Forms.Button
 End Class
