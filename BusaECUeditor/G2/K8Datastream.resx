@@ -135,6 +135,9 @@
   <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>345, 25</value>
   </metadata>
+  <data name="B_IDLE.ToolTip" xml:space="preserve">
+    <value>Hold your RPM steady with small throttle opening. No gear on, engine warmed up press Reset ICS and you get your current engine RPM as your new idle speed. Or click once and then leave your mouse on top of the button and press + to increase RPM or - to decrease RPM.</value>
+  </data>
   <data name="PrintForm1.PrinterSettings" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFFTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj0yLjAuMC4wLCBDdWx0

@@ -127,10 +127,12 @@ Partial Class K8Datastream
         Me.Label31 = New System.Windows.Forms.Label
         Me.C_debug = New System.Windows.Forms.Button
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.B_IDLE = New System.Windows.Forms.Button
         Me.L_ho2raw = New System.Windows.Forms.Label
         Me.B_PAIR_ON = New System.Windows.Forms.Button
         Me.B_PAIR_OFF = New System.Windows.Forms.Button
-        Me.B_IDLE = New System.Windows.Forms.Button
+        Me.Button1 = New System.Windows.Forms.Button
+        Me.Button2 = New System.Windows.Forms.Button
         CType(Me.LED_RPM, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_IGN, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_CLT, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1400,6 +1402,16 @@ Partial Class K8Datastream
         Me.ToolTip1.InitialDelay = 500
         Me.ToolTip1.ReshowDelay = 100
         '
+        'B_IDLE
+        '
+        Me.B_IDLE.Location = New System.Drawing.Point(291, 517)
+        Me.B_IDLE.Name = "B_IDLE"
+        Me.B_IDLE.Size = New System.Drawing.Size(56, 28)
+        Me.B_IDLE.TabIndex = 121
+        Me.B_IDLE.Text = "Set Idle"
+        Me.ToolTip1.SetToolTip(Me.B_IDLE, resources.GetString("B_IDLE.ToolTip"))
+        Me.B_IDLE.UseVisualStyleBackColor = True
+        '
         'L_ho2raw
         '
         Me.L_ho2raw.AutoSize = True
@@ -1427,16 +1439,25 @@ Partial Class K8Datastream
         Me.B_PAIR_OFF.Text = "Pair OFF"
         Me.B_PAIR_OFF.UseVisualStyleBackColor = True
         '
-        'B_IDLE
+        'Button1
         '
-        Me.B_IDLE.Location = New System.Drawing.Point(291, 517)
-        Me.B_IDLE.Name = "B_IDLE"
-        Me.B_IDLE.Size = New System.Drawing.Size(86, 28)
-        Me.B_IDLE.TabIndex = 121
-        Me.B_IDLE.Text = "Set Idle"
-        Me.ToolTip1.SetToolTip(Me.B_IDLE, "Hold your RPM steady with small throttle opening. No gear on, engine warmed up pr" & _
-                "ess Reset ICS and you get your current engine RPM as your new idle speed.")
-        Me.B_IDLE.UseVisualStyleBackColor = True
+        Me.Button1.Location = New System.Drawing.Point(344, 517)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(18, 28)
+        Me.Button1.TabIndex = 122
+        Me.Button1.Text = "+"
+        Me.ToolTip1.SetToolTip(Me.Button1, "Increase idle by 100rpm")
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(360, 517)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(17, 28)
+        Me.Button2.TabIndex = 123
+        Me.Button2.Text = "-"
+        Me.ToolTip1.SetToolTip(Me.Button2, "Decrease idle by 100rpm")
+        Me.Button2.UseVisualStyleBackColor = True
         '
         'K8Datastream
         '
@@ -1444,6 +1465,8 @@ Partial Class K8Datastream
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Silver
         Me.ClientSize = New System.Drawing.Size(731, 551)
+        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.B_IDLE)
         Me.Controls.Add(Me.B_PAIR_OFF)
         Me.Controls.Add(Me.B_PAIR_ON)
@@ -1628,4 +1651,6 @@ Partial Class K8Datastream
     Friend WithEvents B_PAIR_ON As System.Windows.Forms.Button
     Friend WithEvents B_PAIR_OFF As System.Windows.Forms.Button
     Friend WithEvents B_IDLE As System.Windows.Forms.Button
+    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 End Class
