@@ -1433,7 +1433,9 @@ Partial Class K8Datastream
         Me.B_IDLE.Name = "B_IDLE"
         Me.B_IDLE.Size = New System.Drawing.Size(86, 28)
         Me.B_IDLE.TabIndex = 121
-        Me.B_IDLE.Text = "Reset ICS"
+        Me.B_IDLE.Text = "Set Idle"
+        Me.ToolTip1.SetToolTip(Me.B_IDLE, "Hold your RPM steady with small throttle opening. No gear on, engine warmed up pr" & _
+                "ess Reset ICS and you get your current engine RPM as your new idle speed.")
         Me.B_IDLE.UseVisualStyleBackColor = True
         '
         'K8Datastream
