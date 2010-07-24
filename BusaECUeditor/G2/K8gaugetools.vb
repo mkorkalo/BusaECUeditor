@@ -64,13 +64,14 @@ Public Class K8gaugetools
             WriteFlashByte(&H22A4, &HFE) ' bl.l 
             WriteFlashByte(&H22A5, highbyte)
             WriteFlashWord(&H22A6, pcdisp - (highbyte * &H10000)) '         pcdisp
+            WriteFlashByte(&H13B4F, 0) 'configure P174 as on off port
         Else
             '
             ' bring the ecu code back to original
             '
             WriteFlashWord(&H22A4, &HFE00)
             WriteFlashWord(&H22A6, &H44D6)
-
+            WriteFlashByte(&H13B4F, 8) 'configure P174 as TXD2 as normal serial port
         End If
     End Sub
     Private Sub tools_code_in_memory(ByVal method As Boolean, ByVal lenght As Integer)
