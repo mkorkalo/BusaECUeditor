@@ -363,7 +363,7 @@ then the MIL light will operate alike to normal Hayabusa FI light.
 
 When MIL function is used then connect the longer + 
 wire to gauge cluster Black/Green wire that is connected
-to ecu harness pin 8. The shorter - wire should be connected
+to ecu harness pin 6. The shorter - wire should be connected
 to ground. Its important to use a single LED and no other type 
 lamps. Connecting a normal lamp or a relay into this output 
 can cause damage to the ecu.
