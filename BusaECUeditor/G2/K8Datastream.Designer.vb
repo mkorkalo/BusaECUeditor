@@ -127,12 +127,12 @@ Partial Class K8Datastream
         Me.Label31 = New System.Windows.Forms.Label
         Me.C_debug = New System.Windows.Forms.Button
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.B_IDLE = New System.Windows.Forms.Button
+        Me.B_ICS = New System.Windows.Forms.Button
         Me.L_ho2raw = New System.Windows.Forms.Label
         Me.B_PAIR_ON = New System.Windows.Forms.Button
         Me.B_PAIR_OFF = New System.Windows.Forms.Button
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.Button2 = New System.Windows.Forms.Button
+        Me.B_FANOFF = New System.Windows.Forms.Button
+        Me.B_FANON = New System.Windows.Forms.Button
         CType(Me.LED_RPM, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_IGN, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_CLT, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1402,15 +1402,15 @@ Partial Class K8Datastream
         Me.ToolTip1.InitialDelay = 500
         Me.ToolTip1.ReshowDelay = 100
         '
-        'B_IDLE
+        'B_ICS
         '
-        Me.B_IDLE.Location = New System.Drawing.Point(291, 517)
-        Me.B_IDLE.Name = "B_IDLE"
-        Me.B_IDLE.Size = New System.Drawing.Size(56, 28)
-        Me.B_IDLE.TabIndex = 121
-        Me.B_IDLE.Text = "Set Idle"
-        Me.ToolTip1.SetToolTip(Me.B_IDLE, resources.GetString("B_IDLE.ToolTip"))
-        Me.B_IDLE.UseVisualStyleBackColor = True
+        Me.B_ICS.Location = New System.Drawing.Point(291, 520)
+        Me.B_ICS.Name = "B_ICS"
+        Me.B_ICS.Size = New System.Drawing.Size(86, 22)
+        Me.B_ICS.TabIndex = 121
+        Me.B_ICS.Text = "Reset ICS"
+        Me.ToolTip1.SetToolTip(Me.B_ICS, resources.GetString("B_ICS.ToolTip"))
+        Me.B_ICS.UseVisualStyleBackColor = True
         '
         'L_ho2raw
         '
@@ -1425,39 +1425,37 @@ Partial Class K8Datastream
         '
         Me.B_PAIR_ON.Location = New System.Drawing.Point(12, 519)
         Me.B_PAIR_ON.Name = "B_PAIR_ON"
-        Me.B_PAIR_ON.Size = New System.Drawing.Size(70, 23)
+        Me.B_PAIR_ON.Size = New System.Drawing.Size(61, 23)
         Me.B_PAIR_ON.TabIndex = 119
         Me.B_PAIR_ON.Text = "Pair ON"
         Me.B_PAIR_ON.UseVisualStyleBackColor = True
         '
         'B_PAIR_OFF
         '
-        Me.B_PAIR_OFF.Location = New System.Drawing.Point(88, 519)
+        Me.B_PAIR_OFF.Location = New System.Drawing.Point(69, 519)
         Me.B_PAIR_OFF.Name = "B_PAIR_OFF"
-        Me.B_PAIR_OFF.Size = New System.Drawing.Size(70, 23)
+        Me.B_PAIR_OFF.Size = New System.Drawing.Size(60, 23)
         Me.B_PAIR_OFF.TabIndex = 120
         Me.B_PAIR_OFF.Text = "Pair OFF"
         Me.B_PAIR_OFF.UseVisualStyleBackColor = True
         '
-        'Button1
+        'B_FANOFF
         '
-        Me.Button1.Location = New System.Drawing.Point(344, 517)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(18, 28)
-        Me.Button1.TabIndex = 122
-        Me.Button1.Text = "+"
-        Me.ToolTip1.SetToolTip(Me.Button1, "Increase idle by 100rpm")
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.B_FANOFF.Location = New System.Drawing.Point(191, 519)
+        Me.B_FANOFF.Name = "B_FANOFF"
+        Me.B_FANOFF.Size = New System.Drawing.Size(60, 23)
+        Me.B_FANOFF.TabIndex = 125
+        Me.B_FANOFF.Text = "FAN OFF"
+        Me.B_FANOFF.UseVisualStyleBackColor = True
         '
-        'Button2
+        'B_FANON
         '
-        Me.Button2.Location = New System.Drawing.Point(360, 517)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(17, 28)
-        Me.Button2.TabIndex = 123
-        Me.Button2.Text = "-"
-        Me.ToolTip1.SetToolTip(Me.Button2, "Decrease idle by 100rpm")
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.B_FANON.Location = New System.Drawing.Point(139, 519)
+        Me.B_FANON.Name = "B_FANON"
+        Me.B_FANON.Size = New System.Drawing.Size(55, 23)
+        Me.B_FANON.TabIndex = 124
+        Me.B_FANON.Text = "FAN ON"
+        Me.B_FANON.UseVisualStyleBackColor = True
         '
         'K8Datastream
         '
@@ -1465,9 +1463,9 @@ Partial Class K8Datastream
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Silver
         Me.ClientSize = New System.Drawing.Size(731, 551)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.B_IDLE)
+        Me.Controls.Add(Me.B_FANOFF)
+        Me.Controls.Add(Me.B_FANON)
+        Me.Controls.Add(Me.B_ICS)
         Me.Controls.Add(Me.B_PAIR_OFF)
         Me.Controls.Add(Me.B_PAIR_ON)
         Me.Controls.Add(Me.L_ho2raw)
@@ -1650,7 +1648,7 @@ Partial Class K8Datastream
     Friend WithEvents L_ho2raw As System.Windows.Forms.Label
     Friend WithEvents B_PAIR_ON As System.Windows.Forms.Button
     Friend WithEvents B_PAIR_OFF As System.Windows.Forms.Button
-    Friend WithEvents B_IDLE As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents B_ICS As System.Windows.Forms.Button
+    Friend WithEvents B_FANOFF As System.Windows.Forms.Button
+    Friend WithEvents B_FANON As System.Windows.Forms.Button
 End Class
