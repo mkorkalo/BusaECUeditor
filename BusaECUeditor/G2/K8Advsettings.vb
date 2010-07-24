@@ -1031,4 +1031,10 @@ Public Class K8Advsettings
         End If
 
     End Sub
+
+    
+    Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
+        K8gaugetools.Show()
+        K8gaugetools.Select()
+    End Sub
 End Class

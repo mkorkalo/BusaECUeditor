@@ -39,6 +39,7 @@ Partial Class K8Advsettings
         Me.C_coolingfan = New System.Windows.Forms.CheckBox
         Me.C_secondaries = New System.Windows.Forms.CheckBox
         Me.C_IAPTPS = New System.Windows.Forms.ComboBox
+        Me.C_ramairmode = New System.Windows.Forms.CheckBox
         Me.B_ramairadjust = New System.Windows.Forms.Button
         Me.GroupBox6 = New System.Windows.Forms.GroupBox
         Me.C_PAIR = New System.Windows.Forms.CheckBox
@@ -66,7 +67,8 @@ Partial Class K8Advsettings
         Me.GroupBox7 = New System.Windows.Forms.GroupBox
         Me.Label5 = New System.Windows.Forms.Label
         Me.C_ABCmode = New System.Windows.Forms.CheckBox
-        Me.C_ramairmode = New System.Windows.Forms.CheckBox
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox
+        Me.Button5 = New System.Windows.Forms.Button
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -75,6 +77,7 @@ Partial Class K8Advsettings
         Me.GroupBox9.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -274,6 +277,17 @@ Partial Class K8Advsettings
         Me.C_IAPTPS.TabIndex = 8
         Me.ToolTip1.SetToolTip(Me.C_IAPTPS, resources.GetString("C_IAPTPS.ToolTip"))
         '
+        'C_ramairmode
+        '
+        Me.C_ramairmode.AutoSize = True
+        Me.C_ramairmode.Location = New System.Drawing.Point(6, 111)
+        Me.C_ramairmode.Name = "C_ramairmode"
+        Me.C_ramairmode.Size = New System.Drawing.Size(88, 17)
+        Me.C_ramairmode.TabIndex = 2
+        Me.C_ramairmode.Text = "Ramair mode"
+        Me.ToolTip1.SetToolTip(Me.C_ramairmode, resources.GetString("C_ramairmode.ToolTip"))
+        Me.C_ramairmode.UseVisualStyleBackColor = True
+        '
         'B_ramairadjust
         '
         Me.B_ramairadjust.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -293,7 +307,7 @@ Partial Class K8Advsettings
         Me.GroupBox6.Controls.Add(Me.R_IAT_dynomode)
         Me.GroupBox6.Location = New System.Drawing.Point(17, 71)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(154, 175)
+        Me.GroupBox6.Size = New System.Drawing.Size(154, 132)
         Me.GroupBox6.TabIndex = 10
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Dynomode settings"
@@ -549,22 +563,33 @@ Partial Class K8Advsettings
         Me.C_ABCmode.Text = "ABC fixed to A"
         Me.C_ABCmode.UseVisualStyleBackColor = True
         '
-        'C_ramairmode
+        'GroupBox2
         '
-        Me.C_ramairmode.AutoSize = True
-        Me.C_ramairmode.Location = New System.Drawing.Point(6, 111)
-        Me.C_ramairmode.Name = "C_ramairmode"
-        Me.C_ramairmode.Size = New System.Drawing.Size(88, 17)
-        Me.C_ramairmode.TabIndex = 2
-        Me.C_ramairmode.Text = "Ramair mode"
-        Me.ToolTip1.SetToolTip(Me.C_ramairmode, resources.GetString("C_ramairmode.ToolTip"))
-        Me.C_ramairmode.UseVisualStyleBackColor = True
+        Me.GroupBox2.Controls.Add(Me.Button5)
+        Me.GroupBox2.Location = New System.Drawing.Point(18, 205)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(153, 41)
+        Me.GroupBox2.TabIndex = 9
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Gaugemode"
+        '
+        'Button5
+        '
+        Me.Button5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button5.Location = New System.Drawing.Point(67, 8)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(80, 23)
+        Me.Button5.TabIndex = 7
+        Me.Button5.Text = "Activate MIL"
+        Me.ToolTip1.SetToolTip(Me.Button5, resources.GetString("Button5.ToolTip"))
+        Me.Button5.UseVisualStyleBackColor = True
         '
         'K8Advsettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(397, 427)
+        Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox9)
@@ -595,6 +620,7 @@ Partial Class K8Advsettings
         Me.GroupBox4.PerformLayout()
         Me.GroupBox7.ResumeLayout(False)
         Me.GroupBox7.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -644,4 +670,6 @@ Partial Class K8Advsettings
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents C_IAPTPS As System.Windows.Forms.ComboBox
     Friend WithEvents C_ramairmode As System.Windows.Forms.CheckBox
+    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents Button5 As System.Windows.Forms.Button
 End Class
