@@ -1428,6 +1428,7 @@ Partial Class K8Datastream
         Me.B_PAIR_ON.Size = New System.Drawing.Size(61, 23)
         Me.B_PAIR_ON.TabIndex = 119
         Me.B_PAIR_ON.Text = "Pair ON"
+        Me.ToolTip1.SetToolTip(Me.B_PAIR_ON, "Turns pair on")
         Me.B_PAIR_ON.UseVisualStyleBackColor = True
         '
         'B_PAIR_OFF
@@ -1437,6 +1438,7 @@ Partial Class K8Datastream
         Me.B_PAIR_OFF.Size = New System.Drawing.Size(60, 23)
         Me.B_PAIR_OFF.TabIndex = 120
         Me.B_PAIR_OFF.Text = "Pair OFF"
+        Me.ToolTip1.SetToolTip(Me.B_PAIR_OFF, "Turns pair off")
         Me.B_PAIR_OFF.UseVisualStyleBackColor = True
         '
         'B_FANOFF
@@ -1446,6 +1448,7 @@ Partial Class K8Datastream
         Me.B_FANOFF.Size = New System.Drawing.Size(60, 23)
         Me.B_FANOFF.TabIndex = 125
         Me.B_FANOFF.Text = "FAN OFF"
+        Me.ToolTip1.SetToolTip(Me.B_FANOFF, "Turns FAN off")
         Me.B_FANOFF.UseVisualStyleBackColor = True
         '
         'B_FANON
@@ -1455,6 +1458,7 @@ Partial Class K8Datastream
         Me.B_FANON.Size = New System.Drawing.Size(55, 23)
         Me.B_FANON.TabIndex = 124
         Me.B_FANON.Text = "FAN ON"
+        Me.ToolTip1.SetToolTip(Me.B_FANON, "Turns Fan on")
         Me.B_FANON.UseVisualStyleBackColor = True
         '
         'K8Datastream
