@@ -1020,14 +1020,14 @@ Public Class K8Datastream
 
     Private Function getdtcdecription(ByVal dtc As String) As String
         Select Case dtc
-            Case "P0340" : Return "C11" & " " & dtc & " CPMS"
-            Case "P0335" : Return "C12" & " " & dtc & " CKPS"
+            Case "P0340" : Return "C11" & " " & dtc & " CPMS - Camshaft sensor"
+            Case "P0335" : Return "C12" & " " & dtc & " CKPS - Crankshaft sensor"
             Case "P0105" : Return "C13" & " " & dtc & " IAPS Intake Air Pressure"
             Case "P0120" : Return "C14" & " " & dtc & " TPS  Throttle position sensor"
             Case "P0115" : Return "C15" & " " & dtc & " ECTS Engine Coolant"
             Case "P0110" : Return "C21" & " " & dtc & " IATS Intake Air Temperature"
             Case "P1450" : Return "C22" & " " & dtc & " APS  Atmospheric air pressure"
-            Case "P1651" : Return "C23" & " " & dtc & " TOS  Tip over"
+            Case "P1651" : Return "C23" & " " & dtc & " TOS  Tip over sensor"
             Case "P0351" : Return "C24" & " " & dtc & " IGN#1 Ignition Coil"
             Case "P0352" : Return "C25" & " " & dtc & " IGN#2 Ignition Coil"
             Case "P0353" : Return "C26" & " " & dtc & " IGN#3 Ignition Coil"

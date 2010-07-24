@@ -28,33 +28,50 @@
 */
 
 #define ECU_FI *(volatile unsigned char *)  		0x00806784
-#define PORT1   *(volatile unsigned char *)  				0x00800701 // bit5=PAIR
-#define PORT17   *(volatile unsigned char *)  				0x00800711 // bit5=PAIR
+#define ECU_KWPDTC2 *(volatile unsigned char *)  		0x00806787
+#define ECU_KWPDTC3 *(volatile unsigned char *)  		0x00806788
+#define ECU_KWPDTC4 *(volatile unsigned char *)  		0x00806789
+#define ECU_KWPDTC5 *(volatile unsigned char *)  		0x0080678A
+#define ECU_KWPDTC6 *(volatile unsigned char *)  		0x0080678B
+
+#define PORT1   *(volatile unsigned char *)  				0x00800701 // bit5 = PAIR
+
+#define P17DATA   *(volatile unsigned char *)  				0x00800711 // bit4 = TXD2 
+#define P17MOD   *(volatile unsigned char *)  				0x00800751
+#define P17SMOD   *(volatile unsigned char *)  				0x00800771
+#define P17DIR   *(volatile unsigned char *)  				0x00800731
+
 
 #define PAIR						0x20
-#define TXD2						0x10
+#define TXD2						0x8		
 
 
 #pragma SECTION C PARAMS //0x59DC0
 const short const_pgmid = 				100;			// 0 program id, must match to ecueditor version to be able to load this code to ecu
-const char FI_LED_no_gauges = 0;
+const char FI_LED_no_gauges = 			0;
 
 #pragma SECTION P TOOLSCODE //0x59E00
 void toolsmain(void)
 {
+
+if ((P17MOD & TXD2) != 0)
+{
+	P17MOD = P17MOD & (0xFF - TXD2);		// Set as port P174 of TXD2
+	P17DIR = P17DIR | TXD2;					// Set port 17 TXD2 bit to output
+}
 
 /*
 	This algorithm sets the port to +5V when errorcode present in ecu
 */
 if (FI_LED_no_gauges == 0)
 {
-	if ((ECU_FI & 0x1) != 0x1)
+	if ((ECU_KWPDTC2 == 0) && (ECU_KWPDTC3 == 0) && (ECU_KWPDTC4 == 0) && (ECU_KWPDTC5 == 0) && (ECU_KWPDTC6 == 0))
 	{
-		PORT1 = PORT1 | PAIR;
+		P17DATA = P17DATA & (0xFF - TXD2);
 	}
 	else
 	{
-		PORT1 = PORT1 & (0xFF - PAIR);	
+		P17DATA = P17DATA | TXD2;		
 	}
 }
 
