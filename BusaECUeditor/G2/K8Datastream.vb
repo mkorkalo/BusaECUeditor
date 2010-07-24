@@ -832,9 +832,9 @@ Public Class K8Datastream
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
                 kwpcomm = &H21
                 Timer2.Enabled = True
-            Case &H60580
+            Case &H60600
                 '
-                ' Set IDLE RPM as current RPM
+                ' FAN
                 '
                 txbyte = &H80
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
@@ -846,23 +846,23 @@ Public Class K8Datastream
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
                 txbyte = &HA5
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                txbyte = &H5
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                txbyte = &H80
+                txbyte = &H6
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
                 txbyte = &H0
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                txbyte = Int(RPM * 2.56 / (2 ^ 5))
+                txbyte = &H0
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
                 txbyte = &H0
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                txbyte = (&H80 + &H12 + &HF1 + &H6 + &HA5 + &H5 + &H80 + &H0 + Int(RPM * 2.56 / (2 ^ 5)) + &H0) And &HFF
+                txbyte = &H0
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = (&H80 + &H12 + &HF1 + &H6 + &HA5 + &H6 + &H0 + &H0 + &H0 + &H0) And &HFF
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
                 kwpcomm = &H21
                 Timer2.Enabled = True
-            Case &H60581
+            Case &H60680
                 '
-                ' Set IDLE RPM as lowest RPM
+                ' FAN
                 '
                 txbyte = &H80
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
@@ -874,51 +874,23 @@ Public Class K8Datastream
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
                 txbyte = &HA5
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                txbyte = &H5
+                txbyte = &H6
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H80
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
                 txbyte = &H80
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
                 txbyte = &H0
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                txbyte = &H55 ' Int(RPM * 2.56 / (2 ^ 5))
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
                 txbyte = &H0
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                txbyte = (&H80 + &H12 + &HF1 + &H6 + &HA5 + &H5 + &H80 + &H0 + &H55 + &H0) And &HFF
+                txbyte = (&H80 + &H12 + &HF1 + &H6 + &HA5 + &H6 + &H80 + &H80 + &H0 + &H0) And &HFF
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
                 kwpcomm = &H21
                 Timer2.Enabled = True
-            Case &H60582
+            Case &H60520
                 '
-                ' Set IDLE RPM as +100
-                '
-                txbyte = &H80
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                txbyte = &H12
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                txbyte = &HF1
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                txbyte = &H6
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                txbyte = &HA5
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                txbyte = &H5
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                txbyte = &H80
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                txbyte = &H0
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                txbyte = Int((RPM + 100) * 2.56 / (2 ^ 5))
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                txbyte = &H0
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                txbyte = (&H80 + &H12 + &HF1 + &H6 + &HA5 + &H5 + &H80 + &H0 + Int((RPM + 100) * 2.56 / (2 ^ 5)) + &H0) And &HFF
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                kwpcomm = &H21
-                Timer2.Enabled = True
-            Case &H60583
-                '
-                ' Set IDLE RPM as -100
+                ' Reset ICS valve
                 '
                 txbyte = &H80
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
@@ -932,15 +904,15 @@ Public Class K8Datastream
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
                 txbyte = &H5
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                txbyte = &H80
+                txbyte = &H20
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
                 txbyte = &H0
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                txbyte = Int((RPM - 100) * 2.56 / (2 ^ 5))
+                txbyte = &H70
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
                 txbyte = &H0
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                txbyte = (&H80 + &H12 + &HF1 + &H6 + &HA5 + &H5 + &H80 + &H0 + Int((RPM - 100) * 2.56 / (2 ^ 5)) + &H0) And &HFF
+                txbyte = (&H80 + &H12 + &HF1 + &H6 + &HA5 + &H5 + &H20 + &H0 + &H70 + &H0) And &HFF
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
                 kwpcomm = &H21
                 Timer2.Enabled = True
@@ -1016,6 +988,26 @@ Public Class K8Datastream
             B_PAIR_ON.Visible = False
             B_PAIR_OFF.Visible = False
         End If
+
+        If L_Clutch.Text = "CLT ON" Then
+            If RPM > 1100 And RPM < 1500 Then
+                B_FANON.Visible = True
+                B_FANOFF.Visible = True
+            Else
+                B_FANON.Visible = False
+                B_FANOFF.Visible = False
+            End If
+        Else
+            B_FANON.Visible = False
+            B_FANOFF.Visible = False
+        End If
+
+        If RPM = 0 Then
+            B_ICS.Visible = True
+        Else
+            B_ICS.Visible = False
+        End If
+
     End Sub
 
     Private Function getdtcdecription(ByVal dtc As String) As String
@@ -1753,49 +1745,32 @@ Public Class K8Datastream
         '
         ' Clear PAIR ON
         '
-        ListBox1.Items.Clear()
         kwpcomm = &H60180
 
     End Sub
 
     Private Sub Button2_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_PAIR_OFF.Click
         '
-        ' Clear PAIR ON
+        ' Clear PAIR OFF
         '
         kwpcomm = &H60100
 
     End Sub
 
-    Private Sub B_IDLE_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_IDLE.Click
+    Private Sub B_IDLE_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_ICS.Click
         '
         ' Clear Set Idle
         '
-        kwpcomm = &H60580
+        kwpcomm = &H60520
 
     End Sub
 
 
-
-    Private Sub B_IDLE_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles B_IDLE.KeyPress
-        '
-        ' Clear Set Idle to lowest possible
-        '
-        Select Case e.KeyChar
-            Case "+"
-                kwpcomm = &H60582
-            Case "-"
-                kwpcomm = &H60583
-            Case "0"
-                kwpcomm = &H60581
-        End Select
-
+    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_FANON.Click
+        kwpcomm = &H60680
     End Sub
 
-    Private Sub Button1_Click_4(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        kwpcomm = &H60582
-    End Sub
-
-    Private Sub Button2_Click_2(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
-        kwpcomm = &H60583
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_FANOFF.Click
+        kwpcomm = &H60600
     End Sub
 End Class
