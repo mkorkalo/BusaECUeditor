@@ -170,6 +170,9 @@ Public Class BKingIgnitionMap
                 columnIndex = columnStartIndex
 
                 For Each value As String In values
+
+                    value = Replace(value, ControlChars.Lf, "") ' removing extra LF - issue 38
+
                     If columnIndex < _mapNumberOfColumns And rowIndex < _mapNumberOfRows Then
                         If IsNumeric(value) Then
                             IgnitionMapGrid(columnIndex, rowIndex).Value = value

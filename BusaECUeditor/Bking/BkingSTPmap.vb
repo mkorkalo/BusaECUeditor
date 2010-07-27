@@ -224,6 +224,9 @@ Public Class BKingSTPMap
                 columnIndex = columnStartIndex
 
                 For Each value As String In values
+
+                    value = Replace(value, ControlChars.Lf, "") ' removing extra LF - issue 38
+
                     If columnIndex < _mapNumberOfColumns And rowIndex < _mapNumberOfRows Then
                         If IsNumeric(value) Then
                             STPMapGrid(columnIndex, rowIndex).Value = value
