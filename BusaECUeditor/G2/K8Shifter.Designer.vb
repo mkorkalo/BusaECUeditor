@@ -37,6 +37,10 @@ Partial Class K8shifter
         Me.C_killtime = New System.Windows.Forms.ComboBox
         Me.Label2 = New System.Windows.Forms.Label
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
+        Me.Label11 = New System.Windows.Forms.Label
+        Me.RPM = New System.Windows.Forms.ComboBox
+        Me.Label10 = New System.Windows.Forms.Label
+        Me.C_DSMactivation = New System.Windows.Forms.CheckBox
         Me.Label9 = New System.Windows.Forms.Label
         Me.Label8 = New System.Windows.Forms.Label
         Me.Label7 = New System.Windows.Forms.Label
@@ -53,11 +57,9 @@ Partial Class K8shifter
         Me.L_shifterver = New System.Windows.Forms.Label
         Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.HelpProvider1 = New System.Windows.Forms.HelpProvider
-        Me.C_DSMactivation = New System.Windows.Forms.CheckBox
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.RPM = New System.Windows.Forms.ComboBox
-        Me.Label11 = New System.Windows.Forms.Label
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.GroupBox2.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'C_shifter_activation
@@ -123,28 +125,28 @@ Partial Class K8shifter
         '
         'T_6000
         '
-        Me.T_6000.Location = New System.Drawing.Point(309, 284)
+        Me.T_6000.Location = New System.Drawing.Point(330, 548)
         Me.T_6000.Name = "T_6000"
         Me.T_6000.Size = New System.Drawing.Size(35, 20)
         Me.T_6000.TabIndex = 10
         '
         'T_5000
         '
-        Me.T_5000.Location = New System.Drawing.Point(350, 284)
+        Me.T_5000.Location = New System.Drawing.Point(371, 548)
         Me.T_5000.Name = "T_5000"
         Me.T_5000.Size = New System.Drawing.Size(35, 20)
         Me.T_5000.TabIndex = 11
         '
         'T_4000
         '
-        Me.T_4000.Location = New System.Drawing.Point(391, 284)
+        Me.T_4000.Location = New System.Drawing.Point(412, 548)
         Me.T_4000.Name = "T_4000"
         Me.T_4000.Size = New System.Drawing.Size(35, 20)
         Me.T_4000.TabIndex = 12
         '
         'T_3000
         '
-        Me.T_3000.Location = New System.Drawing.Point(432, 284)
+        Me.T_3000.Location = New System.Drawing.Point(453, 548)
         Me.T_3000.Name = "T_3000"
         Me.T_3000.Size = New System.Drawing.Size(35, 20)
         Me.T_3000.TabIndex = 13
@@ -210,6 +212,44 @@ Partial Class K8shifter
         Me.GroupBox2.TabIndex = 41
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Shifter settings"
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(6, 132)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(83, 13)
+        Me.Label11.TabIndex = 53
+        Me.Label11.Text = "Activation mode"
+        '
+        'RPM
+        '
+        Me.RPM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.RPM.Enabled = False
+        Me.RPM.FormattingEnabled = True
+        Me.RPM.Location = New System.Drawing.Point(123, 155)
+        Me.RPM.Name = "RPM"
+        Me.RPM.Size = New System.Drawing.Size(102, 21)
+        Me.RPM.TabIndex = 52
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(6, 158)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(97, 13)
+        Me.Label10.TabIndex = 51
+        Me.Label10.Text = "Minimum shift RPM"
+        '
+        'C_DSMactivation
+        '
+        Me.C_DSMactivation.AutoSize = True
+        Me.C_DSMactivation.Location = New System.Drawing.Point(123, 132)
+        Me.C_DSMactivation.Name = "C_DSMactivation"
+        Me.C_DSMactivation.Size = New System.Drawing.Size(157, 17)
+        Me.C_DSMactivation.TabIndex = 50
+        Me.C_DSMactivation.Text = "DSM2 activated shift active"
+        Me.C_DSMactivation.UseVisualStyleBackColor = True
         '
         'Label9
         '
@@ -343,49 +383,22 @@ Partial Class K8shifter
         Me.PrintForm1.PrinterSettings = CType(resources.GetObject("PrintForm1.PrinterSettings"), System.Drawing.Printing.PrinterSettings)
         Me.PrintForm1.PrintFileName = Nothing
         '
-        'C_DSMactivation
+        'PictureBox1
         '
-        Me.C_DSMactivation.AutoSize = True
-        Me.C_DSMactivation.Location = New System.Drawing.Point(123, 132)
-        Me.C_DSMactivation.Name = "C_DSMactivation"
-        Me.C_DSMactivation.Size = New System.Drawing.Size(157, 17)
-        Me.C_DSMactivation.TabIndex = 50
-        Me.C_DSMactivation.Text = "DSM2 activated shift active"
-        Me.C_DSMactivation.UseVisualStyleBackColor = True
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(6, 158)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(97, 13)
-        Me.Label10.TabIndex = 51
-        Me.Label10.Text = "Minimum shift RPM"
-        '
-        'RPM
-        '
-        Me.RPM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.RPM.Enabled = False
-        Me.RPM.FormattingEnabled = True
-        Me.RPM.Location = New System.Drawing.Point(123, 155)
-        Me.RPM.Name = "RPM"
-        Me.RPM.Size = New System.Drawing.Size(102, 21)
-        Me.RPM.TabIndex = 52
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(6, 132)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(83, 13)
-        Me.Label11.TabIndex = 53
-        Me.Label11.Text = "Activation mode"
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.Location = New System.Drawing.Point(15, 242)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(522, 339)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 43
+        Me.PictureBox1.TabStop = False
         '
         'K8shifter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(549, 250)
+        Me.ClientSize = New System.Drawing.Size(549, 587)
+        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.L_shifterver)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.Label2)
@@ -405,6 +418,7 @@ Partial Class K8shifter
         Me.Text = "Hayabusa K8- Shiftkill module (fuelcut and ignitioncut)"
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -445,5 +459,6 @@ Partial Class K8shifter
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents RPM As System.Windows.Forms.ComboBox
     Friend WithEvents Label11 As System.Windows.Forms.Label
+    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
 
 End Class
