@@ -49,7 +49,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>ecueditor_prerelease.htm</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>22</ApplicationRevision>
+    <ApplicationRevision>23</ApplicationRevision>
     <ApplicationVersion>2.4.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -768,6 +768,9 @@
     </EmbeddedResource>
     <Content Include="gpl.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="G2\shifter.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Common\LoginForm.resx">
       <DependentUpon>LoginForm.vb</DependentUpon>

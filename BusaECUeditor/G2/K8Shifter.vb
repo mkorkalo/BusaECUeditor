@@ -395,4 +395,6 @@ Public Class K8shifter
         i = CInt(i / 50) * 50
         WriteFlashWord(&H5540E, i)
     End Sub
+
+    
 End Class
