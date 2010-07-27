@@ -997,6 +997,7 @@ Public Class K8boostfuel
                 columnIndex = columnStartIndex
 
                 For Each value As String In values
+                    value = Replace(value, ControlChars.Lf, "") ' removing extra LF - issue 38
                     If columnIndex < D_boostfuel.ColumnCount And rowIndex < D_duty.RowCount Then
                         If IsNumeric(value) Then
                             D_duty(columnIndex, rowIndex).Value = value

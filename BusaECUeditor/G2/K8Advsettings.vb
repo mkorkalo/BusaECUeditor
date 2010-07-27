@@ -395,7 +395,7 @@ Public Class K8Advsettings
                     WriteFlashByte(&HFFFF6, &H30)
                     WriteFlashByte(&HFFFF7, &H30)
                     WriteFlashByte(&H7D10F, &H30)
-                    WriteFlashByte(&H7D252, 0)
+                    WriteFlashByte(&H7D252, &H4B) ' For a reason I dont understand Suzuki has decided to leave this byte different to US even though EVAP where it is affecting is not used in either or
 
                 Case "US"
                     WriteFlashByte(&H723D8, &H1)
