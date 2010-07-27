@@ -670,6 +670,7 @@ Public Class K8Ignitionmap
                 columnIndex = columnStartIndex
 
                 For Each value As String In values
+                    value = Replace(value, ControlChars.Lf, "") ' removing extra LF - issue 38
                     If columnIndex < map_number_of_columns And rowIndex < map_number_of_rows Then
                         If IsNumeric(value) Then
                             Ignitionmapgrid(columnIndex, rowIndex).Value = value

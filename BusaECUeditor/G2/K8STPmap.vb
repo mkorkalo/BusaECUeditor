@@ -632,6 +632,7 @@ Public Class K8STPmap
                 columnIndex = columnStartIndex
 
                 For Each value As String In values
+                    value = Replace(value, ControlChars.Lf, "") ' removing extra LF - issue 38
                     If columnIndex < STPmapgrid.ColumnCount And rowIndex < STPmapgrid.RowCount Then
                         If IsNumeric(value) Then
                             STPmapgrid(columnIndex, rowIndex).Value = value
