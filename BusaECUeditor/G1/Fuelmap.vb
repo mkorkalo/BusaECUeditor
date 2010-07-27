@@ -787,7 +787,7 @@ Public Class FuelMap
 
             rowIndex = Integer.MaxValue
             columnStartIndex = Integer.MaxValue
-
+            'MsgBox(My.Computer.Clipboard.GetText())
             For Each cell As DataGridViewCell In FuelMapGrid.SelectedCells()
                 If cell.RowIndex < rowIndex Then
                     rowIndex = cell.RowIndex
@@ -804,6 +804,7 @@ Public Class FuelMap
 
             lines = Clipboard.GetText().Split(ControlChars.CrLf)
 
+
             For Each line As String In lines
                 Dim columnIndex As Integer
                 Dim values As String()
@@ -812,6 +813,9 @@ Public Class FuelMap
                 columnIndex = columnStartIndex
 
                 For Each value As String In values
+                    value = Replace(value, ControlChars.Lf, "") ' removing extra LF - issue 38
+                    'MsgBox("value " & value, MsgBoxStyle.OkOnly)
+
                     If columnIndex < MapColumns And rowIndex < MapRows Then
                         If IsNumeric(value) Then
                             FuelMapGrid(columnIndex, rowIndex).Value = value
