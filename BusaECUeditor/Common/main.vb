@@ -515,20 +515,23 @@ Public Class main
                         ECUNotSupported.ShowDialog()
                     Else
                         Hayabusa.Visible = True
-                        Select Case Mid(ECUID.Text, 1, 8)
-                            Case "BB34BB51"
-                                Hayabusa.Text = "Hayabusa EU"
-                                Metric = True
-                                ECUVersion = "gen1"
-                            Case "BB34BB35"
-                                Hayabusa.Text = "Hayabusa USA"
-                                Metric = False
-                                ECUVersion = "gen1"
-                            Case Else
-                                Hayabusa.Text = "Unknown model"
-                                Metric = True
-                                ECUVersion = ""
-                        End Select
+                        G1BinFileVersion(ECUID.Text)
+
+                        'Select Case Mid(ECUID.Text, 1, 8)
+                        '    Case "BB34BB51"
+                        'Hayabusa.Text = "Hayabusa EU "
+                        'Metric = True
+                        'ECUVersion = "gen1"
+                        '    Case "BB34BB35"
+                        'Hayabusa.Text = "Hayabusa USA"
+                        'Metric = False
+                        'ECUVersion = "gen1"
+                        '    Case Else
+                        'Hayabusa.Text = "Unknown model"
+                        'Metric = True
+                        'ECUVersion = ""
+                        'End Select
+
                     End If
 
                 Case Else
@@ -984,6 +987,23 @@ Public Class main
 
 #Region "Functions"
 
+    Private Sub G1BinFileVersion(ByVal ecuid As String)
+        Select Case Mid(ecuid, 1, 8)
+            Case "BB34BB51"
+                Hayabusa.Text = "Hayabusa EU 32920-24FGO"
+                Metric = True
+                ECUVersion = "gen1"
+            Case "BB34BB35"
+                Hayabusa.Text = "Hayabusa USA 32920-24FKO"
+                Metric = False
+                ECUVersion = "gen1"
+            Case Else
+                Hayabusa.Text = "Unknown model"
+                Metric = True
+                ECUVersion = ""
+        End Select
+    End Sub
+
     Private Sub G1ReadMap(ByVal defpath)
         'this procedure reads base map from the location given as parameter
         'this procedure is for G1 only
@@ -1025,20 +1045,23 @@ Public Class main
         Else
             Hayabusa.Visible = True
             FlashToolStripMenuItem.Visible = False
-            Select Case Mid(ECUID.Text, 1, 8)
-                Case "BB34BB51"
-                    Hayabusa.Text = "Hayabusa EU 32920-24FK0"
-                    Metric = True
-                    ECUVersion = "gen1"
-                Case "BB34BB35"
-                    Hayabusa.Text = "Hayabusa USA 32920-24FG0"
-                    Metric = False
-                    ECUVersion = "gen1"
-                Case Else
-                    Hayabusa.Text = "Unknown model"
-                    Metric = True
-                    ECUVersion = ""
-            End Select
+            G1BinFileVersion(ECUID.Text)
+
+            'Select Case Mid(ECUID.Text, 1, 8)
+            '   Case "BB34BB51"
+            'Hayabusa.Text = "Hayabusa EU 32920-24FGO"
+            'Metric = True
+            'ECUVersion = "gen1"
+            '    Case "BB34BB35"
+            'Hayabusa.Text = "Hayabusa USA 32920-24FKO"
+            'Metric = False
+            'ECUVersion = "gen1"
+            '    Case Else
+            'Hayabusa.Text = "Unknown model"
+            'Metric = True
+            'ECUVersion = ""
+            'End Select
+
         End If
 
         ' enable controls, otherwise at form load an event will occur
@@ -2264,7 +2287,7 @@ Public Class main
         Dim chksumflash As Long
 
 
-        If ECUversion = "gen2" Or ECUversion = "bking" Then
+        If ECUVersion = "gen2" Or ECUVersion = "bking" Then
 
             '
             ' Get the FTDI device handle based on com port number and leave that port open
@@ -2632,7 +2655,7 @@ Public Class main
             ElseIf (Mid(ECUID.Text, 1, 4) = "DJ47") Then
                 SetECUType()
             Else
-                ECUversion = "unknown"
+                ECUVersion = "unknown"
                 MsgBox("This is not a Hayabusa or Bking ECU, please do not flash it !!!")
                 B_FlashECU.Enabled = True
             End If
@@ -2996,28 +3019,28 @@ Public Class main
         Select Case Mid(ECUID.Text, 1, 8)
             Case "DJ18SE11"
                 Hayabusa.Text = "Hayabusa gen2 USA 32920-15H10"
-                metric = False
-                ECUversion = "gen2"
+                Metric = False
+                ECUVersion = "gen2"
             Case "DJ18SE20"
                 Hayabusa.Text = "Hayabusa gen2 Cali 32920-15H20"
-                metric = False
-                ECUversion = "gen2"
+                Metric = False
+                ECUVersion = "gen2"
             Case "DJ18SE00"
                 Hayabusa.Text = "Hayabusa gen2 EU 32920-15H00"
-                metric = True
-                ECUversion = "gen2"
+                Metric = True
+                ECUVersion = "gen2"
             Case "DJ47SE01"
                 Hayabusa.Text = "Bking EU and AU"
-                metric = True
-                ECUversion = "bking"
+                Metric = True
+                ECUVersion = "bking"
             Case "DJ47SE20"
                 Hayabusa.Text = "Bking USA (California)"
-                metric = False
-                ECUversion = "bking"
+                Metric = False
+                ECUVersion = "bking"
             Case Else
                 Hayabusa.Text = "Hayabusa gen2 unknown model"
-                metric = True
-                ECUversion = "gen2"
+                Metric = True
+                ECUVersion = "gen2"
         End Select
 
     End Sub
