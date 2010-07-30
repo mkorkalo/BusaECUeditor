@@ -3396,11 +3396,6 @@ Public Class main
         ReadECU()
     End Sub
 
-    Private Sub Button1_Click_3(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        K8enginedatalog.Show()
-
-    End Sub
-
     Private Sub FlashSerial_old()
 
         Dim path As String
