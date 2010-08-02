@@ -38,7 +38,7 @@ Partial Class K8shifter
         Me.Label2 = New System.Windows.Forms.Label
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
         Me.Label11 = New System.Windows.Forms.Label
-        Me.RPM = New System.Windows.Forms.ComboBox
+        Me.RPM1 = New System.Windows.Forms.ComboBox
         Me.Label10 = New System.Windows.Forms.Label
         Me.C_DSMactivation = New System.Windows.Forms.CheckBox
         Me.Label9 = New System.Windows.Forms.Label
@@ -58,6 +58,10 @@ Partial Class K8shifter
         Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.HelpProvider1 = New System.Windows.Forms.HelpProvider
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
+        Me.RPM2 = New System.Windows.Forms.ComboBox
+        Me.RPM3 = New System.Windows.Forms.ComboBox
+        Me.RPM456 = New System.Windows.Forms.ComboBox
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.GroupBox2.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -87,6 +91,7 @@ Partial Class K8shifter
         Me.T_12000.Name = "T_12000"
         Me.T_12000.Size = New System.Drawing.Size(35, 20)
         Me.T_12000.TabIndex = 4
+        Me.ToolTip1.SetToolTip(Me.T_12000, "gear1 killtime")
         '
         'T_11000
         '
@@ -94,6 +99,7 @@ Partial Class K8shifter
         Me.T_11000.Name = "T_11000"
         Me.T_11000.Size = New System.Drawing.Size(35, 20)
         Me.T_11000.TabIndex = 5
+        Me.ToolTip1.SetToolTip(Me.T_11000, "gear2 killtime")
         '
         'T_10000
         '
@@ -101,6 +107,7 @@ Partial Class K8shifter
         Me.T_10000.Name = "T_10000"
         Me.T_10000.Size = New System.Drawing.Size(35, 20)
         Me.T_10000.TabIndex = 6
+        Me.ToolTip1.SetToolTip(Me.T_10000, "gear3 killtime")
         '
         'T_9000
         '
@@ -108,6 +115,7 @@ Partial Class K8shifter
         Me.T_9000.Name = "T_9000"
         Me.T_9000.Size = New System.Drawing.Size(35, 20)
         Me.T_9000.TabIndex = 7
+        Me.ToolTip1.SetToolTip(Me.T_9000, "gear4 killtime")
         '
         'T_8000
         '
@@ -115,6 +123,7 @@ Partial Class K8shifter
         Me.T_8000.Name = "T_8000"
         Me.T_8000.Size = New System.Drawing.Size(35, 20)
         Me.T_8000.TabIndex = 8
+        Me.ToolTip1.SetToolTip(Me.T_8000, "gear5 killtime")
         '
         'T_7000
         '
@@ -122,6 +131,7 @@ Partial Class K8shifter
         Me.T_7000.Name = "T_7000"
         Me.T_7000.Size = New System.Drawing.Size(35, 20)
         Me.T_7000.TabIndex = 9
+        Me.ToolTip1.SetToolTip(Me.T_7000, "gear6 killtime, i.e. killtime if gear based on GPS sensor is not detected")
         '
         'T_6000
         '
@@ -169,6 +179,7 @@ Partial Class K8shifter
         Me.C_killtime.Name = "C_killtime"
         Me.C_killtime.Size = New System.Drawing.Size(85, 21)
         Me.C_killtime.TabIndex = 26
+        Me.ToolTip1.SetToolTip(Me.C_killtime, "Set killtime for all gears")
         '
         'Label2
         '
@@ -181,8 +192,11 @@ Partial Class K8shifter
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.RPM456)
+        Me.GroupBox2.Controls.Add(Me.RPM3)
+        Me.GroupBox2.Controls.Add(Me.RPM2)
         Me.GroupBox2.Controls.Add(Me.Label11)
-        Me.GroupBox2.Controls.Add(Me.RPM)
+        Me.GroupBox2.Controls.Add(Me.RPM1)
         Me.GroupBox2.Controls.Add(Me.Label10)
         Me.GroupBox2.Controls.Add(Me.C_DSMactivation)
         Me.GroupBox2.Controls.Add(Me.Label9)
@@ -222,24 +236,25 @@ Partial Class K8shifter
         Me.Label11.TabIndex = 53
         Me.Label11.Text = "Activation mode"
         '
-        'RPM
+        'RPM1
         '
-        Me.RPM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.RPM.Enabled = False
-        Me.RPM.FormattingEnabled = True
-        Me.RPM.Location = New System.Drawing.Point(123, 155)
-        Me.RPM.Name = "RPM"
-        Me.RPM.Size = New System.Drawing.Size(102, 21)
-        Me.RPM.TabIndex = 52
+        Me.RPM1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.RPM1.Enabled = False
+        Me.RPM1.FormattingEnabled = True
+        Me.RPM1.Location = New System.Drawing.Point(234, 155)
+        Me.RPM1.Name = "RPM1"
+        Me.RPM1.Size = New System.Drawing.Size(46, 21)
+        Me.RPM1.TabIndex = 52
+        Me.ToolTip1.SetToolTip(Me.RPM1, "Gear1 autoshift RPM or minimum RPM after which shift can be activated")
         '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.Location = New System.Drawing.Point(6, 158)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(97, 13)
+        Me.Label10.Size = New System.Drawing.Size(126, 13)
         Me.Label10.TabIndex = 51
-        Me.Label10.Text = "Minimum shift RPM"
+        Me.Label10.Text = "Minimum / autoshift RPM"
         '
         'C_DSMactivation
         '
@@ -249,6 +264,8 @@ Partial Class K8shifter
         Me.C_DSMactivation.Size = New System.Drawing.Size(157, 17)
         Me.C_DSMactivation.TabIndex = 50
         Me.C_DSMactivation.Text = "DSM2 activated shift active"
+        Me.ToolTip1.SetToolTip(Me.C_DSMactivation, "Shift kill activation method. Usually a shifter swicht in gear lever is used. Alt" & _
+                "ernatively the DSM button activation can be used.")
         Me.C_DSMactivation.UseVisualStyleBackColor = True
         '
         'Label9
@@ -256,9 +273,9 @@ Partial Class K8shifter
         Me.Label9.AutoSize = True
         Me.Label9.Location = New System.Drawing.Point(470, 19)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(36, 13)
+        Me.Label9.Size = New System.Drawing.Size(54, 13)
         Me.Label9.TabIndex = 49
-        Me.Label9.Text = "Gear6"
+        Me.Label9.Text = "Err killtime"
         '
         'Label8
         '
@@ -313,6 +330,7 @@ Partial Class K8shifter
         Me.C_igncut.Size = New System.Drawing.Size(88, 17)
         Me.C_igncut.TabIndex = 43
         Me.C_igncut.Text = "Igncut active"
+        Me.ToolTip1.SetToolTip(Me.C_igncut, "Shift kills also ignition, use this for faster more ""abrubt"" shift kill")
         Me.C_igncut.UseVisualStyleBackColor = True
         '
         'Label3
@@ -332,6 +350,7 @@ Partial Class K8shifter
         Me.C_Fuelcut.Size = New System.Drawing.Size(93, 17)
         Me.C_Fuelcut.TabIndex = 41
         Me.C_Fuelcut.Text = "Fuelcut active"
+        Me.ToolTip1.SetToolTip(Me.C_Fuelcut, "Shift kills fuelcut, this should be always active")
         Me.C_Fuelcut.UseVisualStyleBackColor = True
         '
         'L_killcountdelay
@@ -358,6 +377,8 @@ Partial Class K8shifter
         Me.T_killcountdelay.Name = "T_killcountdelay"
         Me.T_killcountdelay.Size = New System.Drawing.Size(35, 20)
         Me.T_killcountdelay.TabIndex = 38
+        Me.ToolTip1.SetToolTip(Me.T_killcountdelay, "Delay (in engine rounds) how long the program will wait until next shift is allow" & _
+                "ed to avoid too fast consequent shifts")
         '
         'T_minkillactive
         '
@@ -365,6 +386,8 @@ Partial Class K8shifter
         Me.T_minkillactive.Name = "T_minkillactive"
         Me.T_minkillactive.Size = New System.Drawing.Size(35, 20)
         Me.T_minkillactive.TabIndex = 37
+        Me.ToolTip1.SetToolTip(Me.T_minkillactive, "How many engine rounds the shift activation switch needs to be depressed before k" & _
+                "ill is activated")
         '
         'L_shifterver
         '
@@ -392,6 +415,45 @@ Partial Class K8shifter
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 43
         Me.PictureBox1.TabStop = False
+        '
+        'RPM2
+        '
+        Me.RPM2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.RPM2.Enabled = False
+        Me.RPM2.FormattingEnabled = True
+        Me.RPM2.Location = New System.Drawing.Point(284, 155)
+        Me.RPM2.Name = "RPM2"
+        Me.RPM2.Size = New System.Drawing.Size(46, 21)
+        Me.RPM2.TabIndex = 54
+        Me.ToolTip1.SetToolTip(Me.RPM2, "Gear2 autoshift RPM or minimum RPM after which shift can be activated")
+        '
+        'RPM3
+        '
+        Me.RPM3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.RPM3.Enabled = False
+        Me.RPM3.FormattingEnabled = True
+        Me.RPM3.Location = New System.Drawing.Point(336, 155)
+        Me.RPM3.Name = "RPM3"
+        Me.RPM3.Size = New System.Drawing.Size(46, 21)
+        Me.RPM3.TabIndex = 55
+        Me.ToolTip1.SetToolTip(Me.RPM3, "Gear3 autoshift RPM or minimum RPM after which shift can be activated")
+        '
+        'RPM456
+        '
+        Me.RPM456.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.RPM456.Enabled = False
+        Me.RPM456.FormattingEnabled = True
+        Me.RPM456.Location = New System.Drawing.Point(388, 155)
+        Me.RPM456.Name = "RPM456"
+        Me.RPM456.Size = New System.Drawing.Size(117, 21)
+        Me.RPM456.TabIndex = 56
+        Me.ToolTip1.SetToolTip(Me.RPM456, "Gear456 autoshift RPM or minimum RPM after which shift can be activated")
+        '
+        'ToolTip1
+        '
+        Me.ToolTip1.AutoPopDelay = 10000
+        Me.ToolTip1.InitialDelay = 500
+        Me.ToolTip1.ReshowDelay = 100
         '
         'K8shifter
         '
@@ -457,8 +519,12 @@ Partial Class K8shifter
     Friend WithEvents HelpProvider1 As System.Windows.Forms.HelpProvider
     Friend WithEvents C_DSMactivation As System.Windows.Forms.CheckBox
     Friend WithEvents Label10 As System.Windows.Forms.Label
-    Friend WithEvents RPM As System.Windows.Forms.ComboBox
+    Friend WithEvents RPM1 As System.Windows.Forms.ComboBox
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
+    Friend WithEvents RPM456 As System.Windows.Forms.ComboBox
+    Friend WithEvents RPM3 As System.Windows.Forms.ComboBox
+    Friend WithEvents RPM2 As System.Windows.Forms.ComboBox
+    Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
 
 End Class

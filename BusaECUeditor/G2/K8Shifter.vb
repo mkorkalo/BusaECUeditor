@@ -26,11 +26,11 @@ Imports System.IO
 Public Class K8shifter
     Dim ADJ As Integer = &H55400 '&HFF if shifter inactive, no code present else shifter active
     Dim FUELCODE As Integer = &H55450
-    Dim IGNCODE As Integer = &H55730
+    Dim IGNCODE As Integer = &H55780
     Dim IDTAG As Integer = &H55400
     Dim minkillactive As Integer = ADJ + &H16
     Dim killcountdelay As Integer = ADJ + &H18
-    Dim SHIFTER2VERSION As Integer = 204
+    Dim SHIFTER2VERSION As Integer = 205
     Dim shiftercodelenght As Integer = &H55800 - &H55400 - 1 'lenght of the shifter code in bytes for clearing the memory
     Dim timerconst = 1 / 1.28
     Dim initiating As Boolean = True
@@ -234,25 +234,13 @@ Public Class K8shifter
         C_Fuelcut.Visible = True
         C_igncut.Visible = True
         C_DSMactivation.Visible = True
-        RPM.Visible = True
+        RPM1.Visible = True
 
         'populate RPM with initial value
-        i = ReadFlashWord(&H5540E) ' this is the reference RPM that is stored in the system
-        i = i / 2.56
-        i = CInt(i / 50) * 50 'the conversions are not exact, Round it up to the closest 50 to avoid confusion
-
-        Me.RPM.Items.Add(i.ToString())
-
-        i = 2000
-        Do While i < 13000 ' this is the maximum rpm allowed 
-            Me.RPM.Items.Add(i.ToString())
-            i = i + 100
-        Loop
-        Me.RPM.Items.Add(i.ToString())
-
-        Me.RPM.SelectedIndex = 0
-        Me.RPM.Enabled = True
-
+        populaterpm(ReadFlashWord(&H5540E), Me.RPM1) ' this is the reference RPM that is stored in the system
+        populaterpm(ReadFlashWord(&H55410), Me.RPM2) ' this is the reference RPM that is stored in the system
+        populaterpm(ReadFlashWord(&H55412), Me.RPM3) ' this is the reference RPM that is stored in the system
+        populaterpm(ReadFlashWord(&H55414), Me.RPM456) ' this is the reference RPM that is stored in the system
 
         If ReadFlashByte(&H55420) = 0 Then
             C_DSMactivation.Text = "Normal GPS resistor activation"
@@ -263,6 +251,23 @@ Public Class K8shifter
             WriteFlashByte(&H55420, 1) ' 1 = DSM2, 2 = DSM1
         End If
 
+
+    End Sub
+
+    Private Sub populaterpm(ByVal r As Integer, ByVal c As ComboBox)
+        Dim i As Integer
+
+        i = r / 2.56
+        i = CInt(i / 50) * 50 'the conversions are not exact, Round it up to the closest 50 to avoid confusion
+        c.Items.Add(i.ToString())
+        i = 2000
+        Do While i < 13000 ' this is the maximum rpm allowed 
+            c.Items.Add(i.ToString())
+            i = i + 100
+        Loop
+        c.Items.Add(i.ToString())
+        c.SelectedIndex = 0
+        c.Enabled = True
 
     End Sub
 
@@ -290,7 +295,7 @@ Public Class K8shifter
 
         C_DSMactivation.Visible = False
 
-        RPM.Visible = False
+        RPM1.Visible = False
 
     End Sub
 
@@ -389,12 +394,30 @@ Public Class K8shifter
 
     End Sub
 
-    Private Sub RPM_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RPM.SelectedIndexChanged
+    Private Sub RPM_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RPM1.SelectedIndexChanged
         Dim i As Integer
-        i = Val(RPM.Text) * 2.56
+        i = Val(RPM1.Text) * 2.56
         i = CInt(i / 50) * 50
         WriteFlashWord(&H5540E, i)
     End Sub
 
-    
+
+    Private Sub ComboBox3_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RPM456.SelectedIndexChanged
+        Dim i As Integer
+        i = Val(RPM1.Text) * 2.56
+        i = CInt(i / 50) * 50
+        WriteFlashWord(&H55414, i)
+    End Sub
+    Private Sub ComboBox2_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RPM3.SelectedIndexChanged
+        Dim i As Integer
+        i = Val(RPM1.Text) * 2.56
+        i = CInt(i / 50) * 50
+        WriteFlashWord(&H55412, i)
+    End Sub
+    Private Sub ComboBox1_SelectedIndexChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RPM2.SelectedIndexChanged
+        Dim i As Integer
+        i = Val(RPM1.Text) * 2.56
+        i = CInt(i / 50) * 50
+        WriteFlashWord(&H55410, i)
+    End Sub
 End Class
