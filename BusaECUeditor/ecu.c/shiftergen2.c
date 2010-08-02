@@ -118,10 +118,15 @@ void shiftermain(void)
 	*/		
     if (((ECU_AD_GPS >> 2)  <=  SHIFTERACTIVE ) || ((PORT3 & DSMSELECTED) != 0))
  		{
-			if (((previousgear == 1) && (ECU_RPM > const_shiftrpm1)) || ((previousgear == 2) && (ECU_RPM > const_shiftrpm2)) ||((previousgear == 3) && (ECU_RPM > const_shiftrpm3)) || ((previousgear >= 4) && (ECU_RPM > const_shiftrpm456)))
-				{
-				killswitch = ACTIVE;
+			
+			if 		(((previousgear == 1) && (ECU_RPM >= const_shiftrpm1))||
+					((previousgear == 2) && (ECU_RPM >= const_shiftrpm2)) ||
+					((previousgear == 3) && (ECU_RPM >= const_shiftrpm3)) ||
+					((previousgear >= 4) && (ECU_RPM >= const_shiftrpm456)))
+					{killswitch = ACTIVE;}
 	
+			if (killswitch == ACTIVE)
+			{
 				if (previousgear == 1)
 					{
 						duration_kill = (const_killtime_gear1 * (ECU_RPM>>2)) / killtimedivider;
@@ -249,7 +254,7 @@ void shiftermain(void)
 		Use igncut only if parametrized to do so.
 		Set the ignitionkill on if KillFlag indicates that kill is active.
 */		
-#pragma SECTION P IGNCODE //0x55780
+#pragma SECTION P IGNCODE //0x557A0
 void ignmain(void)
 {
 	if (ignkillactive == ACTIVE)
