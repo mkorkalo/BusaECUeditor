@@ -37,6 +37,9 @@ Partial Class K8shifter
         Me.C_killtime = New System.Windows.Forms.ComboBox
         Me.Label2 = New System.Windows.Forms.Label
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
+        Me.RPM456 = New System.Windows.Forms.ComboBox
+        Me.RPM3 = New System.Windows.Forms.ComboBox
+        Me.RPM2 = New System.Windows.Forms.ComboBox
         Me.Label11 = New System.Windows.Forms.Label
         Me.RPM1 = New System.Windows.Forms.ComboBox
         Me.Label10 = New System.Windows.Forms.Label
@@ -58,9 +61,6 @@ Partial Class K8shifter
         Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.HelpProvider1 = New System.Windows.Forms.HelpProvider
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
-        Me.RPM2 = New System.Windows.Forms.ComboBox
-        Me.RPM3 = New System.Windows.Forms.ComboBox
-        Me.RPM456 = New System.Windows.Forms.ComboBox
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.GroupBox2.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -227,6 +227,39 @@ Partial Class K8shifter
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Shifter settings"
         '
+        'RPM456
+        '
+        Me.RPM456.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.RPM456.Enabled = False
+        Me.RPM456.FormattingEnabled = True
+        Me.RPM456.Location = New System.Drawing.Point(440, 158)
+        Me.RPM456.Name = "RPM456"
+        Me.RPM456.Size = New System.Drawing.Size(68, 21)
+        Me.RPM456.TabIndex = 56
+        Me.ToolTip1.SetToolTip(Me.RPM456, "Gear456 autoshift RPM or minimum RPM after which shift can be activated")
+        '
+        'RPM3
+        '
+        Me.RPM3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.RPM3.Enabled = False
+        Me.RPM3.FormattingEnabled = True
+        Me.RPM3.Location = New System.Drawing.Point(366, 158)
+        Me.RPM3.Name = "RPM3"
+        Me.RPM3.Size = New System.Drawing.Size(68, 21)
+        Me.RPM3.TabIndex = 55
+        Me.ToolTip1.SetToolTip(Me.RPM3, "Gear3 autoshift RPM or minimum RPM after which shift can be activated")
+        '
+        'RPM2
+        '
+        Me.RPM2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.RPM2.Enabled = False
+        Me.RPM2.FormattingEnabled = True
+        Me.RPM2.Location = New System.Drawing.Point(290, 158)
+        Me.RPM2.Name = "RPM2"
+        Me.RPM2.Size = New System.Drawing.Size(68, 21)
+        Me.RPM2.TabIndex = 54
+        Me.ToolTip1.SetToolTip(Me.RPM2, "Gear2 autoshift RPM or minimum RPM after which shift can be activated")
+        '
         'Label11
         '
         Me.Label11.AutoSize = True
@@ -241,9 +274,9 @@ Partial Class K8shifter
         Me.RPM1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.RPM1.Enabled = False
         Me.RPM1.FormattingEnabled = True
-        Me.RPM1.Location = New System.Drawing.Point(234, 155)
+        Me.RPM1.Location = New System.Drawing.Point(212, 158)
         Me.RPM1.Name = "RPM1"
-        Me.RPM1.Size = New System.Drawing.Size(46, 21)
+        Me.RPM1.Size = New System.Drawing.Size(68, 21)
         Me.RPM1.TabIndex = 52
         Me.ToolTip1.SetToolTip(Me.RPM1, "Gear1 autoshift RPM or minimum RPM after which shift can be activated")
         '
@@ -415,39 +448,6 @@ Partial Class K8shifter
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 43
         Me.PictureBox1.TabStop = False
-        '
-        'RPM2
-        '
-        Me.RPM2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.RPM2.Enabled = False
-        Me.RPM2.FormattingEnabled = True
-        Me.RPM2.Location = New System.Drawing.Point(284, 155)
-        Me.RPM2.Name = "RPM2"
-        Me.RPM2.Size = New System.Drawing.Size(46, 21)
-        Me.RPM2.TabIndex = 54
-        Me.ToolTip1.SetToolTip(Me.RPM2, "Gear2 autoshift RPM or minimum RPM after which shift can be activated")
-        '
-        'RPM3
-        '
-        Me.RPM3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.RPM3.Enabled = False
-        Me.RPM3.FormattingEnabled = True
-        Me.RPM3.Location = New System.Drawing.Point(336, 155)
-        Me.RPM3.Name = "RPM3"
-        Me.RPM3.Size = New System.Drawing.Size(46, 21)
-        Me.RPM3.TabIndex = 55
-        Me.ToolTip1.SetToolTip(Me.RPM3, "Gear3 autoshift RPM or minimum RPM after which shift can be activated")
-        '
-        'RPM456
-        '
-        Me.RPM456.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.RPM456.Enabled = False
-        Me.RPM456.FormattingEnabled = True
-        Me.RPM456.Location = New System.Drawing.Point(388, 155)
-        Me.RPM456.Name = "RPM456"
-        Me.RPM456.Size = New System.Drawing.Size(117, 21)
-        Me.RPM456.TabIndex = 56
-        Me.ToolTip1.SetToolTip(Me.RPM456, "Gear456 autoshift RPM or minimum RPM after which shift can be activated")
         '
         'ToolTip1
         '

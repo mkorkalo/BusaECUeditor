@@ -26,7 +26,7 @@ Imports System.IO
 Public Class K8shifter
     Dim ADJ As Integer = &H55400 '&HFF if shifter inactive, no code present else shifter active
     Dim FUELCODE As Integer = &H55450
-    Dim IGNCODE As Integer = &H55780
+    Dim IGNCODE As Integer = &H557A0
     Dim IDTAG As Integer = &H55400
     Dim minkillactive As Integer = ADJ + &H16
     Dim killcountdelay As Integer = ADJ + &H18
@@ -404,19 +404,19 @@ Public Class K8shifter
 
     Private Sub ComboBox3_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RPM456.SelectedIndexChanged
         Dim i As Integer
-        i = Val(RPM1.Text) * 2.56
+        i = Val(RPM456.Text) * 2.56
         i = CInt(i / 50) * 50
         WriteFlashWord(&H55414, i)
     End Sub
     Private Sub ComboBox2_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RPM3.SelectedIndexChanged
         Dim i As Integer
-        i = Val(RPM1.Text) * 2.56
+        i = Val(RPM3.Text) * 2.56
         i = CInt(i / 50) * 50
         WriteFlashWord(&H55412, i)
     End Sub
     Private Sub ComboBox1_SelectedIndexChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RPM2.SelectedIndexChanged
         Dim i As Integer
-        i = Val(RPM1.Text) * 2.56
+        i = Val(RPM2.Text) * 2.56
         i = CInt(i / 50) * 50
         WriteFlashWord(&H55410, i)
     End Sub
