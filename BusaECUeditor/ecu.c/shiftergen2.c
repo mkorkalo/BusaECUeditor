@@ -66,17 +66,17 @@
 	The shift kill variables are defined here, e.g kill times. These are adjusted using ecueditor.
 */
 #pragma SECTION C PARAMS //0x55400
-const short const_pgmid = 				204;			// 0 program id, must match to ecueditor version to be able to load this code to ecu
+const short const_pgmid = 				205;			// 0 program id, must match to ecueditor version to be able to load this code to ecu
 const short const_killtime_gear1 = 		80;			// 2 kill times, these are egnie revolutions for the rpm range
 const short const_killtime_gear2 = 		80;			// 4
 const short const_killtime_gear3 = 		80;			// 6
 const short const_killtime_gear4 = 		80;			// 8
 const short const_killtime_gear5 = 		80;			// 10
 const short const_killtime_gear6 = 		80;			// 12
-const short const_shiftrpm	 = 			0x1400;			// 14
-const short const_x = 					0x0;			// 16
-const short const_y = 					0x0;			// 18
-const short const_z = 					0x0;			// 20
+const short const_shiftrpm1	 = 			0x1400;			// 14
+const short const_shiftrpm2 = 			0x1400;			// 16
+const short const_shiftrpm3 = 			0x1400;			// 18
+const short const_shiftrpm456 = 		0x1400;			// 20
 const short minkillactive = 			5;   			// 22. hysteresis for how many revolutions the gps must be active before a kill is initiated
 const short killcountdelay = 			500;			// 24. delay of revolutions how many times must pass from last kill before a kill can be initiated again
 const short fuelkillactive = 			1;				// 26. igncut will be used, this can be changed by ecueditor to 0 to disable fuelcut
@@ -118,7 +118,7 @@ void shiftermain(void)
 	*/		
     if (((ECU_AD_GPS >> 2)  <=  SHIFTERACTIVE ) || ((PORT3 & DSMSELECTED) != 0))
  		{
-			if (ECU_RPM > const_shiftrpm) 
+			if (((previousgear == 1) && (ECU_RPM > const_shiftrpm1)) || ((previousgear == 2) && (ECU_RPM > const_shiftrpm2)) ||((previousgear == 3) && (ECU_RPM > const_shiftrpm3)) || ((previousgear >= 4) && (ECU_RPM > const_shiftrpm456)))
 				{
 				killswitch = ACTIVE;
 	
@@ -249,7 +249,7 @@ void shiftermain(void)
 		Use igncut only if parametrized to do so.
 		Set the ignitionkill on if KillFlag indicates that kill is active.
 */		
-#pragma SECTION P IGNCODE //0x55730
+#pragma SECTION P IGNCODE //0x55780
 void ignmain(void)
 {
 	if (ignkillactive == ACTIVE)
