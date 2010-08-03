@@ -281,6 +281,12 @@ Public Class AdvSettings
             C_IAPTPSSwitchingPoint.Items.Add(Str(i))
         Next
 
+        'added 03.08.2010 by JaSa
+        If ReadFlashByte(&H2940C) <> &H1 Then
+            G1SetClutchMapsCheckBox.Checked = True
+        Else
+            G1SetClutchMapsCheckBox.Checked = False
+        End If
 
     End Sub
 
@@ -517,6 +523,23 @@ Public Class AdvSettings
         Next
 
         z = 0
+
+    End Sub
+    Private Sub G1SetClutchMapsCheckBoxCheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles G1SetClutchMapsCheckBox.CheckedChanged
+        'When Clutch pressed selection of neutral or gear map will be done by this check box
+        '00 = Gear Maps are used when Clutch pressed in
+        '01 = Neutral maps are used when Clutch pressed in
+        'Used on Tbo applications. See: http://bitbucket.org/ecueditor/ecueditor/issue/37/gen1-neutral-map-clutch-lever-position
+        'added 03.08.2010 by JaSa
+
+        If G1SetClutchMapsCheckBox.Checked Then
+            G1SetClutchMapsCheckBox.Text = "Gear map"
+            WriteFlashByte(&H2940C, &H0)
+
+        Else
+            G1SetClutchMapsCheckBox.Text = "Neutral map"
+            WriteFlashByte(&H2940C, &H1)
+        End If
 
     End Sub
 
