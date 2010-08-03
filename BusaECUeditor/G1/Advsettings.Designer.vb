@@ -76,6 +76,9 @@ Partial Class AdvSettings
         Me.GroupBox10 = New System.Windows.Forms.GroupBox
         Me.C_Yoshbox = New System.Windows.Forms.CheckBox
         Me.Label13 = New System.Windows.Forms.Label
+        Me.G1ClutchMapSelectionGroupBox = New System.Windows.Forms.GroupBox
+        Me.G1SetClutchMapsCheckBox = New System.Windows.Forms.CheckBox
+        Me.G1ClutchMapSelectionLabel = New System.Windows.Forms.Label
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -88,6 +91,7 @@ Partial Class AdvSettings
         Me.GroupBox9.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
         Me.GroupBox10.SuspendLayout()
+        Me.G1ClutchMapSelectionGroupBox.SuspendLayout()
         Me.SuspendLayout()
         '
         'B_Close
@@ -640,11 +644,44 @@ Partial Class AdvSettings
         Me.Label13.TabIndex = 6
         Me.Label13.Text = "Yoshbox compensation"
         '
+        'G1ClutchMapSelectionGroupBox
+        '
+        Me.G1ClutchMapSelectionGroupBox.Controls.Add(Me.G1SetClutchMapsCheckBox)
+        Me.G1ClutchMapSelectionGroupBox.Controls.Add(Me.G1ClutchMapSelectionLabel)
+        Me.G1ClutchMapSelectionGroupBox.Location = New System.Drawing.Point(280, 356)
+        Me.G1ClutchMapSelectionGroupBox.Name = "G1ClutchMapSelectionGroupBox"
+        Me.G1ClutchMapSelectionGroupBox.Size = New System.Drawing.Size(261, 39)
+        Me.G1ClutchMapSelectionGroupBox.TabIndex = 11
+        Me.G1ClutchMapSelectionGroupBox.TabStop = False
+        Me.G1ClutchMapSelectionGroupBox.Text = "Used maps when Clutch pressed"
+        Me.ToolTip1.SetToolTip(Me.G1ClutchMapSelectionGroupBox, "NOT TESTED FEATURE:if selected then gear maps will be used instead of neutral map" & _
+                " when Clutch pressed. Is used in Tbo applications.")
+        '
+        'G1SetClutchMapsCheckBox
+        '
+        Me.G1SetClutchMapsCheckBox.AutoSize = True
+        Me.G1SetClutchMapsCheckBox.Location = New System.Drawing.Point(147, 16)
+        Me.G1SetClutchMapsCheckBox.Name = "G1SetClutchMapsCheckBox"
+        Me.G1SetClutchMapsCheckBox.Size = New System.Drawing.Size(83, 17)
+        Me.G1SetClutchMapsCheckBox.TabIndex = 5
+        Me.G1SetClutchMapsCheckBox.Text = "Neutral map"
+        Me.G1SetClutchMapsCheckBox.UseVisualStyleBackColor = True
+        '
+        'G1ClutchMapSelectionLabel
+        '
+        Me.G1ClutchMapSelectionLabel.AutoSize = True
+        Me.G1ClutchMapSelectionLabel.Location = New System.Drawing.Point(6, 16)
+        Me.G1ClutchMapSelectionLabel.Name = "G1ClutchMapSelectionLabel"
+        Me.G1ClutchMapSelectionLabel.Size = New System.Drawing.Size(77, 13)
+        Me.G1ClutchMapSelectionLabel.TabIndex = 5
+        Me.G1ClutchMapSelectionLabel.Text = "Set used maps"
+        '
         'AdvSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(552, 478)
+        Me.Controls.Add(Me.G1ClutchMapSelectionGroupBox)
         Me.Controls.Add(Me.GroupBox11)
         Me.Controls.Add(Me.GroupBox10)
         Me.Controls.Add(Me.GroupBox9)
@@ -687,6 +724,8 @@ Partial Class AdvSettings
         Me.GroupBox11.PerformLayout()
         Me.GroupBox10.ResumeLayout(False)
         Me.GroupBox10.PerformLayout()
+        Me.G1ClutchMapSelectionGroupBox.ResumeLayout(False)
+        Me.G1ClutchMapSelectionGroupBox.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -745,4 +784,7 @@ Partial Class AdvSettings
     Friend WithEvents GroupBox11 As System.Windows.Forms.GroupBox
     Friend WithEvents C_Dwell As System.Windows.Forms.ComboBox
     Friend WithEvents Label18 As System.Windows.Forms.Label
+    Friend WithEvents G1ClutchMapSelectionGroupBox As System.Windows.Forms.GroupBox
+    Friend WithEvents G1SetClutchMapsCheckBox As System.Windows.Forms.CheckBox
+    Friend WithEvents G1ClutchMapSelectionLabel As System.Windows.Forms.Label
 End Class
