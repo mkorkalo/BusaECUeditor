@@ -164,6 +164,10 @@ means original * 1.1 at top RPM.The dwell increase is set for
 RPMs over 3200rpm.
 </value>
   </data>
+  <data name="G1ClutchMapSelectionGroupBox.ToolTip" xml:space="preserve">
+    <value>Determines which ignition map is used when clutch lever is in. Normal is Neutral timing map. Checked is gear based ignition map. 
+This can be useful for turbo antilag programming in dragracing applications or for any other reason the neutral ignition map is not desired when the clutch lever is in.</value>
+  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>25</value>
   </metadata>
