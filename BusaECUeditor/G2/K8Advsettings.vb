@@ -287,6 +287,16 @@ Public Class K8Advsettings
                 C_IAPTPS.SelectedIndex = 2
         End Select
 
+        If ReadFlashWord(&H525C2) = &H9C Then
+            C_DatalogO2Sensor.Checked = True
+            C_DatalogO2Sensor.Text = "Datalog O2 Sensor ON"
+            C_HOX.Checked = False
+            C_HOX.Enabled = False
+        Else
+            C_DatalogO2Sensor.Text = "Datalog O2 Sensor OFF"
+            C_DatalogO2Sensor.Checked = False
+        End If
+
         loading = False
 
     End Sub
@@ -1037,4 +1047,45 @@ Public Class K8Advsettings
         K8gaugetools.Show()
         K8gaugetools.Select()
     End Sub
+
+    Private Sub C_DatalogO2Sensor_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_DatalogO2Sensor.CheckedChanged
+
+        If Not loading Then
+
+            If C_DatalogO2Sensor.Checked Then
+
+                C_DatalogO2Sensor.Text = "Datalog O2 Sensor ON"
+                C_HOX.Checked = False
+                C_HOX.Enabled = False
+
+                '10 Bit AD Sensor Value
+                WriteFlashWord(&H525C0, &H80)
+                WriteFlashWord(&H525C2, &H9C)
+                WriteFlashWord(&H525C4, &H80)
+                WriteFlashWord(&H525C6, &H9D)
+
+                '8 Bit AD Sensor Value
+                WriteFlashWord(&H525F0, &H80)
+                WriteFlashWord(&H525F2, &HDD)
+
+            Else
+
+                C_DatalogO2Sensor.Text = "Datalog O2 Sensor OFF"
+                C_HOX.Enabled = True
+
+                '10 Bit AD Sensor Value
+                WriteFlashWord(&H525C0, &H7)
+                WriteFlashWord(&H525C2, &HD11B)
+                WriteFlashWord(&H525C4, &H7)
+                WriteFlashWord(&H525C6, &HD11B)
+
+                '8 Bit AD Sensor Value
+                WriteFlashWord(&H525F0, &H80)
+                WriteFlashWord(&H525F2, &H673E)
+
+            End If
+        End If
+
+    End Sub
+
 End Class

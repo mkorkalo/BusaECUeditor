@@ -75,6 +75,15 @@ Public Class BKingAdvSettings
             C_EXC.Text = "EXC OFF"
         End If
 
+        If ReadFlashWord(&H55152) = &H9C Then
+            C_DatalogO2Sensor.Checked = True
+            C_DatalogO2Sensor.Text = "Datalog O2 Sensor ON"
+            C_HOX.Checked = False
+            C_HOX.Enabled = False
+        Else
+            C_DatalogO2Sensor.Text = "Datalog O2 Sensor OFF"
+            C_DatalogO2Sensor.Checked = False
+        End If
 
         _loading = False
 
@@ -162,6 +171,46 @@ Public Class BKingAdvSettings
                 writeflashbyte(&H7000F, &H80)
             End If
 
+        End If
+
+    End Sub
+
+    Private Sub C_DatalogO2Sensor_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_DatalogO2Sensor.CheckedChanged
+
+        If Not _loading Then
+
+            If C_DatalogO2Sensor.Checked Then
+
+                C_DatalogO2Sensor.Text = "Datalog O2 Sensor ON"
+                C_HOX.Checked = False
+                C_HOX.Enabled = False
+
+                '10 Bit AD Sensor Value
+                WriteFlashWord(&H55150, &H80)
+                WriteFlashWord(&H55152, &H9C)
+                WriteFlashWord(&H55154, &H80)
+                WriteFlashWord(&H55156, &H9D)
+
+                '8 Bit AD Sensor Value
+                WriteFlashWord(&H55180, &H80)
+                WriteFlashWord(&H55182, &HDD)
+
+            Else
+
+                C_DatalogO2Sensor.Text = "Datalog O2 Sensor OFF"
+                C_HOX.Enabled = True
+
+                '10 Bit AD Sensor Value
+                WriteFlashWord(&H55150, &H7)
+                WriteFlashWord(&H55152, &H9960)
+                WriteFlashWord(&H55154, &H7)
+                WriteFlashWord(&H55156, &H9960)
+
+                '8 Bit AD Sensor Value
+                WriteFlashWord(&H55180, &H80)
+                WriteFlashWord(&H55182, &H66B6)
+
+            End If
         End If
 
     End Sub

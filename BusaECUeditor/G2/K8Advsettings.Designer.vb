@@ -40,6 +40,7 @@ Partial Class K8Advsettings
         Me.C_secondaries = New System.Windows.Forms.CheckBox
         Me.C_IAPTPS = New System.Windows.Forms.ComboBox
         Me.C_ramairmode = New System.Windows.Forms.CheckBox
+        Me.Button5 = New System.Windows.Forms.Button
         Me.B_ramairadjust = New System.Windows.Forms.Button
         Me.GroupBox6 = New System.Windows.Forms.GroupBox
         Me.C_PAIR = New System.Windows.Forms.CheckBox
@@ -68,7 +69,7 @@ Partial Class K8Advsettings
         Me.Label5 = New System.Windows.Forms.Label
         Me.C_ABCmode = New System.Windows.Forms.CheckBox
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.Button5 = New System.Windows.Forms.Button
+        Me.C_DatalogO2Sensor = New System.Windows.Forms.CheckBox
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -288,6 +289,17 @@ Partial Class K8Advsettings
         Me.ToolTip1.SetToolTip(Me.C_ramairmode, resources.GetString("C_ramairmode.ToolTip"))
         Me.C_ramairmode.UseVisualStyleBackColor = True
         '
+        'Button5
+        '
+        Me.Button5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button5.Location = New System.Drawing.Point(67, 8)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(80, 23)
+        Me.Button5.TabIndex = 7
+        Me.Button5.Text = "Activate MIL"
+        Me.ToolTip1.SetToolTip(Me.Button5, resources.GetString("Button5.ToolTip"))
+        Me.Button5.UseVisualStyleBackColor = True
+        '
         'B_ramairadjust
         '
         Me.B_ramairadjust.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -405,7 +417,7 @@ Partial Class K8Advsettings
         Me.GroupBox8.Controls.Add(Me.Label4)
         Me.GroupBox8.Controls.Add(Me.Label2)
         Me.GroupBox8.Controls.Add(Me.T_hexaddr)
-        Me.GroupBox8.Location = New System.Drawing.Point(15, 350)
+        Me.GroupBox8.Location = New System.Drawing.Point(15, 367)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(376, 65)
         Me.GroupBox8.TabIndex = 42
@@ -530,6 +542,7 @@ Partial Class K8Advsettings
         '
         'GroupBox7
         '
+        Me.GroupBox7.Controls.Add(Me.C_DatalogO2Sensor)
         Me.GroupBox7.Controls.Add(Me.Label5)
         Me.GroupBox7.Controls.Add(Me.C_IAPTPS)
         Me.GroupBox7.Controls.Add(Me.C_secondaries)
@@ -539,7 +552,7 @@ Partial Class K8Advsettings
         Me.GroupBox7.Controls.Add(Me.C_ICS)
         Me.GroupBox7.Location = New System.Drawing.Point(18, 252)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(374, 90)
+        Me.GroupBox7.Size = New System.Drawing.Size(374, 109)
         Me.GroupBox7.TabIndex = 46
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Misc settings"
@@ -573,22 +586,21 @@ Partial Class K8Advsettings
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Gaugemode"
         '
-        'Button5
+        'C_DatalogO2Sensor
         '
-        Me.Button5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button5.Location = New System.Drawing.Point(67, 8)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(80, 23)
-        Me.Button5.TabIndex = 7
-        Me.Button5.Text = "Activate MIL"
-        Me.ToolTip1.SetToolTip(Me.Button5, resources.GetString("Button5.ToolTip"))
-        Me.Button5.UseVisualStyleBackColor = True
+        Me.C_DatalogO2Sensor.AutoSize = True
+        Me.C_DatalogO2Sensor.Location = New System.Drawing.Point(170, 86)
+        Me.C_DatalogO2Sensor.Name = "C_DatalogO2Sensor"
+        Me.C_DatalogO2Sensor.Size = New System.Drawing.Size(116, 17)
+        Me.C_DatalogO2Sensor.TabIndex = 48
+        Me.C_DatalogO2Sensor.Text = "Datalog O2 Sensor"
+        Me.C_DatalogO2Sensor.UseVisualStyleBackColor = True
         '
         'K8Advsettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(397, 427)
+        Me.ClientSize = New System.Drawing.Size(403, 441)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox4)
@@ -672,4 +684,5 @@ Partial Class K8Advsettings
     Friend WithEvents C_ramairmode As System.Windows.Forms.CheckBox
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents Button5 As System.Windows.Forms.Button
+    Friend WithEvents C_DatalogO2Sensor As System.Windows.Forms.CheckBox
 End Class

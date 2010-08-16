@@ -183,8 +183,6 @@ Public Class K8shifter
     End Sub
     Private Sub read_shifter_settings()
 
-        Dim i As Integer
-
         T_12000.Visible = True
         T_11000.Visible = True
         T_10000.Visible = True
