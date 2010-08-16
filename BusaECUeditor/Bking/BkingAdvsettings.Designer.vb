@@ -31,6 +31,7 @@ Partial Class BKingAdvSettings
         Me.T_hexaddr = New System.Windows.Forms.TextBox
         Me.C_HOX = New System.Windows.Forms.CheckBox
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
+        Me.C_DatalogO2Sensor = New System.Windows.Forms.CheckBox
         Me.C_EXC = New System.Windows.Forms.CheckBox
         Me.C_EVAP = New System.Windows.Forms.CheckBox
         Me.C_PAIR = New System.Windows.Forms.CheckBox
@@ -121,16 +122,27 @@ Partial Class BKingAdvSettings
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.C_DatalogO2Sensor)
         Me.GroupBox1.Controls.Add(Me.C_EXC)
         Me.GroupBox1.Controls.Add(Me.C_EVAP)
         Me.GroupBox1.Controls.Add(Me.C_PAIR)
         Me.GroupBox1.Controls.Add(Me.C_HOX)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(174, 119)
+        Me.GroupBox1.Size = New System.Drawing.Size(174, 148)
         Me.GroupBox1.TabIndex = 44
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Misc Settings"
+        '
+        'C_DatalogO2Sensor
+        '
+        Me.C_DatalogO2Sensor.AutoSize = True
+        Me.C_DatalogO2Sensor.Location = New System.Drawing.Point(17, 114)
+        Me.C_DatalogO2Sensor.Name = "C_DatalogO2Sensor"
+        Me.C_DatalogO2Sensor.Size = New System.Drawing.Size(116, 17)
+        Me.C_DatalogO2Sensor.TabIndex = 47
+        Me.C_DatalogO2Sensor.Text = "Datalog O2 Sensor"
+        Me.C_DatalogO2Sensor.UseVisualStyleBackColor = True
         '
         'C_EXC
         '
@@ -180,7 +192,7 @@ Partial Class BKingAdvSettings
         Me.GroupBox9.Controls.Add(Me.Label7)
         Me.GroupBox9.Location = New System.Drawing.Point(193, 12)
         Me.GroupBox9.Name = "GroupBox9"
-        Me.GroupBox9.Size = New System.Drawing.Size(214, 119)
+        Me.GroupBox9.Size = New System.Drawing.Size(214, 148)
         Me.GroupBox9.TabIndex = 45
         Me.GroupBox9.TabStop = False
         Me.GroupBox9.Text = "Misc maps"
@@ -234,7 +246,7 @@ Partial Class BKingAdvSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(415, 139)
+        Me.ClientSize = New System.Drawing.Size(415, 165)
         Me.Controls.Add(Me.GroupBox9)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.GroupBox1)
@@ -274,4 +286,5 @@ Partial Class BKingAdvSettings
     Friend WithEvents B_STP_Map As System.Windows.Forms.Button
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents C_DatalogO2Sensor As System.Windows.Forms.CheckBox
 End Class

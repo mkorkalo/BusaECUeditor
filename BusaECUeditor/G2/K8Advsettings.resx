@@ -231,12 +231,6 @@ NOTE: This is untested feature for dyno testing only</value>
   <data name="C_ramairmode.ToolTip" xml:space="preserve">
     <value>Ramair mode defines either a fixed ramair compensation (dynomode/turbomode) or alternatively gear based ramair compensation that can be adjusted with ramair map. Changing this setting will reset the ramair map to default map.</value>
   </data>
-  <metadata name="PrintForm1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>116, 17</value>
-  </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>117</value>
-  </metadata>
   <data name="Button5.ToolTip" xml:space="preserve">
     <value>Injector dwell setting defines the coil charge time. Usually there is no need to change this setting and 
 when adjusting one needs to be very careful not to overload the coils with too long times leading to 
@@ -245,6 +239,12 @@ burned out coils due to the excessive heat.
 The map is Voltage / RPM. The values are numbers between 1-255. Smaller number is shorter dwell times.
 </value>
   </data>
+  <metadata name="PrintForm1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>116, 17</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>117</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

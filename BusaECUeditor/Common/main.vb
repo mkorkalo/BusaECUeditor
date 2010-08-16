@@ -287,6 +287,7 @@ Public Class main
         B_FuelMap.Enabled = True
         B_IgnitionMap.Enabled = True
         B_AdvancedSettings.Enabled = True
+        B_DataLogging.Enabled = True
 
         K8Fuelmap.Close()
         K8Ignitionmap.Close()
@@ -354,6 +355,7 @@ Public Class main
         B_FuelMap.Enabled = True
         B_IgnitionMap.Enabled = True
         B_AdvancedSettings.Enabled = True
+        B_DataLogging.Enabled = True
 
         K8Fuelmap.Close()
         K8Ignitionmap.Close()
@@ -421,6 +423,7 @@ Public Class main
         B_FuelMap.Enabled = True
         B_IgnitionMap.Enabled = True
         B_AdvancedSettings.Enabled = True
+        B_DataLogging.Enabled = True
 
         K8Fuelmap.Close()
         K8Ignitionmap.Close()
@@ -1074,6 +1077,7 @@ Public Class main
         B_IgnitionMap.Enabled = True
         B_AdvancedSettings.Enabled = True
         B_EngineData.Enabled = True
+        B_DataLogging.Enabled = False
 
         ' if the computername does not match to the stored computername, do not use the email address from this map
         CloseChildWindows()
@@ -1098,6 +1102,7 @@ Public Class main
         B_IgnitionMap.Enabled = False
         B_AdvancedSettings.Enabled = False
         B_EngineData.Enabled = False
+        B_DataLogging.Enabled = False
         ReadProcessOnGoing = False
         FuelMapVisible = False
         IgnitionMapVisible = False
@@ -2634,6 +2639,7 @@ Public Class main
             B_FuelMap.Enabled = True
             B_IgnitionMap.Enabled = True
             B_AdvancedSettings.Enabled = True
+            B_DataLogging.Enabled = True
 
             '
             ' Make sure the ECU id is supported type
@@ -4393,6 +4399,12 @@ Public Class main
             MsgBox("Now remember to save the file with a different name to your default ecueditor.com files directory")
 
         End If
+
+    End Sub
+
+    Private Sub B_DataLogging_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_DataLogging.Click
+
+        K8EngineDataLogger.Show()
 
     End Sub
 End Class
