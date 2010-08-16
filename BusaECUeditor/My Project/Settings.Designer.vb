@@ -245,6 +245,30 @@ Namespace My
                 Me("WidebandO2Sensor") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("7.35")>  _
+        Public Property Wideband0V() As Double
+            Get
+                Return CType(Me("Wideband0V"),Double)
+            End Get
+            Set
+                Me("Wideband0V") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("22.35")>  _
+        Public Property Wideband5V() As Double
+            Get
+                Return CType(Me("Wideband5V"),Double)
+            End Get
+            Set
+                Me("Wideband5V") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
