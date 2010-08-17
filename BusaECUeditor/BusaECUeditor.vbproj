@@ -28,7 +28,7 @@
     <OldToolsVersion>2.0</OldToolsVersion>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
-    <PublishUrl>\\amd\wwwroot\Ecueditor2.4\</PublishUrl>
+    <PublishUrl>\\amd\wwwroot\Ecueditor2.5\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -38,19 +38,19 @@
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
-    <InstallUrl>http://macmadigan.no-ip.com/ecueditor2.4/</InstallUrl>
-    <UpdateUrl>http://macmadigan.no-ip.com/ecueditor2.4/</UpdateUrl>
+    <InstallUrl>http://macmadigan.no-ip.com/ecueditor2.5/</InstallUrl>
+    <UpdateUrl>http://macmadigan.no-ip.com/ecueditor2.5/</UpdateUrl>
     <SupportUrl>http://www.ecueditor.com</SupportUrl>
     <ErrorReportUrl>http://bitbucket.org/ecueditor/ecueditor/issues%3fstatus=new</ErrorReportUrl>
     <TargetCulture>en</TargetCulture>
     <ProductName>Hayabusa ECUeditor for K2-K7, K8- and BKing models</ProductName>
     <PublisherName>PetriK</PublisherName>
-    <MinimumRequiredVersion>2.4.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>2.5.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>ecueditor_prerelease.htm</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>26</ApplicationRevision>
-    <ApplicationVersion>2.4.2.%2a</ApplicationVersion>
+    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationVersion>2.5.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
