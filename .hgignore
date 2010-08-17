@@ -3,3 +3,4 @@ relre:BusaECUeditor/bin/Release/
 relre:BusaECUeditor/obj/
 glob:BusaECUeditor/BusaECUeditor_TemporaryKey.pfx
 glob:*/Thumbs.db
+glob:BusaECUeditor/bin/
