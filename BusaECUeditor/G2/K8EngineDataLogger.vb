@@ -206,6 +206,8 @@ Public Class K8EngineDataLogger
     Private Sub K8EngineDataLogger_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         C_WidebandO2Sensor.Checked = My.Settings.WidebandO2Sensor
+        NUD_Widband0v.Value = My.Settings.Wideband0V
+        NUD_Widband5v.Value = My.Settings.Wideband5V
 
         Dim i As Integer
         Dim j As Integer
@@ -1138,8 +1140,39 @@ Public Class K8EngineDataLogger
 
     Private Sub C_WidebandO2Sensor_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_WidebandO2Sensor.CheckedChanged
 
+        If C_WidebandO2Sensor.Checked Then
+            L_5V.Enabled = True
+            L_Ov.Enabled = True
+            NUD_Widband0v.Enabled = True
+            NUD_Widband5v.Enabled = True
+        Else
+            L_5V.Enabled = False
+            L_Ov.Enabled = False
+            NUD_Widband0v.Enabled = False
+            NUD_Widband5v.Enabled = False
+        End If
+
         My.Settings.WidebandO2Sensor = C_WidebandO2Sensor.Checked
         My.Settings.Save()
+
+    End Sub
+
+    Private Sub NUD_Widband0v_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NUD_Widband0v.ValueChanged
+
+        If _initialized = True Then
+
+            My.Settings.Wideband0V = NUD_Widband0v.Value
+            My.Settings.Save()
+        End If
+
+    End Sub
+
+    Private Sub NUD_Widband5v_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NUD_Widband5v.ValueChanged
+
+        If _initialized = True Then
+            My.Settings.Wideband5V = NUD_Widband5v.Value
+            My.Settings.Save()
+        End If
 
     End Sub
 
@@ -2146,10 +2179,10 @@ Public Class K8EngineDataLogger
 
     Public Function CalcWidebandAFR(ByVal value As Double) As Double
 
-        Dim range As Double = 22.35 - 7.35
+        Dim range As Double = My.Settings.Wideband5V - My.Settings.Wideband0V
         Dim percentageOfRange As Double = value / 1023
 
-        Return 7.35 + range * percentageOfRange
+        Return My.Settings.Wideband0V + range * percentageOfRange
 
     End Function
 

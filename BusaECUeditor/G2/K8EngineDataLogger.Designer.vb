@@ -48,8 +48,14 @@ Partial Class K8EngineDataLogger
         Me.Timer_UpdateGUI = New System.Windows.Forms.Timer(Me.components)
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
         Me.C_WidebandO2Sensor = New System.Windows.Forms.CheckBox
+        Me.L_Ov = New System.Windows.Forms.Label
+        Me.NUD_Widband0v = New System.Windows.Forms.NumericUpDown
+        Me.NUD_Widband5v = New System.Windows.Forms.NumericUpDown
+        Me.L_5V = New System.Windows.Forms.Label
         CType(Me.NUD_LogRate, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_DataRate, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NUD_Widband0v, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NUD_Widband5v, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'NUD_LogRate
@@ -73,7 +79,7 @@ Partial Class K8EngineDataLogger
         '
         'B_ClearCommsLog
         '
-        Me.B_ClearCommsLog.Location = New System.Drawing.Point(140, 88)
+        Me.B_ClearCommsLog.Location = New System.Drawing.Point(140, 116)
         Me.B_ClearCommsLog.Name = "B_ClearCommsLog"
         Me.B_ClearCommsLog.Size = New System.Drawing.Size(75, 24)
         Me.B_ClearCommsLog.TabIndex = 45
@@ -85,7 +91,7 @@ Partial Class K8EngineDataLogger
         Me.C_ShowCommsMessages.AutoSize = True
         Me.C_ShowCommsMessages.Checked = True
         Me.C_ShowCommsMessages.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.C_ShowCommsMessages.Location = New System.Drawing.Point(2, 93)
+        Me.C_ShowCommsMessages.Location = New System.Drawing.Point(2, 121)
         Me.C_ShowCommsMessages.Name = "C_ShowCommsMessages"
         Me.C_ShowCommsMessages.Size = New System.Drawing.Size(141, 17)
         Me.C_ShowCommsMessages.TabIndex = 44
@@ -94,11 +100,11 @@ Partial Class K8EngineDataLogger
         '
         'T_CommsLog
         '
-        Me.T_CommsLog.Location = New System.Drawing.Point(-1, 116)
+        Me.T_CommsLog.Location = New System.Drawing.Point(-1, 144)
         Me.T_CommsLog.Multiline = True
         Me.T_CommsLog.Name = "T_CommsLog"
         Me.T_CommsLog.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.T_CommsLog.Size = New System.Drawing.Size(678, 305)
+        Me.T_CommsLog.Size = New System.Drawing.Size(678, 277)
         Me.T_CommsLog.TabIndex = 43
         '
         'Label2
@@ -152,7 +158,7 @@ Partial Class K8EngineDataLogger
         '
         Me.L_Status.AutoSize = True
         Me.L_Status.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.L_Status.Location = New System.Drawing.Point(4, 58)
+        Me.L_Status.Location = New System.Drawing.Point(4, 60)
         Me.L_Status.Name = "L_Status"
         Me.L_Status.Size = New System.Drawing.Size(16, 24)
         Me.L_Status.TabIndex = 37
@@ -179,7 +185,7 @@ Partial Class K8EngineDataLogger
         '
         Me.L_CommStatusColour.AutoSize = True
         Me.L_CommStatusColour.Font = New System.Drawing.Font("Wingdings", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
-        Me.L_CommStatusColour.Location = New System.Drawing.Point(614, 72)
+        Me.L_CommStatusColour.Location = New System.Drawing.Point(638, 73)
         Me.L_CommStatusColour.Name = "L_CommStatusColour"
         Me.L_CommStatusColour.Size = New System.Drawing.Size(59, 53)
         Me.L_CommStatusColour.TabIndex = 47
@@ -228,7 +234,7 @@ Partial Class K8EngineDataLogger
         '
         Me.L_BasicData.AutoSize = True
         Me.L_BasicData.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.L_BasicData.Location = New System.Drawing.Point(231, 88)
+        Me.L_BasicData.Location = New System.Drawing.Point(231, 116)
         Me.L_BasicData.Name = "L_BasicData"
         Me.L_BasicData.Size = New System.Drawing.Size(19, 25)
         Me.L_BasicData.TabIndex = 46
@@ -258,18 +264,68 @@ Partial Class K8EngineDataLogger
         'C_WidebandO2Sensor
         '
         Me.C_WidebandO2Sensor.AutoSize = True
-        Me.C_WidebandO2Sensor.Location = New System.Drawing.Point(492, 93)
+        Me.C_WidebandO2Sensor.Location = New System.Drawing.Point(518, 90)
         Me.C_WidebandO2Sensor.Name = "C_WidebandO2Sensor"
         Me.C_WidebandO2Sensor.Size = New System.Drawing.Size(128, 17)
         Me.C_WidebandO2Sensor.TabIndex = 61
         Me.C_WidebandO2Sensor.Text = "Wideband O2 Sensor"
         Me.C_WidebandO2Sensor.UseVisualStyleBackColor = True
         '
+        'L_Ov
+        '
+        Me.L_Ov.AutoSize = True
+        Me.L_Ov.Enabled = False
+        Me.L_Ov.Location = New System.Drawing.Point(515, 121)
+        Me.L_Ov.Name = "L_Ov"
+        Me.L_Ov.Size = New System.Drawing.Size(20, 13)
+        Me.L_Ov.TabIndex = 62
+        Me.L_Ov.Text = "0V"
+        '
+        'NUD_Widband0v
+        '
+        Me.NUD_Widband0v.DecimalPlaces = 2
+        Me.NUD_Widband0v.Enabled = False
+        Me.NUD_Widband0v.Increment = New Decimal(New Integer() {1, 0, 0, 131072})
+        Me.NUD_Widband0v.Location = New System.Drawing.Point(536, 119)
+        Me.NUD_Widband0v.Maximum = New Decimal(New Integer() {15, 0, 0, 0})
+        Me.NUD_Widband0v.Minimum = New Decimal(New Integer() {5, 0, 0, 0})
+        Me.NUD_Widband0v.Name = "NUD_Widband0v"
+        Me.NUD_Widband0v.Size = New System.Drawing.Size(55, 20)
+        Me.NUD_Widband0v.TabIndex = 63
+        Me.NUD_Widband0v.Value = New Decimal(New Integer() {735, 0, 0, 131072})
+        '
+        'NUD_Widband5v
+        '
+        Me.NUD_Widband5v.DecimalPlaces = 2
+        Me.NUD_Widband5v.Enabled = False
+        Me.NUD_Widband5v.Increment = New Decimal(New Integer() {1, 0, 0, 131072})
+        Me.NUD_Widband5v.Location = New System.Drawing.Point(617, 119)
+        Me.NUD_Widband5v.Maximum = New Decimal(New Integer() {25, 0, 0, 0})
+        Me.NUD_Widband5v.Minimum = New Decimal(New Integer() {10, 0, 0, 0})
+        Me.NUD_Widband5v.Name = "NUD_Widband5v"
+        Me.NUD_Widband5v.Size = New System.Drawing.Size(55, 20)
+        Me.NUD_Widband5v.TabIndex = 65
+        Me.NUD_Widband5v.Value = New Decimal(New Integer() {2235, 0, 0, 131072})
+        '
+        'L_5V
+        '
+        Me.L_5V.AutoSize = True
+        Me.L_5V.Enabled = False
+        Me.L_5V.Location = New System.Drawing.Point(598, 121)
+        Me.L_5V.Name = "L_5V"
+        Me.L_5V.Size = New System.Drawing.Size(20, 13)
+        Me.L_5V.TabIndex = 64
+        Me.L_5V.Text = "5V"
+        '
         'K8EngineDataLogger
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(688, 429)
+        Me.Controls.Add(Me.NUD_Widband5v)
+        Me.Controls.Add(Me.L_5V)
+        Me.Controls.Add(Me.NUD_Widband0v)
+        Me.Controls.Add(Me.L_Ov)
         Me.Controls.Add(Me.C_WidebandO2Sensor)
         Me.Controls.Add(Me.NUD_LogRate)
         Me.Controls.Add(Me.Label3)
@@ -294,6 +350,8 @@ Partial Class K8EngineDataLogger
         Me.Text = "K8EnginDataLogger"
         CType(Me.NUD_LogRate, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_DataRate, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NUD_Widband0v, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NUD_Widband5v, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -323,4 +381,8 @@ Partial Class K8EngineDataLogger
     Friend WithEvents Timer_UpdateGUI As System.Windows.Forms.Timer
     Friend WithEvents Timer2 As System.Windows.Forms.Timer
     Friend WithEvents C_WidebandO2Sensor As System.Windows.Forms.CheckBox
+    Friend WithEvents L_Ov As System.Windows.Forms.Label
+    Friend WithEvents NUD_Widband0v As System.Windows.Forms.NumericUpDown
+    Friend WithEvents NUD_Widband5v As System.Windows.Forms.NumericUpDown
+    Friend WithEvents L_5V As System.Windows.Forms.Label
 End Class

@@ -50,5 +50,11 @@
     <Setting Name="WidebandO2Sensor" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="Wideband0V" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">7.35</Value>
+    </Setting>
+    <Setting Name="Wideband5V" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">22.35</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
