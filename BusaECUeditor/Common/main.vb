@@ -560,19 +560,25 @@ Public Class main
                     FuelMap.Close()
                     IgnitionMap.Close()
                     FlashToolStripMenuItem.Visible = False
+                    B_DataLogging.Enabled = False
 
                 Case "gen2"
                     B_EngineData.Enabled = True
                     K8Ignitionmap.Close()
                     K8Fuelmap.Close()
                     FlashToolStripMenuItem.Visible = Enabled
+                    B_DataLogging.Enabled = True
+
                 Case "bking"
                     B_EngineData.Enabled = True
+                    K8Ignitionmap.Close()
+                    K8Fuelmap.Close()
                     FlashToolStripMenuItem.Visible = Enabled
-                    MsgBox("experimental bking flashing enabled")
+                    B_DataLogging.Enabled = True
 
                 Case Else
                     MsgBox("feature not yet implemented")
+
             End Select
         End If
 
