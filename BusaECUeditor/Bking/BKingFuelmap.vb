@@ -588,7 +588,7 @@ Public Class BKingFuelMap
 
         mapsel = False
 
-        maxval = 300   ' not validated from ecu, maximum value to which the map item can be set
+        maxval = 400   ' not validated from ecu, maximum value to which the map item can be set
         minval = 5   ' not validated from ecu, minimum value to which the map item can be set
 
         m1 = FuelMapGrid.Item(c, r).Value
