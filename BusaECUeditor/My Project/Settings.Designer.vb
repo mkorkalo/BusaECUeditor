@@ -269,6 +269,42 @@ Namespace My
                 Me("Wideband5V") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property FilterCLT80() As Boolean
+            Get
+                Return CType(Me("FilterCLT80"),Boolean)
+            End Get
+            Set
+                Me("FilterCLT80") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property FilterClutchIn() As Boolean
+            Get
+                Return CType(Me("FilterClutchIn"),Boolean)
+            End Get
+            Set
+                Me("FilterClutchIn") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property FilterGearNeutral() As Boolean
+            Get
+                Return CType(Me("FilterGearNeutral"),Boolean)
+            End Get
+            Set
+                Me("FilterGearNeutral") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

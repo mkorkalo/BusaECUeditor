@@ -205,6 +205,12 @@
     <Compile Include="G2\K8dwellignition.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="G2\K8EngineDataFilter.Designer.vb">
+      <DependentUpon>K8EngineDataFilter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8EngineDataFilter.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="G2\K8EngineDataLogger.Designer.vb">
       <DependentUpon>K8EngineDataLogger.vb</DependentUpon>
     </Compile>
@@ -707,6 +713,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8dwellignition.resx">
       <DependentUpon>K8dwellignition.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8EngineDataFilter.resx">
+      <DependentUpon>K8EngineDataFilter.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8EngineDataLogger.resx">
       <DependentUpon>K8EngineDataLogger.vb</DependentUpon>

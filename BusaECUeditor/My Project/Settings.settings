@@ -56,5 +56,14 @@
     <Setting Name="Wideband5V" Type="System.Double" Scope="User">
       <Value Profile="(Default)">22.35</Value>
     </Setting>
+    <Setting Name="FilterCLT80" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="FilterClutchIn" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="FilterGearNeutral" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
