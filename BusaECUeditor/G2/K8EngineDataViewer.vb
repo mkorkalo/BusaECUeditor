@@ -14,6 +14,7 @@ Public Class K8EngineDataViewer
     Private _boostValues(,) As List(Of LogValue)
 
     Private _loading As Boolean = True
+    Private _cltAbove80 As Boolean = False
     Private _mapType As Integer = 0
     Private _fileType As Integer = 0
 
@@ -157,13 +158,49 @@ Public Class K8EngineDataViewer
 
     End Sub
 
+    Public Sub ClearData()
+
+        For x As Integer = 0 To _tpsValues.GetLength(0) - 1
+            For y As Integer = 0 To _tpsValues.GetLength(1) - 1
+                If _tpsValues(x, y) Is Nothing = False Then
+
+                    _tpsValues(x, y).Clear()
+                End If
+            Next
+        Next
+
+        For x As Integer = 0 To _iapValues.GetLength(0) - 1
+            For y As Integer = 0 To _iapValues.GetLength(1) - 1
+                If _iapValues(x, y) Is Nothing = False Then
+                    _iapValues(x, y).Clear()
+                End If
+            Next
+        Next
+
+        For x As Integer = 0 To _boostValues.GetLength(0) - 1
+            For y As Integer = 0 To _boostValues.GetLength(1) - 1
+                If _boostValues(x, y) Is Nothing = False Then
+                    _boostValues(x, y).Clear()
+                End If
+            Next
+        Next
+
+    End Sub
+
     Public Sub OpenFile(ByVal filePath As String)
 
-        If String.IsNullOrEmpty(filePath) = False Then
+        _filePath = filePath
+        OpenFile()
+
+    End Sub
+
+    Public Sub OpenFile()
+
+        If String.IsNullOrEmpty(_filePath) = False Then
 
             L_FileName.Text = _filePath
 
-            Dim reader As TextReader = New StreamReader(filePath)
+            Dim reader As TextReader = New StreamReader(_filePath)
 
             Dim lineCount As Integer
             Dim nextLine As String = reader.ReadLine()
@@ -213,105 +250,109 @@ Public Class K8EngineDataViewer
                         logValue.MTS_AFR = values(23)
                     End If
 
-                    Dim tpsIndex As Integer
-                    Dim iapIndex As Integer
-                    Dim rpmIndex As Integer
-                    Dim boostIndex As Integer = -1
-                    Dim boostRPMIndex As Integer = -1
+                    If CheckEngineDataFilter(logValue) = True Then
 
-                    If logValue.RPM > _rpmList(_rpmList.Count - 1) Then
+                        Dim tpsIndex As Integer
+                        Dim iapIndex As Integer
+                        Dim rpmIndex As Integer
+                        Dim boostIndex As Integer = -1
+                        Dim boostRPMIndex As Integer = -1
 
-                        rpmIndex = -1
+                        If logValue.RPM > _rpmList(_rpmList.Count - 1) Then
 
-                    Else
+                            rpmIndex = -1
 
-                        For index As Integer = 0 To _rpmList.Count - 1 Step 1
+                        Else
 
-                            If logValue.RPM <= _rpmList(index) + (_rpmList(index + 1) - _rpmList(index)) / 2 Then
-                                rpmIndex = index
-                                Exit For
-                            End If
+                            For index As Integer = 0 To _rpmList.Count - 1 Step 1
 
-                        Next
+                                If logValue.RPM <= _rpmList(index) + (_rpmList(index + 1) - _rpmList(index)) / 2 Then
+                                    rpmIndex = index
+                                    Exit For
+                                End If
 
-                    End If
-
-                    If logValue.TPS >= 99 Then
-                        tpsIndex = _tpsList.Count - 1
-                    ElseIf logValue.TPS >= 80 Then
-                        tpsIndex = _tpsList.Count - 2
-                    Else
-                        For index As Integer = 0 To _tpsList.Count - 1 Step 1
-
-                            If logValue.TPS <= _tpsList(index) + (_tpsList(index + 1) - _tpsList(index)) / 2 Then
-                                tpsIndex = index
-                                Exit For
-                            End If
-
-                        Next
-                    End If
-
-                    If logValue.IAP > _iapList(0) Then
-
-                        iapIndex = -1
-
-                    ElseIf logValue.IAP > 62.5 Then
-
-                        iapIndex = 0
-
-                    Else
-                        For index As Integer = _iapList.Count - 1 To 0 Step -1
-
-                            If logValue.IAP <= _iapList(index) + (_iapList(index - 1) - _iapList(index)) / 2 Then
-                                iapIndex = index
-                                Exit For
-                            End If
-
-                        Next
-
-                    End If
-
-                    For index As Integer = 0 To _boostList.Count - 1
-
-                        If logValue.BOOST <= _boostList(index) + 0.5 Then
-
-                            boostIndex = index
-                            Exit For
+                            Next
 
                         End If
 
-                    Next
+                        If logValue.TPS >= 99 Then
+                            tpsIndex = _tpsList.Count - 1
+                        ElseIf logValue.TPS >= 80 Then
+                            tpsIndex = _tpsList.Count - 2
+                        Else
+                            For index As Integer = 0 To _tpsList.Count - 1 Step 1
 
-                    If boostIndex = -1 Then
-                        boostIndex = _boostList.Count - 1
-                    End If
+                                If logValue.TPS <= _tpsList(index) + (_tpsList(index + 1) - _tpsList(index)) / 2 Then
+                                    tpsIndex = index
+                                    Exit For
+                                End If
 
-                    For index As Integer = 1 To _boostRPMList.Count - 1
+                            Next
+                        End If
 
-                        If logValue.RPM <= _boostRPMList(index) Then
+                        If logValue.IAP > _iapList(0) Then
 
-                            boostRPMIndex = index
-                            Exit For
+                            iapIndex = -1
+
+                        ElseIf logValue.IAP > 62.5 Then
+
+                            iapIndex = 0
+
+                        Else
+                            For index As Integer = _iapList.Count - 1 To 0 Step -1
+
+                                If logValue.IAP <= _iapList(index) + (_iapList(index - 1) - _iapList(index)) / 2 Then
+                                    iapIndex = index
+                                    Exit For
+                                End If
+
+                            Next
 
                         End If
 
-                    Next
+                        For index As Integer = 0 To _boostList.Count - 1
 
-                    If logValue.TPS < 11 And iapIndex > -1 And rpmIndex > -1 Then
+                            If logValue.BOOST <= _boostList(index) + 0.5 Then
 
-                        _iapValues(iapIndex, rpmIndex).Add(logValue)
+                                boostIndex = index
+                                Exit For
 
-                    End If
+                            End If
 
-                    If rpmIndex > -1 Then
+                        Next
 
-                        _tpsValues(tpsIndex, rpmIndex).Add(logValue)
+                        If boostIndex = -1 Then
+                            boostIndex = _boostList.Count - 1
+                        End If
 
-                    End If
+                        For index As Integer = 1 To _boostRPMList.Count - 1
 
-                    If boostRPMIndex > -1 Then
+                            If logValue.RPM <= _boostRPMList(index) Then
 
-                        _boostValues(boostIndex, boostRPMIndex).Add(logValue)
+                                boostRPMIndex = index
+                                Exit For
+
+                            End If
+
+                        Next
+
+                        If logValue.TPS < 11 And iapIndex > -1 And rpmIndex > -1 Then
+
+                            _iapValues(iapIndex, rpmIndex).Add(logValue)
+
+                        End If
+
+                        If rpmIndex > -1 Then
+
+                            _tpsValues(tpsIndex, rpmIndex).Add(logValue)
+
+                        End If
+
+                        If boostRPMIndex > -1 Then
+
+                            _boostValues(boostIndex, boostRPMIndex).Add(logValue)
+
+                        End If
 
                     End If
 
@@ -326,6 +367,33 @@ Public Class K8EngineDataViewer
         End If
 
     End Sub
+
+    Public Function CheckEngineDataFilter(ByRef logValue As LogValue)
+
+        If My.Settings.FilterCLT80 = True Then
+            If logValue.CLT > 80 Then
+                _cltAbove80 = True
+            ElseIf _cltAbove80 = False Then
+                Return False
+            End If
+        End If
+
+
+        If My.Settings.FilterClutchIn = True Then
+            If logValue.CLUTCH = "In" Then
+                Return False
+            End If
+        End If
+
+        If My.Settings.FilterGearNeutral = True Then
+            If logValue.NT = True Then
+                Return False
+            End If
+        End If
+
+        Return True
+
+    End Function
 
     Public Sub OpenInnovateFile(ByVal filePath As String)
 
@@ -858,6 +926,12 @@ Public Class K8EngineDataViewer
 
         My.Settings.WidebandO2Sensor = C_WidebandO2Sensor.Checked
         My.Settings.Save()
+
+    End Sub
+
+    Private Sub B_DataFilters_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_DataFilters.Click
+
+        K8EngineDataFilter.Show()
 
     End Sub
 End Class

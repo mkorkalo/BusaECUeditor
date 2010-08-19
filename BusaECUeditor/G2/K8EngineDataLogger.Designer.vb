@@ -347,7 +347,7 @@ Partial Class K8EngineDataLogger
         Me.Controls.Add(Me.B_ViewDataLog)
         Me.Controls.Add(Me.L_BasicData)
         Me.Name = "K8EngineDataLogger"
-        Me.Text = "K8EnginDataLogger"
+        Me.Text = "K8 Engine Data Logger"
         CType(Me.NUD_LogRate, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_DataRate, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_Widband0v, System.ComponentModel.ISupportInitialize).EndInit()

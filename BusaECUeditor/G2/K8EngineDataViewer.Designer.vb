@@ -37,6 +37,7 @@ Partial Class K8EngineDataViewer
         Me.L_FileName = New System.Windows.Forms.Label
         Me.L_DataCount = New System.Windows.Forms.Label
         Me.C_WidebandO2Sensor = New System.Windows.Forms.CheckBox
+        Me.B_DataFilters = New System.Windows.Forms.Button
         CType(Me.N_MinTPS, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.G_FuelMap, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -166,11 +167,21 @@ Partial Class K8EngineDataViewer
         Me.C_WidebandO2Sensor.Text = "Wideband O2 Sensor"
         Me.C_WidebandO2Sensor.UseVisualStyleBackColor = True
         '
+        'B_DataFilters
+        '
+        Me.B_DataFilters.Location = New System.Drawing.Point(129, 29)
+        Me.B_DataFilters.Name = "B_DataFilters"
+        Me.B_DataFilters.Size = New System.Drawing.Size(75, 23)
+        Me.B_DataFilters.TabIndex = 25
+        Me.B_DataFilters.Text = "Data Filters"
+        Me.B_DataFilters.UseVisualStyleBackColor = True
+        '
         'K8EngineDataViewer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1077, 694)
+        Me.Controls.Add(Me.B_DataFilters)
         Me.Controls.Add(Me.C_WidebandO2Sensor)
         Me.Controls.Add(Me.L_DataCount)
         Me.Controls.Add(Me.L_FileName)
@@ -184,7 +195,7 @@ Partial Class K8EngineDataViewer
         Me.Controls.Add(Me.G_FuelMap)
         Me.Controls.Add(Me.B_LoadDataFile)
         Me.Name = "K8EngineDataViewer"
-        Me.Text = "K8EngineDataViewer"
+        Me.Text = "K8 Engine Data Viewer"
         CType(Me.N_MinTPS, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.G_FuelMap, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -206,4 +217,5 @@ Partial Class K8EngineDataViewer
     Friend WithEvents L_FileName As System.Windows.Forms.Label
     Friend WithEvents L_DataCount As System.Windows.Forms.Label
     Friend WithEvents C_WidebandO2Sensor As System.Windows.Forms.CheckBox
+    Friend WithEvents B_DataFilters As System.Windows.Forms.Button
 End Class
