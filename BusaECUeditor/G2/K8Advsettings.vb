@@ -297,6 +297,16 @@ Public Class K8Advsettings
             C_DatalogO2Sensor.Checked = False
         End If
 
+        If ReadFlashByte(&H72531) = &HC8 Then
+            C_warmup.Text = "95C thermostat"
+            WriteFlashByte(&H72531, &HC8)
+            C_warmup.Checked = True
+        Else
+            C_warmup.Text = "60C thermostat"
+            WriteFlashByte(&H72531, &H8F)
+            C_warmup.Checked = False
+        End If
+
         loading = False
 
     End Sub
@@ -1088,4 +1098,16 @@ Public Class K8Advsettings
 
     End Sub
 
+    Private Sub C_warmup_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_warmup.CheckedChanged
+        If Not loading Then
+            If C_warmup.Checked = True Then
+                C_warmup.Text = "95C thermostat"
+                WriteFlashByte(&H72531, &HC8)
+            Else
+                C_warmup.Text = "60C thermostat"
+                WriteFlashByte(&H72531, &H8F)
+            End If
+        End If
+
+    End Sub
 End Class

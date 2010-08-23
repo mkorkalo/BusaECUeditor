@@ -66,10 +66,11 @@ Partial Class K8Advsettings
         Me.Label7 = New System.Windows.Forms.Label
         Me.GroupBox4 = New System.Windows.Forms.GroupBox
         Me.GroupBox7 = New System.Windows.Forms.GroupBox
+        Me.C_DatalogO2Sensor = New System.Windows.Forms.CheckBox
         Me.Label5 = New System.Windows.Forms.Label
         Me.C_ABCmode = New System.Windows.Forms.CheckBox
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.C_DatalogO2Sensor = New System.Windows.Forms.CheckBox
+        Me.C_warmup = New System.Windows.Forms.CheckBox
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -281,7 +282,7 @@ Partial Class K8Advsettings
         'C_ramairmode
         '
         Me.C_ramairmode.AutoSize = True
-        Me.C_ramairmode.Location = New System.Drawing.Point(6, 111)
+        Me.C_ramairmode.Location = New System.Drawing.Point(6, 105)
         Me.C_ramairmode.Name = "C_ramairmode"
         Me.C_ramairmode.Size = New System.Drawing.Size(88, 17)
         Me.C_ramairmode.TabIndex = 2
@@ -312,6 +313,7 @@ Partial Class K8Advsettings
         '
         'GroupBox6
         '
+        Me.GroupBox6.Controls.Add(Me.C_warmup)
         Me.GroupBox6.Controls.Add(Me.C_ramairmode)
         Me.GroupBox6.Controls.Add(Me.C_PAIR)
         Me.GroupBox6.Controls.Add(Me.C_HOX)
@@ -319,7 +321,7 @@ Partial Class K8Advsettings
         Me.GroupBox6.Controls.Add(Me.R_IAT_dynomode)
         Me.GroupBox6.Location = New System.Drawing.Point(17, 71)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(154, 132)
+        Me.GroupBox6.Size = New System.Drawing.Size(154, 152)
         Me.GroupBox6.TabIndex = 10
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Dynomode settings"
@@ -327,7 +329,7 @@ Partial Class K8Advsettings
         'C_PAIR
         '
         Me.C_PAIR.AutoSize = True
-        Me.C_PAIR.Location = New System.Drawing.Point(6, 88)
+        Me.C_PAIR.Location = New System.Drawing.Point(6, 85)
         Me.C_PAIR.Name = "C_PAIR"
         Me.C_PAIR.Size = New System.Drawing.Size(83, 17)
         Me.C_PAIR.TabIndex = 3
@@ -417,7 +419,7 @@ Partial Class K8Advsettings
         Me.GroupBox8.Controls.Add(Me.Label4)
         Me.GroupBox8.Controls.Add(Me.Label2)
         Me.GroupBox8.Controls.Add(Me.T_hexaddr)
-        Me.GroupBox8.Location = New System.Drawing.Point(15, 367)
+        Me.GroupBox8.Location = New System.Drawing.Point(18, 391)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(376, 65)
         Me.GroupBox8.TabIndex = 42
@@ -487,7 +489,7 @@ Partial Class K8Advsettings
         Me.GroupBox9.Controls.Add(Me.Label7)
         Me.GroupBox9.Location = New System.Drawing.Point(178, 103)
         Me.GroupBox9.Name = "GroupBox9"
-        Me.GroupBox9.Size = New System.Drawing.Size(214, 143)
+        Me.GroupBox9.Size = New System.Drawing.Size(214, 167)
         Me.GroupBox9.TabIndex = 44
         Me.GroupBox9.TabStop = False
         Me.GroupBox9.Text = "Misc maps"
@@ -550,12 +552,22 @@ Partial Class K8Advsettings
         Me.GroupBox7.Controls.Add(Me.C_ABCmode)
         Me.GroupBox7.Controls.Add(Me.C_coil_fi_disable)
         Me.GroupBox7.Controls.Add(Me.C_ICS)
-        Me.GroupBox7.Location = New System.Drawing.Point(18, 252)
+        Me.GroupBox7.Location = New System.Drawing.Point(17, 276)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Size = New System.Drawing.Size(374, 109)
         Me.GroupBox7.TabIndex = 46
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Misc settings"
+        '
+        'C_DatalogO2Sensor
+        '
+        Me.C_DatalogO2Sensor.AutoSize = True
+        Me.C_DatalogO2Sensor.Location = New System.Drawing.Point(170, 86)
+        Me.C_DatalogO2Sensor.Name = "C_DatalogO2Sensor"
+        Me.C_DatalogO2Sensor.Size = New System.Drawing.Size(116, 17)
+        Me.C_DatalogO2Sensor.TabIndex = 48
+        Me.C_DatalogO2Sensor.Text = "Datalog O2 Sensor"
+        Me.C_DatalogO2Sensor.UseVisualStyleBackColor = True
         '
         'Label5
         '
@@ -579,28 +591,29 @@ Partial Class K8Advsettings
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.Button5)
-        Me.GroupBox2.Location = New System.Drawing.Point(18, 205)
+        Me.GroupBox2.Location = New System.Drawing.Point(19, 229)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(153, 41)
         Me.GroupBox2.TabIndex = 9
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Gaugemode"
         '
-        'C_DatalogO2Sensor
+        'C_warmup
         '
-        Me.C_DatalogO2Sensor.AutoSize = True
-        Me.C_DatalogO2Sensor.Location = New System.Drawing.Point(170, 86)
-        Me.C_DatalogO2Sensor.Name = "C_DatalogO2Sensor"
-        Me.C_DatalogO2Sensor.Size = New System.Drawing.Size(116, 17)
-        Me.C_DatalogO2Sensor.TabIndex = 48
-        Me.C_DatalogO2Sensor.Text = "Datalog O2 Sensor"
-        Me.C_DatalogO2Sensor.UseVisualStyleBackColor = True
+        Me.C_warmup.AutoSize = True
+        Me.C_warmup.Location = New System.Drawing.Point(6, 128)
+        Me.C_warmup.Name = "C_warmup"
+        Me.C_warmup.Size = New System.Drawing.Size(135, 17)
+        Me.C_warmup.TabIndex = 4
+        Me.C_warmup.Text = "Warmup compensation"
+        Me.ToolTip1.SetToolTip(Me.C_warmup, resources.GetString("C_warmup.ToolTip"))
+        Me.C_warmup.UseVisualStyleBackColor = True
         '
         'K8Advsettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(403, 441)
+        Me.ClientSize = New System.Drawing.Size(403, 502)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox4)
@@ -685,4 +698,5 @@ Partial Class K8Advsettings
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents Button5 As System.Windows.Forms.Button
     Friend WithEvents C_DatalogO2Sensor As System.Windows.Forms.CheckBox
+    Friend WithEvents C_warmup As System.Windows.Forms.CheckBox
 End Class
