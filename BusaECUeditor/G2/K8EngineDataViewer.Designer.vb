@@ -38,6 +38,9 @@ Partial Class K8EngineDataViewer
         Me.L_DataCount = New System.Windows.Forms.Label
         Me.C_WidebandO2Sensor = New System.Windows.Forms.CheckBox
         Me.B_DataFilters = New System.Windows.Forms.Button
+        Me.rbtLoggedAFR = New System.Windows.Forms.RadioButton
+        Me.rbtTargetAFR = New System.Windows.Forms.RadioButton
+        Me.rbtPercentageMapChange = New System.Windows.Forms.RadioButton
         CType(Me.N_MinTPS, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.G_FuelMap, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -176,11 +179,46 @@ Partial Class K8EngineDataViewer
         Me.B_DataFilters.Text = "Data Filters"
         Me.B_DataFilters.UseVisualStyleBackColor = True
         '
+        'rbtLoggedAFR
+        '
+        Me.rbtLoggedAFR.AutoSize = True
+        Me.rbtLoggedAFR.Checked = True
+        Me.rbtLoggedAFR.Location = New System.Drawing.Point(604, 35)
+        Me.rbtLoggedAFR.Name = "rbtLoggedAFR"
+        Me.rbtLoggedAFR.Size = New System.Drawing.Size(85, 17)
+        Me.rbtLoggedAFR.TabIndex = 26
+        Me.rbtLoggedAFR.TabStop = True
+        Me.rbtLoggedAFR.Text = "Logged AFR"
+        Me.rbtLoggedAFR.UseVisualStyleBackColor = True
+        '
+        'rbtTargetAFR
+        '
+        Me.rbtTargetAFR.AutoSize = True
+        Me.rbtTargetAFR.Location = New System.Drawing.Point(695, 35)
+        Me.rbtTargetAFR.Name = "rbtTargetAFR"
+        Me.rbtTargetAFR.Size = New System.Drawing.Size(80, 17)
+        Me.rbtTargetAFR.TabIndex = 27
+        Me.rbtTargetAFR.Text = "Target AFR"
+        Me.rbtTargetAFR.UseVisualStyleBackColor = True
+        '
+        'rbtPercentageMapChange
+        '
+        Me.rbtPercentageMapChange.AutoSize = True
+        Me.rbtPercentageMapChange.Location = New System.Drawing.Point(781, 35)
+        Me.rbtPercentageMapChange.Name = "rbtPercentageMapChange"
+        Me.rbtPercentageMapChange.Size = New System.Drawing.Size(97, 17)
+        Me.rbtPercentageMapChange.TabIndex = 28
+        Me.rbtPercentageMapChange.Text = "% Map Change"
+        Me.rbtPercentageMapChange.UseVisualStyleBackColor = True
+        '
         'K8EngineDataViewer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1077, 694)
+        Me.Controls.Add(Me.rbtPercentageMapChange)
+        Me.Controls.Add(Me.rbtTargetAFR)
+        Me.Controls.Add(Me.rbtLoggedAFR)
         Me.Controls.Add(Me.B_DataFilters)
         Me.Controls.Add(Me.C_WidebandO2Sensor)
         Me.Controls.Add(Me.L_DataCount)
@@ -218,4 +256,7 @@ Partial Class K8EngineDataViewer
     Friend WithEvents L_DataCount As System.Windows.Forms.Label
     Friend WithEvents C_WidebandO2Sensor As System.Windows.Forms.CheckBox
     Friend WithEvents B_DataFilters As System.Windows.Forms.Button
+    Friend WithEvents rbtLoggedAFR As System.Windows.Forms.RadioButton
+    Friend WithEvents rbtTargetAFR As System.Windows.Forms.RadioButton
+    Friend WithEvents rbtPercentageMapChange As System.Windows.Forms.RadioButton
 End Class
