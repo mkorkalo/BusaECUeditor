@@ -13,6 +13,14 @@ Public Class K8EngineDataViewer
     Private _iapValues(,) As List(Of LogValue)
     Private _boostValues(,) As List(Of LogValue)
 
+    Private _tpsTargetAFR(,) As Double
+    Private _iapTargetAFR(,) As Double
+    Private _boostTargetAFR(,) As Double
+
+    Private _tpsPercentageMapDelta(,) As Double
+    Private _iapPercentageMapDelta(,) As Double
+    Private _boostPercentageMapDelta(,) As Double
+
     Private _loading As Boolean = True
     Private _cltAbove80 As Boolean = False
     Private _mapType As Integer = 0
@@ -137,6 +145,37 @@ Public Class K8EngineDataViewer
             For yindex As Integer = 0 To _boostRPMList.Count - 1 Step 1
 
                 _boostValues(xindex, yindex) = New List(Of LogValue)
+
+            Next
+        Next
+
+
+        ReDim _tpsTargetAFR(_tpsList.Count, _rpmList.Count)
+
+        For xindex As Integer = 0 To _tpsList.Count - 1 Step 1
+            For yindex As Integer = 0 To _rpmList.Count - 1 Step 1
+
+                _tpsTargetAFR(xindex, yindex) = 13
+
+            Next
+        Next
+
+        ReDim _iapTargetAFR(_iapList.Count, _rpmList.Count)
+
+        For xindex As Integer = 0 To _iapList.Count - 1 Step 1
+            For yindex As Integer = 0 To _rpmList.Count - 1 Step 1
+
+                _iapTargetAFR(xindex, yindex) = 14.7
+
+            Next
+        Next
+
+        ReDim _boostTargetAFR(_boostList.Count, _boostRPMList.Count)
+
+        For xindex As Integer = 0 To _boostList.Count - 1 Step 1
+            For yindex As Integer = 0 To _boostRPMList.Count - 1 Step 1
+
+                _boostTargetAFR(xindex, yindex) = 12
 
             Next
         Next
@@ -395,6 +434,34 @@ Public Class K8EngineDataViewer
 
     End Function
 
+    Public Function CalculateAvgAFR(ByVal values As List(Of LogValue), ByRef dataCount As Integer) As Double
+
+        Dim totalAfr As Double = 0
+        Dim totalCount As Double = 0
+        Dim avgAfr As Double
+
+        For Each value As LogValue In values
+
+            Dim afr As Double = 0
+
+            If value.AFR > 0 Then
+                dataCount = dataCount + 1
+                totalAfr = totalAfr + value.AFR
+                totalCount = totalCount + 1
+            End If
+
+        Next
+
+        If totalCount > 0 Then
+
+            avgAfr = totalAfr / totalCount
+
+        End If
+
+        Return avgAfr
+
+    End Function
+
     Public Sub OpenInnovateFile(ByVal filePath As String)
 
         If String.IsNullOrEmpty(filePath) = False Then
@@ -538,18 +605,15 @@ Public Class K8EngineDataViewer
 
     End Sub
 
-    Private Sub ShowTPSValues()
-
-        Dim dataCount As Integer
-
-        ClearMap()
-        _mapType = 1
+    Private Sub ShowTPSHeaders()
 
         G_FuelMap.RowCount = _rpmList.Count
         G_FuelMap.ColumnCount = _tpsList.Count
 
         For index As Integer = 0 To _tpsList.Count - 1 Step 1
 
+            G_FuelMap.Columns(index).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            G_FuelMap.Columns(index).DefaultCellStyle.Format = "0.0"
             G_FuelMap.Columns.Item(index).HeaderText() = _tpsList(index)
             G_FuelMap.Columns(index).Width = 35
 
@@ -564,56 +628,17 @@ Public Class K8EngineDataViewer
 
         Next
 
-        For tpsIndex As Integer = 0 To _tpsList.Count - 1 Step 1
-
-            For rpmIndex As Integer = 0 To _rpmList.Count - 1 Step 1
-
-                Dim totalAfr As Double = 0
-                Dim avgAfr As Double = 0
-                Dim totalCount As Double = 0
-                Dim values As List(Of LogValue) = _tpsValues(tpsIndex, rpmIndex)
-
-                For Each value As LogValue In values
-
-                    Dim afr As Double = 0
-
-                    If value.AFR > 0 Then
-                        dataCount = dataCount + 1
-                        totalAfr = totalAfr + value.AFR
-                        totalCount = totalCount + 1
-                    End If
-
-                Next
-
-                If totalCount > 0 Then
-
-                    avgAfr = totalAfr / totalCount
-
-                    G_FuelMap.Item(tpsIndex, rpmIndex).Style.Alignment = DataGridViewContentAlignment.MiddleRight
-                    G_FuelMap.Item(tpsIndex, rpmIndex).Value = avgAfr.ToString("0.00")
-
-                End If
-
-            Next
-
-        Next
-
-        L_DataCount.Text = "Data Samples: " + dataCount.ToString()
-
     End Sub
 
-    Private Sub ShowIAPValues()
-
-        Dim dataCount As Integer
-
-        ClearMap()
-        _mapType = 2
+    Private Sub ShowIAPHeaders()
 
         G_FuelMap.RowCount = _rpmList.Count
         G_FuelMap.ColumnCount = _iapList.Count
 
         For index As Integer = 0 To _iapList.Count - 1 Step 1
 
+            G_FuelMap.Columns(index).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            G_FuelMap.Columns(index).DefaultCellStyle.Format = "0.0"
             G_FuelMap.Columns.Item(index).HeaderText() = _iapList(index)
             G_FuelMap.Columns(index).Width = 35
 
@@ -627,6 +652,65 @@ Public Class K8EngineDataViewer
             G_FuelMap.Rows.Item(index).Height = 15
 
         Next
+
+    End Sub
+
+    Private Sub ShowBoostHeaders()
+
+        G_FuelMap.RowCount = _boostRPMList.Count
+        G_FuelMap.ColumnCount = _boostList.Count
+
+        For index As Integer = 0 To _boostList.Count - 1 Step 1
+
+            G_FuelMap.Columns(index).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            G_FuelMap.Columns(index).DefaultCellStyle.Format = "0.0"
+            G_FuelMap.Columns.Item(index).HeaderText() = _boostList(index)
+            G_FuelMap.Columns(index).Width = 35
+
+        Next
+
+        G_FuelMap.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
+
+        For index As Integer = 0 To _boostRPMList.Count - 1 Step 1
+
+            G_FuelMap.Rows.Item(index).HeaderCell.Value = _boostRPMList(index).ToString()
+            G_FuelMap.Rows.Item(index).Height = 15
+
+        Next
+
+    End Sub
+
+    Private Sub ShowLoggedTPSValues()
+
+        ShowTPSHeaders()
+
+        Dim dataCount As Integer
+
+        For tpsIndex As Integer = 0 To _tpsList.Count - 1 Step 1
+
+            For rpmIndex As Integer = 0 To _rpmList.Count - 1 Step 1
+
+                Dim avgAfr As Double = CalculateAvgAFR(_tpsValues(tpsIndex, rpmIndex), dataCount)
+                
+                If avgAfr > 0 Then
+
+                    G_FuelMap.Item(tpsIndex, rpmIndex).Value = avgAfr
+
+                End If
+
+            Next
+
+        Next
+
+        L_DataCount.Text = "Data Samples: " + dataCount.ToString()
+
+    End Sub
+
+    Private Sub ShowLoggedIAPValues()
+
+        ShowIAPHeaders()
+
+        Dim dataCount As Integer
 
         For iapIndex As Integer = 0 To _iapList.Count - 1 Step 1
 
@@ -664,31 +748,11 @@ Public Class K8EngineDataViewer
 
     End Sub
 
-    Private Sub ShowBoostValues()
+    Private Sub ShowLoggedBoostValues()
+
+        ShowBoostHeaders()
 
         Dim dataCount As Integer
-
-        ClearMap()
-        _mapType = 3
-
-        G_FuelMap.RowCount = _boostRPMList.Count
-        G_FuelMap.ColumnCount = _boostList.Count
-
-        For index As Integer = 0 To _boostList.Count - 1 Step 1
-
-            G_FuelMap.Columns.Item(index).HeaderText() = _boostList(index)
-            G_FuelMap.Columns(index).Width = 35
-
-        Next
-
-        G_FuelMap.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
-
-        For index As Integer = 0 To _boostRPMList.Count - 1 Step 1
-
-            G_FuelMap.Rows.Item(index).HeaderCell.Value = _boostRPMList(index).ToString()
-            G_FuelMap.Rows.Item(index).Height = 15
-
-        Next
 
         For iapIndex As Integer = 0 To _boostList.Count - 1 Step 1
 
@@ -726,23 +790,141 @@ Public Class K8EngineDataViewer
 
     End Sub
 
+    Private Sub ShowTargetTPSValues()
+
+        ShowTPSHeaders()
+
+        For xindex As Integer = 0 To _tpsList.Count - 1
+            For yindex As Integer = 0 To _rpmList.Count - 1
+
+                G_FuelMap.Item(xindex, yindex).Value = _tpsTargetAFR(xindex, yindex)
+
+            Next
+        Next
+
+    End Sub
+
+    Private Sub ShowTargetIAPValues()
+
+        ShowIAPHeaders()
+
+        For xindex As Integer = 0 To _iapList.Count - 1
+            For yindex As Integer = 0 To _rpmList.Count - 1
+
+                G_FuelMap.Item(xindex, yindex).Value = _iapTargetAFR(xindex, yindex)
+
+            Next
+        Next
+
+    End Sub
+
+    Private Sub ShowTargetBoostValues()
+
+        ShowBoostHeaders()
+
+        For xindex As Integer = 0 To _boostList.Count - 1
+            For yindex As Integer = 0 To _boostRPMList.Count - 1
+
+                G_FuelMap.Item(xindex, yindex).Value = _boostTargetAFR(xindex, yindex)
+
+            Next
+        Next
+
+    End Sub
+
+    Private Sub ShowPercentageMapChangeTPSValues()
+
+        ShowTPSHeaders()
+
+        Dim percentageChange As Double
+        Dim dataCount As Integer
+
+        For tpsIndex As Integer = 0 To _tpsList.Count - 1 Step 1
+
+            For rpmIndex As Integer = 0 To _rpmList.Count - 1 Step 1
+
+                Dim avgAfr As Double = CalculateAvgAFR(_tpsValues(tpsIndex, rpmIndex), dataCount)
+
+                If avgAfr > 0 Then
+
+                    percentageChange = (avgAfr - _tpsTargetAFR(tpsIndex, rpmIndex)) / avgAfr * 100
+                    G_FuelMap.Item(tpsIndex, rpmIndex).Value = percentageChange
+
+                End If
+            Next
+        Next
+
+    End Sub
+
+    Private Sub ShowPercentageMapChangeIAPValues()
+
+        ShowIAPHeaders()
+
+        Dim percentageChange As Double
+        Dim dataCount As Integer
+
+        For iapIndex As Integer = 0 To _iapList.Count - 1 Step 1
+
+            For rpmIndex As Integer = 0 To _rpmList.Count - 1 Step 1
+
+                Dim avgAfr As Double = CalculateAvgAFR(_iapValues(iapIndex, rpmIndex), dataCount)
+
+                If avgAfr > 0 Then
+
+                    percentageChange = (avgAfr - _iapTargetAFR(iapIndex, rpmIndex)) / avgAfr * 100
+                    G_FuelMap.Item(iapIndex, rpmIndex).Value = percentageChange
+
+                End If
+            Next
+        Next
+
+    End Sub
+
+    Private Sub ShowPercentageMapChangeBoostValues()
+
+        ShowBoostHeaders()
+
+        Dim percentageChange As Double
+        Dim dataCount As Integer
+
+        For boostIndex As Integer = 0 To _boostList.Count - 1 Step 1
+
+            For rpmIndex As Integer = 0 To _boostRPMList.Count - 1 Step 1
+
+                Dim avgAfr As Double = CalculateAvgAFR(_boostValues(boostIndex, rpmIndex), dataCount)
+
+                If avgAfr > 0 Then
+
+                    percentageChange = (avgAfr - _boostTargetAFR(boostIndex, rpmIndex)) / avgAfr * 100
+                    G_FuelMap.Item(boostIndex, rpmIndex).Value = percentageChange
+
+                End If
+            Next
+        Next
+
+    End Sub
+
     Private Sub G_FuelMap_CellContentClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles G_FuelMap.CellContentClick
 
-        If e.RowIndex > -1 And e.ColumnIndex > -1 Then
+        If rbtLoggedAFR.Checked Then
 
-            Dim values As List(Of LogValue) = New List(Of LogValue)
+            If e.RowIndex > -1 And e.ColumnIndex > -1 Then
 
-            If _mapType = 1 Then
-                values = _tpsValues(e.ColumnIndex, e.RowIndex)
-            ElseIf _mapType = 2 Then
-                values = _iapValues(e.ColumnIndex, e.RowIndex)
-            ElseIf _mapType = 3 Then
-                values = _boostValues(e.ColumnIndex, e.RowIndex)
+                Dim values As List(Of LogValue) = New List(Of LogValue)
+
+                If _mapType = 1 Then
+                    values = _tpsValues(e.ColumnIndex, e.RowIndex)
+                ElseIf _mapType = 2 Then
+                    values = _iapValues(e.ColumnIndex, e.RowIndex)
+                ElseIf _mapType = 3 Then
+                    values = _boostValues(e.ColumnIndex, e.RowIndex)
+                End If
+
+                LB_Values.DataSource = values
+
+                LB_Values.Focus()
+
             End If
-
-            LB_Values.DataSource = values
-
-            LB_Values.Focus()
 
         End If
 
@@ -772,7 +954,8 @@ Public Class K8EngineDataViewer
         L_MinTPS.Visible = False
         N_MinTPS.Visible = False
 
-        ShowTPSValues()
+        _mapType = 1
+        SelectMap()
 
     End Sub
 
@@ -785,7 +968,8 @@ Public Class K8EngineDataViewer
         L_MinTPS.Visible = False
         N_MinTPS.Visible = False
 
-        ShowIAPValues()
+        _mapType = 2
+        SelectMap()
 
     End Sub
 
@@ -799,7 +983,8 @@ Public Class K8EngineDataViewer
         N_MinTPS.Visible = True
         N_MinTPS.Value = My.Settings.MinTPS
 
-        ShowBoostValues()
+        _mapType = 3
+        SelectMap()
 
     End Sub
 
@@ -816,7 +1001,7 @@ Public Class K8EngineDataViewer
             My.Settings.MinTPS = N_MinTPS.Value
             My.Settings.Save()
 
-            ShowBoostValues()
+            ShowLoggedBoostValues()
 
         End If
 
@@ -934,4 +1119,61 @@ Public Class K8EngineDataViewer
         K8EngineDataFilter.Show()
 
     End Sub
+
+    Private Sub rbtLoggedAFR_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtLoggedAFR.CheckedChanged
+
+        SelectMap()
+
+    End Sub
+
+    Private Sub rbtTargetAFR_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtTargetAFR.CheckedChanged
+
+        SelectMap()
+        
+    End Sub
+
+    Private Sub rbtPercentageMapChange_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtPercentageMapChange.CheckedChanged
+
+        SelectMap()
+
+    End Sub
+
+    Private Sub SelectMap()
+
+        ClearMap()
+
+        If rbtLoggedAFR.Checked = True Then
+
+            If _mapType = 1 Then
+                ShowLoggedTPSValues()
+            ElseIf _mapType = 2 Then
+                ShowLoggedIAPValues()
+            ElseIf _mapType = 3 Then
+                ShowLoggedBoostValues()
+            End If
+            
+        ElseIf rbtTargetAFR.Checked = True Then
+
+            If _mapType = 1 Then
+                ShowTargetTPSValues()
+            ElseIf _mapType = 2 Then
+                ShowTargetIAPValues()
+            ElseIf _mapType = 3 Then
+                ShowTargetBoostValues()
+            End If
+
+        ElseIf rbtPercentageMapChange.Checked = True Then
+
+            If _mapType = 1 Then
+                ShowPercentageMapChangeTPSValues()
+            ElseIf _mapType = 2 Then
+                ShowPercentageMapChangeIAPValues()
+            ElseIf _mapType = 3 Then
+                ShowPercentageMapChangeBoostValues()
+            End If
+
+        End If
+        
+    End Sub
+
 End Class
