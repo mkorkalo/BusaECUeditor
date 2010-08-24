@@ -46,7 +46,6 @@
     <ProductName>Hayabusa ECUeditor for K2-K7, K8- and BKing models</ProductName>
     <PublisherName>PetriK</PublisherName>
     <MinimumRequiredVersion>2.5.0.0</MinimumRequiredVersion>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>ecueditor_prerelease.htm</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
     <ApplicationRevision>6</ApplicationRevision>
@@ -438,6 +437,12 @@
     <Compile Include="G2\K8gaugetools.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="G2\K8AutoTuneSettings.Designer.vb">
+      <DependentUpon>K8AutoTuneSettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8AutoTuneSettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -806,6 +811,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8gaugetools.resx">
       <DependentUpon>K8gaugetools.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8AutoTuneSettings.resx">
+      <DependentUpon>K8AutoTuneSettings.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

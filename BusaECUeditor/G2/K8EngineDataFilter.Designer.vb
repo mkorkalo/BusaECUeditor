@@ -27,6 +27,12 @@ Partial Class K8EngineDataFilter
         Me.C_FilterClutchIn = New System.Windows.Forms.CheckBox
         Me.btnOk = New System.Windows.Forms.Button
         Me.btnCancel = New System.Windows.Forms.Button
+        Me.Label1 = New System.Windows.Forms.Label
+        Me.Label2 = New System.Windows.Forms.Label
+        Me.NUD_FilterAFRGreaterThan = New System.Windows.Forms.NumericUpDown
+        Me.NUD_FilterAFRLessThan = New System.Windows.Forms.NumericUpDown
+        CType(Me.NUD_FilterAFRGreaterThan, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NUD_FilterAFRLessThan, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'C_FilterCLT80
@@ -77,12 +83,55 @@ Partial Class K8EngineDataFilter
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(9, 102)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(115, 13)
+        Me.Label1.TabIndex = 5
+        Me.Label1.Text = "Filter out AFR Values >"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(9, 79)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(115, 13)
+        Me.Label2.TabIndex = 6
+        Me.Label2.Text = "Filter out AFR Values <"
+        '
+        'NUD_FilterAFRGreaterThan
+        '
+        Me.NUD_FilterAFRGreaterThan.DecimalPlaces = 1
+        Me.NUD_FilterAFRGreaterThan.Location = New System.Drawing.Point(129, 100)
+        Me.NUD_FilterAFRGreaterThan.Maximum = New Decimal(New Integer() {25, 0, 0, 0})
+        Me.NUD_FilterAFRGreaterThan.Minimum = New Decimal(New Integer() {16, 0, 0, 0})
+        Me.NUD_FilterAFRGreaterThan.Name = "NUD_FilterAFRGreaterThan"
+        Me.NUD_FilterAFRGreaterThan.Size = New System.Drawing.Size(49, 20)
+        Me.NUD_FilterAFRGreaterThan.TabIndex = 7
+        Me.NUD_FilterAFRGreaterThan.Value = New Decimal(New Integer() {22, 0, 0, 0})
+        '
+        'NUD_FilterAFRLessThan
+        '
+        Me.NUD_FilterAFRLessThan.DecimalPlaces = 1
+        Me.NUD_FilterAFRLessThan.Location = New System.Drawing.Point(129, 77)
+        Me.NUD_FilterAFRLessThan.Maximum = New Decimal(New Integer() {12, 0, 0, 0})
+        Me.NUD_FilterAFRLessThan.Name = "NUD_FilterAFRLessThan"
+        Me.NUD_FilterAFRLessThan.Size = New System.Drawing.Size(49, 20)
+        Me.NUD_FilterAFRLessThan.TabIndex = 8
+        Me.NUD_FilterAFRLessThan.Value = New Decimal(New Integer() {10, 0, 0, 0})
+        '
         'K8EngineDataFilter
         '
         Me.AcceptButton = Me.btnOk
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(407, 83)
+        Me.ClientSize = New System.Drawing.Size(407, 128)
+        Me.Controls.Add(Me.NUD_FilterAFRLessThan)
+        Me.Controls.Add(Me.NUD_FilterAFRGreaterThan)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnOk)
         Me.Controls.Add(Me.C_FilterClutchIn)
@@ -93,6 +142,8 @@ Partial Class K8EngineDataFilter
         Me.Name = "K8EngineDataFilter"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "K8 Engine Data Logging Filter"
+        CType(Me.NUD_FilterAFRGreaterThan, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NUD_FilterAFRLessThan, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -102,4 +153,8 @@ Partial Class K8EngineDataFilter
     Friend WithEvents C_FilterClutchIn As System.Windows.Forms.CheckBox
     Friend WithEvents btnOk As System.Windows.Forms.Button
     Friend WithEvents btnCancel As System.Windows.Forms.Button
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents NUD_FilterAFRGreaterThan As System.Windows.Forms.NumericUpDown
+    Friend WithEvents NUD_FilterAFRLessThan As System.Windows.Forms.NumericUpDown
 End Class
