@@ -42,6 +42,9 @@ Partial Class K8EngineDataViewer
         Me.rbtTargetAFR = New System.Windows.Forms.RadioButton
         Me.rbtPercentageMapChange = New System.Windows.Forms.RadioButton
         Me.B_AutoTuneSettings = New System.Windows.Forms.Button
+        Me.B_LoadTargetAFR = New System.Windows.Forms.Button
+        Me.B_SaveTargetAFR = New System.Windows.Forms.Button
+        Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog
         CType(Me.N_MinTPS, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.G_FuelMap, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -51,7 +54,7 @@ Partial Class K8EngineDataViewer
         Me.LV_ValueDetails.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.Column1, Me.Column2})
         Me.LV_ValueDetails.Location = New System.Drawing.Point(897, 303)
         Me.LV_ValueDetails.Name = "LV_ValueDetails"
-        Me.LV_ValueDetails.Size = New System.Drawing.Size(168, 382)
+        Me.LV_ValueDetails.Size = New System.Drawing.Size(168, 406)
         Me.LV_ValueDetails.TabIndex = 21
         Me.LV_ValueDetails.UseCompatibleStateImageBehavior = False
         Me.LV_ValueDetails.View = System.Windows.Forms.View.Details
@@ -129,7 +132,7 @@ Partial Class K8EngineDataViewer
         Me.G_FuelMap.AllowUserToAddRows = False
         Me.G_FuelMap.AllowUserToDeleteRows = False
         Me.G_FuelMap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.G_FuelMap.Location = New System.Drawing.Point(5, 58)
+        Me.G_FuelMap.Location = New System.Drawing.Point(5, 86)
         Me.G_FuelMap.Name = "G_FuelMap"
         Me.G_FuelMap.Size = New System.Drawing.Size(886, 624)
         Me.G_FuelMap.TabIndex = 14
@@ -184,7 +187,7 @@ Partial Class K8EngineDataViewer
         '
         Me.rbtLoggedAFR.AutoSize = True
         Me.rbtLoggedAFR.Checked = True
-        Me.rbtLoggedAFR.Location = New System.Drawing.Point(604, 35)
+        Me.rbtLoggedAFR.Location = New System.Drawing.Point(6, 58)
         Me.rbtLoggedAFR.Name = "rbtLoggedAFR"
         Me.rbtLoggedAFR.Size = New System.Drawing.Size(85, 17)
         Me.rbtLoggedAFR.TabIndex = 26
@@ -195,7 +198,7 @@ Partial Class K8EngineDataViewer
         'rbtTargetAFR
         '
         Me.rbtTargetAFR.AutoSize = True
-        Me.rbtTargetAFR.Location = New System.Drawing.Point(695, 35)
+        Me.rbtTargetAFR.Location = New System.Drawing.Point(97, 58)
         Me.rbtTargetAFR.Name = "rbtTargetAFR"
         Me.rbtTargetAFR.Size = New System.Drawing.Size(80, 17)
         Me.rbtTargetAFR.TabIndex = 27
@@ -205,7 +208,7 @@ Partial Class K8EngineDataViewer
         'rbtPercentageMapChange
         '
         Me.rbtPercentageMapChange.AutoSize = True
-        Me.rbtPercentageMapChange.Location = New System.Drawing.Point(781, 35)
+        Me.rbtPercentageMapChange.Location = New System.Drawing.Point(183, 58)
         Me.rbtPercentageMapChange.Name = "rbtPercentageMapChange"
         Me.rbtPercentageMapChange.Size = New System.Drawing.Size(97, 17)
         Me.rbtPercentageMapChange.TabIndex = 28
@@ -221,11 +224,33 @@ Partial Class K8EngineDataViewer
         Me.B_AutoTuneSettings.Text = "Auto Tune Settings"
         Me.B_AutoTuneSettings.UseVisualStyleBackColor = True
         '
+        'B_LoadTargetAFR
+        '
+        Me.B_LoadTargetAFR.Location = New System.Drawing.Point(666, 58)
+        Me.B_LoadTargetAFR.Name = "B_LoadTargetAFR"
+        Me.B_LoadTargetAFR.Size = New System.Drawing.Size(101, 23)
+        Me.B_LoadTargetAFR.TabIndex = 30
+        Me.B_LoadTargetAFR.Text = "Load Target AFR"
+        Me.B_LoadTargetAFR.UseVisualStyleBackColor = True
+        Me.B_LoadTargetAFR.Visible = False
+        '
+        'B_SaveTargetAFR
+        '
+        Me.B_SaveTargetAFR.Location = New System.Drawing.Point(774, 58)
+        Me.B_SaveTargetAFR.Name = "B_SaveTargetAFR"
+        Me.B_SaveTargetAFR.Size = New System.Drawing.Size(108, 23)
+        Me.B_SaveTargetAFR.TabIndex = 31
+        Me.B_SaveTargetAFR.Text = "Save Target AFR"
+        Me.B_SaveTargetAFR.UseVisualStyleBackColor = True
+        Me.B_SaveTargetAFR.Visible = False
+        '
         'K8EngineDataViewer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1077, 694)
+        Me.ClientSize = New System.Drawing.Size(1077, 717)
+        Me.Controls.Add(Me.B_SaveTargetAFR)
+        Me.Controls.Add(Me.B_LoadTargetAFR)
         Me.Controls.Add(Me.B_AutoTuneSettings)
         Me.Controls.Add(Me.rbtPercentageMapChange)
         Me.Controls.Add(Me.rbtTargetAFR)
@@ -271,4 +296,7 @@ Partial Class K8EngineDataViewer
     Friend WithEvents rbtTargetAFR As System.Windows.Forms.RadioButton
     Friend WithEvents rbtPercentageMapChange As System.Windows.Forms.RadioButton
     Friend WithEvents B_AutoTuneSettings As System.Windows.Forms.Button
+    Friend WithEvents B_LoadTargetAFR As System.Windows.Forms.Button
+    Friend WithEvents B_SaveTargetAFR As System.Windows.Forms.Button
+    Friend WithEvents SaveFileDialog1 As System.Windows.Forms.SaveFileDialog
 End Class

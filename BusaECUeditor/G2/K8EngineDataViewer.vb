@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Drawing
+Imports System.Text
 
 Public Class K8EngineDataViewer
 
@@ -156,7 +157,7 @@ Public Class K8EngineDataViewer
         For xindex As Integer = 0 To _tpsList.Count - 1 Step 1
             For yindex As Integer = 0 To _rpmList.Count - 1 Step 1
 
-                _tpsTargetAFR(xindex, yindex) = 13
+                _tpsTargetAFR(xindex, yindex) = 12.8
 
             Next
         Next
@@ -1041,8 +1042,11 @@ Public Class K8EngineDataViewer
         For x As Integer = 0 To G_FuelMap.ColumnCount - 1
             For y As Integer = 0 To G_FuelMap.RowCount - 1
                 G_FuelMap.Item(x, y).Value = ""
+                G_FuelMap.Item(x, y).Style.BackColor = Color.White
+                G_FuelMap.Item(x, y).Style.ForeColor = Color.Black
             Next
         Next
+
     End Sub
 
     Private Sub B_TPS_RPM_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_TPS_RPM.Click
@@ -1224,17 +1228,26 @@ Public Class K8EngineDataViewer
 
         SelectMap()
 
+        B_LoadTargetAFR.Visible = False
+        B_SaveTargetAFR.Visible = False
+
     End Sub
 
     Private Sub rbtTargetAFR_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtTargetAFR.CheckedChanged
 
         SelectMap()
 
+        B_LoadTargetAFR.Visible = True
+        B_SaveTargetAFR.Visible = True
+
     End Sub
 
     Private Sub rbtPercentageMapChange_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtPercentageMapChange.CheckedChanged
 
         SelectMap()
+
+        B_LoadTargetAFR.Visible = False
+        B_SaveTargetAFR.Visible = False
 
     End Sub
 
@@ -1282,4 +1295,55 @@ Public Class K8EngineDataViewer
 
     End Sub
 
+    Private Sub B_SaveTargetAFR_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_SaveTargetAFR.Click
+
+        SaveFileDialog1.Filter = ".tafr|*.tafr"
+
+        If SaveFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
+
+            Using textFile As System.IO.TextWriter = New StreamWriter(SaveFileDialog1.FileName)
+
+                For x As Integer = 0 To _tpsTargetAFR.GetLength(0) - 1
+                    Dim stringBuilder As New StringBuilder()
+                    For y As Integer = 0 To _tpsTargetAFR.GetLength(1) - 1
+
+                        stringBuilder.Append(_tpsTargetAFR(x, y).ToString("0.0"))
+                        stringBuilder.Append(",")
+
+                    Next
+
+                    textFile.WriteLine(stringBuilder.ToString())
+                Next
+
+                For x As Integer = 0 To _iapTargetAFR.GetLength(0) - 1
+                    Dim stringBuilder As New StringBuilder()
+                    For y As Integer = 0 To _iapTargetAFR.GetLength(1) - 1
+
+                        stringBuilder.Append(_iapTargetAFR(x, y).ToString("0.0"))
+                        stringBuilder.Append(",")
+
+                    Next
+
+                    textFile.WriteLine(stringBuilder.ToString())
+                Next
+
+                For x As Integer = 0 To _boostTargetAFR.GetLength(0) - 1
+                    Dim stringBuilder As New StringBuilder()
+                    For y As Integer = 0 To _boostTargetAFR.GetLength(1) - 1
+
+                        stringBuilder.Append(_boostTargetAFR(x, y).ToString("0.0"))
+                        stringBuilder.Append(",")
+
+                    Next
+
+                    textFile.WriteLine(stringBuilder.ToString())
+                Next
+
+                textFile.Close()
+
+            End Using
+
+        End If
+
+    End Sub
 End Class
