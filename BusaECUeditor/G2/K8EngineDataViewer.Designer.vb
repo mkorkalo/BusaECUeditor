@@ -41,6 +41,7 @@ Partial Class K8EngineDataViewer
         Me.rbtLoggedAFR = New System.Windows.Forms.RadioButton
         Me.rbtTargetAFR = New System.Windows.Forms.RadioButton
         Me.rbtPercentageMapChange = New System.Windows.Forms.RadioButton
+        Me.B_AutoTuneSettings = New System.Windows.Forms.Button
         CType(Me.N_MinTPS, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.G_FuelMap, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -211,11 +212,21 @@ Partial Class K8EngineDataViewer
         Me.rbtPercentageMapChange.Text = "% Map Change"
         Me.rbtPercentageMapChange.UseVisualStyleBackColor = True
         '
+        'B_AutoTuneSettings
+        '
+        Me.B_AutoTuneSettings.Location = New System.Drawing.Point(210, 29)
+        Me.B_AutoTuneSettings.Name = "B_AutoTuneSettings"
+        Me.B_AutoTuneSettings.Size = New System.Drawing.Size(114, 23)
+        Me.B_AutoTuneSettings.TabIndex = 29
+        Me.B_AutoTuneSettings.Text = "Auto Tune Settings"
+        Me.B_AutoTuneSettings.UseVisualStyleBackColor = True
+        '
         'K8EngineDataViewer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1077, 694)
+        Me.Controls.Add(Me.B_AutoTuneSettings)
         Me.Controls.Add(Me.rbtPercentageMapChange)
         Me.Controls.Add(Me.rbtTargetAFR)
         Me.Controls.Add(Me.rbtLoggedAFR)
@@ -259,4 +270,5 @@ Partial Class K8EngineDataViewer
     Friend WithEvents rbtLoggedAFR As System.Windows.Forms.RadioButton
     Friend WithEvents rbtTargetAFR As System.Windows.Forms.RadioButton
     Friend WithEvents rbtPercentageMapChange As System.Windows.Forms.RadioButton
+    Friend WithEvents B_AutoTuneSettings As System.Windows.Forms.Button
 End Class
