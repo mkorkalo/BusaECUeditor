@@ -23,6 +23,7 @@ Partial Class K8EngineDataLogger
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(K8EngineDataLogger))
         Me.NUD_LogRate = New System.Windows.Forms.NumericUpDown
         Me.Label3 = New System.Windows.Forms.Label
         Me.B_ClearCommsLog = New System.Windows.Forms.Button
@@ -346,6 +347,7 @@ Partial Class K8EngineDataLogger
         Me.Controls.Add(Me.L_AFR)
         Me.Controls.Add(Me.B_ViewDataLog)
         Me.Controls.Add(Me.L_BasicData)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "K8EngineDataLogger"
         Me.Text = "K8 Engine Data Logger"
         CType(Me.NUD_LogRate, System.ComponentModel.ISupportInitialize).EndInit()

@@ -71,7 +71,7 @@ Partial Class K8EngineDataFilter
         Me.btnOk.Name = "btnOk"
         Me.btnOk.Size = New System.Drawing.Size(75, 23)
         Me.btnOk.TabIndex = 3
-        Me.btnOk.Text = "Ok"
+        Me.btnOk.Text = "OK"
         Me.btnOk.UseVisualStyleBackColor = True
         '
         'btnCancel
@@ -140,6 +140,7 @@ Partial Class K8EngineDataFilter
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "K8EngineDataFilter"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "K8 Engine Data Logging Filter"
         CType(Me.NUD_FilterAFRGreaterThan, System.ComponentModel.ISupportInitialize).EndInit()
