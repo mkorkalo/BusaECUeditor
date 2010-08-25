@@ -792,7 +792,7 @@ Public Class K8EngineDataViewer
                 G_FuelMap.Item(tpsIndex, rpmIndex).Style.ForeColor = Color.Black
 
                 Dim avgAfr As Double = CalculateAvgAFR(_tpsValues(tpsIndex, rpmIndex), dataCount)
-                Dim percentageChange As Double = (avgAfr - _tpsTargetAFR(tpsIndex, rpmIndex)) / avgAfr * 100
+                Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _tpsTargetAFR(tpsIndex, rpmIndex)) / avgAfr * 100)
 
                 If avgAfr > 0 Then
 
@@ -823,7 +823,7 @@ Public Class K8EngineDataViewer
                 G_FuelMap.Item(iapIndex, rpmIndex).Style.ForeColor = Color.Black
 
                 Dim avgAfr As Double = CalculateAvgAFR(_iapValues(iapIndex, rpmIndex), dataCount)
-                Dim percentageChange As Double = (avgAfr - _iapTargetAFR(iapIndex, rpmIndex)) / avgAfr * 100
+                Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _iapTargetAFR(iapIndex, rpmIndex)) / avgAfr * 100)
 
                 If avgAfr > 0 Then
 
@@ -855,7 +855,7 @@ Public Class K8EngineDataViewer
                 G_FuelMap.Item(boostIndex, rpmIndex).Style.ForeColor = Color.Black
 
                 Dim avgAfr As Double = CalculateAvgAFR(_boostValues(boostIndex, rpmIndex), dataCount)
-                Dim percentageChange As Double = (avgAfr - _boostTargetAFR(boostIndex, rpmIndex)) / avgAfr * 100
+                Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _boostTargetAFR(boostIndex, rpmIndex)) / avgAfr * 100)
 
                 If avgAfr > 0 Then
 
@@ -935,7 +935,7 @@ Public Class K8EngineDataViewer
 
                 If avgAfr > 0 Then
 
-                    percentageChange = (avgAfr - _tpsTargetAFR(tpsIndex, rpmIndex)) / avgAfr * 100
+                    percentageChange = AutoTuneCorrection((avgAfr - _tpsTargetAFR(tpsIndex, rpmIndex)) / avgAfr * 100)
 
                     If CheckAutoTuneFilter(avgAfr, percentageChange, dataCount) Then
 
@@ -969,7 +969,7 @@ Public Class K8EngineDataViewer
 
                 If avgAfr > 0 Then
 
-                    percentageChange = (avgAfr - _iapTargetAFR(iapIndex, rpmIndex)) / avgAfr * 100
+                    percentageChange = AutoTuneCorrection((avgAfr - _iapTargetAFR(iapIndex, rpmIndex)) / avgAfr * 100)
 
                     If CheckAutoTuneFilter(avgAfr, percentageChange, dataCount) Then
 
@@ -1005,7 +1005,7 @@ Public Class K8EngineDataViewer
 
                 If avgAfr > 0 Then
 
-                    percentageChange = (avgAfr - _boostTargetAFR(boostIndex, rpmIndex)) / avgAfr * 100
+                    percentageChange = AutoTuneCorrection((avgAfr - _boostTargetAFR(boostIndex, rpmIndex)) / avgAfr * 100)
 
                     If CheckAutoTuneFilter(avgAfr, percentageChange, dataCount) Then
 
@@ -1515,7 +1515,7 @@ Public Class K8EngineDataViewer
 
     Private Sub G_FuelMap_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles G_FuelMap.KeyDown
 
-        If R_TargetAFR.Checked = True Then
+        If R_TargetAFR.Checked = True Or R_PercentageMapChange.Checked = True Then
 
             If (e.Control = True And e.KeyCode = Keys.V) Then
                 Dim rowIndex As Integer
@@ -1628,12 +1628,12 @@ Public Class K8EngineDataViewer
 
             ElseIf R_IAPRPM.Checked = True Then
 
-                ChangeIAPFuelMapValue()
+                AutoTuneIAPFuelMap()
                 _autoTunedIAP = True
 
             ElseIf R_BOOSTRPM.Checked = True Then
 
-                ChangeBoostFuelMapValue()
+                AutoTuneBoostFuelMap()
                 _autoTunedBoost = True
 
             End If
@@ -1691,7 +1691,7 @@ Public Class K8EngineDataViewer
 
     End Sub
 
-    Public Sub ChangeIAPFuelMapValue()
+    Public Sub AutoTuneIAPFuelMap()
 
         Try
 
@@ -1748,7 +1748,26 @@ Public Class K8EngineDataViewer
         End Try
     End Sub
 
-    Public Sub ChangeBoostFuelMapValue()
+    Public Sub AutoTuneBoostFuelMap()
 
     End Sub
+
+    Public Function AutoTuneCorrection(ByVal percentageChange) As Double
+
+        Dim value As Double = Math.Abs(percentageChange)
+
+        If value < 5 Then
+            percentageChange = 0.9 * percentageChange
+        ElseIf value >= 5 And value < 10 Then
+            percentageChange = 0.85 * percentageChange
+        ElseIf value >= 10 And value < 15 Then
+            percentageChange = 0.8 * percentageChange
+        ElseIf value >= 15 Then
+            percentageChange = 0.75 * percentageChange
+        End If
+
+        Return percentageChange
+
+    End Function
+
 End Class
