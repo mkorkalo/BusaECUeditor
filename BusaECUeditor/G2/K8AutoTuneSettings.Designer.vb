@@ -34,8 +34,8 @@ Partial Class K8AutoTuneSettings
         Me.Label5 = New System.Windows.Forms.Label
         Me.Panel1 = New System.Windows.Forms.Panel
         Me.Panel2 = New System.Windows.Forms.Panel
-        Me.B_Ok = New System.Windows.Forms.Button
         Me.B_Cancel = New System.Windows.Forms.Button
+        Me.B_Ok = New System.Windows.Forms.Button
         CType(Me.NUD_AutoTuneMinAvgAFR, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_AutoTuneMaxAvgAFR, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_AutoTuneMaxPercentageFuelMapChange, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -150,15 +150,6 @@ Partial Class K8AutoTuneSettings
         Me.Panel2.Size = New System.Drawing.Size(404, 115)
         Me.Panel2.TabIndex = 10
         '
-        'B_Ok
-        '
-        Me.B_Ok.Location = New System.Drawing.Point(322, 10)
-        Me.B_Ok.Name = "B_Ok"
-        Me.B_Ok.Size = New System.Drawing.Size(75, 23)
-        Me.B_Ok.TabIndex = 8
-        Me.B_Ok.Text = "Ok"
-        Me.B_Ok.UseVisualStyleBackColor = True
-        '
         'B_Cancel
         '
         Me.B_Cancel.Location = New System.Drawing.Point(322, 37)
@@ -167,6 +158,15 @@ Partial Class K8AutoTuneSettings
         Me.B_Cancel.TabIndex = 9
         Me.B_Cancel.Text = "Cancel"
         Me.B_Cancel.UseVisualStyleBackColor = True
+        '
+        'B_Ok
+        '
+        Me.B_Ok.Location = New System.Drawing.Point(322, 10)
+        Me.B_Ok.Name = "B_Ok"
+        Me.B_Ok.Size = New System.Drawing.Size(75, 23)
+        Me.B_Ok.TabIndex = 8
+        Me.B_Ok.Text = "OK"
+        Me.B_Ok.UseVisualStyleBackColor = True
         '
         'K8AutoTuneSettings
         '
@@ -178,6 +178,7 @@ Partial Class K8AutoTuneSettings
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "K8AutoTuneSettings"
+        Me.ShowInTaskbar = False
         Me.Text = "K8 Auto Tune Settings"
         CType(Me.NUD_AutoTuneMinAvgAFR, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_AutoTuneMaxAvgAFR, System.ComponentModel.ISupportInitialize).EndInit()

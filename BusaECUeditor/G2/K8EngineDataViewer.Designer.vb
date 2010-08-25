@@ -22,6 +22,7 @@ Partial Class K8EngineDataViewer
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(K8EngineDataViewer))
         Me.LV_ValueDetails = New System.Windows.Forms.ListView
         Me.Column1 = New System.Windows.Forms.ColumnHeader
         Me.Column2 = New System.Windows.Forms.ColumnHeader
@@ -308,6 +309,7 @@ Partial Class K8EngineDataViewer
         Me.Controls.Add(Me.G_FuelMap)
         Me.Controls.Add(Me.B_LoadDataFile)
         Me.Controls.Add(Me.GroupBox2)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "K8EngineDataViewer"
         Me.Text = "K8 Engine Data Viewer"
         CType(Me.N_MinTPS, System.ComponentModel.ISupportInitialize).EndInit()

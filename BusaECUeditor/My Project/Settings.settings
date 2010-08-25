@@ -69,7 +69,7 @@
       <Value Profile="(Default)">10</Value>
     </Setting>
     <Setting Name="AutoTuneMaxAvgAFR" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">17</Value>
+      <Value Profile="(Default)">18</Value>
     </Setting>
     <Setting Name="AutoTuneMaxPercentageFuelMapChange" Type="System.Double" Scope="User">
       <Value Profile="(Default)">10</Value>
