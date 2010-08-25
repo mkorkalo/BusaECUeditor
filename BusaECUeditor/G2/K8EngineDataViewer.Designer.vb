@@ -132,6 +132,7 @@ Partial Class K8EngineDataViewer
         Me.G_FuelMap.AllowUserToAddRows = False
         Me.G_FuelMap.AllowUserToDeleteRows = False
         Me.G_FuelMap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.G_FuelMap.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.G_FuelMap.Location = New System.Drawing.Point(5, 86)
         Me.G_FuelMap.Name = "G_FuelMap"
         Me.G_FuelMap.Size = New System.Drawing.Size(886, 624)

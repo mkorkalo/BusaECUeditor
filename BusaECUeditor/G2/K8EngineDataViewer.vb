@@ -24,6 +24,7 @@ Public Class K8EngineDataViewer
     Private _boostPercentageMapDelta(,) As Double
 
     Private _loading As Boolean = True
+    Private _mapLoading As Boolean = False
     Private _cltAbove80 As Boolean = False
     Private _mapType As Integer = 0
     Private _fileType As Integer = 0
@@ -763,7 +764,6 @@ Public Class K8EngineDataViewer
         Dim dataCount As Integer
 
         For tpsIndex As Integer = 0 To _tpsList.Count - 1 Step 1
-
             For rpmIndex As Integer = 0 To _rpmList.Count - 1 Step 1
 
                 Dim avgAfr As Double = CalculateAvgAFR(_tpsValues(tpsIndex, rpmIndex), dataCount)
@@ -1026,7 +1026,6 @@ Public Class K8EngineDataViewer
             End If
 
             LB_Values.DataSource = values
-            LB_Values.Focus()
 
         End If
     End Sub
@@ -1059,7 +1058,7 @@ Public Class K8EngineDataViewer
         N_MinTPS.Visible = False
 
         _mapType = 1
-        SelectMap()
+        ShowMap()
 
     End Sub
 
@@ -1073,7 +1072,7 @@ Public Class K8EngineDataViewer
         N_MinTPS.Visible = False
 
         _mapType = 2
-        SelectMap()
+        ShowMap()
 
     End Sub
 
@@ -1088,7 +1087,7 @@ Public Class K8EngineDataViewer
         N_MinTPS.Value = My.Settings.MinTPS
 
         _mapType = 3
-        SelectMap()
+        ShowMap()
 
     End Sub
 
@@ -1226,7 +1225,7 @@ Public Class K8EngineDataViewer
 
     Private Sub rbtLoggedAFR_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtLoggedAFR.CheckedChanged
 
-        SelectMap()
+        ShowMap()
 
         B_LoadTargetAFR.Visible = False
         B_SaveTargetAFR.Visible = False
@@ -1235,7 +1234,7 @@ Public Class K8EngineDataViewer
 
     Private Sub rbtTargetAFR_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtTargetAFR.CheckedChanged
 
-        SelectMap()
+        ShowMap()
 
         B_LoadTargetAFR.Visible = True
         B_SaveTargetAFR.Visible = True
@@ -1244,18 +1243,22 @@ Public Class K8EngineDataViewer
 
     Private Sub rbtPercentageMapChange_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtPercentageMapChange.CheckedChanged
 
-        SelectMap()
+        ShowMap()
 
         B_LoadTargetAFR.Visible = False
         B_SaveTargetAFR.Visible = False
 
     End Sub
 
-    Private Sub SelectMap()
+    Private Sub ShowMap()
+
+        _mapLoading = True
 
         ClearMap()
 
         If rbtLoggedAFR.Checked = True Then
+
+            G_FuelMap.EditMode = DataGridViewEditMode.EditProgrammatically
 
             If _mapType = 1 Then
                 ShowLoggedTPSValues()
@@ -1267,6 +1270,8 @@ Public Class K8EngineDataViewer
 
         ElseIf rbtTargetAFR.Checked = True Then
 
+            G_FuelMap.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2
+
             If _mapType = 1 Then
                 ShowTargetTPSValues()
             ElseIf _mapType = 2 Then
@@ -1276,6 +1281,8 @@ Public Class K8EngineDataViewer
             End If
 
         ElseIf rbtPercentageMapChange.Checked = True Then
+
+            G_FuelMap.EditMode = DataGridViewEditMode.EditProgrammatically
 
             If _mapType = 1 Then
                 ShowPercentageMapChangeTPSValues()
@@ -1287,6 +1294,8 @@ Public Class K8EngineDataViewer
 
         End If
 
+        _mapLoading = False
+
     End Sub
 
     Private Sub B_AutoTuneSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_AutoTuneSettings.Click
@@ -1297,53 +1306,236 @@ Public Class K8EngineDataViewer
 
     Private Sub B_SaveTargetAFR_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_SaveTargetAFR.Click
 
-        SaveFileDialog1.Filter = ".tafr|*.tafr"
+        Try
 
-        If SaveFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            SaveFileDialog1.Filter = ".tafr|*.tafr"
 
-            Using textFile As System.IO.TextWriter = New StreamWriter(SaveFileDialog1.FileName)
+            If SaveFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
 
-                For x As Integer = 0 To _tpsTargetAFR.GetLength(0) - 1
-                    Dim stringBuilder As New StringBuilder()
-                    For y As Integer = 0 To _tpsTargetAFR.GetLength(1) - 1
+                Using textFile As System.IO.TextWriter = New StreamWriter(SaveFileDialog1.FileName)
 
-                        stringBuilder.Append(_tpsTargetAFR(x, y).ToString("0.0"))
-                        stringBuilder.Append(",")
+                    For yIndex As Integer = 0 To _rpmList.Count - 1 Step 1
+
+                        Dim stringBuilder As New StringBuilder()
+
+                        For xIndex As Integer = 0 To _tpsList.Count - 1 Step 1
+
+                            stringBuilder.Append(_tpsTargetAFR(xIndex, yIndex).ToString("0.0"))
+
+                            If xIndex < _tpsList.Count - 1 Then
+                                stringBuilder.Append(",")
+                            End If
+                        Next
+
+                        textFile.WriteLine(stringBuilder.ToString())
+                    Next
+
+                    For yIndex As Integer = 0 To _rpmList.Count - 1
+                        Dim stringBuilder As New StringBuilder()
+                        For xIndex As Integer = 0 To _iapList.Count - 1
+
+                            stringBuilder.Append(_iapTargetAFR(xIndex, yIndex).ToString("0.0"))
+
+                            If xIndex < _iapList.Count - 1 Then
+                                stringBuilder.Append(",")
+                            End If
+                        Next
+
+                        textFile.WriteLine(stringBuilder.ToString())
+                    Next
+
+                    For yIndex As Integer = 0 To _boostRPMList.Count - 1
+                        Dim stringBuilder As New StringBuilder()
+                        For xIndex As Integer = 0 To _boostList.Count - 1
+
+                            stringBuilder.Append(_boostTargetAFR(xIndex, yIndex).ToString("0.0"))
+
+                            If xIndex < _boostList.Count - 1 Then
+                                stringBuilder.Append(",")
+                            End If
+                        Next
+
+                        textFile.WriteLine(stringBuilder.ToString())
 
                     Next
 
-                    textFile.WriteLine(stringBuilder.ToString())
-                Next
+                    textFile.Close()
 
-                For x As Integer = 0 To _iapTargetAFR.GetLength(0) - 1
-                    Dim stringBuilder As New StringBuilder()
-                    For y As Integer = 0 To _iapTargetAFR.GetLength(1) - 1
+                End Using
 
-                        stringBuilder.Append(_iapTargetAFR(x, y).ToString("0.0"))
-                        stringBuilder.Append(",")
+            End If
 
-                    Next
+        Catch ex As Exception
 
-                    textFile.WriteLine(stringBuilder.ToString())
-                Next
+            MessageBox.Show(ex.Message & Environment.NewLine & ex.StackTrace, "ECU Editor Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
-                For x As Integer = 0 To _boostTargetAFR.GetLength(0) - 1
-                    Dim stringBuilder As New StringBuilder()
-                    For y As Integer = 0 To _boostTargetAFR.GetLength(1) - 1
+        End Try
 
-                        stringBuilder.Append(_boostTargetAFR(x, y).ToString("0.0"))
-                        stringBuilder.Append(",")
+    End Sub
 
-                    Next
+    Private Sub B_LoadTargetAFR_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_LoadTargetAFR.Click
 
-                    textFile.WriteLine(stringBuilder.ToString())
-                Next
+        Try
 
-                textFile.Close()
+            OpenFileDialog1.Filter = ".tafr|*.tafr"
 
-            End Using
+            If OpenFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
 
+                Using textFile As System.IO.TextReader = New StreamReader(OpenFileDialog1.FileName)
+
+                    Dim line As String = textFile.ReadLine()
+                    Dim tpsRPMIndex As Integer = 0
+                    Dim iapRPMIndex As Integer = 0
+                    Dim boostRPMIndex As Integer = 0
+
+                    While String.IsNullOrEmpty(line) = False
+
+                        Dim values As String() = line.Split(",")
+
+                        If values.Length = 23 Then
+
+                            For index As Integer = 0 To values.Length - 1 Step 1
+                                Dim value As Double = 0
+
+                                If Double.TryParse(values(index), value) Then
+                                    _tpsTargetAFR(index, tpsRPMIndex) = value
+                                End If
+                            Next
+
+                            tpsRPMIndex = tpsRPMIndex + 1
+
+                        End If
+
+                        If values.Length = 21 Then
+
+                            For index As Integer = 0 To values.Length - 1 Step 1
+                                Dim value As Double = 0
+
+                                If Double.TryParse(values(index), value) Then
+                                    _iapTargetAFR(index, iapRPMIndex) = value
+                                End If
+                            Next
+
+                            iapRPMIndex = iapRPMIndex + 1
+
+                        End If
+
+                        If values.Length = 16 Then
+
+                            For index As Integer = 0 To values.Length - 1 Step 1
+                                Dim value As Double = 0
+
+                                If Double.TryParse(values(index), value) Then
+                                    _boostTargetAFR(index, boostRPMIndex) = value
+                                End If
+                            Next
+
+                            boostRPMIndex = boostRPMIndex + 1
+
+                        End If
+
+                        line = textFile.ReadLine()
+
+                    End While
+
+                    textFile.Close()
+
+                End Using
+
+            End If
+
+            ShowMap()
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message & Environment.NewLine & ex.StackTrace, "ECU Editor Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+    End Sub
+
+    Private Sub G_FuelMap_CellValueChanged(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles G_FuelMap.CellValueChanged
+
+        If e.ColumnIndex < 0 Or e.RowIndex < 0 Or _mapLoading = True Then
+            Return
         End If
 
+        If rbtTargetAFR.Checked = True Then
+
+            Dim value As Double = 0
+
+            If Double.TryParse(G_FuelMap.Item(e.ColumnIndex, e.RowIndex).Value.ToString(), value) = True Then
+
+                If _mapType = 1 Then
+                    _tpsTargetAFR(e.ColumnIndex, e.RowIndex) = value
+                ElseIf _mapType = 2 Then
+                    _iapTargetAFR(e.ColumnIndex, e.RowIndex) = value
+                ElseIf _mapType = 3 Then
+                    _boostTargetAFR(e.ColumnIndex, e.RowIndex) = value
+                End If
+            Else
+
+                If _mapType = 1 Then
+                    G_FuelMap.Item(e.ColumnIndex, e.RowIndex).Value = _tpsTargetAFR(e.ColumnIndex, e.RowIndex)
+                ElseIf _mapType = 2 Then
+                    G_FuelMap.Item(e.ColumnIndex, e.RowIndex).Value = _iapTargetAFR(e.ColumnIndex, e.RowIndex)
+                ElseIf _mapType = 3 Then
+                    G_FuelMap.Item(e.ColumnIndex, e.RowIndex).Value = _iapTargetAFR(e.ColumnIndex, e.RowIndex)
+                End If
+
+            End If
+        End If
+
+    End Sub
+
+    Private Sub G_FuelMap_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles G_FuelMap.KeyDown
+
+        If rbtTargetAFR.Checked = True Then
+
+            If (e.Control = True And e.KeyCode = Keys.V) Then
+                Dim rowIndex As Integer
+                Dim lines As String()
+                Dim columnStartIndex As Integer
+
+                rowIndex = Integer.MaxValue
+                columnStartIndex = Integer.MaxValue
+
+                For Each cell As DataGridViewCell In G_FuelMap.SelectedCells()
+                    If cell.RowIndex < rowIndex Then
+                        rowIndex = cell.RowIndex
+                    End If
+
+                    If cell.ColumnIndex < columnStartIndex Then
+                        columnStartIndex = cell.ColumnIndex
+                    End If
+                Next
+
+                rowIndex = G_FuelMap.CurrentCell.RowIndex
+
+                lines = Clipboard.GetText().Split(ControlChars.CrLf)
+
+                For Each line As String In lines
+                    Dim columnIndex As Integer
+                    Dim values As String()
+
+                    values = line.Split(ControlChars.Tab)
+                    columnIndex = columnStartIndex
+
+                    For Each value As String In values
+                        value = Replace(value, ControlChars.Lf, "") ' removing extra LF - issue 38
+                        If columnIndex < G_FuelMap.ColumnCount And rowIndex < G_FuelMap.RowCount Then
+                            If IsNumeric(value) Then
+                                G_FuelMap(columnIndex, rowIndex).Value = value
+                            End If
+                        End If
+
+                        columnIndex = columnIndex + 1
+                    Next
+
+                    rowIndex = rowIndex + 1
+                Next
+
+            End If
+        End If
     End Sub
 End Class
