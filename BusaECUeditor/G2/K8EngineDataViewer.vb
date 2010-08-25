@@ -26,8 +26,13 @@ Public Class K8EngineDataViewer
     Private _loading As Boolean = True
     Private _mapLoading As Boolean = False
     Private _cltAbove80 As Boolean = False
-    Private _mapType As Integer = 0
+    Private _mapType As Integer = 1
     Private _fileType As Integer = 0
+
+    Private _autoTunedTPS = False
+    Private _autoTunedIAP = False
+    Private _autoTunedBoost = False
+
 
     Private Sub K8EngineDataViewer_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -185,6 +190,21 @@ Public Class K8EngineDataViewer
 
     End Sub
 
+    Private ReadOnly Property SelectedMapString() As String
+        Get
+
+            If R_TPSRPM.Checked Then
+                Return "TPS/RPM"
+            ElseIf R_IAPRPM.Checked Then
+                Return "IAP/RPM"
+            ElseIf R_BOOSTRPM.Checked Then
+                Return "Boost/RPM"
+            End If
+
+            Return ""
+
+        End Get
+    End Property
     Private Sub B_LoadDataFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_LoadDataFile.Click
 
         OpenFileDialog1.FileName = ""
@@ -404,7 +424,7 @@ Public Class K8EngineDataViewer
 
             reader.Close()
 
-            B_TPS_RPM_Click(New Object(), New EventArgs())
+            ShowMap()
 
         End If
 
@@ -676,7 +696,7 @@ Public Class K8EngineDataViewer
 
             reader.Close()
 
-            B_TPS_RPM_Click(New Object(), New EventArgs())
+            ShowMap()
 
         End If
 
@@ -778,7 +798,7 @@ Public Class K8EngineDataViewer
 
         Next
 
-        L_DataCount.Text = "Data Samples: " + dataCount.ToString()
+        L_FileName.Text = _filePath & " Data Samples: " + dataCount.ToString()
 
     End Sub
 
@@ -820,7 +840,7 @@ Public Class K8EngineDataViewer
 
         Next
 
-        L_DataCount.Text = "Data Samples: " + dataCount.ToString()
+        L_FileName.Text = _filePath & " Data Samples: " + dataCount.ToString()
 
     End Sub
 
@@ -862,7 +882,7 @@ Public Class K8EngineDataViewer
 
         Next
 
-        L_DataCount.Text = "Data Samples: " + dataCount.ToString()
+        L_FileName.Text = _filePath & " Data Samples: " + dataCount.ToString()
 
     End Sub
 
@@ -1026,6 +1046,7 @@ Public Class K8EngineDataViewer
             End If
 
             LB_Values.DataSource = values
+            L_CellDataCount.Text = values.Count.ToString()
 
         End If
     End Sub
@@ -1045,49 +1066,6 @@ Public Class K8EngineDataViewer
                 G_FuelMap.Item(x, y).Style.ForeColor = Color.Black
             Next
         Next
-
-    End Sub
-
-    Private Sub B_TPS_RPM_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_TPS_RPM.Click
-
-        B_TPS_RPM.BackColor = Color.AntiqueWhite
-        B_IAP_RPM.BackColor = Color.FromArgb(255, 240, 240, 240)
-        B_BOOST_RPM.BackColor = Color.FromArgb(255, 240, 240, 240)
-
-        L_MinTPS.Visible = False
-        N_MinTPS.Visible = False
-
-        _mapType = 1
-        ShowMap()
-
-    End Sub
-
-    Private Sub B_IAP_RPM_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_IAP_RPM.Click
-
-        B_IAP_RPM.BackColor = Color.AntiqueWhite
-        B_TPS_RPM.BackColor = Color.FromArgb(255, 240, 240, 240)
-        B_BOOST_RPM.BackColor = Color.FromArgb(255, 240, 240, 240)
-
-        L_MinTPS.Visible = False
-        N_MinTPS.Visible = False
-
-        _mapType = 2
-        ShowMap()
-
-    End Sub
-
-    Private Sub B_BOOST_RPM_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_BOOST_RPM.Click
-
-        B_TPS_RPM.BackColor = Color.FromArgb(255, 240, 240, 240)
-        B_IAP_RPM.BackColor = Color.FromArgb(255, 240, 240, 240)
-        B_BOOST_RPM.BackColor = Color.AntiqueWhite
-
-        L_MinTPS.Visible = True
-        N_MinTPS.Visible = True
-        N_MinTPS.Value = My.Settings.MinTPS
-
-        _mapType = 3
-        ShowMap()
 
     End Sub
 
@@ -1223,30 +1201,70 @@ Public Class K8EngineDataViewer
 
     End Sub
 
-    Private Sub rbtLoggedAFR_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtLoggedAFR.CheckedChanged
+    Private Sub R_LoggedAFR_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles R_LoggedAFR.CheckedChanged
 
         ShowMap()
+
+        SetAutoTuneButton()
 
         B_LoadTargetAFR.Visible = False
         B_SaveTargetAFR.Visible = False
 
     End Sub
 
-    Private Sub rbtTargetAFR_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtTargetAFR.CheckedChanged
+    Private Sub R_TargetAFR_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles R_TargetAFR.CheckedChanged
 
         ShowMap()
+
+        SetAutoTuneButton()
 
         B_LoadTargetAFR.Visible = True
         B_SaveTargetAFR.Visible = True
 
     End Sub
 
-    Private Sub rbtPercentageMapChange_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtPercentageMapChange.CheckedChanged
+    Private Sub R_PercentageMapChange_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles R_PercentageMapChange.CheckedChanged
 
         ShowMap()
 
+        SetAutoTuneButton()
+
         B_LoadTargetAFR.Visible = False
         B_SaveTargetAFR.Visible = False
+
+    End Sub
+
+    Private Sub SetAutoTuneButton()
+
+        If R_PercentageMapChange.Checked = True Then
+            B_AutoTune.Visible = True
+        Else
+            B_AutoTune.Visible = False
+        End If
+
+        If R_TPSRPM.Checked Then
+            If _autoTunedTPS = False Then
+                B_AutoTune.Enabled = True
+            Else
+                B_AutoTune.Enabled = False
+            End If
+        End If
+
+        If R_IAPRPM.Checked Then
+            If _autoTunedIAP = False Then
+                B_AutoTune.Enabled = True
+            Else
+                B_AutoTune.Enabled = False
+            End If
+        End If
+
+        If R_BOOSTRPM.Checked Then
+            If _autoTunedBoost = False Then
+                B_AutoTune.Enabled = True
+            Else
+                B_AutoTune.Enabled = False
+            End If
+        End If
 
     End Sub
 
@@ -1256,7 +1274,7 @@ Public Class K8EngineDataViewer
 
         ClearMap()
 
-        If rbtLoggedAFR.Checked = True Then
+        If R_LoggedAFR.Checked = True Then
 
             G_FuelMap.EditMode = DataGridViewEditMode.EditProgrammatically
 
@@ -1268,7 +1286,7 @@ Public Class K8EngineDataViewer
                 ShowLoggedBoostValues()
             End If
 
-        ElseIf rbtTargetAFR.Checked = True Then
+        ElseIf R_TargetAFR.Checked = True Then
 
             G_FuelMap.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2
 
@@ -1280,7 +1298,7 @@ Public Class K8EngineDataViewer
                 ShowTargetBoostValues()
             End If
 
-        ElseIf rbtPercentageMapChange.Checked = True Then
+        ElseIf R_PercentageMapChange.Checked = True Then
 
             G_FuelMap.EditMode = DataGridViewEditMode.EditProgrammatically
 
@@ -1460,7 +1478,7 @@ Public Class K8EngineDataViewer
             Return
         End If
 
-        If rbtTargetAFR.Checked = True Then
+        If R_TargetAFR.Checked = True Then
 
             Dim value As Double = 0
 
@@ -1490,7 +1508,7 @@ Public Class K8EngineDataViewer
 
     Private Sub G_FuelMap_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles G_FuelMap.KeyDown
 
-        If rbtTargetAFR.Checked = True Then
+        If R_TargetAFR.Checked = True Then
 
             If (e.Control = True And e.KeyCode = Keys.V) Then
                 Dim rowIndex As Integer
@@ -1537,5 +1555,190 @@ Public Class K8EngineDataViewer
 
             End If
         End If
+    End Sub
+
+    Private Sub R_TPSRPM_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles R_TPSRPM.CheckedChanged
+
+        If R_TPSRPM.Checked = True Then
+
+            L_MinTPS.Visible = False
+            N_MinTPS.Visible = False
+
+            _mapType = 1
+            ShowMap()
+
+            SetAutoTuneButton()
+
+        End If
+
+    End Sub
+
+    Private Sub R_IAPRPM_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles R_IAPRPM.CheckedChanged
+
+        If R_IAPRPM.Checked = True Then
+
+            L_MinTPS.Visible = False
+            N_MinTPS.Visible = False
+
+            _mapType = 2
+            ShowMap()
+
+            SetAutoTuneButton()
+
+        End If
+
+    End Sub
+
+    Private Sub R_BOOSTRPM_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles R_BOOSTRPM.CheckedChanged
+
+        If R_BOOSTRPM.Checked = True Then
+
+            L_MinTPS.Visible = True
+            N_MinTPS.Visible = True
+            N_MinTPS.Value = My.Settings.MinTPS
+
+            _mapType = 3
+            ShowMap()
+
+            SetAutoTuneButton()
+
+        End If
+
+    End Sub
+
+    Private Sub B_AutoTune_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_AutoTune.Click
+
+        Dim message As String = "You are about to apply the % Map Changes to the " & SelectedMapString & " fuel map." & Environment.NewLine & "Click OK to continue"
+
+        If MessageBox.Show(message, "ECU Editor Auto Tune", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = Windows.Forms.DialogResult.OK Then
+
+            Dim value As Double = 0
+
+            If R_TPSRPM.Checked = True Then
+
+                AutoTuneTPSFuelMap()
+                _autoTunedTPS = True
+
+            ElseIf R_IAPRPM.Checked = True Then
+
+                ChangeIAPFuelMapValue()
+                _autoTunedIAP = True
+
+            ElseIf R_BOOSTRPM.Checked = True Then
+
+                ChangeBoostFuelMapValue()
+                _autoTunedBoost = True
+
+            End If
+
+            B_AutoTune.Enabled = False
+
+        End If
+
+    End Sub
+
+    Public Sub AutoTuneTPSFuelMap()
+
+        Dim mapStructureTable As Integer
+        Dim cylinder As Integer = 0        ' 0,1,2,3
+        Dim ms01 As Integer = 0            ' 0,1
+        Dim modeabc As Integer = 0
+        Dim copyToMap As Long = 0
+        Dim editingMap As Integer = 0
+        Dim mapNumberOfColumns As Integer = 0
+        Dim mapNumberOfRows As Integer = 0
+        Dim autoTunePercentage As Double = 0
+        Dim currentValue As Integer = 0
+        Dim newValue As Integer = 0
+
+        If ECUVersion = "gen2" Then
+            mapStructureTable = &H52304
+        ElseIf ECUVersion = "bking" Then
+            mapStructureTable = &H54EB4
+        End If
+
+        editingMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+        mapNumberOfColumns = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+        mapNumberOfRows = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
+
+        For columnIndex As Integer = 0 To _tpsList.Count - 1
+            For rowIndex As Integer = 0 To _rpmList.Count - 1
+                If Double.TryParse(G_FuelMap.Item(columnIndex, rowIndex).Value, autoTunePercentage) = True Then
+
+                    currentValue = ReadFlashWord(editingMap + (2 * (columnIndex + (rowIndex * mapNumberOfColumns))))
+                    newValue = currentValue * (1 + autoTunePercentage / 100)
+
+                    For cylinder = 0 To 3
+                        For ms01 = 0 To 0
+                            copyToMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                            WriteFlashWord(copyToMap + (2 * (columnIndex + (rowIndex * mapNumberOfColumns))), newValue)
+                        Next
+                    Next
+
+                End If
+            Next
+        Next
+
+    End Sub
+
+    Public Sub ChangeIAPFuelMapValue()
+
+        Try
+
+            Dim mapStructureTable As Integer
+            Dim mapStructureTable2 As Integer
+            Dim cylinder As Integer = 0        ' 0,1,2,3
+            Dim ms01 As Integer = 0            ' 0,1
+            Dim modeabc As Integer = 0
+            Dim copyToMap As Long = 0
+            Dim copyToMap2 As Long = 0
+            Dim editingMap As Integer = 0
+            Dim mapNumberOfColumns As Integer = 0
+            Dim mapNumberOfRows As Integer = 0
+            Dim autoTunePercentage As Double = 0
+            Dim currentValue As Integer = 0
+            Dim newValue As Integer = 0
+
+            If ECUVersion = "gen2" Then
+                mapStructureTable = &H52244
+                mapStructureTable2 = &H522A4
+            ElseIf ECUVersion = "bking" Then
+                mapStructureTable = &H54DF4
+                mapStructureTable2 = &H54E54
+            End If
+
+            editingMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+            mapNumberOfColumns = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+            mapNumberOfRows = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
+
+            For columnIndex As Integer = 0 To _iapList.Count - 1
+                For rowIndex As Integer = 0 To _rpmList.Count - 1
+                    If Double.TryParse(G_FuelMap.Item(columnIndex, rowIndex).Value, autoTunePercentage) = True Then
+
+                        currentValue = ReadFlashWord(editingMap + (2 * (columnIndex + (rowIndex * mapNumberOfColumns))))
+                        newValue = currentValue * (1 + autoTunePercentage / 100)
+
+                        For cylinder = 0 To 3
+                            For ms01 = 0 To 1
+                                copyToMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                                WriteFlashWord(copyToMap + (2 * (columnIndex + (rowIndex * mapNumberOfColumns))), newValue)
+
+                                copyToMap2 = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable2 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                                WriteFlashWord(copyToMap2 + (2 * (columnIndex + (rowIndex * mapNumberOfColumns))), newValue)
+                            Next
+                        Next
+
+                    End If
+                Next
+            Next
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message & Environment.NewLine & ex.StackTrace)
+
+        End Try
+    End Sub
+
+    Public Sub ChangeBoostFuelMapValue()
+
     End Sub
 End Class
