@@ -1332,7 +1332,7 @@ Public Class K8EngineDataViewer
                             stringBuilder.Append(_tpsTargetAFR(xIndex, yIndex).ToString("0.0"))
 
                             If xIndex < _tpsList.Count - 1 Then
-                                stringBuilder.Append(",")
+                                stringBuilder.Append("|")
                             End If
                         Next
 
@@ -1346,7 +1346,7 @@ Public Class K8EngineDataViewer
                             stringBuilder.Append(_iapTargetAFR(xIndex, yIndex).ToString("0.0"))
 
                             If xIndex < _iapList.Count - 1 Then
-                                stringBuilder.Append(",")
+                                stringBuilder.Append("|")
                             End If
                         Next
 
@@ -1360,7 +1360,7 @@ Public Class K8EngineDataViewer
                             stringBuilder.Append(_boostTargetAFR(xIndex, yIndex).ToString("0.0"))
 
                             If xIndex < _boostList.Count - 1 Then
-                                stringBuilder.Append(",")
+                                stringBuilder.Append("|")
                             End If
                         Next
 
@@ -1399,7 +1399,7 @@ Public Class K8EngineDataViewer
 
                     While String.IsNullOrEmpty(line) = False
 
-                        Dim values As String() = line.Split(",")
+                        Dim values As String() = line.Split("|")
 
                         If values.Length = 23 Then
 
