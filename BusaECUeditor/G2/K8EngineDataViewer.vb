@@ -927,28 +927,31 @@ Public Class K8EngineDataViewer
         Dim dataCount As Integer
 
         For tpsIndex As Integer = 0 To _tpsList.Count - 1 Step 1
+            If _tpsList(tpsIndex) >= 11 Then
 
-            For rpmIndex As Integer = 0 To _rpmList.Count - 1 Step 1
+                For rpmIndex As Integer = 0 To _rpmList.Count - 1 Step 1
 
-                dataCount = 0
-                G_FuelMap.Item(tpsIndex, rpmIndex).Style.BackColor = Color.White
-                G_FuelMap.Item(tpsIndex, rpmIndex).Style.ForeColor = Color.Black
+                    dataCount = 0
+                    G_FuelMap.Item(tpsIndex, rpmIndex).Style.BackColor = Color.White
+                    G_FuelMap.Item(tpsIndex, rpmIndex).Style.ForeColor = Color.Black
 
-                Dim avgAfr As Double = CalculateAvgAFR(_tpsValues(tpsIndex, rpmIndex), dataCount)
+                    Dim avgAfr As Double = CalculateAvgAFR(_tpsValues(tpsIndex, rpmIndex), dataCount)
 
-                If avgAfr > 0 Then
+                    If avgAfr > 0 Then
 
-                    percentageChange = AutoTuneCorrection((avgAfr - _tpsTargetAFR(tpsIndex, rpmIndex)) / avgAfr * 100)
+                        percentageChange = AutoTuneCorrection((avgAfr - _tpsTargetAFR(tpsIndex, rpmIndex)) / avgAfr * 100)
 
-                    If CheckAutoTuneFilter(avgAfr, percentageChange, dataCount) Then
+                        If CheckAutoTuneFilter(avgAfr, percentageChange, dataCount) Then
 
-                        G_FuelMap.Item(tpsIndex, rpmIndex).Value = percentageChange
-                        G_FuelMap.Item(tpsIndex, rpmIndex).Style.BackColor = GetCellColor(percentageChange)
-                        G_FuelMap.Item(tpsIndex, rpmIndex).Style.ForeColor = GetCellForeColor(percentageChange)
+                            G_FuelMap.Item(tpsIndex, rpmIndex).Value = percentageChange
+                            G_FuelMap.Item(tpsIndex, rpmIndex).Style.BackColor = GetCellColor(percentageChange)
+                            G_FuelMap.Item(tpsIndex, rpmIndex).Style.ForeColor = GetCellForeColor(percentageChange)
 
+                        End If
                     End If
-                End If
-            Next
+                Next
+
+            End If
         Next
 
     End Sub
@@ -1675,21 +1678,25 @@ Public Class K8EngineDataViewer
         mapNumberOfRows = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
 
         For columnIndex As Integer = 0 To _tpsList.Count - 1
-            For rowIndex As Integer = 0 To _rpmList.Count - 1
-                If Double.TryParse(G_FuelMap.Item(columnIndex, rowIndex).Value, autoTunePercentage) = True Then
+            If _tpsList(columnIndex) >= 11 Then
 
-                    currentValue = ReadFlashWord(editingMap + (2 * (columnIndex + (rowIndex * mapNumberOfColumns))))
-                    newValue = currentValue * (1 + autoTunePercentage / 100)
+                For rowIndex As Integer = 0 To _rpmList.Count - 1
+                    If Double.TryParse(G_FuelMap.Item(columnIndex, rowIndex).Value, autoTunePercentage) = True Then
 
-                    For cylinder = 0 To 3
-                        For ms01 = 0 To 0
-                            copyToMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                            WriteFlashWord(copyToMap + (2 * (columnIndex + (rowIndex * mapNumberOfColumns))), newValue)
+                        currentValue = ReadFlashWord(editingMap + (2 * (columnIndex + (rowIndex * mapNumberOfColumns))))
+                        newValue = currentValue * (1 + autoTunePercentage / 100)
+
+                        For cylinder = 0 To 3
+                            For ms01 = 0 To 0
+                                copyToMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                                WriteFlashWord(copyToMap + (2 * (columnIndex + (rowIndex * mapNumberOfColumns))), newValue)
+                            Next
                         Next
-                    Next
 
-                End If
-            Next
+                    End If
+                Next
+
+            End If
         Next
 
     End Sub
@@ -1724,22 +1731,12 @@ Public Class K8EngineDataViewer
             mapNumberOfColumns = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
             mapNumberOfRows = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
 
-            Dim textFile As System.IO.TextWriter = New StreamWriter("E:\Iap.txt")
-
             For columnIndex As Integer = 0 To _iapList.Count - 1
                 For rowIndex As Integer = 0 To _rpmList.Count - 1
                     If Double.TryParse(G_FuelMap.Item(columnIndex, rowIndex).Value, autoTunePercentage) = True Then
 
                         currentValue = ReadFlashWord(editingMap + (2 * (columnIndex + (rowIndex * mapNumberOfColumns))))
                         newValue = currentValue * (1 + autoTunePercentage / 100)
-
-                        Dim line As String = _iapList(columnIndex).ToString() & ", "
-                        line = line & _rpmList(rowIndex).ToString() & ", "
-                        line = line & currentValue.ToString() & ", "
-                        line = line & newValue.ToString() & ", "
-                        line = line & (newValue - currentValue).ToString()
-
-                        textFile.WriteLine(line)
 
                         For cylinder = 0 To 3
                             For ms01 = 0 To 1
@@ -1754,8 +1751,6 @@ Public Class K8EngineDataViewer
                     End If
                 Next
             Next
-
-            textFile.Close()
 
         Catch ex As Exception
 
