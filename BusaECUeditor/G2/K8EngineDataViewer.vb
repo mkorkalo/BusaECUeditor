@@ -792,9 +792,10 @@ Public Class K8EngineDataViewer
                 G_FuelMap.Item(tpsIndex, rpmIndex).Style.ForeColor = Color.Black
 
                 Dim avgAfr As Double = CalculateAvgAFR(_tpsValues(tpsIndex, rpmIndex), dataCount)
-                Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _tpsTargetAFR(tpsIndex, rpmIndex)) / avgAfr * 100)
 
                 If avgAfr > 0 Then
+
+                    Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _tpsTargetAFR(tpsIndex, rpmIndex)) / avgAfr * 100)
 
                     G_FuelMap.Item(tpsIndex, rpmIndex).Value = avgAfr
                     G_FuelMap.Item(tpsIndex, rpmIndex).Style.BackColor = GetCellColor(percentageChange)
@@ -823,9 +824,10 @@ Public Class K8EngineDataViewer
                 G_FuelMap.Item(iapIndex, rpmIndex).Style.ForeColor = Color.Black
 
                 Dim avgAfr As Double = CalculateAvgAFR(_iapValues(iapIndex, rpmIndex), dataCount)
-                Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _iapTargetAFR(iapIndex, rpmIndex)) / avgAfr * 100)
 
                 If avgAfr > 0 Then
+
+                    Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _iapTargetAFR(iapIndex, rpmIndex)) / avgAfr * 100)
 
                     G_FuelMap.Item(iapIndex, rpmIndex).Style.Alignment = DataGridViewContentAlignment.MiddleRight
                     G_FuelMap.Item(iapIndex, rpmIndex).Value = avgAfr.ToString("0.00")
@@ -855,9 +857,10 @@ Public Class K8EngineDataViewer
                 G_FuelMap.Item(boostIndex, rpmIndex).Style.ForeColor = Color.Black
 
                 Dim avgAfr As Double = CalculateAvgAFR(_boostValues(boostIndex, rpmIndex), dataCount)
-                Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _boostTargetAFR(boostIndex, rpmIndex)) / avgAfr * 100)
 
                 If avgAfr > 0 Then
+
+                    Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _boostTargetAFR(boostIndex, rpmIndex)) / avgAfr * 100)
 
                     G_FuelMap.Item(boostIndex, rpmIndex).Style.Alignment = DataGridViewContentAlignment.MiddleRight
                     G_FuelMap.Item(boostIndex, rpmIndex).Value = avgAfr.ToString("0.00")
@@ -1721,12 +1724,22 @@ Public Class K8EngineDataViewer
             mapNumberOfColumns = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
             mapNumberOfRows = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
 
+            Dim textFile As System.IO.TextWriter = New StreamWriter("E:\Iap.txt")
+
             For columnIndex As Integer = 0 To _iapList.Count - 1
                 For rowIndex As Integer = 0 To _rpmList.Count - 1
                     If Double.TryParse(G_FuelMap.Item(columnIndex, rowIndex).Value, autoTunePercentage) = True Then
 
                         currentValue = ReadFlashWord(editingMap + (2 * (columnIndex + (rowIndex * mapNumberOfColumns))))
                         newValue = currentValue * (1 + autoTunePercentage / 100)
+
+                        Dim line As String = _iapList(columnIndex).ToString() & ", "
+                        line = line & _rpmList(rowIndex).ToString() & ", "
+                        line = line & currentValue.ToString() & ", "
+                        line = line & newValue.ToString() & ", "
+                        line = line & (newValue - currentValue).ToString()
+
+                        textFile.WriteLine(line)
 
                         For cylinder = 0 To 3
                             For ms01 = 0 To 1
@@ -1741,6 +1754,9 @@ Public Class K8EngineDataViewer
                     End If
                 Next
             Next
+
+            textFile.Close()
+
         Catch ex As Exception
 
             MessageBox.Show(ex.Message & Environment.NewLine & ex.StackTrace)
@@ -1752,18 +1768,18 @@ Public Class K8EngineDataViewer
 
     End Sub
 
-    Public Function AutoTuneCorrection(ByVal percentageChange) As Double
+    Public Function AutoTuneCorrection(ByVal percentageChange As Double) As Double
 
         Dim value As Double = Math.Abs(percentageChange)
 
         If value < 5 Then
-            percentageChange = 0.9 * percentageChange
-        ElseIf value >= 5 And value < 10 Then
-            percentageChange = 0.85 * percentageChange
-        ElseIf value >= 10 And value < 15 Then
-            percentageChange = 0.8 * percentageChange
-        ElseIf value >= 15 Then
             percentageChange = 0.75 * percentageChange
+        ElseIf value >= 5 And value < 10 Then
+            percentageChange = 0.725 * percentageChange
+        ElseIf value >= 10 And value < 15 Then
+            percentageChange = 0.7 * percentageChange
+        ElseIf value >= 15 Then
+            percentageChange = 0.675 * percentageChange
         End If
 
         Return percentageChange
