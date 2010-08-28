@@ -1781,4 +1781,58 @@ Public Class K8EngineDataViewer
 
     End Function
 
+    Private Sub LB_Values_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles LB_Values.KeyDown
+
+        If (e.Control = True And e.KeyCode = Keys.D) Then
+
+            Dim values As List(Of LogValue) = New List(Of LogValue)
+
+            If _mapType = 1 Then
+                values = _tpsValues(G_FuelMap.CurrentCell.ColumnIndex, G_FuelMap.CurrentCell.RowIndex)
+            ElseIf _mapType = 2 Then
+                values = _iapValues(G_FuelMap.CurrentCell.ColumnIndex, G_FuelMap.CurrentCell.RowIndex)
+            ElseIf _mapType = 3 Then
+                values = _boostValues(G_FuelMap.CurrentCell.ColumnIndex, G_FuelMap.CurrentCell.RowIndex)
+            End If
+
+            values.Remove(LB_Values.SelectedItem)
+
+            LB_Values.DataSource = Nothing
+            LB_Values.DataSource = values
+            L_CellDataCount.Text = values.Count.ToString()
+
+            G_FuelMap.CurrentCell.Style.BackColor = Color.White
+            G_FuelMap.CurrentCell.Style.ForeColor = Color.Black
+
+            Dim dataCount As Integer
+            Dim avgAfr As Decimal = CalculateAvgAFR(values, dataCount)
+
+            If R_LoggedAFR.Checked Then
+
+                If avgAfr > 0 Then
+
+                    Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _tpsTargetAFR(G_FuelMap.CurrentCell.ColumnIndex, G_FuelMap.CurrentCell.RowIndex)) / avgAfr * 100)
+
+                    G_FuelMap.CurrentCell.Value = avgAfr
+                    G_FuelMap.CurrentCell.Style.BackColor = GetCellColor(percentageChange)
+                    G_FuelMap.CurrentCell.Style.ForeColor = GetCellForeColor(percentageChange)
+                Else
+                    G_FuelMap.CurrentCell.Value = ""
+                End If
+
+            ElseIf R_PercentageMapChange.Checked = True Then
+                If avgAfr > 0 Then
+
+                    Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _tpsTargetAFR(G_FuelMap.CurrentCell.ColumnIndex, G_FuelMap.CurrentCell.RowIndex)) / avgAfr * 100)
+                    G_FuelMap.CurrentCell.Value = percentageChange
+                    G_FuelMap.CurrentCell.Style.BackColor = GetCellColor(percentageChange)
+                    G_FuelMap.CurrentCell.Style.ForeColor = GetCellForeColor(percentageChange)
+                Else
+                    G_FuelMap.CurrentCell.Value = ""
+                End If
+            End If
+
+        End If
+
+    End Sub
 End Class
