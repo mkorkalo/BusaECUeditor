@@ -1117,4 +1117,52 @@ Public Class K8boostfuel
 
     End Sub
 
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_rescale.Click
+        Dim multiplier As Decimal = 1.18
+
+        If (MsgBox("Are you sure, this will change the scaling and you need to completely rebuild the boostmap ?", MsgBoxStyle.OkCancel) = MsgBoxResult.Ok) Then
+
+            If ReadFlashByte(&H55844) = &H52 Then
+                WriteFlashByte(&H55844 + 0, &H52 * multiplier)
+                WriteFlashByte(&H55844 + 1, &H58 * multiplier)
+                WriteFlashByte(&H55844 + 2, &H5E * multiplier)
+                WriteFlashByte(&H55844 + 3, &H63 * multiplier)
+                WriteFlashByte(&H55844 + 4, &H6C * multiplier)
+                WriteFlashByte(&H55844 + 5, &H73 * multiplier)
+                WriteFlashByte(&H55844 + 6, &H81 * multiplier)
+                WriteFlashByte(&H55844 + 7, &H8B * multiplier)
+                WriteFlashByte(&H55844 + 8, &H92 * multiplier)
+                WriteFlashByte(&H55844 + 9, &H98 * multiplier)
+                WriteFlashByte(&H55844 + 10, &HA0 * multiplier)
+                WriteFlashByte(&H55844 + 11, &HA6 * multiplier)
+                WriteFlashByte(&H55844 + 12, &HB2 * multiplier)
+                WriteFlashByte(&H55844 + 13, &HBD * multiplier)
+                WriteFlashByte(&H55844 + 14, &HCB * multiplier)
+                WriteFlashByte(&H55844 + 15, &HD8 * multiplier)
+            Else
+                WriteFlashByte(&H55844 + 0, &H52)
+                WriteFlashByte(&H55844 + 1, &H58)
+                WriteFlashByte(&H55844 + 2, &H5E)
+                WriteFlashByte(&H55844 + 3, &H63)
+                WriteFlashByte(&H55844 + 4, &H6C)
+                WriteFlashByte(&H55844 + 5, &H73)
+                WriteFlashByte(&H55844 + 6, &H81)
+                WriteFlashByte(&H55844 + 7, &H8B)
+                WriteFlashByte(&H55844 + 8, &H92)
+                WriteFlashByte(&H55844 + 9, &H98)
+                WriteFlashByte(&H55844 + 10, &HA0)
+                WriteFlashByte(&H55844 + 11, &HA6)
+                WriteFlashByte(&H55844 + 12, &HB2)
+                WriteFlashByte(&H55844 + 13, &HBD)
+                WriteFlashByte(&H55844 + 14, &HCB)
+                WriteFlashByte(&H55844 + 15, &HD8)
+
+            End If
+
+            generate_map_table()
+            writemaptoflash()
+
+        End If
+
+    End Sub
 End Class

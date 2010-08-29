@@ -46,6 +46,7 @@ Partial Class K8boostfuel
         Me.Label7 = New System.Windows.Forms.Label
         Me.C_fueladd = New System.Windows.Forms.CheckBox
         Me.Button1 = New System.Windows.Forms.Button
+        Me.B_rescale = New System.Windows.Forms.Button
         Me.K8boostfuelBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.D_boostfuel, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_BOOST, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -96,7 +97,7 @@ Partial Class K8boostfuel
         '
         Me.D_boostfuel.AllowUserToAddRows = False
         Me.D_boostfuel.AllowUserToDeleteRows = False
-        Me.D_boostfuel.BackgRoundColor = System.Drawing.SystemColors.Control
+        Me.D_boostfuel.BackgroundColor = System.Drawing.SystemColors.Control
         Me.D_boostfuel.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.D_boostfuel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.D_boostfuel.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
@@ -147,7 +148,7 @@ Partial Class K8boostfuel
         '
         Me.D_duty.AllowUserToAddRows = False
         Me.D_duty.AllowUserToDeleteRows = False
-        Me.D_duty.BackgRoundColor = System.Drawing.SystemColors.Control
+        Me.D_duty.BackgroundColor = System.Drawing.SystemColors.Control
         Me.D_duty.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.D_duty.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.D_duty.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
@@ -221,6 +222,7 @@ Partial Class K8boostfuel
         '
         'G_boosttable
         '
+        Me.G_boosttable.Controls.Add(Me.B_rescale)
         Me.G_boosttable.Controls.Add(Me.B_Apply_Map)
         Me.G_boosttable.Controls.Add(Me.D_boostfuel)
         Me.G_boosttable.Location = New System.Drawing.Point(13, 117)
@@ -296,6 +298,17 @@ Partial Class K8boostfuel
         Me.Button1.Text = "Help"
         Me.Button1.UseVisualStyleBackColor = True
         '
+        'B_rescale
+        '
+        Me.B_rescale.Location = New System.Drawing.Point(485, 298)
+        Me.B_rescale.Name = "B_rescale"
+        Me.B_rescale.Size = New System.Drawing.Size(83, 21)
+        Me.B_rescale.TabIndex = 87
+        Me.B_rescale.Text = "Rescale"
+        Me.ToolTip1.SetToolTip(Me.B_rescale, "Rescale changes the pressure scale. If this button is used then the full map need" & _
+                "s to be retuned as the pressure columns are changed.")
+        Me.B_rescale.UseVisualStyleBackColor = True
+        '
         'K8boostfuelBindingSource
         '
         Me.K8boostfuelBindingSource.DataSource = GetType(BusaECUeditor.K8boostfuel)
@@ -363,5 +376,6 @@ Partial Class K8boostfuel
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents B_Apply_Map As System.Windows.Forms.Button
+    Friend WithEvents B_rescale As System.Windows.Forms.Button
 
 End Class
