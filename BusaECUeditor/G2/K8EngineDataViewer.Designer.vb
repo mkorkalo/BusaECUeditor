@@ -49,6 +49,7 @@ Partial Class K8EngineDataViewer
         Me.R_IAPRPM = New System.Windows.Forms.RadioButton
         Me.L_CellDataCount = New System.Windows.Forms.Label
         Me.B_AutoTune = New System.Windows.Forms.Button
+        Me.L_AvgTPS = New System.Windows.Forms.Label
         CType(Me.N_MinTPS, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.G_FuelMap, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -288,11 +289,21 @@ Partial Class K8EngineDataViewer
         Me.B_AutoTune.UseVisualStyleBackColor = True
         Me.B_AutoTune.Visible = False
         '
+        'L_AvgTPS
+        '
+        Me.L_AvgTPS.AutoSize = True
+        Me.L_AvgTPS.Location = New System.Drawing.Point(897, 8)
+        Me.L_AvgTPS.Name = "L_AvgTPS"
+        Me.L_AvgTPS.Size = New System.Drawing.Size(10, 13)
+        Me.L_AvgTPS.TabIndex = 37
+        Me.L_AvgTPS.Text = "-"
+        '
         'K8EngineDataViewer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1077, 717)
+        Me.Controls.Add(Me.L_AvgTPS)
         Me.Controls.Add(Me.B_AutoTune)
         Me.Controls.Add(Me.L_CellDataCount)
         Me.Controls.Add(Me.GroupBox1)
@@ -348,4 +359,5 @@ Partial Class K8EngineDataViewer
     Friend WithEvents R_BOOSTRPM As System.Windows.Forms.RadioButton
     Friend WithEvents L_CellDataCount As System.Windows.Forms.Label
     Friend WithEvents B_AutoTune As System.Windows.Forms.Button
+    Friend WithEvents L_AvgTPS As System.Windows.Forms.Label
 End Class

@@ -320,7 +320,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("18")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("17.1")>  _
         Public Property AutoTuneMaxAvgAFR() As Double
             Get
                 Return CType(Me("AutoTuneMaxAvgAFR"),Double)
@@ -356,7 +356,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("18")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("17.1")>  _
         Public Property FilterAFRGreaterThan() As Double
             Get
                 Return CType(Me("FilterAFRGreaterThan"),Double)
@@ -375,6 +375,18 @@ Namespace My
             End Get
             Set
                 Me("FilterAFRLessThan") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property AutoTuneTargetAFRFilePath() As String
+            Get
+                Return CType(Me("AutoTuneTargetAFRFilePath"),String)
+            End Get
+            Set
+                Me("AutoTuneTargetAFRFilePath") = value
             End Set
         End Property
     End Class
