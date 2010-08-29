@@ -188,6 +188,8 @@ Public Class K8EngineDataViewer
             Next
         Next
 
+        LoadTAFRFile(My.Settings.AutoTuneTargetAFRFilePath)
+
     End Sub
 
     Private ReadOnly Property SelectedMapString() As String
@@ -205,6 +207,7 @@ Public Class K8EngineDataViewer
 
         End Get
     End Property
+
     Private Sub B_LoadDataFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_LoadDataFile.Click
 
         OpenFileDialog1.FileName = ""
@@ -492,8 +495,6 @@ Public Class K8EngineDataViewer
 
         For Each value As LogValue In values
 
-            Dim afr As Double = 0
-
             If value.AFR > 0 Then
                 dataCount = dataCount + 1
                 totalAfr = totalAfr + value.AFR
@@ -509,6 +510,29 @@ Public Class K8EngineDataViewer
         End If
 
         Return avgAfr
+
+    End Function
+
+    Public Function CalculateAvgTPS(ByVal values As List(Of LogValue)) As Double
+
+        Dim total As Double = 0
+        Dim totalCount As Double = 0
+        Dim avg As Double
+
+        For Each value As LogValue In values
+
+            total = total + value.TPS
+            totalCount = totalCount + 1
+
+        Next
+
+        If totalCount > 0 Then
+
+            avg = total / totalCount
+
+        End If
+
+        Return avg
 
     End Function
 
@@ -785,21 +809,21 @@ Public Class K8EngineDataViewer
 
         Dim dataCount As Integer
 
-        For tpsIndex As Integer = 0 To _tpsList.Count - 1 Step 1
-            For rpmIndex As Integer = 0 To _rpmList.Count - 1 Step 1
+        For xIndex As Integer = 0 To _tpsList.Count - 1 Step 1
+            For yIndex As Integer = 0 To _rpmList.Count - 1 Step 1
 
-                G_FuelMap.Item(tpsIndex, rpmIndex).Style.BackColor = Color.White
-                G_FuelMap.Item(tpsIndex, rpmIndex).Style.ForeColor = Color.Black
+                G_FuelMap.Item(xIndex, yIndex).Style.BackColor = Color.White
+                G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = Color.Black
 
-                Dim avgAfr As Double = CalculateAvgAFR(_tpsValues(tpsIndex, rpmIndex), dataCount)
+                Dim avgAfr As Double = CalculateAvgAFR(_tpsValues(xIndex, yIndex), dataCount)
 
                 If avgAfr > 0 Then
 
-                    Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _tpsTargetAFR(tpsIndex, rpmIndex)) / avgAfr * 100)
+                    Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _tpsTargetAFR(xIndex, yIndex)) / avgAfr * 100)
 
-                    G_FuelMap.Item(tpsIndex, rpmIndex).Value = avgAfr
-                    G_FuelMap.Item(tpsIndex, rpmIndex).Style.BackColor = GetCellColor(percentageChange)
-                    G_FuelMap.Item(tpsIndex, rpmIndex).Style.ForeColor = GetCellForeColor(percentageChange)
+                    G_FuelMap.Item(xIndex, yIndex).Value = avgAfr
+                    G_FuelMap.Item(xIndex, yIndex).Style.BackColor = GetCellColor(percentageChange)
+                    G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = GetCellForeColor(percentageChange)
 
                 End If
 
@@ -817,22 +841,22 @@ Public Class K8EngineDataViewer
 
         Dim dataCount As Integer
 
-        For iapIndex As Integer = 0 To _iapList.Count - 1 Step 1
-            For rpmIndex As Integer = 0 To _rpmList.Count - 1 Step 1
+        For xIndex As Integer = 0 To _iapList.Count - 1 Step 1
+            For yIndex As Integer = 0 To _rpmList.Count - 1 Step 1
 
-                G_FuelMap.Item(iapIndex, rpmIndex).Style.BackColor = Color.White
-                G_FuelMap.Item(iapIndex, rpmIndex).Style.ForeColor = Color.Black
+                G_FuelMap.Item(xIndex, yIndex).Style.BackColor = Color.White
+                G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = Color.Black
 
-                Dim avgAfr As Double = CalculateAvgAFR(_iapValues(iapIndex, rpmIndex), dataCount)
+                Dim avgAfr As Double = CalculateAvgAFR(_iapValues(xIndex, yIndex), dataCount)
 
                 If avgAfr > 0 Then
 
-                    Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _iapTargetAFR(iapIndex, rpmIndex)) / avgAfr * 100)
+                    Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _iapTargetAFR(xIndex, yIndex)) / avgAfr * 100)
 
-                    G_FuelMap.Item(iapIndex, rpmIndex).Style.Alignment = DataGridViewContentAlignment.MiddleRight
-                    G_FuelMap.Item(iapIndex, rpmIndex).Value = avgAfr.ToString("0.00")
-                    G_FuelMap.Item(iapIndex, rpmIndex).Style.BackColor = GetCellColor(percentageChange)
-                    G_FuelMap.Item(iapIndex, rpmIndex).Style.ForeColor = GetCellForeColor(percentageChange)
+                    G_FuelMap.Item(xIndex, yIndex).Style.Alignment = DataGridViewContentAlignment.MiddleRight
+                    G_FuelMap.Item(xIndex, yIndex).Value = avgAfr.ToString("0.00")
+                    G_FuelMap.Item(xIndex, yIndex).Style.BackColor = GetCellColor(percentageChange)
+                    G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = GetCellForeColor(percentageChange)
 
                 End If
 
@@ -850,22 +874,22 @@ Public Class K8EngineDataViewer
 
         Dim dataCount As Integer
 
-        For boostIndex As Integer = 0 To _boostList.Count - 1 Step 1
-            For rpmIndex As Integer = 0 To _boostRPMList.Count - 1 Step 1
+        For xIndex As Integer = 0 To _boostList.Count - 1 Step 1
+            For yIndex As Integer = 0 To _boostRPMList.Count - 1 Step 1
 
-                G_FuelMap.Item(boostIndex, rpmIndex).Style.BackColor = Color.White
-                G_FuelMap.Item(boostIndex, rpmIndex).Style.ForeColor = Color.Black
+                G_FuelMap.Item(xIndex, yIndex).Style.BackColor = Color.White
+                G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = Color.Black
 
-                Dim avgAfr As Double = CalculateAvgAFR(_boostValues(boostIndex, rpmIndex), dataCount)
+                Dim avgAfr As Double = CalculateAvgAFR(_boostValues(xIndex, yIndex), dataCount)
 
                 If avgAfr > 0 Then
 
-                    Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _boostTargetAFR(boostIndex, rpmIndex)) / avgAfr * 100)
+                    Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _boostTargetAFR(xIndex, yIndex)) / avgAfr * 100)
 
-                    G_FuelMap.Item(boostIndex, rpmIndex).Style.Alignment = DataGridViewContentAlignment.MiddleRight
-                    G_FuelMap.Item(boostIndex, rpmIndex).Value = avgAfr.ToString("0.00")
-                    G_FuelMap.Item(boostIndex, rpmIndex).Style.BackColor = GetCellColor(percentageChange)
-                    G_FuelMap.Item(boostIndex, rpmIndex).Style.ForeColor = GetCellForeColor(percentageChange)
+                    G_FuelMap.Item(xIndex, yIndex).Style.Alignment = DataGridViewContentAlignment.MiddleRight
+                    G_FuelMap.Item(xIndex, yIndex).Value = avgAfr.ToString("0.00")
+                    G_FuelMap.Item(xIndex, yIndex).Style.BackColor = GetCellColor(percentageChange)
+                    G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = GetCellForeColor(percentageChange)
 
                 End If
 
@@ -881,10 +905,10 @@ Public Class K8EngineDataViewer
 
         ShowTPSHeaders()
 
-        For xindex As Integer = 0 To _tpsList.Count - 1
-            For yindex As Integer = 0 To _rpmList.Count - 1
+        For xIndex As Integer = 0 To _tpsList.Count - 1
+            For yIndex As Integer = 0 To _rpmList.Count - 1
 
-                G_FuelMap.Item(xindex, yindex).Value = _tpsTargetAFR(xindex, yindex)
+                G_FuelMap.Item(xIndex, yIndex).Value = _tpsTargetAFR(xIndex, yIndex)
 
             Next
         Next
@@ -895,10 +919,10 @@ Public Class K8EngineDataViewer
 
         ShowIAPHeaders()
 
-        For xindex As Integer = 0 To _iapList.Count - 1
-            For yindex As Integer = 0 To _rpmList.Count - 1
+        For xIndex As Integer = 0 To _iapList.Count - 1
+            For yIndex As Integer = 0 To _rpmList.Count - 1
 
-                G_FuelMap.Item(xindex, yindex).Value = _iapTargetAFR(xindex, yindex)
+                G_FuelMap.Item(xIndex, yIndex).Value = _iapTargetAFR(xIndex, yIndex)
 
             Next
         Next
@@ -909,10 +933,10 @@ Public Class K8EngineDataViewer
 
         ShowBoostHeaders()
 
-        For xindex As Integer = 0 To _boostList.Count - 1
-            For yindex As Integer = 0 To _boostRPMList.Count - 1
+        For xIndex As Integer = 0 To _boostList.Count - 1
+            For yIndex As Integer = 0 To _boostRPMList.Count - 1
 
-                G_FuelMap.Item(xindex, yindex).Value = _boostTargetAFR(xindex, yindex)
+                G_FuelMap.Item(xIndex, yIndex).Value = _boostTargetAFR(xIndex, yIndex)
 
             Next
         Next
@@ -926,26 +950,26 @@ Public Class K8EngineDataViewer
         Dim percentageChange As Double
         Dim dataCount As Integer
 
-        For tpsIndex As Integer = 0 To _tpsList.Count - 1 Step 1
-            If _tpsList(tpsIndex) >= 11 Then
+        For xIndex As Integer = 0 To _tpsList.Count - 1 Step 1
+            If _tpsList(xIndex) >= 11 Then
 
-                For rpmIndex As Integer = 0 To _rpmList.Count - 1 Step 1
+                For yIndex As Integer = 0 To _rpmList.Count - 1 Step 1
 
                     dataCount = 0
-                    G_FuelMap.Item(tpsIndex, rpmIndex).Style.BackColor = Color.White
-                    G_FuelMap.Item(tpsIndex, rpmIndex).Style.ForeColor = Color.Black
+                    G_FuelMap.Item(xIndex, yIndex).Style.BackColor = Color.White
+                    G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = Color.Black
 
-                    Dim avgAfr As Double = CalculateAvgAFR(_tpsValues(tpsIndex, rpmIndex), dataCount)
+                    Dim avgAfr As Double = CalculateAvgAFR(_tpsValues(xIndex, yIndex), dataCount)
 
                     If avgAfr > 0 Then
 
-                        percentageChange = AutoTuneCorrection((avgAfr - _tpsTargetAFR(tpsIndex, rpmIndex)) / avgAfr * 100)
+                        percentageChange = AutoTuneCorrection((avgAfr - _tpsTargetAFR(xIndex, yIndex)) / avgAfr * 100)
 
                         If CheckAutoTuneFilter(avgAfr, percentageChange, dataCount) Then
 
-                            G_FuelMap.Item(tpsIndex, rpmIndex).Value = percentageChange
-                            G_FuelMap.Item(tpsIndex, rpmIndex).Style.BackColor = GetCellColor(percentageChange)
-                            G_FuelMap.Item(tpsIndex, rpmIndex).Style.ForeColor = GetCellForeColor(percentageChange)
+                            G_FuelMap.Item(xIndex, yIndex).Value = percentageChange
+                            G_FuelMap.Item(xIndex, yIndex).Style.BackColor = GetCellColor(percentageChange)
+                            G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = GetCellForeColor(percentageChange)
 
                         End If
                     End If
@@ -963,28 +987,27 @@ Public Class K8EngineDataViewer
         Dim percentageChange As Double
         Dim dataCount As Integer
 
-        For iapIndex As Integer = 0 To _iapList.Count - 1 Step 1
-
-            For rpmIndex As Integer = 0 To _rpmList.Count - 1 Step 1
+        For xIndex As Integer = 0 To _iapList.Count - 1 Step 1
+            For yIndex As Integer = 0 To _rpmList.Count - 1 Step 1
 
                 dataCount = 0
-                G_FuelMap.Item(iapIndex, rpmIndex).Style.BackColor = Color.White
-                G_FuelMap.Item(iapIndex, rpmIndex).Style.ForeColor = Color.Black
+                G_FuelMap.Item(xIndex, yIndex).Style.BackColor = Color.White
+                G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = Color.Black
 
-                Dim avgAfr As Double = CalculateAvgAFR(_iapValues(iapIndex, rpmIndex), dataCount)
+                Dim avgAfr As Double = CalculateAvgAFR(_iapValues(xIndex, yIndex), dataCount)
 
                 If avgAfr > 0 Then
 
-                    percentageChange = AutoTuneCorrection((avgAfr - _iapTargetAFR(iapIndex, rpmIndex)) / avgAfr * 100)
+                    percentageChange = AutoTuneCorrection((avgAfr - _iapTargetAFR(xIndex, yIndex)) / avgAfr * 100)
 
                     If CheckAutoTuneFilter(avgAfr, percentageChange, dataCount) Then
 
-                        G_FuelMap.Item(iapIndex, rpmIndex).Value = percentageChange
-                        G_FuelMap.Item(iapIndex, rpmIndex).Style.BackColor = GetCellColor(percentageChange)
-                        G_FuelMap.Item(iapIndex, rpmIndex).Style.ForeColor = GetCellForeColor(percentageChange)
+                        G_FuelMap.Item(xIndex, yIndex).Value = percentageChange
+                        G_FuelMap.Item(xIndex, yIndex).Style.BackColor = GetCellColor(percentageChange)
+                        G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = GetCellForeColor(percentageChange)
                     Else
 
-                        G_FuelMap.Item(iapIndex, rpmIndex).Value = ""
+                        G_FuelMap.Item(xIndex, yIndex).Value = ""
 
                     End If
                 End If
@@ -1000,24 +1023,24 @@ Public Class K8EngineDataViewer
         Dim percentageChange As Double
         Dim dataCount As Integer
 
-        For boostIndex As Integer = 0 To _boostList.Count - 1 Step 1
-            For rpmIndex As Integer = 0 To _boostRPMList.Count - 1 Step 1
+        For xIndex As Integer = 0 To _boostList.Count - 1 Step 1
+            For yIndex As Integer = 0 To _boostRPMList.Count - 1 Step 1
 
                 dataCount = 0
-                G_FuelMap.Item(boostIndex, rpmIndex).Style.BackColor = Color.White
-                G_FuelMap.Item(boostIndex, rpmIndex).Style.ForeColor = Color.Black
+                G_FuelMap.Item(xIndex, yIndex).Style.BackColor = Color.White
+                G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = Color.Black
 
-                Dim avgAfr As Double = CalculateAvgAFR(_boostValues(boostIndex, rpmIndex), dataCount)
+                Dim avgAfr As Double = CalculateAvgAFR(_boostValues(xIndex, yIndex), dataCount)
 
                 If avgAfr > 0 Then
 
-                    percentageChange = AutoTuneCorrection((avgAfr - _boostTargetAFR(boostIndex, rpmIndex)) / avgAfr * 100)
+                    percentageChange = AutoTuneCorrection((avgAfr - _boostTargetAFR(xIndex, yIndex)) / avgAfr * 100)
 
                     If CheckAutoTuneFilter(avgAfr, percentageChange, dataCount) Then
 
-                        G_FuelMap.Item(boostIndex, rpmIndex).Value = percentageChange
-                        G_FuelMap.Item(boostIndex, rpmIndex).Style.BackColor = GetCellColor(percentageChange)
-                        G_FuelMap.Item(boostIndex, rpmIndex).Style.ForeColor = GetCellForeColor(percentageChange)
+                        G_FuelMap.Item(xIndex, yIndex).Value = percentageChange
+                        G_FuelMap.Item(xIndex, yIndex).Style.BackColor = GetCellColor(percentageChange)
+                        G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = GetCellForeColor(percentageChange)
 
                     End If
                 End If
@@ -1030,12 +1053,15 @@ Public Class K8EngineDataViewer
 
         If e.RowIndex > -1 And e.ColumnIndex > -1 Then
 
+            L_AvgTPS.Text = ""
+
             Dim values As List(Of LogValue) = New List(Of LogValue)
 
             If _mapType = 1 Then
                 values = _tpsValues(e.ColumnIndex, e.RowIndex)
             ElseIf _mapType = 2 Then
                 values = _iapValues(e.ColumnIndex, e.RowIndex)
+                L_AvgTPS.Text = "Avg TPS: " & CalculateAvgTPS(values).ToString("0.0")
             ElseIf _mapType = 3 Then
                 values = _boostValues(e.ColumnIndex, e.RowIndex)
             End If
@@ -1053,6 +1079,8 @@ Public Class K8EngineDataViewer
             Return
 
         End If
+
+        L_AvgTPS.Text = ""
 
         For x As Integer = 0 To G_FuelMap.ColumnCount - 1
             For y As Integer = 0 To G_FuelMap.RowCount - 1
@@ -1161,6 +1189,22 @@ Public Class K8EngineDataViewer
 
             item = New ListViewItem("BATT", 0)
             item.SubItems.Add(logValue.BATT)
+            LV_ValueDetails.Items.Add(item)
+
+            item = New ListViewItem("FUEL1 8bit", 0)
+            item.SubItems.Add((logValue.FUEL1 / 25.6).ToString("0"))
+            LV_ValueDetails.Items.Add(item)
+
+            item = New ListViewItem("FUEL2 8bit", 0)
+            item.SubItems.Add((logValue.FUEL2 / 25.6).ToString("0"))
+            LV_ValueDetails.Items.Add(item)
+
+            item = New ListViewItem("FUEL3 8bit", 0)
+            item.SubItems.Add((logValue.FUEL3 / 25.6).ToString("0"))
+            LV_ValueDetails.Items.Add(item)
+
+            item = New ListViewItem("FUEL4 8bit", 0)
+            item.SubItems.Add((logValue.FUEL4 / 25.6).ToString("0"))
             LV_ValueDetails.Items.Add(item)
 
             item = New ListViewItem("FUEL1", 0)
@@ -1376,6 +1420,9 @@ Public Class K8EngineDataViewer
 
                     textFile.Close()
 
+                    My.Settings.AutoTuneTargetAFRFilePath = SaveFileDialog1.FileName
+                    My.Settings.Save()
+
                 End Using
 
             End If
@@ -1396,66 +1443,10 @@ Public Class K8EngineDataViewer
 
             If OpenFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
 
-                Using textFile As System.IO.TextReader = New StreamReader(OpenFileDialog1.FileName)
+                LoadTAFRFile(OpenFileDialog1.FileName)
 
-                    Dim line As String = textFile.ReadLine()
-                    Dim tpsRPMIndex As Integer = 0
-                    Dim iapRPMIndex As Integer = 0
-                    Dim boostRPMIndex As Integer = 0
-
-                    While String.IsNullOrEmpty(line) = False
-
-                        Dim values As String() = line.Split("|")
-
-                        If values.Length = 23 Then
-
-                            For index As Integer = 0 To values.Length - 1 Step 1
-                                Dim value As Double = 0
-
-                                If Double.TryParse(values(index), value) Then
-                                    _tpsTargetAFR(index, tpsRPMIndex) = value
-                                End If
-                            Next
-
-                            tpsRPMIndex = tpsRPMIndex + 1
-
-                        End If
-
-                        If values.Length = 21 Then
-
-                            For index As Integer = 0 To values.Length - 1 Step 1
-                                Dim value As Double = 0
-
-                                If Double.TryParse(values(index), value) Then
-                                    _iapTargetAFR(index, iapRPMIndex) = value
-                                End If
-                            Next
-
-                            iapRPMIndex = iapRPMIndex + 1
-
-                        End If
-
-                        If values.Length = 16 Then
-
-                            For index As Integer = 0 To values.Length - 1 Step 1
-                                Dim value As Double = 0
-
-                                If Double.TryParse(values(index), value) Then
-                                    _boostTargetAFR(index, boostRPMIndex) = value
-                                End If
-                            Next
-
-                            boostRPMIndex = boostRPMIndex + 1
-
-                        End If
-
-                        line = textFile.ReadLine()
-
-                    End While
-
-                    textFile.Close()
-
-                End Using
+                My.Settings.AutoTuneTargetAFRFilePath = OpenFileDialog1.FileName
+                My.Settings.Save()
 
             End If
 
@@ -1467,6 +1458,81 @@ Public Class K8EngineDataViewer
 
         End Try
 
+    End Sub
+
+    Private Sub LoadTAFRFile(ByVal filePath As String)
+
+        Try
+            If String.IsNullOrEmpty(filePath) = False Then
+                If File.Exists(filePath) Then
+
+                    Using textFile As System.IO.TextReader = New StreamReader(filePath)
+
+                        Dim line As String = textFile.ReadLine()
+                        Dim tpsRPMIndex As Integer = 0
+                        Dim iapRPMIndex As Integer = 0
+                        Dim boostRPMIndex As Integer = 0
+
+                        While String.IsNullOrEmpty(line) = False
+
+                            Dim values As String() = line.Split("|")
+
+                            If values.Length = 23 Then
+
+                                For index As Integer = 0 To values.Length - 1 Step 1
+                                    Dim value As Double = 0
+
+                                    If Double.TryParse(values(index), value) Then
+                                        _tpsTargetAFR(index, tpsRPMIndex) = value
+                                    End If
+                                Next
+
+                                tpsRPMIndex = tpsRPMIndex + 1
+
+                            End If
+
+                            If values.Length = 21 Then
+
+                                For index As Integer = 0 To values.Length - 1 Step 1
+                                    Dim value As Double = 0
+
+                                    If Double.TryParse(values(index), value) Then
+                                        _iapTargetAFR(index, iapRPMIndex) = value
+                                    End If
+                                Next
+
+                                iapRPMIndex = iapRPMIndex + 1
+
+                            End If
+
+                            If values.Length = 16 Then
+
+                                For index As Integer = 0 To values.Length - 1 Step 1
+                                    Dim value As Double = 0
+
+                                    If Double.TryParse(values(index), value) Then
+                                        _boostTargetAFR(index, boostRPMIndex) = value
+                                    End If
+                                Next
+
+                                boostRPMIndex = boostRPMIndex + 1
+
+                            End If
+
+                            line = textFile.ReadLine()
+
+                        End While
+
+                        textFile.Close()
+
+                    End Using
+                End If
+            End If
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message & Environment.NewLine & ex.StackTrace, "Open .tarf file error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
     End Sub
 
     Private Sub G_FuelMap_CellValueChanged(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles G_FuelMap.CellValueChanged

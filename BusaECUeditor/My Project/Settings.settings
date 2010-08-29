@@ -69,7 +69,7 @@
       <Value Profile="(Default)">10</Value>
     </Setting>
     <Setting Name="AutoTuneMaxAvgAFR" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">18</Value>
+      <Value Profile="(Default)">17.1</Value>
     </Setting>
     <Setting Name="AutoTuneMaxPercentageFuelMapChange" Type="System.Double" Scope="User">
       <Value Profile="(Default)">10</Value>
@@ -78,10 +78,13 @@
       <Value Profile="(Default)">3</Value>
     </Setting>
     <Setting Name="FilterAFRGreaterThan" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">18</Value>
+      <Value Profile="(Default)">17.1</Value>
     </Setting>
     <Setting Name="FilterAFRLessThan" Type="System.Double" Scope="User">
       <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="AutoTuneTargetAFRFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
