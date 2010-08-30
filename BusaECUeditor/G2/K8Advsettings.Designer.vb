@@ -41,6 +41,7 @@ Partial Class K8Advsettings
         Me.C_IAPTPS = New System.Windows.Forms.ComboBox
         Me.C_ramairmode = New System.Windows.Forms.CheckBox
         Me.Button5 = New System.Windows.Forms.Button
+        Me.C_warmup = New System.Windows.Forms.CheckBox
         Me.B_ramairadjust = New System.Windows.Forms.Button
         Me.GroupBox6 = New System.Windows.Forms.GroupBox
         Me.C_PAIR = New System.Windows.Forms.CheckBox
@@ -70,7 +71,6 @@ Partial Class K8Advsettings
         Me.Label5 = New System.Windows.Forms.Label
         Me.C_ABCmode = New System.Windows.Forms.CheckBox
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.C_warmup = New System.Windows.Forms.CheckBox
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -300,6 +300,17 @@ Partial Class K8Advsettings
         Me.Button5.Text = "Activate MIL"
         Me.ToolTip1.SetToolTip(Me.Button5, resources.GetString("Button5.ToolTip"))
         Me.Button5.UseVisualStyleBackColor = True
+        '
+        'C_warmup
+        '
+        Me.C_warmup.AutoSize = True
+        Me.C_warmup.Location = New System.Drawing.Point(6, 128)
+        Me.C_warmup.Name = "C_warmup"
+        Me.C_warmup.Size = New System.Drawing.Size(135, 17)
+        Me.C_warmup.TabIndex = 4
+        Me.C_warmup.Text = "Warmup compensation"
+        Me.ToolTip1.SetToolTip(Me.C_warmup, resources.GetString("C_warmup.ToolTip"))
+        Me.C_warmup.UseVisualStyleBackColor = True
         '
         'B_ramairadjust
         '
@@ -598,22 +609,11 @@ Partial Class K8Advsettings
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Gaugemode"
         '
-        'C_warmup
-        '
-        Me.C_warmup.AutoSize = True
-        Me.C_warmup.Location = New System.Drawing.Point(6, 128)
-        Me.C_warmup.Name = "C_warmup"
-        Me.C_warmup.Size = New System.Drawing.Size(135, 17)
-        Me.C_warmup.TabIndex = 4
-        Me.C_warmup.Text = "Warmup compensation"
-        Me.ToolTip1.SetToolTip(Me.C_warmup, resources.GetString("C_warmup.ToolTip"))
-        Me.C_warmup.UseVisualStyleBackColor = True
-        '
         'K8Advsettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(403, 459)
+        Me.ClientSize = New System.Drawing.Size(400, 392)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox4)

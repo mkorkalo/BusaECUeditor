@@ -239,6 +239,15 @@ burned out coils due to the excessive heat.
 The map is Voltage / RPM. The values are numbers between 1-255. Smaller number is shorter dwell times.
 </value>
   </data>
+  <data name="C_warmup.ToolTip" xml:space="preserve">
+    <value>Normally warm up compensation enrichens the fuel mixture until engine has reached 95C operating temperature. After that
+any engine temperature change will not anymore change fuel mixture. Before the engine has reached 95C any changes to engine
+coolant temperature will affect fuel mixture.
+
+With this setting the user can set the engine warmup compensation limit to 60C which is more preferrable e.g. for highly modified
+drag racing engines which have lower temperature thermostats or even thermostats removed.
+</value>
+  </data>
   <metadata name="PrintForm1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>116, 17</value>
   </metadata>
@@ -472,15 +481,6 @@ The map is Voltage / RPM. The values are numbers between 1-255. Smaller number i
         cmF3aW5nLlByaW50aW5nLk1hcmdpbnMCAAAAAgAAAAkBAAAAAff////7////AAoKCgH2////+////wAJ
         CwAAAAULAAAAH1N5c3RlbS5EcmF3aW5nLlByaW50aW5nLk1hcmdpbnMEAAAABGxlZnQFcmlnaHQDdG9w
         BmJvdHRvbQAAAAAICAgIAgAAAGQAAABkAAAAZAAAAGQAAAAL
-</value>
-  </data>
-  <data name="C_warmup.ToolTip" xml:space="preserve">
-    <value>Normally warm up compensation enrichens the fuel mixture until engine has reached 95C operating temperature. After that
-any engine temperature change will not anymore change fuel mixture. Before the engine has reached 95C any changes to engine
-coolant temperature will affect fuel mixture.
-
-With this setting the user can set the engine warmup compensation limit to 60C which is more preferrable e.g. for highly modified
-drag racing engines which have lower temperature thermostats or even thermostats removed.
 </value>
   </data>
 </root>

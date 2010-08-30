@@ -452,6 +452,8 @@ Public Class K8EngineDataLogger
             B_StartLogging.Enabled = True
             L_FileName.Text = filePath
 
+            'Automatically start logging
+            B_StartLogging_Click(sender, e)
         End If
 
     End Sub
@@ -651,7 +653,7 @@ Public Class K8EngineDataLogger
             End If
 
             If perferrorcounter > 10 Then
-                AddCommsMessage("Please not that this PC may be to slow for the datastream to work in debug mode, press d to stop debug mode.")
+                'AddCommsMessage("Please not that this PC may be to slow for the datastream to work in debug mode, press d to stop debug mode.")
                 perferrorcounter = 0
             End If
 

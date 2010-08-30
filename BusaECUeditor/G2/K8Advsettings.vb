@@ -798,12 +798,18 @@ Public Class K8Advsettings
 
 
     Private Sub B_WRITE_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_WRITE.Click
-        Dim hi, addr As String
 
-        If Not T_hexvaluehi.Text.Contains("&H") Then hi = "&H" & T_hexvaluehi.Text Else hi = T_hexvaluehi.Text
-        If Not T_hexaddr.Text.Contains("&H") Then addr = "&H" & T_hexaddr.Text Else addr = T_hexaddr.Text
+        Try
+            Dim hi, addr As String
 
-        WriteFlashByte(CInt(addr), Val(hi))
+            If Not T_hexvaluehi.Text.Contains("&H") Then hi = "&H" & T_hexvaluehi.Text Else hi = T_hexvaluehi.Text
+            If Not T_hexaddr.Text.Contains("&H") Then addr = "&H" & T_hexaddr.Text Else addr = T_hexaddr.Text
+
+            WriteFlashByte(CInt(addr), Val(hi))
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Writing to bin", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
 
     End Sub
 
