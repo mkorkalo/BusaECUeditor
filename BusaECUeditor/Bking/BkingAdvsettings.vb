@@ -85,6 +85,11 @@ Public Class BKingAdvSettings
             C_DatalogO2Sensor.Checked = False
         End If
 
+        If ReadFlashByte(&H13429) < &H17 Then
+
+            C_FastBaudRate.Checked = True
+
+        End If
         _loading = False
 
     End Sub
@@ -229,6 +234,45 @@ Public Class BKingAdvSettings
 
     End Sub
 
+    Private Sub C_FastBaudRate_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_FastBaudRate.CheckedChanged
+
+        If C_FastBaudRate.Checked = True Then
+
+            WriteFlashByte(&H13429, &HC)
+
+        Else
+
+            WriteFlashByte(&H13429, &H17)
+
+        End If
+
+
+    End Sub
+
 #End Region
 
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+
+    End Sub
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+
+        Block0 = False
+        Block1 = False
+        Block2 = False
+        Block3 = False
+        Block4 = False
+        Block5 = False
+        Block6 = False
+        Block7 = False
+        Block8 = False
+        Block9 = False
+        BlockA = False
+        BlockB = False
+        BlockC = False
+        BlockD = False
+        BlockE = False
+        BlockF = False
+
+    End Sub
 End Class
