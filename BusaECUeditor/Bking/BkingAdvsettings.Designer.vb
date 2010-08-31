@@ -42,6 +42,8 @@ Partial Class BKingAdvSettings
         Me.Label10 = New System.Windows.Forms.Label
         Me.B_STP_Map = New System.Windows.Forms.Button
         Me.Label7 = New System.Windows.Forms.Label
+        Me.C_FastBaudRate = New System.Windows.Forms.CheckBox
+        Me.Button2 = New System.Windows.Forms.Button
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox9.SuspendLayout()
@@ -242,11 +244,32 @@ Partial Class BKingAdvSettings
         Me.Label7.TabIndex = 0
         Me.Label7.Text = "STP map editing"
         '
+        'C_FastBaudRate
+        '
+        Me.C_FastBaudRate.AutoSize = True
+        Me.C_FastBaudRate.Location = New System.Drawing.Point(34, 267)
+        Me.C_FastBaudRate.Name = "C_FastBaudRate"
+        Me.C_FastBaudRate.Size = New System.Drawing.Size(100, 17)
+        Me.C_FastBaudRate.TabIndex = 46
+        Me.C_FastBaudRate.Text = "Fast Baud Rate"
+        Me.C_FastBaudRate.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(37, 290)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 47
+        Me.Button2.Text = "Reset Blocks"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
         'BKingAdvSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(415, 165)
+        Me.ClientSize = New System.Drawing.Size(415, 169)
+        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.C_FastBaudRate)
         Me.Controls.Add(Me.GroupBox9)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.GroupBox1)
@@ -264,6 +287,7 @@ Partial Class BKingAdvSettings
         Me.GroupBox9.ResumeLayout(False)
         Me.GroupBox9.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
@@ -287,4 +311,6 @@ Partial Class BKingAdvSettings
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents C_DatalogO2Sensor As System.Windows.Forms.CheckBox
+    Friend WithEvents C_FastBaudRate As System.Windows.Forms.CheckBox
+    Friend WithEvents Button2 As System.Windows.Forms.Button
 End Class

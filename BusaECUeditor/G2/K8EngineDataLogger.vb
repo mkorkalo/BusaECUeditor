@@ -1412,6 +1412,7 @@ Public Class K8EngineDataLogger
         Next
 
         FT_status = FT_SetBaudRate(lngHandle, 10400)
+        'FT_status = FT_SetBaudRate(lngHandle, 19230)
         FT_status = FT_status + FT_SetDataCharacteristics(lngHandle, 8, 1, 0)   ' 8bits ,1 stop, parity none
         FT_status = FT_status + FT_SetTimeouts(lngHandle, 5, 5)               'rx and tx timeouts 10ms
         FT_status = FT_status + FT_SetLatencyTimer(lngHandle, 16)               'ms 16 is default
