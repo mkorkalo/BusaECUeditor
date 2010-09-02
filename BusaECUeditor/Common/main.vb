@@ -1424,6 +1424,10 @@ Public Class main
         If K8Datastream.Visible() Then
             K8Datastream.closeenginedatacomms()
         End If
+
+        K8EngineDataViewer.Close()
+        K8EngineDataLogger.Close()
+
         '
         ' Get the FTDI device handle based on com port number and leave that port open
         '
