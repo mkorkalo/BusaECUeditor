@@ -67,6 +67,7 @@ Partial Class K8Advsettings
         Me.Label7 = New System.Windows.Forms.Label
         Me.GroupBox4 = New System.Windows.Forms.GroupBox
         Me.GroupBox7 = New System.Windows.Forms.GroupBox
+        Me.C_FastBaudRate = New System.Windows.Forms.CheckBox
         Me.C_DatalogO2Sensor = New System.Windows.Forms.CheckBox
         Me.Label5 = New System.Windows.Forms.Label
         Me.C_ABCmode = New System.Windows.Forms.CheckBox
@@ -86,7 +87,7 @@ Partial Class K8Advsettings
         '
         Me.GroupBox1.Controls.Add(Me.R_Normal)
         Me.GroupBox1.Controls.Add(Me.R_Flash)
-        Me.GroupBox1.Location = New System.Drawing.Point(340, 462)
+        Me.GroupBox1.Location = New System.Drawing.Point(332, 501)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(148, 67)
         Me.GroupBox1.TabIndex = 3
@@ -430,7 +431,7 @@ Partial Class K8Advsettings
         Me.GroupBox8.Controls.Add(Me.Label4)
         Me.GroupBox8.Controls.Add(Me.Label2)
         Me.GroupBox8.Controls.Add(Me.T_hexaddr)
-        Me.GroupBox8.Location = New System.Drawing.Point(18, 391)
+        Me.GroupBox8.Location = New System.Drawing.Point(17, 413)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(376, 65)
         Me.GroupBox8.TabIndex = 42
@@ -546,7 +547,7 @@ Partial Class K8Advsettings
         Me.GroupBox4.Controls.Add(Me.C_COV)
         Me.GroupBox4.Controls.Add(Me.Label6)
         Me.GroupBox4.Controls.Add(Me.C_secsize)
-        Me.GroupBox4.Location = New System.Drawing.Point(16, 462)
+        Me.GroupBox4.Location = New System.Drawing.Point(16, 501)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(295, 114)
         Me.GroupBox4.TabIndex = 45
@@ -555,6 +556,7 @@ Partial Class K8Advsettings
         '
         'GroupBox7
         '
+        Me.GroupBox7.Controls.Add(Me.C_FastBaudRate)
         Me.GroupBox7.Controls.Add(Me.C_DatalogO2Sensor)
         Me.GroupBox7.Controls.Add(Me.Label5)
         Me.GroupBox7.Controls.Add(Me.C_IAPTPS)
@@ -565,10 +567,20 @@ Partial Class K8Advsettings
         Me.GroupBox7.Controls.Add(Me.C_ICS)
         Me.GroupBox7.Location = New System.Drawing.Point(17, 276)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(374, 109)
+        Me.GroupBox7.Size = New System.Drawing.Size(374, 131)
         Me.GroupBox7.TabIndex = 46
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Misc settings"
+        '
+        'C_FastBaudRate
+        '
+        Me.C_FastBaudRate.AutoSize = True
+        Me.C_FastBaudRate.Location = New System.Drawing.Point(170, 106)
+        Me.C_FastBaudRate.Name = "C_FastBaudRate"
+        Me.C_FastBaudRate.Size = New System.Drawing.Size(100, 17)
+        Me.C_FastBaudRate.TabIndex = 49
+        Me.C_FastBaudRate.Text = "Fast Baud Rate"
+        Me.C_FastBaudRate.UseVisualStyleBackColor = True
         '
         'C_DatalogO2Sensor
         '
@@ -613,7 +625,7 @@ Partial Class K8Advsettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(400, 391)
+        Me.ClientSize = New System.Drawing.Size(400, 414)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox4)
@@ -699,4 +711,5 @@ Partial Class K8Advsettings
     Friend WithEvents Button5 As System.Windows.Forms.Button
     Friend WithEvents C_DatalogO2Sensor As System.Windows.Forms.CheckBox
     Friend WithEvents C_warmup As System.Windows.Forms.CheckBox
+    Friend WithEvents C_FastBaudRate As System.Windows.Forms.CheckBox
 End Class

@@ -24,8 +24,6 @@ Partial Class K8EngineDataLogger
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(K8EngineDataLogger))
-        Me.NUD_LogRate = New System.Windows.Forms.NumericUpDown
-        Me.Label3 = New System.Windows.Forms.Label
         Me.B_ClearCommsLog = New System.Windows.Forms.Button
         Me.C_ShowCommsMessages = New System.Windows.Forms.CheckBox
         Me.T_CommsLog = New System.Windows.Forms.TextBox
@@ -53,30 +51,10 @@ Partial Class K8EngineDataLogger
         Me.NUD_Widband0v = New System.Windows.Forms.NumericUpDown
         Me.NUD_Widband5v = New System.Windows.Forms.NumericUpDown
         Me.L_5V = New System.Windows.Forms.Label
-        CType(Me.NUD_LogRate, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_DataRate, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_Widband0v, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_Widband5v, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'NUD_LogRate
-        '
-        Me.NUD_LogRate.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.NUD_LogRate.Location = New System.Drawing.Point(620, 34)
-        Me.NUD_LogRate.Minimum = New Decimal(New Integer() {25, 0, 0, 0})
-        Me.NUD_LogRate.Name = "NUD_LogRate"
-        Me.NUD_LogRate.Size = New System.Drawing.Size(57, 20)
-        Me.NUD_LogRate.TabIndex = 60
-        Me.NUD_LogRate.Value = New Decimal(New Integer() {50, 0, 0, 0})
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(566, 37)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(54, 13)
-        Me.Label3.TabIndex = 59
-        Me.Label3.Text = "Log Rate:"
         '
         'B_ClearCommsLog
         '
@@ -105,13 +83,13 @@ Partial Class K8EngineDataLogger
         Me.T_CommsLog.Multiline = True
         Me.T_CommsLog.Name = "T_CommsLog"
         Me.T_CommsLog.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.T_CommsLog.Size = New System.Drawing.Size(678, 277)
+        Me.T_CommsLog.Size = New System.Drawing.Size(741, 277)
         Me.T_CommsLog.TabIndex = 43
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(445, 37)
+        Me.Label2.Location = New System.Drawing.Point(621, 37)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(56, 13)
         Me.Label2.TabIndex = 42
@@ -167,7 +145,7 @@ Partial Class K8EngineDataLogger
         '
         'B_Connect_Datastream
         '
-        Me.B_Connect_Datastream.Location = New System.Drawing.Point(605, 58)
+        Me.B_Connect_Datastream.Location = New System.Drawing.Point(668, 58)
         Me.B_Connect_Datastream.Name = "B_Connect_Datastream"
         Me.B_Connect_Datastream.Size = New System.Drawing.Size(75, 23)
         Me.B_Connect_Datastream.TabIndex = 36
@@ -177,7 +155,7 @@ Partial Class K8EngineDataLogger
         'ComboBox_SerialPort
         '
         Me.ComboBox_SerialPort.FormattingEnabled = True
-        Me.ComboBox_SerialPort.Location = New System.Drawing.Point(605, 5)
+        Me.ComboBox_SerialPort.Location = New System.Drawing.Point(668, 5)
         Me.ComboBox_SerialPort.Name = "ComboBox_SerialPort"
         Me.ComboBox_SerialPort.Size = New System.Drawing.Size(75, 21)
         Me.ComboBox_SerialPort.TabIndex = 35
@@ -186,7 +164,7 @@ Partial Class K8EngineDataLogger
         '
         Me.L_CommStatusColour.AutoSize = True
         Me.L_CommStatusColour.Font = New System.Drawing.Font("Wingdings", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
-        Me.L_CommStatusColour.Location = New System.Drawing.Point(638, 73)
+        Me.L_CommStatusColour.Location = New System.Drawing.Point(701, 73)
         Me.L_CommStatusColour.Name = "L_CommStatusColour"
         Me.L_CommStatusColour.Size = New System.Drawing.Size(59, 53)
         Me.L_CommStatusColour.TabIndex = 47
@@ -195,9 +173,9 @@ Partial Class K8EngineDataLogger
         'NUD_DataRate
         '
         Me.NUD_DataRate.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.NUD_DataRate.Location = New System.Drawing.Point(507, 34)
+        Me.NUD_DataRate.Location = New System.Drawing.Point(683, 34)
         Me.NUD_DataRate.Maximum = New Decimal(New Integer() {200, 0, 0, 0})
-        Me.NUD_DataRate.Minimum = New Decimal(New Integer() {50, 0, 0, 0})
+        Me.NUD_DataRate.Minimum = New Decimal(New Integer() {25, 0, 0, 0})
         Me.NUD_DataRate.Name = "NUD_DataRate"
         Me.NUD_DataRate.Size = New System.Drawing.Size(57, 20)
         Me.NUD_DataRate.TabIndex = 58
@@ -205,7 +183,7 @@ Partial Class K8EngineDataLogger
         '
         'B_ResetComms
         '
-        Me.B_ResetComms.Location = New System.Drawing.Point(522, 58)
+        Me.B_ResetComms.Location = New System.Drawing.Point(585, 58)
         Me.B_ResetComms.Name = "B_ResetComms"
         Me.B_ResetComms.Size = New System.Drawing.Size(75, 23)
         Me.B_ResetComms.TabIndex = 50
@@ -265,7 +243,7 @@ Partial Class K8EngineDataLogger
         'C_WidebandO2Sensor
         '
         Me.C_WidebandO2Sensor.AutoSize = True
-        Me.C_WidebandO2Sensor.Location = New System.Drawing.Point(518, 90)
+        Me.C_WidebandO2Sensor.Location = New System.Drawing.Point(581, 90)
         Me.C_WidebandO2Sensor.Name = "C_WidebandO2Sensor"
         Me.C_WidebandO2Sensor.Size = New System.Drawing.Size(128, 17)
         Me.C_WidebandO2Sensor.TabIndex = 61
@@ -276,7 +254,7 @@ Partial Class K8EngineDataLogger
         '
         Me.L_Ov.AutoSize = True
         Me.L_Ov.Enabled = False
-        Me.L_Ov.Location = New System.Drawing.Point(515, 121)
+        Me.L_Ov.Location = New System.Drawing.Point(578, 121)
         Me.L_Ov.Name = "L_Ov"
         Me.L_Ov.Size = New System.Drawing.Size(20, 13)
         Me.L_Ov.TabIndex = 62
@@ -287,7 +265,7 @@ Partial Class K8EngineDataLogger
         Me.NUD_Widband0v.DecimalPlaces = 2
         Me.NUD_Widband0v.Enabled = False
         Me.NUD_Widband0v.Increment = New Decimal(New Integer() {1, 0, 0, 131072})
-        Me.NUD_Widband0v.Location = New System.Drawing.Point(536, 119)
+        Me.NUD_Widband0v.Location = New System.Drawing.Point(599, 119)
         Me.NUD_Widband0v.Maximum = New Decimal(New Integer() {15, 0, 0, 0})
         Me.NUD_Widband0v.Minimum = New Decimal(New Integer() {5, 0, 0, 0})
         Me.NUD_Widband0v.Name = "NUD_Widband0v"
@@ -300,19 +278,19 @@ Partial Class K8EngineDataLogger
         Me.NUD_Widband5v.DecimalPlaces = 2
         Me.NUD_Widband5v.Enabled = False
         Me.NUD_Widband5v.Increment = New Decimal(New Integer() {1, 0, 0, 131072})
-        Me.NUD_Widband5v.Location = New System.Drawing.Point(617, 119)
+        Me.NUD_Widband5v.Location = New System.Drawing.Point(680, 119)
         Me.NUD_Widband5v.Maximum = New Decimal(New Integer() {25, 0, 0, 0})
         Me.NUD_Widband5v.Minimum = New Decimal(New Integer() {10, 0, 0, 0})
         Me.NUD_Widband5v.Name = "NUD_Widband5v"
         Me.NUD_Widband5v.Size = New System.Drawing.Size(55, 20)
         Me.NUD_Widband5v.TabIndex = 65
-        Me.NUD_Widband5v.Value = New Decimal(New Integer() {2235, 0, 0, 131072})
+        Me.NUD_Widband5v.Value = New Decimal(New Integer() {2239, 0, 0, 131072})
         '
         'L_5V
         '
         Me.L_5V.AutoSize = True
         Me.L_5V.Enabled = False
-        Me.L_5V.Location = New System.Drawing.Point(598, 121)
+        Me.L_5V.Location = New System.Drawing.Point(661, 121)
         Me.L_5V.Name = "L_5V"
         Me.L_5V.Size = New System.Drawing.Size(20, 13)
         Me.L_5V.TabIndex = 64
@@ -322,14 +300,12 @@ Partial Class K8EngineDataLogger
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(688, 429)
+        Me.ClientSize = New System.Drawing.Size(749, 429)
         Me.Controls.Add(Me.NUD_Widband5v)
         Me.Controls.Add(Me.L_5V)
         Me.Controls.Add(Me.NUD_Widband0v)
         Me.Controls.Add(Me.L_Ov)
         Me.Controls.Add(Me.C_WidebandO2Sensor)
-        Me.Controls.Add(Me.NUD_LogRate)
-        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.B_ClearCommsLog)
         Me.Controls.Add(Me.C_ShowCommsMessages)
         Me.Controls.Add(Me.T_CommsLog)
@@ -350,7 +326,6 @@ Partial Class K8EngineDataLogger
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "K8EngineDataLogger"
         Me.Text = "K8 Engine Data Logger"
-        CType(Me.NUD_LogRate, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_DataRate, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_Widband0v, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_Widband5v, System.ComponentModel.ISupportInitialize).EndInit()
@@ -358,8 +333,6 @@ Partial Class K8EngineDataLogger
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents NUD_LogRate As System.Windows.Forms.NumericUpDown
-    Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents B_ClearCommsLog As System.Windows.Forms.Button
     Friend WithEvents C_ShowCommsMessages As System.Windows.Forms.CheckBox
     Friend WithEvents T_CommsLog As System.Windows.Forms.TextBox

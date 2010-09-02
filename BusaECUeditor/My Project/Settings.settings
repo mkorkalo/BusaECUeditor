@@ -54,7 +54,7 @@
       <Value Profile="(Default)">7.35</Value>
     </Setting>
     <Setting Name="Wideband5V" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">22.35</Value>
+      <Value Profile="(Default)">22.39</Value>
     </Setting>
     <Setting Name="FilterCLT80" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

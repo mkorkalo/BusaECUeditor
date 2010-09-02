@@ -428,7 +428,7 @@ Public Class K8Datastream
                         FT_status = FT_Close(lngHandle)
                     End If
                 Next
-                FT_status = FT_SetBaudRate(lngHandle, 10400)
+                FT_status = FT_SetBaudRate(lngHandle, BaudRate)
                 FT_status = FT_status + FT_SetDataCharacteristics(lngHandle, 8, 1, 0)   ' 8bits ,1 stop, parity none
                 FT_status = FT_status + FT_SetTimeouts(lngHandle, 5, 5)               'rx and tx timeouts 10ms
                 FT_status = FT_status + FT_SetLatencyTimer(lngHandle, 16)               'ms 16 is default
@@ -436,7 +436,7 @@ Public Class K8Datastream
 
                 FT_status = FT_ClrDtr(lngHandle) 'new for Interface V1.1 *****************************************************************
 
-                T_datacomm.Text = T_datacomm.Text & Chr(13) & Chr(10) & "FTDI USB device opened for 10400 baud, id=" & i & ", port=" & comportnum
+                T_datacomm.Text = T_datacomm.Text & Chr(13) & Chr(10) & "FTDI USB device opened for " & BaudRate & " baud, id=" & i & ", port=" & comportnum
                 T_datacomm.Text = T_datacomm.Text & Chr(13) & Chr(10) & "Initiating 5baud fast initialization"
                 i = slowinitdelay
 
