@@ -44,6 +44,7 @@ Partial Class BKingAdvSettings
         Me.Label7 = New System.Windows.Forms.Label
         Me.C_FastBaudRate = New System.Windows.Forms.CheckBox
         Me.Button2 = New System.Windows.Forms.Button
+        Me.Button3 = New System.Windows.Forms.Button
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox9.SuspendLayout()
@@ -126,12 +127,13 @@ Partial Class BKingAdvSettings
         '
         Me.GroupBox1.Controls.Add(Me.C_DatalogO2Sensor)
         Me.GroupBox1.Controls.Add(Me.C_EXC)
+        Me.GroupBox1.Controls.Add(Me.C_FastBaudRate)
         Me.GroupBox1.Controls.Add(Me.C_EVAP)
         Me.GroupBox1.Controls.Add(Me.C_PAIR)
         Me.GroupBox1.Controls.Add(Me.C_HOX)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(174, 148)
+        Me.GroupBox1.Size = New System.Drawing.Size(174, 157)
         Me.GroupBox1.TabIndex = 44
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Misc Settings"
@@ -247,7 +249,7 @@ Partial Class BKingAdvSettings
         'C_FastBaudRate
         '
         Me.C_FastBaudRate.AutoSize = True
-        Me.C_FastBaudRate.Location = New System.Drawing.Point(34, 267)
+        Me.C_FastBaudRate.Location = New System.Drawing.Point(17, 133)
         Me.C_FastBaudRate.Name = "C_FastBaudRate"
         Me.C_FastBaudRate.Size = New System.Drawing.Size(100, 17)
         Me.C_FastBaudRate.TabIndex = 46
@@ -258,18 +260,27 @@ Partial Class BKingAdvSettings
         '
         Me.Button2.Location = New System.Drawing.Point(37, 290)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.Size = New System.Drawing.Size(108, 23)
         Me.Button2.TabIndex = 47
         Me.Button2.Text = "Reset Blocks"
         Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(186, 290)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(75, 23)
+        Me.Button3.TabIndex = 48
+        Me.Button3.Text = "Set TPS"
+        Me.Button3.UseVisualStyleBackColor = True
         '
         'BKingAdvSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(415, 169)
+        Me.ClientSize = New System.Drawing.Size(415, 176)
+        Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.C_FastBaudRate)
         Me.Controls.Add(Me.GroupBox9)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.GroupBox1)
@@ -287,7 +298,6 @@ Partial Class BKingAdvSettings
         Me.GroupBox9.ResumeLayout(False)
         Me.GroupBox9.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
@@ -313,4 +323,5 @@ Partial Class BKingAdvSettings
     Friend WithEvents C_DatalogO2Sensor As System.Windows.Forms.CheckBox
     Friend WithEvents C_FastBaudRate As System.Windows.Forms.CheckBox
     Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents Button3 As System.Windows.Forms.Button
 End Class

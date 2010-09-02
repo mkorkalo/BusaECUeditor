@@ -260,7 +260,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("22.35")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("22.39")>  _
         Public Property Wideband5V() As Double
             Get
                 Return CType(Me("Wideband5V"),Double)

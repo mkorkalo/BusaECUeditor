@@ -166,6 +166,7 @@ Public Class K8EngineDataLogger
     Dim _lastIAP As Integer
     Dim _lastHO2 As Integer
     Dim _lastWideBand As Integer
+    Dim _lastFuel1 As Integer
     Dim _newData As Boolean = False
     Dim _reConnect As Boolean = False
 
@@ -293,7 +294,6 @@ Public Class K8EngineDataLogger
         End If
 
         NUD_DataRate.Value = My.Settings.DataRate
-        NUD_LogRate.Value = My.Settings.LogRate
 
         Timer2.Interval = My.Settings.DataRate
         logRate = My.Settings.LogRate
@@ -470,7 +470,7 @@ Public Class K8EngineDataLogger
             numberOfLogs = 0
             logRate = Timer2.Interval / 2
 
-            LogFile = New StreamWriter(filePath)
+            'LogFile = New StreamWriter(filePath)
             LogFileRaw = New StreamWriter(filePathRaw)
 
             WriteDataLogHeader()
@@ -482,7 +482,7 @@ Public Class K8EngineDataLogger
             Me.ContinueLogging = True
 
             'Start Thread to log data
-            ThreadPool.QueueUserWorkItem(New WaitCallback(AddressOf EngineDataLoggingLoop))
+            'ThreadPool.QueueUserWorkItem(New WaitCallback(AddressOf EngineDataLoggingLoop))
 
         End If
 
@@ -532,13 +532,15 @@ Public Class K8EngineDataLogger
             Connect()
         End If
 
-        If Me.SendCommsMessages = True And (DateTime.Now.Subtract(_lastCommsDate).TotalSeconds > 60 Or _repeatedDataCount >= 50) Then
-            AddCommsMessage("Auto Reset Comms: Last Comms Date > 60sec ago or Same Data Repeated > 50 times")
+        If Me.SendCommsMessages = True And (DateTime.Now.Subtract(_lastCommsDate).TotalSeconds > 60) Then
+            AddCommsMessage("Auto Reset Comms: Last Comms Date > 90sec ago or Same Data Repeated > 50 times")
             EnableTimer2(False)
             Disconnect()
             _connected = False
             Thread.Sleep(2000)
             _reConnect = True
+            _repeatedDataCount = 0
+            _lastCommsDate = DateTime.Now
         End If
 
         If _connected = True Then
@@ -552,7 +554,6 @@ Public Class K8EngineDataLogger
             Else
                 L_AFR.Text = "AFR: " + CalcAFR(HO2).ToString("00.00")
             End If
-
 
         ElseIf _connected = False Then
 
@@ -584,7 +585,6 @@ Public Class K8EngineDataLogger
         '*******************End************************************************
 
         ' Disable timer when processing the received package
-        EnableTimer2(False)
 
         ' Read if there is anything in the receive queue
         FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
@@ -667,6 +667,8 @@ Public Class K8EngineDataLogger
 
             Case &H10
 
+                EnableTimer2(False)
+
                 ' Initialize comms
                 ' Get the FTDI device handle based on com port number
                 FT_status = FT_GetNumberOfDevices(i, 0, &H80000000)
@@ -686,7 +688,8 @@ Public Class K8EngineDataLogger
                     End If
                 Next
 
-                FT_status = FT_SetBaudRate(lngHandle, 10400)
+                'FT_status = FT_SetBaudRate(lngHandle, 10400)
+                FT_status = FT_SetBaudRate(lngHandle, BaudRate)
                 FT_status = FT_status + FT_SetDataCharacteristics(lngHandle, 8, 1, 0)   ' 8bits ,1 stop, parity none
                 FT_status = FT_status + FT_SetTimeouts(lngHandle, 5, 5)               'rx and tx timeouts 10ms
                 FT_status = FT_status + FT_SetLatencyTimer(lngHandle, 16)               'ms 16 is default
@@ -694,7 +697,7 @@ Public Class K8EngineDataLogger
 
                 FT_status = FT_ClrDtr(lngHandle) 'new for Interface V1.1 *****************************************************************
 
-                AddCommsMessage("FTDI USB device opened for 10400 baud, id=" & i & ", port=" & comPortNumber)
+                AddCommsMessage("FTDI USB device opened for " & BaudRate & " baud, id=" & i & ", port=" & comPortNumber)
                 AddCommsMessage("Initiating 5baud fast initialization")
 
                 i = slowinitdelay
@@ -827,7 +830,6 @@ Public Class K8EngineDataLogger
 
                 rxsptr = 0
                 kwpcomm = &H21
-                EnableTimer2(True)
 
                 ' Every nth counter loops execute next read other commands
                 '
@@ -1124,17 +1126,6 @@ Public Class K8EngineDataLogger
             My.Settings.Save()
 
             Timer2.Interval = NUD_DataRate.Value
-
-        End If
-
-    End Sub
-
-    Private Sub NUD_LogRate_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NUD_LogRate.ValueChanged
-
-        If _initialized = True Then
-
-            My.Settings.LogRate = NUD_LogRate.Value
-            My.Settings.Save()
 
         End If
 
@@ -1781,7 +1772,7 @@ Public Class K8EngineDataLogger
                 logTime.Append(EngineDataCommsStopwatch.Elapsed.Minutes.ToString("00"))
                 logTime.Append(":")
                 logTime.Append(EngineDataCommsStopwatch.Elapsed.Seconds.ToString("00"))
-                logTime.Append(":")
+                logTime.Append(".")
                 logTime.Append(EngineDataCommsStopwatch.Elapsed.Milliseconds.ToString("000"))
                 _logTime = logTime.ToString()
 
@@ -1795,6 +1786,27 @@ Public Class K8EngineDataLogger
             Thread.Sleep(0)
 
         End While
+
+    End Sub
+
+    Private Sub WriteDataLogs()
+
+        If Me.ContinueLogging = True Then
+
+            Dim logTime As StringBuilder = New StringBuilder()
+            logTime.Append(EngineDataCommsStopwatch.Elapsed.Hours.ToString("00"))
+            logTime.Append(":")
+            logTime.Append(EngineDataCommsStopwatch.Elapsed.Minutes.ToString("00"))
+            logTime.Append(":")
+            logTime.Append(EngineDataCommsStopwatch.Elapsed.Seconds.ToString("00"))
+            logTime.Append(".")
+            logTime.Append(EngineDataCommsStopwatch.Elapsed.Milliseconds.ToString("000"))
+            _logTime = logTime.ToString()
+
+            'WriteDataLog()
+            WriteDataLogRaw()
+
+        End If
 
     End Sub
 
@@ -1847,38 +1859,31 @@ Public Class K8EngineDataLogger
                 NT = (rxs(60) And 2)
                 HOX_ON = (rxs(60) And &H20)
 
-                If _lastRPM = RPM And _lastTPS = TPS And _lastIAP = IAP And _lastHO2 = HO2 And _lastWideBand = WIDEBAND Then
+                If _lastRPM = RPM And _lastTPS = TPS And _lastIAP = IAP And _lastHO2 = HO2 And _lastWideBand = WIDEBAND And _lastFuel1 = FUEL1 Then
 
                     _newData = False
                     _repeatedDataCount = _repeatedDataCount + 1
 
                 Else
 
+                    _newData = True
+
                     _lastRPM = RPM
                     _lastTPS = TPS
                     _lastIAP = IAP
                     _lastHO2 = HO2
                     _lastWideBand = WIDEBAND
+                    _lastFuel1 = FUEL1
 
-                    _newData = True
+
                     _repeatedDataCount = 0
                     _lastCommsDate = DateTime.Now
+
+                    WriteDataLogs()
 
                 End If
 
             End If
-
-            Dim stringBuilder As StringBuilder = New StringBuilder()
-
-            For index As Integer = 0 To rxs.Length - 1
-                stringBuilder.Append(rxs(index).ToString("0"))
-            Next
-
-            'T_CommsLog.AppendText(Environment.NewLine)
-            'T_CommsLog.AppendText((rxs.Length - 1).ToString())
-            'T_CommsLog.AppendText(Environment.NewLine)
-            'T_CommsLog.AppendText(stringBuilder.ToString())
-            'T_CommsLog.AppendText(Environment.NewLine)
 
         End SyncLock
 
@@ -2019,8 +2024,6 @@ Public Class K8EngineDataLogger
 
             If LogFile Is Nothing = False And Me.ContinueLogging = True And _connected = True Then
 
-                numberOfLogs = numberOfLogs + 1
-
                 Dim logEntry As StringBuilder = New StringBuilder()
                 logEntry.Append(_logTime)
                 logEntry.Append(",")
@@ -2089,6 +2092,8 @@ Public Class K8EngineDataLogger
         SyncLock _syncRoot
 
             If LogFileRaw Is Nothing = False And Me.ContinueLogging = True And _connected = True Then
+
+                numberOfLogs = numberOfLogs + 1
 
                 Dim logEntry As StringBuilder = New StringBuilder()
 
@@ -2159,11 +2164,13 @@ Public Class K8EngineDataLogger
         Dim tps As Decimal
 
         'tps min value = 56; max value = 228; range = 172
-        tps = (value - 56) / (228 - 56) * 100
-        'f = (((i - 55) / (256 - 55)) * 125)
+        'tps = (value - 56) / (228 - 56) * 100
+        tps = ((value - 55) / (256 - 55)) * 125
 
         If (tps < 0) Then
             tps = 0
+        ElseIf tps > 100 Then
+            tps = 100
         End If
 
         If tps >= 10 Then

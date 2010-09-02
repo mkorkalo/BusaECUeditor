@@ -90,6 +90,7 @@ Public Class BKingAdvSettings
             C_FastBaudRate.Checked = True
 
         End If
+
         _loading = False
 
     End Sub
@@ -238,7 +239,7 @@ Public Class BKingAdvSettings
 
         If C_FastBaudRate.Checked = True Then
 
-            WriteFlashByte(&H13429, &HC)
+            WriteFlashByte(&H13429, &H4)
 
         Else
 
@@ -251,11 +252,10 @@ Public Class BKingAdvSettings
 
 #End Region
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-
-    End Sub
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+
+        BlockPgm = False
 
         Block0 = False
         Block1 = False
@@ -275,4 +275,15 @@ Public Class BKingAdvSettings
         BlockF = False
 
     End Sub
+
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
+
+        '10 Bit AD Sensor Value
+        WriteFlashWord(&H55158, &H80)
+        WriteFlashWord(&H5515A, &HAA)
+        WriteFlashWord(&H5515C, &H80)
+        WriteFlashWord(&H5515E, &HAB)
+
+    End Sub
+
 End Class

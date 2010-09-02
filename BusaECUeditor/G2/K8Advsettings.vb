@@ -307,6 +307,12 @@ Public Class K8Advsettings
             C_warmup.Checked = False
         End If
 
+        If ReadFlashByte(&H13259) < &H17 Then
+
+            C_FastBaudRate.Checked = True
+
+        End If
+
         loading = False
 
     End Sub
@@ -1113,6 +1119,20 @@ Public Class K8Advsettings
                 C_warmup.Text = "60C thermostat"
                 WriteFlashByte(&H72531, &H8F)
             End If
+        End If
+
+    End Sub
+
+    Private Sub C_FastBaudRate_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_FastBaudRate.CheckedChanged
+
+        If C_FastBaudRate.Checked = True Then
+
+            WriteFlashByte(&H13259, &H4)
+
+        Else
+
+            WriteFlashByte(&H13259, &H17)
+
         End If
 
     End Sub

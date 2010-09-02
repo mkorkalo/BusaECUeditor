@@ -719,6 +719,39 @@ Module CommonFunctions
         End Set
     End Property
 
+    Public ReadOnly Property BaudRate() As Integer
+        Get
+
+            If ECUVersion = "bking" Then
+
+                If ReadFlashByte(&H13429) < &H17 Then
+
+                    Return 50000
+
+                Else
+
+                    Return 10400
+
+                End If
+
+            ElseIf ECUVersion = "gen2" Then
+
+                If ReadFlashByte(&H13259) < &H17 Then
+
+                    Return 50000
+
+                Else
+
+                    Return 10400
+
+                End If
+
+            End If
+
+        End Get
+        
+    End Property
+
 #End Region
 
 #Region "Functions"
