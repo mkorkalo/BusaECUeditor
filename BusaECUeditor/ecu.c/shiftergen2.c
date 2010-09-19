@@ -48,10 +48,14 @@
 #define killcountactive *(volatile unsigned short *) 	(ramaddr + 8)
 #define initialized *(volatile unsigned short *)  		(ramaddr + 12)
 #define killflag *(volatile unsigned short *)  			(ramaddr + 16)
-#define	duration_kill *(volatile unsigned short *)  	(ramaddr + 20)
-#define	previousgear *(volatile unsigned short *)  		(ramaddr + 0x64)
 
-#define	overboost *(volatile unsigned char *)  			(ramaddr + 0x68)
+/* +0x18 - 0x60 reserved for boostfuel and nitrous control */
+
+#define	previousgear *(volatile unsigned short *)  		(ramaddr + 0x64)
+#define	overboost *(volatile unsigned char *)  			(ramaddr + 0x64 + 4) /* this is a joint variable with turbofuel module */
+#define	duration_kill *(volatile unsigned short *)  	(ramaddr + 0x64 + 8)
+#define	minimum_killrpm *(volatile unsigned short *)  		(ramaddr + 0x64 + 12)
+
 #define BOOSTACTIVE *(volatile unsigned char *)  		0x00055800
 
 #define P8bit	*(volatile unsigned char *)					0x20
@@ -66,19 +70,19 @@
 	The shift kill variables are defined here, e.g kill times. These are adjusted using ecueditor.
 */
 #pragma SECTION C PARAMS //0x55400
-const short const_pgmid = 				205;			// 0 program id, must match to ecueditor version to be able to load this code to ecu
-const short const_killtime_gear1 = 		80;			// 2 kill times, these are egnie revolutions for the rpm range
+const short const_pgmid = 				206;			// 0 program id, must match to ecueditor version to be able to load this code to ecu
+const short const_killtime_std = 		80;			// 2 kill times, these are egnie revolutions for the rpm range
 const short const_killtime_gear2 = 		80;			// 4
 const short const_killtime_gear3 = 		80;			// 6
 const short const_killtime_gear4 = 		80;			// 8
 const short const_killtime_gear5 = 		80;			// 10
 const short const_killtime_gear6 = 		80;			// 12
-const short const_shiftrpm1	 = 			0x1400;			// 14
+const short const_shiftrpm	 = 			0x1400;			// 14
 const short const_shiftrpm2 = 			0x1400;			// 16
 const short const_shiftrpm3 = 			0x1400;			// 18
 const short const_shiftrpm456 = 		0x1400;			// 20
 const short minkillactive = 			5;   			// 22. hysteresis for how many revolutions the gps must be active before a kill is initiated
-const short killcountdelay = 			500;			// 24. delay of revolutions how many times must pass from last kill before a kill can be initiated again
+const short killcountdelay = 			300;			// 24. delay of revolutions how many times must pass from last kill before a kill can be initiated again
 const short fuelkillactive = 			1;				// 26. igncut will be used, this can be changed by ecueditor to 0 to disable fuelcut
 const short ignkillactive = 			1;				// 28. fuelcut will be used, this can be changed by ecueditor to 0 to disable igncut
 const short killtimedivider = 			2560;
@@ -118,40 +122,55 @@ void shiftermain(void)
 	*/		
     if (((ECU_AD_GPS >> 2)  <=  SHIFTERACTIVE ) || ((PORT3 & DSMSELECTED) != 0))
  		{
-			
-			if 		(((previousgear == 1) && (ECU_RPM >= const_shiftrpm1))||
-					((previousgear == 2) && (ECU_RPM >= const_shiftrpm2)) ||
-					((previousgear == 3) && (ECU_RPM >= const_shiftrpm3)) ||
-					((previousgear >= 4) && (ECU_RPM >= const_shiftrpm456)))
-					{killswitch = ACTIVE;}
-	
-			if (killswitch == ACTIVE)
-			{
-				if (previousgear == 1)
-					{
-						duration_kill = (const_killtime_gear1 * (ECU_RPM>>2)) / killtimedivider;
-					}
-				else if (previousgear == 2)
-					{
-						duration_kill = (const_killtime_gear2 * (ECU_RPM>>2)) / killtimedivider;
-					}
-				else if (previousgear == 3)
-					{
-						duration_kill = (const_killtime_gear3 * (ECU_RPM>>2)) / killtimedivider;
-					}
-				else if (previousgear == 4)
-					{
-						duration_kill = (const_killtime_gear4 * (ECU_RPM>>2)) / killtimedivider;
-					}
-				else if (previousgear == 5)
-					{
-						duration_kill = (const_killtime_gear5 * (ECU_RPM>>2)) / killtimedivider;
-					}
-				else	// default killtime is gear 6 time
-					{
-						duration_kill = (const_killtime_gear6 * (ECU_RPM>>2)) / killtimedivider;
-					}
 
+						/*
+							gear specific kill times active only with DSM activation
+						*/
+			 			if (DSMSELECTED != 0)
+						{
+							if (previousgear == 1)
+								{
+									duration_kill = (const_killtime_std * (ECU_RPM>>2)) / killtimedivider;
+									minimum_killrpm = const_shiftrpm;
+								}
+							else if (previousgear == 2)
+								{
+									duration_kill = (const_killtime_gear2 * (ECU_RPM>>2)) / killtimedivider;
+									minimum_killrpm = const_shiftrpm2;
+								}
+							else if (previousgear == 3)
+								{
+									duration_kill = (const_killtime_gear3 * (ECU_RPM>>2)) / killtimedivider;
+									minimum_killrpm = const_shiftrpm3;
+								}
+							else if (previousgear == 4)
+								{
+									duration_kill = (const_killtime_gear4 * (ECU_RPM>>2)) / killtimedivider;
+									minimum_killrpm = const_shiftrpm456;
+								}
+							else if (previousgear == 5)
+								{
+									duration_kill = (const_killtime_gear5 * (ECU_RPM>>2)) / killtimedivider;
+									minimum_killrpm = const_shiftrpm456;
+								}
+							else	// gear can not be used, then use default killtime 
+								{
+									duration_kill = (const_killtime_gear6 * (ECU_RPM>>2)) / killtimedivider;
+									minimum_killrpm = const_shiftrpm456;
+								}
+						}
+						else
+						{
+						/*
+							if DSM activation is not used then use
+						*/
+						duration_kill = (const_killtime_std * (ECU_RPM>>2)) / killtimedivider;
+						minimum_killrpm = const_shiftrpm;
+						}
+
+				if (ECU_RPM > minimum_killrpm)
+				{
+					killswitch= ACTIVE;
 				}
  		}
  	else
