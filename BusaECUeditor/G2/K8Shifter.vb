@@ -220,7 +220,7 @@ Public Class K8shifter
             Me.Height = 613
         Else
             C_DSMactivation.Checked = True
-            C_DSMactivation.Text = "DSM2 activation (limited resistor)"
+            C_DSMactivation.Text = "DSM2 and resistor activation"
             G_DSMACTIVATION.Visible = True
             If ReadFlashByte(&H72558) = &HFF Then
                 K8Advsettings.Show()
@@ -393,7 +393,7 @@ Public Class K8shifter
                 G_DSMACTIVATION.Visible = False
                 Me.Height = 613
             Else
-                C_DSMactivation.Text = "DSM2 activation (limited resistor)"
+                C_DSMactivation.Text = "DSM2 and resistor activation"
                 If ReadFlashByte(&H72558) = &HFF Then
                     K8Advsettings.Show()
                     If K8Advsettings.C_ABCmode.Checked <> False Then
