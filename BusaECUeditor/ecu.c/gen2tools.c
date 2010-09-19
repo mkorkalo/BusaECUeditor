@@ -62,10 +62,11 @@ if ((P17MOD & TXD2) != 0)
 
 /*
 	This algorithm sets the port to +5V when errorcode present in ecu
+	Masked those bits which are present with C00 anyway
 */
 if (FI_LED_no_gauges == 0)
 {
-	if ((ECU_KWPDTC2 == 0) && (ECU_KWPDTC3 == 0) && (ECU_KWPDTC4 == 0) && (ECU_KWPDTC5 == 0) && (ECU_KWPDTC6 == 0))
+	if (((ECU_KWPDTC3 & 0xCF) == 0) && ((ECU_KWPDTC4 & 0xFB)== 0) && ((ECU_KWPDTC5 & 0xE0)  == 0) && ((ECU_KWPDTC6 & 0xFD) == 0))
 	{
 		P17DATA = P17DATA & (0xFF - TXD2);
 	}

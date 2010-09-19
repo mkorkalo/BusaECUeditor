@@ -30,7 +30,7 @@ Public Class K8shifter
     Dim IDTAG As Integer = &H55400
     Dim minkillactive As Integer = ADJ + &H16
     Dim killcountdelay As Integer = ADJ + &H18
-    Dim SHIFTER2VERSION As Integer = 205
+    Dim SHIFTER2VERSION As Integer = 206
     Dim shiftercodelenght As Integer = &H55800 - &H55400 - 1 'lenght of the shifter code in bytes for clearing the memory
     Dim timerconst = 1 / 1.28
     Dim initiating As Boolean = True
@@ -99,8 +99,6 @@ Public Class K8shifter
                 hide_shifter_settings()
             End If
         End If
-
-
 
     End Sub
 
@@ -217,38 +215,41 @@ Public Class K8shifter
         If ReadFlashByte(&H55420) = 0 Then
             C_DSMactivation.Checked = False
             C_DSMactivation.Text = "Normal GPS resistor activation"
+            WriteFlashByte(&H55420, 0)
+            G_DSMACTIVATION.Visible = False
+            Me.Height = 613
         Else
             C_DSMactivation.Checked = True
-            C_DSMactivation.Text = "GPS resistor and DSM2 activation"
-        End If
-
-        L_minkillactive.Visible = True
-        L_killcountdelay.Visible = True
-        T_minkillactive.Visible = True
-        T_killcountdelay.Visible = True
-        T_minkillactive.Text = ReadFlashWord(minkillactive)
-        T_killcountdelay.Text = ReadFlashWord(killcountdelay)
-        C_killtime.Enabled = True
-        C_Fuelcut.Visible = True
-        C_igncut.Visible = True
-        C_DSMactivation.Visible = True
-        RPM1.Visible = True
-
-        'populate RPM with initial value
-        populaterpm(ReadFlashWord(&H5540E), Me.RPM1) ' this is the reference RPM that is stored in the system
-        populaterpm(ReadFlashWord(&H55410), Me.RPM2) ' this is the reference RPM that is stored in the system
-        populaterpm(ReadFlashWord(&H55412), Me.RPM3) ' this is the reference RPM that is stored in the system
-        populaterpm(ReadFlashWord(&H55414), Me.RPM456) ' this is the reference RPM that is stored in the system
-
-        If ReadFlashByte(&H55420) = 0 Then
-            C_DSMactivation.Text = "Normal GPS resistor activation"
-            WriteFlashByte(&H55420, 0)
-        Else
-            C_DSMactivation.Text = "GPS resistor and DSM2 activation"
-            K8Advsettings.C_ABCmode.Checked = False
+            C_DSMactivation.Text = "DSM2 activation (limited resistor)"
+            G_DSMACTIVATION.Visible = True
+            If ReadFlashByte(&H72558) = &HFF Then
+                K8Advsettings.Show()
+                If K8Advsettings.C_ABCmode.Checked <> False Then
+                    K8Advsettings.C_ABCmode.Checked = False
+                End If
+                Me.Focus()
+            End If
             WriteFlashByte(&H55420, 1) ' 1 = DSM2, 2 = DSM1
-        End If
+            Me.Height = 265
+            End If
 
+            L_minkillactive.Visible = True
+            L_killcountdelay.Visible = True
+            T_minkillactive.Visible = True
+            T_killcountdelay.Visible = True
+            T_minkillactive.Text = ReadFlashWord(minkillactive)
+            T_killcountdelay.Text = ReadFlashWord(killcountdelay)
+            C_killtime.Enabled = True
+            C_Fuelcut.Visible = True
+            C_igncut.Visible = True
+            C_DSMactivation.Visible = True
+            RPM1.Visible = True
+
+            'populate RPM with initial value
+            populaterpm(ReadFlashWord(&H5540E), Me.RPM1) ' this is the reference RPM that is stored in the system
+            populaterpm(ReadFlashWord(&H55410), Me.RPM2) ' this is the reference RPM that is stored in the system
+            populaterpm(ReadFlashWord(&H55412), Me.RPM3) ' this is the reference RPM that is stored in the system
+            populaterpm(ReadFlashWord(&H55414), Me.RPM456) ' this is the reference RPM that is stored in the system
 
     End Sub
 
@@ -294,6 +295,7 @@ Public Class K8shifter
         C_DSMactivation.Visible = False
 
         RPM1.Visible = False
+        G_DSMACTIVATION.Visible = False
 
     End Sub
 
@@ -321,8 +323,10 @@ Public Class K8shifter
     End Sub
 
     Private Sub T_killcountdelay_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_killcountdelay.TextChanged
-        If Val(T_killcountdelay.Text) > 4000 Then T_killcountdelay.Text = "4000"
+        If Val(T_killcountdelay.Text) > 1000 Then T_killcountdelay.Text = "1000"
         If Val(T_killcountdelay.Text) <= 1 Then T_killcountdelay.Text = "1"
+        WriteFlashWord(ADJ + 24, Val(T_killcountdelay.Text))
+
     End Sub
 
 
@@ -381,13 +385,26 @@ Public Class K8shifter
     End Sub
 
     Private Sub CheckBox1_CheckedChanged_2(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_DSMactivation.CheckedChanged
-        If Not C_DSMactivation.Checked Then
-            C_DSMactivation.Text = "Normal GPS resistor activation"
-            WriteFlashByte(&H55420, 0)
-        Else
-            C_DSMactivation.Text = "GPS resistor and DSM2 activation"
-            K8Advsettings.C_ABCmode.Checked = False
-            WriteFlashByte(&H55420, 1) ' 1 = DSM2, 2 = DSM1
+        If Not initiating Then
+
+            If Not C_DSMactivation.Checked Then
+                C_DSMactivation.Text = "Normal GPS resistor activation"
+                WriteFlashByte(&H55420, 0)
+                G_DSMACTIVATION.Visible = False
+                Me.Height = 613
+            Else
+                C_DSMactivation.Text = "DSM2 activation (limited resistor)"
+                If ReadFlashByte(&H72558) = &HFF Then
+                    K8Advsettings.Show()
+                    If K8Advsettings.C_ABCmode.Checked <> False Then
+                        K8Advsettings.C_ABCmode.Checked = False
+                    End If
+                    Me.Focus()
+                End If
+                WriteFlashByte(&H55420, 1) ' 1 = DSM2, 2 = DSM1
+                G_DSMACTIVATION.Visible = True
+                Me.Height = 263
+                End If
         End If
 
     End Sub
@@ -417,5 +434,11 @@ Public Class K8shifter
         i = Val(RPM2.Text) * 2.56
         i = CInt(i / 50) * 50
         WriteFlashWord(&H55410, i)
+    End Sub
+
+    Private Sub T_minkillactive_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_minkillactive.TextChanged
+        If Val(T_minkillactive.Text) > 100 Then T_minkillactive.Text = "100"
+        If Val(T_minkillactive.Text) <= 1 Then T_minkillactive.Text = "1"
+        WriteFlashWord(ADJ + 22, Val(T_minkillactive.Text))
     End Sub
 End Class
