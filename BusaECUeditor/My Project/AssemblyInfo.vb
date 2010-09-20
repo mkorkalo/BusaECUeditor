@@ -10,10 +10,10 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("Hayabusa ECUeditor")> 
+<Assembly: AssemblyTitle("Hayabusa EcuEditor.com")> 
 <Assembly: AssemblyDescription("gen1 K2-K7, gen2 K8- , Bking")> 
 <Assembly: AssemblyCompany("by PetriK")> 
-<Assembly: AssemblyProduct("Hayabusa ECUeditor v2.4")> 
+<Assembly: AssemblyProduct("Hayabusa ECUeditor v2.5")> 
 <Assembly: AssemblyCopyright("Copyright © PetriK 2008-2010")> 
 <Assembly: AssemblyTrademark("")> 
 
@@ -33,7 +33,7 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("2.4.0.0")> 
-<Assembly: AssemblyFileVersion("2.4.0.0")> 
+<Assembly: AssemblyVersion("2.5.0.0")> 
+<Assembly: AssemblyFileVersion("2.5.0.0")> 
 
 <Assembly: NeutralResourcesLanguageAttribute("en")> 
