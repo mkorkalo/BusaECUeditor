@@ -33,6 +33,7 @@ Partial Class BKingAdvSettings
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.C_DatalogO2Sensor = New System.Windows.Forms.CheckBox
         Me.C_EXC = New System.Windows.Forms.CheckBox
+        Me.C_FastBaudRate = New System.Windows.Forms.CheckBox
         Me.C_EVAP = New System.Windows.Forms.CheckBox
         Me.C_PAIR = New System.Windows.Forms.CheckBox
         Me.Button1 = New System.Windows.Forms.Button
@@ -42,7 +43,6 @@ Partial Class BKingAdvSettings
         Me.Label10 = New System.Windows.Forms.Label
         Me.B_STP_Map = New System.Windows.Forms.Button
         Me.Label7 = New System.Windows.Forms.Label
-        Me.C_FastBaudRate = New System.Windows.Forms.CheckBox
         Me.Button2 = New System.Windows.Forms.Button
         Me.Button3 = New System.Windows.Forms.Button
         Me.GroupBox8.SuspendLayout()
@@ -133,7 +133,7 @@ Partial Class BKingAdvSettings
         Me.GroupBox1.Controls.Add(Me.C_HOX)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(174, 157)
+        Me.GroupBox1.Size = New System.Drawing.Size(174, 165)
         Me.GroupBox1.TabIndex = 44
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Misc Settings"
@@ -141,11 +141,11 @@ Partial Class BKingAdvSettings
         'C_DatalogO2Sensor
         '
         Me.C_DatalogO2Sensor.AutoSize = True
-        Me.C_DatalogO2Sensor.Location = New System.Drawing.Point(17, 114)
+        Me.C_DatalogO2Sensor.Location = New System.Drawing.Point(17, 115)
         Me.C_DatalogO2Sensor.Name = "C_DatalogO2Sensor"
-        Me.C_DatalogO2Sensor.Size = New System.Drawing.Size(116, 17)
+        Me.C_DatalogO2Sensor.Size = New System.Drawing.Size(128, 17)
         Me.C_DatalogO2Sensor.TabIndex = 47
-        Me.C_DatalogO2Sensor.Text = "Datalog O2 Sensor"
+        Me.C_DatalogO2Sensor.Text = "Wideband O2 Sensor"
         Me.C_DatalogO2Sensor.UseVisualStyleBackColor = True
         '
         'C_EXC
@@ -157,6 +157,16 @@ Partial Class BKingAdvSettings
         Me.C_EXC.TabIndex = 46
         Me.C_EXC.Text = "EXC on/off"
         Me.C_EXC.UseVisualStyleBackColor = True
+        '
+        'C_FastBaudRate
+        '
+        Me.C_FastBaudRate.AutoSize = True
+        Me.C_FastBaudRate.Location = New System.Drawing.Point(17, 136)
+        Me.C_FastBaudRate.Name = "C_FastBaudRate"
+        Me.C_FastBaudRate.Size = New System.Drawing.Size(100, 17)
+        Me.C_FastBaudRate.TabIndex = 46
+        Me.C_FastBaudRate.Text = "Fast Baud Rate"
+        Me.C_FastBaudRate.UseVisualStyleBackColor = True
         '
         'C_EVAP
         '
@@ -246,16 +256,6 @@ Partial Class BKingAdvSettings
         Me.Label7.TabIndex = 0
         Me.Label7.Text = "STP map editing"
         '
-        'C_FastBaudRate
-        '
-        Me.C_FastBaudRate.AutoSize = True
-        Me.C_FastBaudRate.Location = New System.Drawing.Point(17, 133)
-        Me.C_FastBaudRate.Name = "C_FastBaudRate"
-        Me.C_FastBaudRate.Size = New System.Drawing.Size(100, 17)
-        Me.C_FastBaudRate.TabIndex = 46
-        Me.C_FastBaudRate.Text = "Fast Baud Rate"
-        Me.C_FastBaudRate.UseVisualStyleBackColor = True
-        '
         'Button2
         '
         Me.Button2.Location = New System.Drawing.Point(37, 290)
@@ -278,7 +278,7 @@ Partial Class BKingAdvSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(415, 176)
+        Me.ClientSize = New System.Drawing.Size(415, 181)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.GroupBox9)

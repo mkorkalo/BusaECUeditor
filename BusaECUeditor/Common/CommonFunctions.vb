@@ -1130,6 +1130,12 @@ Module CommonFunctions
 
     End Sub
 
+    Public Sub HandleException(ByRef ex As Exception)
+
+        MessageBox.Show("The following error occured, if this continues please report this error on the Hayabusa ECU Hacking Board http://www.activeboard.com/forum.spark?aBID=99460&subForumID=469024&p=2" & Environment.NewLine & Environment.NewLine & ex.Message & Environment.NewLine & ex.StackTrace, "Ecu Editor Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+    End Sub
+
 #End Region
 
 End Module
