@@ -210,6 +210,12 @@ Public Class K8EngineDataLogger
         NUD_Widband0v.Value = My.Settings.Wideband0V
         NUD_Widband5v.Value = My.Settings.Wideband5V
 
+        If My.Settings.CreateConvertedValuesFile = True Then
+
+            C_CreateConvertedFile.Checked = True
+
+        End If
+
         Dim i As Integer
         Dim j As Integer
         Dim userComPort As String
@@ -470,11 +476,13 @@ Public Class K8EngineDataLogger
             numberOfLogs = 0
             logRate = Timer2.Interval / 2
 
-            'LogFile = New StreamWriter(filePath)
+            If C_CreateConvertedFile.Checked = True Then
+                LogFile = New StreamWriter(filePath)
+            End If
+
             LogFileRaw = New StreamWriter(filePathRaw)
 
             WriteDataLogHeader()
-            WriteDataLog()
 
             EngineDataCommsStopwatch.Reset()
             EngineDataCommsStopwatch.Start()
@@ -514,8 +522,14 @@ Public Class K8EngineDataLogger
 
     Private Sub B_ViewDataLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_ViewDataLog.Click
 
-        K8EngineDataViewer.Show()
-        K8EngineDataViewer.OpenFile(filePathRaw)
+        Try
+
+            K8EngineDataViewer.Show()
+            K8EngineDataViewer.OpenFile(filePathRaw)
+
+        Catch ex As Exception
+            HandleException(ex)
+        End Try
 
     End Sub
 
@@ -548,7 +562,7 @@ Public Class K8EngineDataLogger
             B_Connect_Datastream.Text = "Close"
             L_CommStatusColour.ForeColor = Color.Green
             L_BasicData.Text = "TPS: " & CalcTPS(TPS) & " RPM: " & RPM & " IAP: " & CalcPressure(IAP) & " Gear: " & GEAR
-            
+
             If C_WidebandO2Sensor.Checked = True Then
                 L_AFR.Text = "AFR: " + CalcWidebandAFR(WIDEBAND).ToString("00.00")
             Else
@@ -561,7 +575,7 @@ Public Class K8EngineDataLogger
             L_CommStatusColour.ForeColor = Color.Red
             L_BasicData.Text = ""
             L_AFR.Text = ""
-            
+
         End If
 
         L_Status.Text = "Log Count: " & numberOfLogs.ToString()
@@ -1165,6 +1179,14 @@ Public Class K8EngineDataLogger
         If _initialized = True Then
             My.Settings.Wideband5V = NUD_Widband5v.Value
             My.Settings.Save()
+        End If
+
+    End Sub
+
+    Private Sub C_CreateConvertedFile_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_CreateConvertedFile.CheckedChanged
+
+        If _initialized = True Then
+            My.Settings.CreateConvertedValuesFile = C_CreateConvertedFile.Checked
         End If
 
     End Sub
@@ -1803,7 +1825,7 @@ Public Class K8EngineDataLogger
             logTime.Append(EngineDataCommsStopwatch.Elapsed.Milliseconds.ToString("000"))
             _logTime = logTime.ToString()
 
-            'WriteDataLog()
+            WriteDataLog()
             WriteDataLogRaw()
 
         End If

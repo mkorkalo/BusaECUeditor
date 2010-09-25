@@ -77,11 +77,9 @@ Public Class BKingAdvSettings
 
         If ReadFlashWord(&H55152) = &H9C Then
             C_DatalogO2Sensor.Checked = True
-            C_DatalogO2Sensor.Text = "Datalog O2 Sensor ON"
             C_HOX.Checked = False
             C_HOX.Enabled = False
         Else
-            C_DatalogO2Sensor.Text = "Datalog O2 Sensor OFF"
             C_DatalogO2Sensor.Checked = False
         End If
 
@@ -187,7 +185,6 @@ Public Class BKingAdvSettings
 
             If C_DatalogO2Sensor.Checked Then
 
-                C_DatalogO2Sensor.Text = "Datalog O2 Sensor ON"
                 C_HOX.Checked = False
                 C_HOX.Enabled = False
 
@@ -202,8 +199,6 @@ Public Class BKingAdvSettings
                 WriteFlashWord(&H55182, &HDD)
 
             Else
-
-                C_DatalogO2Sensor.Text = "Datalog O2 Sensor OFF"
                 C_HOX.Enabled = True
 
                 '10 Bit AD Sensor Value
@@ -238,15 +233,24 @@ Public Class BKingAdvSettings
     Private Sub C_FastBaudRate_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_FastBaudRate.CheckedChanged
 
         If C_FastBaudRate.Checked = True Then
-
+            'Change Baud Rate = 50000
             WriteFlashByte(&H13429, &H4)
 
-        Else
+            'Change MJT IRQ 5 Timer
+            WriteFlashWord(&H12D42, &HFA)
+            WriteFlashWord(&H12DBE, &HF9)
 
+            'WriteFlashByte(&H24AD, &H0)
+        Else
+            'Change Baud Rate = 10400
             WriteFlashByte(&H13429, &H17)
 
-        End If
+            'Change MJT IRQ 5 Timer
+            WriteFlashWord(&H12D42, &H1F4)
+            WriteFlashWord(&H12DBE, &H1F3)
 
+            'WriteFlashByte(&H24AD, &HFF)
+        End If
 
     End Sub
 
@@ -257,22 +261,7 @@ Public Class BKingAdvSettings
 
         BlockPgm = False
 
-        Block0 = False
-        Block1 = False
-        Block2 = False
-        Block3 = False
-        Block4 = False
-        Block5 = False
-        Block6 = False
-        Block7 = False
-        Block8 = False
-        Block9 = False
-        BlockA = False
-        BlockB = False
-        BlockC = False
-        BlockD = False
-        BlockE = False
-        BlockF = False
+        ResetBlocks()
 
     End Sub
 

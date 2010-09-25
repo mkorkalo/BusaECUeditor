@@ -289,11 +289,9 @@ Public Class K8Advsettings
 
         If ReadFlashWord(&H525C2) = &H9C Then
             C_DatalogO2Sensor.Checked = True
-            C_DatalogO2Sensor.Text = "Datalog O2 Sensor ON"
             C_HOX.Checked = False
             C_HOX.Enabled = False
         Else
-            C_DatalogO2Sensor.Text = "Datalog O2 Sensor OFF"
             C_DatalogO2Sensor.Checked = False
         End If
 
@@ -1076,7 +1074,6 @@ Public Class K8Advsettings
 
             If C_DatalogO2Sensor.Checked Then
 
-                C_DatalogO2Sensor.Text = "Datalog O2 Sensor ON"
                 C_HOX.Checked = False
                 C_HOX.Enabled = False
 
@@ -1092,7 +1089,6 @@ Public Class K8Advsettings
 
             Else
 
-                C_DatalogO2Sensor.Text = "Datalog O2 Sensor OFF"
                 C_HOX.Enabled = True
 
                 '10 Bit AD Sensor Value
@@ -1127,11 +1123,20 @@ Public Class K8Advsettings
 
         If C_FastBaudRate.Checked = True Then
 
+            'Change Baud Rate = 50000
             WriteFlashByte(&H13259, &H4)
 
-        Else
+            'Change MJT IRQ 5 Timer
+            WriteFlashWord(&H12B72, &HFA)
+            WriteFlashWord(&H12BEE, &HF9)
 
+        Else
+            'Change Baud Rate = 10400
             WriteFlashByte(&H13259, &H17)
+
+            'Change MJT IRQ 5 Timer
+            WriteFlashWord(&H12B72, &H1F4)
+            WriteFlashWord(&H12BEE, &H1F3)
 
         End If
 

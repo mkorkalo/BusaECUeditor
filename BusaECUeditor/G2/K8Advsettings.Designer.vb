@@ -575,7 +575,7 @@ Partial Class K8Advsettings
         'C_FastBaudRate
         '
         Me.C_FastBaudRate.AutoSize = True
-        Me.C_FastBaudRate.Location = New System.Drawing.Point(170, 106)
+        Me.C_FastBaudRate.Location = New System.Drawing.Point(170, 107)
         Me.C_FastBaudRate.Name = "C_FastBaudRate"
         Me.C_FastBaudRate.Size = New System.Drawing.Size(100, 17)
         Me.C_FastBaudRate.TabIndex = 49
@@ -587,9 +587,9 @@ Partial Class K8Advsettings
         Me.C_DatalogO2Sensor.AutoSize = True
         Me.C_DatalogO2Sensor.Location = New System.Drawing.Point(170, 86)
         Me.C_DatalogO2Sensor.Name = "C_DatalogO2Sensor"
-        Me.C_DatalogO2Sensor.Size = New System.Drawing.Size(116, 17)
+        Me.C_DatalogO2Sensor.Size = New System.Drawing.Size(128, 17)
         Me.C_DatalogO2Sensor.TabIndex = 48
-        Me.C_DatalogO2Sensor.Text = "Datalog O2 Sensor"
+        Me.C_DatalogO2Sensor.Text = "Wideband O2 Sensor"
         Me.C_DatalogO2Sensor.UseVisualStyleBackColor = True
         '
         'Label5
