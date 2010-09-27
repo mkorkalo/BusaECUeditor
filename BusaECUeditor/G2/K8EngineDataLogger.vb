@@ -2203,6 +2203,26 @@ Public Class K8EngineDataLogger
 
     End Function
 
+    Public Function CalcTPSDouble(ByVal value As Integer) As Double
+
+        Dim tps As Decimal
+
+        tps = ((value - 55) / (256 - 55)) * 125
+
+        If (tps < 0) Then
+            tps = 0
+        ElseIf tps > 100 Then
+            tps = 100
+        End If
+
+        If tps >= 10 Then
+            Return Math.Round(tps, 0)
+        Else
+            Return Math.Round(tps, 1)
+        End If
+
+    End Function
+
     Public Function CalcSTP(ByVal value As Integer) As Integer
 
         Return Int(value / 2.55)
@@ -2287,6 +2307,12 @@ Public Class K8EngineDataLogger
     Public Function CalcBatt(ByVal value As Integer) As String
 
         Return Replace(Format(value / 12.7, "#0.0"), ",", ".")
+
+    End Function
+
+    Public Function CalcBattDouble(ByVal value As Integer) As Double
+
+        Return Math.Round(value / 12.7, 1)
 
     End Function
 

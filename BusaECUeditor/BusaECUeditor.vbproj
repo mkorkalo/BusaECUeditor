@@ -38,7 +38,7 @@
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
-    <InstallUrl>http://macmadigan.no-ip.com/ecueditor2.5/</InstallUrl>
+    <InstallUrl>http://macmadigan.no-ip.com/ecueditor2.5/ecueditor_prerelease.htm/</InstallUrl>
     <UpdateUrl>http://macmadigan.no-ip.com/ecueditor2.5/</UpdateUrl>
     <SupportUrl>http://www.ecueditor.com</SupportUrl>
     <ErrorReportUrl>http://bitbucket.org/ecueditor/ecueditor/issues%3fstatus=new</ErrorReportUrl>
@@ -48,9 +48,8 @@
     <MinimumRequiredVersion>2.5.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>ecueditor_prerelease.htm</WebPage>
-    <AutorunEnabled>true</AutorunEnabled>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>19</ApplicationRevision>
+    <ApplicationRevision>21</ApplicationRevision>
     <ApplicationVersion>2.5.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
