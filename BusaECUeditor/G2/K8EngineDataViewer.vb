@@ -287,7 +287,7 @@ Public Class K8EngineDataViewer
 
                         logValue.LogTime = values(0)
                         logValue.RPM = values(1)
-                        logValue.TPS = K8EngineDataLogger.CalcTPS(values(2))
+                        logValue.TPS = K8EngineDataLogger.CalcTPSDouble(values(2))
                         logValue.IAP = K8EngineDataLogger.CalcPressure(values(13)) - K8EngineDataLogger.CalcPressure(values(12))
                         logValue.H02 = values(4)
                         logValue.WIDEBAND = values(5)
@@ -308,7 +308,7 @@ Public Class K8EngineDataViewer
                         logValue.AP = K8EngineDataLogger.CalcPressure(values(13))
                         logValue.CLT = K8EngineDataLogger.CalcTemp(values(14))
                         logValue.IAT = K8EngineDataLogger.CalcTemp(values(15))
-                        logValue.BATT = K8EngineDataLogger.CalcBatt(values(16))
+                        logValue.BATT = K8EngineDataLogger.CalcBattDouble(values(16))
                         logValue.PAIR = K8EngineDataLogger.CalcPair(values(17))
                         logValue.FUEL1 = values(18)
                         logValue.FUEL2 = values(19)
