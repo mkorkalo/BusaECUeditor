@@ -34,6 +34,9 @@ Partial Class K8AutoTuneSettings
         Me.Label5 = New System.Windows.Forms.Label
         Me.Panel1 = New System.Windows.Forms.Panel
         Me.Panel2 = New System.Windows.Forms.Panel
+        Me.L_AutoTuneStrength = New System.Windows.Forms.Label
+        Me.Label6 = New System.Windows.Forms.Label
+        Me.TB_AutoTuneStrength = New System.Windows.Forms.TrackBar
         Me.B_Cancel = New System.Windows.Forms.Button
         Me.B_Ok = New System.Windows.Forms.Button
         CType(Me.NUD_AutoTuneMinAvgAFR, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -42,6 +45,7 @@ Partial Class K8AutoTuneSettings
         CType(Me.NUD_AutoTuneMinNumberLoggedValuesInCell, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        CType(Me.TB_AutoTuneStrength, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'NUD_AutoTuneMinAvgAFR
@@ -135,6 +139,9 @@ Partial Class K8AutoTuneSettings
         'Panel2
         '
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel2.Controls.Add(Me.L_AutoTuneStrength)
+        Me.Panel2.Controls.Add(Me.Label6)
+        Me.Panel2.Controls.Add(Me.TB_AutoTuneStrength)
         Me.Panel2.Controls.Add(Me.B_Cancel)
         Me.Panel2.Controls.Add(Me.B_Ok)
         Me.Panel2.Controls.Add(Me.Label1)
@@ -147,8 +154,37 @@ Partial Class K8AutoTuneSettings
         Me.Panel2.Controls.Add(Me.Label3)
         Me.Panel2.Location = New System.Drawing.Point(7, 109)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(404, 115)
+        Me.Panel2.Size = New System.Drawing.Size(404, 153)
         Me.Panel2.TabIndex = 10
+        '
+        'L_AutoTuneStrength
+        '
+        Me.L_AutoTuneStrength.AutoSize = True
+        Me.L_AutoTuneStrength.Location = New System.Drawing.Point(319, 110)
+        Me.L_AutoTuneStrength.Name = "L_AutoTuneStrength"
+        Me.L_AutoTuneStrength.Size = New System.Drawing.Size(10, 13)
+        Me.L_AutoTuneStrength.TabIndex = 12
+        Me.L_AutoTuneStrength.Text = "-"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(18, 110)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(100, 13)
+        Me.Label6.TabIndex = 11
+        Me.Label6.Text = "Auto Tune Strength"
+        '
+        'TB_AutoTuneStrength
+        '
+        Me.TB_AutoTuneStrength.Location = New System.Drawing.Point(124, 110)
+        Me.TB_AutoTuneStrength.Maximum = 120
+        Me.TB_AutoTuneStrength.Minimum = 40
+        Me.TB_AutoTuneStrength.Name = "TB_AutoTuneStrength"
+        Me.TB_AutoTuneStrength.Size = New System.Drawing.Size(177, 45)
+        Me.TB_AutoTuneStrength.TabIndex = 10
+        Me.TB_AutoTuneStrength.TickFrequency = 10
+        Me.TB_AutoTuneStrength.Value = 40
         '
         'B_Cancel
         '
@@ -172,7 +208,7 @@ Partial Class K8AutoTuneSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(421, 236)
+        Me.ClientSize = New System.Drawing.Size(421, 274)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
         Me.MaximizeBox = False
@@ -187,6 +223,7 @@ Partial Class K8AutoTuneSettings
         Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        CType(Me.TB_AutoTuneStrength, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -203,4 +240,7 @@ Partial Class K8AutoTuneSettings
     Friend WithEvents Panel2 As System.Windows.Forms.Panel
     Friend WithEvents B_Cancel As System.Windows.Forms.Button
     Friend WithEvents B_Ok As System.Windows.Forms.Button
+    Friend WithEvents TB_AutoTuneStrength As System.Windows.Forms.TrackBar
+    Friend WithEvents L_AutoTuneStrength As System.Windows.Forms.Label
+    Friend WithEvents Label6 As System.Windows.Forms.Label
 End Class

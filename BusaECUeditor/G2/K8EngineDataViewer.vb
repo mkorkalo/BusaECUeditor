@@ -188,7 +188,12 @@ Public Class K8EngineDataViewer
             Next
         Next
 
-        LoadTAFRFile(My.Settings.AutoTuneTargetAFRFilePath)
+        If String.IsNullOrEmpty(My.Settings.AutoTuneTargetAFRFilePath) = False And File.Exists(My.Settings.AutoTuneTargetAFRFilePath) = True Then
+            LoadTAFRFile(My.Settings.AutoTuneTargetAFRFilePath)
+        Else
+            Dim path As String = Application.StartupPath() & "\Common\BaseTargetAFR.tafr"
+            LoadTAFRFile(path)
+        End If
 
     End Sub
 
@@ -1848,6 +1853,8 @@ Public Class K8EngineDataViewer
         ElseIf value >= 15 Then
             percentageChange = 0.675 * percentageChange
         End If
+
+        percentageChange = percentageChange * (My.Settings.AutoTuneStrength / 100)
 
         Return percentageChange
 

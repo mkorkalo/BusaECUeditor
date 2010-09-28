@@ -776,11 +776,7 @@ Module CommonFunctions
         f = (((i - 55) / (256 - 55)) * 125)
         If f > 100 Then f = 100
 
-        If f > 5 Then
-            istr = Format(f, "###")
-        Else
-            istr = Format(f, "#0.#")
-        End If
+        istr = Format(f, "#0.0")
 
         Return (istr)
 

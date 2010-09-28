@@ -70,9 +70,7 @@ Public Class K8Datastream
     Public slowinitdelay As Integer
     Public msgactive As Integer
 
-
     Dim hox_on As Boolean = True
-
 
     Dim bit15 As UInt16 = &H2 ^ 15
     Dim bit14 As UInt16 = &H2 ^ 14
@@ -107,6 +105,7 @@ Public Class K8Datastream
     Dim ch_CLT As Integer
     Dim ch_IGN As Integer
     Dim ch_USR As Integer
+    Dim WIDEBAND As Double
     Dim RPMhi As Integer
     Dim RPMlo As Integer
     Dim FUELhi1 As Integer
@@ -126,7 +125,6 @@ Public Class K8Datastream
     Dim duty As Integer
 
     Dim counter As Integer
-
 
     Private Sub K8Datastream_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
 
@@ -164,7 +162,6 @@ Public Class K8Datastream
         End If
 
     End Sub
-
 
     Private Sub K8datastream_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Dim i As Integer
@@ -267,7 +264,6 @@ Public Class K8Datastream
 
     End Sub
 
-
     Private Sub ComboBox1_SelectedIndexChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ComboBox_Serialport.SelectedIndexChanged
 
         Try
@@ -288,11 +284,6 @@ Public Class K8Datastream
         If ((comportnum < 0) Or (comportnum > 15)) Then MsgBox("USB FTDI COMport is non existing or out of range, program may not work")
 
     End Sub
-
-
-
-
-
 
     Private Sub Timer2_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer2.Tick
 
@@ -1114,7 +1105,10 @@ Public Class K8Datastream
         ' to service id
         '
         If (rxs(10) = &H34) And (rxs(11) = &H61) And (rxs(12) = &H8) Then
-            If Debug Then T_2108.Text = ""
+            If debug Then T_2108.Text = ""
+
+            WIDEBAND = (rxs(20) * 256) + rxs(21)
+
             For x = 0 To 62
                 If Debug Then T_2108.Text = T_2108.Text & Format(rxs(x), "x2") & " "
                 Select Case x
@@ -1394,7 +1388,13 @@ Public Class K8Datastream
 
 
         LED_IGN.Text = Str(IGN)
-        LED_HO2.Text = ho2toafr(HO2)
+
+        If My.Settings.WidebandO2Sensor = True Then
+            LED_HO2.Text = K8EngineDataLogger.CalcWidebandAFR(WIDEBAND)
+        Else
+            LED_HO2.Text = K8EngineDataLogger.CalcAFR(HO2)
+        End If
+
         LED_BATT.Text = Replace(Format(BATT / 12.7, "#0.0"), ",", ".")
 
 

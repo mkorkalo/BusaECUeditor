@@ -2184,9 +2184,6 @@ Public Class K8EngineDataLogger
     Public Function CalcTPS(ByVal value As Integer) As String
 
         Dim tps As Decimal
-
-        'tps min value = 56; max value = 228; range = 172
-        'tps = (value - 56) / (228 - 56) * 100
         tps = ((value - 55) / (256 - 55)) * 125
 
         If (tps < 0) Then
@@ -2195,11 +2192,7 @@ Public Class K8EngineDataLogger
             tps = 100
         End If
 
-        If tps >= 10 Then
-            Return Format(tps, "###")
-        Else
-            Return Format(tps, "#0.#")
-        End If
+        Return Format(tps, "#0.#")
 
     End Function
 
@@ -2215,11 +2208,7 @@ Public Class K8EngineDataLogger
             tps = 100
         End If
 
-        If tps >= 10 Then
-            Return Math.Round(tps, 0)
-        Else
-            Return Math.Round(tps, 1)
-        End If
+        Return Math.Round(tps, 1)
 
     End Function
 
