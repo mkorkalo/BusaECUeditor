@@ -128,11 +128,11 @@ Partial Class K8Datastream
         Me.C_debug = New System.Windows.Forms.Button
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.B_ICS = New System.Windows.Forms.Button
-        Me.L_ho2raw = New System.Windows.Forms.Label
         Me.B_PAIR_ON = New System.Windows.Forms.Button
         Me.B_PAIR_OFF = New System.Windows.Forms.Button
         Me.B_FANOFF = New System.Windows.Forms.Button
         Me.B_FANON = New System.Windows.Forms.Button
+        Me.L_ho2raw = New System.Windows.Forms.Label
         CType(Me.LED_RPM, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_IGN, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_CLT, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -409,7 +409,7 @@ Partial Class K8Datastream
         Me.Label2.ForeColor = System.Drawing.Color.DarkRed
         Me.Label2.Location = New System.Drawing.Point(286, 175)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(32, 22)
+        Me.Label2.Size = New System.Drawing.Size(31, 22)
         Me.Label2.TabIndex = 88
         Me.Label2.Text = "11"
         '
@@ -1412,15 +1412,6 @@ Partial Class K8Datastream
         Me.ToolTip1.SetToolTip(Me.B_ICS, resources.GetString("B_ICS.ToolTip"))
         Me.B_ICS.UseVisualStyleBackColor = True
         '
-        'L_ho2raw
-        '
-        Me.L_ho2raw.AutoSize = True
-        Me.L_ho2raw.Location = New System.Drawing.Point(383, 772)
-        Me.L_ho2raw.Name = "L_ho2raw"
-        Me.L_ho2raw.Size = New System.Drawing.Size(24, 13)
-        Me.L_ho2raw.TabIndex = 118
-        Me.L_ho2raw.Text = "n/a"
-        '
         'B_PAIR_ON
         '
         Me.B_PAIR_ON.Location = New System.Drawing.Point(12, 519)
@@ -1460,6 +1451,15 @@ Partial Class K8Datastream
         Me.B_FANON.Text = "FAN ON"
         Me.ToolTip1.SetToolTip(Me.B_FANON, "Turns Fan on")
         Me.B_FANON.UseVisualStyleBackColor = True
+        '
+        'L_ho2raw
+        '
+        Me.L_ho2raw.AutoSize = True
+        Me.L_ho2raw.Location = New System.Drawing.Point(383, 772)
+        Me.L_ho2raw.Name = "L_ho2raw"
+        Me.L_ho2raw.Size = New System.Drawing.Size(24, 13)
+        Me.L_ho2raw.TabIndex = 118
+        Me.L_ho2raw.Text = "n/a"
         '
         'K8Datastream
         '

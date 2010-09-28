@@ -401,6 +401,18 @@ Namespace My
                 Me("CreateConvertedValuesFile") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("100")>  _
+        Public Property AutoTuneStrength() As Double
+            Get
+                Return CType(Me("AutoTuneStrength"),Double)
+            End Get
+            Set
+                Me("AutoTuneStrength") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
