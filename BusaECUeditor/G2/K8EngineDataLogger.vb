@@ -150,7 +150,6 @@ Public Class K8EngineDataLogger
 
     Dim _initialized As Boolean = False
 
-
     Dim LogFile As StreamWriter
     Dim LogFileRaw As StreamWriter
     Dim _logTime As String
@@ -169,6 +168,9 @@ Public Class K8EngineDataLogger
     Dim _lastFuel1 As Integer
     Dim _newData As Boolean = False
     Dim _reConnect As Boolean = False
+
+    Dim _dataCount As Integer = 0
+    Dim _dataCountRepeated As Integer = 0
 
 #End Region
 
@@ -489,6 +491,9 @@ Public Class K8EngineDataLogger
 
             Me.ContinueLogging = True
 
+            _dataCount = 1
+            _dataCountRepeated = 0
+
             'Start Thread to log data
             'ThreadPool.QueueUserWorkItem(New WaitCallback(AddressOf EngineDataLoggingLoop))
 
@@ -569,6 +574,7 @@ Public Class K8EngineDataLogger
                 L_AFR.Text = "AFR: " + CalcAFR(HO2).ToString("00.00")
             End If
 
+            L_NewDataPercentage.Text = (_dataCount / (_dataCount + _dataCountRepeated) * 100).ToString("000.0") & "%"
         ElseIf _connected = False Then
 
             B_Connect_Datastream.Text = "Connect"
@@ -722,10 +728,10 @@ Public Class K8EngineDataLogger
                 If (modemstat <> &H6010) Then
                     AddCommsMessage("Error: Power is not on, ECU is in programming mode or COM port is not set correcly. Modemstat=" & Hex(modemstat) & ", Comporterr=" & Hex(FT_status))
                     AddCommsMessage("")
-                    _connected = False
-                    EnableTimer2(False)
-                    Me.SendCommsMessages = False
-                    Return
+                    '_connected = False
+                    'EnableTimer2(False)
+                    'Me.SendCommsMessages = False
+                    'Return
                 End If
 
                 '*************New Code***************************************************************
@@ -1188,6 +1194,13 @@ Public Class K8EngineDataLogger
         If _initialized = True Then
             My.Settings.CreateConvertedValuesFile = C_CreateConvertedFile.Checked
         End If
+
+    End Sub
+
+    Private Sub L_NewDataPercentage_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles L_NewDataPercentage.Click
+
+        _dataCount = 1
+        _dataCountRepeated = 0
 
     End Sub
 
@@ -1885,10 +1898,12 @@ Public Class K8EngineDataLogger
 
                     _newData = False
                     _repeatedDataCount = _repeatedDataCount + 1
+                    _dataCountRepeated = _dataCountRepeated + 1
 
                 Else
 
                     _newData = True
+                    _dataCount = _dataCount + 1
 
                     _lastRPM = RPM
                     _lastTPS = TPS
@@ -1908,6 +1923,11 @@ Public Class K8EngineDataLogger
             End If
 
         End SyncLock
+
+        If _dataCount + _dataCountRepeated > 150 Then
+            _dataCount = 1
+            _dataCountRepeated = 0
+        End If
 
         ' Rxqueue contains data, but its a negative response to command &H21, just redo after a small sleep
         If (rxqueue >= 11) And (kwpcomm = &H2108) And (rxs(11) = &H7F) Then
@@ -1976,7 +1996,8 @@ Public Class K8EngineDataLogger
             logEntry.Append("HOX_ON")
             logEntry.Append(",")
             logEntry.Append("MTS AFR")
-
+            logEntry.Append(",")
+            logEntry.Append("New Data Rate %")
 
             LogFile.WriteLine(logEntry.ToString())
 
@@ -2033,6 +2054,8 @@ Public Class K8EngineDataLogger
             logEntry.Append("HOX_ON")
             logEntry.Append(",")
             logEntry.Append("MTS AFR")
+            logEntry.Append(",")
+            logEntry.Append("New Data Rate %")
 
             LogFileRaw.WriteLine(logEntry.ToString())
 
@@ -2100,6 +2123,8 @@ Public Class K8EngineDataLogger
                 logEntry.Append(CalculateHOXOn(HOX_ON))
                 logEntry.Append(",")
                 logEntry.Append(MTS_AFR.ToString("0.00"))
+                logEntry.Append(",")
+                logEntry.Append((_dataCount / (_dataCount + _dataCountRepeated) * 100).ToString("000.0"))
 
                 LogFile.WriteLine(logEntry.ToString())
 
@@ -2166,6 +2191,8 @@ Public Class K8EngineDataLogger
                 logEntry.Append(HOX_ON)
                 logEntry.Append(",")
                 logEntry.Append(MTS_AFR.ToString("0.00"))
+                logEntry.Append(",")
+                logEntry.Append((_dataCount / (_dataCount + _dataCountRepeated) * 100).ToString("000.0"))
 
                 LogFileRaw.WriteLine(logEntry.ToString())
 

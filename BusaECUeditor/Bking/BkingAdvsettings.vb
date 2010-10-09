@@ -240,7 +240,6 @@ Public Class BKingAdvSettings
             WriteFlashWord(&H12D42, &HFA)
             WriteFlashWord(&H12DBE, &HF9)
 
-            'WriteFlashByte(&H24AD, &H0)
         Else
             'Change Baud Rate = 10400
             WriteFlashByte(&H13429, &H17)
@@ -249,7 +248,6 @@ Public Class BKingAdvSettings
             WriteFlashWord(&H12D42, &H1F4)
             WriteFlashWord(&H12DBE, &H1F3)
 
-            'WriteFlashByte(&H24AD, &HFF)
         End If
 
     End Sub

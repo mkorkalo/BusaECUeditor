@@ -8,6 +8,7 @@
         NUD_AutoTuneMinNumberLoggedValuesInCell.Value = My.Settings.AutoTuneMinNumberLoggedValuesInCell
         TB_AutoTuneStrength.Value = My.Settings.AutoTuneStrength
         L_AutoTuneStrength.Text = TB_AutoTuneStrength.Value.ToString() & " %"
+        NUD_ExhaustGasVelocityOffset.Value = My.Settings.AutoTuneExhaustGasOffset
 
     End Sub
 
@@ -18,7 +19,11 @@
         My.Settings.AutoTuneMaxPercentageFuelMapChange = NUD_AutoTuneMaxPercentageFuelMapChange.Value
         My.Settings.AutoTuneMinNumberLoggedValuesInCell = NUD_AutoTuneMinNumberLoggedValuesInCell.Value
         My.Settings.AutoTuneStrength = TB_AutoTuneStrength.Value
+        My.Settings.AutoTuneExhaustGasOffset = NUD_ExhaustGasVelocityOffset.Value
         My.Settings.Save()
+
+        K8EngineDataViewer.ClearData()
+        K8EngineDataViewer.OpenFile()
 
         Me.Close()
 

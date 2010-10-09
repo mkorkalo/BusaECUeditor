@@ -52,6 +52,7 @@ Partial Class K8EngineDataLogger
         Me.NUD_Widband5v = New System.Windows.Forms.NumericUpDown
         Me.L_5V = New System.Windows.Forms.Label
         Me.C_CreateConvertedFile = New System.Windows.Forms.CheckBox
+        Me.L_NewDataPercentage = New System.Windows.Forms.Label
         CType(Me.NUD_DataRate, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_Widband0v, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_Widband5v, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -307,11 +308,21 @@ Partial Class K8EngineDataLogger
         Me.C_CreateConvertedFile.Text = "Create Converted Values File"
         Me.C_CreateConvertedFile.UseVisualStyleBackColor = True
         '
+        'L_NewDataPercentage
+        '
+        Me.L_NewDataPercentage.AutoSize = True
+        Me.L_NewDataPercentage.Location = New System.Drawing.Point(171, 98)
+        Me.L_NewDataPercentage.Name = "L_NewDataPercentage"
+        Me.L_NewDataPercentage.Size = New System.Drawing.Size(10, 13)
+        Me.L_NewDataPercentage.TabIndex = 67
+        Me.L_NewDataPercentage.Text = "-"
+        '
         'K8EngineDataLogger
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(832, 429)
+        Me.Controls.Add(Me.L_NewDataPercentage)
         Me.Controls.Add(Me.C_CreateConvertedFile)
         Me.Controls.Add(Me.NUD_Widband5v)
         Me.Controls.Add(Me.L_5V)
@@ -373,4 +384,5 @@ Partial Class K8EngineDataLogger
     Friend WithEvents NUD_Widband5v As System.Windows.Forms.NumericUpDown
     Friend WithEvents L_5V As System.Windows.Forms.Label
     Friend WithEvents C_CreateConvertedFile As System.Windows.Forms.CheckBox
+    Friend WithEvents L_NewDataPercentage As System.Windows.Forms.Label
 End Class
