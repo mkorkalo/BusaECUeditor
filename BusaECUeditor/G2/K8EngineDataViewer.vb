@@ -38,29 +38,59 @@ Public Class K8EngineDataViewer
 
         C_WidebandO2Sensor.Checked = My.Settings.WidebandO2Sensor
 
-        _tpsList.Add(0)
-        _tpsList.Add(0.6)
-        _tpsList.Add(1.2)
-        _tpsList.Add(1.9)
-        _tpsList.Add(2.5)
-        _tpsList.Add(3.1)
-        _tpsList.Add(3.7)
-        _tpsList.Add(4.4)
-        _tpsList.Add(6)
-        _tpsList.Add(7)
-        _tpsList.Add(8)
-        _tpsList.Add(9)
-        _tpsList.Add(11)
-        _tpsList.Add(16)
-        _tpsList.Add(21)
-        _tpsList.Add(25)
-        _tpsList.Add(30)
-        _tpsList.Add(40)
-        _tpsList.Add(50)
-        _tpsList.Add(60)
-        _tpsList.Add(70)
-        _tpsList.Add(90)
-        _tpsList.Add(100)
+        If ECUVersion = "gen2" Then
+
+            _tpsList.Add(1.9)
+            _tpsList.Add(2.5)
+            _tpsList.Add(3.1)
+            _tpsList.Add(3.7)
+            _tpsList.Add(4.4)
+            _tpsList.Add(6)
+            _tpsList.Add(7)
+            _tpsList.Add(8)
+            _tpsList.Add(9)
+            _tpsList.Add(11)
+            _tpsList.Add(16)
+            _tpsList.Add(21)
+            _tpsList.Add(25)
+            _tpsList.Add(30)
+            _tpsList.Add(40)
+            _tpsList.Add(50)
+            _tpsList.Add(55)
+            _tpsList.Add(60)
+            _tpsList.Add(65)
+            _tpsList.Add(70)
+            _tpsList.Add(80)
+            _tpsList.Add(90)
+            _tpsList.Add(100)
+
+        Else
+
+            _tpsList.Add(0)
+            _tpsList.Add(0.6)
+            _tpsList.Add(1.2)
+            _tpsList.Add(1.9)
+            _tpsList.Add(2.5)
+            _tpsList.Add(3.1)
+            _tpsList.Add(3.7)
+            _tpsList.Add(4.4)
+            _tpsList.Add(6)
+            _tpsList.Add(7)
+            _tpsList.Add(8)
+            _tpsList.Add(9)
+            _tpsList.Add(11)
+            _tpsList.Add(16)
+            _tpsList.Add(21)
+            _tpsList.Add(25)
+            _tpsList.Add(30)
+            _tpsList.Add(40)
+            _tpsList.Add(50)
+            _tpsList.Add(60)
+            _tpsList.Add(70)
+            _tpsList.Add(90)
+            _tpsList.Add(100)
+
+        End If
 
         _iapList.Add(68)
         _iapList.Add(59)
@@ -275,6 +305,7 @@ Public Class K8EngineDataViewer
                 L_FileName.Text = _filePath
 
                 Dim reader As TextReader = New StreamReader(_filePath)
+                Dim previousLogValue As New LogValue
 
                 Dim lineCount As Integer
                 Dim nextLine As String = reader.ReadLine()
@@ -325,6 +356,10 @@ Public Class K8EngineDataViewer
                         End If
 
                         If CheckEngineDataFilter(logValue) = True Then
+
+                            If previousLogValue Is Nothing = False And logValue.TPS >= 11 And logValue.RPM - previousLogValue.RPM > My.Settings.AutoTuneExhaustGasOffset / 2 Then
+                                logValue.RPM = logValue.RPM - My.Settings.AutoTuneExhaustGasOffset
+                            End If
 
                             Dim tpsIndex As Integer
                             Dim iapIndex As Integer
@@ -429,6 +464,8 @@ Public Class K8EngineDataViewer
                             End If
 
                         End If
+
+                        previousLogValue = logValue
 
                     End If
 
