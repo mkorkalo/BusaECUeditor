@@ -170,6 +170,9 @@ Public Class main
             Case "bking"
                 K8Datastream.Show()
                 K8Datastream.Select()
+            Case "GixxerK5"
+                K8Datastream.Show()
+                K8Datastream.Select()
             Case Else
                 MsgBox("Feature not yet implemented")
         End Select
@@ -2379,11 +2382,14 @@ Public Class main
             For x = 1 To rxqueue
                 FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
             Next
+
+
             If (rxbyte <> ACK) Then
                 MsgBox("Unexpected or missing ECU response during intialization. Verify aborted, reset ecu and retry." & Hex(rxqueue) & " " & Hex(rxbyte))
                 FT_status = FT_Close(lngHandle)
                 Return
             End If
+
             '
             ' check key status and send key if necessary
             '
@@ -3053,6 +3059,10 @@ Public Class main
                 Hayabusa.Text = "Bking USA (California)"
                 Metric = False
                 ECUVersion = "bking"
+            Case "41G10___"
+                Hayabusa.Text = "Gixxer K5-K6 enginedata only"
+                Metric = False
+                ECUVersion = "GixxerK5"
             Case Else
                 Hayabusa.Text = "Hayabusa gen2 unknown model"
                 Metric = True
@@ -4415,6 +4425,20 @@ Public Class main
     Private Sub B_DataLogging_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_DataLogging.Click
 
         K8EngineDataLogger.Show()
+
+    End Sub
+
+    Private Sub GixxerK5K6EnginedataOnlyToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GixxerK5K6EnginedataOnlyToolStripMenuItem.Click
+        CloseChildWindows()
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        DisableButtons()
+
+        ECUID.Text = "41G10___"
+        SetECUType()
+
+        ' enable controls, otherwise at form load an event will occur
+        B_EngineData.Enabled = True
 
     End Sub
 End Class

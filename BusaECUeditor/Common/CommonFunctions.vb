@@ -746,6 +746,10 @@ Module CommonFunctions
 
                 End If
 
+            ElseIf ECUVersion = "GixxerK5" Then
+
+                Return 10400
+
             End If
 
         End Get
