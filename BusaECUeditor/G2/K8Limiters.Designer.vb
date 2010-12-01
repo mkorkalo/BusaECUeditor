@@ -29,12 +29,14 @@ Partial Class K8Limiters
         Me.Label1 = New System.Windows.Forms.Label
         Me.Label5 = New System.Windows.Forms.Label
         Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
+        Me.Label4 = New System.Windows.Forms.Label
+        Me.NTCLT = New System.Windows.Forms.ComboBox
         Me.SuspendLayout()
         '
         'C_gearlimiter
         '
         Me.C_gearlimiter.AutoSize = True
-        Me.C_gearlimiter.Location = New System.Drawing.Point(142, 57)
+        Me.C_gearlimiter.Location = New System.Drawing.Point(142, 82)
         Me.C_gearlimiter.Name = "C_gearlimiter"
         Me.C_gearlimiter.Size = New System.Drawing.Size(15, 14)
         Me.C_gearlimiter.TabIndex = 19
@@ -43,7 +45,7 @@ Partial Class K8Limiters
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 58)
+        Me.Label3.Location = New System.Drawing.Point(13, 83)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(80, 13)
         Me.Label3.TabIndex = 18
@@ -71,7 +73,7 @@ Partial Class K8Limiters
         'Hardcut
         '
         Me.Hardcut.AutoSize = True
-        Me.Hardcut.Location = New System.Drawing.Point(142, 89)
+        Me.Hardcut.Location = New System.Drawing.Point(142, 102)
         Me.Hardcut.Name = "Hardcut"
         Me.Hardcut.Size = New System.Drawing.Size(15, 14)
         Me.Hardcut.TabIndex = 21
@@ -80,7 +82,7 @@ Partial Class K8Limiters
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 90)
+        Me.Label1.Location = New System.Drawing.Point(13, 102)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(100, 13)
         Me.Label1.TabIndex = 22
@@ -89,7 +91,7 @@ Partial Class K8Limiters
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(12, 119)
+        Me.Label5.Location = New System.Drawing.Point(11, 122)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(364, 13)
         Me.Label5.TabIndex = 26
@@ -103,11 +105,32 @@ Partial Class K8Limiters
         Me.PrintForm1.PrinterSettings = CType(resources.GetObject("PrintForm1.PrinterSettings"), System.Drawing.Printing.PrinterSettings)
         Me.PrintForm1.PrintFileName = Nothing
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(13, 53)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(76, 13)
+        Me.Label4.TabIndex = 27
+        Me.Label4.Text = "NT/CLT limiter"
+        '
+        'NTCLT
+        '
+        Me.NTCLT.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.NTCLT.Enabled = False
+        Me.NTCLT.FormattingEnabled = True
+        Me.NTCLT.Location = New System.Drawing.Point(142, 50)
+        Me.NTCLT.Name = "NTCLT"
+        Me.NTCLT.Size = New System.Drawing.Size(84, 21)
+        Me.NTCLT.TabIndex = 28
+        '
         'K8Limiters
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(387, 144)
+        Me.Controls.Add(Me.NTCLT)
+        Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Hardcut)
@@ -133,4 +156,6 @@ Partial Class K8Limiters
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents PrintForm1 As Microsoft.VisualBasic.PowerPacks.Printing.PrintForm
+    Friend WithEvents NTCLT As System.Windows.Forms.ComboBox
+    Friend WithEvents Label4 As System.Windows.Forms.Label
 End Class
