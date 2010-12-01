@@ -578,9 +578,13 @@ Public Class K8Datastream
                 rxsptr = 0
                 Select Case ECUversion
                     Case "gen2"
-                        Me.Text = "Hayabusa Ecueditor2 - Enginedata active..."
+                        Me.Text = "Hayabusa Ecueditor2 - Gen2 Enginedata active..."
                     Case "bking"
                         Me.Text = "Hayabusa Ecueditor2 - Bking Enginedata active..."
+                    Case "GixxerK5"
+                        Me.Text = "Hayabusa Ecueditor2 - Gsx1000R K5K6 Enginedata active...(testing only)"
+                    Case Else
+                        MsgBox("Not known ecuversion...")
                 End Select
                 Timer2.Enabled = True
 
@@ -965,8 +969,11 @@ Public Class K8Datastream
                             'MsgBox("Please change fuelmap Mode to same as the gauge shows")
                         End If
                     End If
+                Case Else
+                    '  not implemented for other models
             End Select
         End If
+
         If Ignitionmapvisible Then K8Ignitionmap.tracemap()
         If K8boostfuel.Visible Then K8boostfuel.tracemap()
         If K8STPmap.Visible Then K8STPmap.tracemap(GEAR, MS, MODE)
