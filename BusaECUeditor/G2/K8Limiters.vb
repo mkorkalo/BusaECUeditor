@@ -77,17 +77,17 @@ Public Class K8Limiters
         writeflashword(&H739E6, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1)))
         writeflashword(&H739E8, Int((rpmconv / (addedrpm + (rpmconv / &H547)) + 1)))
         writeflashword(&H739EA, Int((rpmconv / (addedrpm + (rpmconv / &H53B)) + 1)))
-        writeflashword(&H739EC, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1)))
+        WriteFlashWord(&H739EC, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1))) ' 11304rpm
         '
         ' RPM/Fuel hard type 2, this is modified higher than stock as ecu default is not used in this case
         '
-        writeflashword(&H739EE, Int((rpmconv / (addedrpm + (rpmconv / &H53B)) + 1)))
-        writeflashword(&H739F0, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1)))
+        WriteFlashWord(&H739EE, Int((rpmconv / (addedrpm + (rpmconv / &H53B)) + 1)))
+        WriteFlashWord(&H739F0, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1)))
         '
         ' RPM/Fuel soft hard type 3 neutral, this is modified to be same as type2
         '
-        writeflashword(&H739F2, Int((rpmconv / (addedrpm + (rpmconv / &H53B)) + 1)))
-        writeflashword(&H739F4, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1)))
+        'writeflashword(&H739F2, Int((rpmconv / (addedrpm + (rpmconv / &H53B)) + 1)))
+        'writeflashword(&H739F4, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1)))
         '
         ' RPM limiter type 6, this is the limiter when FI light is on but still running normally
         '
@@ -101,10 +101,10 @@ Public Class K8Limiters
         '
         writeflashword(&H72A68, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'normal limiter 11450rpm
         WriteFlashWord(&H72A6A, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'normal limiter 11601rpm
-        writeflashword(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'clutch limiter at 10901 modified to same as normal ignition limiter
-        WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'clutch limiter at 10997 modified to same as normal ignition limiter
-        writeflashword(&H72A74, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'On TPS limiter 11450rpm - a bit unsure about condition triggering this one
-        WriteFlashWord(&H72A76, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'On TPS limiter 11601rpm - a bit unsure about condition triggering this one
+        'writeflashword(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'clutch limiter at 10901 modified to same as normal ignition limiter
+        'WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'clutch limiter at 10997 modified to same as normal ignition limiter
+        'writeflashword(&H72A74, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'On TPS limiter 11450rpm - a bit unsure about condition triggering this one
+        'WriteFlashWord(&H72A76, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'On TPS limiter 11601rpm - a bit unsure about condition triggering this one
 
 
     End Sub
@@ -150,18 +150,31 @@ Public Class K8Limiters
         i = readflashword(&H739EC) ' this is the reference RPM that is stored in the system
         i = Int(((rpmconv / (i + 0))) + 1)
         i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
-
         Me.RPM.Items.Add(i.ToString())
-
         i = 10000
-        Do While i < 13000 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
+        Do While i < 13500 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
             Me.RPM.Items.Add(i.ToString())
             i = i + 100
         Loop
         Me.RPM.Items.Add(i.ToString())
 
+        'populate NTCLT with initial value
+        i = ReadFlashWord(&H739F4) ' this is the reference RPM that is stored in the system
+        i = Int(((rpmconv / (i + 0))) + 1)
+        i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
+        Me.NTCLT.Items.Add(i.ToString())
+        i = 3000
+        Do While i < 13500 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
+            Me.NTCLT.Items.Add(i.ToString())
+            i = i + 100
+        Loop
+        Me.NTCLT.Items.Add(i.ToString())
+
+
         Me.RPM.SelectedIndex = 0
         Me.RPM.Enabled = True
+        Me.NTCLT.SelectedIndex = 0
+        Me.NTCLT.Enabled = True
 
     End Sub
 
@@ -181,4 +194,39 @@ Public Class K8Limiters
         Me.Close()
     End Sub
 
+    Private Sub NTCLT_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NTCLT.SelectedIndexChanged
+        Dim i As Integer
+        Dim baseline As Integer
+
+        '
+        ' RPM/Fuel hard type 2, this is modified higher than stock as ecu default is not used in this case
+        '
+        baseline = 10601
+        ' Set various RPM limits based on RPM value selected
+        i = Val(NTCLT.Text)
+        addedrpm = i - baseline ' we are just setting here the baseline
+        '
+        ' RPM/Fuel soft hard type 3 neutral, stock settings
+        '
+        WriteFlashWord(&H739F2, Int((rpmconv / (addedrpm + (rpmconv / &H594)) + 1)))
+        WriteFlashWord(&H739F4, Int((rpmconv / (addedrpm + (rpmconv / &H587)) + 1)))
+        '
+        ' RPM/Fuel soft hard type 5, small tps position
+        '
+        'WriteFlashWord(&H739FC, Int((rpmconv / (addedrpm + (rpmconv / &H1FAC)) + 1)))
+        'WriteFlashWord(&H739FA, Int((rpmconv / (addedrpm + (rpmconv / &H1FD8)) + 1)))
+        '
+        ' RPM/Ignition clutched limiters, stock settings
+        '
+        WriteFlashWord(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H560)) + 1)))
+        WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1)))
+        WriteFlashWord(&H72A74, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'On TPS limiter 11450rpm - a bit unsure about condition triggering this one
+        WriteFlashWord(&H72A76, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'On TPS limiter 11601rpm - a bit unsure about condition triggering this one
+
+        If i >= 11500 Then
+            C_gearlimiter.Checked = True
+        End If
+
+
+    End Sub
 End Class
