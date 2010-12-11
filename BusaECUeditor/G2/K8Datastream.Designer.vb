@@ -409,7 +409,7 @@ Partial Class K8Datastream
         Me.Label2.ForeColor = System.Drawing.Color.DarkRed
         Me.Label2.Location = New System.Drawing.Point(286, 175)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(31, 22)
+        Me.Label2.Size = New System.Drawing.Size(32, 22)
         Me.Label2.TabIndex = 88
         Me.Label2.Text = "11"
         '
@@ -1466,7 +1466,7 @@ Partial Class K8Datastream
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Silver
-        Me.ClientSize = New System.Drawing.Size(731, 551)
+        Me.ClientSize = New System.Drawing.Size(731, 543)
         Me.Controls.Add(Me.B_FANOFF)
         Me.Controls.Add(Me.B_FANON)
         Me.Controls.Add(Me.B_ICS)

@@ -25,14 +25,18 @@
 	SIO2, TXD2 is connecte to P17, bit4. Normally that pin sends out the gaugedata to hayabusa gauge cluster
 	anyhow this program just sets it low / high when errorcode is present.
 	
+	v1.01, testing for removing the gear on setting an errorcode
+	
 */
 
-#define ECU_FI *(volatile unsigned char *)  		0x00806784
+#define ECU_FI *(volatile unsigned char *)  			0x00806784
+#define ECU_KWPDTC1 *(volatile unsigned char *)  		0x00806786
 #define ECU_KWPDTC2 *(volatile unsigned char *)  		0x00806787
 #define ECU_KWPDTC3 *(volatile unsigned char *)  		0x00806788
 #define ECU_KWPDTC4 *(volatile unsigned char *)  		0x00806789
 #define ECU_KWPDTC5 *(volatile unsigned char *)  		0x0080678A
 #define ECU_KWPDTC6 *(volatile unsigned char *)  		0x0080678B
+
 
 #define PORT1   *(volatile unsigned char *)  				0x00800701 // bit5 = PAIR
 
@@ -47,7 +51,7 @@
 
 
 #pragma SECTION C PARAMS //0x59DC0
-const short const_pgmid = 				100;			// 0 program id, must match to ecueditor version to be able to load this code to ecu
+const short const_pgmid = 				101;			// 0 program id, must match to ecueditor version to be able to load this code to ecu
 const char FI_LED_no_gauges = 			0;
 
 #pragma SECTION P TOOLSCODE //0x59E00
@@ -66,7 +70,12 @@ if ((P17MOD & TXD2) != 0)
 */
 if (FI_LED_no_gauges == 0)
 {
-	if (((ECU_KWPDTC3 & 0xCF) == 0) && ((ECU_KWPDTC4 & 0xFB)== 0) && ((ECU_KWPDTC5 & 0xE0)  == 0) && ((ECU_KWPDTC6 & 0xFD) == 0))
+	if (((ECU_KWPDTC1 & (0xFF - 0xFF))== 0) &&  // first element is TST switch and  TPS _C00 setting
+		((ECU_KWPDTC2 & (0xFF - 0x80))== 0)  && // unknown flag ???	
+		((ECU_KWPDTC3 & (0xFF - 0x00))== 0)  && 	
+		((ECU_KWPDTC4 & (0xFF - 0x00))== 0)  &&
+		((ECU_KWPDTC5 & (0xFF - 0xE0))== 0)  &&	// remove gears as errors
+		((ECU_KWPDTC6 & (0xFF - 0x00)) == 0))	
 	{
 		P17DATA = P17DATA & (0xFF - TXD2);
 	}
