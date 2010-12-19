@@ -389,11 +389,13 @@ Public Class K8shifter
 
             If Not C_DSMactivation.Checked Then
                 C_DSMactivation.Text = "Normal GPS resistor activation"
+                P_shifterwiring.Image = Image.FromFile(".\G2\shifter.jpg")
                 WriteFlashByte(&H55420, 0)
                 G_DSMACTIVATION.Visible = False
                 Me.Height = 613
             Else
                 C_DSMactivation.Text = "DSM2 and resistor activation"
+                P_shifterwiring.Image = Image.FromFile(".\G2\shifter_DSM.jpg")
                 If ReadFlashByte(&H72558) = &HFF Then
                     K8Advsettings.Show()
                     If K8Advsettings.C_ABCmode.Checked <> False Then
@@ -403,7 +405,7 @@ Public Class K8shifter
                 End If
                 WriteFlashByte(&H55420, 1) ' 1 = DSM2, 2 = DSM1
                 G_DSMACTIVATION.Visible = True
-                Me.Height = 263
+                Me.Height = 613 'Me.Height = 263
                 End If
         End If
 
