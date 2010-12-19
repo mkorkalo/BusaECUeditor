@@ -1141,4 +1141,9 @@ Public Class K8Advsettings
         End If
 
     End Sub
+
+    Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_dragtools.Click
+        k8dragtools.show()
+        k8dragtools.select()
+    End Sub
 End Class

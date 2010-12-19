@@ -63,11 +63,11 @@ Partial Class K8shifter
         Me.L_shifterver = New System.Windows.Forms.Label
         Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.HelpProvider1 = New System.Windows.Forms.HelpProvider
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox
+        Me.P_shifterwiring = New System.Windows.Forms.PictureBox
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.GroupBox2.SuspendLayout()
         Me.G_DSMACTIVATION.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.P_shifterwiring, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'C_shifter_activation
@@ -473,15 +473,15 @@ Partial Class K8shifter
         Me.PrintForm1.PrinterSettings = CType(resources.GetObject("PrintForm1.PrinterSettings"), System.Drawing.Printing.PrinterSettings)
         Me.PrintForm1.PrintFileName = Nothing
         '
-        'PictureBox1
+        'P_shifterwiring
         '
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(15, 242)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(522, 339)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 43
-        Me.PictureBox1.TabStop = False
+        Me.P_shifterwiring.Image = CType(resources.GetObject("P_shifterwiring.Image"), System.Drawing.Image)
+        Me.P_shifterwiring.Location = New System.Drawing.Point(15, 242)
+        Me.P_shifterwiring.Name = "P_shifterwiring"
+        Me.P_shifterwiring.Size = New System.Drawing.Size(522, 339)
+        Me.P_shifterwiring.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.P_shifterwiring.TabIndex = 43
+        Me.P_shifterwiring.TabStop = False
         '
         'ToolTip1
         '
@@ -493,8 +493,8 @@ Partial Class K8shifter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(549, 239)
-        Me.Controls.Add(Me.PictureBox1)
+        Me.ClientSize = New System.Drawing.Size(549, 602)
+        Me.Controls.Add(Me.P_shifterwiring)
         Me.Controls.Add(Me.L_shifterver)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.Label2)
@@ -516,7 +516,7 @@ Partial Class K8shifter
         Me.GroupBox2.PerformLayout()
         Me.G_DSMACTIVATION.ResumeLayout(False)
         Me.G_DSMACTIVATION.PerformLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.P_shifterwiring, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -556,7 +556,7 @@ Partial Class K8shifter
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents RPM1 As System.Windows.Forms.ComboBox
     Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
+    Friend WithEvents P_shifterwiring As System.Windows.Forms.PictureBox
     Friend WithEvents RPM456 As System.Windows.Forms.ComboBox
     Friend WithEvents RPM3 As System.Windows.Forms.ComboBox
     Friend WithEvents RPM2 As System.Windows.Forms.ComboBox

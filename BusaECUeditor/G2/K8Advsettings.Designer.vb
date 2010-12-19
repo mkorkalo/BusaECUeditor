@@ -47,6 +47,8 @@ Partial Class K8Advsettings
         Me.C_PAIR = New System.Windows.Forms.CheckBox
         Me.B_boostfuel = New System.Windows.Forms.Button
         Me.GroupBox5 = New System.Windows.Forms.GroupBox
+        Me.B_dragtools = New System.Windows.Forms.Button
+        Me.Label12 = New System.Windows.Forms.Label
         Me.Label8 = New System.Windows.Forms.Label
         Me.Label1 = New System.Windows.Forms.Label
         Me.Button2 = New System.Windows.Forms.Button
@@ -359,16 +361,36 @@ Partial Class K8Advsettings
         '
         'GroupBox5
         '
+        Me.GroupBox5.Controls.Add(Me.B_dragtools)
+        Me.GroupBox5.Controls.Add(Me.Label12)
         Me.GroupBox5.Controls.Add(Me.Label8)
         Me.GroupBox5.Controls.Add(Me.Label1)
         Me.GroupBox5.Controls.Add(Me.Button2)
         Me.GroupBox5.Controls.Add(Me.B_boostfuel)
         Me.GroupBox5.Location = New System.Drawing.Point(179, 12)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(213, 85)
+        Me.GroupBox5.Size = New System.Drawing.Size(213, 118)
         Me.GroupBox5.TabIndex = 40
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Powertools"
+        '
+        'B_dragtools
+        '
+        Me.B_dragtools.Location = New System.Drawing.Point(111, 75)
+        Me.B_dragtools.Name = "B_dragtools"
+        Me.B_dragtools.Size = New System.Drawing.Size(81, 22)
+        Me.B_dragtools.TabIndex = 44
+        Me.B_dragtools.Text = "Dragtools"
+        Me.B_dragtools.UseVisualStyleBackColor = True
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(7, 80)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(97, 13)
+        Me.Label12.TabIndex = 43
+        Me.Label12.Text = "Set power delivery "
         '
         'Label8
         '
@@ -499,9 +521,9 @@ Partial Class K8Advsettings
         Me.GroupBox9.Controls.Add(Me.Label9)
         Me.GroupBox9.Controls.Add(Me.Button1)
         Me.GroupBox9.Controls.Add(Me.Label7)
-        Me.GroupBox9.Location = New System.Drawing.Point(178, 103)
+        Me.GroupBox9.Location = New System.Drawing.Point(178, 139)
         Me.GroupBox9.Name = "GroupBox9"
-        Me.GroupBox9.Size = New System.Drawing.Size(214, 167)
+        Me.GroupBox9.Size = New System.Drawing.Size(214, 131)
         Me.GroupBox9.TabIndex = 44
         Me.GroupBox9.TabStop = False
         Me.GroupBox9.Text = "Misc maps"
@@ -712,4 +734,6 @@ Partial Class K8Advsettings
     Friend WithEvents C_DatalogO2Sensor As System.Windows.Forms.CheckBox
     Friend WithEvents C_warmup As System.Windows.Forms.CheckBox
     Friend WithEvents C_FastBaudRate As System.Windows.Forms.CheckBox
+    Friend WithEvents B_dragtools As System.Windows.Forms.Button
+    Friend WithEvents Label12 As System.Windows.Forms.Label
 End Class
