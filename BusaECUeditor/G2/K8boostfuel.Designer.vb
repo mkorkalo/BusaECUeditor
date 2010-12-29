@@ -39,6 +39,7 @@ Partial Class K8boostfuel
         Me.C_bleed = New System.Windows.Forms.CheckBox
         Me.Label5 = New System.Windows.Forms.Label
         Me.G_boosttable = New System.Windows.Forms.GroupBox
+        Me.B_rescale = New System.Windows.Forms.Button
         Me.B_Apply_Map = New System.Windows.Forms.Button
         Me.Label6 = New System.Windows.Forms.Label
         Me.T_overboost = New System.Windows.Forms.TextBox
@@ -46,7 +47,6 @@ Partial Class K8boostfuel
         Me.Label7 = New System.Windows.Forms.Label
         Me.C_fueladd = New System.Windows.Forms.CheckBox
         Me.Button1 = New System.Windows.Forms.Button
-        Me.B_rescale = New System.Windows.Forms.Button
         Me.K8boostfuelBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.D_boostfuel, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_BOOST, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -232,6 +232,17 @@ Partial Class K8boostfuel
         Me.G_boosttable.TabStop = False
         Me.G_boosttable.Text = "Fuel% to add per rpm/boost area"
         '
+        'B_rescale
+        '
+        Me.B_rescale.Location = New System.Drawing.Point(485, 298)
+        Me.B_rescale.Name = "B_rescale"
+        Me.B_rescale.Size = New System.Drawing.Size(83, 21)
+        Me.B_rescale.TabIndex = 87
+        Me.B_rescale.Text = "GM3bar"
+        Me.ToolTip1.SetToolTip(Me.B_rescale, "Rescale changes the pressure scale. If this button is used then the full map need" & _
+                "s to be retuned as the pressure columns are changed.")
+        Me.B_rescale.UseVisualStyleBackColor = True
+        '
         'B_Apply_Map
         '
         Me.B_Apply_Map.Location = New System.Drawing.Point(574, 298)
@@ -297,17 +308,6 @@ Partial Class K8boostfuel
         Me.Button1.TabIndex = 86
         Me.Button1.Text = "Help"
         Me.Button1.UseVisualStyleBackColor = True
-        '
-        'B_rescale
-        '
-        Me.B_rescale.Location = New System.Drawing.Point(485, 298)
-        Me.B_rescale.Name = "B_rescale"
-        Me.B_rescale.Size = New System.Drawing.Size(83, 21)
-        Me.B_rescale.TabIndex = 87
-        Me.B_rescale.Text = "Rescale"
-        Me.ToolTip1.SetToolTip(Me.B_rescale, "Rescale changes the pressure scale. If this button is used then the full map need" & _
-                "s to be retuned as the pressure columns are changed.")
-        Me.B_rescale.UseVisualStyleBackColor = True
         '
         'K8boostfuelBindingSource
         '

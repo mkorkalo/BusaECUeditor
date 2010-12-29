@@ -5,7 +5,7 @@ Public Class K8gaugetools
     Dim ADJ As Integer = &H59DC0 '&HFF if shifter inactive, no code present else shifter active
     Dim TOOLSCODE As Integer = &H59E00
     Dim IDTAG As Integer = &H59DC0
-    Dim TOOLSVERSION As Integer = 101
+    Dim TOOLSVERSION As Integer = 102
     Dim toolscodelenght As Integer = &H59FFF - &H59E00 - 1 'lenght of the shifter code in bytes for clearing the memory
     Dim initiating As Boolean = True
 

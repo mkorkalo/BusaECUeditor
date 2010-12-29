@@ -51,7 +51,7 @@
 
 
 #pragma SECTION C PARAMS //0x59DC0
-const short const_pgmid = 				101;			// 0 program id, must match to ecueditor version to be able to load this code to ecu
+const short const_pgmid = 				102;			// 0 program id, must match to ecueditor version to be able to load this code to ecu
 const char FI_LED_no_gauges = 			0;
 
 #pragma SECTION P TOOLSCODE //0x59E00
@@ -75,7 +75,7 @@ if (FI_LED_no_gauges == 0)
 		((ECU_KWPDTC3 & (0xFF - 0x00))== 0)  && 	
 		((ECU_KWPDTC4 & (0xFF - 0x00))== 0)  &&
 		((ECU_KWPDTC5 & (0xFF - 0xE0))== 0)  &&	// remove gears as errors
-		((ECU_KWPDTC6 & (0xFF - 0x00)) == 0))	
+		((ECU_KWPDTC6 & (0xFF - 0x07)) == 0))	// remove ABC display as error
 	{
 		P17DATA = P17DATA & (0xFF - TXD2);
 	}
