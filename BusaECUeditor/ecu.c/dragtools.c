@@ -61,7 +61,7 @@
 #define	previousgear *(volatile unsigned short *)  		(ramaddr + 0x64)
 #define	overboost *(volatile unsigned char *)  			(ramaddr + 0x64 + 4) /* this is a joint variable with turbofuel module */
 #define	duration_kill *(volatile unsigned short *)  	(ramaddr + 0x64 + 8)
-#define	minimum_killrpm *(volatile unsigned short *)  		(ramaddr + 0x64 + 12)
+#define	minimum_killrpm *(volatile unsigned short *)  	(ramaddr + 0x64 + 12)
 
 
 
@@ -78,43 +78,18 @@
 #define TXD2						0x8		
 
 
-#pragma SECTION C PARAMS //0x59DC0
+#pragma SECTION C PARAMS //0x5A000
 const short const_pgmid = 				100;			// 0 program id, must match to ecueditor version to be able to load this code to ecu
-const char FI_LED_no_gauges = 			0;
 
-#pragma SECTION P TOOLSCODE //0x59E00
+#pragma SECTION P TOOLSCODE //0x5A100
 void toolsmain(void)
 {
-
-if ((P17MOD & TXD2) != 0)
-{
-	P17MOD = P17MOD & (0xFF - TXD2);		// Set as port P174 of TXD2
-	P17DIR = P17DIR | TXD2;					// Set port 17 TXD2 bit to output
-}
-
 /*
-	This algorithm sets the port to +5V when errorcode present in ecu
-	Masked those bits which are present with C00 anyway
+	Here is the main program
 */
-if (FI_LED_no_gauges == 0)
-{
-	if (((ECU_KWPDTC1 & (0xFF - 0xFF))== 0) &&  // first element is TST switch and  TPS _C00 setting
-		((ECU_KWPDTC2 & (0xFF - 0x80))== 0)  && // unknown flag ???	
-		((ECU_KWPDTC3 & (0xFF - 0x00))== 0)  && 	
-		((ECU_KWPDTC4 & (0xFF - 0x00))== 0)  &&
-		((ECU_KWPDTC5 & (0xFF - 0xE0))== 0)  &&	// remove gears as errors
-		((ECU_KWPDTC6 & (0xFF - 0x00)) == 0))	
-	{
-		P17DATA = P17DATA & (0xFF - TXD2);
-	}
-	else
-	{
-		P17DATA = P17DATA | TXD2;		
-	}
-}
 
 /*
-	This is inline assembly put at the end of the fuelcut code that returns control back to main loop in the ecu code.
+	This is inline assembly put at the end of the code that returns control back to main loop in the ecu code.
 */
 #pragma keyword asm on
 	asm(

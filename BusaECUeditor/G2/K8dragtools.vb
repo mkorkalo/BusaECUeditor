@@ -24,9 +24,9 @@ Imports System.Windows.Forms
 Imports System.IO
 
 Public Class K8dragtools
-    Dim ADJ As Integer = &H55800 '&HFF if dragtools inactive, no code present else dragtools active
-    Dim dragtoolsCODE As Integer = &H55A00
-    Dim IDTAG As Integer = &H55800
+    Dim ADJ As Integer = &H5A000 '&HFF if dragtools inactive, no code present else dragtools active
+    Dim dragtoolsCODE As Integer = &H5A100
+    Dim IDTAG As Integer = &H5A000
     Dim dragtoolsVERSION As Integer = 100
     Dim dragtoolscodelenght As Integer = &H1000 'lenght of the dragtools code in bytes for clearing the memory
 
@@ -218,4 +218,21 @@ Public Class K8dragtools
         System.Diagnostics.Process.Start("http://www.ecueditor.com")
     End Sub
 
+    Private Sub C_dragtools_activation_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_dragtools_activation.CheckedChanged
+        If C_dragtools_activation.Checked Then
+            C_dragtools_activation.Text = "Code active"
+            If (ReadFlashByte(ADJ) = &HFF) Then
+                modify_original_ECU_code(True)
+                dragtools_code_in_memory(True, dragtoolscodelenght)
+                ' generate_map_table()
+            End If
+            'read_dragtools_settings()
+        Else
+            C_dragtools_activation.Text = "Code not active"
+            modify_original_ECU_code(False)
+            dragtools_code_in_memory(False, dragtoolscodelenght)
+            'hide_boostfuel_settings()
+        End If
+
+    End Sub
 End Class

@@ -252,6 +252,15 @@ Public Class K8boostfuel
             C_fueladd.Checked = False
         End If
 
+        Select Case ReadFlashByte(&H55844)
+            Case &H52
+                B_rescale.Text = "GM3bar"
+            Case Int(&H52 * 1.18)
+                B_rescale.Text = "GM3bar ext"
+            Case Else ' return back to GM3 bar standard map
+                B_rescale.Text = "SSI5bar"
+        End Select
+
         D_boostfuel.Visible = True
         C_solenoidcontrol.Visible = True
         solenoidcontrol_visible()
@@ -292,10 +301,24 @@ Public Class K8boostfuel
         c = 0
         Do While c < D_boostfuel.ColumnCount
             i = ReadFlashByte(columnheading_map + c)
-            If metric Then
-                D_boostfuel.Columns.Item(c).HeaderText = Int(((((i / 50.5) * 9.2) - 14.7) / 14.7) * 100)
+
+            If B_rescale.Text.Contains("GM3") Then
+                If Metric Then
+                    D_boostfuel.Columns.Item(c).HeaderText = Int(((((i / 50.5) * 9.2) - 14.7) / 14.7) * 100)
+                Else
+                    D_boostfuel.Columns.Item(c).HeaderText = Int(((((i / 50.5) * 9.2) - 14.7)))
+                End If
             Else
-                D_boostfuel.Columns.Item(c).HeaderText = Int(((((i / 50.5) * 9.2) - 14.7)))
+                '
+                ' SSI5 bar calculates this differently
+                '
+                If Metric Then
+                    'D_boostfuel.Columns.Item(c).HeaderText = Int(((((i / 50.5) * 9.2) - 14.7) / 14.7) * 100) * 1.5
+                    D_boostfuel.Columns.Item(c).HeaderText = "n/a"
+                Else
+                    'D_boostfuel.Columns.Item(c).HeaderText = Int(((((i / 50.5) * 9.2) - 14.7))) * 1.5
+                    D_boostfuel.Columns.Item(c).HeaderText = "n/a"
+                End If
             End If
             D_boostfuel.Columns.Item(c).Width = 35
             c = c + 1
@@ -662,12 +685,25 @@ Public Class K8boostfuel
         Dim i As Integer
         Dim c As Integer
         Dim r As Integer
-
-        If metric Then
-            i = Int(((((BOOST / 50.5) * 9.2) - 14.7) / 14.7) * 100)
+        If B_rescale.Text.Contains("GM3") Then
+            If Metric Then
+                i = Int(((((BOOST / 50.5) * 9.2) - 14.7) / 14.7) * 100)
+            Else
+                i = Int(((((BOOST / 50.5) * 9.2) - 14.7)))
+            End If
         Else
-            i = Int(((((BOOST / 50.5) * 9.2) - 14.7)))
+            '
+            ' ssI5BAR sensor calculates differently
+            '
+            If Metric Then
+                'i = Int(((((BOOST / 50.5) * 9.2) - 14.7) / 14.7) * 100)
+                i = 0
+            Else
+                'i = Int(((((BOOST / 50.5) * 9.2) - 14.7)))
+                i = 0
+            End If
         End If
+
         LED_BOOST.Text = Str(i)
 
         If C_boostfuel_activation.Checked = True Then
@@ -782,10 +818,24 @@ Public Class K8boostfuel
         Do While (r < D_duty.RowCount)
 
             If (r = 0) Or (r = 1) Then
-                If metric Then
-                    D_duty.Item(c, r).Value = Int(((((ReadFlashWord((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7) / 14.7) * 100)
+                If B_rescale.Text.Contains("GM3") Then
+                    If Metric Then
+                        D_duty.Item(c, r).Value = Int(((((ReadFlashWord((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7) / 14.7) * 100)
+                    Else
+                        D_duty.Item(c, r).Value = Int(((((ReadFlashWord((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7)))
+                    End If
                 Else
-                    D_duty.Item(c, r).Value = Int(((((ReadFlashWord((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7)))
+                    '
+                    ' SSI5 bar sensor calculates differently
+                    '
+                    If Metric Then
+                        'D_duty.Item(c, r).Value = Int(((((ReadFlashWord((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7) / 14.7) * 100) * 1.5
+                        D_duty.Item(c, r).Value = 0
+                    Else
+                        'D_duty.Item(c, r).Value = Int(((((ReadFlashWord((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7))) * 1.5
+                        D_duty.Item(c, r).Value = 0
+                    End If
+
                 End If
             Else
                 'If Not ((C_bleed.Checked) And (r = 2)) Then
@@ -796,13 +846,13 @@ Public Class K8boostfuel
                 'D_duty.Item(c, r).Value = Int((ReadFlashWord((i * 2) + &H559A0)))
             End If
 
-            If c < D_duty.ColumnCount - 1 Then
-                c = c + 1
-            Else
-                c = 0
-                r = r + 1
-            End If
-            i = i + 1
+                If c < D_duty.ColumnCount - 1 Then
+                    c = c + 1
+                Else
+                    c = 0
+                    r = r + 1
+                End If
+                i = i + 1
         Loop
 
         If metric Then
@@ -885,10 +935,23 @@ Public Class K8boostfuel
             If Abs(Val(T_overboost.Text)) <= 5 Then T_overboost.Text = "5"
             If Abs(Val(T_overboost.Text)) > 250 Then T_overboost.Text = "250"
 
-            If metric Then
-                WriteFlashWord(&H55802, (((14.7 * Int(T_overboost.Text) / 100) + 14.7) * 50.5 / 9.2))
+            If B_rescale.Text.Contains("GM3") Then
+                If Metric Then
+                    WriteFlashWord(&H55802, (((14.7 * Int(T_overboost.Text) / 100) + 14.7) * 50.5 / 9.2))
+                Else
+                    WriteFlashWord(&H55802, ((Int(T_overboost.Text) + 14.7) * 50.5 / 9.2))
+                End If
             Else
-                WriteFlashWord(&H55802, ((Int(T_overboost.Text) + 14.7) * 50.5 / 9.2))
+                '
+                ' SSI5bar sensor calculates boost settigns differently
+                '
+                If Metric Then
+                    'WriteFlashWord(&H55802, (((14.7 * Int(T_overboost.Text) / 100) + 14.7) * 50.5 / 9.2) * 1.5)
+                    WriteFlashWord(&H55802, 0)
+                Else
+                    'WriteFlashWord(&H55802, ((Int(T_overboost.Text) + 14.7) * 50.5 / 9.2) * 1.5)
+                    WriteFlashWord(&H55802, 0)
+                End If
             End If
 
             i = ReadFlashWord(&H55802)
@@ -1119,45 +1182,117 @@ Public Class K8boostfuel
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_rescale.Click
         Dim multiplier As Decimal = 1.18
+        Dim i As Integer
+        i = ReadFlashByte(&H55844)
 
         If (MsgBox("Are you sure, this will change the scaling and you need to completely rebuild the boostmap ?", MsgBoxStyle.OkCancel) = MsgBoxResult.Ok) Then
 
-            If ReadFlashByte(&H55844) = &H52 Then
-                WriteFlashByte(&H55844 + 0, &H52 * multiplier)
-                WriteFlashByte(&H55844 + 1, &H58 * multiplier)
-                WriteFlashByte(&H55844 + 2, &H5E * multiplier)
-                WriteFlashByte(&H55844 + 3, &H63 * multiplier)
-                WriteFlashByte(&H55844 + 4, &H6C * multiplier)
-                WriteFlashByte(&H55844 + 5, &H73 * multiplier)
-                WriteFlashByte(&H55844 + 6, &H81 * multiplier)
-                WriteFlashByte(&H55844 + 7, &H8B * multiplier)
-                WriteFlashByte(&H55844 + 8, &H92 * multiplier)
-                WriteFlashByte(&H55844 + 9, &H98 * multiplier)
-                WriteFlashByte(&H55844 + 10, &HA0 * multiplier)
-                WriteFlashByte(&H55844 + 11, &HA6 * multiplier)
-                WriteFlashByte(&H55844 + 12, &HB2 * multiplier)
-                WriteFlashByte(&H55844 + 13, &HBD * multiplier)
-                WriteFlashByte(&H55844 + 14, &HCB * multiplier)
-                WriteFlashByte(&H55844 + 15, &HD8 * multiplier)
-            Else
-                WriteFlashByte(&H55844 + 0, &H52)
-                WriteFlashByte(&H55844 + 1, &H58)
-                WriteFlashByte(&H55844 + 2, &H5E)
-                WriteFlashByte(&H55844 + 3, &H63)
-                WriteFlashByte(&H55844 + 4, &H6C)
-                WriteFlashByte(&H55844 + 5, &H73)
-                WriteFlashByte(&H55844 + 6, &H81)
-                WriteFlashByte(&H55844 + 7, &H8B)
-                WriteFlashByte(&H55844 + 8, &H92)
-                WriteFlashByte(&H55844 + 9, &H98)
-                WriteFlashByte(&H55844 + 10, &HA0)
-                WriteFlashByte(&H55844 + 11, &HA6)
-                WriteFlashByte(&H55844 + 12, &HB2)
-                WriteFlashByte(&H55844 + 13, &HBD)
-                WriteFlashByte(&H55844 + 14, &HCB)
-                WriteFlashByte(&H55844 + 15, &HD8)
+            Select Case i
+                Case &H52
+                    B_rescale.Text = "GM3bar ext"
+                    ' extend the map
+                    WriteFlashByte(&H55844 + 0, Int(&H52 * multiplier))
+                    WriteFlashByte(&H55844 + 1, Int(&H58 * multiplier))
+                    WriteFlashByte(&H55844 + 2, Int(&H5E * multiplier))
+                    WriteFlashByte(&H55844 + 3, Int(&H63 * multiplier))
+                    WriteFlashByte(&H55844 + 4, Int(&H6C * multiplier))
+                    WriteFlashByte(&H55844 + 5, Int(&H73 * multiplier))
+                    WriteFlashByte(&H55844 + 6, Int(&H81 * multiplier))
+                    WriteFlashByte(&H55844 + 7, Int(&H8B * multiplier))
+                    WriteFlashByte(&H55844 + 8, Int(&H92 * multiplier))
+                    WriteFlashByte(&H55844 + 9, Int(&H98 * multiplier))
+                    WriteFlashByte(&H55844 + 10, Int(&HA0 * multiplier))
+                    WriteFlashByte(&H55844 + 11, Int(&HA6 * multiplier))
+                    WriteFlashByte(&H55844 + 12, Int(&HB2 * multiplier))
+                    WriteFlashByte(&H55844 + 13, Int(&HBD * multiplier))
+                    WriteFlashByte(&H55844 + 14, Int(&HCB * multiplier))
+                    WriteFlashByte(&H55844 + 15, Int(&HD8 * multiplier))
+                Case Int(&H52 * multiplier)
+                    B_rescale.Text = "SSI5bar"
+                    MsgBox("Please note that SSI5 bar sensor conversion is not yet functional, waiting for formulas")
 
-            End If
+                    '
+                    ' vacuum area conversion
+                    '
+                    WriteFlashByte(&H55814 + 0, &H19)
+                    WriteFlashByte(&H55814 + 1, &H1D)
+                    WriteFlashByte(&H55814 + 2, &H21)
+                    WriteFlashByte(&H55814 + 3, &H25)
+                    WriteFlashByte(&H55814 + 4, &H29)
+                    WriteFlashByte(&H55814 + 5, &H2D)
+                    WriteFlashByte(&H55814 + 6, &H31)
+                    WriteFlashByte(&H55814 + 7, &H35)
+                    WriteFlashByte(&H55814 + 8, &H39)
+                    WriteFlashByte(&H55814 + 9, &H42)
+                    WriteFlashByte(&H55814 + 10, &H46)
+                    WriteFlashByte(&H55814 + 11, &H4C)
+                    WriteFlashByte(&H55814 + 12, &H51)
+                    WriteFlashByte(&H55814 + 13, &HFF)
+                    WriteFlashByte(&H55814 + 14, &HFF)
+                    WriteFlashByte(&H55814 + 15, &HFF)
+                    '
+                    ' boostmap
+                    '
+                    WriteFlashByte(&H55844 + 0, &H42)
+                    WriteFlashByte(&H55844 + 1, &H46)
+                    WriteFlashByte(&H55844 + 2, &H4C)
+                    WriteFlashByte(&H55844 + 3, &H51)
+                    WriteFlashByte(&H55844 + 4, &H57)
+                    WriteFlashByte(&H55844 + 5, &H5C)
+                    WriteFlashByte(&H55844 + 6, &H62)
+                    WriteFlashByte(&H55844 + 7, &H67)
+                    WriteFlashByte(&H55844 + 8, &H6D)
+                    WriteFlashByte(&H55844 + 9, &H72)
+                    WriteFlashByte(&H55844 + 10, &H77)
+                    WriteFlashByte(&H55844 + 11, &H7D)
+                    WriteFlashByte(&H55844 + 12, &H85)
+                    WriteFlashByte(&H55844 + 13, &HA0)
+                    WriteFlashByte(&H55844 + 14, &HAE)
+                    WriteFlashByte(&H55844 + 15, &HBB)
+
+
+                Case Else ' return back to GM3 bar standard map
+                    B_rescale.Text = "GM3bar"
+
+                    '
+                    ' vacuum area conversion
+                    '
+                    WriteFlashByte(&H55814 + 0, &H0)
+                    WriteFlashByte(&H55814 + 1, &H8)
+                    WriteFlashByte(&H55814 + 2, &H10)
+                    WriteFlashByte(&H55814 + 3, &H18)
+                    WriteFlashByte(&H55814 + 4, &H20)
+                    WriteFlashByte(&H55814 + 5, &H27)
+                    WriteFlashByte(&H55814 + 6, &H30)
+                    WriteFlashByte(&H55814 + 7, &H38)
+                    WriteFlashByte(&H55814 + 8, &H3F)
+                    WriteFlashByte(&H55814 + 9, &H50)
+                    WriteFlashByte(&H55814 + 10, &H60)
+                    WriteFlashByte(&H55814 + 11, &H6C)
+                    WriteFlashByte(&H55814 + 12, &HFF)
+                    WriteFlashByte(&H55814 + 13, &HFF)
+                    WriteFlashByte(&H55814 + 14, &HFF)
+                    WriteFlashByte(&H55814 + 15, &HFF)
+                    '
+                    ' boostmap
+                    '
+                    WriteFlashByte(&H55844 + 0, &H52)
+                    WriteFlashByte(&H55844 + 1, &H58)
+                    WriteFlashByte(&H55844 + 2, &H5E)
+                    WriteFlashByte(&H55844 + 3, &H63)
+                    WriteFlashByte(&H55844 + 4, &H6C)
+                    WriteFlashByte(&H55844 + 5, &H73)
+                    WriteFlashByte(&H55844 + 6, &H81)
+                    WriteFlashByte(&H55844 + 7, &H8B)
+                    WriteFlashByte(&H55844 + 8, &H92)
+                    WriteFlashByte(&H55844 + 9, &H98)
+                    WriteFlashByte(&H55844 + 10, &HA0)
+                    WriteFlashByte(&H55844 + 11, &HA6)
+                    WriteFlashByte(&H55844 + 12, &HB2)
+                    WriteFlashByte(&H55844 + 13, &HBD)
+                    WriteFlashByte(&H55844 + 14, &HCB)
+                    WriteFlashByte(&H55844 + 15, &HD8)
+            End Select
 
             generate_map_table()
             writemaptoflash()
@@ -1165,4 +1300,5 @@ Public Class K8boostfuel
         End If
 
     End Sub
+
 End Class

@@ -110,9 +110,9 @@ Partial Class K8Limiters
         Me.Label4.AutoSize = True
         Me.Label4.Location = New System.Drawing.Point(13, 53)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(76, 13)
+        Me.Label4.Size = New System.Drawing.Size(96, 13)
         Me.Label4.TabIndex = 27
-        Me.Label4.Text = "NT/CLT limiter"
+        Me.Label4.Text = "Clutched Ign limiter"
         '
         'NTCLT
         '
