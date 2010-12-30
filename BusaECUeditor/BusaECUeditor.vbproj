@@ -15,7 +15,7 @@
     <ManifestCertificateThumbprint>A971FC8EB684E9C5154FF7DA720E29BCC7ADB15B</ManifestCertificateThumbprint>
     <ManifestKeyFile>BusaECUeditor_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
     <TargetZone>LocalIntranet</TargetZone>
     <SignAssembly>false</SignAssembly>
     <DelaySign>false</DelaySign>
@@ -30,7 +30,7 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
     <PublishUrl>\\AMD\wwwroot\Ecueditor2.5\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Unc</InstallFrom>
+    <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Background</UpdateMode>
     <UpdateInterval>4</UpdateInterval>
@@ -38,17 +38,18 @@
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
+    <InstallUrl>http://macmadigan.no-ip.com/Ecueditor2.5/</InstallUrl>
     <UpdateUrl>http://macmadigan.no-ip.com/ecueditor2.5/</UpdateUrl>
     <SupportUrl>http://www.ecueditor.com</SupportUrl>
     <ErrorReportUrl>http://bitbucket.org/ecueditor/ecueditor/issues%3fstatus=new</ErrorReportUrl>
     <TargetCulture>en</TargetCulture>
-    <ProductName>Hayabusa ECUeditor for K2-K7, K8- and BKing models</ProductName>
+    <ProductName>Ecueditor.com for Hayabusa K2-K7, K8-, BKing and Gixxer K7-</ProductName>
     <PublisherName>PetriK</PublisherName>
     <MinimumRequiredVersion>2.5.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>ecueditor_prerelease.htm</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>32</ApplicationRevision>
+    <ApplicationRevision>34</ApplicationRevision>
     <ApplicationVersion>2.5.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
