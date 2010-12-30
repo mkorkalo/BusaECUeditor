@@ -170,6 +170,9 @@ Public Class main
             Case "bking"
                 K8Datastream.Show()
                 K8Datastream.Select()
+            Case "Gixxer"
+                K8Datastream.Show()
+                K8Datastream.Select()
             Case "GixxerK5"
                 K8Datastream.Show()
                 K8Datastream.Select()
@@ -497,7 +500,7 @@ Public Class main
                     Loop
 
                     ' check the ecu id bytes and validate that the ecu flash image is supported
-                    If (Mid(ECUID.Text, 1, 6) <> "DJ18SE") And (Mid(ECUID.Text, 1, 6) <> "DJ47SE") Then
+                    If (Mid(ECUID.Text, 1, 6) <> "DJ18SE") And (Mid(ECUID.Text, 1, 6) <> "DJ47SE") And (Mid(ECUID.Text, 1, 6) <> "DJ0HSE") Then
                         ECUNotSupported.ShowDialog()
                     Else
                         SetECUType()
@@ -579,6 +582,13 @@ Public Class main
                     FlashToolStripMenuItem.Visible = Enabled
                     B_DataLogging.Enabled = True
 
+                Case "gixxer"
+                    B_EngineData.Enabled = True
+                    K8Ignitionmap.Close()
+                    K8Fuelmap.Close()
+                    FlashToolStripMenuItem.Visible = Enabled
+                    B_DataLogging.Enabled = False
+
                 Case Else
                     MsgBox("feature not yet implemented")
 
@@ -658,6 +668,34 @@ Public Class main
 
                 End If
             Case "bking"
+                ' First, lets show a warning dialogue about dangers of updating the ecu
+                'If filesavenotice.ShowDialog = Windows.Forms.DialogResult.OK Then
+
+                ' and now lets start saving the file using savefiledialog
+                If fdlg.ShowDialog() = Windows.Forms.DialogResult.OK Then
+
+                    path = fdlg.FileName
+                    If Not path.Contains(".bin") Then path = path & ".bin"
+                    ' if the file exists then lets make a backup copy of it just in case...
+                    If File.Exists(path) = True Then
+                        If File.Exists(path & ".bak") Then
+                            File.Delete(path & ".bak")
+                        End If
+                        File.Copy(path, (path & ".bak"))
+                        File.Delete(path)
+                    End If
+                    ' save the file
+                    fs = File.Open(path, FileMode.CreateNew)
+                    fs.Write(Flash, 0, (262144 * 4))
+                    fs.Close()
+                    If path.Length > 15 Then
+                        L_File.Text = "..." & path.Substring(path.Length - 15)
+                    Else
+                        L_File.Text = path
+                    End If
+
+                End If
+            Case "gixxer"
                 ' First, lets show a warning dialogue about dangers of updating the ecu
                 'If filesavenotice.ShowDialog = Windows.Forms.DialogResult.OK Then
 
@@ -939,6 +977,10 @@ Public Class main
                 MsgBox("Command not supported with gen1 ecu.")
             Case "gen2"
                 TestCheckSum()
+            Case "gixxer"
+                TestCheckSum()
+            Case "bking"
+                TestCheckSum()
             Case Else
                 MsgBox("Unknown ecu type, command not supported.")
         End Select
@@ -951,6 +993,8 @@ Public Class main
             Case "gen2"
                 ReadECU()
             Case "bking"
+                ReadECU()
+            Case "gixxer"
                 ReadECU()
             Case Else
                 MsgBox("Unknown ecu type, command not supported.")
@@ -2676,6 +2720,8 @@ Public Class main
 
             ElseIf (Mid(ECUID.Text, 1, 4) = "DJ47") Then
                 SetECUType()
+            ElseIf (Mid(ECUID.Text, 1, 4) = "DJ0H") Then
+                SetECUType()
             Else
                 ECUVersion = "unknown"
                 MsgBox("This is not a Hayabusa or Bking ECU, please do not flash it !!!")
@@ -3059,6 +3105,10 @@ Public Class main
                 Hayabusa.Text = "Bking USA (California)"
                 Metric = False
                 ECUVersion = "bking"
+            Case "DJ0HSE50"
+                Hayabusa.Text = "Gixxer K7- 32920-21H60"
+                Metric = False
+                ECUVersion = "gixxer"
             Case "41G10___"
                 Hayabusa.Text = "Gixxer K5-K6 enginedata only"
                 Metric = False
