@@ -113,6 +113,9 @@ Public Class main
             Case "bking"
                 BKingFuelMap.Show()
                 BKingFuelMap.Select()
+            Case "gixxer"
+                GixxerFuelmap.Show()
+                GixxerFuelmap.Select()
             Case Else
                 MsgBox("Feature not yet implemented")
         End Select
@@ -577,15 +580,15 @@ Public Class main
 
                 Case "bking"
                     B_EngineData.Enabled = True
-                    K8Ignitionmap.Close()
-                    K8Fuelmap.Close()
+                    BKingIgnitionMap.Close()
+                    BKingFuelMap.Close()
                     FlashToolStripMenuItem.Visible = Enabled
                     B_DataLogging.Enabled = True
 
                 Case "gixxer"
                     B_EngineData.Enabled = True
-                    K8Ignitionmap.Close()
-                    K8Fuelmap.Close()
+                    'K8Ignitionmap.Close()
+                    GixxerFuelmap.Close()
                     FlashToolStripMenuItem.Visible = Enabled
                     B_DataLogging.Enabled = False
 
@@ -1193,6 +1196,9 @@ Public Class main
         BKingAdvSettings.Close()
         BKingShifter.Close()
         BKingLimiters.Close()
+
+        'gixxer
+        GixxerFuelmap.Close()
 
     End Sub
 
@@ -4489,6 +4495,75 @@ Public Class main
 
         ' enable controls, otherwise at form load an event will occur
         B_EngineData.Enabled = True
+
+    End Sub
+
+    Private Sub NewStockGixxerK7ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockGixxerK7ToolStripMenuItem.Click
+        Dim defpath As String ' this is for this subroutine only
+
+        CloseChildWindows()
+
+
+        ' OK, so the file is found, now lets start processing it
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\GixxerK7.bin"
+
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        DisableButtons()
+
+        ' Open the stream and read it to global variable "Flash". 
+        fs = File.OpenRead(defpath)
+        Dim b(1) As Byte
+        Dim i As Integer
+        i = 0
+        Do While fs.Read(b, 0, 1) > 0
+            Flash(i) = b(0)
+            FlashCopy(i) = b(0)
+            i = i + 1
+        Loop
+        fs.Close()
+
+        ' Check that the binary lenght matches expected ecu
+        If i <> (262144 * 4) Then
+            ECUNotSupported.ShowDialog()
+        End If
+
+        ECUVersion = "gixxer"
+        '
+        ' Make sure the ECU id is supported type
+        '
+        i = 0
+        ECUID.Text = ""
+        Do While i < 8
+            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
+            i = i + 1
+        Loop
+
+        ' check the ecu id bytes and validate that the ecu flash image is supported
+        If Mid(ECUID.Text, 1, 6) <> "DJ0HSE" Then
+            ECUNotSupported.ShowDialog()
+        Else
+            SetECUType()
+        End If
+
+        ' enable controls, otherwise at form load an event will occur
+        Limiters.C_RPM.Enabled = False
+        SaveToolStripMenuItem.Enabled = True
+        B_FlashECU.Enabled = True
+        B_Limiters.Enabled = False
+        B_EngineData.Enabled = True
+        B_Shifter.Enabled = False
+        B_FuelMap.Enabled = True
+        B_IgnitionMap.Enabled = False
+        B_AdvancedSettings.Enabled = False
+        B_DataLogging.Enabled = False
+
+        K8Fuelmap.Close()
+        K8Ignitionmap.Close()
+
+        MsgBox("A new Gixxer K7- basemap is generated", MsgBoxStyle.Information)
+
+        BlockPgm = True
 
     End Sub
 End Class

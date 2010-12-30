@@ -869,6 +869,8 @@ Module CommonFunctions
                 maxi = (4 * 262144) - 1
             Case "bking"
                 maxi = (4 * 262144) - 1
+            Case "gixxer"
+                maxi = (4 * 262144) - 1
         End Select
 
 
@@ -893,6 +895,8 @@ Module CommonFunctions
                 maxi = (4 * 262144) - 1
             Case "bking"
                 maxi = (4 * 262144) - 1
+            Case "gixxer"
+                maxi = (4 * 262144) - 1
         End Select
 
         If i < 0 Or i > maxi Then
@@ -916,6 +920,8 @@ Module CommonFunctions
                 maxi = (4 * 262144) - 1
             Case "bking"
                 maxi = (4 * 262144) - 1
+            Case "gixxer"
+                maxi = (4 * 262144) - 1
         End Select
 
         If i < 0 Or i > maxi Then
@@ -938,6 +944,8 @@ Module CommonFunctions
             Case "gen2"
                 maxi = (4 * 262144) - 1
             Case "bking"
+                maxi = (4 * 262144) - 1
+            Case "gixxer"
                 maxi = (4 * 262144) - 1
         End Select
 

@@ -1294,7 +1294,7 @@ Public Class K8Fuelmap
         End If
     End Sub
 
-   
+
     Private Sub B_MSIAP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_MSIAP.Click
 
         If FastMode() Then
