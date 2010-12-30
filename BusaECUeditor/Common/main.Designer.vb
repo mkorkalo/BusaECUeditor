@@ -31,6 +31,7 @@ Partial Class main
         Me.NewK8ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.NewStockBkingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.NewStockBkingUSToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.GixxerK5K6EnginedataOnlyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator
         Me.OpenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -70,7 +71,6 @@ Partial Class main
         Me.WebBrowser1 = New System.Windows.Forms.WebBrowser
         Me.L_ProgramHomepage = New System.Windows.Forms.LinkLabel
         Me.B_DataLogging = New System.Windows.Forms.Button
-        Me.GixxerK5K6EnginedataOnlyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -146,6 +146,12 @@ Partial Class main
         Me.NewStockBkingUSToolStripMenuItem.Name = "NewStockBkingUSToolStripMenuItem"
         Me.NewStockBkingUSToolStripMenuItem.Size = New System.Drawing.Size(269, 22)
         Me.NewStockBkingUSToolStripMenuItem.Text = "New/Stock Bking (US)"
+        '
+        'GixxerK5K6EnginedataOnlyToolStripMenuItem
+        '
+        Me.GixxerK5K6EnginedataOnlyToolStripMenuItem.Name = "GixxerK5K6EnginedataOnlyToolStripMenuItem"
+        Me.GixxerK5K6EnginedataOnlyToolStripMenuItem.Size = New System.Drawing.Size(269, 22)
+        Me.GixxerK5K6EnginedataOnlyToolStripMenuItem.Text = "Gixxer K5-K6 Enginedata only mode"
         '
         'ToolStripSeparator2
         '
@@ -462,12 +468,6 @@ Partial Class main
         Me.B_DataLogging.Text = "Data Logging"
         Me.B_DataLogging.UseVisualStyleBackColor = True
         '
-        'GixxerK5K6EnginedataOnlyToolStripMenuItem
-        '
-        Me.GixxerK5K6EnginedataOnlyToolStripMenuItem.Name = "GixxerK5K6EnginedataOnlyToolStripMenuItem"
-        Me.GixxerK5K6EnginedataOnlyToolStripMenuItem.Size = New System.Drawing.Size(269, 22)
-        Me.GixxerK5K6EnginedataOnlyToolStripMenuItem.Text = "Gixxer K5-K6 Enginedata only mode"
-        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -493,7 +493,7 @@ Partial Class main
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "main"
-        Me.Text = "Hayabusa ECUeditor.com for K2-K7, K8-.. , BKing (by PetriK) - testversion"
+        Me.Text = "ECUeditor.com for Hayabusa K2-K7, K8-.. , BKing, Gixxer K7- (by PetriK) "
         Me.MenuStrip.ResumeLayout(False)
         Me.MenuStrip.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
