@@ -71,6 +71,7 @@ Partial Class main
         Me.WebBrowser1 = New System.Windows.Forms.WebBrowser
         Me.L_ProgramHomepage = New System.Windows.Forms.LinkLabel
         Me.B_DataLogging = New System.Windows.Forms.Button
+        Me.NewStockGixxerK7ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -112,7 +113,7 @@ Partial Class main
         '
         'FileToolStripMenuItem
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.G1NewBaseMapUSToolStripMenuItem, Me.G1NewBaseMapEUToolStripMenuItem, Me.NewK8ToolStripMenuItem, Me.NewStockBkingToolStripMenuItem, Me.NewStockBkingUSToolStripMenuItem, Me.GixxerK5K6EnginedataOnlyToolStripMenuItem, Me.ToolStripSeparator2, Me.OpenToolStripMenuItem, Me.SaveToolStripMenuItem, Me.OpenComparemapToolStripMenuItem, Me.ExitToolStripMenuItem, Me.ToolStripSeparator1, Me.RecoveryToolStripMenuItem})
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.G1NewBaseMapUSToolStripMenuItem, Me.G1NewBaseMapEUToolStripMenuItem, Me.NewK8ToolStripMenuItem, Me.NewStockBkingToolStripMenuItem, Me.NewStockBkingUSToolStripMenuItem, Me.NewStockGixxerK7ToolStripMenuItem, Me.GixxerK5K6EnginedataOnlyToolStripMenuItem, Me.ToolStripSeparator2, Me.OpenToolStripMenuItem, Me.SaveToolStripMenuItem, Me.OpenComparemapToolStripMenuItem, Me.ExitToolStripMenuItem, Me.ToolStripSeparator1, Me.RecoveryToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
@@ -468,6 +469,12 @@ Partial Class main
         Me.B_DataLogging.Text = "Data Logging"
         Me.B_DataLogging.UseVisualStyleBackColor = True
         '
+        'NewStockGixxerK7ToolStripMenuItem
+        '
+        Me.NewStockGixxerK7ToolStripMenuItem.Name = "NewStockGixxerK7ToolStripMenuItem"
+        Me.NewStockGixxerK7ToolStripMenuItem.Size = New System.Drawing.Size(269, 22)
+        Me.NewStockGixxerK7ToolStripMenuItem.Text = "New/Stock Gixxer K7-"
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -554,5 +561,6 @@ Partial Class main
     Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents B_DataLogging As System.Windows.Forms.Button
     Friend WithEvents GixxerK5K6EnginedataOnlyToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents NewStockGixxerK7ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

@@ -15,7 +15,7 @@
     <ManifestCertificateThumbprint>A971FC8EB684E9C5154FF7DA720E29BCC7ADB15B</ManifestCertificateThumbprint>
     <ManifestKeyFile>BusaECUeditor_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
-    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetZone>LocalIntranet</TargetZone>
     <SignAssembly>false</SignAssembly>
     <DelaySign>false</DelaySign>
@@ -30,7 +30,7 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
     <PublishUrl>\\AMD\wwwroot\Ecueditor2.5\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Web</InstallFrom>
+    <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Background</UpdateMode>
     <UpdateInterval>4</UpdateInterval>
@@ -38,7 +38,6 @@
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
-    <InstallUrl>http://macmadigan.no-ip.com/ecueditor2.5/</InstallUrl>
     <UpdateUrl>http://macmadigan.no-ip.com/ecueditor2.5/</UpdateUrl>
     <SupportUrl>http://www.ecueditor.com</SupportUrl>
     <ErrorReportUrl>http://bitbucket.org/ecueditor/ecueditor/issues%3fstatus=new</ErrorReportUrl>
@@ -49,7 +48,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>ecueditor_prerelease.htm</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>31</ApplicationRevision>
+    <ApplicationRevision>32</ApplicationRevision>
     <ApplicationVersion>2.5.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -451,6 +450,12 @@
     <Compile Include="G2\K8AutoTuneSettings.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Gixxer\GixxerFuelmap.Designer.vb">
+      <DependentUpon>GixxerFuelmap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Gixxer\GixxerFuelmap.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -564,6 +569,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ecu.bin\dragtools.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\GixxerK7.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="My Project\Application.myapp">
@@ -835,6 +843,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8AutoTuneSettings.resx">
       <DependentUpon>K8AutoTuneSettings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gixxer\GixxerFuelmap.resx">
+      <DependentUpon>GixxerFuelmap.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
