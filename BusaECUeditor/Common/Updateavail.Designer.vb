@@ -22,6 +22,7 @@ Partial Class Updateavail
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Updateavail))
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel
         Me.Button1 = New System.Windows.Forms.Button
         Me.OK_Button = New System.Windows.Forms.Button
@@ -37,7 +38,7 @@ Partial Class Updateavail
         Me.TableLayoutPanel1.ColumnCount = 3
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.66667!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.33333!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 101.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 102.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.Button1, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.OK_Button, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Cancel_Button, 0, 0)
@@ -52,20 +53,20 @@ Partial Class Updateavail
         'Button1
         '
         Me.Button1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Button1.Location = New System.Drawing.Point(122, 4)
+        Me.Button1.Location = New System.Drawing.Point(121, 4)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(94, 49)
         Me.Button1.TabIndex = 2
-        Me.Button1.Text = "Donate 20USD with paypal and Update"
+        Me.Button1.Text = "Donate with paypal and Update"
         '
         'OK_Button
         '
         Me.OK_Button.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.OK_Button.Location = New System.Drawing.Point(64, 4)
+        Me.OK_Button.Location = New System.Drawing.Point(63, 4)
         Me.OK_Button.Name = "OK_Button"
         Me.OK_Button.Size = New System.Drawing.Size(51, 49)
         Me.OK_Button.TabIndex = 0
-        Me.OK_Button.Text = "Free update"
+        Me.OK_Button.Text = "Free Update"
         '
         'Cancel_Button
         '
@@ -82,11 +83,9 @@ Partial Class Updateavail
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(28, 28)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(428, 39)
+        Me.Label1.Size = New System.Drawing.Size(436, 65)
         Me.Label1.TabIndex = 1
-        Me.Label1.Text = "A new version of Ecueditor.com is available, an update is recommended." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "If you " & _
-            "like ecueditor.com, please consider clicking donate with paypal button for updat" & _
-            "ing."
+        Me.Label1.Text = resources.GetString("Label1.Text")
         '
         'LinkLabel1
         '

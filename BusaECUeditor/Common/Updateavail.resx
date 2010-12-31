@@ -117,4 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Label1.Text" xml:space="preserve">
+    <value>A new version of Ecueditor.com is available, an update is recommended.
+
+If you like ecueditor.com, please consider clicking donate with paypal button for updating.
+There is no difference between software versions you get with Free Update or with Donate 
+with paypal and update.
+</value>
+  </data>
 </root>

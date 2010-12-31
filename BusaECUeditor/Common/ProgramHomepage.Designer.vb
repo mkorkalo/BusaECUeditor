@@ -32,7 +32,7 @@ Partial Class ProgramHomepage
         WebBrowser1.Location = New System.Drawing.Point(0, 0)
         WebBrowser1.MinimumSize = New System.Drawing.Size(20, 20)
         WebBrowser1.Name = "WebBrowser1"
-        WebBrowser1.Size = New System.Drawing.Size(939, 605)
+        WebBrowser1.Size = New System.Drawing.Size(781, 809)
         WebBrowser1.TabIndex = 0
         WebBrowser1.Tag = "BusaEcueditor"
         WebBrowser1.Url = New System.Uri("http://www.ecueditor.com", System.UriKind.Absolute)
@@ -41,7 +41,7 @@ Partial Class ProgramHomepage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(939, 605)
+        Me.ClientSize = New System.Drawing.Size(781, 809)
         Me.Controls.Add(WebBrowser1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
