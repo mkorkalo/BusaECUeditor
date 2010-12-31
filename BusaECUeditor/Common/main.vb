@@ -130,6 +130,9 @@ Public Class main
             Case "gen2"
                 K8Ignitionmap.Show()
                 K8Ignitionmap.Select()
+            Case "gixxer"
+                GixxerIgnitionmap.Show()
+                GixxerIgnitionmap.Select()
             Case "bking"
                 BKingIgnitionMap.Show()
                 BKingIgnitionMap.Select()
@@ -151,6 +154,9 @@ Public Class main
             Case "bking"
                 BKingLimiters.Show()
                 BKingLimiters.Select()
+            Case "gixxer"
+                GixxerLimiters.Show()
+                GixxerLimiters.Select()
             Case Else
                 MsgBox("feature not yet supported")
         End Select
@@ -299,7 +305,7 @@ Public Class main
         B_DataLogging.Enabled = True
 
         K8Fuelmap.Close()
-        K8Ignitionmap.Close()
+        GixxerIgnitionmap.Close()
 
         MsgBox("A new gen2 basemap is generated", MsgBoxStyle.Information)
 
@@ -367,7 +373,7 @@ Public Class main
         B_DataLogging.Enabled = True
 
         K8Fuelmap.Close()
-        K8Ignitionmap.Close()
+        GixxerIgnitionmap.Close()
 
         MsgBox("A new Bking basemap is generated", MsgBoxStyle.Information)
 
@@ -435,7 +441,7 @@ Public Class main
         B_DataLogging.Enabled = True
 
         K8Fuelmap.Close()
-        K8Ignitionmap.Close()
+        GixxerIgnitionmap.Close()
 
         MsgBox("A new Bking basemap is generated", MsgBoxStyle.Information)
 
@@ -555,13 +561,6 @@ Public Class main
             My.Settings.Item("comparepath") = comparepath
             ' enable controls, otherwise at form load an event will occur
             Limiters.C_RPM.Enabled = True
-            SaveToolStripMenuItem.Enabled = True
-            B_FlashECU.Enabled = True
-            B_Limiters.Enabled = True
-            B_Shifter.Enabled = True
-            B_FuelMap.Enabled = True
-            B_IgnitionMap.Enabled = True
-            B_AdvancedSettings.Enabled = True
 
             Select Case ECUVersion
                 Case "gen1"
@@ -570,13 +569,29 @@ Public Class main
                     IgnitionMap.Close()
                     FlashToolStripMenuItem.Visible = False
                     B_DataLogging.Enabled = False
+                    SaveToolStripMenuItem.Enabled = True
+                    B_FlashECU.Enabled = True
+                    B_Limiters.Enabled = True
+                    B_Shifter.Enabled = True
+                    B_FuelMap.Enabled = True
+                    B_IgnitionMap.Enabled = True
+                    B_AdvancedSettings.Enabled = True
+
 
                 Case "gen2"
                     B_EngineData.Enabled = True
-                    K8Ignitionmap.Close()
+                    GixxerIgnitionmap.Close()
                     K8Fuelmap.Close()
                     FlashToolStripMenuItem.Visible = Enabled
                     B_DataLogging.Enabled = True
+                    SaveToolStripMenuItem.Enabled = True
+                    B_FlashECU.Enabled = True
+                    B_Limiters.Enabled = True
+                    B_Shifter.Enabled = True
+                    B_FuelMap.Enabled = True
+                    B_IgnitionMap.Enabled = True
+                    B_AdvancedSettings.Enabled = True
+
 
                 Case "bking"
                     B_EngineData.Enabled = True
@@ -584,13 +599,28 @@ Public Class main
                     BKingFuelMap.Close()
                     FlashToolStripMenuItem.Visible = Enabled
                     B_DataLogging.Enabled = True
+                    SaveToolStripMenuItem.Enabled = True
+                    B_FlashECU.Enabled = True
+                    B_Limiters.Enabled = True
+                    B_Shifter.Enabled = True
+                    B_FuelMap.Enabled = True
+                    B_IgnitionMap.Enabled = True
+                    B_AdvancedSettings.Enabled = True
+
 
                 Case "gixxer"
                     B_EngineData.Enabled = True
-                    'K8Ignitionmap.Close()
+                    GixxerIgnitionmap.Close()
                     GixxerFuelmap.Close()
                     FlashToolStripMenuItem.Visible = Enabled
                     B_DataLogging.Enabled = False
+                    SaveToolStripMenuItem.Enabled = True
+                    B_FlashECU.Enabled = True
+                    B_Limiters.Enabled = True
+                    B_Shifter.Enabled = False
+                    B_FuelMap.Enabled = True
+                    B_IgnitionMap.Enabled = True
+                    B_AdvancedSettings.Enabled = False
 
                 Case Else
                     MsgBox("feature not yet implemented")
@@ -1175,13 +1205,13 @@ Public Class main
         K8boostfuel.Close()
         K8Fuelmap.Close()
         K8Datastream.Close()
-        K8Ignitionmap.Close()
+        GixxerIgnitionmap.Close()
         K8shifter.Close()
         K8dragtools.Close()
         K8injectorbalancemap.Close()
         K8dwellignition.Close()
         K8STPmap.Close()
-        K8Limiters.Close()
+        GixxerLimiters.Close()
 
         'gen1 
         FuelMap.Close()
@@ -4464,6 +4494,11 @@ Public Class main
                     K8Ignitionmap.Close()
                     K8Fuelmap.Close()
                     FlashToolStripMenuItem.Visible = Enabled
+                Case "gixxer"
+                    B_EngineData.Enabled = True
+                    GixxerIgnitionmap.Close()
+                    GixxerFuelmap.Close()
+                    FlashToolStripMenuItem.Visible = Enabled
                 Case "bking"
                     B_EngineData.Enabled = True
                     FlashToolStripMenuItem.Visible = Enabled
@@ -4547,14 +4582,14 @@ Public Class main
         End If
 
         ' enable controls, otherwise at form load an event will occur
-        Limiters.C_RPM.Enabled = False
+        Limiters.C_RPM.Enabled = True
         SaveToolStripMenuItem.Enabled = True
         B_FlashECU.Enabled = True
-        B_Limiters.Enabled = False
+        B_Limiters.Enabled = True
         B_EngineData.Enabled = True
         B_Shifter.Enabled = False
         B_FuelMap.Enabled = True
-        B_IgnitionMap.Enabled = False
+        B_IgnitionMap.Enabled = True
         B_AdvancedSettings.Enabled = False
         B_DataLogging.Enabled = False
 
