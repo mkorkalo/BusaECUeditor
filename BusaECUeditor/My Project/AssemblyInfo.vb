@@ -10,11 +10,11 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("Hayabusa EcuEditor.com")> 
-<Assembly: AssemblyDescription("gen1 K2-K7, gen2 K8- , Bking")> 
+<Assembly: AssemblyTitle("Ecueditor.com")> 
+<Assembly: AssemblyDescription("Hayabusa gen1 K2-K7, gen2 K8- , Bking, Gixxer")> 
 <Assembly: AssemblyCompany("by PetriK")> 
 <Assembly: AssemblyProduct("Hayabusa ECUeditor v2.5")> 
-<Assembly: AssemblyCopyright("Copyright © PetriK 2008-2010")> 
+<Assembly: AssemblyCopyright("Copyright © PetriK 2008-2011")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)> 
