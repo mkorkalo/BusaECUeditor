@@ -19,7 +19,7 @@
 '    under this same license for free. For more information see paragraph 5
 '    of the GNU licence.
 '
-Public Class K8Ignitionmap
+Public Class GixxerIgnitionmap
     '
     ' K8Ignitionmap.vb contains all functions to edit ignitionmaps in ecueditor. it uses a global variable flash(addr) that
     ' has the full ecu image loaded as byte values. the fuelmap is edited on a grid and changed values are
@@ -72,25 +72,25 @@ Public Class K8Ignitionmap
         previousrow = 0
         fuelmapvisible = True
 
-        If ReadFlashByte(&H72A98) <> 0 Then ' use clutch map setting to detect if maps have been unified
+        If ReadFlashByte(&H60B5C) <> 0 Then ' use clutch map setting to detect if maps have been unified
             '
             ' First ask the user if the user wants to have ignition restrictions removed
             '
-            If (MsgBox("Ignition unitfy, if you press OK then only using group1 maps for all gears and modes.", MsgBoxStyle.OkCancel) = MsgBoxResult.Ok) Then
+            If (MsgBox("If you press OK then Ecueditor TRE for Gixxer K7- will be activated with ignition unitfy, using group2 maps for all gears and modes.", MsgBoxStyle.OkCancel) = MsgBoxResult.Ok) Then
 
                 '
-                ' First make sure that only ignition group3 is used for tuning
+                ' First make sure that only ignition group2 is used for tuning
                 '
-                WriteFlashByte(&H72A99, 1)
-                WriteFlashByte(&H72A9A, 1)
-                WriteFlashByte(&H72A9B, 1)
-                WriteFlashByte(&H72A9C, 1)
-                WriteFlashByte(&H72A9D, 1)
-                WriteFlashByte(&H72A9E, 1)
+                WriteFlashByte(&H60B5D, 2)
+                WriteFlashByte(&H60B5E, 2)
+                WriteFlashByte(&H60B5F, 2)
+                WriteFlashByte(&H60B60, 2)
+                WriteFlashByte(&H60B61, 2)
+                WriteFlashByte(&H60B62, 2)
                 '
                 ' Make clutch map to use the same ignition map as for other gears too
                 '
-                WriteFlashByte(&H72A98, 0)
+                WriteFlashByte(&H60B5C, 0)
             Else
                 '
                 ' Giving canlel as answer to question about removing ignition resrictions now means that the ignition tuning shall not be used...
@@ -386,10 +386,6 @@ Public Class K8Ignitionmap
         i = 0
         ii = 0
 
-        If (ReadFlashLongWord(&H51F10) <> &H53D18) And (ms01 = 1) Then
-            MsgBox("Please note that ms mode maps are flashed only when using full flashing. You need to change flashmode.")
-        End If
-
         '
         ' Select which map is being used as a basemap for editing
         '
@@ -584,16 +580,16 @@ Public Class K8Ignitionmap
         '
         Select Case map
             Case 0
-                map_structure_table = &H51D94 'group1 &H51DF4, group3 &H51EB4
-                Me.Text = "ECUeditor - Ignition Neutral TPS/RPM map"
+                map_structure_table = &H5A3D8 'group1 &H51DF4, group3 &H51EB4
+                Me.Text = "Ecueditor.com for Gixxer K7- - Ignition Neutral TPS/RPM map"
                 ms01 = 0            ' 0,1
             Case 1
-                map_structure_table = &H51DF4 'group1 &H51DF4, group3 &H51EB4
-                Me.Text = "ECUeditor - Ignition TPS/RPM map"
+                map_structure_table = &H5A498 'group1 &H51DF4, group3 &H51EB4
+                Me.Text = "Ecueditor.com for Gixxer K7- - Ignition TPS/RPM map"
                 ms01 = 0            ' 0,1
             Case 2
-                map_structure_table = &H51DF4
-                Me.Text = "ECUeditor - Ignition MS TPS/RPM map"
+                map_structure_table = &H5A498
+                Me.Text = "Ecueditor.com for Gixxer K7- - Ignition MS TPS/RPM map"
                 ms01 = 1            ' 0,1
         End Select
         rr = 0

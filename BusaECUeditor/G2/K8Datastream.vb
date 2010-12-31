@@ -974,7 +974,7 @@ Public Class K8Datastream
             End Select
         End If
 
-        If Ignitionmapvisible Then K8Ignitionmap.tracemap()
+        If IgnitionMapVisible Then K8Ignitionmap.tracemap()
         If K8boostfuel.Visible Then K8boostfuel.tracemap()
         If K8STPmap.Visible Then K8STPmap.tracemap(GEAR, MS, MODE)
         If K8nitrouscontrol.Visible Then K8nitrouscontrol.tracemap()
