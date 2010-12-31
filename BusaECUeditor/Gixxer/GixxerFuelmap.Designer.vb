@@ -202,7 +202,7 @@ Partial Class GixxerFuelmap
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "GixxerFuelmap"
-        Me.Text = "ECUeditor Fuelmap - Gixxer K7- (this is untested feature)"
+        Me.Text = "ECUeditor Fuelmap "
         CType(Me.Fuelmapgrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
