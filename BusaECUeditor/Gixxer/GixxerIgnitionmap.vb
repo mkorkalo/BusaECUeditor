@@ -76,7 +76,7 @@ Public Class GixxerIgnitionmap
             '
             ' First ask the user if the user wants to have ignition restrictions removed
             '
-            If (MsgBox("If you press OK then Ecueditor TRE for Gixxer K7- will be activated with ignition unitfy, using group2 maps for all gears and modes.", MsgBoxStyle.OkCancel) = MsgBoxResult.Ok) Then
+            If (MsgBox("If you press OK then Ecueditor TRE for Gixxer K7- will be activated with ignition unify, using group2 maps for all gears and modes.", MsgBoxStyle.OkCancel) = MsgBoxResult.Ok) Then
 
                 '
                 ' First make sure that only ignition group2 is used for tuning

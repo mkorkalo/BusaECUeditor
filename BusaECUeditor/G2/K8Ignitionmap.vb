@@ -76,7 +76,7 @@ Public Class K8Ignitionmap
             '
             ' First ask the user if the user wants to have ignition restrictions removed
             '
-            If (MsgBox("Ignition unitfy, if you press OK then only using group1 maps for all gears and modes.", MsgBoxStyle.OkCancel) = MsgBoxResult.Ok) Then
+            If (MsgBox("If you press OK then Ecueditor TRE for Hayabusa Gen2 will be activated with ignition unify, using group1 maps for all gears and modes.", MsgBoxStyle.OkCancel) = MsgBoxResult.Ok) Then
 
                 '
                 ' First make sure that only ignition group3 is used for tuning

@@ -445,23 +445,23 @@ Public Class GixxerFuelmap
         Select Case map
             Case 1
                 map_structure_table = &H5A8B0
-                Me.Text = "ECUeditor - Fuel TPS/RPM map"
+                Me.Text = "Ecueditor.com for Gixxer K7-  - Fuel TPS/RPM map"
                 ms01 = 0            ' 0,1
             Case 2
                 map_structure_table = &H5A7F0 ' &H52244 on gear, &H522A4 on neutral
-                Me.Text = "ECUeditor - Fuel IAP/RPM map"
+                Me.Text = "Ecueditor.com for Gixxer K7-  - Fuel IAP/RPM map"
                 ms01 = 0            ' 0,1
             Case 3
                 map_structure_table = &H5A7F0 ' &H52244 on gear, &H522A4 on neutral
-                Me.Text = "ECUeditor - Fuel MS IAP/RPM map"
+                Me.Text = "Ecueditor.com for Gixxer K7-  - Fuel MS IAP/RPM map"
                 ms01 = 0            ' 0,1
             Case 4
                 map_structure_table = &H5A8B0
-                Me.Text = "ECUeditor - Fuel MS TPS/RPM map"
+                Me.Text = "Ecueditor.com for Gixxer K7-  - Fuel MS TPS/RPM map"
                 ms01 = 1            ' 0,1
             Case 5
                 map_structure_table = &H5A8B0 ' &H52244 on gear, &H522A4 on neutral
-                Me.Text = "ECUeditor - Fuel MS IAP/RPM map"
+                Me.Text = "Ecueditor.com for Gixxer K7-  - Fuel MS IAP/RPM map"
                 ms01 = 1            ' 0,1
         End Select
         rr = 0
