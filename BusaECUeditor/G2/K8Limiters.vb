@@ -103,8 +103,8 @@ Public Class K8Limiters
         WriteFlashWord(&H72A6A, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'normal limiter 11601rpm
         'writeflashword(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'clutch limiter at 10901 modified to same as normal ignition limiter
         'WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'clutch limiter at 10997 modified to same as normal ignition limiter
-        'writeflashword(&H72A74, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'On TPS limiter 11450rpm - a bit unsure about condition triggering this one
-        'WriteFlashWord(&H72A76, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'On TPS limiter 11601rpm - a bit unsure about condition triggering this one
+        WriteFlashWord(&H72A74, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'On TPS < 2.5% limiter 11450rpm - a bit unsure about condition triggering this one
+        WriteFlashWord(&H72A76, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'On TPS < 2.5%  limiter 11601rpm - a bit unsure about condition triggering this one
 
 
     End Sub
@@ -220,8 +220,8 @@ Public Class K8Limiters
         '
         WriteFlashWord(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H560)) + 1))) 'Cluched ignition limiter
         WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1))) 'Cluched ignition limiter
-        WriteFlashWord(&H72A74, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'On TPS limiter 11450rpm - a bit unsure about condition triggering this one
-        WriteFlashWord(&H72A76, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'On TPS limiter 11601rpm - a bit unsure about condition triggering this one
+        'WriteFlashWord(&H72A74, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'On TPS < 2.5%  limiter 11450rpm - a bit unsure about condition triggering this one
+        'WriteFlashWord(&H72A76, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'On TPS < 2.5%  limiter 11601rpm - a bit unsure about condition triggering this one
 
         '
         ' Make ignition limiter to skip GPS error and GPS neutral using &H80 value as raw gps information
