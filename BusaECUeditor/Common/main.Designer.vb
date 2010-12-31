@@ -40,9 +40,6 @@ Partial Class main
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator
         Me.RecoveryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.AboutToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
-        Me.ProgramInfoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.VersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.SetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.InstallFTDIDriversToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.SetupCOMPortToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -51,6 +48,11 @@ Partial Class main
         Me.VerifyECUToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.FullEraseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.FlashTheECUToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.AboutToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
+        Me.ProgramInfoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.VersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.EcueditorcomHomepageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.DonateForKeepingTheProgramFreeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.B_Limiters = New System.Windows.Forms.Button
         Me.B_FlashECU = New System.Windows.Forms.Button
         Me.B_IgnitionMap = New System.Windows.Forms.Button
@@ -70,8 +72,7 @@ Partial Class main
         Me.WebBrowser1 = New System.Windows.Forms.WebBrowser
         Me.L_ProgramHomepage = New System.Windows.Forms.LinkLabel
         Me.B_DataLogging = New System.Windows.Forms.Button
-        Me.EcueditorcomHomepageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.DonateForKeepingTheProgramFreeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -200,25 +201,6 @@ Partial Class main
         Me.RecoveryToolStripMenuItem.Size = New System.Drawing.Size(269, 22)
         Me.RecoveryToolStripMenuItem.Text = "Recovery"
         '
-        'AboutToolStripMenuItem1
-        '
-        Me.AboutToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProgramInfoToolStripMenuItem, Me.VersionToolStripMenuItem, Me.EcueditorcomHomepageToolStripMenuItem, Me.DonateForKeepingTheProgramFreeToolStripMenuItem})
-        Me.AboutToolStripMenuItem1.Name = "AboutToolStripMenuItem1"
-        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(52, 20)
-        Me.AboutToolStripMenuItem1.Text = "About"
-        '
-        'ProgramInfoToolStripMenuItem
-        '
-        Me.ProgramInfoToolStripMenuItem.Name = "ProgramInfoToolStripMenuItem"
-        Me.ProgramInfoToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
-        Me.ProgramInfoToolStripMenuItem.Text = "Program info"
-        '
-        'VersionToolStripMenuItem
-        '
-        Me.VersionToolStripMenuItem.Name = "VersionToolStripMenuItem"
-        Me.VersionToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
-        Me.VersionToolStripMenuItem.Text = "Version"
-        '
         'SetupToolStripMenuItem
         '
         Me.SetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InstallFTDIDriversToolStripMenuItem, Me.SetupCOMPortToolStripMenuItem})
@@ -268,6 +250,37 @@ Partial Class main
         Me.FlashTheECUToolStripMenuItem.Name = "FlashTheECUToolStripMenuItem"
         Me.FlashTheECUToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
         Me.FlashTheECUToolStripMenuItem.Text = "Flash the ECU"
+        '
+        'AboutToolStripMenuItem1
+        '
+        Me.AboutToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProgramInfoToolStripMenuItem, Me.VersionToolStripMenuItem, Me.EcueditorcomHomepageToolStripMenuItem, Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem, Me.DonateForKeepingTheProgramFreeToolStripMenuItem})
+        Me.AboutToolStripMenuItem1.Name = "AboutToolStripMenuItem1"
+        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(52, 20)
+        Me.AboutToolStripMenuItem1.Text = "About"
+        '
+        'ProgramInfoToolStripMenuItem
+        '
+        Me.ProgramInfoToolStripMenuItem.Name = "ProgramInfoToolStripMenuItem"
+        Me.ProgramInfoToolStripMenuItem.Size = New System.Drawing.Size(308, 22)
+        Me.ProgramInfoToolStripMenuItem.Text = "Program info"
+        '
+        'VersionToolStripMenuItem
+        '
+        Me.VersionToolStripMenuItem.Name = "VersionToolStripMenuItem"
+        Me.VersionToolStripMenuItem.Size = New System.Drawing.Size(308, 22)
+        Me.VersionToolStripMenuItem.Text = "Version"
+        '
+        'EcueditorcomHomepageToolStripMenuItem
+        '
+        Me.EcueditorcomHomepageToolStripMenuItem.Name = "EcueditorcomHomepageToolStripMenuItem"
+        Me.EcueditorcomHomepageToolStripMenuItem.Size = New System.Drawing.Size(308, 22)
+        Me.EcueditorcomHomepageToolStripMenuItem.Text = "Ecueditor.com homepage"
+        '
+        'DonateForKeepingTheProgramFreeToolStripMenuItem
+        '
+        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Name = "DonateForKeepingTheProgramFreeToolStripMenuItem"
+        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Size = New System.Drawing.Size(308, 22)
+        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Text = "Donate for keeping the program free"
         '
         'B_Limiters
         '
@@ -462,17 +475,11 @@ Partial Class main
         Me.B_DataLogging.Text = "Data Logging"
         Me.B_DataLogging.UseVisualStyleBackColor = True
         '
-        'EcueditorcomHomepageToolStripMenuItem
+        'ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem
         '
-        Me.EcueditorcomHomepageToolStripMenuItem.Name = "EcueditorcomHomepageToolStripMenuItem"
-        Me.EcueditorcomHomepageToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.EcueditorcomHomepageToolStripMenuItem.Text = "Ecueditor.com homepage"
-        '
-        'DonateForKeepingTheProgramFreeToolStripMenuItem
-        '
-        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Name = "DonateForKeepingTheProgramFreeToolStripMenuItem"
-        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Size = New System.Drawing.Size(267, 22)
-        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Text = "Donate for keeping the program free"
+        Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Name = "ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem"
+        Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Size = New System.Drawing.Size(308, 22)
+        Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Text = "View latest development from developer site"
         '
         'main
         '
@@ -561,5 +568,6 @@ Partial Class main
     Friend WithEvents NewStockGixxerK7ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents EcueditorcomHomepageToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents DonateForKeepingTheProgramFreeToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

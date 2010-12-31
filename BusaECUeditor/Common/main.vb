@@ -4622,6 +4622,10 @@ Public Class main
     Private Sub DonateForKeepingTheProgramFreeToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DonateForKeepingTheProgramFreeToolStripMenuItem.Click
         Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZSM36H9HWNU2C")
     End Sub
+
+    Private Sub ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Click
+        Process.Start("https://bitbucket.org/ecueditor/ecueditor/changesets")
+    End Sub
 End Class
 
 
