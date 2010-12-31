@@ -43,8 +43,6 @@ Partial Class main
         Me.AboutToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
         Me.ProgramInfoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.VersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.UpdatesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.HomepageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.SetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.InstallFTDIDriversToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.SetupCOMPortToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -72,7 +70,8 @@ Partial Class main
         Me.WebBrowser1 = New System.Windows.Forms.WebBrowser
         Me.L_ProgramHomepage = New System.Windows.Forms.LinkLabel
         Me.B_DataLogging = New System.Windows.Forms.Button
-        Me.DonateForProgramDevelopmentTeamToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.EcueditorcomHomepageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.DonateForKeepingTheProgramFreeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -105,7 +104,7 @@ Partial Class main
         '
         'MenuStrip
         '
-        Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.AboutToolStripMenuItem1, Me.UpdatesToolStripMenuItem, Me.SetupToolStripMenuItem, Me.FlashToolStripMenuItem})
+        Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.SetupToolStripMenuItem, Me.FlashToolStripMenuItem, Me.AboutToolStripMenuItem1})
         Me.MenuStrip.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip.Name = "MenuStrip"
         Me.MenuStrip.Size = New System.Drawing.Size(474, 24)
@@ -203,7 +202,7 @@ Partial Class main
         '
         'AboutToolStripMenuItem1
         '
-        Me.AboutToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProgramInfoToolStripMenuItem, Me.VersionToolStripMenuItem})
+        Me.AboutToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProgramInfoToolStripMenuItem, Me.VersionToolStripMenuItem, Me.EcueditorcomHomepageToolStripMenuItem, Me.DonateForKeepingTheProgramFreeToolStripMenuItem})
         Me.AboutToolStripMenuItem1.Name = "AboutToolStripMenuItem1"
         Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(52, 20)
         Me.AboutToolStripMenuItem1.Text = "About"
@@ -219,19 +218,6 @@ Partial Class main
         Me.VersionToolStripMenuItem.Name = "VersionToolStripMenuItem"
         Me.VersionToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
         Me.VersionToolStripMenuItem.Text = "Version"
-        '
-        'UpdatesToolStripMenuItem
-        '
-        Me.UpdatesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HomepageToolStripMenuItem, Me.DonateForProgramDevelopmentTeamToolStripMenuItem})
-        Me.UpdatesToolStripMenuItem.Name = "UpdatesToolStripMenuItem"
-        Me.UpdatesToolStripMenuItem.Size = New System.Drawing.Size(62, 20)
-        Me.UpdatesToolStripMenuItem.Text = "Updates"
-        '
-        'HomepageToolStripMenuItem
-        '
-        Me.HomepageToolStripMenuItem.Name = "HomepageToolStripMenuItem"
-        Me.HomepageToolStripMenuItem.Size = New System.Drawing.Size(282, 22)
-        Me.HomepageToolStripMenuItem.Text = "Program update homepage"
         '
         'SetupToolStripMenuItem
         '
@@ -476,11 +462,17 @@ Partial Class main
         Me.B_DataLogging.Text = "Data Logging"
         Me.B_DataLogging.UseVisualStyleBackColor = True
         '
-        'DonateForProgramDevelopmentTeamToolStripMenuItem
+        'EcueditorcomHomepageToolStripMenuItem
         '
-        Me.DonateForProgramDevelopmentTeamToolStripMenuItem.Name = "DonateForProgramDevelopmentTeamToolStripMenuItem"
-        Me.DonateForProgramDevelopmentTeamToolStripMenuItem.Size = New System.Drawing.Size(320, 22)
-        Me.DonateForProgramDevelopmentTeamToolStripMenuItem.Text = "Donate 20USD for ecueditor.com development"
+        Me.EcueditorcomHomepageToolStripMenuItem.Name = "EcueditorcomHomepageToolStripMenuItem"
+        Me.EcueditorcomHomepageToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.EcueditorcomHomepageToolStripMenuItem.Text = "Ecueditor.com homepage"
+        '
+        'DonateForKeepingTheProgramFreeToolStripMenuItem
+        '
+        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Name = "DonateForKeepingTheProgramFreeToolStripMenuItem"
+        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Size = New System.Drawing.Size(267, 22)
+        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Text = "Donate for keeping the program free"
         '
         'main
         '
@@ -526,10 +518,8 @@ Partial Class main
     Friend WithEvents OpenToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SaveToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AboutToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents UpdatesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents B_Limiters As System.Windows.Forms.Button
     Friend WithEvents B_FlashECU As System.Windows.Forms.Button
-    Friend WithEvents HomepageToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents B_IgnitionMap As System.Windows.Forms.Button
     Friend WithEvents B_AdvancedSettings As System.Windows.Forms.Button
@@ -569,6 +559,7 @@ Partial Class main
     Friend WithEvents B_DataLogging As System.Windows.Forms.Button
     Friend WithEvents GixxerK5K6EnginedataOnlyToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NewStockGixxerK7ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents DonateForProgramDevelopmentTeamToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents EcueditorcomHomepageToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents DonateForKeepingTheProgramFreeToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

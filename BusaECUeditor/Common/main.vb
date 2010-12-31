@@ -1075,9 +1075,7 @@ Public Class main
 
     End Sub
 
-    Private Sub HomepageToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HomepageToolStripMenuItem.Click
-        ProgramHomepage.Show()
-        ProgramHomepage.Select()
+    Private Sub HomepageToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
     End Sub
 
     Private Sub L_ProgramHomepage_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles L_ProgramHomepage.LinkClicked
@@ -4616,7 +4614,12 @@ Public Class main
 
     End Sub
 
-    Private Sub DonateForProgramDevelopmentTeamToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DonateForProgramDevelopmentTeamToolStripMenuItem.Click
+    Private Sub EcueditorcomHomepageToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EcueditorcomHomepageToolStripMenuItem.Click
+        ProgramHomepage.Show()
+        ProgramHomepage.Select()
+    End Sub
+
+    Private Sub DonateForKeepingTheProgramFreeToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DonateForKeepingTheProgramFreeToolStripMenuItem.Click
         Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZSM36H9HWNU2C")
     End Sub
 End Class
