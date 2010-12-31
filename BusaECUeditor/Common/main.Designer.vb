@@ -31,6 +31,7 @@ Partial Class main
         Me.NewK8ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.NewStockBkingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.NewStockBkingUSToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.NewStockGixxerK7ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.GixxerK5K6EnginedataOnlyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator
         Me.OpenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -71,7 +72,7 @@ Partial Class main
         Me.WebBrowser1 = New System.Windows.Forms.WebBrowser
         Me.L_ProgramHomepage = New System.Windows.Forms.LinkLabel
         Me.B_DataLogging = New System.Windows.Forms.Button
-        Me.NewStockGixxerK7ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.DonateForProgramDevelopmentTeamToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -148,6 +149,12 @@ Partial Class main
         Me.NewStockBkingUSToolStripMenuItem.Size = New System.Drawing.Size(269, 22)
         Me.NewStockBkingUSToolStripMenuItem.Text = "New/Stock Bking (US)"
         '
+        'NewStockGixxerK7ToolStripMenuItem
+        '
+        Me.NewStockGixxerK7ToolStripMenuItem.Name = "NewStockGixxerK7ToolStripMenuItem"
+        Me.NewStockGixxerK7ToolStripMenuItem.Size = New System.Drawing.Size(269, 22)
+        Me.NewStockGixxerK7ToolStripMenuItem.Text = "New/Stock Gixxer K7-"
+        '
         'GixxerK5K6EnginedataOnlyToolStripMenuItem
         '
         Me.GixxerK5K6EnginedataOnlyToolStripMenuItem.Name = "GixxerK5K6EnginedataOnlyToolStripMenuItem"
@@ -215,7 +222,7 @@ Partial Class main
         '
         'UpdatesToolStripMenuItem
         '
-        Me.UpdatesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HomepageToolStripMenuItem})
+        Me.UpdatesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HomepageToolStripMenuItem, Me.DonateForProgramDevelopmentTeamToolStripMenuItem})
         Me.UpdatesToolStripMenuItem.Name = "UpdatesToolStripMenuItem"
         Me.UpdatesToolStripMenuItem.Size = New System.Drawing.Size(62, 20)
         Me.UpdatesToolStripMenuItem.Text = "Updates"
@@ -223,7 +230,7 @@ Partial Class main
         'HomepageToolStripMenuItem
         '
         Me.HomepageToolStripMenuItem.Name = "HomepageToolStripMenuItem"
-        Me.HomepageToolStripMenuItem.Size = New System.Drawing.Size(220, 22)
+        Me.HomepageToolStripMenuItem.Size = New System.Drawing.Size(282, 22)
         Me.HomepageToolStripMenuItem.Text = "Program update homepage"
         '
         'SetupToolStripMenuItem
@@ -469,11 +476,11 @@ Partial Class main
         Me.B_DataLogging.Text = "Data Logging"
         Me.B_DataLogging.UseVisualStyleBackColor = True
         '
-        'NewStockGixxerK7ToolStripMenuItem
+        'DonateForProgramDevelopmentTeamToolStripMenuItem
         '
-        Me.NewStockGixxerK7ToolStripMenuItem.Name = "NewStockGixxerK7ToolStripMenuItem"
-        Me.NewStockGixxerK7ToolStripMenuItem.Size = New System.Drawing.Size(269, 22)
-        Me.NewStockGixxerK7ToolStripMenuItem.Text = "New/Stock Gixxer K7-"
+        Me.DonateForProgramDevelopmentTeamToolStripMenuItem.Name = "DonateForProgramDevelopmentTeamToolStripMenuItem"
+        Me.DonateForProgramDevelopmentTeamToolStripMenuItem.Size = New System.Drawing.Size(320, 22)
+        Me.DonateForProgramDevelopmentTeamToolStripMenuItem.Text = "Donate 20USD for ecueditor.com development"
         '
         'main
         '
@@ -562,5 +569,6 @@ Partial Class main
     Friend WithEvents B_DataLogging As System.Windows.Forms.Button
     Friend WithEvents GixxerK5K6EnginedataOnlyToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NewStockGixxerK7ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents DonateForProgramDevelopmentTeamToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

@@ -24,7 +24,9 @@ Imports System
 Imports System.Threading
 Imports System.IO
 Imports System.Text
-Imports System.Net.mail
+Imports System.Net.Mail
+Imports System.Deployment.Application
+
 
 Public Class main
 
@@ -77,15 +79,26 @@ Public Class main
 
     Private Sub Main_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
+
         Me.Visible = False
         My.Application.SaveMySettingsOnExit = True
 
+        Dim deploy As ApplicationDeployment = ApplicationDeployment.CurrentDeployment
+        Dim update As UpdateCheckInfo = deploy.CheckForDetailedUpdate()
+        If (deploy.CheckForUpdate()) Then
+            If (Updateavail.ShowDialog() = Windows.Forms.DialogResult.OK) Then
+                deploy.Update()
+                Application.Restart()
+            End If
+        End If
+
+
         ' initialize global variables, just in case
 
-        disablebuttons()
+        DisableButtons()
         path = My.Settings.Item("path")
         comparepath = My.Settings.Item("comparepath")
-        ECUversion = ""
+        ECUVersion = ""
 
         BlockPgm = True ' just initializing
 
@@ -95,6 +108,7 @@ Public Class main
 
         LoginForm.Show()
         LoginForm.Select()
+
 
     End Sub
 
@@ -4600,6 +4614,10 @@ Public Class main
 
         BlockPgm = True
 
+    End Sub
+
+    Private Sub DonateForProgramDevelopmentTeamToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DonateForProgramDevelopmentTeamToolStripMenuItem.Click
+        Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZSM36H9HWNU2C")
     End Sub
 End Class
 
