@@ -193,7 +193,7 @@ Public Class main
             Case "bking"
                 K8Datastream.Show()
                 K8Datastream.Select()
-            Case "Gixxer"
+            Case "gixxer"
                 K8Datastream.Show()
                 K8Datastream.Select()
             Case "GixxerK5"
