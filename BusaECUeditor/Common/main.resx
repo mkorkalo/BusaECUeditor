@@ -126,6 +126,15 @@
   <metadata name="MenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>243, 17</value>
   </metadata>
+  <data name="SetupCOMPortToolStripMenuItem.Tag" xml:space="preserve">
+    <value>Here you can set up the com port. The com port should be a port between 1-8 for guaranteed operations. If your com port is installed higher, you need to adjust the com port properties in windows to change the port to a lower number.</value>
+  </data>
+  <data name="VerifyECUToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Use this command to verify that the ecu has same image as in the computer memory. you can also read new models with this command. After reading a new model post the ECU ID to us and we can possibly add it to ecueditor.com</value>
+  </data>
+  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>345, 17</value>
+  </metadata>
   <data name="L_Comparefile.ToolTip" xml:space="preserve">
     <value>Name of the file that the fuel and ignition maps compare to.
 You see the differences with colour codes and a number
