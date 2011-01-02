@@ -83,6 +83,12 @@ Public Class main
         Me.Visible = False
         My.Application.SaveMySettingsOnExit = True
 
+        '
+        ' Win XP error handler
+        ' 
+        On Error GoTo skip_update
+
+
         Dim deploy As ApplicationDeployment = ApplicationDeployment.CurrentDeployment
         Dim update As UpdateCheckInfo = deploy.CheckForDetailedUpdate()
         If (deploy.CheckForUpdate()) Then
@@ -91,6 +97,9 @@ Public Class main
                 Application.Restart()
             End If
         End If
+skip_update:
+
+
 
 
         ' initialize global variables, just in case
