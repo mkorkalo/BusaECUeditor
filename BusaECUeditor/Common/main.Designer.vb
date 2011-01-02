@@ -52,6 +52,7 @@ Partial Class main
         Me.ProgramInfoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.VersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.EcueditorcomHomepageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.DonateForKeepingTheProgramFreeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.B_Limiters = New System.Windows.Forms.Button
         Me.B_FlashECU = New System.Windows.Forms.Button
@@ -72,7 +73,6 @@ Partial Class main
         Me.WebBrowser1 = New System.Windows.Forms.WebBrowser
         Me.L_ProgramHomepage = New System.Windows.Forms.LinkLabel
         Me.B_DataLogging = New System.Windows.Forms.Button
-        Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -212,12 +212,14 @@ Partial Class main
         '
         Me.InstallFTDIDriversToolStripMenuItem.Name = "InstallFTDIDriversToolStripMenuItem"
         Me.InstallFTDIDriversToolStripMenuItem.Size = New System.Drawing.Size(199, 22)
+        Me.InstallFTDIDriversToolStripMenuItem.Tag = "This will install the com port drivers that are needed to run the interface."
         Me.InstallFTDIDriversToolStripMenuItem.Text = "Install COM port drivers"
         '
         'SetupCOMPortToolStripMenuItem
         '
         Me.SetupCOMPortToolStripMenuItem.Name = "SetupCOMPortToolStripMenuItem"
         Me.SetupCOMPortToolStripMenuItem.Size = New System.Drawing.Size(199, 22)
+        Me.SetupCOMPortToolStripMenuItem.Tag = resources.GetString("SetupCOMPortToolStripMenuItem.Tag")
         Me.SetupCOMPortToolStripMenuItem.Text = "Setup COM port"
         '
         'FlashToolStripMenuItem
@@ -232,24 +234,32 @@ Partial Class main
         Me.VerifyChecksumToolStripMenuItem.Name = "VerifyChecksumToolStripMenuItem"
         Me.VerifyChecksumToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
         Me.VerifyChecksumToolStripMenuItem.Text = "Verify Checksum"
+        Me.VerifyChecksumToolStripMenuItem.ToolTipText = "Verify checksum command is a fast way of ensuring that ecu has same image as in t" & _
+            "he computer memory, this only compares checksum and therefore result is not 100%" & _
+            " sure."
         '
         'VerifyECUToolStripMenuItem
         '
         Me.VerifyECUToolStripMenuItem.Name = "VerifyECUToolStripMenuItem"
         Me.VerifyECUToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
-        Me.VerifyECUToolStripMenuItem.Text = "Verify ECU"
+        Me.VerifyECUToolStripMenuItem.Text = "Verify/Read ECU"
+        Me.VerifyECUToolStripMenuItem.ToolTipText = resources.GetString("VerifyECUToolStripMenuItem.ToolTipText")
         '
         'FullEraseToolStripMenuItem
         '
         Me.FullEraseToolStripMenuItem.Name = "FullEraseToolStripMenuItem"
         Me.FullEraseToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
         Me.FullEraseToolStripMenuItem.Text = "Full Erase"
+        Me.FullEraseToolStripMenuItem.ToolTipText = "Use full erase in case ecu becomes locked or flashing fails constantly. This is l" & _
+            "ike a format computer command that erases all data and allows full image being w" & _
+            "ritten."
         '
         'FlashTheECUToolStripMenuItem
         '
         Me.FlashTheECUToolStripMenuItem.Name = "FlashTheECUToolStripMenuItem"
         Me.FlashTheECUToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
         Me.FlashTheECUToolStripMenuItem.Text = "Flash the ECU"
+        Me.FlashTheECUToolStripMenuItem.ToolTipText = "This is the normal flash command, similar as the button on main screen."
         '
         'AboutToolStripMenuItem1
         '
@@ -274,13 +284,19 @@ Partial Class main
         '
         Me.EcueditorcomHomepageToolStripMenuItem.Name = "EcueditorcomHomepageToolStripMenuItem"
         Me.EcueditorcomHomepageToolStripMenuItem.Size = New System.Drawing.Size(308, 22)
-        Me.EcueditorcomHomepageToolStripMenuItem.Text = "Ecueditor.com homepage"
+        Me.EcueditorcomHomepageToolStripMenuItem.Text = "Visit ecueditor.com homepage"
+        '
+        'ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem
+        '
+        Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Name = "ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem"
+        Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Size = New System.Drawing.Size(308, 22)
+        Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Text = "View latest development from developer site"
         '
         'DonateForKeepingTheProgramFreeToolStripMenuItem
         '
         Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Name = "DonateForKeepingTheProgramFreeToolStripMenuItem"
-        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Size = New System.Drawing.Size(308, 22)
-        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Text = "Donate for keeping the program free"
+        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Size = New System.Drawing.Size(317, 22)
+        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Text = "Donate to support the development if you like"
         '
         'B_Limiters
         '
@@ -475,12 +491,6 @@ Partial Class main
         Me.B_DataLogging.Text = "Data Logging"
         Me.B_DataLogging.UseVisualStyleBackColor = True
         '
-        'ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem
-        '
-        Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Name = "ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem"
-        Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Size = New System.Drawing.Size(308, 22)
-        Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Text = "View latest development from developer site"
-        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -506,7 +516,7 @@ Partial Class main
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "main"
-        Me.Text = "ECUeditor.com for Hayabusa K2-K7, K8-.. , BKing, Gixxer K7- (by PetriK) "
+        Me.Text = "ecueditor.com for Hayabusa K2-K7, K8-.. , BKing, Gixxer K7- (by PetriK) "
         Me.MenuStrip.ResumeLayout(False)
         Me.MenuStrip.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)

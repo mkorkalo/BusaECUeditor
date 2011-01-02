@@ -62,6 +62,8 @@ Public Class K8dragtools
 
         L_dragtoolsver.Text = Str(dragtoolsVERSION)
 
+
+
         If (ReadFlashByte(ADJ) = &HFF) Then
             C_dragtools_activation.Checked = False
         Else
@@ -76,8 +78,83 @@ Public Class K8dragtools
         End If
         If C_dragtools_activation.Checked Then
             'generate_general_settings()
-            'generate_dragtools_table()
+            generate_dragtools_table()
         End If
+    End Sub
+    Public Sub generate_dragtools_table()
+        Dim i As Integer
+        '
+        'populate RPM RATES with initial value
+        '
+        i = ReadFlashWord(&H5A002) / 2.56 ' this is the reference that is stored in the system
+        Me.C_GEAR1_RATE.Items.Add(i.ToString())
+        i = 2000
+        Do While i < 5000 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
+            Me.C_GEAR1_RATE.Items.Add(i.ToString())
+            i = i + 100
+        Loop
+        Me.C_GEAR1_RATE.Items.Add(i.ToString())
+        i = ReadFlashWord(&H5A004) / 2.56 ' this is the reference that is stored in the system
+        Me.C_GEAR2_RATE.Items.Add(i.ToString())
+        i = 2000
+        Do While i < 5000 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
+            Me.C_GEAR2_RATE.Items.Add(i.ToString())
+            i = i + 100
+        Loop
+        Me.C_GEAR2_RATE.Items.Add(i.ToString())
+        i = ReadFlashWord(&H5A006) / 2.56 ' this is the reference that is stored in the system
+        Me.C_GEAR36_RATE.Items.Add(i.ToString())
+        i = 2000
+        Do While i < 5000 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
+            Me.C_GEAR36_RATE.Items.Add(i.ToString())
+            i = i + 100
+        Loop
+        Me.C_GEAR36_RATE.Items.Add(i.ToString())
+        '
+        ' Populate ignition retards with initial values
+        '
+        'populate RPM RATES with initial value
+        i = ReadFlashWord(&H5A008) ' this is the reference that is stored in the system
+        Me.C_GEAR1_RETARD.Items.Add(i.ToString())
+        i = 0
+        Do While i < 25 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
+            Me.C_GEAR1_RETARD.Items.Add(i.ToString())
+            i = i + 1
+        Loop
+        Me.C_GEAR1_RETARD.Items.Add(i.ToString())
+        i = ReadFlashWord(&H5A00A) ' this is the reference RPM that is stored in the system
+        Me.C_GEAR2_RETARD.Items.Add(i.ToString())
+        i = 0
+        Do While i < 25 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
+            Me.C_GEAR2_RETARD.Items.Add(i.ToString())
+            i = i + 1
+        Loop
+        Me.C_GEAR2_RETARD.Items.Add(i.ToString())
+        i = ReadFlashWord(&H5A00C) ' this is the reference  that is stored in the system
+        Me.C_GEAR36_RETARD.Items.Add(i.ToString())
+        i = 0
+        Do While i < 25 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
+            Me.C_GEAR36_RETARD.Items.Add(i.ToString())
+            i = i + 1
+        Loop
+        Me.C_GEAR36_RETARD.Items.Add(i.ToString())
+        i = ReadFlashWord(&H5A00E) / 2.56 ' this is the reference  that is stored in the system
+        Me.C_ACTIVATION.Items.Add(i.ToString())
+        i = 3000
+        Do While i < 8000
+            Me.C_ACTIVATION.Items.Add(i.ToString())
+            i = i + 100
+        Loop
+        Me.C_ACTIVATION.Items.Add(i.ToString())
+
+        Me.C_GEAR1_RATE.SelectedIndex = 0
+        Me.C_GEAR2_RATE.SelectedIndex = 0
+        Me.C_GEAR36_RATE.SelectedIndex = 0
+        Me.C_GEAR1_RETARD.SelectedIndex = 0
+        Me.C_GEAR2_RETARD.SelectedIndex = 0
+        Me.C_GEAR36_RETARD.SelectedIndex = 0
+        Me.C_ACTIVATION.SelectedIndex = 0
+
     End Sub
     Private Sub modify_original_ECU_code(ByVal method As Boolean)
         Dim pcdisp, blk As Integer
@@ -88,40 +165,20 @@ Public Class K8dragtools
             ' this modifies the programmingcode so that the ecu does a loop to the dragtools code
             ' as part of each main loop
             '
-            ' AD_conversion loop no jump to separate code
-            pcdisp = (dragtoolsCODE - &H41D8) / 4
+            ' main_calculations call to nullsub replaced with a call to dragtools module
+            pcdisp = (dragtoolsCODE - &H32E70) / 4
             blk = 0
             If pcdisp > &HFFFF Then
                 blk = Int(pcdisp / &H10000)
                 pcdisp = pcdisp And &HFFFF
             End If
-            WriteFlashByte(&H41D8, &HFE)
-            WriteFlashByte(&H41D9, blk)
-            WriteFlashWord(&H41DA, pcdisp)
-            'cylinder 1 
-            WriteFlashWord(&H41408, &H6400) ' ldi R4, 0
-            WriteFlashWord(&H413E2, &H6818)
-            WriteFlashWord(&H41460, &H4400) ' + 0
-            WriteFlashWord(&H41462, &H5446) ' << 5
-            'cylinder 2 
-            WriteFlashWord(&H414D8, &H6400)
-            WriteFlashWord(&H414B2, &H6818)
-            WriteFlashWord(&H41530, &H4400) ' + 0
-            WriteFlashWord(&H41532, &H5446) ' << 5
-            'cylinder 3 
-            WriteFlashWord(&H415A8, &H6400)
-            WriteFlashWord(&H41582, &H6818)
-            WriteFlashWord(&H41600, &H4400) ' + 0
-            WriteFlashWord(&H41602, &H5446) ' << 5
-            'cylinder 4 
-            WriteFlashWord(&H41678, &H6400)
-            WriteFlashWord(&H41652, &H6818)
-            WriteFlashWord(&H416D0, &H4400) ' + 0
-            WriteFlashWord(&H416D2, &H5446) ' << 5
+            WriteFlashByte(&H32E70, &HFE)
+            WriteFlashByte(&H32E71, blk)
+            WriteFlashWord(&H32E72, pcdisp)
 
             ' set ignition retard to read the dragtools module variable
-            WriteFlashByte(&H33C22, &H68)
-            WriteFlashByte(&H33C23, &H56)
+            WriteFlashByte(&H33C1A, &H68)
+            WriteFlashByte(&H33C1B, &H90)
 
 
         Else
@@ -130,31 +187,11 @@ Public Class K8dragtools
             '
             ' AD_conversion loop no jump to separate code
             WriteFlashWord(&H41D8, &HFE00)
-            WriteFlashWord(&H41DA, &HBAC9)
-            'cylinder 1 
-            WriteFlashWord(&H41408, &H4400)
-            WriteFlashWord(&H413E2, &H652A)
-            WriteFlashWord(&H41460, &H4480)
-            WriteFlashWord(&H41462, &H5442)
-            'cylinder 2 
-            WriteFlashWord(&H414D8, &H4400)
-            WriteFlashWord(&H414B2, &H652B)
-            WriteFlashWord(&H41530, &H4480)
-            WriteFlashWord(&H41532, &H5442)
-            'cylinder 3 
-            WriteFlashWord(&H415A8, &H4400)
-            WriteFlashWord(&H41582, &H652C)
-            WriteFlashWord(&H41600, &H4480)
-            WriteFlashWord(&H41602, &H5442)
-            'cylinder 4 
-            WriteFlashWord(&H41678, &H4400)
-            WriteFlashWord(&H41652, &H652D)
-            WriteFlashWord(&H416D0, &H4480)
-            WriteFlashWord(&H416D2, &H5442)
+            WriteFlashWord(&H41DA, &H7A3F)
 
             ' set ignition retard to read the stock variable
-            WriteFlashByte(&H33C22, &H63)
-            WriteFlashByte(&H33C23, &HA2)
+            WriteFlashByte(&H33C1A, &H63)
+            WriteFlashByte(&H33C1B, &HA4)
 
         End If
     End Sub
@@ -224,7 +261,7 @@ Public Class K8dragtools
             If (ReadFlashByte(ADJ) = &HFF) Then
                 modify_original_ECU_code(True)
                 dragtools_code_in_memory(True, dragtoolscodelenght)
-                ' generate_map_table()
+                generate_dragtools_table()
             End If
             'read_dragtools_settings()
         Else
@@ -234,5 +271,34 @@ Public Class K8dragtools
             'hide_boostfuel_settings()
         End If
 
+    End Sub
+
+    Private Sub C_GEAR1_RATE_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_GEAR1_RATE.SelectedIndexChanged
+        WriteFlashWord(&H5A002, Int(Val(C_GEAR1_RATE.Text) * 2.56))
+    End Sub
+
+    Private Sub C_GEAR2_RATE_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_GEAR2_RATE.SelectedIndexChanged
+        WriteFlashWord(&H5A004, Int(Val(C_GEAR2_RATE.Text) * 2.56))
+    End Sub
+
+    Private Sub C_GEAR36_RATE_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_GEAR36_RATE.SelectedIndexChanged
+        WriteFlashWord(&H5A006, Int(Val(C_GEAR36_RATE.Text) * 2.56))
+    End Sub
+
+    Private Sub C_GEAR1_RETARD_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_GEAR1_RETARD.SelectedIndexChanged
+        WriteFlashWord(&H5A008, Val(C_GEAR1_RETARD.Text))
+    End Sub
+
+    Private Sub C_GEAR2_RETARD_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_GEAR2_RETARD.SelectedIndexChanged
+        WriteFlashWord(&H5A00A, Val(C_GEAR2_RETARD.Text))
+    End Sub
+
+    Private Sub C_GEAR36_RETARD_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_GEAR36_RETARD.SelectedIndexChanged
+        WriteFlashWord(&H5A00C, Val(C_GEAR36_RETARD.Text))
+    End Sub
+
+    
+    Private Sub C_ACTIVATION_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_ACTIVATION.SelectedIndexChanged
+        WriteFlashWord(&H5A00E, Int(Val(C_ACTIVATION.Text) * 2.56))
     End Sub
 End Class
