@@ -96,7 +96,7 @@ Public Class K8dragtools
         Me.C_GEAR1_RATE.Items.Add(i.ToString())
         i = ReadFlashWord(&H5A004) / 2.56 ' this is the reference that is stored in the system
         Me.C_GEAR2_RATE.Items.Add(i.ToString())
-        i = 2000
+        i = 20 ' for testing only this low number XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
         Do While i < 5000 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
             Me.C_GEAR2_RATE.Items.Add(i.ToString())
             i = i + 100
@@ -180,6 +180,28 @@ Public Class K8dragtools
             WriteFlashByte(&H33C1A, &H68)
             WriteFlashByte(&H33C1B, &H90)
 
+            '
+            ' For debugging lets change kwb packet 08 bytes to monitor rpm_rate
+            '
+            WriteFlashByte(&H525C0, 0)
+            WriteFlashByte(&H525C0 + 1, &H80)
+            WriteFlashByte(&H525C0 + 2, &H68)
+            WriteFlashByte(&H525C0 + 3, &H8C)
+
+            WriteFlashByte(&H525C4, 0)
+            WriteFlashByte(&H525C4 + 1, &H80)
+            WriteFlashByte(&H525C4 + 2, &H68)
+            WriteFlashByte(&H525C4 + 3, &H8D)
+
+            WriteFlashByte(&H525C8, 0)
+            WriteFlashByte(&H525C8 + 1, &H80)
+            WriteFlashByte(&H525C8 + 2, &H68)
+            WriteFlashByte(&H525C8 + 3, &H8E)
+
+            WriteFlashByte(&H525CC, 0)
+            WriteFlashByte(&H525CC + 1, &H80)
+            WriteFlashByte(&H525CC + 2, &H68)
+            WriteFlashByte(&H525CC + 3, &H8F)
 
         Else
             '
