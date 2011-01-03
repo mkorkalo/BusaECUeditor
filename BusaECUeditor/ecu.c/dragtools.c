@@ -30,12 +30,12 @@
 #define ECU_AD_GPS *(volatile unsigned short *)  		0x00804318 // tested to work with 220 ohm resistor
 #define ECU_GPS	*(volatile unsigned char *)  			0x008050B3
 #define ECU_RPM *(volatile unsigned short *)  			0x0080502E
-#define TML1CT *(volatile unsigned short *)				0x00800FE0 // timer
+#define TML1CT *(volatile unsigned long *)				0x00800FE0 // timer, only upper word counting
 
 /*
 	The programmer installer removes SAP_ignition compensation from sub_33C00 and replaces that with ign retard from this program.
 */
-#define ECU_SAP_ignition_compensation *(volatile unsigned short *)	0x008064A4
+#define ECU_SAP_ignition_compensation *(volatile unsigned short *)	0x008063A4
 
 
 /*
@@ -48,7 +48,7 @@
 /* 0x64 - 0x6F reserved for gen2tools */
 /* 0x70 - reserved for dragtools */
 #define	counter *(volatile unsigned short *)  		(ramaddr + 0x70)
-#define	timer_old *(volatile unsigned short *)  	(ramaddr + 0x74)
+#define	timer_old *(volatile unsigned long *)  		(ramaddr + 0x74)
 #define	rpm_old *(volatile unsigned short *)  		(ramaddr + 0x78)
 #define	rpm_tmp *(volatile unsigned short *)  		(ramaddr + 0x7C)
 #define	timer_diff *(volatile unsigned short *)  	(ramaddr + 0x80)
@@ -67,7 +67,7 @@ const short GEAR2_RETARD = 2;
 const short GEAR36_RETARD = 1;
 const short ACTIVATION = 0x3200;
 
-#define divider 0x16									// this is the amount of cycles that is used for calculatting average RPM
+#define divider 0x64									// this is the amount of cycles that is used for calculatting average RPM
 
 #pragma SECTION P TOOLSCODE //0x5A100
 void toolsmain(void)
@@ -77,44 +77,44 @@ void toolsmain(void)
 */
 
 counter = counter + 1;
-if (counter < divider) 
+if (counter <= divider) 
 {
-	rpm_tmp = rpm_tmp + ECU_RPM;
-	if (rpm_tmp > (0xFFFFFF - 0xFFFF)) // lets avoid overrunning the numbers just in case
-		{
-			counter = 0;
-			timer_old = TML1CT;
-			rpm_tmp = 0;
-		}
+	rpm_tmp = rpm_tmp + (ECU_RPM / divider) ;
+	
 }
 else
 {
-	rpm_now = (rpm_tmp / divider);
 	ign_retard = ECU_SAP_ignition_compensation;
+	rpm_now = rpm_tmp;
+	rpm_tmp = 0;
+	counter = 0;
 	
 	if ((TML1CT > timer_old) & (ECU_RPM > ACTIVATION) & (rpm_now > rpm_old))
 	{
+		timer_diff = (((TML1CT - timer_old) & 0xFFFF) >> 8); 
+		rpm_diff = rpm_now - rpm_old;
+		rpm_rate = ((rpm_diff << 8)  / timer_diff); // this needs to be calculated to rpm/s value, a little bit unsure
+	}
+	else
+	{
+		rpm_rate = 0;
+	}	
 	
-	timer_diff = TML1CT - timer_old;
-	rpm_diff = rpm_now - rpm_old;
-	rpm_rate = ((rpm_diff * 0xC350) / (timer_diff >> 8)); // this needs to be calculated to rpm/s value, a little bit unsure
-
-	counter = 0;
-	timer_old = TML1CT;
-	rpm_tmp = 0;
+	rpm_old = rpm_now;
+	timer_old = TML1CT; 
 		
 	if (ECU_GPS == 1)	  // Gear 1
 		{
 			if (rpm_rate > GEAR1_RATE)
 				{
-					ign_retard = ECU_SAP_ignition_compensation + (((rpm_rate - GEAR1_RATE)/256) * GEAR1_RETARD);
+					ign_retard = ((ECU_SAP_ignition_compensation + (((rpm_rate - GEAR1_RATE)/256) * GEAR1_RETARD)) & 0xFF);
 				}
 		}
 	else if (ECU_GPS == 2) // Gear 2
 		{
 			if (rpm_rate > GEAR2_RATE)
 				{
-					ign_retard = ECU_SAP_ignition_compensation + (((rpm_rate - GEAR2_RATE)/256) * GEAR2_RETARD);
+					ign_retard = ((ECU_SAP_ignition_compensation + (((rpm_rate - GEAR2_RATE)/256) * GEAR2_RETARD)) & 0xFF);
 				}
 			
 		}
@@ -122,12 +122,12 @@ else
 		{
 			if (rpm_rate > GEAR36_RATE)
 				{
-					ign_retard = ECU_SAP_ignition_compensation + (((rpm_rate - GEAR36_RATE)/256) * GEAR36_RETARD);
+					ign_retard = ((ECU_SAP_ignition_compensation + (((rpm_rate - GEAR36_RATE)/256) * GEAR36_RETARD))  & 0xFF);
 				}
 			
 	
 		}
-	}
+	
 	
 }
 

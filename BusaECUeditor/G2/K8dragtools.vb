@@ -196,12 +196,12 @@ Public Class K8dragtools
             WriteFlashByte(&H525C8, 0)
             WriteFlashByte(&H525C8 + 1, &H80)
             WriteFlashByte(&H525C8 + 2, &H68)
-            WriteFlashByte(&H525C8 + 3, &H8E)
+            WriteFlashByte(&H525C8 + 3, &H80)
 
             WriteFlashByte(&H525CC, 0)
             WriteFlashByte(&H525CC + 1, &H80)
             WriteFlashByte(&H525CC + 2, &H68)
-            WriteFlashByte(&H525CC + 3, &H8F)
+            WriteFlashByte(&H525CC + 3, &H81)
 
         Else
             '
