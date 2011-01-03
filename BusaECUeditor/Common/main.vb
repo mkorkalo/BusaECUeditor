@@ -532,7 +532,7 @@ skip_update:
                     Loop
 
                     ' check the ecu id bytes and validate that the ecu flash image is supported
-                    If (Mid(ECUID.Text, 1, 6) <> "DJ18SE") And (Mid(ECUID.Text, 1, 6) <> "DJ47SE") And (Mid(ECUID.Text, 1, 6) <> "DJ0HSE") Then
+                    If (Mid(ECUID.Text, 1, 6) <> "DJ18SE") And (Mid(ECUID.Text, 1, 6) <> "DJ47SE") And (Mid(ECUID.Text, 1, 4) <> "DJ0H") And (Mid(ECUID.Text, 1, 4) <> "DT0H") And (Mid(ECUID.Text, 1, 4) <> "DJ21") Then
                         ECUNotSupported.ShowDialog()
                     Else
                         SetECUType()
@@ -2779,6 +2779,10 @@ skip_update:
                 SetECUType()
             ElseIf (Mid(ECUID.Text, 1, 4) = "DJ0H") Then
                 SetECUType()
+            ElseIf (Mid(ECUID.Text, 1, 4) = "DT0H") Then
+                SetECUType()
+            ElseIf (Mid(ECUID.Text, 1, 4) = "DJ21") Then
+                SetECUType()
             Else
                 ECUVersion = "unknown"
                 MsgBox("This is not a Hayabusa or Bking ECU, please do not flash it !!!")
@@ -3164,6 +3168,18 @@ skip_update:
                 ECUVersion = "bking"
             Case "DJ0HSE50"
                 Hayabusa.Text = "Gixxer K7- 32920-21H60"
+                Metric = False
+                ECUVersion = "gixxer"
+            Case "DJ0HSE51"
+                Hayabusa.Text = "Gixxer K8- ?????-?????"
+                Metric = False
+                ECUVersion = "gixxer"
+            Case "DJ21SER0"
+                Hayabusa.Text = "Gixxer empro K7- ?????-?????"
+                Metric = False
+                ECUVersion = "gixxer"
+            Case "DT0HSE50"
+                Hayabusa.Text = "Gixxer K7- ?????-?????"
                 Metric = False
                 ECUVersion = "gixxer"
             Case "41G10___"
@@ -4596,7 +4612,7 @@ skip_update:
         Loop
 
         ' check the ecu id bytes and validate that the ecu flash image is supported
-        If Mid(ECUID.Text, 1, 6) <> "DJ0HSE" Then
+        If (Mid(ECUID.Text, 1, 4) <> "DJ0H") And (Mid(ECUID.Text, 1, 4) <> "DT0H") And (Mid(ECUID.Text, 1, 4) <> "DJ21") Then
             ECUNotSupported.ShowDialog()
         Else
             SetECUType()

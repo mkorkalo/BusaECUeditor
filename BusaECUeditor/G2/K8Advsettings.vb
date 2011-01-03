@@ -793,6 +793,7 @@ Public Class K8Advsettings
 
 
     Private Sub T_hexaddr_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_hexaddr.TextChanged
+        On Error Resume Next ' In case there is a typo written to the field
         If T_hexaddr.Text.Contains("&H") Then
             T_hexvaluehi.Text = "&H" & Hex(Flash(CInt(T_hexaddr.Text)))
         Else
