@@ -140,13 +140,12 @@ Partial Class K8dragtools
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.Red
-        Me.Label4.Location = New System.Drawing.Point(14, 286)
+        Me.Label4.Location = New System.Drawing.Point(12, 309)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(497, 120)
+        Me.Label4.Size = New System.Drawing.Size(325, 72)
         Me.Label4.TabIndex = 85
-        Me.Label4.Text = "This is just for development purposes, not yet functional !!!!" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "First desktop t" & _
-            "esting candidate - " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "RPM/SEC not yet calculated correctly," & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "otherwise functions " & _
-            "may work."
+        Me.Label4.Text = "First user test candidate - " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "RPM/SEC not yet calculated correctly," & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "otherwise fu" & _
+            "nctions work."
         '
         'Label5
         '

@@ -35,7 +35,7 @@
 /*
 	The programmer installer removes SAP_ignition compensation from sub_33C00 and replaces that with ign retard from this program.
 */
-#define ECU_SAP_ignition_compensation *(volatile unsigned short *)	0x008063A4
+#define ECU_SAP_IAT_ignition_compensation *(volatile unsigned char *)	0x008063C7
 
 
 /*
@@ -55,7 +55,7 @@
 #define	rpm_diff *(volatile unsigned short *)  		(ramaddr + 0x84)
 #define	rpm_now *(volatile unsigned short *)  		(ramaddr + 0x88)
 #define	rpm_rate *(volatile unsigned short *)  		(ramaddr + 0x8C)
-#define	ign_retard *(volatile unsigned short *)  	(ramaddr + 0x90)
+#define	ign_retard *(volatile unsigned char *)  	(ramaddr + 0x90)
 
 #pragma SECTION C PARAMS //0x5A000
 const short const_pgmid = 				100;			// 0 program id, must match to ecueditor version to be able to load this code to ecu
@@ -84,7 +84,7 @@ if (counter <= divider)
 }
 else
 {
-	ign_retard = ECU_SAP_ignition_compensation;
+	ign_retard = ECU_SAP_IAT_ignition_compensation;
 	rpm_now = rpm_tmp;
 	rpm_tmp = 0;
 	counter = 0;
@@ -107,14 +107,14 @@ else
 		{
 			if (rpm_rate > GEAR1_RATE)
 				{
-					ign_retard = ((ECU_SAP_ignition_compensation + (((rpm_rate - GEAR1_RATE)/256) * GEAR1_RETARD)) & 0xFF);
+					ign_retard = ((ECU_SAP_IAT_ignition_compensation + (((rpm_rate - GEAR1_RATE)/256) * GEAR1_RETARD)) & 0xFF);
 				}
 		}
 	else if (ECU_GPS == 2) // Gear 2
 		{
 			if (rpm_rate > GEAR2_RATE)
 				{
-					ign_retard = ((ECU_SAP_ignition_compensation + (((rpm_rate - GEAR2_RATE)/256) * GEAR2_RETARD)) & 0xFF);
+					ign_retard = ((ECU_SAP_IAT_ignition_compensation + (((rpm_rate - GEAR2_RATE)/256) * GEAR2_RETARD)) & 0xFF);
 				}
 			
 		}
@@ -122,7 +122,7 @@ else
 		{
 			if (rpm_rate > GEAR36_RATE)
 				{
-					ign_retard = ((ECU_SAP_ignition_compensation + (((rpm_rate - GEAR36_RATE)/256) * GEAR36_RETARD))  & 0xFF);
+					ign_retard = ((ECU_SAP_IAT_ignition_compensation + (((rpm_rate - GEAR36_RATE)/256) * GEAR36_RETARD))  & 0xFF);
 				}
 			
 	
