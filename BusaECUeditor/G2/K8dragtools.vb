@@ -88,7 +88,7 @@ Public Class K8dragtools
         '
         i = ReadFlashWord(&H5A002) / 2.56 ' this is the reference that is stored in the system
         Me.C_GEAR1_RATE.Items.Add(i.ToString())
-        i = 2000
+        i = 100
         Do While i < 5000 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
             Me.C_GEAR1_RATE.Items.Add(i.ToString())
             i = i + 100
@@ -96,7 +96,7 @@ Public Class K8dragtools
         Me.C_GEAR1_RATE.Items.Add(i.ToString())
         i = ReadFlashWord(&H5A004) / 2.56 ' this is the reference that is stored in the system
         Me.C_GEAR2_RATE.Items.Add(i.ToString())
-        i = 20 ' for testing only this low number XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        i = 100
         Do While i < 5000 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
             Me.C_GEAR2_RATE.Items.Add(i.ToString())
             i = i + 100
@@ -104,7 +104,7 @@ Public Class K8dragtools
         Me.C_GEAR2_RATE.Items.Add(i.ToString())
         i = ReadFlashWord(&H5A006) / 2.56 ' this is the reference that is stored in the system
         Me.C_GEAR36_RATE.Items.Add(i.ToString())
-        i = 2000
+        i = 100
         Do While i < 5000 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
             Me.C_GEAR36_RATE.Items.Add(i.ToString())
             i = i + 100
@@ -177,8 +177,8 @@ Public Class K8dragtools
             WriteFlashWord(&H32E72, pcdisp)
 
             ' set ignition retard to read the dragtools module variable
-            WriteFlashByte(&H33C1A, &H68)
-            WriteFlashByte(&H33C1B, &H90)
+            WriteFlashByte(&H33C36, &H68)
+            WriteFlashByte(&H33C37, &H90)
 
             '
             ' For debugging lets change kwb packet 08 bytes to monitor rpm_rate
@@ -212,8 +212,8 @@ Public Class K8dragtools
             WriteFlashWord(&H41DA, &H7A3F)
 
             ' set ignition retard to read the stock variable
-            WriteFlashByte(&H33C1A, &H63)
-            WriteFlashByte(&H33C1B, &HA4)
+            WriteFlashByte(&H33C36, &H63)
+            WriteFlashByte(&H33C36, &HC7)
 
         End If
     End Sub
