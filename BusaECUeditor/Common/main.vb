@@ -2406,348 +2406,370 @@ skip_update:
         Dim chksumflash As Long
 
 
-        If ECUVersion = "gen2" Or ECUVersion = "bking" Then
+        '
+        ' Get the FTDI device handle based on com port number and leave that port open
+        '
+        timeBeginPeriod(1)
+        comportnum = Val(Mid$(My.Settings.Item("ComPort"), 4))
+        FT_status = FT_GetNumberOfDevices(i, 0, &H80000000)
+        i = i - 1
+        For x = 0 To i
+            FT_status = FT_Open(x, lngHandle) ' only one
+            FT_status = FT_GetComPortNumber(lngHandle, y)
+            If y = comportnum Then
+                cp = x
+                x = i
+            End If
+            FT_status = FT_Close(lngHandle)
+        Next
+        If FT_status <> 0 Then
+            MsgBox("Could not open com port, please set correct port on K8 enginedata screen. Verfiy aborted")
+            FT_status = FT_Close(lngHandle)
+            Return
+        End If
+        '
+        ' Open, Reset, set timeouts and set baud rate
+        '
+        FT_status = FT_Open(cp, lngHandle)
+        FT_status = FT_ResetDevice(lngHandle, 3)                                'set device to default status
+        FT_status = FT_status + FT_Purge(lngHandle)                             'clear rx and tx buffers
+        FT_status = FT_status + FT_SetBaudRate(lngHandle, 57600)                'set speed 57600
+        FT_status = FT_status + FT_SetDataCharacteristics(lngHandle, 8, 1, 0)   ' 8bits ,1 stop, parity none
+        FT_status = FT_status + FT_SetTimeouts(lngHandle, 5, 5)               'rx and tx timeouts ms
+        If FT_status <> 0 Then
+            MsgBox("Could not set Com port parameters. Verify aborted, set correct com port for the interface using data monitoring screen")
+            FT_status = FT_Close(lngHandle)
+            Return
+        End If
 
+        '
+        ' Lets test that the interface is in the programming mode
+        '
+        FT_status = FT_GetModemStatus(lngHandle, modemstat)
+        If FT_status <> 0 Then
+            MsgBox("Set the correct Com port for the interface using data monitoring screen")
+            Return
+        End If
+        If Not ((modemstat = &H6000) Or (modemstat = &H6200)) Then
+            MsgBox("Interface is not on or it is not in programming mode, set programming switch to programming mode and retry")
+            FT_status = FT_Close(lngHandle)
+            Return
+        Else
             '
-            ' Get the FTDI device handle based on com port number and leave that port open
+            ' Reset ecu
             '
-            timeBeginPeriod(1)
-            comportnum = Val(Mid$(My.Settings.Item("ComPort"), 4))
-            FT_status = FT_GetNumberOfDevices(i, 0, &H80000000)
-            i = i - 1
-            For x = 0 To i
-                FT_status = FT_Open(x, lngHandle) ' only one
-                FT_status = FT_GetComPortNumber(lngHandle, y)
-                If y = comportnum Then
-                    cp = x
-                    x = i
-                End If
-                FT_status = FT_Close(lngHandle)
-            Next
-            If FT_status <> 0 Then
-                MsgBox("Could not open com port, please set correct port on K8 enginedata screen. Verfiy aborted")
-                FT_status = FT_Close(lngHandle)
-                Return
-            End If
-            '
-            ' Open, Reset, set timeouts and set baud rate
-            '
-            FT_status = FT_Open(cp, lngHandle)
-            FT_status = FT_ResetDevice(lngHandle, 3)                                'set device to default status
-            FT_status = FT_status + FT_Purge(lngHandle)                             'clear rx and tx buffers
-            FT_status = FT_status + FT_SetBaudRate(lngHandle, 57600)                'set speed 57600
-            FT_status = FT_status + FT_SetDataCharacteristics(lngHandle, 8, 1, 0)   ' 8bits ,1 stop, parity none
-            FT_status = FT_status + FT_SetTimeouts(lngHandle, 5, 5)               'rx and tx timeouts ms
-            If FT_status <> 0 Then
-                MsgBox("Could not set Com port parameters. Verify aborted, set correct com port for the interface using data monitoring screen")
-                FT_status = FT_Close(lngHandle)
-                Return
-            End If
+            FT_status = FT_SetRts(lngHandle)
+            System.Threading.Thread.Sleep(300)
+            FT_status = FT_ClrRts(lngHandle)
+            System.Threading.Thread.Sleep(300)
+        End If
 
-            '
-            ' Lets test that the interface is in the programming mode
-            '
-            FT_status = FT_GetModemStatus(lngHandle, modemstat)
-            If FT_status <> 0 Then
-                MsgBox("Set the correct Com port for the interface using data monitoring screen")
-                Return
-            End If
-            If Not ((modemstat = &H6000) Or (modemstat = &H6200)) Then
-                MsgBox("Interface is not on or it is not in programming mode, set programming switch to programming mode and retry")
-                FT_status = FT_Close(lngHandle)
-                Return
-            Else
-                '
-                ' Reset ecu
-                '
-                FT_status = FT_SetRts(lngHandle)
-                System.Threading.Thread.Sleep(300)
-                FT_status = FT_ClrRts(lngHandle)
-                System.Threading.Thread.Sleep(300)
-            End If
+        i = 0
+        rxqueue = 0
+        '
+        ' Sync baud rate with ecu 18 x 0x00, get ack as a reply
+        '
+        x = 18 'default is 18
+        For i = 1 To x
+            txbyte = &H0
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            System.Threading.Thread.Sleep(40)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            If rxqueue <> 0 Then i = x
+        Next
+        System.Threading.Thread.Sleep(2)
+        For x = 1 To rxqueue
+            FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+        Next
 
-            i = 0
-            rxqueue = 0
+
+        If (rxbyte <> ACK) Then
+            MsgBox("Unexpected or missing ECU response during intialization. Verify aborted, reset ecu and retry." & Hex(rxqueue) & " " & Hex(rxbyte))
+            FT_status = FT_Close(lngHandle)
+            Return
+        End If
+
+        '
+        ' check key status and send key if necessary
+        '
+        rxbyte = 0
+        i = 0
+        rxqueue = 0
+        While (rxqueue = 0) And (i < 10)
+            txbyte = &H70
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            System.Threading.Thread.Sleep(40)
+            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            i = i + 1
+        End While
+        For x = 1 To rxqueue
+            FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+        Next
+        If rxbyte <> &H8C Then
+            txbyte = &HF5
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H84
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H0
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H0
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &HC
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H53
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H55
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H45
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H46
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H49
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H4D
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &HFF
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &HFF
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &HFF
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &HFF
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H56
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            txbyte = &H30
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
             '
-            ' Sync baud rate with ecu 18 x 0x00, get ack as a reply
+            ' Receive ACK if unlock code succesfull
             '
-            x = 18 'default is 18
-            For i = 1 To x
-                txbyte = &H0
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                System.Threading.Thread.Sleep(40)
-                FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                If rxqueue <> 0 Then i = x
-            Next
-            System.Threading.Thread.Sleep(2)
-            For x = 1 To rxqueue
+            System.Threading.Thread.Sleep(100)
+            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            For i = 1 To rxqueue
                 FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
             Next
-
-
-            If (rxbyte <> ACK) Then
-                MsgBox("Unexpected or missing ECU response during intialization. Verify aborted, reset ecu and retry." & Hex(rxqueue) & " " & Hex(rxbyte))
+            If rxbyte <> ACK Then
+                MsgBox("No ACK received after sending unlock code. Verify aborted, reset ecu and reprogram")
                 FT_status = FT_Close(lngHandle)
                 Return
             End If
+        End If
+        '
+        ' Check status after unlock code
+        '
+        txqueue = 0
+        i = 0
+        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+        System.Threading.Thread.Sleep(50)
+        While rxqueue = 0 And i < 10
+            txbyte = &H70
+            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+            System.Threading.Thread.Sleep(40)
+            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            i = i + 1
+        End While
+        If (i >= 10) Or (rxqueue = 0) Then
+            MsgBox("Error in validating the unlock code from ECU. Verify aborted, reset ecu and reprogram")
+            FT_status = FT_Close(lngHandle)
+            Return
+        Else
+            FT_Read_Bytes(lngHandle, rxbyte, 1, 1) '128
+            System.Threading.Thread.Sleep(50)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+            FT_Read_Bytes(lngHandle, rxbyte, 1, 1) '140
+            System.Threading.Thread.Sleep(50)
+            FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+        End If
+        If (rxbyte <> &H8C) Or (FT_status <> 0) Then
+            MsgBox("Was not able to set the ecu key. Verify aborted, reset ecu and reprogram")
+            FT_status = FT_Close(lngHandle)
+            Return
+        End If
 
-            '
-            ' check key status and send key if necessary
-            '
-            rxbyte = 0
-            i = 0
-            rxqueue = 0
-            While (rxqueue = 0) And (i < 10)
-                txbyte = &H70
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                System.Threading.Thread.Sleep(40)
-                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                i = i + 1
-            End While
-            For x = 1 To rxqueue
-                FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-            Next
-            If rxbyte <> &H8C Then
-                txbyte = &HF5
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                txbyte = &H84
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                txbyte = &H0
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                txbyte = &H0
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                txbyte = &HC
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                txbyte = &H53
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                txbyte = &H55
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                txbyte = &H45
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                txbyte = &H46
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                txbyte = &H49
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                txbyte = &H4D
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                txbyte = &HFF
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                txbyte = &HFF
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                txbyte = &HFF
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                txbyte = &HFF
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                txbyte = &H56
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                txbyte = &H30
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+        timeEndPeriod(1)
+
+        '
+        ' Lets read the ecu, &HFF, midorder, highorder -> 256 bytes of data in readbuffer
+        ' if the checksum of read bytes and ecu command matches the read page will be then compared
+        ' against whats in the memory. Variable flash(i) contains the information read from ecu
+        ' the variable flashcopy(i) is the one that the verification against is made to.
+        '
+        VerifyInProgress.ProgressBar_Verify.Value = 50
+        VerifyInProgress.Show()
+        imageidentical = True
+        k = 0
+        imagelength = 0
+        diffstr = ""
+
+        'FT_SetTimeouts(lngHandle, 100, 200)
+
+        For highorder = 0 To &HF
+            For midorder = 0 To &HFF
+
                 '
-                ' Receive ACK if unlock code succesfull
+                ' Acquire sum value
                 '
+                txbyte = &HE1
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = midorder
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = highorder
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = midorder
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = highorder
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
                 System.Threading.Thread.Sleep(100)
                 FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                For i = 1 To rxqueue
-                    FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-                Next
-                If rxbyte <> ACK Then
-                    MsgBox("No ACK received after sending unlock code. Verify aborted, reset ecu and reprogram")
-                    FT_status = FT_Close(lngHandle)
-                    Return
-                End If
-            End If
-            '
-            ' Check status after unlock code
-            '
-            txqueue = 0
-            i = 0
-            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            System.Threading.Thread.Sleep(50)
-            While rxqueue = 0 And i < 10
-                txbyte = &H70
-                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                System.Threading.Thread.Sleep(40)
-                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                i = i + 1
-            End While
-            If (i >= 10) Or (rxqueue = 0) Then
-                MsgBox("Error in validating the unlock code from ECU. Verify aborted, reset ecu and reprogram")
-                FT_status = FT_Close(lngHandle)
-                Return
-            Else
-                FT_Read_Bytes(lngHandle, rxbyte, 1, 1) '128
-                System.Threading.Thread.Sleep(50)
-                FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                FT_Read_Bytes(lngHandle, rxbyte, 1, 1) '140
-                System.Threading.Thread.Sleep(50)
-                FT_status = FT_status + FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            End If
-            If (rxbyte <> &H8C) Or (FT_status <> 0) Then
-                MsgBox("Was not able to set the ecu key. Verify aborted, reset ecu and reprogram")
-                FT_status = FT_Close(lngHandle)
-                Return
-            End If
-
-            timeEndPeriod(1)
-
-            '
-            ' Lets read the ecu, &HFF, midorder, highorder -> 256 bytes of data in readbuffer
-            ' if the checksum of read bytes and ecu command matches the read page will be then compared
-            ' against whats in the memory. Variable flash(i) contains the information read from ecu
-            ' the variable flashcopy(i) is the one that the verification against is made to.
-            '
-            VerifyInProgress.ProgressBar_Verify.Value = 50
-            VerifyInProgress.Show()
-            imageidentical = True
-            k = 0
-            imagelength = 0
-            diffstr = ""
-
-            'FT_SetTimeouts(lngHandle, 100, 200)
-
-            For highorder = 0 To &HF
-                For midorder = 0 To &HFF
-
+                FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+                k = rxbyte
+                FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+                chksum = (k) + (rxbyte * &H100)
+                '
+                ' Read Page until checksum match
+                '
+                chksumflash = -1
+                im = imagelength
+                While chksumflash <> chksum
                     '
-                    ' Acquire sum value
+                    ' Read page
                     '
-                    txbyte = &HE1
+                    txbyte = &HFF
                     FT_Write_Bytes(lngHandle, txbyte, 1, 1)
                     txbyte = midorder
                     FT_Write_Bytes(lngHandle, txbyte, 1, 1)
                     txbyte = highorder
                     FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                    txbyte = midorder
-                    FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                    txbyte = highorder
-                    FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                    Dim s As String
+                    s = ""
+                    j = 0
+                    k = 0
+                    chksumflash = 0
                     System.Threading.Thread.Sleep(100)
                     FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                    FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-                    k = rxbyte
-                    FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-                    chksum = (k) + (rxbyte * &H100)
-                    '
-                    ' Read Page until checksum match
-                    '
-                    chksumflash = -1
-                    im = imagelength
-                    While chksumflash <> chksum
-                        '
-                        ' Read page
-                        '
-                        txbyte = &HFF
-                        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                        txbyte = midorder
-                        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                        txbyte = highorder
-                        FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-                        Dim s As String
-                        s = ""
-                        j = 0
-                        k = 0
-                        chksumflash = 0
-                        System.Threading.Thread.Sleep(100)
-                        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                        For i = 1 To rxqueue
-                            FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-                            Flash(imagelength) = rxbyte
-                            If k = 0 Then
-                                chksumflash = chksumflash + (rxbyte * &H100)
-                                k = 1
-                            Else
-                                k = 0
-                                chksumflash = chksumflash + rxbyte
-                            End If
-                            If chksumflash > &HFFFF Then
-                                chksumflash = chksumflash - &H10000
-                            End If
-                            imagelength = imagelength + 1
-                        Next
-                        If chksumflash <> chksum Then
-                            '
-                            ' Block is being reread, lets make a note of it and also return the memory counter back to previous state
-                            '
-                            If Len(diffstr) < 100 Then diffstr = diffstr & "R"
-                            imagelength = im
-                            System.Threading.Thread.Sleep(100)
+                    For i = 1 To rxqueue
+                        FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+                        Flash(imagelength) = rxbyte
+                        If k = 0 Then
+                            chksumflash = chksumflash + (rxbyte * &H100)
+                            k = 1
+                        Else
+                            k = 0
+                            chksumflash = chksumflash + rxbyte
                         End If
-                    End While
-                    '
-                    ' Now block is read and we can check if the block contents is identical in flashcopy as read from ecu
-                    '
-                    For j = 0 To &HFF
-                        If Flash((midorder * &H100) + (highorder * &H10000) + j) <> FlashCopy((midorder * &H100) + (highorder * &H10000) + j) Then
-                            imageidentical = False
-                            If Len(diffstr) < 100 Then diffstr = diffstr & " " & Hex((midorder * &H100) + (highorder * &H10000) + j)
+                        If chksumflash > &HFFFF Then
+                            chksumflash = chksumflash - &H10000
                         End If
+                        imagelength = imagelength + 1
                     Next
-                    VerifyInProgress.Select()
-                    VerifyInProgress.L_Txt.Text = Hex(highorder) & " " & Hex(midorder) & " - " & imageidentical & " " & diffstr & " "
-                    VerifyInProgress.ProgressBar_Verify.Value = Int(((highorder * &HF) + Int(midorder / &HF)) / 2.56)
-                    VerifyInProgress.Refresh()
-                    System.Windows.Forms.Application.DoEvents()
+                    If chksumflash <> chksum Then
+                        '
+                        ' Block is being reread, lets make a note of it and also return the memory counter back to previous state
+                        '
+                        If Len(diffstr) < 100 Then diffstr = diffstr & "R"
+                        imagelength = im
+                        System.Threading.Thread.Sleep(100)
+                    End If
+                End While
+                '
+                ' Now block is read and we can check if the block contents is identical in flashcopy as read from ecu
+                '
+                For j = 0 To &HFF
+                    If Flash((midorder * &H100) + (highorder * &H10000) + j) <> FlashCopy((midorder * &H100) + (highorder * &H10000) + j) Then
+                        imageidentical = False
+                        If Len(diffstr) < 100 Then diffstr = diffstr & " " & Hex((midorder * &H100) + (highorder * &H10000) + j)
+                    End If
                 Next
+                VerifyInProgress.Select()
+                VerifyInProgress.L_Txt.Text = Hex(highorder) & " " & Hex(midorder) & " - " & imageidentical & " " & diffstr & " "
+                VerifyInProgress.ProgressBar_Verify.Value = Int(((highorder * &HF) + Int(midorder / &HF)) / 2.56)
+                VerifyInProgress.Refresh()
+                System.Windows.Forms.Application.DoEvents()
             Next
-            VerifyInProgress.Close()
+        Next
+        VerifyInProgress.Close()
 
-            '
-            ' All done, close comms
-            '
-            B_FlashECU.Enabled = True
+        '
+        ' All done, close comms
+        '
+        B_FlashECU.Enabled = True
 
-            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-            If FT_status = 0 Then
-                FT_status = FT_Close(lngHandle)
-            Else
-                MsgBox("Can not close com port, please reboot your ecu and computer and reread just in case.")
+        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+        If FT_status = 0 Then
+            FT_status = FT_Close(lngHandle)
+        Else
+            MsgBox("Can not close com port, please reboot your ecu and computer and reread just in case.")
+        End If
+
+        '
+        ' Here add the filename etc stuff to reflect that new bin has been loaded
+        '
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        DisableButtons()
+
+
+        If imageidentical Then
+            MsgBox("Ecu verify complete, image same as comparemap. Ecu image is in ecueditor memory.")
+            ResetBlocks()
+            BlockPgm = False
+        Else
+            '
+            ' Check that the binary lenght matches just in case
+            '
+            If imagelength <> (262144 * 4) Then
+                ECUNotSupported.ShowDialog()
             End If
-
             '
-            ' Here add the filename etc stuff to reflect that new bin has been loaded
+            ' Same lenght, just inform the user that he has a new bin in the memory
             '
-            L_File.Text = ""
-            L_Comparefile.Text = ""
-            DisableButtons()
+            MsgBox("Ecu image is not same as comparemap. Ecu image copied into ecueditor memory.", MsgBoxStyle.Exclamation)
+            BlockPgm = True
+        End If
 
 
-            If imageidentical Then
-                MsgBox("Ecu verify complete, image same as comparemap. Ecu image is in ecueditor memory.")
-                ResetBlocks()
-                BlockPgm = False
-            Else
-                '
-                ' Check that the binary lenght matches just in case
-                '
-                If imagelength <> (262144 * 4) Then
-                    ECUNotSupported.ShowDialog()
-                End If
-                '
-                ' Same lenght, just inform the user that he has a new bin in the memory
-                '
-                MsgBox("Ecu image is not same as comparemap. Ecu image copied into ecueditor memory.", MsgBoxStyle.Exclamation)
-                BlockPgm = True
-            End If
 
+        '
+        ' Make sure the ECU id is supported type
+        '
+        i = 0
+        ECUID.Text = ""
+        Do While i < 8
+            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
+            i = i + 1
+        Loop
 
-            ' enable controls, otherwise at form load an event will occur
+        ECUVersion = ""
+        SetECUType()
+        If ECUVersion = "" Then
+            Limiters.C_RPM.Enabled = False
+            B_Limiters.Enabled = False
+            B_Shifter.Enabled = False
+            B_FuelMap.Enabled = False
+            B_IgnitionMap.Enabled = False
+            B_AdvancedSettings.Enabled = False
+            B_DataLogging.Enabled = True
+            B_FlashECU.Enabled = False
+            SaveToolStripMenuItem.Enabled = True
+            MsgBox("ECU read into memory, but not recognized. please save as" & ECUID.Text & ".bin and send to info@ecueditor.com with notes about the bike and model.")
+        Else
             Limiters.C_RPM.Enabled = True
             SaveToolStripMenuItem.Enabled = True
             B_FlashECU.Enabled = True
@@ -2757,40 +2779,7 @@ skip_update:
             B_IgnitionMap.Enabled = True
             B_AdvancedSettings.Enabled = True
             B_DataLogging.Enabled = True
-
-            '
-            ' Make sure the ECU id is supported type
-            '
-            i = 0
-            ECUID.Text = ""
-            Do While i < 8
-                ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
-                i = i + 1
-            Loop
             SaveToolStripMenuItem.Enabled = True
-            '
-            ' ECUtype does not really need to be checked here, the SetECUType function should do that
-            '
-            B_FlashECU.Enabled = True
-            If (Mid(ECUID.Text, 1, 4) = "DJ18") Then
-                SetECUType()
-
-            ElseIf (Mid(ECUID.Text, 1, 4) = "DJ47") Then
-                SetECUType()
-            ElseIf (Mid(ECUID.Text, 1, 4) = "DJ0H") Then
-                SetECUType()
-            ElseIf (Mid(ECUID.Text, 1, 4) = "DT0H") Then
-                SetECUType()
-            ElseIf (Mid(ECUID.Text, 1, 4) = "DJ21") Then
-                SetECUType()
-            Else
-                ECUVersion = "unknown"
-                MsgBox("This is not a Hayabusa or Bking ECU, please do not flash it !!!")
-                B_FlashECU.Enabled = True
-            End If
-
-        Else
-            MsgBox("Verify only supported for Hayabusa gen2 and bking ecus")
         End If
 
     End Sub
@@ -3140,9 +3129,7 @@ skip_update:
     End Sub
 
     Public Sub SetECUType()
-        '
-        ' ECU is DJ18SE type
-        '
+       
         Hayabusa.Visible = True
         FlashToolStripMenuItem.Visible = True
         Select Case Mid(ECUID.Text, 1, 8)
@@ -3171,15 +3158,15 @@ skip_update:
                 Metric = False
                 ECUVersion = "gixxer"
             Case "DJ0HSE51"
-                Hayabusa.Text = "Gixxer K8- ?????-?????"
+                Hayabusa.Text = "Gixxer K8- 32920-21H50"
                 Metric = False
                 ECUVersion = "gixxer"
             Case "DJ21SER0"
-                Hayabusa.Text = "Gixxer empro K7- ?????-?????"
+                Hayabusa.Text = "Gixxer empro K7- 32920-21HR0"
                 Metric = False
                 ECUVersion = "gixxer"
             Case "DT0HSE50"
-                Hayabusa.Text = "Gixxer K7- ?????-?????"
+                Hayabusa.Text = "Gixxer K7- 32920-21H50"
                 Metric = False
                 ECUVersion = "gixxer"
             Case "41G10___"
