@@ -73,6 +73,7 @@ Partial Class main
         Me.WebBrowser1 = New System.Windows.Forms.WebBrowser
         Me.L_ProgramHomepage = New System.Windows.Forms.LinkLabel
         Me.B_DataLogging = New System.Windows.Forms.Button
+        Me.NewStockGixxerK8ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -114,7 +115,7 @@ Partial Class main
         '
         'FileToolStripMenuItem
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.G1NewBaseMapUSToolStripMenuItem, Me.G1NewBaseMapEUToolStripMenuItem, Me.NewK8ToolStripMenuItem, Me.NewStockBkingToolStripMenuItem, Me.NewStockBkingUSToolStripMenuItem, Me.NewStockGixxerK7ToolStripMenuItem, Me.GixxerK5K6EnginedataOnlyToolStripMenuItem, Me.ToolStripSeparator2, Me.OpenToolStripMenuItem, Me.SaveToolStripMenuItem, Me.OpenComparemapToolStripMenuItem, Me.ExitToolStripMenuItem, Me.ToolStripSeparator1, Me.RecoveryToolStripMenuItem})
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.G1NewBaseMapUSToolStripMenuItem, Me.G1NewBaseMapEUToolStripMenuItem, Me.NewK8ToolStripMenuItem, Me.NewStockBkingToolStripMenuItem, Me.NewStockBkingUSToolStripMenuItem, Me.NewStockGixxerK7ToolStripMenuItem, Me.NewStockGixxerK8ToolStripMenuItem, Me.GixxerK5K6EnginedataOnlyToolStripMenuItem, Me.ToolStripSeparator2, Me.OpenToolStripMenuItem, Me.SaveToolStripMenuItem, Me.OpenComparemapToolStripMenuItem, Me.ExitToolStripMenuItem, Me.ToolStripSeparator1, Me.RecoveryToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
@@ -271,25 +272,25 @@ Partial Class main
         'ProgramInfoToolStripMenuItem
         '
         Me.ProgramInfoToolStripMenuItem.Name = "ProgramInfoToolStripMenuItem"
-        Me.ProgramInfoToolStripMenuItem.Size = New System.Drawing.Size(308, 22)
+        Me.ProgramInfoToolStripMenuItem.Size = New System.Drawing.Size(317, 22)
         Me.ProgramInfoToolStripMenuItem.Text = "Program info"
         '
         'VersionToolStripMenuItem
         '
         Me.VersionToolStripMenuItem.Name = "VersionToolStripMenuItem"
-        Me.VersionToolStripMenuItem.Size = New System.Drawing.Size(308, 22)
+        Me.VersionToolStripMenuItem.Size = New System.Drawing.Size(317, 22)
         Me.VersionToolStripMenuItem.Text = "Version"
         '
         'EcueditorcomHomepageToolStripMenuItem
         '
         Me.EcueditorcomHomepageToolStripMenuItem.Name = "EcueditorcomHomepageToolStripMenuItem"
-        Me.EcueditorcomHomepageToolStripMenuItem.Size = New System.Drawing.Size(308, 22)
+        Me.EcueditorcomHomepageToolStripMenuItem.Size = New System.Drawing.Size(317, 22)
         Me.EcueditorcomHomepageToolStripMenuItem.Text = "Visit ecueditor.com homepage"
         '
         'ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem
         '
         Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Name = "ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem"
-        Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Size = New System.Drawing.Size(308, 22)
+        Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Size = New System.Drawing.Size(317, 22)
         Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Text = "View latest development from developer site"
         '
         'DonateForKeepingTheProgramFreeToolStripMenuItem
@@ -491,6 +492,12 @@ Partial Class main
         Me.B_DataLogging.Text = "Data Logging"
         Me.B_DataLogging.UseVisualStyleBackColor = True
         '
+        'NewStockGixxerK8ToolStripMenuItem
+        '
+        Me.NewStockGixxerK8ToolStripMenuItem.Name = "NewStockGixxerK8ToolStripMenuItem"
+        Me.NewStockGixxerK8ToolStripMenuItem.Size = New System.Drawing.Size(269, 22)
+        Me.NewStockGixxerK8ToolStripMenuItem.Text = "New/Stock Gixxer K8-"
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -579,5 +586,6 @@ Partial Class main
     Friend WithEvents EcueditorcomHomepageToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents DonateForKeepingTheProgramFreeToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents NewStockGixxerK8ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

@@ -132,9 +132,6 @@
   <data name="VerifyECUToolStripMenuItem.ToolTipText" xml:space="preserve">
     <value>Use this command to verify that the ecu has same image as in the computer memory. you can also read new models with this command. After reading a new model post the ECU ID to us and we can possibly add it to ecueditor.com</value>
   </data>
-  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>345, 17</value>
-  </metadata>
   <data name="L_Comparefile.ToolTip" xml:space="preserve">
     <value>Name of the file that the fuel and ignition maps compare to.
 You see the differences with colour codes and a number
@@ -151,6 +148,9 @@ in the top of the fuel and ignition map.
 Usually an active map, but you can set another map to 
 compare to with File, Set comparemap.</value>
   </data>
+  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>345, 17</value>
+  </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>95</value>
   </metadata>
