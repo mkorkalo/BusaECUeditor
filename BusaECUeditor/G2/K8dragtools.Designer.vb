@@ -39,7 +39,7 @@ Partial Class K8dragtools
         Me.ComboBox2 = New System.Windows.Forms.ComboBox
         Me.ComboBox3 = New System.Windows.Forms.ComboBox
         Me.ComboBox5 = New System.Windows.Forms.ComboBox
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
+        Me.G_slewrate = New System.Windows.Forms.GroupBox
         Me.Label17 = New System.Windows.Forms.Label
         Me.Label16 = New System.Windows.Forms.Label
         Me.C_ACTIVATION = New System.Windows.Forms.ComboBox
@@ -55,13 +55,13 @@ Partial Class K8dragtools
         Me.C_GEAR2_RATE = New System.Windows.Forms.ComboBox
         Me.Label12 = New System.Windows.Forms.Label
         Me.Label14 = New System.Windows.Forms.Label
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
+        Me.G_2step = New System.Windows.Forms.GroupBox
         Me.NTCLT = New System.Windows.Forms.ComboBox
         Me.Label18 = New System.Windows.Forms.Label
         Me.Label19 = New System.Windows.Forms.Label
         CType(Me.K8dragtoolsBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox1.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
+        Me.G_slewrate.SuspendLayout()
+        Me.G_2step.SuspendLayout()
         Me.SuspendLayout()
         '
         'C_dragtools_activation
@@ -221,37 +221,37 @@ Partial Class K8dragtools
         Me.ComboBox5.Size = New System.Drawing.Size(41, 21)
         Me.ComboBox5.TabIndex = 96
         '
-        'GroupBox1
+        'G_slewrate
         '
-        Me.GroupBox1.Controls.Add(Me.Label17)
-        Me.GroupBox1.Controls.Add(Me.Label16)
-        Me.GroupBox1.Controls.Add(Me.C_ACTIVATION)
-        Me.GroupBox1.Controls.Add(Me.Label13)
-        Me.GroupBox1.Controls.Add(Me.Label9)
-        Me.GroupBox1.Controls.Add(Me.Label15)
-        Me.GroupBox1.Controls.Add(Me.C_GEAR36_RETARD)
-        Me.GroupBox1.Controls.Add(Me.C_GEAR1_RETARD)
-        Me.GroupBox1.Controls.Add(Me.Label5)
-        Me.GroupBox1.Controls.Add(Me.C_GEAR36_RATE)
-        Me.GroupBox1.Controls.Add(Me.Label6)
-        Me.GroupBox1.Controls.Add(Me.ComboBox5)
-        Me.GroupBox1.Controls.Add(Me.Label10)
-        Me.GroupBox1.Controls.Add(Me.C_GEAR2_RETARD)
-        Me.GroupBox1.Controls.Add(Me.Label7)
-        Me.GroupBox1.Controls.Add(Me.Label11)
-        Me.GroupBox1.Controls.Add(Me.C_GEAR2_RATE)
-        Me.GroupBox1.Controls.Add(Me.C_GEAR1_RATE)
-        Me.GroupBox1.Controls.Add(Me.ComboBox3)
-        Me.GroupBox1.Controls.Add(Me.Label12)
-        Me.GroupBox1.Controls.Add(Me.Label14)
-        Me.GroupBox1.Controls.Add(Me.Label8)
-        Me.GroupBox1.Controls.Add(Me.ComboBox2)
-        Me.GroupBox1.Location = New System.Drawing.Point(18, 71)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(491, 180)
-        Me.GroupBox1.TabIndex = 97
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Slew rate RPM limiter"
+        Me.G_slewrate.Controls.Add(Me.Label17)
+        Me.G_slewrate.Controls.Add(Me.Label16)
+        Me.G_slewrate.Controls.Add(Me.C_ACTIVATION)
+        Me.G_slewrate.Controls.Add(Me.Label13)
+        Me.G_slewrate.Controls.Add(Me.Label9)
+        Me.G_slewrate.Controls.Add(Me.Label15)
+        Me.G_slewrate.Controls.Add(Me.C_GEAR36_RETARD)
+        Me.G_slewrate.Controls.Add(Me.C_GEAR1_RETARD)
+        Me.G_slewrate.Controls.Add(Me.Label5)
+        Me.G_slewrate.Controls.Add(Me.C_GEAR36_RATE)
+        Me.G_slewrate.Controls.Add(Me.Label6)
+        Me.G_slewrate.Controls.Add(Me.ComboBox5)
+        Me.G_slewrate.Controls.Add(Me.Label10)
+        Me.G_slewrate.Controls.Add(Me.C_GEAR2_RETARD)
+        Me.G_slewrate.Controls.Add(Me.Label7)
+        Me.G_slewrate.Controls.Add(Me.Label11)
+        Me.G_slewrate.Controls.Add(Me.C_GEAR2_RATE)
+        Me.G_slewrate.Controls.Add(Me.C_GEAR1_RATE)
+        Me.G_slewrate.Controls.Add(Me.ComboBox3)
+        Me.G_slewrate.Controls.Add(Me.Label12)
+        Me.G_slewrate.Controls.Add(Me.Label14)
+        Me.G_slewrate.Controls.Add(Me.Label8)
+        Me.G_slewrate.Controls.Add(Me.ComboBox2)
+        Me.G_slewrate.Location = New System.Drawing.Point(18, 71)
+        Me.G_slewrate.Name = "G_slewrate"
+        Me.G_slewrate.Size = New System.Drawing.Size(491, 180)
+        Me.G_slewrate.TabIndex = 97
+        Me.G_slewrate.TabStop = False
+        Me.G_slewrate.Text = "Slew rate RPM limiter"
         '
         'Label17
         '
@@ -388,17 +388,17 @@ Partial Class K8dragtools
         Me.Label14.TabIndex = 92
         Me.Label14.Text = "deg/100rpm"
         '
-        'GroupBox2
+        'G_2step
         '
-        Me.GroupBox2.Controls.Add(Me.Label19)
-        Me.GroupBox2.Controls.Add(Me.NTCLT)
-        Me.GroupBox2.Controls.Add(Me.Label18)
-        Me.GroupBox2.Location = New System.Drawing.Point(18, 257)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(490, 77)
-        Me.GroupBox2.TabIndex = 98
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "2 Step RPM limiter"
+        Me.G_2step.Controls.Add(Me.Label19)
+        Me.G_2step.Controls.Add(Me.NTCLT)
+        Me.G_2step.Controls.Add(Me.Label18)
+        Me.G_2step.Location = New System.Drawing.Point(18, 257)
+        Me.G_2step.Name = "G_2step"
+        Me.G_2step.Size = New System.Drawing.Size(490, 77)
+        Me.G_2step.TabIndex = 98
+        Me.G_2step.TabStop = False
+        Me.G_2step.Text = "2 Step RPM limiter"
         '
         'NTCLT
         '
@@ -434,8 +434,8 @@ Partial Class K8dragtools
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(522, 542)
-        Me.Controls.Add(Me.GroupBox2)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.G_2step)
+        Me.Controls.Add(Me.G_slewrate)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Linklabel_program_homepage)
         Me.Controls.Add(Me.Button1)
@@ -453,10 +453,10 @@ Partial Class K8dragtools
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Hayabusa Ecueditor.com K8- Dragracing tools module"
         CType(Me.K8dragtoolsBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
+        Me.G_slewrate.ResumeLayout(False)
+        Me.G_slewrate.PerformLayout()
+        Me.G_2step.ResumeLayout(False)
+        Me.G_2step.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -474,7 +474,7 @@ Partial Class K8dragtools
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents G_slewrate As System.Windows.Forms.GroupBox
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents C_GEAR36_RETARD As System.Windows.Forms.ComboBox
@@ -495,7 +495,7 @@ Partial Class K8dragtools
     Friend WithEvents Label17 As System.Windows.Forms.Label
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents C_ACTIVATION As System.Windows.Forms.ComboBox
-    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents G_2step As System.Windows.Forms.GroupBox
     Friend WithEvents Label19 As System.Windows.Forms.Label
     Friend WithEvents NTCLT As System.Windows.Forms.ComboBox
     Friend WithEvents Label18 As System.Windows.Forms.Label
