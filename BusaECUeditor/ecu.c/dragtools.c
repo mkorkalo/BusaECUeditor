@@ -91,13 +91,38 @@ else
 	
 	if ((TML1CT > timer_old) & (ECU_RPM > ACTIVATION) & (rpm_now > rpm_old))
 	{
-		timer_diff = (((TML1CT - timer_old) & 0xFFFF) >> 8); 
-		rpm_diff = rpm_now - rpm_old;
-		rpm_rate = ((rpm_diff << 8)  / timer_diff); // this needs to be calculated to rpm/s value, a little bit unsure
+		/*
+
+			Timer difference is calculated once per "divider" cycles
+
+			Timer runs BCLK/4
+			XIN = 20Mhz
+			CPU = XIN * 8
+			BCLK = CPU / 4
+			BCLK = 20Mhz * 8 / 4 = 40Mhz
+			BCLK >> 8 = 40Mhz >> 8 = 156250Hz = 0x2625A Hz = 0x2625A tick/sec
+			timer_diff/min = (timerdiff/156250) * 60
+	
+			RPM = rpm_diff/2.56
+			Rpm_rate= (rpm_diff/2.56) << 8 / ((timerdiff/156250) * 60)
+			rpm_rate= (rpm_diff/2.56/256 / timerdiff * 2087
+			rpm_rate= (rpm_diff/100) / (timerdiff * 2087)
+			rpm_rate = (rpmdiff * 1/100) / (timerdiff * 2087/1)
+			rpm_rate = rpmdiff * 2087/100 / timerdiff
+
+			The final rpm_rate is calculated as:
+
+			rpm_rate = rpmdiff * 21 / timerdiff
+	
+
+			 */
+			timer_diff = ((TML1CT - timer_old) & 0xFFFF) >> 8 ;
+			rpm_diff = rpm_now - rpm_old;
+			rpm_rate = ((0xFF * rpm_diff ) / timer_diff) & 0xFFFF ;
 	}
 	else
 	{
-		rpm_rate = 0;
+			rpm_rate = 0;
 	}	
 	
 	rpm_old = rpm_now;
@@ -107,14 +132,14 @@ else
 		{
 			if (rpm_rate > GEAR1_RATE)
 				{
-					ign_retard = ((ECU_SAP_IAT_ignition_compensation + (((rpm_rate - GEAR1_RATE)/256) * GEAR1_RETARD)) & 0xFF);
+					ign_retard = ((ECU_SAP_IAT_ignition_compensation + (((rpm_rate - GEAR1_RATE)) * GEAR1_RETARD)) & 0xFF);
 				}
 		}
 	else if (ECU_GPS == 2) // Gear 2
 		{
 			if (rpm_rate > GEAR2_RATE)
 				{
-					ign_retard = ((ECU_SAP_IAT_ignition_compensation + (((rpm_rate - GEAR2_RATE)/256) * GEAR2_RETARD)) & 0xFF);
+					ign_retard = ((ECU_SAP_IAT_ignition_compensation + (((rpm_rate - GEAR2_RATE)) * GEAR2_RETARD)) & 0xFF);
 				}
 			
 		}
@@ -122,7 +147,7 @@ else
 		{
 			if (rpm_rate > GEAR36_RATE)
 				{
-					ign_retard = ((ECU_SAP_IAT_ignition_compensation + (((rpm_rate - GEAR36_RATE)/256) * GEAR36_RETARD))  & 0xFF);
+					ign_retard = ((ECU_SAP_IAT_ignition_compensation + (((rpm_rate - GEAR36_RATE)) * GEAR36_RETARD))  & 0xFF);
 				}
 			
 	

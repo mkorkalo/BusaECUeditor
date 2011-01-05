@@ -29,6 +29,9 @@ Public Class K8dragtools
     Dim IDTAG As Integer = &H5A000
     Dim dragtoolsVERSION As Integer = 100
     Dim dragtoolscodelenght As Integer = &H1000 'lenght of the dragtools code in bytes for clearing the memory
+    Dim rpmconv As Long
+    Dim addedrpm As Integer
+
 
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -61,8 +64,7 @@ Public Class K8dragtools
     Private Sub dragtools_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         L_dragtoolsver.Text = Str(dragtoolsVERSION)
-
-
+        rpmconv = 3840000000 / &H100
 
         If (ReadFlashByte(ADJ) = &HFF) Then
             C_dragtools_activation.Checked = False
@@ -155,6 +157,21 @@ Public Class K8dragtools
         Me.C_GEAR36_RETARD.SelectedIndex = 0
         Me.C_ACTIVATION.SelectedIndex = 0
 
+        'populate NTCLT with initial value
+        i = ReadFlashWord(&H72A6E) ' this is the reference RPM that is stored in the system
+        i = Int(((rpmconv / (i + 0))) + 1)
+        i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
+        Me.NTCLT.Items.Add(i.ToString())
+        i = 3000
+        Do While i < 13500 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
+            Me.NTCLT.Items.Add(i.ToString())
+            i = i + 100
+        Loop
+        Me.NTCLT.Items.Add(i.ToString())
+        Me.NTCLT.SelectedIndex = 0
+        Me.NTCLT.Enabled = True
+
+
     End Sub
     Private Sub modify_original_ECU_code(ByVal method As Boolean)
         Dim pcdisp, blk As Integer
@@ -183,25 +200,25 @@ Public Class K8dragtools
             '
             ' For debugging lets change kwb packet 08 bytes to monitor rpm_rate
             '
-            WriteFlashByte(&H525C0, 0)
-            WriteFlashByte(&H525C0 + 1, &H80)
-            WriteFlashByte(&H525C0 + 2, &H68)
-            WriteFlashByte(&H525C0 + 3, &H8C)
+            'WriteFlashByte(&H525C0, 0)
+            'WriteFlashByte(&H525C0 + 1, &H80)
+            'WriteFlashByte(&H525C0 + 2, &H68)
+            'WriteFlashByte(&H525C0 + 3, &H8C)
 
-            WriteFlashByte(&H525C4, 0)
-            WriteFlashByte(&H525C4 + 1, &H80)
-            WriteFlashByte(&H525C4 + 2, &H68)
-            WriteFlashByte(&H525C4 + 3, &H8D)
+            'WriteFlashByte(&H525C4, 0)
+            'WriteFlashByte(&H525C4 + 1, &H80)
+            'WriteFlashByte(&H525C4 + 2, &H68)
+            'WriteFlashByte(&H525C4 + 3, &H8D)
 
-            WriteFlashByte(&H525C8, 0)
-            WriteFlashByte(&H525C8 + 1, &H80)
-            WriteFlashByte(&H525C8 + 2, &H68)
-            WriteFlashByte(&H525C8 + 3, &H80)
+            'WriteFlashByte(&H525C8, 0)
+            'WriteFlashByte(&H525C8 + 1, &H80)
+            'WriteFlashByte(&H525C8 + 2, &H68)
+            'WriteFlashByte(&H525C8 + 3, &H84)
 
-            WriteFlashByte(&H525CC, 0)
-            WriteFlashByte(&H525CC + 1, &H80)
-            WriteFlashByte(&H525CC + 2, &H68)
-            WriteFlashByte(&H525CC + 3, &H81)
+            'WriteFlashByte(&H525CC, 0)
+            'WriteFlashByte(&H525CC + 1, &H80)
+            'WriteFlashByte(&H525CC + 2, &H68)
+            'WriteFlashByte(&H525CC + 3, &H85)
 
         Else
             '
@@ -322,5 +339,29 @@ Public Class K8dragtools
     
     Private Sub C_ACTIVATION_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_ACTIVATION.SelectedIndexChanged
         WriteFlashWord(&H5A00E, Int(Val(C_ACTIVATION.Text) * 2.56))
+    End Sub
+
+    Private Sub NTCLT_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NTCLT.SelectedIndexChanged
+        Dim i As Integer
+        Dim baseline As Integer
+
+        '
+        ' RPM/Fuel hard type 2, this is modified higher than stock as ecu default is not used in this case
+        '
+        baseline = 11000
+        ' Set various RPM limits based on RPM value selected
+        i = Val(NTCLT.Text)
+        addedrpm = i - baseline ' we are just setting here the baseline
+
+        WriteFlashWord(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H560)) + 1))) 'Cluched ignition limiter
+        WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1))) 'Cluched ignition limiter
+
+        '
+        ' Make ignition limiter to skip GPS error and GPS neutral using &H80 value as raw gps information
+        '
+        WriteFlashByte(&H36E39 + 0, &H7)
+        WriteFlashByte(&H36E39 + 1, &H2A)
+        WriteFlashByte(&H36E39 + 2, &H93)
+
     End Sub
 End Class

@@ -41,7 +41,7 @@ Public Class K8Limiters
             writeflashbyte(&H73B4A, &H80) 'fuel limiter by gear 
             writeflashbyte(&H73B4B, &H80) 'fuel limiter by gear softcut
             writeflashbyte(&H72A88, &H0) 'ignition limiter by gear, not active by default 
-            C_gearlimiter.Text = "Gear limiters on"
+            C_gearlimiter.Text = "Gear limiters active"
 
         End If
 
@@ -101,11 +101,19 @@ Public Class K8Limiters
         '
         writeflashword(&H72A68, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'normal limiter 11450rpm
         WriteFlashWord(&H72A6A, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'normal limiter 11601rpm
-        'writeflashword(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'clutch limiter at 10901 modified to same as normal ignition limiter
-        'WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'clutch limiter at 10997 modified to same as normal ignition limiter
+        If ReadFlashWord(&H5A000) = &HFF Then WriteFlashWord(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'clutch limiter at 10901 modified to same as normal ignition limiter
+        If ReadFlashWord(&H5A000) = &HFF Then WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'clutch limiter at 10997 modified to same as normal ignition limiter
         WriteFlashWord(&H72A74, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'On TPS < 2.5% limiter 11450rpm - a bit unsure about condition triggering this one
         WriteFlashWord(&H72A76, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'On TPS < 2.5%  limiter 11601rpm - a bit unsure about condition triggering this one
 
+        '
+        ' This is GPS raw value that is set to default in case the dragtools module is not used
+        '
+        If ReadFlashWord(&H5A000) <> &HFF Then
+            WriteFlashByte(&H36E39 + 0, &H80)
+            WriteFlashByte(&H36E39 + 1, &H50)
+            WriteFlashByte(&H36E39 + 2, &HB0)
+        End If
 
     End Sub
 
@@ -158,23 +166,9 @@ Public Class K8Limiters
         Loop
         Me.RPM.Items.Add(i.ToString())
 
-        'populate NTCLT with initial value
-        i = ReadFlashWord(&H72A6E) ' this is the reference RPM that is stored in the system
-        i = Int(((rpmconv / (i + 0))) + 1)
-        i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
-        Me.NTCLT.Items.Add(i.ToString())
-        i = 3000
-        Do While i < 13500 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
-            Me.NTCLT.Items.Add(i.ToString())
-            i = i + 100
-        Loop
-        Me.NTCLT.Items.Add(i.ToString())
-
 
         Me.RPM.SelectedIndex = 0
         Me.RPM.Enabled = True
-        Me.NTCLT.SelectedIndex = 0
-        Me.NTCLT.Enabled = True
 
     End Sub
 
@@ -194,47 +188,4 @@ Public Class K8Limiters
         Me.Close()
     End Sub
 
-    Private Sub NTCLT_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NTCLT.SelectedIndexChanged
-        Dim i As Integer
-        Dim baseline As Integer
-
-        '
-        ' RPM/Fuel hard type 2, this is modified higher than stock as ecu default is not used in this case
-        '
-        baseline = 11000
-        ' Set various RPM limits based on RPM value selected
-        i = Val(NTCLT.Text)
-        addedrpm = i - baseline ' we are just setting here the baseline
-        '
-        ' RPM/Fuel soft hard type 3 neutral, stock settings
-        '
-        'WriteFlashWord(&H739F2, Int((rpmconv / (addedrpm + (rpmconv / &H594)) + 1)))
-        'WriteFlashWord(&H739F4, Int((rpmconv / (addedrpm + (rpmconv / &H587)) + 1)))
-        '
-        ' RPM/Fuel soft hard type 5, small tps position
-        '
-        'WriteFlashWord(&H739FC, Int((rpmconv / (addedrpm + (rpmconv / &H1FAC)) + 1)))
-        'WriteFlashWord(&H739FA, Int((rpmconv / (addedrpm + (rpmconv / &H1FD8)) + 1)))
-        '
-        ' RPM/Ignition clutched limiters, stock settings
-        '
-        WriteFlashWord(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H560)) + 1))) 'Cluched ignition limiter
-        WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1))) 'Cluched ignition limiter
-        'WriteFlashWord(&H72A74, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'On TPS < 2.5%  limiter 11450rpm - a bit unsure about condition triggering this one
-        'WriteFlashWord(&H72A76, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'On TPS < 2.5%  limiter 11601rpm - a bit unsure about condition triggering this one
-
-        '
-        ' Make ignition limiter to skip GPS error and GPS neutral using &H80 value as raw gps information
-        '
-        WriteFlashByte(&H36E39 + 0, &H5)
-        WriteFlashByte(&H36E39 + 1, &H53)
-        WriteFlashByte(&H36E39 + 2, &HF0)
-        WriteFlashByte(&H553F0, &H80)
-
-        If i >= 11500 Then
-            C_gearlimiter.Checked = True
-        End If
-
-
-    End Sub
 End Class
