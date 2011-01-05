@@ -66,6 +66,8 @@ Public Class K8dragtools
         L_dragtoolsver.Text = Str(dragtoolsVERSION)
         rpmconv = 3840000000 / &H100
 
+        hide_settings()
+
         If (ReadFlashByte(ADJ) = &HFF) Then
             C_dragtools_activation.Checked = False
         Else
@@ -79,7 +81,7 @@ Public Class K8dragtools
 
         End If
         If C_dragtools_activation.Checked Then
-            'generate_general_settings()
+            show_settings()
             generate_dragtools_table()
         End If
     End Sub
@@ -225,8 +227,8 @@ Public Class K8dragtools
             ' bring the ecu code back to original
             '
             ' AD_conversion loop no jump to separate code
-            WriteFlashWord(&H41D8, &HFE00)
-            WriteFlashWord(&H41DA, &H7A3F)
+            WriteFlashWord(&H32E70, &HFE00)
+            WriteFlashWord(&H32E72, &H7A3F)
 
             ' set ignition retard to read the stock variable
             WriteFlashByte(&H33C36, &H63)
@@ -302,12 +304,12 @@ Public Class K8dragtools
                 dragtools_code_in_memory(True, dragtoolscodelenght)
                 generate_dragtools_table()
             End If
-            'read_dragtools_settings()
+            show_settings()
         Else
             C_dragtools_activation.Text = "Code not active"
             modify_original_ECU_code(False)
             dragtools_code_in_memory(False, dragtoolscodelenght)
-            'hide_boostfuel_settings()
+            hide_settings()
         End If
 
     End Sub
@@ -364,4 +366,33 @@ Public Class K8dragtools
         WriteFlashByte(&H36E39 + 2, &H93)
 
     End Sub
+
+    Private Sub hide_settings()
+        Dim i As Integer
+        Dim baseline As Integer
+        baseline = 11304
+
+        G_slewrate.Hide()
+        G_2step.Hide()
+
+        '
+        ' Remove settings 2 step limiter settings
+        '
+        i = ReadFlashWord(&H739EC) ' this is the reference RPM that is stored in the system
+        i = Int(((rpmconv / (i + 0))) + 1)
+        i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
+        addedrpm = i - baseline ' we are just setting here the baseline
+        WriteFlashWord(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'clutch limiter at 10901 modified to same as normal ignition limiter
+        WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'clutch limiter at 10997 modified to same as normal ignition limiter
+        WriteFlashByte(&H36E39 + 0, &H80)
+        WriteFlashByte(&H36E39 + 1, &H50)
+        WriteFlashByte(&H36E39 + 2, &HB0)
+
+    End Sub
+
+    Private Sub show_settings()
+        G_slewrate.Show()
+        G_2step.Show()
+    End Sub
+
 End Class

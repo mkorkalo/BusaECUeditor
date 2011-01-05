@@ -59,12 +59,12 @@
 
 #pragma SECTION C PARAMS //0x5A000
 const short const_pgmid = 				100;			// 0 program id, must match to ecueditor version to be able to load this code to ecu
-const short GEAR1_RATE = 0x2300;
-const short GEAR2_RATE = 0x2200;
-const short GEAR36_RATE = 0x2000;
-const short GEAR1_RETARD = 5;
-const short GEAR2_RETARD = 2;
-const short GEAR36_RETARD = 1;
+const short GEAR1_RATE = 0x1400;
+const short GEAR2_RATE = 0x1200;
+const short GEAR36_RATE = 0x1000;
+const short GEAR1_RETARD = 10;
+const short GEAR2_RETARD = 5;
+const short GEAR36_RETARD = 5;
 const short ACTIVATION = 0x3200;
 
 #define divider 0x64									// this is the amount of cycles that is used for calculatting average RPM
