@@ -55,8 +55,13 @@ Partial Class K8dragtools
         Me.C_GEAR2_RATE = New System.Windows.Forms.ComboBox
         Me.Label12 = New System.Windows.Forms.Label
         Me.Label14 = New System.Windows.Forms.Label
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox
+        Me.NTCLT = New System.Windows.Forms.ComboBox
+        Me.Label18 = New System.Windows.Forms.Label
+        Me.Label19 = New System.Windows.Forms.Label
         CType(Me.K8dragtoolsBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'C_dragtools_activation
@@ -116,7 +121,7 @@ Partial Class K8dragtools
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(432, 409)
+        Me.Button1.Location = New System.Drawing.Point(432, 501)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(77, 29)
         Me.Button1.TabIndex = 80
@@ -128,7 +133,7 @@ Partial Class K8dragtools
         Me.Linklabel_program_homepage.ActiveLinkColor = System.Drawing.Color.DimGray
         Me.Linklabel_program_homepage.AutoSize = True
         Me.Linklabel_program_homepage.LinkColor = System.Drawing.Color.Black
-        Me.Linklabel_program_homepage.Location = New System.Drawing.Point(9, 425)
+        Me.Linklabel_program_homepage.Location = New System.Drawing.Point(22, 509)
         Me.Linklabel_program_homepage.Name = "Linklabel_program_homepage"
         Me.Linklabel_program_homepage.Size = New System.Drawing.Size(215, 13)
         Me.Linklabel_program_homepage.TabIndex = 84
@@ -140,17 +145,17 @@ Partial Class K8dragtools
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.Red
-        Me.Label4.Location = New System.Drawing.Point(12, 309)
+        Me.Label4.Location = New System.Drawing.Point(23, 415)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(325, 72)
+        Me.Label4.Size = New System.Drawing.Size(334, 72)
         Me.Label4.TabIndex = 85
-        Me.Label4.Text = "First user test candidate - " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "RPM/SEC not yet calculated correctly," & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "otherwise fu" & _
+        Me.Label4.Text = "Second user test candidate - " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "RPM/SEC should be calculated closer," & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "otherwise fu" & _
             "nctions work."
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(4, 118)
+        Me.Label5.Location = New System.Drawing.Point(9, 98)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(39, 13)
         Me.Label5.TabIndex = 86
@@ -159,7 +164,7 @@ Partial Class K8dragtools
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(4, 144)
+        Me.Label6.Location = New System.Drawing.Point(9, 124)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(39, 13)
         Me.Label6.TabIndex = 87
@@ -168,7 +173,7 @@ Partial Class K8dragtools
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(4, 171)
+        Me.Label7.Location = New System.Drawing.Point(9, 151)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(48, 13)
         Me.Label7.TabIndex = 88
@@ -178,7 +183,7 @@ Partial Class K8dragtools
         '
         Me.C_GEAR1_RATE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.C_GEAR1_RATE.FormattingEnabled = True
-        Me.C_GEAR1_RATE.Location = New System.Drawing.Point(74, 114)
+        Me.C_GEAR1_RATE.Location = New System.Drawing.Point(79, 94)
         Me.C_GEAR1_RATE.Name = "C_GEAR1_RATE"
         Me.C_GEAR1_RATE.Size = New System.Drawing.Size(66, 21)
         Me.C_GEAR1_RATE.TabIndex = 89
@@ -186,7 +191,7 @@ Partial Class K8dragtools
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(71, 98)
+        Me.Label8.Location = New System.Drawing.Point(76, 78)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(53, 13)
         Me.Label8.TabIndex = 90
@@ -195,7 +200,7 @@ Partial Class K8dragtools
         'ComboBox2
         '
         Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Location = New System.Drawing.Point(165, 115)
+        Me.ComboBox2.Location = New System.Drawing.Point(170, 95)
         Me.ComboBox2.Name = "ComboBox2"
         Me.ComboBox2.Size = New System.Drawing.Size(41, 21)
         Me.ComboBox2.TabIndex = 91
@@ -203,7 +208,7 @@ Partial Class K8dragtools
         'ComboBox3
         '
         Me.ComboBox3.FormattingEnabled = True
-        Me.ComboBox3.Location = New System.Drawing.Point(165, 141)
+        Me.ComboBox3.Location = New System.Drawing.Point(170, 121)
         Me.ComboBox3.Name = "ComboBox3"
         Me.ComboBox3.Size = New System.Drawing.Size(41, 21)
         Me.ComboBox3.TabIndex = 94
@@ -211,7 +216,7 @@ Partial Class K8dragtools
         'ComboBox5
         '
         Me.ComboBox5.FormattingEnabled = True
-        Me.ComboBox5.Location = New System.Drawing.Point(165, 168)
+        Me.ComboBox5.Location = New System.Drawing.Point(170, 148)
         Me.ComboBox5.Name = "ComboBox5"
         Me.ComboBox5.Size = New System.Drawing.Size(41, 21)
         Me.ComboBox5.TabIndex = 96
@@ -241,17 +246,17 @@ Partial Class K8dragtools
         Me.GroupBox1.Controls.Add(Me.Label14)
         Me.GroupBox1.Controls.Add(Me.Label8)
         Me.GroupBox1.Controls.Add(Me.ComboBox2)
-        Me.GroupBox1.Location = New System.Drawing.Point(18, 76)
+        Me.GroupBox1.Location = New System.Drawing.Point(18, 71)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(491, 203)
+        Me.GroupBox1.Size = New System.Drawing.Size(491, 180)
         Me.GroupBox1.TabIndex = 97
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Slew rate traction control"
+        Me.GroupBox1.Text = "Slew rate RPM limiter"
         '
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(4, 52)
+        Me.Label17.Location = New System.Drawing.Point(9, 32)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(54, 13)
         Me.Label17.TabIndex = 103
@@ -260,7 +265,7 @@ Partial Class K8dragtools
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(162, 52)
+        Me.Label16.Location = New System.Drawing.Point(167, 32)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(226, 13)
         Me.Label16.TabIndex = 102
@@ -270,7 +275,7 @@ Partial Class K8dragtools
         '
         Me.C_ACTIVATION.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.C_ACTIVATION.FormattingEnabled = True
-        Me.C_ACTIVATION.Location = New System.Drawing.Point(74, 48)
+        Me.C_ACTIVATION.Location = New System.Drawing.Point(79, 28)
         Me.C_ACTIVATION.Name = "C_ACTIVATION"
         Me.C_ACTIVATION.Size = New System.Drawing.Size(66, 21)
         Me.C_ACTIVATION.TabIndex = 101
@@ -278,7 +283,7 @@ Partial Class K8dragtools
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(239, 93)
+        Me.Label13.Location = New System.Drawing.Point(253, 73)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(226, 91)
         Me.Label13.TabIndex = 100
@@ -287,7 +292,7 @@ Partial Class K8dragtools
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(71, 81)
+        Me.Label9.Location = New System.Drawing.Point(76, 61)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(56, 13)
         Me.Label9.TabIndex = 98
@@ -296,7 +301,7 @@ Partial Class K8dragtools
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(162, 82)
+        Me.Label15.Location = New System.Drawing.Point(167, 62)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(71, 13)
         Me.Label15.TabIndex = 97
@@ -306,7 +311,7 @@ Partial Class K8dragtools
         '
         Me.C_GEAR36_RETARD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.C_GEAR36_RETARD.FormattingEnabled = True
-        Me.C_GEAR36_RETARD.Location = New System.Drawing.Point(165, 168)
+        Me.C_GEAR36_RETARD.Location = New System.Drawing.Point(170, 147)
         Me.C_GEAR36_RETARD.Name = "C_GEAR36_RETARD"
         Me.C_GEAR36_RETARD.Size = New System.Drawing.Size(41, 21)
         Me.C_GEAR36_RETARD.TabIndex = 96
@@ -315,7 +320,7 @@ Partial Class K8dragtools
         '
         Me.C_GEAR1_RETARD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.C_GEAR1_RETARD.FormattingEnabled = True
-        Me.C_GEAR1_RETARD.Location = New System.Drawing.Point(165, 115)
+        Me.C_GEAR1_RETARD.Location = New System.Drawing.Point(170, 95)
         Me.C_GEAR1_RETARD.Name = "C_GEAR1_RETARD"
         Me.C_GEAR1_RETARD.Size = New System.Drawing.Size(41, 21)
         Me.C_GEAR1_RETARD.TabIndex = 91
@@ -324,7 +329,7 @@ Partial Class K8dragtools
         '
         Me.C_GEAR36_RATE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.C_GEAR36_RATE.FormattingEnabled = True
-        Me.C_GEAR36_RATE.Location = New System.Drawing.Point(74, 167)
+        Me.C_GEAR36_RATE.Location = New System.Drawing.Point(79, 147)
         Me.C_GEAR36_RATE.Name = "C_GEAR36_RATE"
         Me.C_GEAR36_RATE.Size = New System.Drawing.Size(66, 21)
         Me.C_GEAR36_RATE.TabIndex = 95
@@ -332,7 +337,7 @@ Partial Class K8dragtools
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(4, 118)
+        Me.Label10.Location = New System.Drawing.Point(9, 98)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(39, 13)
         Me.Label10.TabIndex = 86
@@ -342,7 +347,7 @@ Partial Class K8dragtools
         '
         Me.C_GEAR2_RETARD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.C_GEAR2_RETARD.FormattingEnabled = True
-        Me.C_GEAR2_RETARD.Location = New System.Drawing.Point(165, 141)
+        Me.C_GEAR2_RETARD.Location = New System.Drawing.Point(170, 121)
         Me.C_GEAR2_RETARD.Name = "C_GEAR2_RETARD"
         Me.C_GEAR2_RETARD.Size = New System.Drawing.Size(41, 21)
         Me.C_GEAR2_RETARD.TabIndex = 94
@@ -350,7 +355,7 @@ Partial Class K8dragtools
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(4, 144)
+        Me.Label11.Location = New System.Drawing.Point(9, 124)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(39, 13)
         Me.Label11.TabIndex = 87
@@ -360,7 +365,7 @@ Partial Class K8dragtools
         '
         Me.C_GEAR2_RATE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.C_GEAR2_RATE.FormattingEnabled = True
-        Me.C_GEAR2_RATE.Location = New System.Drawing.Point(74, 140)
+        Me.C_GEAR2_RATE.Location = New System.Drawing.Point(79, 120)
         Me.C_GEAR2_RATE.Name = "C_GEAR2_RATE"
         Me.C_GEAR2_RATE.Size = New System.Drawing.Size(66, 21)
         Me.C_GEAR2_RATE.TabIndex = 93
@@ -368,7 +373,7 @@ Partial Class K8dragtools
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(4, 171)
+        Me.Label12.Location = New System.Drawing.Point(9, 151)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(48, 13)
         Me.Label12.TabIndex = 88
@@ -377,17 +382,59 @@ Partial Class K8dragtools
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(162, 99)
+        Me.Label14.Location = New System.Drawing.Point(167, 79)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(65, 13)
         Me.Label14.TabIndex = 92
         Me.Label14.Text = "deg/100rpm"
         '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.Label19)
+        Me.GroupBox2.Controls.Add(Me.NTCLT)
+        Me.GroupBox2.Controls.Add(Me.Label18)
+        Me.GroupBox2.Location = New System.Drawing.Point(18, 257)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(490, 77)
+        Me.GroupBox2.TabIndex = 98
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "2 Step RPM limiter"
+        '
+        'NTCLT
+        '
+        Me.NTCLT.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.NTCLT.Enabled = False
+        Me.NTCLT.FormattingEnabled = True
+        Me.NTCLT.Location = New System.Drawing.Point(118, 32)
+        Me.NTCLT.Name = "NTCLT"
+        Me.NTCLT.Size = New System.Drawing.Size(84, 21)
+        Me.NTCLT.TabIndex = 100
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(6, 35)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(96, 13)
+        Me.Label18.TabIndex = 99
+        Me.Label18.Text = "Clutched Ign limiter"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(248, 23)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(194, 39)
+        Me.Label19.TabIndex = 101
+        Me.Label19.Text = "2 Step limiter allows setting a secondary" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "clutch in ignition limiter. This limit" & _
+            "er is" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "active only when clutch is in."
+        '
         'K8dragtools
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(527, 444)
+        Me.ClientSize = New System.Drawing.Size(522, 542)
+        Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Linklabel_program_homepage)
@@ -404,10 +451,12 @@ Partial Class K8dragtools
         Me.Name = "K8dragtools"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "Hayabusa ECUeditor K8- Dragracing tools module"
+        Me.Text = "Hayabusa Ecueditor.com K8- Dragracing tools module"
         CType(Me.K8dragtoolsBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -446,5 +495,9 @@ Partial Class K8dragtools
     Friend WithEvents Label17 As System.Windows.Forms.Label
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents C_ACTIVATION As System.Windows.Forms.ComboBox
+    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents Label19 As System.Windows.Forms.Label
+    Friend WithEvents NTCLT As System.Windows.Forms.ComboBox
+    Friend WithEvents Label18 As System.Windows.Forms.Label
 
 End Class

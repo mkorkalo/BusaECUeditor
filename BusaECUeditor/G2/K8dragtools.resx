@@ -121,7 +121,7 @@
     <value>213, 17</value>
   </metadata>
   <data name="Label13.Text" xml:space="preserve">
-    <value>Slew rate traction control sets maximum 
+    <value>Slew rate RPM control sets maximum 
 rpm/second rate the engine can accelerate 
 before ignition retard is applied. After reaching 
 the maximum allowed acceleration an user 
