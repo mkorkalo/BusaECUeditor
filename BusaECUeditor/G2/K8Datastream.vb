@@ -578,9 +578,11 @@ Public Class K8Datastream
                 rxsptr = 0
                 Select Case ECUversion
                     Case "gen2"
-                        Me.Text = "Hayabusa Ecueditor2 - Gen2 Enginedata active..."
+                        Me.Text = "Ecueditor.com - Hayabusa gen2 Enginedata active..."
                     Case "bking"
-                        Me.Text = "Hayabusa Ecueditor2 - Bking Enginedata active..."
+                        Me.Text = "ecueditor.com - Bking Enginedata active..."
+                    Case "gixxer"
+                        Me.Text = "Ecueditor.com - GSX-R Enginedata active..."
                     Case "GixxerK5"
                         Me.Text = "Hayabusa Ecueditor2 - Gsx1000R K5K6 Enginedata active...(testing only)"
                     Case Else
@@ -950,31 +952,29 @@ Public Class K8Datastream
         If fuelmapvisible Then
             Select Case ECUversion
                 Case "gen2"
-                    If MODE <> K8Fuelmap.setmode Then
-                        If K8Fuelmap.Visible Then
-                            'K8Fuelmap.setmode = MODE
-                            '
-                            ' xxxxxxxxxxxxxxxxxx
-                            '
-                            'MsgBox("Please change fuelmap Mode to same as the gauge shows")
-                        End If
-
-                    End If
                     K8Fuelmap.tracemap()
                 Case "bking"
                     BKingFuelmap.tracemap()
-                    If MODE <> BKingFuelmap.setmode Then
-                        If BKingFuelmap.Visible Then
-                            'BKingFuelmap.setmode = MODE
-                            'MsgBox("Please change fuelmap Mode to same as the gauge shows")
-                        End If
-                    End If
+                Case "gixxer"
+                    GixxerFuelmap.tracemap()
+                Case Else
+                    '  not implemented for other models
+            End Select
+        End If
+        If IgnitionMapVisible Then
+            Select Case ECUVersion
+                Case "gen2"
+                    K8Ignitionmap.tracemap()
+                Case "bking"
+                    BKingIgnitionMap.TraceMap()
+                Case "gixxer"
+                    GixxerIgnitionmap.tracemap()
                 Case Else
                     '  not implemented for other models
             End Select
         End If
 
-        If IgnitionMapVisible Then K8Ignitionmap.tracemap()
+
         If K8boostfuel.Visible Then K8boostfuel.tracemap()
         If K8STPmap.Visible Then K8STPmap.tracemap(GEAR, MS, MODE)
         If K8nitrouscontrol.Visible Then K8nitrouscontrol.tracemap()

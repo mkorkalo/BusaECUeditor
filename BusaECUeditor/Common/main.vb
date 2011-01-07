@@ -4711,6 +4711,14 @@ skip_update:
 
 
     End Sub
+
+    Private Sub BuyInterfaceFromEBayToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BuyInterfaceFromEBayToolStripMenuItem.Click
+        Process.Start("http://product-search.ebay.com/ecueditor.com")
+    End Sub
+
+    Private Sub GroupBox2_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GroupBox2.Enter
+
+    End Sub
 End Class
 
 
