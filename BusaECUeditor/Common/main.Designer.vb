@@ -74,6 +74,10 @@ Partial Class main
         Me.WebBrowser1 = New System.Windows.Forms.WebBrowser
         Me.L_ProgramHomepage = New System.Windows.Forms.LinkLabel
         Me.B_DataLogging = New System.Windows.Forms.Button
+        Me.BuyInterfaceFromEBayToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator
+        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -210,22 +214,22 @@ Partial Class main
         '
         'SetupToolStripMenuItem
         '
-        Me.SetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InstallFTDIDriversToolStripMenuItem, Me.SetupCOMPortToolStripMenuItem})
+        Me.SetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InstallFTDIDriversToolStripMenuItem, Me.SetupCOMPortToolStripMenuItem, Me.ToolStripSeparator5, Me.BuyInterfaceFromEBayToolStripMenuItem})
         Me.SetupToolStripMenuItem.Name = "SetupToolStripMenuItem"
-        Me.SetupToolStripMenuItem.Size = New System.Drawing.Size(49, 20)
-        Me.SetupToolStripMenuItem.Text = "Setup"
+        Me.SetupToolStripMenuItem.Size = New System.Drawing.Size(90, 20)
+        Me.SetupToolStripMenuItem.Text = "Bike Interface"
         '
         'InstallFTDIDriversToolStripMenuItem
         '
         Me.InstallFTDIDriversToolStripMenuItem.Name = "InstallFTDIDriversToolStripMenuItem"
-        Me.InstallFTDIDriversToolStripMenuItem.Size = New System.Drawing.Size(199, 22)
+        Me.InstallFTDIDriversToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
         Me.InstallFTDIDriversToolStripMenuItem.Tag = "This will install the com port drivers that are needed to run the interface."
         Me.InstallFTDIDriversToolStripMenuItem.Text = "Install COM port drivers"
         '
         'SetupCOMPortToolStripMenuItem
         '
         Me.SetupCOMPortToolStripMenuItem.Name = "SetupCOMPortToolStripMenuItem"
-        Me.SetupCOMPortToolStripMenuItem.Size = New System.Drawing.Size(199, 22)
+        Me.SetupCOMPortToolStripMenuItem.Size = New System.Drawing.Size(225, 22)
         Me.SetupCOMPortToolStripMenuItem.Tag = resources.GetString("SetupCOMPortToolStripMenuItem.Tag")
         Me.SetupCOMPortToolStripMenuItem.Text = "Setup COM port"
         '
@@ -233,8 +237,8 @@ Partial Class main
         '
         Me.FlashToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerifyChecksumToolStripMenuItem, Me.VerifyECUToolStripMenuItem, Me.FullEraseToolStripMenuItem, Me.FlashTheECUToolStripMenuItem})
         Me.FlashToolStripMenuItem.Name = "FlashToolStripMenuItem"
-        Me.FlashToolStripMenuItem.Size = New System.Drawing.Size(46, 20)
-        Me.FlashToolStripMenuItem.Text = "Flash"
+        Me.FlashToolStripMenuItem.Size = New System.Drawing.Size(73, 20)
+        Me.FlashToolStripMenuItem.Text = "ECU Tools"
         '
         'VerifyChecksumToolStripMenuItem
         '
@@ -249,7 +253,7 @@ Partial Class main
         '
         Me.VerifyECUToolStripMenuItem.Name = "VerifyECUToolStripMenuItem"
         Me.VerifyECUToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
-        Me.VerifyECUToolStripMenuItem.Text = "Verify/Read ECU"
+        Me.VerifyECUToolStripMenuItem.Text = "Verify/Read"
         Me.VerifyECUToolStripMenuItem.ToolTipText = resources.GetString("VerifyECUToolStripMenuItem.ToolTipText")
         '
         'FullEraseToolStripMenuItem
@@ -265,12 +269,12 @@ Partial Class main
         '
         Me.FlashTheECUToolStripMenuItem.Name = "FlashTheECUToolStripMenuItem"
         Me.FlashTheECUToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
-        Me.FlashTheECUToolStripMenuItem.Text = "Flash the ECU"
+        Me.FlashTheECUToolStripMenuItem.Text = "Flash"
         Me.FlashTheECUToolStripMenuItem.ToolTipText = "This is the normal flash command, similar as the button on main screen."
         '
         'AboutToolStripMenuItem1
         '
-        Me.AboutToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProgramInfoToolStripMenuItem, Me.VersionToolStripMenuItem, Me.EcueditorcomHomepageToolStripMenuItem, Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem, Me.DonateForKeepingTheProgramFreeToolStripMenuItem})
+        Me.AboutToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProgramInfoToolStripMenuItem, Me.VersionToolStripMenuItem, Me.ToolStripSeparator4, Me.DonateForKeepingTheProgramFreeToolStripMenuItem, Me.ToolStripSeparator3, Me.EcueditorcomHomepageToolStripMenuItem, Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem})
         Me.AboutToolStripMenuItem1.Name = "AboutToolStripMenuItem1"
         Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(52, 20)
         Me.AboutToolStripMenuItem1.Text = "About"
@@ -302,8 +306,8 @@ Partial Class main
         'DonateForKeepingTheProgramFreeToolStripMenuItem
         '
         Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Name = "DonateForKeepingTheProgramFreeToolStripMenuItem"
-        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Size = New System.Drawing.Size(317, 22)
-        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Text = "Donate to support the development if you like"
+        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Size = New System.Drawing.Size(308, 22)
+        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Text = "Donate"
         '
         'B_Limiters
         '
@@ -498,6 +502,27 @@ Partial Class main
         Me.B_DataLogging.Text = "Data Logging"
         Me.B_DataLogging.UseVisualStyleBackColor = True
         '
+        'BuyInterfaceFromEBayToolStripMenuItem
+        '
+        Me.BuyInterfaceFromEBayToolStripMenuItem.Name = "BuyInterfaceFromEBayToolStripMenuItem"
+        Me.BuyInterfaceFromEBayToolStripMenuItem.Size = New System.Drawing.Size(225, 22)
+        Me.BuyInterfaceFromEBayToolStripMenuItem.Text = "Buy interface etc.  from eBay"
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(305, 6)
+        '
+        'ToolStripSeparator4
+        '
+        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(305, 6)
+        '
+        'ToolStripSeparator5
+        '
+        Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(222, 6)
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -587,5 +612,9 @@ Partial Class main
     Friend WithEvents DonateForKeepingTheProgramFreeToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NewStockGixxerK8ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents BuyInterfaceFromEBayToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator5 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents ToolStripSeparator4 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
 
 End Class

@@ -49,7 +49,7 @@ Public Class GixxerLimiters
         Dim i As Integer
         Dim baseline As Integer
 
-        baseline = 11304
+        baseline = 13450
         ' Set various RPM limits based on RPM value selected
         i = Val(RPM.Text)
         addedrpm = i - baseline ' we are just setting here the baseline
@@ -72,20 +72,20 @@ Public Class GixxerLimiters
         '
         ' RPM/Fuel soft type 1, the softcut hits earlier than hardcut. Abosolute limiter at hard cut limit.
         '
-        WriteFlashWord(&H61372, Int((rpmconv / (addedrpm + (rpmconv / &H45D)) + 1)))
-        WriteFlashWord(&H61374, Int((rpmconv / (addedrpm + (rpmconv / &H45B)) + 1)))
-        WriteFlashWord(&H61376, Int((rpmconv / (addedrpm + (rpmconv / &H459)) + 1)))
-        WriteFlashWord(&H61378, Int((rpmconv / (addedrpm + (rpmconv / &H457)) + 1))) ' 11304rpm
+        WriteFlashWord(&H61372, Int((rpmconv / (addedrpm + (rpmconv / &H45D)))))
+        WriteFlashWord(&H61374, Int((rpmconv / (addedrpm + (rpmconv / &H45B)))))
+        WriteFlashWord(&H61376, Int((rpmconv / (addedrpm + (rpmconv / &H459)))))
+        WriteFlashWord(&H61378, Int((rpmconv / (addedrpm + (rpmconv / &H457))))) ' 11304rpm
         '
         ' RPM/Fuel hard type 2, this is modified higher than stock as ecu default is not used in this case
         '
-        WriteFlashWord(&H6137A, Int((rpmconv / (addedrpm + (rpmconv / &H46C)) + 1)))
-        WriteFlashWord(&H6137C, Int((rpmconv / (addedrpm + (rpmconv / &H468)) + 1)))
+        WriteFlashWord(&H6137A, Int((rpmconv / (addedrpm + (rpmconv / &H46C)))))
+        WriteFlashWord(&H6137C, Int((rpmconv / (addedrpm + (rpmconv / &H468)))))
         '
         ' RPM/Fuel soft hard type 3 neutral, this is modified to be same as type2
         '
-        WriteFlashWord(&H6137E, Int((rpmconv / (addedrpm + (rpmconv / &H48F)) + 1)))
-        WriteFlashWord(&H61380, Int((rpmconv / (addedrpm + (rpmconv / &H48B)) + 1)))
+        WriteFlashWord(&H6137E, Int((rpmconv / (addedrpm + (rpmconv / &H48F)))))
+        WriteFlashWord(&H61380, Int((rpmconv / (addedrpm + (rpmconv / &H48B)))))
         '
         ' RPM limiter type 6, this is the limiter when FI light is on but still running normally
         '
@@ -99,12 +99,12 @@ Public Class GixxerLimiters
         '
         ' RPM/Ignition limiters, these are set to around 150rpm higher than fuel limiters
         '
-        WriteFlashWord(&H60B2C, Int((rpmconv / (addedrpm + (rpmconv / &H44B)) + 1))) 'normal limiter
-        WriteFlashWord(&H60B2E, Int((rpmconv / (addedrpm + (rpmconv / &H447)) + 1))) 'normal limiter
-        WriteFlashWord(&H60B30, Int((rpmconv / (addedrpm + (rpmconv / &H47D)) + 1))) 'clutch limiter
-        WriteFlashWord(&H60B32, Int((rpmconv / (addedrpm + (rpmconv / &H479)) + 1))) 'clutch limiter
-        WriteFlashWord(&H60B38, Int((rpmconv / (addedrpm + (rpmconv / &H3EF)) + 1))) 'On TPS limiter a bit unsure about condition triggering this one
-        WriteFlashWord(&H60B3A, Int((rpmconv / (addedrpm + (rpmconv / &H3E8)) + 1))) 'On TPS limiter  a bit unsure about condition triggering this one
+        WriteFlashWord(&H60B2C, Int((rpmconv / (addedrpm + (rpmconv / &H44B))))) 'normal limiter
+        WriteFlashWord(&H60B2E, Int((rpmconv / (addedrpm + (rpmconv / &H447))))) 'normal limiter
+        WriteFlashWord(&H60B30, Int((rpmconv / (addedrpm + (rpmconv / &H47D))))) 'clutch limiter
+        WriteFlashWord(&H60B32, Int((rpmconv / (addedrpm + (rpmconv / &H479))))) 'clutch limiter
+        WriteFlashWord(&H60B38, Int((rpmconv / (addedrpm + (rpmconv / &H3EF))))) 'On TPS limiter a bit unsure about condition triggering this one
+        WriteFlashWord(&H60B3A, Int((rpmconv / (addedrpm + (rpmconv / &H3E8))))) 'On TPS limiter  a bit unsure about condition triggering this one
 
 
     End Sub
