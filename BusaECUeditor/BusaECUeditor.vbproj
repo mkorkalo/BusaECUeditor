@@ -38,13 +38,14 @@
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
-    <InstallUrl>http://macmadigan.no-ip.com/ecueditor2.5/</InstallUrl>
+    <InstallUrl>http://www.ecueditor.net/</InstallUrl>
     <UpdateUrl>http://macmadigan.no-ip.com/ecueditor2.5/</UpdateUrl>
-    <SupportUrl>http://www.ecueditor.com</SupportUrl>
-    <ErrorReportUrl>http://bitbucket.org/ecueditor/ecueditor/issues%3fstatus=new</ErrorReportUrl>
+    <SupportUrl>http://www.ecueditor.info</SupportUrl>
+    <ErrorReportUrl>http://www.ecueditor.info</ErrorReportUrl>
     <TargetCulture>en</TargetCulture>
     <ProductName>Ecueditor.com for Hayabusa K2-K7, K8-, BKing and Gixxer K7-</ProductName>
-    <PublisherName>PetriK</PublisherName>
+    <PublisherName>ecueditor.com</PublisherName>
+    <SuiteName>Free gsxr superbike engine ecu tuning software</SuiteName>
     <MinimumRequiredVersion>2.5.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>ecueditor_prerelease.htm</WebPage>

@@ -1263,6 +1263,8 @@ skip_update:
                 FlashSerial()
             Case "bking"
                 FlashSerial()
+            Case "gixxer"
+                FlashSerial()
             Case Else
                 MsgBox("ECU programmer not defined for this .bin file")
         End Select
@@ -1817,7 +1819,7 @@ skip_update:
                 '
                 If (k >= &HF0) And (k <= &HF5) Then
                     If (rxbyte <> ReadFlashByte(&HFFF00 + k)) And (rxbyte <> &HFF) Then
-                        If MsgBox("Not same ECU ID in memory and inside the ecu. Possibly ecu is not from a Hayabusa. You can stop the flashing by pressing cancel.", MsgBoxStyle.OkCancel) = MsgBoxResult.Cancel Then
+                        If MsgBox("Not same ECU ID in memory and inside the ecu. You can stop the flashing by pressing cancel.", MsgBoxStyle.OkCancel) = MsgBoxResult.Cancel Then
                             K8FlashStatus.Close()
                             B_FlashECU.Enabled = True
                             '***************************************************************************************************************************
@@ -1827,18 +1829,21 @@ skip_update:
                         End If
                     End If
                 End If
-                If (k >= &HF6) And (k <= &HF7) Then
-                    If (rxbyte <> &H30) And (rxbyte <> &H31) And (rxbyte <> &H32) And (rxbyte <> &H35) And (rxbyte <> &HFF) Then
-                        If MsgBox("Not a Hayabusa 15H00, 15H10, 15H20 or 15Hxx Generic ecu. Programming stopped to avoid damage to ecu or bike. Press cancel to stop, ok to continue", MsgBoxStyle.OkCancel) = MsgBoxResult.Cancel Then
-                            K8FlashStatus.Close()
-                            B_FlashECU.Enabled = True
-                            '***************************************************************************************************************************
-                            FT_status = FT_ClrDtr(lngHandle) 'new for Interface V1.1
-                            '****************************************************************************************************************************
-                            FT_status = FT_Close(lngHandle)
-                        End If
-                    End If
-                End If
+                '
+                ' Commented out 7.1.2011, new ecutypes added - this check is no more validl
+                '
+                'If (k >= &HF6) And (k <= &HF7) Then
+                ' If (rxbyte <> &H30) And (rxbyte <> &H31) And (rxbyte <> &H32) And (rxbyte <> &H35) And (rxbyte <> &HFF) Then
+                '        If MsgBox("Not a Hayabusa 15H00, 15H10, 15H20 or 15Hxx Generic ecu. Programming stopped to avoid damage to ecu or bike. Press cancel to stop, ok to continue", MsgBoxStyle.OkCancel) = MsgBoxResult.Cancel Then
+                ' K8FlashStatus.Close()
+                ' B_FlashECU.Enabled = True
+                ' '***************************************************************************************************************************
+                ' FT_status = FT_ClrDtr(lngHandle) 'new for Interface V1.1
+                ' '****************************************************************************************************************************
+                ' FT_status = FT_Close(lngHandle)
+                ' End If
+                ' End If
+                ' End If
                 k = k + 1
             Next
         Next
