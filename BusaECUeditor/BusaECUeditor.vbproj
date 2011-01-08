@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -7,9 +7,9 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{DA23D625-3816-42EC-942D-3A183506DCE6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>BusaECUeditor.My.MyApplication</StartupObject>
-    <RootNamespace>BusaECUeditor</RootNamespace>
-    <AssemblyName>Hayabusa_ECUeditor</AssemblyName>
+    <StartupObject>ecueditor.My.MyApplication</StartupObject>
+    <RootNamespace>ecueditor</RootNamespace>
+    <AssemblyName>ecueditor</AssemblyName>
     <MyType>WindowsForms</MyType>
     <SignManifests>false</SignManifests>
     <ManifestCertificateThumbprint>A971FC8EB684E9C5154FF7DA720E29BCC7ADB15B</ManifestCertificateThumbprint>
@@ -25,8 +25,8 @@
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <OldToolsVersion>2.0</OldToolsVersion>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
     <PublishUrl>\\AMD\wwwroot\Ecueditor2.5\</PublishUrl>
     <Install>true</Install>
@@ -38,20 +38,19 @@
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
-    <InstallUrl>http://www.ecueditor.net/</InstallUrl>
+    <InstallUrl>http://macmadigan.no-ip.com/ecueditor2.5/</InstallUrl>
     <UpdateUrl>http://macmadigan.no-ip.com/ecueditor2.5/</UpdateUrl>
     <SupportUrl>http://www.ecueditor.info</SupportUrl>
     <ErrorReportUrl>http://www.ecueditor.info</ErrorReportUrl>
     <TargetCulture>en</TargetCulture>
     <ProductName>Ecueditor.com for Hayabusa K2-K7, K8-, BKing and Gixxer K7-</ProductName>
     <PublisherName>ecueditor.com</PublisherName>
-    <SuiteName>Free gsxr superbike engine ecu tuning software</SuiteName>
-    <MinimumRequiredVersion>2.5.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>2.5.1.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>ecueditor_prerelease.htm</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>60</ApplicationRevision>
-    <ApplicationVersion>2.5.0.%2a</ApplicationVersion>
+    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationVersion>2.5.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -63,9 +62,9 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>Hayabusa_ECUeditor.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <DocumentationFile>ecueditor.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -73,8 +72,8 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>Hayabusa_ECUeditor.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DocumentationFile>ecueditor.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
@@ -88,35 +87,6 @@
     <Reference Include="AxInterop.ECHARTCONTROLLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
       <HintPath>dlls\AxInterop.ECHARTCONTROLLib.dll</HintPath>
     </Reference>
-    <Reference Include="AxInterop.Graph, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
-      <HintPath>dlls\AxInterop.Graph.dll</HintPath>
-    </Reference>
-    <Reference Include="AxInterop.MTSSDKLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
-      <HintPath>dlls\AxInterop.MTSSDKLib.dll</HintPath>
-    </Reference>
-    <Reference Include="AxInterop.NTGRAPH3DLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
-      <HintPath>dlls\AxInterop.NTGRAPH3DLib.dll</HintPath>
-    </Reference>
-    <Reference Include="AxInterop.XEDECTRLLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dlls\AxInterop.XEDECTRLLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Interop.Graph, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dlls\Interop.Graph.dll</HintPath>
-    </Reference>
-    <Reference Include="Interop.MTSSDKLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dlls\Interop.MTSSDKLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Interop.NTGRAPH3DLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dlls\Interop.NTGRAPH3DLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Interop.XEDECTRLLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dlls\Interop.XEDECTRLLib.dll</HintPath>
-    </Reference>
     <Reference Include="Lxsoft.Controls.LedControl, Version=1.0.2755.28697, Culture=neutral, PublicKeyToken=ab1b2a8e4bff52ad, processorArchitecture=MSIL">
       <HintPath>dlls\Lxsoft.Controls.LedControl.dll</HintPath>
     </Reference>
@@ -124,18 +94,11 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SpPerfChart, Version=1.0.2595.43101, Culture=neutral, PublicKeyToken=5f66223a893f5e2f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dlls\SpPerfChart.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
-    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="BusaECUeditor" />
@@ -619,7 +582,7 @@
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
-      <ProductName>.NET Framework Client Profile</ProductName>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
@@ -730,11 +693,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Common\VerifyInProgress.resx">
       <DependentUpon>VerifyInProgress.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="BKing\BKingShifter.resx">
       <DependentUpon>BKingShifter.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="BKing\BKingLimiters.resx">
       <DependentUpon>BKingLimiters.vb</DependentUpon>
@@ -762,6 +727,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Common\Updateavail.resx">
       <DependentUpon>Updateavail.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8dragtools.resx">
       <DependentUpon>K8dragtools.vb</DependentUpon>
@@ -769,18 +735,23 @@
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8boostdiagram.resx">
       <DependentUpon>K8boostdiagram.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8dwellignition.resx">
       <DependentUpon>K8dwellignition.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8EngineDataFilter.resx">
       <DependentUpon>K8EngineDataFilter.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8EngineDataLogger.resx">
       <DependentUpon>K8EngineDataLogger.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8EngineDataViewer.resx">
       <DependentUpon>K8EngineDataViewer.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8injectorbalancemap.resx">
       <DependentUpon>K8injectorbalancemap.vb</DependentUpon>
@@ -792,6 +763,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8ramair.resx">
       <DependentUpon>K8ramair.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8STPmap.resx">
       <DependentUpon>K8STPmap.vb</DependentUpon>
@@ -799,6 +771,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="G2\gen2printsummary.resx">
       <DependentUpon>gen2printsummary.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8boostfuel.resx">
       <DependentUpon>K8boostfuel.vb</DependentUpon>
@@ -806,9 +779,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8setupcomport.resx">
       <DependentUpon>K8setupcomport.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8enginedatalog.resx">
       <DependentUpon>K8enginedatalog.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="Common\Copy of ecueditor.ico" />
     <Content Include="Common\ecueditor.ico" />
@@ -865,12 +840,15 @@
     </Content>
     <EmbeddedResource Include="Common\LoginForm.resx">
       <DependentUpon>LoginForm.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8gaugetools.resx">
       <DependentUpon>K8gaugetools.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8AutoTuneSettings.resx">
       <DependentUpon>K8AutoTuneSettings.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Gixxer\GixxerFuelmap.resx">
       <DependentUpon>GixxerFuelmap.vb</DependentUpon>
@@ -884,17 +862,6 @@
       <DependentUpon>GixxerIgnitionmap.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="stdole">
-      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <Private>True</Private>
-    </COMReference>
   </ItemGroup>
   <ItemGroup>
     <PublishFile Include="Microsoft.VisualBasic.PowerPacks.Vs">

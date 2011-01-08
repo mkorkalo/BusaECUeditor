@@ -578,13 +578,13 @@ Public Class K8Datastream
                 rxsptr = 0
                 Select Case ECUversion
                     Case "gen2"
-                        Me.Text = "Ecueditor.com - Hayabusa gen2 Enginedata active..."
+                        Me.Text = "ecueditor.com - Hayabusa gen2 Enginedata active..."
                     Case "bking"
                         Me.Text = "ecueditor.com - Bking Enginedata active..."
                     Case "gixxer"
-                        Me.Text = "Ecueditor.com - GSX-R Enginedata active..."
+                        Me.Text = "ecueditor.com - GSX-R Enginedata active..."
                     Case "GixxerK5"
-                        Me.Text = "Hayabusa Ecueditor2 - Gsx1000R K5K6 Enginedata active...(testing only)"
+                        Me.Text = "ecueditor.com - Gsx1000R K5K6 Enginedata active...(testing only)"
                     Case Else
                         MsgBox("Not known ecuversion...")
                 End Select
@@ -755,7 +755,7 @@ Public Class K8Datastream
                 'FT_status = FT_Close(lngHandle)
                 L_comms.ForeColor = Color.Red
                 B_Connect_Datastream.Text = "Connect"
-                Me.Text = "Hayabusa Ecueditor2 - Press connect to activate enginedata"
+                Me.Text = "ecueditor.com - Press connect to activate enginedata"
 
             Case &H3E
                 '
@@ -1569,7 +1569,7 @@ Public Class K8Datastream
         ' Forced com port closing
         '
         '*****New Code waiting that the comms is closed ***************
-        Me.Text = "Hayabusa Ecueditor2 - Please wait the ECU need this time"
+        Me.Text = "ecueditor.com - Please wait the ECU need this time"
         FT_status = FT_Close(lngHandle)
         Do
             FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
@@ -1579,7 +1579,7 @@ Public Class K8Datastream
         L_comms.ForeColor = Color.Red
         System.Threading.Thread.Sleep(1500)
 
-        Me.Text = "Hayabusa Ecueditor2 - Press connect to activate enginedata"
+        Me.Text = "ecueditor.com - Press connect to activate enginedata"
         '***************end new Code***********************************
         B_Connect_Datastream.Text = "Connect"
 

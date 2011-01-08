@@ -46,7 +46,7 @@ Partial Class Datastream
         Me.T_MapSelected = New System.Windows.Forms.TextBox
         Me.R_OxySensor = New System.Windows.Forms.RadioButton
         Me.B_LC1On = New System.Windows.Forms.Button
-        Me.RPMGauge = New BusaECUeditor.ldGuage.ldGuage
+        Me.RPMGauge = New ecueditor.ldGuage.ldGuage
         CType(Me.TrackBar_Datalog, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_RPM, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_IGN, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -413,7 +413,7 @@ Partial Class Datastream
     Friend WithEvents B_Logging As System.Windows.Forms.Button
     Friend WithEvents TrackBar_Datalog As System.Windows.Forms.TrackBar
     Friend WithEvents C_Uservar1 As System.Windows.Forms.ComboBox
-    Friend WithEvents RPMGauge As BusaECUeditor.ldGuage.ldGuage
+    Friend WithEvents RPMGauge As ecueditor.ldGuage.ldGuage
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents LED_RPM As LxControl.LxLedControl
     Friend WithEvents LED_IGN As LxControl.LxLedControl
