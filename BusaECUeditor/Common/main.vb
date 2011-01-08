@@ -81,7 +81,10 @@ Public Class main
 
 
         Me.Visible = False
-        My.Application.SaveMySettingsOnExit = True
+        '
+        ' COmmented out for VBonXP
+        '
+        'My.Application.SaveMySettingsOnExit = True
 
         '
         ' Win XP error handler
@@ -1847,52 +1850,59 @@ skip_update:
                 k = k + 1
             Next
         Next
-        '
-        ' Lets read what is the flashingmode in ecu if memory is set to fast flashmode
-        ' if fastflash then...
-        '
-        If ReadFlashLongWord(&H51F10) = &H536C4 Then
-            System.Threading.Thread.Sleep(100)
-            txbyte = &HFF
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            txbyte = &H1F
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            txbyte = &H5
-            FT_Write_Bytes(lngHandle, txbyte, 1, 1)
-            System.Threading.Thread.Sleep(100)
-            k = 0
-            For j = 0 To &HFF
-                FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-                For i = 1 To rxqueue
-                    FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
-                    If k = 19 Then
-                        i = ReadFlashByte(&H51F10 + 3)
-                        Select Case rxbyte
-                            Case &H18 ' stock setting not fastmode, reflash block 5 is memory in fast mode
-                                If ReadFlashLongWord(&H51F10) = &H536C4 Then
-                                    blk5 = True
-                                Else
+
+        If ECUVersion = "gen2" Then
+
+            '
+            ' Lets read what is the flashingmode in ecu if memory is set to fast flashmode
+            ' if fastflash then...
+            '
+            If ReadFlashLongWord(&H51F10) = &H536C4 Then
+                System.Threading.Thread.Sleep(100)
+                txbyte = &HFF
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H1F
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H5
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                System.Threading.Thread.Sleep(100)
+                k = 0
+                For j = 0 To &HFF
+                    FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+                    For i = 1 To rxqueue
+                        FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+                        If k = 19 Then
+                            i = ReadFlashByte(&H51F10 + 3)
+                            Select Case rxbyte
+                                Case &H18 ' stock setting not fastmode, reflash block 5 is memory in fast mode
+                                    If ReadFlashLongWord(&H51F10) = &H536C4 Then
+                                        blk5 = True
+                                    Else
+                                        blk5 = False
+                                    End If
+                                Case &HC4 ' ecu already in fast mode, no reflashing is needed
                                     blk5 = False
-                                End If
-                            Case &HC4 ' ecu already in fast mode, no reflashing is needed
-                                blk5 = False
-                            Case &HFF ' block5 is empty, may be reflashing error. reflash block 5
-                                blk5 = True
-                            Case Else
-                                MsgBox("Error in reading flashingmode from ECU, programming aborted. Please reboot ecu and reflash")
-                                BlockPgm = True
-                                K8FlashStatus.Close()
-                                B_FlashECU.Enabled = True
-                                '***************************************************************************************************************************
-                                FT_status = FT_ClrDtr(lngHandle) 'new for Interface V1.1
-                                '****************************************************************************************************************************
-                                FT_status = FT_Close(lngHandle)
-                        End Select
-                    End If
-                    k = k + 1
+                                Case &HFF ' block5 is empty, may be reflashing error. reflash block 5
+                                    blk5 = True
+                                Case Else
+                                    MsgBox("Error in reading flashingmode from ECU, programming aborted. Please reboot ecu and reflash")
+                                    BlockPgm = True
+                                    K8FlashStatus.Close()
+                                    B_FlashECU.Enabled = True
+                                    '***************************************************************************************************************************
+                                    FT_status = FT_ClrDtr(lngHandle) 'new for Interface V1.1
+                                    '****************************************************************************************************************************
+                                    FT_status = FT_Close(lngHandle)
+                            End Select
+                        End If
+                        k = k + 1
+                    Next
                 Next
-            Next
+            End If
+
         End If
+
+
         timeBeginPeriod(1)
         System.Threading.Thread.Sleep(300)
 

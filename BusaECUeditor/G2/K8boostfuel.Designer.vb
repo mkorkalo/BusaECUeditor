@@ -311,7 +311,7 @@ Partial Class K8boostfuel
         '
         'K8boostfuelBindingSource
         '
-        Me.K8boostfuelBindingSource.DataSource = GetType(BusaECUeditor.K8boostfuel)
+        Me.K8boostfuelBindingSource.DataSource = GetType(ecueditor.K8boostfuel)
         '
         'K8boostfuel
         '

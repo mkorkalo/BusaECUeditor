@@ -750,6 +750,9 @@ Module CommonFunctions
 
                 Return 10400
 
+            ElseIf ECUVersion = "gixxer" Then
+
+                Return 10400
             End If
 
         End Get
