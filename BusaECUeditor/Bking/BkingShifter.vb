@@ -1,5 +1,5 @@
 ﻿'
-'    This file is part of BusaECUeditor - Hayabusa ECUeditor
+'    This file is part of ecueditor - Hayabusa ECUeditor
 '
 '    Hayabusa ECUeditor is free software: you can redistribute it and/or modify
 '    it under the terms of the GNU General Public License as published by
@@ -78,9 +78,9 @@ Public Class BKingShifter
         If e.KeyChar = Chr(27) Then Me.Close()
 
         If e.KeyChar = "P" Or e.KeyChar = "p" Then
-            PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Left = 10
-            PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Right = 10
-            PrintForm1.Print()
+            '
+            '
+            '
         End If
 
     End Sub

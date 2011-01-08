@@ -54,8 +54,7 @@ Partial Class K8Advsettings
         Me.Button2 = New System.Windows.Forms.Button
         Me.Label6 = New System.Windows.Forms.Label
         Me.C_secsize = New System.Windows.Forms.ComboBox
-        Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
-        Me.GroupBox8 = New System.Windows.Forms.GroupBox
+         Me.GroupBox8 = New System.Windows.Forms.GroupBox
         Me.B_WRITE = New System.Windows.Forms.Button
         Me.T_hexvaluehi = New System.Windows.Forms.TextBox
         Me.Label4 = New System.Windows.Forms.Label
@@ -438,14 +437,6 @@ Partial Class K8Advsettings
         Me.C_secsize.Size = New System.Drawing.Size(81, 21)
         Me.C_secsize.TabIndex = 10
         '
-        'PrintForm1
-        '
-        Me.PrintForm1.DocumentName = "document"
-        Me.PrintForm1.Form = Me
-        Me.PrintForm1.PrintAction = System.Drawing.Printing.PrintAction.PrintToPrinter
-        Me.PrintForm1.PrinterSettings = CType(resources.GetObject("PrintForm1.PrinterSettings"), System.Drawing.Printing.PrinterSettings)
-        Me.PrintForm1.PrintFileName = Nothing
-        '
         'GroupBox8
         '
         Me.GroupBox8.Controls.Add(Me.B_WRITE)
@@ -695,7 +686,6 @@ Partial Class K8Advsettings
     Friend WithEvents R_IAT_dynomode As System.Windows.Forms.RadioButton
     Friend WithEvents B_boostfuel As System.Windows.Forms.Button
     Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
-    Friend WithEvents PrintForm1 As Microsoft.VisualBasic.PowerPacks.Printing.PrintForm
     Friend WithEvents GroupBox8 As System.Windows.Forms.GroupBox
     Friend WithEvents T_hexvaluehi As System.Windows.Forms.TextBox
     Friend WithEvents Label4 As System.Windows.Forms.Label

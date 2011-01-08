@@ -30,7 +30,6 @@ Partial Class K8boostfuel
         Me.D_boostfuel = New System.Windows.Forms.DataGridView
         Me.Label3 = New System.Windows.Forms.Label
         Me.LED_BOOST = New LxControl.LxLedControl
-        Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.D_duty = New System.Windows.Forms.DataGridView
         Me.L_solenoid_control = New System.Windows.Forms.Label
         Me.Label4 = New System.Windows.Forms.Label
@@ -135,14 +134,6 @@ Partial Class K8boostfuel
         Me.LED_BOOST.Text = "-"
         Me.LED_BOOST.TextAlignment = LxControl.LxLedControl.Alignment.Right
         Me.LED_BOOST.TotalCharCount = 4
-        '
-        'PrintForm1
-        '
-        Me.PrintForm1.DocumentName = "document"
-        Me.PrintForm1.Form = Me
-        Me.PrintForm1.PrintAction = System.Drawing.Printing.PrintAction.PrintToPrinter
-        Me.PrintForm1.PrinterSettings = CType(resources.GetObject("PrintForm1.PrinterSettings"), System.Drawing.Printing.PrinterSettings)
-        Me.PrintForm1.PrintFileName = Nothing
         '
         'D_duty
         '
@@ -311,7 +302,7 @@ Partial Class K8boostfuel
         '
         'K8boostfuelBindingSource
         '
-        Me.K8boostfuelBindingSource.DataSource = GetType(ecueditor.K8boostfuel)
+        Me.K8boostfuelBindingSource.DataSource = GetType(ecueditor_25.K8boostfuel)
         '
         'K8boostfuel
         '
@@ -360,7 +351,6 @@ Partial Class K8boostfuel
     Friend WithEvents K8boostfuelBindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents LED_BOOST As LxControl.LxLedControl
-    Friend WithEvents PrintForm1 As Microsoft.VisualBasic.PowerPacks.Printing.PrintForm
     Friend WithEvents L_solenoid_control As System.Windows.Forms.Label
     Friend WithEvents D_duty As System.Windows.Forms.DataGridView
     Friend WithEvents Label4 As System.Windows.Forms.Label

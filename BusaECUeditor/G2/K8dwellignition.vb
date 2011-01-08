@@ -203,13 +203,10 @@ Public Class K8dwellignition
             Case "-"
                 DecreaseSelectedCells()
             Case "P"
-                PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Left = 10
-                PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Right = 10
-                PrintForm1.Print()
-            Case "p"
-                PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Left = 10
-                PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Right = 10
-                PrintForm1.Print()
+                '
+                '
+                '
+                '
             Case Chr(27)
                 Me.Close()
         End Select

@@ -61,7 +61,6 @@ Partial Class K8shifter
         Me.T_killcountdelay = New System.Windows.Forms.TextBox
         Me.T_minkillactive = New System.Windows.Forms.TextBox
         Me.L_shifterver = New System.Windows.Forms.Label
-        Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.HelpProvider1 = New System.Windows.Forms.HelpProvider
         Me.P_shifterwiring = New System.Windows.Forms.PictureBox
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
@@ -464,15 +463,7 @@ Partial Class K8shifter
         Me.L_shifterver.Size = New System.Drawing.Size(25, 13)
         Me.L_shifterver.TabIndex = 42
         Me.L_shifterver.Text = "000"
-        '
-        'PrintForm1
-        '
-        Me.PrintForm1.DocumentName = "document"
-        Me.PrintForm1.Form = Me
-        Me.PrintForm1.PrintAction = System.Drawing.Printing.PrintAction.PrintToPrinter
-        Me.PrintForm1.PrinterSettings = CType(resources.GetObject("PrintForm1.PrinterSettings"), System.Drawing.Printing.PrinterSettings)
-        Me.PrintForm1.PrintFileName = Nothing
-        '
+         '
         'P_shifterwiring
         '
         Me.P_shifterwiring.Image = CType(resources.GetObject("P_shifterwiring.Image"), System.Drawing.Image)
@@ -545,7 +536,6 @@ Partial Class K8shifter
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents C_Fuelcut As System.Windows.Forms.CheckBox
     Friend WithEvents C_igncut As System.Windows.Forms.CheckBox
-    Friend WithEvents PrintForm1 As Microsoft.VisualBasic.PowerPacks.Printing.PrintForm
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents Label7 As System.Windows.Forms.Label

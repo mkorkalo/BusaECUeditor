@@ -28,7 +28,6 @@ Partial Class K8dwellignition
         Me.OK_Button = New System.Windows.Forms.Button
         Me.D_dwell = New System.Windows.Forms.DataGridView
         Me.Label1 = New System.Windows.Forms.Label
-        Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         CType(Me.D_dwell, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -66,15 +65,6 @@ Partial Class K8dwellignition
         Me.Label1.Size = New System.Drawing.Size(240, 13)
         Me.Label1.TabIndex = 76
         Me.Label1.Text = "RPM / Volts map - value varies between 1 to 255"
-        '
-        'PrintForm1
-        '
-        Me.PrintForm1.DocumentName = "document"
-        Me.PrintForm1.Form = Me
-        Me.PrintForm1.PrintAction = System.Drawing.Printing.PrintAction.PrintToPrinter
-        Me.PrintForm1.PrinterSettings = CType(resources.GetObject("PrintForm1.PrinterSettings"), System.Drawing.Printing.PrinterSettings)
-        Me.PrintForm1.PrintFileName = Nothing
-        '
         'K8dwellignition
         '
         Me.AcceptButton = Me.OK_Button
@@ -99,6 +89,5 @@ Partial Class K8dwellignition
     Friend WithEvents OK_Button As System.Windows.Forms.Button
     Friend WithEvents D_dwell As System.Windows.Forms.DataGridView
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents PrintForm1 As Microsoft.VisualBasic.PowerPacks.Printing.PrintForm
 
 End Class

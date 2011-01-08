@@ -52,7 +52,6 @@ Partial Class BKingShifter
         Me.HelpProvider1 = New System.Windows.Forms.HelpProvider
         Me.L_shifterver = New System.Windows.Forms.Label
         Me.T_4000 = New System.Windows.Forms.TextBox
-        Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.T_5000 = New System.Windows.Forms.TextBox
         Me.T_6000 = New System.Windows.Forms.TextBox
         Me.Label1 = New System.Windows.Forms.Label
@@ -306,15 +305,7 @@ Partial Class BKingShifter
         Me.T_4000.Name = "T_4000"
         Me.T_4000.Size = New System.Drawing.Size(35, 20)
         Me.T_4000.TabIndex = 56
-        '
-        'PrintForm1
-        '
-        Me.PrintForm1.DocumentName = "document"
-        Me.PrintForm1.Form = Me
-        Me.PrintForm1.PrintAction = System.Drawing.Printing.PrintAction.PrintToPrinter
-        Me.PrintForm1.PrinterSettings = CType(resources.GetObject("PrintForm1.PrinterSettings"), System.Drawing.Printing.PrinterSettings)
-        Me.PrintForm1.PrintFileName = Nothing
-        '
+    '
         'T_5000
         '
         Me.T_5000.Location = New System.Drawing.Point(340, 270)
@@ -395,8 +386,7 @@ Partial Class BKingShifter
     Friend WithEvents HelpProvider1 As System.Windows.Forms.HelpProvider
     Friend WithEvents L_shifterver As System.Windows.Forms.Label
     Friend WithEvents T_4000 As System.Windows.Forms.TextBox
-    Friend WithEvents PrintForm1 As Microsoft.VisualBasic.PowerPacks.Printing.PrintForm
-    Friend WithEvents T_5000 As System.Windows.Forms.TextBox
+     Friend WithEvents T_5000 As System.Windows.Forms.TextBox
     Friend WithEvents T_6000 As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
 End Class

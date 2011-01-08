@@ -26,8 +26,7 @@ Partial Class K8injectorbalancemap
         Me.T_TPSIAP = New System.Windows.Forms.TextBox
         Me.T_RPM = New System.Windows.Forms.TextBox
         Me.T_change = New System.Windows.Forms.TextBox
-        Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
-        Me.L_geartext = New System.Windows.Forms.Label
+         Me.L_geartext = New System.Windows.Forms.Label
         Me.Label2 = New System.Windows.Forms.Label
         Me.Label3 = New System.Windows.Forms.Label
         Me.L_MS = New System.Windows.Forms.Label
@@ -94,15 +93,7 @@ Partial Class K8injectorbalancemap
         Me.T_change.Size = New System.Drawing.Size(92, 19)
         Me.T_change.TabIndex = 20
         Me.T_change.WordWrap = False
-        '
-        'PrintForm1
-        '
-        Me.PrintForm1.DocumentName = "document"
-        Me.PrintForm1.Form = Me
-        Me.PrintForm1.PrintAction = System.Drawing.Printing.PrintAction.PrintToPrinter
-        Me.PrintForm1.PrinterSettings = CType(resources.GetObject("PrintForm1.PrinterSettings"), System.Drawing.Printing.PrinterSettings)
-        Me.PrintForm1.PrintFileName = Nothing
-        '
+          '
         'L_geartext
         '
         Me.L_geartext.AutoSize = True
@@ -189,7 +180,6 @@ Partial Class K8injectorbalancemap
     Friend WithEvents T_TPSIAP As System.Windows.Forms.TextBox
     Friend WithEvents T_RPM As System.Windows.Forms.TextBox
     Friend WithEvents T_change As System.Windows.Forms.TextBox
-    Friend WithEvents PrintForm1 As Microsoft.VisualBasic.PowerPacks.Printing.PrintForm
     Friend WithEvents L_gear As System.Windows.Forms.Label
     Friend WithEvents L_mode As System.Windows.Forms.Label
     Friend WithEvents L_MS As System.Windows.Forms.Label

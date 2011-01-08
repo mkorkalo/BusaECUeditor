@@ -1,5 +1,5 @@
 '
-'    This file is part of BusaECUeditor - Hayabusa ECUeditor
+'    This file is part of ecueditor - Hayabusa ECUeditor
 '
 '    Hayabusa ECUeditor is free software: you can redistribute it and/or modify
 '    it under the terms of the GNU General Public License as published by
@@ -1989,12 +1989,18 @@ skip_update:
         '
         ' Now programmings starts
         '
-        j = ReadFlashLongWord(&H51F10)
-        If ReadFlashLongWord(&H51F10) <> &H536C4 Then
-            K8FlashStatus.fmode.Text = "Normal flash "
+        If ECUVersion = "gen2" Then
+
+            j = ReadFlashLongWord(&H51F10)
+            If ReadFlashLongWord(&H51F10) <> &H536C4 Then
+                K8FlashStatus.fmode.Text = "Normal flash "
+            Else
+                K8FlashStatus.fmode.Text = "Fast flash "
+            End If
         Else
-            K8FlashStatus.fmode.Text = "Fast flash "
+            K8FlashStatus.fmode.Text = "Normal flash "
         End If
+
         K8FlashStatus.fmode.ForeColor = Color.Black
         K8FlashStatus.Progressbar_Flashstatus.Value = 0
         K8FlashStatus.Progressbar_Flashstatus.Refresh()

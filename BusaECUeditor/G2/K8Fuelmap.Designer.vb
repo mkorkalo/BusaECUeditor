@@ -30,7 +30,6 @@ Partial Class K8Fuelmap
         Me.T_TPSIAP = New System.Windows.Forms.TextBox
         Me.T_RPM = New System.Windows.Forms.TextBox
         Me.T_change = New System.Windows.Forms.TextBox
-        Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.L_modeabc = New System.Windows.Forms.Label
         Me.B_MSIAP = New System.Windows.Forms.Button
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
@@ -135,15 +134,7 @@ Partial Class K8Fuelmap
         Me.T_change.Size = New System.Drawing.Size(80, 19)
         Me.T_change.TabIndex = 20
         Me.T_change.WordWrap = False
-        '
-        'PrintForm1
-        '
-        Me.PrintForm1.DocumentName = "document"
-        Me.PrintForm1.Form = Me
-        Me.PrintForm1.PrintAction = System.Drawing.Printing.PrintAction.PrintToPrinter
-        Me.PrintForm1.PrinterSettings = CType(resources.GetObject("PrintForm1.PrinterSettings"), System.Drawing.Printing.PrinterSettings)
-        Me.PrintForm1.PrintFileName = Nothing
-        '
+          '
         'L_modeabc
         '
         Me.L_modeabc.AutoSize = True
@@ -217,7 +208,6 @@ Partial Class K8Fuelmap
     Friend WithEvents T_TPSIAP As System.Windows.Forms.TextBox
     Friend WithEvents T_RPM As System.Windows.Forms.TextBox
     Friend WithEvents T_change As System.Windows.Forms.TextBox
-    Friend WithEvents PrintForm1 As Microsoft.VisualBasic.PowerPacks.Printing.PrintForm
     Friend WithEvents L_modeabc As System.Windows.Forms.Label
     Friend WithEvents B_MSIAP As System.Windows.Forms.Button
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
