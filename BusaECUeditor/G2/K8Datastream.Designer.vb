@@ -99,7 +99,6 @@ Partial Class K8Datastream
         Me.L_basefuel = New System.Windows.Forms.Label
         Me.Label20 = New System.Windows.Forms.Label
         Me.T_21C0 = New System.Windows.Forms.TextBox
-        Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.B_stop_engine = New System.Windows.Forms.Button
         Me.Label23 = New System.Windows.Forms.Label
         Me.T_2108 = New System.Windows.Forms.TextBox
@@ -1132,15 +1131,7 @@ Partial Class K8Datastream
         Me.T_21C0.Name = "T_21C0"
         Me.T_21C0.Size = New System.Drawing.Size(347, 127)
         Me.T_21C0.TabIndex = 111
-        '
-        'PrintForm1
-        '
-        Me.PrintForm1.DocumentName = "document"
-        Me.PrintForm1.Form = Me
-        Me.PrintForm1.PrintAction = System.Drawing.Printing.PrintAction.PrintToPrinter
-        Me.PrintForm1.PrinterSettings = CType(resources.GetObject("PrintForm1.PrinterSettings"), System.Drawing.Printing.PrinterSettings)
-        Me.PrintForm1.PrintFileName = Nothing
-        '
+         '
         'B_stop_engine
         '
         Me.B_stop_engine.Location = New System.Drawing.Point(12, 488)
@@ -1619,8 +1610,7 @@ Partial Class K8Datastream
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents pwrpm As System.Windows.Forms.Label
     Friend WithEvents Label19 As System.Windows.Forms.Label
-    Friend WithEvents PrintForm1 As Microsoft.VisualBasic.PowerPacks.Printing.PrintForm
-    Friend WithEvents B_stop_engine As System.Windows.Forms.Button
+     Friend WithEvents B_stop_engine As System.Windows.Forms.Button
     Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents T_2108 As System.Windows.Forms.TextBox
     Friend WithEvents GroupBox7 As System.Windows.Forms.GroupBox

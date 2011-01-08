@@ -27,7 +27,6 @@ Partial Class K8nitrouscontrol
         Me.Label2 = New System.Windows.Forms.Label
         Me.L_nitrouscontrolver = New System.Windows.Forms.Label
         Me.Label3 = New System.Windows.Forms.Label
-        Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.K8nitrouscontrolBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.D_fuel_nitrouscontrol = New System.Windows.Forms.DataGridView
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
@@ -102,15 +101,7 @@ Partial Class K8nitrouscontrol
         Me.Label3.Size = New System.Drawing.Size(295, 24)
         Me.Label3.TabIndex = 72
         Me.Label3.Text = "Gen2 ECU Nitrous control module"
-        '
-        'PrintForm1
-        '
-        Me.PrintForm1.DocumentName = "document"
-        Me.PrintForm1.Form = Me
-        Me.PrintForm1.PrintAction = System.Drawing.Printing.PrintAction.PrintToPrinter
-        Me.PrintForm1.PrinterSettings = CType(resources.GetObject("PrintForm1.PrinterSettings"), System.Drawing.Printing.PrinterSettings)
-        Me.PrintForm1.PrintFileName = Nothing
-        '
+       '
         'D_fuel_nitrouscontrol
         '
         Me.D_fuel_nitrouscontrol.AllowUserToAddRows = False
@@ -369,7 +360,6 @@ Partial Class K8nitrouscontrol
     Friend WithEvents L_nitrouscontrolver As System.Windows.Forms.Label
     Friend WithEvents K8nitrouscontrolBindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents PrintForm1 As Microsoft.VisualBasic.PowerPacks.Printing.PrintForm
     Friend WithEvents D_fuel_nitrouscontrol As System.Windows.Forms.DataGridView
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents R_nitrous_on As System.Windows.Forms.RadioButton

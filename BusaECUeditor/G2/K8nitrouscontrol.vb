@@ -1,5 +1,5 @@
 '
-'    This file is part of BusaECUeditor - Hayabusa ECUeditor
+'    This file is part of ecueditor - Hayabusa ECUeditor
 '
 '    Hayabusa ECUeditor is free software: you can redistribute it and/or modify
 '    it under the terms of the GNU General Public License as published by
@@ -72,9 +72,10 @@ Public Class K8nitrouscontrol
     Private Sub K8nitrouscontrol_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
         Select Case e.KeyChar
             Case "p"
-                printthis()
-            Case "P"
-                printthis()
+                '
+                '
+                '
+
             Case "*"
                 MultiplySelectedCells()
             Case "/"
@@ -90,12 +91,7 @@ Public Class K8nitrouscontrol
 
     End Sub
 
-    Private Sub printthis()
-        PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Left = 10
-        PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Right = 10
-        PrintForm1.Print()
-    End Sub
-
+ 
     Private Sub nitrouscontrol_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         D_fuel_nitrouscontrol.Visible = False
         G_gencontrol.Visible = False
@@ -300,10 +296,7 @@ Public Class K8nitrouscontrol
 
 
 
-    Private Sub B_print_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        PrintForm1.Print()
-    End Sub
-
+  
 
     Private Sub generate_nitrouscontrol_table()
         Dim c, r, i As Integer

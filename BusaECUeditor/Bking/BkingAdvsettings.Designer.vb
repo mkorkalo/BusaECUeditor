@@ -22,7 +22,6 @@ Partial Class BKingAdvSettings
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BKingAdvSettings))
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.GroupBox8 = New System.Windows.Forms.GroupBox
         Me.B_WRITE = New System.Windows.Forms.Button
         Me.T_hexvaluehi = New System.Windows.Forms.TextBox
@@ -49,14 +48,6 @@ Partial Class BKingAdvSettings
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox9.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'PrintForm1
-        '
-        Me.PrintForm1.DocumentName = "document"
-        Me.PrintForm1.Form = Me
-        Me.PrintForm1.PrintAction = System.Drawing.Printing.PrintAction.PrintToPrinter
-        Me.PrintForm1.PrinterSettings = CType(resources.GetObject("PrintForm1.PrinterSettings"), System.Drawing.Printing.PrinterSettings)
-        Me.PrintForm1.PrintFileName = Nothing
         '
         'GroupBox8
         '
@@ -301,7 +292,7 @@ Partial Class BKingAdvSettings
 
     End Sub
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
-    Friend WithEvents PrintForm1 As Microsoft.VisualBasic.PowerPacks.Printing.PrintForm
+    Friend WithEvents PrintForm1 As Microsoft.VisualBasic.Devices.ComputerInfo
     Friend WithEvents GroupBox8 As System.Windows.Forms.GroupBox
     Friend WithEvents T_hexvaluehi As System.Windows.Forms.TextBox
     Friend WithEvents Label4 As System.Windows.Forms.Label

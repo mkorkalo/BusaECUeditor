@@ -1,5 +1,5 @@
 '
-'    This file is part of BusaECUeditor - Hayabusa ECUeditor
+'    This file is part of ecueditor - Hayabusa ECUeditor
 '
 '    Hayabusa ECUeditor is free software: you can redistribute it and/or modify
 '    it under the terms of the GNU General Public License as published by
@@ -67,9 +67,9 @@ Public Class K8boostfuel
     Private Sub K8boostfuel_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
         If e.KeyChar = Chr(27) Then Me.Close()
         If e.KeyChar = "P" Or e.KeyChar = "p" Then
-            PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Left = 10
-            PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Right = 10
-            PrintForm1.Print()
+            '
+            '
+            '
         End If
 
     End Sub
@@ -780,7 +780,10 @@ Public Class K8boostfuel
     End Sub
 
     Private Sub B_print_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        PrintForm1.Print()
+        '
+        '
+        '
+
     End Sub
 
     Private Sub generate_duty_table()

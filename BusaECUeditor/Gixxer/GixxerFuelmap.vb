@@ -1,5 +1,5 @@
 '
-'    This file is part of BusaECUeditor - Hayabusa ECUeditor
+'    This file is part of ecueditor - Hayabusa ECUeditor
 '
 '    Hayabusa ECUeditor is free software: you can redistribute it and/or modify
 '    it under the terms of the GNU General Public License as published by
@@ -133,14 +133,9 @@ Public Class GixxerFuelmap
             Case Chr(27)
                 Me.Close()
             Case "P"
-                PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Left = 10
-                PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Right = 10
-                PrintForm1.Print()
-            Case "p"
-                PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Left = 10
-                PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Right = 10
-                PrintForm1.Print()
-
+                '
+                '
+                '
         End Select
 
     End Sub

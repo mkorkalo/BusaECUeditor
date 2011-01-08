@@ -6,5 +6,5 @@
     cause the file to be unrecognizable by the program.
 -->
 <GenericObjectDataSource DisplayName="K8boostfuel" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>BusaECUeditor.K8boostfuel, Hayabusa_ECUeditor, Version=2.0.1.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
+   <TypeInfo>ecueditor.K8boostfuel, Hayabusa_ECUeditor, Version=2.0.1.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
 </GenericObjectDataSource>

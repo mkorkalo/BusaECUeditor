@@ -34,7 +34,7 @@ Partial Class ProgramHomepage
         WebBrowser1.Name = "WebBrowser1"
         WebBrowser1.Size = New System.Drawing.Size(781, 809)
         WebBrowser1.TabIndex = 0
-        WebBrowser1.Tag = "BusaEcueditor"
+        WebBrowser1.Tag = "ecueditor"
         WebBrowser1.Url = New System.Uri("http://www.ecueditor.com", System.UriKind.Absolute)
         '
         'ProgramHomepage

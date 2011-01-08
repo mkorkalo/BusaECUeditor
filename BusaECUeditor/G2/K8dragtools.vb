@@ -1,5 +1,5 @@
 '
-'    This file is part of BusaECUeditor - Hayabusa ECUeditor
+'    This file is part of ecueditor - Hayabusa ECUeditor
 '
 '    Hayabusa ECUeditor is free software: you can redistribute it and/or modify
 '    it under the terms of the GNU General Public License as published by
@@ -56,9 +56,10 @@ Public Class K8dragtools
     End Sub
 
     Private Sub printthis()
-        PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Left = 10
-        PrintForm1.PrinterSettings.DefaultPageSettings.Margins.Right = 10
-        PrintForm1.Print()
+        '
+        '
+        '
+
     End Sub
 
     Private Sub dragtools_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -282,12 +283,7 @@ Public Class K8dragtools
 
 
 
-    Private Sub B_print_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        PrintForm1.Print()
-    End Sub
 
-
-    
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Me.Close()
     End Sub
@@ -338,7 +334,7 @@ Public Class K8dragtools
         WriteFlashWord(&H5A00C, Val(C_GEAR36_RETARD.Text))
     End Sub
 
-    
+
     Private Sub C_ACTIVATION_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_ACTIVATION.SelectedIndexChanged
         WriteFlashWord(&H5A00E, Int(Val(C_ACTIVATION.Text) * 2.56))
     End Sub

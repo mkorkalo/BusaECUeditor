@@ -26,7 +26,6 @@ Partial Class K8dragtools
         Me.Label2 = New System.Windows.Forms.Label
         Me.L_dragtoolsver = New System.Windows.Forms.Label
         Me.Label3 = New System.Windows.Forms.Label
-        Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.K8dragtoolsBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.Button1 = New System.Windows.Forms.Button
         Me.Linklabel_program_homepage = New System.Windows.Forms.LinkLabel
@@ -110,14 +109,6 @@ Partial Class K8dragtools
         Me.Label3.Size = New System.Drawing.Size(209, 24)
         Me.Label3.TabIndex = 72
         Me.Label3.Text = "Gen2 Dragtools module"
-        '
-        'PrintForm1
-        '
-        Me.PrintForm1.DocumentName = "document"
-        Me.PrintForm1.Form = Me
-        Me.PrintForm1.PrintAction = System.Drawing.Printing.PrintAction.PrintToPrinter
-        Me.PrintForm1.PrinterSettings = CType(resources.GetObject("PrintForm1.PrinterSettings"), System.Drawing.Printing.PrinterSettings)
-        Me.PrintForm1.PrintFileName = Nothing
         '
         'Button1
         '
@@ -467,7 +458,6 @@ Partial Class K8dragtools
     Friend WithEvents L_dragtoolsver As System.Windows.Forms.Label
     Friend WithEvents K8dragtoolsBindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents PrintForm1 As Microsoft.VisualBasic.PowerPacks.Printing.PrintForm
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents Linklabel_program_homepage As System.Windows.Forms.LinkLabel
     Friend WithEvents Label4 As System.Windows.Forms.Label

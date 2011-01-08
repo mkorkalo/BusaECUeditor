@@ -23,7 +23,6 @@ Partial Class BKingLimiters
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BKingLimiters))
         Me.Label4 = New System.Windows.Forms.Label
         Me.C_6gear = New System.Windows.Forms.CheckBox
-        Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.Label2 = New System.Windows.Forms.Label
         Me.RPM = New System.Windows.Forms.ComboBox
@@ -49,14 +48,6 @@ Partial Class BKingLimiters
         Me.C_6gear.Size = New System.Drawing.Size(15, 14)
         Me.C_6gear.TabIndex = 25
         Me.C_6gear.UseVisualStyleBackColor = True
-        '
-        'PrintForm1
-        '
-        Me.PrintForm1.DocumentName = "document"
-        Me.PrintForm1.Form = Me
-        Me.PrintForm1.PrintAction = System.Drawing.Printing.PrintAction.PrintToPrinter
-        Me.PrintForm1.PrinterSettings = CType(resources.GetObject("PrintForm1.PrinterSettings"), System.Drawing.Printing.PrinterSettings)
-        Me.PrintForm1.PrintFileName = Nothing
         '
         'GroupBox1
         '
@@ -121,7 +112,6 @@ Partial Class BKingLimiters
     End Sub
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents C_6gear As System.Windows.Forms.CheckBox
-    Friend WithEvents PrintForm1 As Microsoft.VisualBasic.PowerPacks.Printing.PrintForm
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents RPM As System.Windows.Forms.ComboBox

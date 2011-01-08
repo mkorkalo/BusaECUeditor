@@ -28,7 +28,6 @@ Partial Class K8Ignitionmap
         Me.B_MS0 = New System.Windows.Forms.Button
         Me.B_MS1 = New System.Windows.Forms.Button
         Me.T_DEG = New System.Windows.Forms.TextBox
-        Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.Label1 = New System.Windows.Forms.Label
         Me.Button1 = New System.Windows.Forms.Button
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
@@ -113,15 +112,6 @@ Partial Class K8Ignitionmap
         Me.T_DEG.Size = New System.Drawing.Size(124, 22)
         Me.T_DEG.TabIndex = 20
         Me.T_DEG.WordWrap = False
-        '
-        'PrintForm1
-        '
-        Me.PrintForm1.DocumentName = "document"
-        Me.PrintForm1.Form = Me
-        Me.PrintForm1.PrintAction = System.Drawing.Printing.PrintAction.PrintToPrinter
-        Me.PrintForm1.PrinterSettings = CType(resources.GetObject("PrintForm1.PrinterSettings"), System.Drawing.Printing.PrinterSettings)
-        Me.PrintForm1.PrintFileName = Nothing
-        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -175,7 +165,6 @@ Partial Class K8Ignitionmap
     Friend WithEvents B_MS0 As System.Windows.Forms.Button
     Friend WithEvents B_MS1 As System.Windows.Forms.Button
     Friend WithEvents T_DEG As System.Windows.Forms.TextBox
-    Friend WithEvents PrintForm1 As Microsoft.VisualBasic.PowerPacks.Printing.PrintForm
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip

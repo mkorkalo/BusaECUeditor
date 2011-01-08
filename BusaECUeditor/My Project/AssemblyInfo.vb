@@ -13,7 +13,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("ecueditor.com")> 
 <Assembly: AssemblyDescription("Hayabusa gen1 K2-K7, gen2 K8- , Bking, Gixxer")> 
 <Assembly: AssemblyCompany("by PetriK")> 
-<Assembly: AssemblyProduct("ecyeditorr v2.6")> 
+<Assembly: AssemblyProduct("ecueditor.com v2.5")> 
 <Assembly: AssemblyCopyright("Copyright © PetriK 2008-2011")> 
 <Assembly: AssemblyTrademark("")> 
 

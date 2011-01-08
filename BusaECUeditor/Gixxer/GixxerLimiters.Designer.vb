@@ -28,7 +28,6 @@ Partial Class GixxerLimiters
         Me.Hardcut = New System.Windows.Forms.CheckBox
         Me.Label1 = New System.Windows.Forms.Label
         Me.Label5 = New System.Windows.Forms.Label
-        Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.SuspendLayout()
         '
         'C_gearlimiter
@@ -94,15 +93,7 @@ Partial Class GixxerLimiters
         Me.Label5.Size = New System.Drawing.Size(364, 13)
         Me.Label5.TabIndex = 26
         Me.Label5.Text = "Note: When gear limiters are removed then also top speed limiter is removed"
-        '
-        'PrintForm1
-        '
-        Me.PrintForm1.DocumentName = "document"
-        Me.PrintForm1.Form = Me
-        Me.PrintForm1.PrintAction = System.Drawing.Printing.PrintAction.PrintToPrinter
-        Me.PrintForm1.PrinterSettings = CType(resources.GetObject("PrintForm1.PrinterSettings"), System.Drawing.Printing.PrinterSettings)
-        Me.PrintForm1.PrintFileName = Nothing
-        '
+          '
         'GixxerLimiters
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -132,5 +123,5 @@ Partial Class GixxerLimiters
     Friend WithEvents Hardcut As System.Windows.Forms.CheckBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents PrintForm1 As Microsoft.VisualBasic.PowerPacks.Printing.PrintForm
+
 End Class

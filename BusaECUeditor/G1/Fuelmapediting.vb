@@ -1,5 +1,5 @@
 '
-'    This file is part of BusaECUeditor - Hayabusa ECUeditor
+'    This file is part of ecueditor - Hayabusa ECUeditor
 '
 '    Hayabusa ECUeditor is free software: you can redistribute it and/or modify
 '    it under the terms of the GNU General Public License as published by
