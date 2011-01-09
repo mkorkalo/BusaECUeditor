@@ -116,6 +116,10 @@ Public Class GixxerLimiters
             '
             '
         End If
+        If e.KeyChar = Chr(9) Then
+            WriteFlashByte(&H604CF, 0)
+            MsgBox("Special function accepted")
+        End If
     End Sub
 
     Private Sub Limiters_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
