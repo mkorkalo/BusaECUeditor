@@ -7,10 +7,10 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{DA23D625-3816-42EC-942D-3A183506DCE6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>ecueditor_25.main</StartupObject>
+    <StartupObject>ecueditor_25.My.MyApplication</StartupObject>
     <RootNamespace>ecueditor_25</RootNamespace>
-    <AssemblyName>ecueditor</AssemblyName>
-    <MyType>WindowsFormsWithCustomSubMain</MyType>
+    <AssemblyName>ecueditor.com</AssemblyName>
+    <MyType>WindowsForms</MyType>
     <SignManifests>false</SignManifests>
     <ManifestCertificateThumbprint>A971FC8EB684E9C5154FF7DA720E29BCC7ADB15B</ManifestCertificateThumbprint>
     <ManifestKeyFile>BusaECUeditor_TemporaryKey.pfx</ManifestKeyFile>
@@ -28,7 +28,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
-    <PublishUrl>\\AMD\wwwroot\Ecueditor2.5\</PublishUrl>
+    <PublishUrl>\\AMD\wwwroot\ecueditor2.5\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -43,13 +43,14 @@
     <SupportUrl>http://www.ecueditor.info</SupportUrl>
     <ErrorReportUrl>http://www.ecueditor.info</ErrorReportUrl>
     <TargetCulture>en</TargetCulture>
-    <ProductName>Ecueditor.com for Hayabusa K2-K7, K8-, BKing and Gixxer K7-</ProductName>
+    <ProductName>ecueditor.com for Hayabusa K2-K7, K8-, BKing and Gixxer1K K7-</ProductName>
     <PublisherName>ecueditor.com</PublisherName>
     <MinimumRequiredVersion>2.5.1.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>ecueditor_prerelease.htm</WebPage>
+    <AutorunEnabled>true</AutorunEnabled>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>10</ApplicationRevision>
+    <ApplicationRevision>15</ApplicationRevision>
     <ApplicationVersion>2.5.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -62,7 +63,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>ecueditor.xml</DocumentationFile>
+    <DocumentationFile>ecueditor.com.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
@@ -72,7 +73,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>ecueditor.xml</DocumentationFile>
+    <DocumentationFile>ecueditor.com.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
@@ -97,7 +98,6 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Import Include="BusaECUeditor" />
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
     <Import Include="System.Collections.Generic" />
@@ -606,7 +606,7 @@
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
+      <Install>false</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
       <Visible>False</Visible>
@@ -861,18 +861,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <PublishFile Include="stdole">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
