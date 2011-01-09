@@ -540,6 +540,7 @@ Public Class GixxerFuelmap
         ' Generate row headings
         '
         Fuelmapgrid.RowCount = map_number_of_rows
+
         r = 0
         Fuelmapgrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
         Do While (r < map_number_of_rows)
@@ -815,7 +816,16 @@ Public Class GixxerFuelmap
                 T_change.Text = Str(v) & " (" & Format(p, "##0") & "%)"
             End If
 
-            msrpm = 1 / (Fuelmapgrid.CurrentRow.HeaderCell.Value / 60) * 1000 * 2
+            '
+            ' Looks like this following calculation gives: A first chance exception of type 'System.OverflowException' occurred in Microsoft.VisualBasic.dll
+            ' FIXED by PetriK
+            '
+            If Fuelmapgrid.CurrentRow.HeaderCell.Value <> 0 Then
+                msrpm = 1 / (Fuelmapgrid.CurrentRow.HeaderCell.Value / 60) * 1000 * 2
+            Else
+                msrpm = 0
+            End If
+
 
         Catch ex As Exception
         End Try

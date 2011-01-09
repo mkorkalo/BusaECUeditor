@@ -1,4 +1,5 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <PublishUrlHistory>\\AMD\wwwroot\Ecueditor2.5\|C:\Ecueditor2.5\|E:\Projects\Ecu Editor\Publish\|\\amd\wwwroot\Ecueditor2.5\|\\amd\wwwroot\Ecueditor2.4\</PublishUrlHistory>
     <InstallUrlHistory>http://www.ecueditor.net/|http://macmadigan.no-ip.com/ecueditor2.5/|http://macmadigan.no-ip.com/Ecueditor2.5/|http://macmadigan.no-ip.com/ecueditor2.5/ecueditor_prerelease.htm/|http://macmadigan.no-ip.com/ecueditor2.4/</InstallUrlHistory>
