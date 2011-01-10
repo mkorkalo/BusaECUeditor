@@ -162,7 +162,7 @@ Public Class K8dragtools
 
         'populate NTCLT with initial value
         i = ReadFlashWord(&H72A6E) ' this is the reference RPM that is stored in the system
-        i = Int(((rpmconv / (i + 0))) + 1)
+        i = Int(((rpmconv / (i + 0))))
         i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
         Me.NTCLT.Items.Add(i.ToString())
         i = 3000
@@ -346,13 +346,13 @@ Public Class K8dragtools
         '
         ' RPM/Fuel hard type 2, this is modified higher than stock as ecu default is not used in this case
         '
-        baseline = 11000
+        baseline = 11300
         ' Set various RPM limits based on RPM value selected
         i = Val(NTCLT.Text)
         addedrpm = i - baseline ' we are just setting here the baseline
 
-        WriteFlashWord(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H560)) + 1))) 'Cluched ignition limiter
-        WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1))) 'Cluched ignition limiter
+        WriteFlashWord(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H560))))) 'Cluched ignition limiter
+        WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H554))))) 'Cluched ignition limiter
 
         '
         ' Make ignition limiter to skip GPS error and GPS neutral using &H80 value as raw gps information
@@ -374,12 +374,12 @@ Public Class K8dragtools
         '
         ' Remove settings 2 step limiter settings
         '
-        i = ReadFlashWord(&H739EC) ' this is the reference RPM that is stored in the system
-        i = Int(((rpmconv / (i + 0))) + 1)
+        i = ReadFlashWord(&H72A6E) ' this is the reference RPM that is stored in the system
+        i = Int(((rpmconv / (i + 0))))
         i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
         addedrpm = i - baseline ' we are just setting here the baseline
-        WriteFlashWord(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'clutch limiter at 10901 modified to same as normal ignition limiter
-        WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'clutch limiter at 10997 modified to same as normal ignition limiter
+        WriteFlashWord(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H51E))))) 'clutch limiter at 10901 modified to same as normal ignition limiter
+        WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H50D))))) 'clutch limiter at 10997 modified to same as normal ignition limiter
         WriteFlashByte(&H36E39 + 0, &H80)
         WriteFlashByte(&H36E39 + 1, &H50)
         WriteFlashByte(&H36E39 + 2, &HB0)
