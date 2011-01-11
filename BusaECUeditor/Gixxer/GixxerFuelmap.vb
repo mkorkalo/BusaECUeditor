@@ -27,6 +27,14 @@ Public Class GixxerFuelmap
     ' has the full ecu image loaded as byte values. the fuelmap is edited on a grid and changed values are
     ' written to the global variable flash(addr).
     '
+
+    '
+    ' If the fuelmap structure is 24 elements long then its ok just to adjust the map_first to point to the first map
+    '
+    Dim map_first As Long = &H5A7F0
+    Dim map_bikename As String = "ecueditor.com for Gixxer K7 - "
+
+
     Dim change As Integer
     Dim previousrow As Integer
     Dim toprow(50) As Integer
@@ -34,6 +42,7 @@ Public Class GixxerFuelmap
     Dim previouscolour As Color
 
     Dim map_structure_table As Long
+    Dim map_idle_table As Long
     Dim map_number_of_structures As Integer
     Dim map_number_of_columns, map_number_of_rows As Integer
     Dim editing_map As Long
@@ -351,7 +360,7 @@ Public Class GixxerFuelmap
                         '
                         ' Need to write the values also to idle neutral map
                         '
-                        copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((&H5A850 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord(((map_first + (4 * 24)) + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                         WriteFlashWord(copy_to_map2 + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
 
                     Next
@@ -374,7 +383,7 @@ Public Class GixxerFuelmap
                         '
                         ' Need to write the values also to idle neutral map
                         '
-                        copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((&H5A850 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord(((map_first + (4 * 24)) + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                         WriteFlashWord(copy_to_map2 + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
 
                     Next
@@ -397,7 +406,7 @@ Public Class GixxerFuelmap
                         '
                         ' Need to write the values also to IAP idle neutral map
                         '
-                        copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((&H5A910 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((map_idle_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                         WriteFlashWord(copy_to_map2 + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
                     Next
                 Next
@@ -420,7 +429,7 @@ Public Class GixxerFuelmap
                         '
                         ' Need to write the values also to TPS idle neutral map
                         '
-                        copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((&H5A910 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((map_idle_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                         WriteFlashWord(copy_to_map2 + (2 * (c + (r * number_of_columns))), fuelpw_toecuval(m1))
                     Next
                 Next
@@ -437,29 +446,37 @@ Public Class GixxerFuelmap
         '
         previousrow = 0
 
+ 
         Select Case map
             Case 1
-                map_structure_table = &H5A8B0
-                Me.Text = "Ecueditor.com for Gixxer K7-  - Fuel TPS/RPM map"
+                map_structure_table = map_first + (2 * 4 * 24)
+                map_idle_table = map_first + (3 * 4 * 24)
+                Me.Text = map_bikename & "- Fuel TPS/RPM map"
                 ms01 = 0            ' 0,1
             Case 2
-                map_structure_table = &H5A7F0 ' &H52244 on gear, &H522A4 on neutral
-                Me.Text = "Ecueditor.com for Gixxer K7-  - Fuel IAP/RPM map"
+                map_structure_table = map_first
+                map_idle_table = map_first + (4 * 24)
+                Me.Text = map_bikename & "- Fuel IAP/RPM map"
                 ms01 = 0            ' 0,1
             Case 3
-                map_structure_table = &H5A7F0 ' &H52244 on gear, &H522A4 on neutral
-                Me.Text = "Ecueditor.com for Gixxer K7-  - Fuel MS IAP/RPM map"
+                map_structure_table = map_first
+                map_idle_table = map_first + (4 * 24)
+                Me.Text = map_bikename & "- Fuel MS IAP/RPM map"
+                MsgBox("error, please let supportpage at bitbucket to know")
                 ms01 = 0            ' 0,1
             Case 4
-                map_structure_table = &H5A8B0
-                Me.Text = "Ecueditor.com for Gixxer K7-  - Fuel MS TPS/RPM map"
+                map_structure_table = map_first + (2 * 4 * 24)
+                map_idle_table = map_first + (3 * 4 * 24)
+                Me.Text = map_bikename & "- Fuel MS TPS/RPM map"
                 ms01 = 1            ' 0,1
             Case 5
-                map_structure_table = &H5A8B0 ' &H52244 on gear, &H522A4 on neutral
-                Me.Text = "Ecueditor.com for Gixxer K7-  - Fuel MS IAP/RPM map"
+                map_structure_table = map_first
+                map_idle_table = map_first + (4 * 24)
+                Me.Text = map_bikename & "- Fuel MS IAP/RPM map"
                 ms01 = 1            ' 0,1
         End Select
-        rr = 0
+
+        RR = 0
         cc = 0
 
         '
@@ -751,20 +768,10 @@ Public Class GixxerFuelmap
                     For cell = 0 To ((number_of_columns - 1) * (number_of_rows - 1))
                         WriteFlashWord(copy_to_map + (cell * 2), ReadFlashWord(copy_from_map + (cell * 2)))
                         '
-                        ' If IAP map then also copy to idle map in addition to on gear map
-                        ' &H52244 on gear, &H522A4 on neutral
+                        ' Also copy to idle map in addition to on gear map
                         '
-                        If map_structure_table = &H52244 Then
-                            copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((&H522A4 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                            WriteFlashWord(copy_to_map2 + (cell * 2), ReadFlashWord(copy_from_map + (cell * 2)))
-                        End If
-                        '
-                        ' Need to write the values also to idle neutral map
-                        ' &G52304 on gear, &H52364 on Neutral
-                        If map_structure_table = &H52304 Then
-                            copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((&H52364 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                            WriteFlashWord(copy_to_map2 + (cell * 2), ReadFlashWord(copy_from_map + (cell * 2)))
-                        End If
+                        copy_to_map2 = ReadFlashLongWord(ReadFlashLongWord((map_idle_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        WriteFlashWord(copy_to_map2 + (cell * 2), ReadFlashWord(copy_from_map + (cell * 2)))
 
                     Next
                 Next
@@ -928,8 +935,7 @@ Public Class GixxerFuelmap
                             ' Now lets copy the fuelmap information to the table
                             '
                             i = (rp * noc) + cp
-
-                            em = ReadFlashLongWord(ReadFlashLongWord((&H52304 + ((0 * 6) + (3 * 0) + 0) * 4)) + 12)
+                            em = ReadFlashLongWord(ReadFlashLongWord((map_first + (2 * 4 * 24) + ((0 * 6) + (3 * 0) + 0) * 4)) + 12)
                             Fuelmapgrid.Item(cp, rp).Value = fuelpw(((bin((i * 2) + em) * 256) + bin((i * 2) + 1 + em)))
 
                             If Fuelmapgrid.Item(cp, rp).Value <= minval Then Fuelmapgrid.Item(cp, rp).Value = minval + 1
