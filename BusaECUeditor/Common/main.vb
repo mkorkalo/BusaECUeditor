@@ -1226,7 +1226,7 @@ skip_update:
         GixxerIgnitionmap.Close()
         K8shifter.Close()
         K8dragtools.Close()
-        K8injectorbalancemap.Close()
+        Gixxerinjectorbalancemap.Close()
         K8dwellignition.Close()
         GixxerSTPmap.Close()
         GixxerLimiters.Close()

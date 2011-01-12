@@ -29,6 +29,8 @@ Partial Class GixxerAdvSettings
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.C_msmode = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -62,11 +64,13 @@ Partial Class GixxerAdvSettings
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Button3)
+        Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(354, 52)
+        Me.GroupBox1.Size = New System.Drawing.Size(354, 88)
         Me.GroupBox1.TabIndex = 10
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Misc maps"
@@ -75,7 +79,7 @@ Partial Class GixxerAdvSettings
         '
         Me.GroupBox2.Controls.Add(Me.C_msmode)
         Me.GroupBox2.Controls.Add(Me.Label2)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 70)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 106)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(354, 52)
         Me.GroupBox2.TabIndex = 11
@@ -99,6 +103,24 @@ Partial Class GixxerAdvSettings
         Me.Label2.Size = New System.Drawing.Size(238, 13)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Set dualmap mode MS0/MS1 ( switching pin 66 )"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(9, 51)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(172, 13)
+        Me.Label3.TabIndex = 2
+        Me.Label3.Text = "View and edit injector balance map"
+        '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(258, 46)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(75, 23)
+        Me.Button3.TabIndex = 3
+        Me.Button3.Text = "Inj balance"
+        Me.Button3.UseVisualStyleBackColor = True
         '
         'GixxerAdvSettings
         '
@@ -124,4 +146,6 @@ Partial Class GixxerAdvSettings
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents C_msmode As System.Windows.Forms.ComboBox
+    Friend WithEvents Button3 As System.Windows.Forms.Button
+    Friend WithEvents Label3 As System.Windows.Forms.Label
 End Class

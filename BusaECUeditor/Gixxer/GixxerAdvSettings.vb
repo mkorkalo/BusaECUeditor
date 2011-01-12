@@ -50,4 +50,9 @@
         End Select
         loading = False
     End Sub
+
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
+        Gixxerinjectorbalancemap.Show()
+        Gixxerinjectorbalancemap.Select()
+    End Sub
 End Class
