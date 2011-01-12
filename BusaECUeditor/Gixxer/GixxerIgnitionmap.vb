@@ -576,16 +576,20 @@ Public Class GixxerIgnitionmap
         '
         Select Case map
             Case 0
-                map_structure_table = &H5A3D8 'group1 &H51DF4, group3 &H51EB4
+                map_structure_table = &H5A3D8
                 Me.Text = "Ecueditor.com for Gixxer K7- - Ignition Neutral TPS/RPM map"
                 ms01 = 0            ' 0,1
             Case 1
-                map_structure_table = &H5A498 'group1 &H51DF4, group3 &H51EB4
+                map_structure_table = &H5A498
                 Me.Text = "Ecueditor.com for Gixxer K7- - Ignition TPS/RPM map"
                 ms01 = 0            ' 0,1
             Case 2
                 map_structure_table = &H5A498
                 Me.Text = "Ecueditor.com for Gixxer K7- - Ignition MS TPS/RPM map"
+                ms01 = 1            ' 0,1
+            Case 3
+                map_structure_table = &H5A3D8
+                Me.Text = "Ecueditor.com for Gixxer K7- - Ignition Neutral MS TPS/RPM map"
                 ms01 = 1            ' 0,1
         End Select
         rr = 0
@@ -678,5 +682,9 @@ Public Class GixxerIgnitionmap
 
     Private Sub Button1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         selectmap(0)
+    End Sub
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        selectmap(3)
     End Sub
 End Class

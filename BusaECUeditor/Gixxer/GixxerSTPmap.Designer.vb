@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class K8STPmap
+Partial Class GixxerSTPmap
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -19,34 +19,35 @@ Partial Class K8STPmap
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(K8STPmap))
-        Me.STPmapgrid = New System.Windows.Forms.DataGridView
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(GixxerSTPmap))
+        Me.STPmapgrid = New System.Windows.Forms.DataGridView()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.T_TPSIAP = New System.Windows.Forms.TextBox
-        Me.T_RPM = New System.Windows.Forms.TextBox
-        Me.T_change = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.L_MS = New System.Windows.Forms.Label
-        Me.L_mode = New System.Windows.Forms.Label
-        Me.L_gear = New System.Windows.Forms.Label
-        Me.L_STPMAP = New System.Windows.Forms.Label
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.LED_GEAR = New LxControl.LxLedControl
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.Button2 = New System.Windows.Forms.Button
-        Me.Button3 = New System.Windows.Forms.Button
-        Me.Button4 = New System.Windows.Forms.Button
-        Me.Button5 = New System.Windows.Forms.Button
-        Me.Button6 = New System.Windows.Forms.Button
-        Me.Button7 = New System.Windows.Forms.Button
-        Me.Button8 = New System.Windows.Forms.Button
-        Me.Button9 = New System.Windows.Forms.Button
+        Me.T_TPSIAP = New System.Windows.Forms.TextBox()
+        Me.T_RPM = New System.Windows.Forms.TextBox()
+        Me.T_change = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.L_MS = New System.Windows.Forms.Label()
+        Me.L_mode = New System.Windows.Forms.Label()
+        Me.L_gear = New System.Windows.Forms.Label()
+        Me.L_STPMAP = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.LED_GEAR = New LxControl.LxLedControl()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.Button6 = New System.Windows.Forms.Button()
+        Me.Button7 = New System.Windows.Forms.Button()
+        Me.Button8 = New System.Windows.Forms.Button()
+        Me.Button9 = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Button10 = New System.Windows.Forms.Button()
         CType(Me.STPmapgrid, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_GEAR, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -178,7 +179,7 @@ Partial Class K8STPmap
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.Gray
-        Me.Label5.Location = New System.Drawing.Point(427, 70)
+        Me.Label5.Location = New System.Drawing.Point(420, 52)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(34, 13)
         Me.Label5.TabIndex = 97
@@ -193,7 +194,7 @@ Partial Class K8STPmap
         Me.LED_GEAR.FadedColor = System.Drawing.Color.Transparent
         Me.LED_GEAR.ForeColor = System.Drawing.Color.Black
         Me.LED_GEAR.HighlightOpaque = CType(50, Byte)
-        Me.LED_GEAR.Location = New System.Drawing.Point(465, 70)
+        Me.LED_GEAR.Location = New System.Drawing.Point(458, 52)
         Me.LED_GEAR.Name = "LED_GEAR"
         Me.LED_GEAR.Size = New System.Drawing.Size(51, 42)
         Me.LED_GEAR.TabIndex = 96
@@ -206,7 +207,7 @@ Partial Class K8STPmap
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 48.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.Gray
-        Me.Label6.Location = New System.Drawing.Point(433, 48)
+        Me.Label6.Location = New System.Drawing.Point(426, 30)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(53, 73)
         Me.Label6.TabIndex = 98
@@ -218,7 +219,7 @@ Partial Class K8STPmap
         Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 48.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.Gray
-        Me.Label7.Location = New System.Drawing.Point(513, 48)
+        Me.Label7.Location = New System.Drawing.Point(506, 30)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(53, 73)
         Me.Label7.TabIndex = 99
@@ -226,7 +227,7 @@ Partial Class K8STPmap
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(430, 156)
+        Me.Button1.Location = New System.Drawing.Point(430, 166)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(116, 24)
         Me.Button1.TabIndex = 100
@@ -236,7 +237,7 @@ Partial Class K8STPmap
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(430, 186)
+        Me.Button2.Location = New System.Drawing.Point(430, 196)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(114, 24)
         Me.Button2.TabIndex = 101
@@ -246,7 +247,7 @@ Partial Class K8STPmap
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(430, 216)
+        Me.Button3.Location = New System.Drawing.Point(430, 226)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(114, 24)
         Me.Button3.TabIndex = 102
@@ -256,7 +257,7 @@ Partial Class K8STPmap
         '
         'Button4
         '
-        Me.Button4.Location = New System.Drawing.Point(430, 246)
+        Me.Button4.Location = New System.Drawing.Point(430, 256)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(114, 24)
         Me.Button4.TabIndex = 103
@@ -266,7 +267,7 @@ Partial Class K8STPmap
         '
         'Button5
         '
-        Me.Button5.Location = New System.Drawing.Point(430, 276)
+        Me.Button5.Location = New System.Drawing.Point(430, 286)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(114, 24)
         Me.Button5.TabIndex = 104
@@ -276,7 +277,7 @@ Partial Class K8STPmap
         '
         'Button6
         '
-        Me.Button6.Location = New System.Drawing.Point(430, 306)
+        Me.Button6.Location = New System.Drawing.Point(430, 316)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(114, 24)
         Me.Button6.TabIndex = 105
@@ -286,7 +287,7 @@ Partial Class K8STPmap
         '
         'Button7
         '
-        Me.Button7.Location = New System.Drawing.Point(429, 336)
+        Me.Button7.Location = New System.Drawing.Point(429, 346)
         Me.Button7.Name = "Button7"
         Me.Button7.Size = New System.Drawing.Size(114, 24)
         Me.Button7.TabIndex = 106
@@ -320,11 +321,22 @@ Partial Class K8STPmap
         Me.ToolTip1.InitialDelay = 500
         Me.ToolTip1.ReshowDelay = 100
         '
-        'K8STPmap
+        'Button10
+        '
+        Me.Button10.Location = New System.Drawing.Point(428, 126)
+        Me.Button10.Name = "Button10"
+        Me.Button10.Size = New System.Drawing.Size(116, 24)
+        Me.Button10.TabIndex = 109
+        Me.Button10.Text = "Select MS map"
+        Me.ToolTip1.SetToolTip(Me.Button10, "Select gear to modify the maps")
+        Me.Button10.UseVisualStyleBackColor = True
+        '
+        'GixxerSTPmap
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(5.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(561, 452)
+        Me.Controls.Add(Me.Button10)
         Me.Controls.Add(Me.Button9)
         Me.Controls.Add(Me.Button8)
         Me.Controls.Add(Me.Button7)
@@ -354,7 +366,7 @@ Partial Class K8STPmap
         Me.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "K8STPmap"
+        Me.Name = "GixxerSTPmap"
         Me.Text = "ECUeditor STP maps"
         CType(Me.STPmapgrid, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LED_GEAR, System.ComponentModel.ISupportInitialize).EndInit()
@@ -388,4 +400,5 @@ Partial Class K8STPmap
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
+    Friend WithEvents Button10 As System.Windows.Forms.Button
 End Class
