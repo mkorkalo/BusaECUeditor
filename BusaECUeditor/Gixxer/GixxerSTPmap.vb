@@ -64,7 +64,7 @@ Public Class GixxerSTPmap
         '
         ' select tpsmap as first map to show, this will unify cylinder specific STPmaps
         '
-        ms01 = 0
+        ms01 = 1
         modeabc = 0
         gear = 0
 

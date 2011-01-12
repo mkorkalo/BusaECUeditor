@@ -81,7 +81,7 @@ Public Class K8injectorbalancemap
         gear = 0
 
         map_structure_table = &H5222C
-        Me.Text = "ECUeditor - Injector balance map editing"
+        Me.Text = "ecueditor.com - Hayabusa injector balance map editing"
         fuelmap = False
         selectmap()
 

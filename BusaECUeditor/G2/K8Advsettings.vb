@@ -895,8 +895,8 @@ Public Class K8Advsettings
     End Sub
 
     Private Sub Button1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        GixxerSTPmap.Show()
-        GixxerSTPmap.Select()
+        K8STPmap.Show()
+        K8STPmap.Select()
     End Sub
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
