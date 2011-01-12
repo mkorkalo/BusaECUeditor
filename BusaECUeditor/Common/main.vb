@@ -228,6 +228,9 @@ skip_update:
             Case "bking"
                 BKingAdvSettings.Show()
                 BKingAdvSettings.Select()
+            Case "gixxer"
+                GixxerAdvSettings.Show()
+                GixxerAdvSettings.Select()
             Case Else
                 MsgBox("Feature not yet implemented")
         End Select
@@ -330,9 +333,6 @@ skip_update:
         B_AdvancedSettings.Enabled = True
         B_DataLogging.Enabled = True
 
-        K8Fuelmap.Close()
-        GixxerIgnitionmap.Close()
-
         MsgBox("A new gen2 basemap is generated", MsgBoxStyle.Information)
 
         BlockPgm = True
@@ -398,9 +398,6 @@ skip_update:
         B_AdvancedSettings.Enabled = True
         B_DataLogging.Enabled = True
 
-        K8Fuelmap.Close()
-        GixxerIgnitionmap.Close()
-
         MsgBox("A new Bking basemap is generated", MsgBoxStyle.Information)
 
         BlockPgm = True
@@ -465,9 +462,6 @@ skip_update:
         B_IgnitionMap.Enabled = True
         B_AdvancedSettings.Enabled = True
         B_DataLogging.Enabled = True
-
-        K8Fuelmap.Close()
-        GixxerIgnitionmap.Close()
 
         MsgBox("A new Bking basemap is generated", MsgBoxStyle.Information)
 
@@ -636,8 +630,6 @@ skip_update:
 
                 Case "gixxer"
                     B_EngineData.Enabled = True
-                    GixxerIgnitionmap.Close()
-                    GixxerFuelmap.Close()
                     FlashToolStripMenuItem.Visible = Enabled
                     B_DataLogging.Enabled = False
                     SaveToolStripMenuItem.Enabled = True
@@ -646,7 +638,7 @@ skip_update:
                     B_Shifter.Enabled = False
                     B_FuelMap.Enabled = True
                     B_IgnitionMap.Enabled = True
-                    B_AdvancedSettings.Enabled = False
+                    B_AdvancedSettings.Enabled = True
 
                 Case Else
                     MsgBox("feature not yet implemented")
@@ -1236,7 +1228,7 @@ skip_update:
         K8dragtools.Close()
         K8injectorbalancemap.Close()
         K8dwellignition.Close()
-        K8STPmap.Close()
+        GixxerSTPmap.Close()
         GixxerLimiters.Close()
 
         'gen1 
@@ -4633,7 +4625,7 @@ skip_update:
         B_Shifter.Enabled = False
         B_FuelMap.Enabled = True
         B_IgnitionMap.Enabled = True
-        B_AdvancedSettings.Enabled = False
+        B_AdvancedSettings.Enabled = True
         B_DataLogging.Enabled = False
 
         K8Fuelmap.Close()
@@ -4715,7 +4707,7 @@ skip_update:
         B_Shifter.Enabled = False
         B_FuelMap.Enabled = True
         B_IgnitionMap.Enabled = True
-        B_AdvancedSettings.Enabled = False
+        B_AdvancedSettings.Enabled = True
         B_DataLogging.Enabled = False
 
         K8Fuelmap.Close()

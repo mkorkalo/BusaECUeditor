@@ -19,18 +19,19 @@ Partial Class GixxerIgnitionmap
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(GixxerIgnitionmap))
-        Me.T_TPSIAP = New System.Windows.Forms.TextBox
-        Me.T_RPM = New System.Windows.Forms.TextBox
+        Me.T_TPSIAP = New System.Windows.Forms.TextBox()
+        Me.T_RPM = New System.Windows.Forms.TextBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.Ignitionmapgrid = New System.Windows.Forms.DataGridView
-        Me.B_MS0 = New System.Windows.Forms.Button
-        Me.B_MS1 = New System.Windows.Forms.Button
-        Me.T_DEG = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Button1 = New System.Windows.Forms.Button
+        Me.Ignitionmapgrid = New System.Windows.Forms.DataGridView()
+        Me.B_MS0 = New System.Windows.Forms.Button()
+        Me.B_MS1 = New System.Windows.Forms.Button()
+        Me.T_DEG = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Button2 = New System.Windows.Forms.Button()
         CType(Me.Ignitionmapgrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -112,7 +113,7 @@ Partial Class GixxerIgnitionmap
         Me.T_DEG.Size = New System.Drawing.Size(124, 22)
         Me.T_DEG.TabIndex = 20
         Me.T_DEG.WordWrap = False
-       '
+        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -126,9 +127,9 @@ Partial Class GixxerIgnitionmap
         '
         Me.Button1.Location = New System.Drawing.Point(149, 14)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(61, 23)
+        Me.Button1.Size = New System.Drawing.Size(84, 23)
         Me.Button1.TabIndex = 22
-        Me.Button1.Text = "TPS NT"
+        Me.Button1.Text = "TPS NT MS0"
         Me.ToolTip1.SetToolTip(Me.Button1, "Neutral and Clucthed ignitionmap")
         Me.Button1.UseVisualStyleBackColor = True
         '
@@ -138,11 +139,22 @@ Partial Class GixxerIgnitionmap
         Me.ToolTip1.InitialDelay = 500
         Me.ToolTip1.ReshowDelay = 100
         '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(239, 14)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(84, 23)
+        Me.Button2.TabIndex = 23
+        Me.Button2.Text = "TPS NT MS1"
+        Me.ToolTip1.SetToolTip(Me.Button2, "Neutral and Clucthed ignitionmap")
+        Me.Button2.UseVisualStyleBackColor = True
+        '
         'GixxerIgnitionmap
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(673, 656)
+        Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.T_DEG)
@@ -169,4 +181,5 @@ Partial Class GixxerIgnitionmap
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
+    Friend WithEvents Button2 As System.Windows.Forms.Button
 End Class

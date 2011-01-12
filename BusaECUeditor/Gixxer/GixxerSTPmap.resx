@@ -123,6 +123,26 @@
   <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>218, 17</value>
   </metadata>
+  <data name="Button8.ToolTip" xml:space="preserve">
+    <value>This sets the gear based STP opening maps that allows to smoothen the power delivery curve per gear. You can use this e.g. to smooth the launching. 
+
+On stock suzuki the 94% opening seems to give the best flow. Going above that number most likely generates just turbulence and reduces total flow. 
+
+To undertand the STP modifications better, please study the stock maps.
+
+PLEASE NOTE: RPM SCALE FOR STP FUELLING IS DIFFERENT TO STP OPENING !
+</value>
+  </data>
+  <data name="Button9.ToolTip" xml:space="preserve">
+    <value>STP fuel map sets the amount of fuel reduction when STP opening is reduced. This enables gear specific fuelling to support STP map tuning.
+The baseline fuel amount is 100 out of which the number can be reduced down to 0. The number 100 is full normal fuelling, 0 equals around 1/3
+reduction of the total fuel but does not cut fuel completely. To undertand the fuelling modifications better, please study the stock maps.
+
+PLEASE NOTE: RPM SCALE FOR STP FUELLING IS DIFFERENT TO STP OPENING !</value>
+  </data>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>89</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
