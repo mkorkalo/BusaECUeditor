@@ -4727,6 +4727,76 @@ skip_update:
     Private Sub GroupBox2_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GroupBox2.Enter
 
     End Sub
+
+    Private Sub NewStockGixxerK7EUToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockGixxerK7EUToolStripMenuItem.Click
+        Dim defpath As String ' this is for this subroutine only
+
+        CloseChildWindows()
+
+
+        ' OK, so the file is found, now lets start processing it
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\GixxerK7EU.bin"
+
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        DisableButtons()
+
+        ' Open the stream and read it to global variable "Flash". 
+        fs = File.OpenRead(defpath)
+        Dim b(1) As Byte
+        Dim i As Integer
+        i = 0
+        Do While fs.Read(b, 0, 1) > 0
+            Flash(i) = b(0)
+            FlashCopy(i) = b(0)
+            i = i + 1
+        Loop
+        fs.Close()
+
+        ' Check that the binary lenght matches expected ecu
+        If i <> (262144 * 4) Then
+            ECUNotSupported.ShowDialog()
+        End If
+
+        ECUVersion = "gixxer"
+        '
+        ' Make sure the ECU id is supported type
+        '
+        i = 0
+        ECUID.Text = ""
+        Do While i < 8
+            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
+            i = i + 1
+        Loop
+
+        ' check the ecu id bytes and validate that the ecu flash image is supported
+        If (Mid(ECUID.Text, 1, 4) <> "DJ0H") And (Mid(ECUID.Text, 1, 4) <> "DT0H") And (Mid(ECUID.Text, 1, 4) <> "DJ21") Then
+            ECUNotSupported.ShowDialog()
+        Else
+            SetECUType()
+        End If
+
+        ' enable controls, otherwise at form load an event will occur
+        Limiters.C_RPM.Enabled = True
+        SaveToolStripMenuItem.Enabled = True
+        B_FlashECU.Enabled = True
+        B_Limiters.Enabled = True
+        B_EngineData.Enabled = True
+        B_Shifter.Enabled = False
+        B_FuelMap.Enabled = True
+        B_IgnitionMap.Enabled = True
+        B_AdvancedSettings.Enabled = True
+        B_DataLogging.Enabled = False
+
+        K8Fuelmap.Close()
+        K8Ignitionmap.Close()
+
+        MsgBox("A new Gixxer K8- basemap is generated", MsgBoxStyle.Information)
+
+        BlockPgm = True
+
+
+    End Sub
 End Class
 
 
