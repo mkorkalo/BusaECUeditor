@@ -23,15 +23,15 @@
 Imports System.Windows.Forms
 Imports System.IO
 
-Public Class K8Shifter
-    Dim ADJ As Integer = &H55400 '&HFF if shifter inactive, no code present else shifter active
-    Dim FUELCODE As Integer = &H55450
-    Dim IGNCODE As Integer = &H557A0
-    Dim IDTAG As Integer = &H55400
+Public Class GixxerShifter
+    Dim ADJ As Integer = &H5D900 '&HFF if shifter inactive, no code present else shifter active
+    Dim FUELCODE As Integer = &H5DA00
+    Dim IGNCODE As Integer = &H5DE00
+    Dim IDTAG As Integer = ADJ
     Dim minkillactive As Integer = ADJ + &H16
     Dim killcountdelay As Integer = ADJ + &H18
     Dim SHIFTER2VERSION As Integer = 206
-    Dim shiftercodelenght As Integer = &H55800 - &H55400 - 1 'lenght of the shifter code in bytes for clearing the memory
+    Dim shiftercodelenght As Integer = &H600 - 1 'lenght of the shifter code in bytes for clearing the memory, check this !!!
     Dim timerconst = 1 / 1.28
     Dim initiating As Boolean = True
 
@@ -111,31 +111,27 @@ Public Class K8Shifter
             ' this modifies the programmingcode so that the ecu does a loop to the shifter code
             ' as part of each main loop
             '
-            pcdisp = (FUELCODE - &H408EC) / 4
-            WriteFlashWord(&H408EC, &HFF00) ' bra.l 
-            WriteFlashWord(&H408EE, pcdisp) '         pcdisp
-            WriteFlashByte(&H1C77B, &H1F) ' sensor low limit
-            WriteFlashByte(&H1D123, &H2C) ' sensor low limit
+            pcdisp = (FUELCODE - &H45A40) / 4
+            WriteFlashWord(&H45A40, &HFF00) ' bra.l 
+            WriteFlashWord(&H45A41, pcdisp) '         pcdisp
             '
             ' Ignition
             '
             pcdisp = (IGNCODE - &H37330) / 4
-            WriteFlashWord(&H37330, &HFF00) ' bra.l 
-            WriteFlashWord(&H37332, pcdisp) '         pcdisp
+            WriteFlashWord(&H3B9C0, &HFF00) ' bra.l 
+            WriteFlashWord(&H3B9C2, pcdisp) '         pcdisp
 
         Else
             '
             ' bring the ecu code back to original
             '
-            WriteFlashWord(&H408EC, &H4F10) ' addi sp, #0x10
-            WriteFlashWord(&H408EE, &H1FCE) ' jmp lr
-            WriteFlashByte(&H1C77B, &H1F) ' sensor low limit
-            WriteFlashByte(&H1D123, &H2C) ' sensor low limit
+            WriteFlashWord(&H45A40, &H4F10) ' addi sp, #0x10
+            WriteFlashWord(&H45A41, &H1FCE) ' jmp lr
             '
             ' Ignition
             '
-            WriteFlashWord(&H37330, &H4F10) ' addi sp, #0x10
-            WriteFlashWord(&H37332, &H1FCE) ' jmp lr
+            WriteFlashWord(&H3B9C0, &H4F10) ' addi sp, #0x10
+            WriteFlashWord(&H3B9C2, &H1FCE) ' jmp lr
 
         End If
     End Sub

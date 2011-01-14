@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class K8Shifter
+Partial Class GixxerShifter
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -19,50 +19,50 @@ Partial Class K8Shifter
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(K8Shifter))
-        Me.C_shifter_activation = New System.Windows.Forms.CheckBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.T_12000 = New System.Windows.Forms.TextBox
-        Me.T_11000 = New System.Windows.Forms.TextBox
-        Me.T_10000 = New System.Windows.Forms.TextBox
-        Me.T_9000 = New System.Windows.Forms.TextBox
-        Me.T_8000 = New System.Windows.Forms.TextBox
-        Me.T_7000 = New System.Windows.Forms.TextBox
-        Me.T_6000 = New System.Windows.Forms.TextBox
-        Me.T_5000 = New System.Windows.Forms.TextBox
-        Me.T_4000 = New System.Windows.Forms.TextBox
-        Me.T_3000 = New System.Windows.Forms.TextBox
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.C_killtime = New System.Windows.Forms.ComboBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.G_DSMACTIVATION = New System.Windows.Forms.GroupBox
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.RPM456 = New System.Windows.Forms.ComboBox
-        Me.RPM3 = New System.Windows.Forms.ComboBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.RPM2 = New System.Windows.Forms.ComboBox
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.RPM1 = New System.Windows.Forms.ComboBox
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.C_DSMactivation = New System.Windows.Forms.CheckBox
-        Me.C_igncut = New System.Windows.Forms.CheckBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.C_Fuelcut = New System.Windows.Forms.CheckBox
-        Me.L_killcountdelay = New System.Windows.Forms.Label
-        Me.L_minkillactive = New System.Windows.Forms.Label
-        Me.T_killcountdelay = New System.Windows.Forms.TextBox
-        Me.T_minkillactive = New System.Windows.Forms.TextBox
-        Me.L_shifterver = New System.Windows.Forms.Label
-        Me.HelpProvider1 = New System.Windows.Forms.HelpProvider
-        Me.P_shifterwiring = New System.Windows.Forms.PictureBox
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(GixxerShifter))
+        Me.C_shifter_activation = New System.Windows.Forms.CheckBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.T_12000 = New System.Windows.Forms.TextBox()
+        Me.T_11000 = New System.Windows.Forms.TextBox()
+        Me.T_10000 = New System.Windows.Forms.TextBox()
+        Me.T_9000 = New System.Windows.Forms.TextBox()
+        Me.T_8000 = New System.Windows.Forms.TextBox()
+        Me.T_7000 = New System.Windows.Forms.TextBox()
+        Me.T_6000 = New System.Windows.Forms.TextBox()
+        Me.T_5000 = New System.Windows.Forms.TextBox()
+        Me.T_4000 = New System.Windows.Forms.TextBox()
+        Me.T_3000 = New System.Windows.Forms.TextBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.C_killtime = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.G_DSMACTIVATION = New System.Windows.Forms.GroupBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.RPM456 = New System.Windows.Forms.ComboBox()
+        Me.RPM3 = New System.Windows.Forms.ComboBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.RPM2 = New System.Windows.Forms.ComboBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.RPM1 = New System.Windows.Forms.ComboBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.C_DSMactivation = New System.Windows.Forms.CheckBox()
+        Me.C_igncut = New System.Windows.Forms.CheckBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.C_Fuelcut = New System.Windows.Forms.CheckBox()
+        Me.L_killcountdelay = New System.Windows.Forms.Label()
+        Me.L_minkillactive = New System.Windows.Forms.Label()
+        Me.T_killcountdelay = New System.Windows.Forms.TextBox()
+        Me.T_minkillactive = New System.Windows.Forms.TextBox()
+        Me.L_shifterver = New System.Windows.Forms.Label()
+        Me.HelpProvider1 = New System.Windows.Forms.HelpProvider()
+        Me.P_shifterwiring = New System.Windows.Forms.PictureBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.GroupBox2.SuspendLayout()
         Me.G_DSMACTIVATION.SuspendLayout()
@@ -480,7 +480,7 @@ Partial Class K8Shifter
         Me.ToolTip1.InitialDelay = 500
         Me.ToolTip1.ReshowDelay = 100
         '
-        'K8shifter
+        'GixxerShifter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -499,10 +499,10 @@ Partial Class K8Shifter
         Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "K8shifter"
+        Me.Name = "GixxerShifter"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "Hayabusa K8- Shiftkill module (fuelcut and ignitioncut)"
+        Me.Text = "ecueditor.com Gixxer K7-K8 - Shiftkill module (fuelcut and ignitioncut)"
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.G_DSMACTIVATION.ResumeLayout(False)

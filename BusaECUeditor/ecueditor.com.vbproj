@@ -50,7 +50,7 @@
     <WebPage>ecueditor_prerelease.htm</WebPage>
     <AutorunEnabled>true</AutorunEnabled>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>25</ApplicationRevision>
+    <ApplicationRevision>26</ApplicationRevision>
     <ApplicationVersion>2.5.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -455,6 +455,12 @@
     <Compile Include="Gixxer\Gixxerinjectorbalancemap.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Gixxer\GixxerShifter.Designer.vb">
+      <DependentUpon>GixxerShifter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Gixxer\GixxerShifter.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -528,6 +534,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Gixxer\Gixxerinjectorbalancemap.resx">
       <DependentUpon>Gixxerinjectorbalancemap.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gixxer\GixxerShifter.resx">
+      <DependentUpon>GixxerShifter.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -860,6 +870,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="G2\shifter_dsm.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Gixxer\shifter.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Gixxer\shifter_dsm.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="gpl.txt">
