@@ -243,8 +243,11 @@ skip_update:
                 Shifter.Show()
                 Shifter.Select()
             Case "gen2"
-                K8shifter.Show()
-                K8shifter.Select()
+                K8Shifter.Show()
+                K8Shifter.Select()
+            Case "gen2"
+                GixxerShifter.Show()
+                GixxerShifter.Select()
             Case "bking"
                 BKingShifter.Show()
                 BKingShifter.Select()
@@ -1224,7 +1227,7 @@ skip_update:
         K8Fuelmap.Close()
         K8Datastream.Close()
         GixxerIgnitionmap.Close()
-        K8shifter.Close()
+        GixxerShifter.Close()
         K8dragtools.Close()
         Gixxerinjectorbalancemap.Close()
         K8dwellignition.Close()
