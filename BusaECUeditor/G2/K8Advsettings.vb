@@ -76,6 +76,8 @@ Public Class K8Advsettings
     End Sub
 
     Private Sub K8Advsettings_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Dim i As Integer
+
         loading = True
 
         '
@@ -310,6 +312,20 @@ Public Class K8Advsettings
             C_FastBaudRate.Checked = True
 
         End If
+
+        If ReadFlashByte(&H7413D) = &HC8 Then
+            C_FAN.Text = "Fan ON/OFF 100/95"
+            C_FAN.Checked = True
+            WriteFlashByte(&H7413D, &HC8)
+            WriteFlashByte(&H7413E, &HD0)
+        Else
+            C_FAN.Text = "Fan ON/OFF 105/100"
+            C_FAN.Checked = False
+            WriteFlashByte(&H7413D, &HD0)
+            WriteFlashByte(&H7413E, &HE8)
+        End If
+
+
 
         loading = False
 
@@ -1146,5 +1162,21 @@ Public Class K8Advsettings
     Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_dragtools.Click
         k8dragtools.show()
         k8dragtools.select()
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged_4(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_FAN.CheckedChanged
+        If Not loading Then
+            If C_FAN.Checked = True Then
+                C_FAN.Text = "Fan ON/OFF 100/95"
+                WriteFlashByte(&H7413D, &HC8)
+                WriteFlashByte(&H7413E, &HD0)
+            Else
+                C_FAN.Text = "Fan ON/OFF 105/100"
+                WriteFlashByte(&H7413D, &HD0)
+                WriteFlashByte(&H7413E, &HE8)
+            End If
+        End If
+
+
     End Sub
 End Class

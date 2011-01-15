@@ -58,6 +58,27 @@
             WriteFlashByte(&H60BC1, &HFF)
         End If
 
+
+        If ReadFlashByte(&H6296A) = &HC8 Then
+            C_FAN.Checked = True
+            C_FAN.Text = "Fan ON/OFF 100/95"
+            WriteFlashByte(&H6296A, &HC8)
+            WriteFlashByte(&H6296B, &HD0)
+        Else
+            C_FAN.Checked = False
+            C_FAN.Text = "Fan ON/OFF 95/90"
+            WriteFlashByte(&H6296A, &HC0)
+            WriteFlashByte(&H6296B, &HC8)
+        End If
+
+        If ReadFlashByte(&H62ABA) = &HFF Then
+            C_PAIR.Text = "PAIR ON"
+            C_PAIR.Checked = True
+        Else
+            C_PAIR.Text = "PAIR OFF"
+            C_PAIR.Checked = False
+        End If
+
         loading = False
     End Sub
 
@@ -75,6 +96,60 @@
                 C_coil_fi_disable.Text = "Coil FI normal"
                 WriteFlashByte(&H60BC1, &HFF)
             End If
+        End If
+
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_FAN.CheckedChanged
+
+        MsgBox("NOT WORKING, DO NOT USE YET")
+        '
+        ' Remember to add to Form load also this
+        '
+        Return
+
+        If Not loading Then
+            If C_FAN.Checked = True Then
+                C_FAN.Text = "Fan ON/OFF 100/95"
+                WriteFlashByte(&H6296A, &HC8)
+                WriteFlashByte(&H6296B, &HD0)
+            Else
+                C_FAN.Text = "Fan ON/OFF 95/90"
+                WriteFlashByte(&H6296A, &HC0)
+                WriteFlashByte(&H6296B, &HC8)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub C_PAIR_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_PAIR.CheckedChanged
+        If Not loading Then
+            If C_PAIR.Checked = True Then
+                C_PAIR.Text = "PAIR ON"
+                WriteFlashByte(&H62ABA, &HFF) ' pair config flag
+            Else
+                C_PAIR.Text = "PAIR OFF"
+                WriteFlashByte(&H62ABA, &H80)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub C_EXC_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_EXC.CheckedChanged
+        If Not loading Then
+
+            If C_EXC.Checked = True Then
+                C_EXC.Text = "EXCV ON"
+                WriteFlashByte(&H73EBC, &HFF)
+                WriteFlashByte(&H7000D, &HFF)
+                WriteFlashByte(&H7000F, &H0)
+            Else
+                C_EXC.Text = "EXCV OFF"
+                WriteFlashByte(&H73EBC, &H1) 'could be 0 or 1
+                WriteFlashByte(&H7000D, &H0) 'if 0 shows error on busa
+                WriteFlashByte(&H7000F, &H80)
+            End If
+
         End If
 
     End Sub
