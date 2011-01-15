@@ -29,9 +29,12 @@ Partial Class GixxerAdvSettings
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.C_coil_fi_disable = New System.Windows.Forms.CheckBox()
         Me.C_msmode = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.C_coil_fi_disable = New System.Windows.Forms.CheckBox()
+        Me.C_FAN = New System.Windows.Forms.CheckBox()
+        Me.C_PAIR = New System.Windows.Forms.CheckBox()
+        Me.C_EXC = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -96,15 +99,28 @@ Partial Class GixxerAdvSettings
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.C_EXC)
+        Me.GroupBox2.Controls.Add(Me.C_PAIR)
+        Me.GroupBox2.Controls.Add(Me.C_FAN)
         Me.GroupBox2.Controls.Add(Me.C_coil_fi_disable)
         Me.GroupBox2.Controls.Add(Me.C_msmode)
         Me.GroupBox2.Controls.Add(Me.Label2)
         Me.GroupBox2.Location = New System.Drawing.Point(12, 106)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(354, 84)
+        Me.GroupBox2.Size = New System.Drawing.Size(354, 147)
         Me.GroupBox2.TabIndex = 11
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Misc settings"
+        '
+        'C_coil_fi_disable
+        '
+        Me.C_coil_fi_disable.AutoSize = True
+        Me.C_coil_fi_disable.Location = New System.Drawing.Point(12, 48)
+        Me.C_coil_fi_disable.Name = "C_coil_fi_disable"
+        Me.C_coil_fi_disable.Size = New System.Drawing.Size(100, 17)
+        Me.C_coil_fi_disable.TabIndex = 9
+        Me.C_coil_fi_disable.Text = "Coil FI disabled "
+        Me.C_coil_fi_disable.UseVisualStyleBackColor = True
         '
         'C_msmode
         '
@@ -124,15 +140,35 @@ Partial Class GixxerAdvSettings
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Set dualmap mode MS0/MS1 ( switching pin 66 )"
         '
-        'C_coil_fi_disable
+        'C_FAN
         '
-        Me.C_coil_fi_disable.AutoSize = True
-        Me.C_coil_fi_disable.Location = New System.Drawing.Point(12, 48)
-        Me.C_coil_fi_disable.Name = "C_coil_fi_disable"
-        Me.C_coil_fi_disable.Size = New System.Drawing.Size(155, 17)
-        Me.C_coil_fi_disable.TabIndex = 9
-        Me.C_coil_fi_disable.Text = "Coil FI disabled for NLR sim"
-        Me.C_coil_fi_disable.UseVisualStyleBackColor = True
+        Me.C_FAN.AutoSize = True
+        Me.C_FAN.Location = New System.Drawing.Point(12, 71)
+        Me.C_FAN.Name = "C_FAN"
+        Me.C_FAN.Size = New System.Drawing.Size(88, 17)
+        Me.C_FAN.TabIndex = 10
+        Me.C_FAN.Text = "Fan ON/OFF"
+        Me.C_FAN.UseVisualStyleBackColor = True
+        '
+        'C_PAIR
+        '
+        Me.C_PAIR.AutoSize = True
+        Me.C_PAIR.Location = New System.Drawing.Point(12, 94)
+        Me.C_PAIR.Name = "C_PAIR"
+        Me.C_PAIR.Size = New System.Drawing.Size(83, 17)
+        Me.C_PAIR.TabIndex = 11
+        Me.C_PAIR.Text = "PAIR on/off"
+        Me.C_PAIR.UseVisualStyleBackColor = True
+        '
+        'C_EXC
+        '
+        Me.C_EXC.AutoSize = True
+        Me.C_EXC.Location = New System.Drawing.Point(12, 117)
+        Me.C_EXC.Name = "C_EXC"
+        Me.C_EXC.Size = New System.Drawing.Size(79, 17)
+        Me.C_EXC.TabIndex = 47
+        Me.C_EXC.Text = "EXC on/off"
+        Me.C_EXC.UseVisualStyleBackColor = True
         '
         'GixxerAdvSettings
         '
@@ -161,4 +197,7 @@ Partial Class GixxerAdvSettings
     Friend WithEvents Button3 As System.Windows.Forms.Button
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents C_coil_fi_disable As System.Windows.Forms.CheckBox
+    Friend WithEvents C_FAN As System.Windows.Forms.CheckBox
+    Friend WithEvents C_PAIR As System.Windows.Forms.CheckBox
+    Friend WithEvents C_EXC As System.Windows.Forms.CheckBox
 End Class

@@ -19,60 +19,61 @@ Partial Class K8Advsettings
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(K8Advsettings))
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.R_Normal = New System.Windows.Forms.RadioButton
-        Me.R_Flash = New System.Windows.Forms.RadioButton
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.R_Normal = New System.Windows.Forms.RadioButton()
+        Me.R_Flash = New System.Windows.Forms.RadioButton()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox
-        Me.C_ECU = New System.Windows.Forms.ComboBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.C_HOX = New System.Windows.Forms.CheckBox
-        Me.R_IAT_normal = New System.Windows.Forms.RadioButton
-        Me.R_IAT_dynomode = New System.Windows.Forms.RadioButton
-        Me.Button3 = New System.Windows.Forms.Button
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.C_ICS = New System.Windows.Forms.CheckBox
-        Me.Button4 = New System.Windows.Forms.Button
-        Me.C_coil_fi_disable = New System.Windows.Forms.CheckBox
-        Me.C_coolingfan = New System.Windows.Forms.CheckBox
-        Me.C_secondaries = New System.Windows.Forms.CheckBox
-        Me.C_IAPTPS = New System.Windows.Forms.ComboBox
-        Me.C_ramairmode = New System.Windows.Forms.CheckBox
-        Me.Button5 = New System.Windows.Forms.Button
-        Me.C_warmup = New System.Windows.Forms.CheckBox
-        Me.B_ramairadjust = New System.Windows.Forms.Button
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox
-        Me.C_PAIR = New System.Windows.Forms.CheckBox
-        Me.B_boostfuel = New System.Windows.Forms.Button
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox
-        Me.B_dragtools = New System.Windows.Forms.Button
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Button2 = New System.Windows.Forms.Button
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.C_secsize = New System.Windows.Forms.ComboBox
-         Me.GroupBox8 = New System.Windows.Forms.GroupBox
-        Me.B_WRITE = New System.Windows.Forms.Button
-        Me.T_hexvaluehi = New System.Windows.Forms.TextBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.T_hexaddr = New System.Windows.Forms.TextBox
-        Me.C_COV = New System.Windows.Forms.CheckBox
-        Me.GroupBox9 = New System.Windows.Forms.GroupBox
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox
-        Me.GroupBox7 = New System.Windows.Forms.GroupBox
-        Me.C_FastBaudRate = New System.Windows.Forms.CheckBox
-        Me.C_DatalogO2Sensor = New System.Windows.Forms.CheckBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.C_ABCmode = New System.Windows.Forms.CheckBox
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.C_ECU = New System.Windows.Forms.ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.C_HOX = New System.Windows.Forms.CheckBox()
+        Me.R_IAT_normal = New System.Windows.Forms.RadioButton()
+        Me.R_IAT_dynomode = New System.Windows.Forms.RadioButton()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.C_ICS = New System.Windows.Forms.CheckBox()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.C_coil_fi_disable = New System.Windows.Forms.CheckBox()
+        Me.C_coolingfan = New System.Windows.Forms.CheckBox()
+        Me.C_secondaries = New System.Windows.Forms.CheckBox()
+        Me.C_IAPTPS = New System.Windows.Forms.ComboBox()
+        Me.C_ramairmode = New System.Windows.Forms.CheckBox()
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.C_warmup = New System.Windows.Forms.CheckBox()
+        Me.B_ramairadjust = New System.Windows.Forms.Button()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.C_PAIR = New System.Windows.Forms.CheckBox()
+        Me.B_boostfuel = New System.Windows.Forms.Button()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.B_dragtools = New System.Windows.Forms.Button()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.C_secsize = New System.Windows.Forms.ComboBox()
+        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
+        Me.B_WRITE = New System.Windows.Forms.Button()
+        Me.T_hexvaluehi = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.T_hexaddr = New System.Windows.Forms.TextBox()
+        Me.C_COV = New System.Windows.Forms.CheckBox()
+        Me.GroupBox9 = New System.Windows.Forms.GroupBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.C_FastBaudRate = New System.Windows.Forms.CheckBox()
+        Me.C_DatalogO2Sensor = New System.Windows.Forms.CheckBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.C_ABCmode = New System.Windows.Forms.CheckBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.C_FAN = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -569,6 +570,7 @@ Partial Class K8Advsettings
         '
         'GroupBox7
         '
+        Me.GroupBox7.Controls.Add(Me.C_FAN)
         Me.GroupBox7.Controls.Add(Me.C_FastBaudRate)
         Me.GroupBox7.Controls.Add(Me.C_DatalogO2Sensor)
         Me.GroupBox7.Controls.Add(Me.Label5)
@@ -633,6 +635,16 @@ Partial Class K8Advsettings
         Me.GroupBox2.TabIndex = 9
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Gaugemode"
+        '
+        'C_FAN
+        '
+        Me.C_FAN.AutoSize = True
+        Me.C_FAN.Location = New System.Drawing.Point(9, 86)
+        Me.C_FAN.Name = "C_FAN"
+        Me.C_FAN.Size = New System.Drawing.Size(132, 17)
+        Me.C_FAN.TabIndex = 50
+        Me.C_FAN.Text = "Fan ON/OFF 105/100"
+        Me.C_FAN.UseVisualStyleBackColor = True
         '
         'K8Advsettings
         '
@@ -726,4 +738,5 @@ Partial Class K8Advsettings
     Friend WithEvents C_FastBaudRate As System.Windows.Forms.CheckBox
     Friend WithEvents B_dragtools As System.Windows.Forms.Button
     Friend WithEvents Label12 As System.Windows.Forms.Label
+    Friend WithEvents C_FAN As System.Windows.Forms.CheckBox
 End Class
