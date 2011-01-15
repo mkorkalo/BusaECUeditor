@@ -48,11 +48,34 @@
             Case Else
                 MsgBox("MS mode not detected, please reset the mode")
         End Select
+
+        If ReadFlashByte(&H60BC1) = &H80 Then
+            C_coil_fi_disable.Text = "Coil FI disabled"
+            C_coil_fi_disable.Checked = True
+        Else
+            C_coil_fi_disable.Text = "Coil FI normal"
+            C_coil_fi_disable.Checked = False
+            WriteFlashByte(&H60BC1, &HFF)
+        End If
+
         loading = False
     End Sub
 
     Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
         Gixxerinjectorbalancemap.Show()
         Gixxerinjectorbalancemap.Select()
+    End Sub
+
+    Private Sub C_coil_fi_disable_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_coil_fi_disable.CheckedChanged
+        If Not loading Then
+            If C_coil_fi_disable.Checked = True Then
+                C_coil_fi_disable.Text = "Coil FI disabled"
+                WriteFlashByte(&H60BC1, &H80)
+            Else
+                C_coil_fi_disable.Text = "Coil FI normal"
+                WriteFlashByte(&H60BC1, &HFF)
+            End If
+        End If
+
     End Sub
 End Class
