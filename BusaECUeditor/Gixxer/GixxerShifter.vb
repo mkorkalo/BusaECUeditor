@@ -30,8 +30,8 @@ Public Class GixxerShifter
     Dim IDTAG As Integer = ADJ
     Dim minkillactive As Integer = ADJ + &H16
     Dim killcountdelay As Integer = ADJ + &H18
-    Dim SHIFTER2VERSION As Integer = 206
-    Dim shiftercodelenght As Integer = &H600 - 1 'lenght of the shifter code in bytes for clearing the memory, check this !!!
+    Dim SHIFTER2VERSION As Integer = 100
+    Dim shiftercodelenght As Integer = &H5DE50 - &H5D900 - 1 'lenght of the shifter code in bytes for clearing the memory, check this !!!
     Dim timerconst = 1 / 1.28
     Dim initiating As Boolean = True
 
@@ -85,6 +85,7 @@ Public Class GixxerShifter
 
         initiating = False
         L_shifterver.Text = Str(SHIFTER2VERSION)
+        P_shifterwiring.Image = Image.FromFile(".\gixxer\shifter.jpg")
 
         If (ReadFlashByte(ADJ) = &HFF) Then
             C_shifter_activation.Checked = False
@@ -138,7 +139,7 @@ Public Class GixxerShifter
     Private Sub shifter_code_in_memory(ByVal method As Boolean, ByVal lenght As Integer)
         Dim i As Integer
         Dim fs As FileStream
-        Dim path As String = My.Application.Info.DirectoryPath & "\ecu.bin\shiftergen2.bin"
+        Dim path As String = My.Application.Info.DirectoryPath & "\ecu.bin\gixxershifter.bin"
         Dim b(1) As Byte
 
         If Not File.Exists(path) Then
@@ -208,24 +209,24 @@ Public Class GixxerShifter
         Else
             C_igncut.Checked = False
         End If
-        If ReadFlashByte(&H55420) = 0 Then
+        If ReadFlashByte(ADJ + &H20) = 0 Then
             C_DSMactivation.Checked = False
             C_DSMactivation.Text = "Normal GPS resistor activation"
-            WriteFlashByte(&H55420, 0)
+            WriteFlashByte(ADJ + &H20, 0)
             G_DSMACTIVATION.Visible = False
             Me.Height = 613
         Else
             C_DSMactivation.Checked = True
             C_DSMactivation.Text = "DSM2 and resistor activation"
             G_DSMACTIVATION.Visible = True
-            If ReadFlashByte(&H72558) = &HFF Then
-                K8Advsettings.Show()
-                If K8Advsettings.C_ABCmode.Checked <> False Then
-                    K8Advsettings.C_ABCmode.Checked = False
-                End If
-                Me.Focus()
-            End If
-            WriteFlashByte(&H55420, 1) ' 1 = DSM2, 2 = DSM1
+            'If ReadFlashByte(&H72558) = &HFF Then
+            ' K8Advsettings.Show()
+            ' If K8Advsettings.C_ABCmode.Checked <> False Then
+            '  K8Advsettings.C_ABCmode.Checked = False
+            'End If
+            'Me.Focus()
+            'End If
+            WriteFlashByte(ADJ + &H20, 1) ' 1 = DSM2, 2 = DSM1
             Me.Height = 265
         End If
 
@@ -242,10 +243,12 @@ Public Class GixxerShifter
         RPM1.Visible = True
 
         'populate RPM with initial value
-        populaterpm(ReadFlashWord(&H5540E), Me.RPM1) ' this is the reference RPM that is stored in the system
-        populaterpm(ReadFlashWord(&H55410), Me.RPM2) ' this is the reference RPM that is stored in the system
-        populaterpm(ReadFlashWord(&H55412), Me.RPM3) ' this is the reference RPM that is stored in the system
-        populaterpm(ReadFlashWord(&H55414), Me.RPM456) ' this is the reference RPM that is stored in the system
+        populaterpm(ReadFlashWord(ADJ + &HE), Me.RPM1) ' this is the reference RPM that is stored in the system
+        populaterpm(ReadFlashWord(ADJ + &H10), Me.RPM2) ' this is the reference RPM that is stored in the system
+        populaterpm(ReadFlashWord(ADJ + &H12), Me.RPM3) ' this is the reference RPM that is stored in the system
+        populaterpm(ReadFlashWord(ADJ + &H14), Me.RPM456) ' this is the reference RPM that is stored in the system
+
+
 
     End Sub
 
@@ -374,32 +377,35 @@ Public Class GixxerShifter
         WriteFlashWord((ADJ + &HC), (Val(T_7000.Text)) / timerconst)
     End Sub
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        WriteFlashByte(&H525C5, &H80)
-        WriteFlashByte(&H525C6, &H68)
-        WriteFlashByte(&H525C7, &H65)
-    End Sub
+    'Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    '    WriteFlashByte(&H525C5, &H80)
+    '    WriteFlashByte(&H525C6, &H68)
+    '    WriteFlashByte(&H525C7, &H65)
+    'End Sub
 
     Private Sub CheckBox1_CheckedChanged_2(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_DSMactivation.CheckedChanged
         If Not initiating Then
 
             If Not C_DSMactivation.Checked Then
                 C_DSMactivation.Text = "Normal GPS resistor activation"
-                P_shifterwiring.Image = Image.FromFile(".\G2\shifter.jpg")
-                WriteFlashByte(&H55420, 0)
+                P_shifterwiring.Image = Image.FromFile(".\gixxer\shifter.jpg")
+                WriteFlashByte(ADJ + &H20, 0)
                 G_DSMACTIVATION.Visible = False
                 Me.Height = 613
             Else
                 C_DSMactivation.Text = "DSM2 and resistor activation"
-                P_shifterwiring.Image = Image.FromFile(".\G2\shifter_DSM.jpg")
-                If ReadFlashByte(&H72558) = &HFF Then
-                    K8Advsettings.Show()
-                    If K8Advsettings.C_ABCmode.Checked <> False Then
-                        K8Advsettings.C_ABCmode.Checked = False
-                    End If
-                    Me.Focus()
-                End If
-                WriteFlashByte(&H55420, 1) ' 1 = DSM2, 2 = DSM1
+                P_shifterwiring.Image = Image.FromFile(".\gixxer\shifter_DSM.jpg")
+                '
+                ' Not possible with Gixxer to disable ABC mode
+                '
+                '  If ReadFlashByte(&H72558) = &HFF Then
+                ' K8Advsettings.Show()
+                ' If K8Advsettings.C_ABCmode.Checked <> False Then
+                ' K8Advsettings.C_ABCmode.Checked = False
+                'End If
+                'Me.Focus()
+                'End If
+                WriteFlashByte(ADJ + &H20, 1) ' 1 = DSM2, 2 = DSM1
                 G_DSMACTIVATION.Visible = True
                 Me.Height = 613 'Me.Height = 263
             End If
@@ -411,7 +417,7 @@ Public Class GixxerShifter
         Dim i As Integer
         i = Val(RPM1.Text) * 2.56
         i = CInt(i / 50) * 50
-        WriteFlashWord(&H5540E, i)
+        WriteFlashWord(ADJ + &HE, i)
     End Sub
 
 
@@ -419,19 +425,19 @@ Public Class GixxerShifter
         Dim i As Integer
         i = Val(RPM456.Text) * 2.56
         i = CInt(i / 50) * 50
-        WriteFlashWord(&H55414, i)
+        WriteFlashWord(ADJ + &H14, i)
     End Sub
     Private Sub ComboBox2_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RPM3.SelectedIndexChanged
         Dim i As Integer
         i = Val(RPM3.Text) * 2.56
         i = CInt(i / 50) * 50
-        WriteFlashWord(&H55412, i)
+        WriteFlashWord(ADJ + &H12, i)
     End Sub
     Private Sub ComboBox1_SelectedIndexChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RPM2.SelectedIndexChanged
         Dim i As Integer
         i = Val(RPM2.Text) * 2.56
         i = CInt(i / 50) * 50
-        WriteFlashWord(&H55410, i)
+        WriteFlashWord(ADJ + &H10, i)
     End Sub
 
     Private Sub T_minkillactive_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_minkillactive.TextChanged
