@@ -245,7 +245,7 @@ skip_update:
             Case "gen2"
                 K8Shifter.Show()
                 K8Shifter.Select()
-            Case "gen2"
+            Case "gixxer"
                 GixxerShifter.Show()
                 GixxerShifter.Select()
             Case "bking"
@@ -638,7 +638,7 @@ skip_update:
                     SaveToolStripMenuItem.Enabled = True
                     B_FlashECU.Enabled = True
                     B_Limiters.Enabled = True
-                    B_Shifter.Enabled = False
+                    B_Shifter.Enabled = True
                     B_FuelMap.Enabled = True
                     B_IgnitionMap.Enabled = True
                     B_AdvancedSettings.Enabled = True
@@ -4625,7 +4625,7 @@ skip_update:
         B_FlashECU.Enabled = True
         B_Limiters.Enabled = True
         B_EngineData.Enabled = True
-        B_Shifter.Enabled = False
+        B_Shifter.Enabled = True
         B_FuelMap.Enabled = True
         B_IgnitionMap.Enabled = True
         B_AdvancedSettings.Enabled = True
@@ -4707,7 +4707,7 @@ skip_update:
         B_FlashECU.Enabled = True
         B_Limiters.Enabled = True
         B_EngineData.Enabled = True
-        B_Shifter.Enabled = False
+        B_Shifter.Enabled = True
         B_FuelMap.Enabled = True
         B_IgnitionMap.Enabled = True
         B_AdvancedSettings.Enabled = True
@@ -4785,7 +4785,7 @@ skip_update:
         B_FlashECU.Enabled = True
         B_Limiters.Enabled = True
         B_EngineData.Enabled = True
-        B_Shifter.Enabled = False
+        B_Shifter.Enabled = True
         B_FuelMap.Enabled = True
         B_IgnitionMap.Enabled = True
         B_AdvancedSettings.Enabled = True

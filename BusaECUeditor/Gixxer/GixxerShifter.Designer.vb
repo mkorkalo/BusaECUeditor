@@ -380,6 +380,7 @@ Partial Class GixxerShifter
         'C_DSMactivation
         '
         Me.C_DSMactivation.AutoSize = True
+        Me.C_DSMactivation.Enabled = False
         Me.C_DSMactivation.Location = New System.Drawing.Point(102, 125)
         Me.C_DSMactivation.Name = "C_DSMactivation"
         Me.C_DSMactivation.Size = New System.Drawing.Size(157, 17)
