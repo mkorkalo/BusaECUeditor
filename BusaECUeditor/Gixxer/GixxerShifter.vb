@@ -114,11 +114,11 @@ Public Class GixxerShifter
             '
             pcdisp = (FUELCODE - &H45A40) / 4
             WriteFlashWord(&H45A40, &HFF00) ' bra.l 
-            WriteFlashWord(&H45A41, pcdisp) '         pcdisp
+            WriteFlashWord(&H45A42, pcdisp) '         pcdisp
             '
             ' Ignition
             '
-            pcdisp = (IGNCODE - &H37330) / 4
+            pcdisp = (IGNCODE - &H3B9C0) / 4
             WriteFlashWord(&H3B9C0, &HFF00) ' bra.l 
             WriteFlashWord(&H3B9C2, pcdisp) '         pcdisp
 
@@ -127,7 +127,7 @@ Public Class GixxerShifter
             ' bring the ecu code back to original
             '
             WriteFlashWord(&H45A40, &H4F10) ' addi sp, #0x10
-            WriteFlashWord(&H45A41, &H1FCE) ' jmp lr
+            WriteFlashWord(&H45A42, &H1FCE) ' jmp lr
             '
             ' Ignition
             '

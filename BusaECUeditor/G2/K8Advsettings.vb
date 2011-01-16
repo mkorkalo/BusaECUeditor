@@ -76,7 +76,6 @@ Public Class K8Advsettings
     End Sub
 
     Private Sub K8Advsettings_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        Dim i As Integer
 
         loading = True
 
