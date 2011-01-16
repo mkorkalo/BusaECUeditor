@@ -19,45 +19,45 @@ Partial Class K8dragtools
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(K8dragtools))
-        Me.C_dragtools_activation = New System.Windows.Forms.CheckBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.L_dragtoolsver = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
+        Me.C_dragtools_activation = New System.Windows.Forms.CheckBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.L_dragtoolsver = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.K8dragtoolsBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.Linklabel_program_homepage = New System.Windows.Forms.LinkLabel
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.C_GEAR1_RATE = New System.Windows.Forms.ComboBox
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox
-        Me.ComboBox3 = New System.Windows.Forms.ComboBox
-        Me.ComboBox5 = New System.Windows.Forms.ComboBox
-        Me.G_slewrate = New System.Windows.Forms.GroupBox
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.C_ACTIVATION = New System.Windows.Forms.ComboBox
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.C_GEAR36_RETARD = New System.Windows.Forms.ComboBox
-        Me.C_GEAR1_RETARD = New System.Windows.Forms.ComboBox
-        Me.C_GEAR36_RATE = New System.Windows.Forms.ComboBox
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.C_GEAR2_RETARD = New System.Windows.Forms.ComboBox
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.C_GEAR2_RATE = New System.Windows.Forms.ComboBox
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.G_2step = New System.Windows.Forms.GroupBox
-        Me.NTCLT = New System.Windows.Forms.ComboBox
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.Label19 = New System.Windows.Forms.Label
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Linklabel_program_homepage = New System.Windows.Forms.LinkLabel()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.C_GEAR1_RATE = New System.Windows.Forms.ComboBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
+        Me.ComboBox3 = New System.Windows.Forms.ComboBox()
+        Me.ComboBox5 = New System.Windows.Forms.ComboBox()
+        Me.G_slewrate = New System.Windows.Forms.GroupBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.C_ACTIVATION = New System.Windows.Forms.ComboBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.C_GEAR36_RETARD = New System.Windows.Forms.ComboBox()
+        Me.C_GEAR1_RETARD = New System.Windows.Forms.ComboBox()
+        Me.C_GEAR36_RATE = New System.Windows.Forms.ComboBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.C_GEAR2_RETARD = New System.Windows.Forms.ComboBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.C_GEAR2_RATE = New System.Windows.Forms.ComboBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.G_2step = New System.Windows.Forms.GroupBox()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.NTCLT = New System.Windows.Forms.ComboBox()
+        Me.Label18 = New System.Windows.Forms.Label()
         CType(Me.K8dragtoolsBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.G_slewrate.SuspendLayout()
         Me.G_2step.SuspendLayout()
@@ -391,6 +391,16 @@ Partial Class K8dragtools
         Me.G_2step.TabStop = False
         Me.G_2step.Text = "2 Step RPM limiter"
         '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(248, 23)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(194, 39)
+        Me.Label19.TabIndex = 101
+        Me.Label19.Text = "2 Step limiter allows setting a secondary" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "clutch in ignition limiter. This limit" & _
+            "er is" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "active only when clutch is in."
+        '
         'NTCLT
         '
         Me.NTCLT.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -409,16 +419,6 @@ Partial Class K8dragtools
         Me.Label18.Size = New System.Drawing.Size(96, 13)
         Me.Label18.TabIndex = 99
         Me.Label18.Text = "Clutched Ign limiter"
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(248, 23)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(194, 39)
-        Me.Label19.TabIndex = 101
-        Me.Label19.Text = "2 Step limiter allows setting a secondary" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "clutch in ignition limiter. This limit" & _
-            "er is" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "active only when clutch is in."
         '
         'K8dragtools
         '

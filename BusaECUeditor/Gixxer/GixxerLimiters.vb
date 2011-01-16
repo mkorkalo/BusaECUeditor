@@ -101,8 +101,8 @@ Public Class GixxerLimiters
         '
         WriteFlashWord(&H60B2C, Int((rpmconv / (addedrpm + (rpmconv / &H44B))))) 'normal limiter
         WriteFlashWord(&H60B2E, Int((rpmconv / (addedrpm + (rpmconv / &H447))))) 'normal limiter
-        WriteFlashWord(&H60B30, Int((rpmconv / (addedrpm + (rpmconv / &H47D))))) 'clutch limiter
-        WriteFlashWord(&H60B32, Int((rpmconv / (addedrpm + (rpmconv / &H479))))) 'clutch limiter
+        If (ReadFlashByte(&H3B4C1) = &H80) Then WriteFlashWord(&H60B30, Int((rpmconv / (addedrpm + (rpmconv / &H47D))))) 'clutch limiter
+        If (ReadFlashByte(&H3B4C1) = &H80) Then WriteFlashWord(&H60B32, Int((rpmconv / (addedrpm + (rpmconv / &H479))))) 'clutch limiter
         WriteFlashWord(&H60B38, Int((rpmconv / (addedrpm + (rpmconv / &H3EF))))) 'On TPS limiter a bit unsure about condition triggering this one
         WriteFlashWord(&H60B3A, Int((rpmconv / (addedrpm + (rpmconv / &H3E8))))) 'On TPS limiter  a bit unsure about condition triggering this one
 
@@ -163,12 +163,8 @@ Public Class GixxerLimiters
         Loop
         Me.RPM.Items.Add(i.ToString())
 
-        
-
-
         Me.RPM.SelectedIndex = 0
         Me.RPM.Enabled = True
-       
 
     End Sub
 
