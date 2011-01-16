@@ -31,6 +31,7 @@ Public Class K8dragtools
     Dim dragtoolscodelenght As Integer = &H1000 'lenght of the dragtools code in bytes for clearing the memory
     Dim rpmconv As Long
     Dim addedrpm As Integer
+    Dim refrpm As Integer = 10900
 
 
 
@@ -201,6 +202,13 @@ Public Class K8dragtools
             WriteFlashByte(&H33C37, &H90)
 
             '
+            ' As a reference, lets use the stock clutched ignition limiter
+            '
+            'refrpm = 10900
+            WriteFlashWord(&H72A6C, &H560) 'Cluched ignition limiter
+            WriteFlashWord(&H72A6E, &H554) 'Cluched ignition limiter
+
+            '
             ' For debugging lets change kwb packet 08 bytes to monitor rpm_rate
             '
             'WriteFlashByte(&H525C0, 0)
@@ -346,11 +354,11 @@ Public Class K8dragtools
         '
         ' RPM/Fuel hard type 2, this is modified higher than stock as ecu default is not used in this case
         '
-        baseline = 11150
+
+        baseline = refrpm
         ' Set various RPM limits based on RPM value selected
         i = Val(NTCLT.Text)
         addedrpm = i - baseline ' we are just setting here the baseline
-
         WriteFlashWord(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H560))))) 'Cluched ignition limiter
         WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H554))))) 'Cluched ignition limiter
 
@@ -366,7 +374,6 @@ Public Class K8dragtools
     Private Sub hide_settings()
         Dim i As Integer
         Dim baseline As Integer
-        baseline = 11304
 
         G_slewrate.Hide()
         G_2step.Hide()
@@ -374,12 +381,13 @@ Public Class K8dragtools
         '
         ' Remove settings 2 step limiter settings
         '
-        i = ReadFlashWord(&H72A6E) ' this is the reference RPM that is stored in the system
+        baseline = refrpm
+        i = ReadFlashWord(&H72A6C) ' this is the reference RPM that is stored in the system
         i = Int(((rpmconv / (i + 0))))
         i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
         addedrpm = i - baseline ' we are just setting here the baseline
-        WriteFlashWord(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H51E))))) 'clutch limiter at 10901 modified to same as normal ignition limiter
-        WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H50D))))) 'clutch limiter at 10997 modified to same as normal ignition limiter
+        WriteFlashWord(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H560))))) 'Cluched ignition limiter
+        WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H554))))) 'Cluched ignition limiter
         WriteFlashByte(&H36E39 + 0, &H80)
         WriteFlashByte(&H36E39 + 1, &H50)
         WriteFlashByte(&H36E39 + 2, &HB0)
