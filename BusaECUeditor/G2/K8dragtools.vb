@@ -346,7 +346,7 @@ Public Class K8dragtools
         '
         ' RPM/Fuel hard type 2, this is modified higher than stock as ecu default is not used in this case
         '
-        baseline = 11300
+        baseline = 11150
         ' Set various RPM limits based on RPM value selected
         i = Val(NTCLT.Text)
         addedrpm = i - baseline ' we are just setting here the baseline
