@@ -101,15 +101,15 @@ Public Class K8Limiters
         '
         writeflashword(&H72A68, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'normal limiter 11450rpm
         WriteFlashWord(&H72A6A, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'normal limiter 11601rpm
-        If ReadFlashWord(&H5A000) = &HFF Then WriteFlashWord(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'clutch limiter at 10901 modified to same as normal ignition limiter
-        If ReadFlashWord(&H5A000) = &HFF Then WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'clutch limiter at 10997 modified to same as normal ignition limiter
+        If ReadFlashWord(&H5A000) = &HFFFF Then WriteFlashWord(&H72A6C, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'clutch limiter at 10901 modified to same as normal ignition limiter
+        If ReadFlashWord(&H5A000) = &HFFFF Then WriteFlashWord(&H72A6E, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'clutch limiter at 10997 modified to same as normal ignition limiter
         WriteFlashWord(&H72A74, Int((rpmconv / (addedrpm + (rpmconv / &H51E)) + 1))) 'On TPS < 2.5% limiter 11450rpm - a bit unsure about condition triggering this one
         WriteFlashWord(&H72A76, Int((rpmconv / (addedrpm + (rpmconv / &H50D)) + 1))) 'On TPS < 2.5%  limiter 11601rpm - a bit unsure about condition triggering this one
 
         '
         ' This is GPS raw value that is set to default in case the dragtools module is not used
         '
-        If ReadFlashWord(&H5A000) <> &HFF Then
+        If ReadFlashWord(&H5A000) <> &HFFFF Then
             WriteFlashByte(&H36E39 + 0, &H80)
             WriteFlashByte(&H36E39 + 1, &H50)
             WriteFlashByte(&H36E39 + 2, &HB0)
