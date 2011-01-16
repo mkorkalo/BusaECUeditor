@@ -72,9 +72,9 @@ Public Class K8nitrouscontrol
     Private Sub K8nitrouscontrol_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
         Select Case e.KeyChar
             Case "p"
-                '
-                '
-                '
+                printthis()
+            Case "P"
+                printthis()
 
             Case "*"
                 MultiplySelectedCells()

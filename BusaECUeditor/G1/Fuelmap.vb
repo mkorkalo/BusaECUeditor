@@ -88,6 +88,10 @@ Public Class FuelMap
                 Me.Close()
             Case "c"
                 CopyTpsToMsMap()
+            Case "p"
+                printthis()
+            Case "P"
+                printthis()
         End Select
 
     End Sub

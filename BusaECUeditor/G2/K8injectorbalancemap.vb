@@ -172,9 +172,9 @@ Public Class K8injectorbalancemap
             Case Chr(27)
                 Me.Close()
             Case "P"
-                '
-                '
-                '
+                printthis()
+            Case "p"
+                printthis()
             Case Else
 
 

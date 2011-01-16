@@ -179,9 +179,9 @@ Public Class BKingSTPMap
             Case Chr(27)
                 Me.Close()
             Case "P"
-                '
-                '
-                '
+                printthis()
+            Case "p"
+                printthis()
             Case Else
                 L_STPMAP.Text = Asc(e.KeyChar)
 

@@ -763,6 +763,9 @@ Module CommonFunctions
 
 #Region "Functions"
 
+    Public Sub printthis()
+
+    End Sub
     Public Function FastMode() As Boolean
 
         If readflashlongword(&H51F10) = &H536C4 Then

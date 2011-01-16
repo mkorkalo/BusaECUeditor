@@ -150,10 +150,7 @@ Public Class K8Datastream
     Private Sub K8Datastream_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
         If e.KeyChar = Chr(27) Then Me.Close()
         If e.KeyChar = "P" Or e.KeyChar = "p" Then
-            '
-            '
-            '
-            '
+           printthis()
         End If
         If (e.KeyChar = "d") Or (e.KeyChar = "D") Then debug = Not debug
         If debug Then

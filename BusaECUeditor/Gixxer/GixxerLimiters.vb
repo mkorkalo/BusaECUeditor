@@ -112,9 +112,7 @@ Public Class GixxerLimiters
     Private Sub GixxerLimiters_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
         If e.KeyChar = Chr(27) Then Me.Close()
         If e.KeyChar = "P" Or e.KeyChar = "p" Then
-            '
-            '
-            '
+            printthis()
         End If
         If (e.KeyChar = Chr(9)) And (ReadFlashByte(&H604CF) <> 0) Then
             WriteFlashByte(&H604CF, 0)

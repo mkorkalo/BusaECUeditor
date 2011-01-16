@@ -78,9 +78,7 @@ Public Class BKingShifter
         If e.KeyChar = Chr(27) Then Me.Close()
 
         If e.KeyChar = "P" Or e.KeyChar = "p" Then
-            '
-            '
-            '
+         printthis()
         End If
 
     End Sub

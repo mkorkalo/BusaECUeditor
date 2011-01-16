@@ -168,9 +168,7 @@ Public Class BKingInjectorBalanceMap
             Case Chr(27)
                 Me.Close()
             Case "P"
-                '
-                '
-                '
+           printthis()
             Case Else
 
         End Select
