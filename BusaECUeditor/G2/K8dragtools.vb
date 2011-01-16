@@ -161,7 +161,7 @@ Public Class K8dragtools
         Me.C_ACTIVATION.SelectedIndex = 0
 
         'populate NTCLT with initial value
-        i = ReadFlashWord(&H60B30) ' this is the reference RPM that is stored in the system
+        i = ReadFlashWord(&H72A6C) ' this is the reference RPM that is stored in the system
         i = Int(((rpmconv / (i + 0))))
         i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
         Me.NTCLT.Items.Add(i.ToString())
