@@ -56,6 +56,7 @@
 #define	rpm_now *(volatile unsigned short *)  		(ramaddr + 0x88)
 #define	rpm_rate *(volatile unsigned short *)  		(ramaddr + 0x8C)
 #define	ign_retard *(volatile unsigned char *)  	(ramaddr + 0x90)
+#define i            *(volatile unsigned char *)  	(ramaddr + 0x94)
 
 #pragma SECTION C PARAMS //0x5A000
 const short const_pgmid = 				100;			// 0 program id, must match to ecueditor version to be able to load this code to ecu
