@@ -133,9 +133,9 @@ Public Class K8Fuelmap
             Case Chr(27)
                 Me.Close()
             Case "P"
-                '
-                '
-                '
+                printthis()
+            Case "p"
+                printthis()
 
         End Select
 

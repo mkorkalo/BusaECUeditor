@@ -138,9 +138,9 @@ Public Class K8Ignitionmap
             Case Chr(27)
                 Me.Close()
             Case "P"
-                '
-                '
-                '
+                printthis()
+            Case "p"
+                printthis()
 
         End Select
 

@@ -203,10 +203,9 @@ Public Class K8dwellignition
             Case "-"
                 DecreaseSelectedCells()
             Case "P"
-                '
-                '
-                '
-                '
+                printthis()
+            Case "p"
+                printthis()
             Case Chr(27)
                 Me.Close()
         End Select

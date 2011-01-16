@@ -67,9 +67,7 @@ Public Class K8boostfuel
     Private Sub K8boostfuel_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
         If e.KeyChar = Chr(27) Then Me.Close()
         If e.KeyChar = "P" Or e.KeyChar = "p" Then
-            '
-            '
-            '
+         printthis()
         End If
 
     End Sub
@@ -893,6 +891,10 @@ Public Class K8boostfuel
                 Me.Close()
             Case "d"
                 setdebugrpmstep()
+            Case "P"
+                printthis()
+            Case "p"
+                printthis()
         End Select
 
         duty_writemaptoflash()

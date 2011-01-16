@@ -56,13 +56,6 @@ Public Class K8dragtools
 
     End Sub
 
-    Private Sub printthis()
-        '
-        '
-        '
-
-    End Sub
-
     Private Sub dragtools_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         L_dragtoolsver.Text = Str(dragtoolsVERSION)

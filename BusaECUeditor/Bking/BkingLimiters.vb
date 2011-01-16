@@ -70,9 +70,7 @@ Public Class BKingLimiters
     Private Sub BKingLimiters_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
         If e.KeyChar = Chr(27) Then Me.Close()
         If e.KeyChar = "P" Or e.KeyChar = "p" Then
-            '
-            '
-            '
+          printthis()
         End If
     End Sub
 
