@@ -27,7 +27,8 @@
 
         End If
     End Sub
-    
+
+ 
 
     Private Sub GixxerAdvSettings_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         loading = True
@@ -74,10 +75,37 @@
         If ReadFlashByte(&H62ABA) = &HFF Then
             C_PAIR.Text = "PAIR ON"
             C_PAIR.Checked = True
+            WriteFlashByte(&H62ABA, &HFF) ' pair config flag
+            WriteFlashByte(&H56D5C, &HFE)
+            WriteFlashByte(&H56D5D, &HFF)
+            WriteFlashByte(&H56D5E, &HFC)
+            WriteFlashByte(&H56D5F, &H10)
         Else
             C_PAIR.Text = "PAIR OFF"
             C_PAIR.Checked = False
+            WriteFlashByte(&H62ABA, &H80) ' pair config flag
+            WriteFlashByte(&H56D5C, &H70)
+            WriteFlashByte(&H56D5D, &H0)
+            WriteFlashByte(&H56D5E, &H70)
+            WriteFlashByte(&H56D5F, &H0)
         End If
+
+        If ReadFlashByte(&H614D4) = &H80 Then
+            C_HOX.Text = "HOX sensor ON"
+            C_HOX.Checked = True
+        Else
+            C_HOX.Text = "HOX sensor OFF"
+            C_HOX.Checked = False
+        End If
+
+        If ReadFlashByte(&H60669) = &HFF Then
+            C_EXC.Checked = True
+            C_EXC.Text = "EXC ON"
+        Else
+            C_EXC.Checked = False
+            C_EXC.Text = "EXC OFF"
+        End If
+
 
         loading = False
     End Sub
@@ -102,12 +130,6 @@
 
     Private Sub CheckBox1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_FAN.CheckedChanged
 
-        MsgBox("NOT WORKING, DO NOT USE YET")
-        '
-        ' Remember to add to Form load also this
-        '
-        Return
-
         If Not loading Then
             If C_FAN.Checked = True Then
                 C_FAN.Text = "Fan ON/OFF 100/95"
@@ -127,9 +149,18 @@
             If C_PAIR.Checked = True Then
                 C_PAIR.Text = "PAIR ON"
                 WriteFlashByte(&H62ABA, &HFF) ' pair config flag
+                WriteFlashByte(&H56D5C, &HFE)
+                WriteFlashByte(&H56D5D, &HFF)
+                WriteFlashByte(&H56D5E, &HFC)
+                WriteFlashByte(&H56D5F, &H10)
             Else
                 C_PAIR.Text = "PAIR OFF"
                 WriteFlashByte(&H62ABA, &H80)
+                WriteFlashByte(&H56D5C, &H70)
+                WriteFlashByte(&H56D5D, &H0)
+                WriteFlashByte(&H56D5E, &H70)
+                WriteFlashByte(&H56D5F, &H0)
+
             End If
         End If
 
@@ -140,17 +171,31 @@
 
             If C_EXC.Checked = True Then
                 C_EXC.Text = "EXCV ON"
-                WriteFlashByte(&H73EBC, &HFF)
-                WriteFlashByte(&H7000D, &HFF)
-                WriteFlashByte(&H7000F, &H0)
+                WriteFlashByte(&H60669, &HFF) '60669
+                WriteFlashByte(&H6000D, &HFF) '6000D
+                WriteFlashByte(&H6000F, &H0)  '6000F
             Else
                 C_EXC.Text = "EXCV OFF"
-                WriteFlashByte(&H73EBC, &H1) 'could be 0 or 1
-                WriteFlashByte(&H7000D, &H0) 'if 0 shows error on busa
-                WriteFlashByte(&H7000F, &H80)
+                WriteFlashByte(&H60669, &H1) 'could be 0 or 1
+                WriteFlashByte(&H6000D, &H0) 'if 0 shows error on busa
+                WriteFlashByte(&H6000F, &H80)
             End If
 
         End If
 
+    End Sub
+
+    Private Sub C_HOX_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_HOX.CheckedChanged
+        If Not loading Then
+            If C_HOX.Checked = True Then
+                C_HOX.Text = "HOX sensor ON"
+                WriteFlashByte(&H614D4, &H80)
+                WriteFlashByte(&H62243, &HFF)
+            Else
+                C_HOX.Text = "HOX sensor OFF"
+                WriteFlashByte(&H614D4, &H0)
+                WriteFlashByte(&H62243, &H80)
+            End If
+        End If
     End Sub
 End Class

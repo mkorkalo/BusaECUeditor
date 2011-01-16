@@ -19,15 +19,14 @@ Partial Class GixxerLimiters
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(GixxerLimiters))
-        Me.C_gearlimiter = New System.Windows.Forms.CheckBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.RPM = New System.Windows.Forms.ComboBox
-        Me.Hardcut = New System.Windows.Forms.CheckBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Label5 = New System.Windows.Forms.Label
+        Me.C_gearlimiter = New System.Windows.Forms.CheckBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.RPM = New System.Windows.Forms.ComboBox()
+        Me.Hardcut = New System.Windows.Forms.CheckBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'C_gearlimiter
@@ -93,7 +92,7 @@ Partial Class GixxerLimiters
         Me.Label5.Size = New System.Drawing.Size(364, 13)
         Me.Label5.TabIndex = 26
         Me.Label5.Text = "Note: When gear limiters are removed then also top speed limiter is removed"
-          '
+        '
         'GixxerLimiters
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -111,7 +110,7 @@ Partial Class GixxerLimiters
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "GixxerLimiters"
-        Me.Text = "ECUeditor.com Gixxer K7- Limiters K8-"
+        Me.Text = "ecueditor.com Gixxer K7- Limiters"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

@@ -28,15 +28,16 @@ Partial Class GixxerAdvSettings
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.G_misc = New System.Windows.Forms.GroupBox()
+        Me.C_HOX = New System.Windows.Forms.CheckBox()
+        Me.C_EXC = New System.Windows.Forms.CheckBox()
+        Me.C_PAIR = New System.Windows.Forms.CheckBox()
+        Me.C_FAN = New System.Windows.Forms.CheckBox()
         Me.C_coil_fi_disable = New System.Windows.Forms.CheckBox()
         Me.C_msmode = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.C_FAN = New System.Windows.Forms.CheckBox()
-        Me.C_PAIR = New System.Windows.Forms.CheckBox()
-        Me.C_EXC = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
+        Me.G_misc.SuspendLayout()
         Me.SuspendLayout()
         '
         'Button1
@@ -59,7 +60,7 @@ Partial Class GixxerAdvSettings
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(270, 274)
+        Me.Button2.Location = New System.Drawing.Point(291, 248)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(75, 23)
         Me.Button2.TabIndex = 2
@@ -97,20 +98,61 @@ Partial Class GixxerAdvSettings
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "View and edit injector balance map"
         '
-        'GroupBox2
+        'G_misc
         '
-        Me.GroupBox2.Controls.Add(Me.C_EXC)
-        Me.GroupBox2.Controls.Add(Me.C_PAIR)
-        Me.GroupBox2.Controls.Add(Me.C_FAN)
-        Me.GroupBox2.Controls.Add(Me.C_coil_fi_disable)
-        Me.GroupBox2.Controls.Add(Me.C_msmode)
-        Me.GroupBox2.Controls.Add(Me.Label2)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 106)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(354, 147)
-        Me.GroupBox2.TabIndex = 11
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Misc settings"
+        Me.G_misc.Controls.Add(Me.C_HOX)
+        Me.G_misc.Controls.Add(Me.C_EXC)
+        Me.G_misc.Controls.Add(Me.C_PAIR)
+        Me.G_misc.Controls.Add(Me.C_FAN)
+        Me.G_misc.Controls.Add(Me.C_coil_fi_disable)
+        Me.G_misc.Controls.Add(Me.C_msmode)
+        Me.G_misc.Controls.Add(Me.Label2)
+        Me.G_misc.Location = New System.Drawing.Point(12, 106)
+        Me.G_misc.Name = "G_misc"
+        Me.G_misc.Size = New System.Drawing.Size(354, 123)
+        Me.G_misc.TabIndex = 11
+        Me.G_misc.TabStop = False
+        Me.G_misc.Text = "Misc settings"
+        '
+        'C_HOX
+        '
+        Me.C_HOX.AutoSize = True
+        Me.C_HOX.Location = New System.Drawing.Point(179, 48)
+        Me.C_HOX.Name = "C_HOX"
+        Me.C_HOX.Size = New System.Drawing.Size(115, 17)
+        Me.C_HOX.TabIndex = 12
+        Me.C_HOX.Text = "HOX sensor on/off"
+        Me.C_HOX.UseVisualStyleBackColor = True
+        '
+        'C_EXC
+        '
+        Me.C_EXC.AutoSize = True
+        Me.C_EXC.Location = New System.Drawing.Point(179, 71)
+        Me.C_EXC.Name = "C_EXC"
+        Me.C_EXC.Size = New System.Drawing.Size(79, 17)
+        Me.C_EXC.TabIndex = 47
+        Me.C_EXC.Text = "EXC on/off"
+        Me.C_EXC.UseVisualStyleBackColor = True
+        '
+        'C_PAIR
+        '
+        Me.C_PAIR.AutoSize = True
+        Me.C_PAIR.Location = New System.Drawing.Point(12, 94)
+        Me.C_PAIR.Name = "C_PAIR"
+        Me.C_PAIR.Size = New System.Drawing.Size(83, 17)
+        Me.C_PAIR.TabIndex = 11
+        Me.C_PAIR.Text = "PAIR on/off"
+        Me.C_PAIR.UseVisualStyleBackColor = True
+        '
+        'C_FAN
+        '
+        Me.C_FAN.AutoSize = True
+        Me.C_FAN.Location = New System.Drawing.Point(12, 71)
+        Me.C_FAN.Name = "C_FAN"
+        Me.C_FAN.Size = New System.Drawing.Size(88, 17)
+        Me.C_FAN.TabIndex = 10
+        Me.C_FAN.Text = "Fan ON/OFF"
+        Me.C_FAN.UseVisualStyleBackColor = True
         '
         'C_coil_fi_disable
         '
@@ -140,50 +182,20 @@ Partial Class GixxerAdvSettings
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Set dualmap mode MS0/MS1 ( switching pin 66 )"
         '
-        'C_FAN
-        '
-        Me.C_FAN.AutoSize = True
-        Me.C_FAN.Location = New System.Drawing.Point(12, 71)
-        Me.C_FAN.Name = "C_FAN"
-        Me.C_FAN.Size = New System.Drawing.Size(88, 17)
-        Me.C_FAN.TabIndex = 10
-        Me.C_FAN.Text = "Fan ON/OFF"
-        Me.C_FAN.UseVisualStyleBackColor = True
-        '
-        'C_PAIR
-        '
-        Me.C_PAIR.AutoSize = True
-        Me.C_PAIR.Location = New System.Drawing.Point(12, 94)
-        Me.C_PAIR.Name = "C_PAIR"
-        Me.C_PAIR.Size = New System.Drawing.Size(83, 17)
-        Me.C_PAIR.TabIndex = 11
-        Me.C_PAIR.Text = "PAIR on/off"
-        Me.C_PAIR.UseVisualStyleBackColor = True
-        '
-        'C_EXC
-        '
-        Me.C_EXC.AutoSize = True
-        Me.C_EXC.Location = New System.Drawing.Point(12, 117)
-        Me.C_EXC.Name = "C_EXC"
-        Me.C_EXC.Size = New System.Drawing.Size(79, 17)
-        Me.C_EXC.TabIndex = 47
-        Me.C_EXC.Text = "EXC on/off"
-        Me.C_EXC.UseVisualStyleBackColor = True
-        '
         'GixxerAdvSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(396, 309)
-        Me.Controls.Add(Me.GroupBox2)
+        Me.ClientSize = New System.Drawing.Size(382, 285)
+        Me.Controls.Add(Me.G_misc)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Button2)
         Me.Name = "GixxerAdvSettings"
         Me.Text = "ecueditor.com - gixxer K7- advanced settings"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
+        Me.G_misc.ResumeLayout(False)
+        Me.G_misc.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -191,7 +203,7 @@ Partial Class GixxerAdvSettings
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents G_misc As System.Windows.Forms.GroupBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents C_msmode As System.Windows.Forms.ComboBox
     Friend WithEvents Button3 As System.Windows.Forms.Button
@@ -200,4 +212,5 @@ Partial Class GixxerAdvSettings
     Friend WithEvents C_FAN As System.Windows.Forms.CheckBox
     Friend WithEvents C_PAIR As System.Windows.Forms.CheckBox
     Friend WithEvents C_EXC As System.Windows.Forms.CheckBox
+    Friend WithEvents C_HOX As System.Windows.Forms.CheckBox
 End Class

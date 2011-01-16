@@ -109,22 +109,24 @@ Public Class GixxerLimiters
 
     End Sub
 
-    Private Sub K8Limiters_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
+    Private Sub GixxerLimiters_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
         If e.KeyChar = Chr(27) Then Me.Close()
         If e.KeyChar = "P" Or e.KeyChar = "p" Then
             '
             '
             '
         End If
-        If e.KeyChar = Chr(9) Then
+        If (e.KeyChar = Chr(9)) And (ReadFlashByte(&H604CF) <> 0) Then
             WriteFlashByte(&H604CF, 0)
-            MsgBox("Special function accepted")
+            Me.Text = Me.Text & " i"
         End If
+
     End Sub
 
     Private Sub Limiters_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim i As Integer
         rpmconv = 3840000000 / &H100
+        If ReadFlashByte(&H604CF) = 0 Then Me.Text = Me.Text & " i"
 
         '
         ' Determine if gear limiters are on or off
