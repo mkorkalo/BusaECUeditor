@@ -69,6 +69,9 @@ Public Class K8injectorbalancemap
         fuelmapvisible = True
         INJBALtrace = False
 
+        '
+        ' This module does not use gear for map definition so lets leave it outside users view
+        '
         L_geartext.Visible = False
         L_gear.Visible = False
 
@@ -148,13 +151,13 @@ Public Class K8injectorbalancemap
             Case "A"
                 modeabc = 0
                 selectmap()
-                'Case "b"
-                '    modeabc = 1
-                '    selectmap()
-                'Case "B"
-                '    modeabc = 1
-                '    selectmap()
-                'Case "c"
+            Case "b"
+                modeabc = 1
+                selectmap()
+            Case "B"
+                modeabc = 1
+                selectmap()
+            Case "c"
                 modeabc = 2
                 selectmap()
             Case "C"
