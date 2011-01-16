@@ -68,7 +68,7 @@ Public Class GixxerFuelmap
         '
         ' select tpsmap as first map to show, this will unify cylinder specific fuelmaps
         '
-        selectmap(1)
+        selectmap(4)
 
     End Sub
 
