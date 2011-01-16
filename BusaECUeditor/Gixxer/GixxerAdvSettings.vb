@@ -1,5 +1,8 @@
 ﻿Public Class GixxerAdvSettings
     Dim loading As Boolean
+    Dim rpmconv As Long = (3840000000 / &H100)
+    Dim addedrpm As Integer
+
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         GixxerSTPmap.Show()
@@ -106,6 +109,32 @@
             C_EXC.Text = "EXC OFF"
         End If
 
+        'populate NTCLT with initial value
+        i = ReadFlashWord(&H60B30) ' this is the reference RPM that is stored in the system
+        i = Int(((rpmconv / (i + 0))))
+        i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
+        Me.NTCLT.Items.Add(i.ToString())
+        i = 3000
+        Do While i < 13500 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
+            Me.NTCLT.Items.Add(i.ToString())
+            i = i + 100
+        Loop
+        Me.NTCLT.Items.Add(i.ToString())
+        Me.NTCLT.SelectedIndex = 0
+        Me.NTCLT.Enabled = True
+        i = ReadFlashByte(&H3B4C1)
+        If ReadFlashByte(&H3B4C1) = &H6 Then C_2step.Checked = True Else C_2step.Checked = False
+        If C_2step.Checked = True Then
+            C_2step.Text = "2 step limiter ON"
+            WriteFlashByte(&H3B4C0 + 1, &H6)
+            WriteFlashByte(&H3B4C0 + 2, &HB)
+            WriteFlashByte(&H3B4C0 + 3, &H57)
+        Else
+            C_2step.Text = "2 step limiter OFF"
+            WriteFlashByte(&H3B4C0 + 1, &H80)
+            WriteFlashByte(&H3B4C0 + 2, &H50)
+            WriteFlashByte(&H3B4C0 + 3, &HF9)
+        End If
 
         loading = False
     End Sub
@@ -197,5 +226,81 @@
                 WriteFlashByte(&H62243, &H80)
             End If
         End If
+    End Sub
+
+   
+    Private Sub ComboBox1_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NTCLT.SelectedIndexChanged
+        Dim i As Integer
+        Dim baseline As Integer
+        If Not loading Then
+
+
+            '
+            ' RPM/Fuel hard type 2, this is modified higher than stock as ecu default is not used in this case
+            '
+            baseline = 13050
+            ' Set various RPM limits based on RPM value selected
+            i = Val(NTCLT.Text)
+            addedrpm = i - baseline ' we are just setting here the baseline
+
+            WriteFlashWord(&H60B30, Int((rpmconv / (addedrpm + (rpmconv / &H47D))))) 'clutch limiter
+            WriteFlashWord(&H60B32, Int((rpmconv / (addedrpm + (rpmconv / &H479))))) 'clutch limiter
+
+            '
+            ' Make ignition limiter to skip GPS error and GPS neutral using &H80 value as raw gps information
+            '
+            WriteFlashByte(&H3B4C0 + 1, &H6)
+            WriteFlashByte(&H3B4C0 + 2, &HB)
+            WriteFlashByte(&H3B4C0 + 3, &H57)
+            C_2step.Checked = True
+        End If
+
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_2step.CheckedChanged
+        Dim baseline As Integer
+        Dim i As Integer
+
+        If Not loading Then
+
+            If C_2step.Checked = True Then
+                C_2step.Text = "2 step limiter ON"
+                WriteFlashByte(&H3B4C0 + 1, &H6)
+                WriteFlashByte(&H3B4C0 + 2, &HB)
+                WriteFlashByte(&H3B4C0 + 3, &H57)
+            Else
+                C_2step.Text = "2 step limiter OFF"
+                WriteFlashByte(&H3B4C0 + 1, &H80)
+                WriteFlashByte(&H3B4C0 + 2, &H50)
+                WriteFlashByte(&H3B4C0 + 3, &HF9)
+                baseline = 13450
+                ' Set limiters back to stock
+                loading = True
+                i = ReadFlashWord(&H61372)
+                i = Int(((rpmconv / (i + 0))) + 1)
+                i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
+                addedrpm = i - baseline ' we are just setting here the baseline
+                If (ReadFlashByte(&H3B4C1) = &H80) Then WriteFlashWord(&H60B30, Int((rpmconv / (addedrpm + (rpmconv / &H47D))))) 'clutch limiter
+                If (ReadFlashByte(&H3B4C1) = &H80) Then WriteFlashWord(&H60B32, Int((rpmconv / (addedrpm + (rpmconv / &H479))))) 'clutch limiter
+                NTCLT.Items.Clear()
+                'populate NTCLT with initial value
+                i = ReadFlashWord(&H60B30) ' this is the reference RPM that is stored in the system
+                i = Int(((rpmconv / (i + 0))))
+                i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
+                Me.NTCLT.Items.Add(i.ToString())
+                i = 3000
+                Do While i < 13500 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
+                    Me.NTCLT.Items.Add(i.ToString())
+                    i = i + 100
+                Loop
+                Me.NTCLT.Items.Add(i.ToString())
+                Me.NTCLT.SelectedIndex = 0
+                Me.NTCLT.Enabled = True
+                loading = False
+            End If
+
+
+         End If
+
     End Sub
 End Class

@@ -109,7 +109,7 @@ Public Class K8Limiters
         '
         ' This is GPS raw value that is set to default in case the dragtools module is not used
         '
-        If ReadFlashWord(&H5A000) <> &HFFFF Then
+        If ReadFlashWord(&H5A000) = &HFFFF Then
             WriteFlashByte(&H36E39 + 0, &H80)
             WriteFlashByte(&H36E39 + 1, &H50)
             WriteFlashByte(&H36E39 + 2, &HB0)

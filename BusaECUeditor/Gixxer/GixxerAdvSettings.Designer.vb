@@ -36,8 +36,12 @@ Partial Class GixxerAdvSettings
         Me.C_coil_fi_disable = New System.Windows.Forms.CheckBox()
         Me.C_msmode = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.NTCLT = New System.Windows.Forms.ComboBox()
+        Me.C_2step = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.G_misc.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'Button1
@@ -60,7 +64,7 @@ Partial Class GixxerAdvSettings
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(291, 248)
+        Me.Button2.Location = New System.Drawing.Point(291, 273)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(75, 23)
         Me.Button2.TabIndex = 2
@@ -182,11 +186,43 @@ Partial Class GixxerAdvSettings
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Set dualmap mode MS0/MS1 ( switching pin 66 )"
         '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.C_2step)
+        Me.GroupBox2.Controls.Add(Me.NTCLT)
+        Me.GroupBox2.Location = New System.Drawing.Point(16, 235)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(269, 61)
+        Me.GroupBox2.TabIndex = 103
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "2 Step RPM limiter"
+        '
+        'NTCLT
+        '
+        Me.NTCLT.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.NTCLT.Enabled = False
+        Me.NTCLT.FormattingEnabled = True
+        Me.NTCLT.Location = New System.Drawing.Point(175, 25)
+        Me.NTCLT.Name = "NTCLT"
+        Me.NTCLT.Size = New System.Drawing.Size(84, 21)
+        Me.NTCLT.TabIndex = 100
+        '
+        'C_2step
+        '
+        Me.C_2step.AutoSize = True
+        Me.C_2step.Location = New System.Drawing.Point(9, 27)
+        Me.C_2step.Name = "C_2step"
+        Me.C_2step.Size = New System.Drawing.Size(116, 17)
+        Me.C_2step.TabIndex = 101
+        Me.C_2step.Text = "2 step limiter on/off"
+        Me.C_2step.UseVisualStyleBackColor = True
+        '
         'GixxerAdvSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(382, 285)
+        Me.ClientSize = New System.Drawing.Size(384, 338)
+        Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.G_misc)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Button2)
@@ -196,6 +232,8 @@ Partial Class GixxerAdvSettings
         Me.GroupBox1.PerformLayout()
         Me.G_misc.ResumeLayout(False)
         Me.G_misc.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -213,4 +251,7 @@ Partial Class GixxerAdvSettings
     Friend WithEvents C_PAIR As System.Windows.Forms.CheckBox
     Friend WithEvents C_EXC As System.Windows.Forms.CheckBox
     Friend WithEvents C_HOX As System.Windows.Forms.CheckBox
+    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents NTCLT As System.Windows.Forms.ComboBox
+    Friend WithEvents C_2step As System.Windows.Forms.CheckBox
 End Class
