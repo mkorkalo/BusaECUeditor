@@ -32,6 +32,7 @@ Partial Class main
         Me.NewStockBkingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewStockBkingUSToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewStockGixxerK7ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NewStockGixxerK7EUToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewStockGixxerK8ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
         Me.GixxerK5K6EnginedataOnlyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -79,7 +80,6 @@ Partial Class main
         Me.WebBrowser1 = New System.Windows.Forms.WebBrowser()
         Me.L_ProgramHomepage = New System.Windows.Forms.LinkLabel()
         Me.B_DataLogging = New System.Windows.Forms.Button()
-        Me.NewStockGixxerK7EUToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -161,6 +161,12 @@ Partial Class main
         Me.NewStockGixxerK7ToolStripMenuItem.Name = "NewStockGixxerK7ToolStripMenuItem"
         Me.NewStockGixxerK7ToolStripMenuItem.Size = New System.Drawing.Size(317, 22)
         Me.NewStockGixxerK7ToolStripMenuItem.Text = "New/Stock Gixxer K7 (US)"
+        '
+        'NewStockGixxerK7EUToolStripMenuItem
+        '
+        Me.NewStockGixxerK7EUToolStripMenuItem.Name = "NewStockGixxerK7EUToolStripMenuItem"
+        Me.NewStockGixxerK7EUToolStripMenuItem.Size = New System.Drawing.Size(317, 22)
+        Me.NewStockGixxerK7EUToolStripMenuItem.Text = "New/Stock Gixxer K7 (EU with recall fixes)"
         '
         'NewStockGixxerK8ToolStripMenuItem
         '
@@ -529,12 +535,6 @@ Partial Class main
         Me.B_DataLogging.TabIndex = 38
         Me.B_DataLogging.Text = "Data Logging"
         Me.B_DataLogging.UseVisualStyleBackColor = True
-        '
-        'NewStockGixxerK7EUToolStripMenuItem
-        '
-        Me.NewStockGixxerK7EUToolStripMenuItem.Name = "NewStockGixxerK7EUToolStripMenuItem"
-        Me.NewStockGixxerK7EUToolStripMenuItem.Size = New System.Drawing.Size(317, 22)
-        Me.NewStockGixxerK7EUToolStripMenuItem.Text = "New/Stock Gixxer K7 (EU with recall fixes)"
         '
         'main
         '

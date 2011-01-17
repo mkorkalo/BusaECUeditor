@@ -916,6 +916,45 @@ skip_update:
                 My.Settings.Item("comparepath") = comparepath
                 FuelMap.Close()
                 IgnitionMap.Close()
+            Case "gixxer"
+                fdlg.InitialDirectory = comparepath 'My.Application.Info.DirectoryPath
+                fdlg.Title = "Open ECU .bin file"
+                fdlg.Filter = "ECU definitions (*.bin)|*.bin"
+                fdlg.FilterIndex = 1
+                fdlg.RestoreDirectory = True
+                fdlg.FileName = comparepath
+
+                If fdlg.ShowDialog() = Windows.Forms.DialogResult.OK Then
+
+                    ' OK, so the file is found, now lets start processing it
+                    comparepath = fdlg.FileName
+                    If comparepath.Length > 15 Then
+                        L_Comparefile.Text = "..." & comparepath.Substring(comparepath.Length - 15)
+                    Else
+                        L_Comparefile.Text = comparepath
+                    End If
+
+
+                    ' Open the stream and read it to global variable "Flash". 
+                    fs = File.OpenRead(comparepath)
+                    Dim b(1) As Byte
+                    Dim i As Integer
+                    i = 0
+                    Do While fs.Read(b, 0, 1) > 0
+                        FlashCopy(i) = b(0)
+                        i = i + 1
+                    Loop
+                    fs.Close()
+
+                    ' Check that the binary lenght matches expected ecu
+                    If i <> (262144 * 4) Then
+                        ECUNotSupported.ShowDialog()
+                    End If
+                End If
+                '
+                ' Lets write this value into the memory so that its easier for the user to know
+                '
+                My.Settings.Item("comparepath") = comparepath
         End Select
     End Sub
 
