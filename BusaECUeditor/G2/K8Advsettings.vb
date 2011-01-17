@@ -322,7 +322,27 @@ Public Class K8Advsettings
             WriteFlashByte(&H7413E, &HE8)
         End If
 
+        If ReadFlashByte(&H553F4) = &HFF Then C_TOS.Checked = True Else C_TOS.Checked = False
+        If C_TOS.Checked = True Then
+            C_TOS.Text = "TOS active"
+            WriteFlashWord(&H553F4, &HFFFF)
+            WriteFlashByte(&H4068 + 1, &H80)
+            WriteFlashByte(&H4068 + 1, &H0)
+            WriteFlashByte(&H4068 + 1, &H9A)
+            WriteFlashByte(&H4760 + 1, &H80)
+            WriteFlashByte(&H4760 + 1, &H0)
+            WriteFlashByte(&H4760 + 1, &H9A)
 
+        Else
+            C_TOS.Text = "TOS disabled"
+            WriteFlashWord(&H553F4, (&H80 << 2)) ' internally 0x80 is midpoint, but AD sensor is <<2
+            WriteFlashByte(&H4068 + 1, &H5)
+            WriteFlashByte(&H4068 + 1, &H53)
+            WriteFlashByte(&H4068 + 1, &HF4)
+            WriteFlashByte(&H4760 + 1, &H5)
+            WriteFlashByte(&H4760 + 1, &H53)
+            WriteFlashByte(&H4760 + 1, &HF4)
+        End If
 
         loading = False
 
@@ -1174,6 +1194,36 @@ Public Class K8Advsettings
             End If
         End If
 
+
+    End Sub
+
+    Private Sub C_TOS_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_TOS.CheckedChanged
+        If Not loading Then
+            '
+            ' This function sets the AD conversion byte to read default by 0x80
+            '
+            If C_TOS.Checked = True Then
+                C_TOS.Text = "TOS active"
+                WriteFlashWord(&H553F4, &HFFFF)
+                WriteFlashByte(&H4068 + 1, &H80)
+                WriteFlashByte(&H4068 + 1, &H0)
+                WriteFlashByte(&H4068 + 1, &H9A)
+                WriteFlashByte(&H4760 + 1, &H80)
+                WriteFlashByte(&H4760 + 1, &H0)
+                WriteFlashByte(&H4760 + 1, &H9A)
+
+            Else
+                C_TOS.Text = "TOS disabled"
+                Dim i As Integer = &H80 << 2
+                WriteFlashWord(&H553F4, (&H80 << 2)) ' internally 0x80 is midpoint, but AD sensor is <<2
+                WriteFlashByte(&H4068 + 1, &H5)
+                WriteFlashByte(&H4068 + 1, &H53)
+                WriteFlashByte(&H4068 + 1, &HF4)
+                WriteFlashByte(&H4760 + 1, &H5)
+                WriteFlashByte(&H4760 + 1, &H53)
+                WriteFlashByte(&H4760 + 1, &HF4)
+            End If
+        End If
 
     End Sub
 End Class
