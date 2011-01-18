@@ -778,7 +778,34 @@ skip_update:
 
                 End If
             Case Else
-                MsgBox("Somehow trying to save a .bin which is not gen1 or gen2. Report this as an error!")
+                ' First, lets show a warning dialogue about dangers of updating the ecu
+                'If filesavenotice.ShowDialog = Windows.Forms.DialogResult.OK Then
+
+                ' and now lets start saving the file using savefiledialog
+                If fdlg.ShowDialog() = Windows.Forms.DialogResult.OK Then
+
+                    path = fdlg.FileName
+                    If Not path.Contains(".bin") Then path = path & ".bin"
+                    ' if the file exists then lets make a backup copy of it just in case...
+                    If File.Exists(path) = True Then
+                        If File.Exists(path & ".bak") Then
+                            File.Delete(path & ".bak")
+                        End If
+                        File.Copy(path, (path & ".bak"))
+                        File.Delete(path)
+                    End If
+                    ' save the file
+                    fs = File.Open(path, FileMode.CreateNew)
+                    fs.Write(Flash, 0, (262144 * 4))
+                    fs.Close()
+                    If path.Length > 15 Then
+                        L_File.Text = "..." & path.Substring(path.Length - 15)
+                    Else
+                        L_File.Text = path
+                    End If
+
+                End If
+                MsgBox("Somehow trying to save a .bin which is not gen1, gen2 or Gixxer. please save your bin and send it to info@ecueditor.com")
         End Select
 
     End Sub
