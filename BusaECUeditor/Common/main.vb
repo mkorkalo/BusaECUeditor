@@ -532,7 +532,7 @@ skip_update:
                     Loop
 
                     ' check the ecu id bytes and validate that the ecu flash image is supported
-                    If (Mid(ECUID.Text, 1, 6) <> "DJ18SE") And (Mid(ECUID.Text, 1, 6) <> "DJ47SE") And (Mid(ECUID.Text, 1, 4) <> "DJ0H") And (Mid(ECUID.Text, 1, 4) <> "DT0H") And (Mid(ECUID.Text, 1, 4) <> "DJ21") Then
+                    If (Mid(ECUID.Text, 1, 6) <> "DJ18SE") And (Mid(ECUID.Text, 1, 6) <> "DJ47SE") And (Mid(ECUID.Text, 1, 4) <> "DJ0H") And (Mid(ECUID.Text, 1, 4) <> "DT0H") And (Mid(ECUID.Text, 1, 4) <> "DJ21") And (Mid(ECUID.Text, 1, 4) <> "DJ0D") Then
                         ECUNotSupported.ShowDialog()
                     Else
                         SetECUType()
@@ -3253,10 +3253,16 @@ skip_update:
                 Hayabusa.Text = "Gixxer K7- 32920-21H50"
                 Metric = False
                 ECUVersion = "gixxer"
+                'Case "DJ0DSE04"
+                '   Hayabusa.Text = "Gixxer K7- 32920-21H00"
+                '  Metric = True
+                ' ECUVersion = "gixxer"
             Case "41G10___"
                 Hayabusa.Text = "Gixxer K5-K6 enginedata only"
                 Metric = False
                 ECUVersion = "GixxerK5"
+            Case Else
+                ECUNotSupported.Show()
         End Select
 
     End Sub
