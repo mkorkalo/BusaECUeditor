@@ -642,6 +642,17 @@ skip_update:
                     B_FuelMap.Enabled = True
                     B_IgnitionMap.Enabled = True
                     B_AdvancedSettings.Enabled = True
+                Case "flashonly"
+                    B_EngineData.Enabled = False
+                    FlashToolStripMenuItem.Visible = Enabled
+                    B_DataLogging.Enabled = False
+                    SaveToolStripMenuItem.Enabled = True
+                    B_FlashECU.Enabled = True
+                    B_Limiters.Enabled = False
+                    B_Shifter.Enabled = False
+                    B_FuelMap.Enabled = False
+                    B_IgnitionMap.Enabled = False
+                    B_AdvancedSettings.Enabled = False
 
                 Case Else
                     MsgBox("feature not yet implemented")
@@ -1144,6 +1155,8 @@ skip_update:
                 FlashTheECU()
             Case "gixxer"
                 FlashTheECU()
+            Case "flashonly"
+                FlashTheECU()
             Case Else
                 MsgBox("Unknown ecu type, command not supported.")
         End Select
@@ -1328,6 +1341,8 @@ skip_update:
             Case "bking"
                 FlashSerial()
             Case "gixxer"
+                FlashSerial()
+            Case "flashonly"
                 FlashSerial()
             Case Else
                 MsgBox("ECU programmer not defined for this .bin file")
@@ -3253,10 +3268,10 @@ skip_update:
                 Hayabusa.Text = "Gixxer K7- 32920-21H50"
                 Metric = False
                 ECUVersion = "gixxer"
-                'Case "DJ0DSE04"
-                '   Hayabusa.Text = "Gixxer K7- 32920-21H00"
-                '  Metric = True
-                ' ECUVersion = "gixxer"
+            Case "DJ0DSE04"
+                Hayabusa.Text = "Gixxer K7- 32920-21H00"
+                Metric = True
+                ECUVersion = "flashonly"
             Case "41G10___"
                 Hayabusa.Text = "Gixxer K5-K6 enginedata only"
                 Metric = False
