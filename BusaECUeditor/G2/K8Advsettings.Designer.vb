@@ -68,13 +68,13 @@ Partial Class K8Advsettings
         Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.C_TOS = New System.Windows.Forms.CheckBox()
         Me.C_FAN = New System.Windows.Forms.CheckBox()
         Me.C_FastBaudRate = New System.Windows.Forms.CheckBox()
         Me.C_DatalogO2Sensor = New System.Windows.Forms.CheckBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.C_ABCmode = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.C_TOS = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -589,6 +589,16 @@ Partial Class K8Advsettings
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Misc settings"
         '
+        'C_TOS
+        '
+        Me.C_TOS.AutoSize = True
+        Me.C_TOS.Location = New System.Drawing.Point(9, 107)
+        Me.C_TOS.Name = "C_TOS"
+        Me.C_TOS.Size = New System.Drawing.Size(128, 17)
+        Me.C_TOS.TabIndex = 51
+        Me.C_TOS.Text = "TOS acitive/deactive"
+        Me.C_TOS.UseVisualStyleBackColor = True
+        '
         'C_FAN
         '
         Me.C_FAN.AutoSize = True
@@ -647,16 +657,6 @@ Partial Class K8Advsettings
         Me.GroupBox2.TabIndex = 9
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Gaugemode"
-        '
-        'C_TOS
-        '
-        Me.C_TOS.AutoSize = True
-        Me.C_TOS.Location = New System.Drawing.Point(9, 107)
-        Me.C_TOS.Name = "C_TOS"
-        Me.C_TOS.Size = New System.Drawing.Size(128, 17)
-        Me.C_TOS.TabIndex = 51
-        Me.C_TOS.Text = "TOS acitive/deactive"
-        Me.C_TOS.UseVisualStyleBackColor = True
         '
         'K8Advsettings
         '

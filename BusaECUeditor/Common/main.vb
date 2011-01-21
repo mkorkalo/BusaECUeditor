@@ -324,18 +324,6 @@ skip_update:
             SetECUType()
         End If
 
-        ' enable controls, otherwise at form load an event will occur
-        Limiters.C_RPM.Enabled = True
-        SaveToolStripMenuItem.Enabled = True
-        B_FlashECU.Enabled = True
-        B_Limiters.Enabled = True
-        B_EngineData.Enabled = True
-        B_Shifter.Enabled = True
-        B_FuelMap.Enabled = True
-        B_IgnitionMap.Enabled = True
-        B_AdvancedSettings.Enabled = True
-        B_DataLogging.Enabled = True
-
         MsgBox("A new gen2 basemap is generated", MsgBoxStyle.Information)
 
         BlockPgm = True
@@ -389,18 +377,6 @@ skip_update:
             SetECUType()
         End If
 
-        ' enable controls, otherwise at form load an event will occur
-        Limiters.C_RPM.Enabled = True
-        SaveToolStripMenuItem.Enabled = True
-        B_FlashECU.Enabled = True
-        B_Limiters.Enabled = True
-        B_EngineData.Enabled = True
-        B_Shifter.Enabled = True
-        B_FuelMap.Enabled = True
-        B_IgnitionMap.Enabled = True
-        B_AdvancedSettings.Enabled = True
-        B_DataLogging.Enabled = True
-
         MsgBox("A new Bking basemap is generated", MsgBoxStyle.Information)
 
         BlockPgm = True
@@ -453,18 +429,6 @@ skip_update:
         Else
             SetECUType()
         End If
-
-        ' enable controls, otherwise at form load an event will occur
-        Limiters.C_RPM.Enabled = True
-        SaveToolStripMenuItem.Enabled = True
-        B_FlashECU.Enabled = True
-        B_Limiters.Enabled = True
-        B_EngineData.Enabled = True
-        B_Shifter.Enabled = True
-        B_FuelMap.Enabled = True
-        B_IgnitionMap.Enabled = True
-        B_AdvancedSettings.Enabled = True
-        B_DataLogging.Enabled = True
 
         MsgBox("A new Bking basemap is generated", MsgBoxStyle.Information)
 
@@ -558,21 +522,6 @@ skip_update:
                         Hayabusa.Visible = True
                         G1BinFileVersion(ECUID.Text)
 
-                        'Select Case Mid(ECUID.Text, 1, 8)
-                        '    Case "BB34BB51"
-                        'Hayabusa.Text = "Hayabusa EU "
-                        'Metric = True
-                        'ECUVersion = "gen1"
-                        '    Case "BB34BB35"
-                        'Hayabusa.Text = "Hayabusa USA"
-                        'Metric = False
-                        'ECUVersion = "gen1"
-                        '    Case Else
-                        'Hayabusa.Text = "Unknown model"
-                        'Metric = True
-                        'ECUVersion = ""
-                        'End Select
-
                     End If
 
                 Case Else
@@ -585,79 +534,6 @@ skip_update:
             ' enable controls, otherwise at form load an event will occur
             Limiters.C_RPM.Enabled = True
 
-            Select Case ECUVersion
-                Case "gen1"
-                    B_EngineData.Enabled = True
-                    FuelMap.Close()
-                    IgnitionMap.Close()
-                    FlashToolStripMenuItem.Visible = False
-                    B_DataLogging.Enabled = False
-                    SaveToolStripMenuItem.Enabled = True
-                    B_FlashECU.Enabled = True
-                    B_Limiters.Enabled = True
-                    B_Shifter.Enabled = True
-                    B_FuelMap.Enabled = True
-                    B_IgnitionMap.Enabled = True
-                    B_AdvancedSettings.Enabled = True
-
-
-                Case "gen2"
-                    B_EngineData.Enabled = True
-                    GixxerIgnitionmap.Close()
-                    K8Fuelmap.Close()
-                    FlashToolStripMenuItem.Visible = Enabled
-                    B_DataLogging.Enabled = True
-                    SaveToolStripMenuItem.Enabled = True
-                    B_FlashECU.Enabled = True
-                    B_Limiters.Enabled = True
-                    B_Shifter.Enabled = True
-                    B_FuelMap.Enabled = True
-                    B_IgnitionMap.Enabled = True
-                    B_AdvancedSettings.Enabled = True
-
-
-                Case "bking"
-                    B_EngineData.Enabled = True
-                    BKingIgnitionMap.Close()
-                    BKingFuelMap.Close()
-                    FlashToolStripMenuItem.Visible = Enabled
-                    B_DataLogging.Enabled = True
-                    SaveToolStripMenuItem.Enabled = True
-                    B_FlashECU.Enabled = True
-                    B_Limiters.Enabled = True
-                    B_Shifter.Enabled = True
-                    B_FuelMap.Enabled = True
-                    B_IgnitionMap.Enabled = True
-                    B_AdvancedSettings.Enabled = True
-
-
-                Case "gixxer"
-                    B_EngineData.Enabled = True
-                    FlashToolStripMenuItem.Visible = Enabled
-                    B_DataLogging.Enabled = False
-                    SaveToolStripMenuItem.Enabled = True
-                    B_FlashECU.Enabled = True
-                    B_Limiters.Enabled = True
-                    B_Shifter.Enabled = True
-                    B_FuelMap.Enabled = True
-                    B_IgnitionMap.Enabled = True
-                    B_AdvancedSettings.Enabled = True
-                Case "flashonly"
-                    B_EngineData.Enabled = False
-                    FlashToolStripMenuItem.Visible = Enabled
-                    B_DataLogging.Enabled = False
-                    SaveToolStripMenuItem.Enabled = True
-                    B_FlashECU.Enabled = True
-                    B_Limiters.Enabled = False
-                    B_Shifter.Enabled = False
-                    B_FuelMap.Enabled = False
-                    B_IgnitionMap.Enabled = False
-                    B_AdvancedSettings.Enabled = False
-
-                Case Else
-                    MsgBox("feature not yet implemented")
-
-            End Select
         End If
 
     End Sub
@@ -1047,30 +923,7 @@ skip_update:
 
     End Sub
 
-    'Private Sub VersionToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VersionToolStripMenuItem.Click
-    '    ' Option Explicit
-    '    Dim objShell
-    '    Dim strEditor, strVersion, strPublish, strTitle
-
-    '    strVersion = "DisplayVersion"
-    '    strPublish = "Publisher"
-    '    strTitle = "DisplayName"
-
-    '    strEditor = "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\dde589b887ecb332\"
-
-    '    objShell = CreateObject("WScript.Shell")
-
-    '    strVersion = objShell.RegRead(strEditor & strVersion)
-    '    strPublish = objShell.RegRead(strEditor & strPublish)
-    '    strTitle = objShell.RegRead(strEditor & strTitle)
-
-
-    '    'Wscript.Echo "ECUeditor Version: " & vbTab & strVersion & vbCr _
-    '    MsgBox(vbTab & vbTab & "ECUeditor Version: " & vbTab & strVersion & vbCr _
-    '    & vbCr & vbTab & vbTab & "         Publisher: " & strPublish & vbCr & vbTab & vbTab & " Version info displayed thanks to Eric. " & vbCr, 0, strTitle)
-
-    'End Sub
-
+    
     Private Sub ProgramUpdateToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
         ProgramUpdate.Show()
@@ -1236,21 +1089,7 @@ skip_update:
             FlashToolStripMenuItem.Visible = False
             G1BinFileVersion(ECUID.Text)
 
-            'Select Case Mid(ECUID.Text, 1, 8)
-            '   Case "BB34BB51"
-            'Hayabusa.Text = "Hayabusa EU 32920-24FGO"
-            'Metric = True
-            'ECUVersion = "gen1"
-            '    Case "BB34BB35"
-            'Hayabusa.Text = "Hayabusa USA 32920-24FKO"
-            'Metric = False
-            'ECUVersion = "gen1"
-            '    Case Else
-            'Hayabusa.Text = "Unknown model"
-            'Metric = True
-            'ECUVersion = ""
-            'End Select
-
+    
         End If
 
         ' enable controls, otherwise at form load an event will occur
@@ -1908,21 +1747,6 @@ skip_update:
                         End If
                     End If
                 End If
-                '
-                ' Commented out 7.1.2011, new ecutypes added - this check is no more validl
-                '
-                'If (k >= &HF6) And (k <= &HF7) Then
-                ' If (rxbyte <> &H30) And (rxbyte <> &H31) And (rxbyte <> &H32) And (rxbyte <> &H35) And (rxbyte <> &HFF) Then
-                '        If MsgBox("Not a Hayabusa 15H00, 15H10, 15H20 or 15Hxx Generic ecu. Programming stopped to avoid damage to ecu or bike. Press cancel to stop, ok to continue", MsgBoxStyle.OkCancel) = MsgBoxResult.Cancel Then
-                ' K8FlashStatus.Close()
-                ' B_FlashECU.Enabled = True
-                ' '***************************************************************************************************************************
-                ' FT_status = FT_ClrDtr(lngHandle) 'new for Interface V1.1
-                ' '****************************************************************************************************************************
-                ' FT_status = FT_Close(lngHandle)
-                ' End If
-                ' End If
-                ' End If
                 k = k + 1
             Next
         Next
@@ -2843,8 +2667,6 @@ skip_update:
             BlockPgm = True
         End If
 
-
-
         '
         ' Make sure the ECU id is supported type
         '
@@ -2868,17 +2690,6 @@ skip_update:
             B_FlashECU.Enabled = False
             SaveToolStripMenuItem.Enabled = True
             MsgBox("ECU read into memory, but not recognized. please save as" & ECUID.Text & ".bin and send to info@ecueditor.com with notes about the bike and model.")
-        Else
-            Limiters.C_RPM.Enabled = True
-            SaveToolStripMenuItem.Enabled = True
-            B_FlashECU.Enabled = True
-            B_Limiters.Enabled = True
-            B_Shifter.Enabled = True
-            B_FuelMap.Enabled = True
-            B_IgnitionMap.Enabled = True
-            B_AdvancedSettings.Enabled = True
-            B_DataLogging.Enabled = True
-            SaveToolStripMenuItem.Enabled = True
         End If
 
     End Sub
@@ -3206,11 +3017,6 @@ skip_update:
 
 
         FT_status = FT_GetModemStatus(lngHandle, modemstat)
-        'While ((modemstat = &H6000) Or (modemstat = &H6200))
-        'FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
-        'System.Threading.Thread.Sleep(200)
-        'FT_status = FT_GetModemStatus(lngHandle, modemstat)
-        'End While
         K8FlashStatus.Close()
         B_FlashECU.Enabled = True
 
@@ -3228,7 +3034,11 @@ skip_update:
     End Sub
 
     Public Sub SetECUType()
-       
+        '
+        ' here we set ecutype based on ecuid and then enable respective windows
+        ' fast search key 111111
+        '
+
         Hayabusa.Visible = True
         FlashToolStripMenuItem.Visible = True
         Select Case Mid(ECUID.Text, 1, 8)
@@ -3253,21 +3063,24 @@ skip_update:
                 Metric = False
                 ECUVersion = "bking"
             Case "DJ0HSE50"
-                Hayabusa.Text = "Gixxer K7- 32920-21H60"
-                Metric = False
-                ECUVersion = "gixxer"
-            Case "DJ0HSE51"
-                Hayabusa.Text = "Gixxer K8- 32920-21H50"
-                Metric = False
-                ECUVersion = "gixxer"
-                'Case "DJ21SER0"
-                '    Hayabusa.Text = "Gixxer empro K7- 32920-21HR0"
-                '    Metric = False
-                '    ECUVersion = "gixxer"
-            Case "DT0HSE50"
-                Hayabusa.Text = "Gixxer K7- 32920-21H50"
-                Metric = False
-                ECUVersion = "gixxer"
+                Select Case ReadFlashByte(&H6292B)
+                    Case &H35
+                        ECUVersion = "gixxer"
+                        Hayabusa.Text = "Gixxer K7- 32920-21H50"
+                        Metric = True
+                    Case &H36
+                        ECUVersion = "gixxer"
+                        Hayabusa.Text = "Gixxer K7- 32920-21H60"
+                        Metric = False
+                    Case &H39
+                        ECUVersion = "gixxer"
+                        Hayabusa.Text = "Gixxer K7- 32920-21Hxx Generic"
+                        Metric = True
+                    Case Else
+                        Hayabusa.Text = "unknown gixxer ecu"
+                        ECUVersion = "flashonly"
+                End Select
+ 
             Case "DJ0DSE04"
                 Hayabusa.Text = "Gixxer K7- 32920-21H00"
                 Metric = True
@@ -3278,6 +3091,78 @@ skip_update:
                 ECUVersion = "GixxerK5"
             Case Else
                 ECUNotSupported.Show()
+        End Select
+
+        '
+        ' Now lets enable functions available for different versions
+        '
+        Select Case ECUVersion
+            Case "gen1"
+                B_EngineData.Enabled = True
+                FuelMap.Close()
+                IgnitionMap.Close()
+                FlashToolStripMenuItem.Visible = False
+                B_DataLogging.Enabled = False
+                SaveToolStripMenuItem.Enabled = True
+                B_FlashECU.Enabled = True
+                B_Limiters.Enabled = True
+                B_Shifter.Enabled = True
+                B_FuelMap.Enabled = True
+                B_IgnitionMap.Enabled = True
+                B_AdvancedSettings.Enabled = True
+
+
+            Case "gen2"
+                B_EngineData.Enabled = True
+                FlashToolStripMenuItem.Visible = Enabled
+                B_DataLogging.Enabled = True
+                SaveToolStripMenuItem.Enabled = True
+                B_FlashECU.Enabled = True
+                B_Limiters.Enabled = True
+                B_Shifter.Enabled = True
+                B_FuelMap.Enabled = True
+                B_IgnitionMap.Enabled = True
+                B_AdvancedSettings.Enabled = True
+
+
+            Case "bking"
+                B_EngineData.Enabled = True
+                FlashToolStripMenuItem.Visible = Enabled
+                B_DataLogging.Enabled = True
+                SaveToolStripMenuItem.Enabled = True
+                B_FlashECU.Enabled = True
+                B_Limiters.Enabled = True
+                B_Shifter.Enabled = True
+                B_FuelMap.Enabled = True
+                B_IgnitionMap.Enabled = True
+                B_AdvancedSettings.Enabled = True
+
+            Case "gixxer"
+                B_EngineData.Enabled = True
+                FlashToolStripMenuItem.Visible = Enabled
+                B_DataLogging.Enabled = False
+                SaveToolStripMenuItem.Enabled = True
+                B_FlashECU.Enabled = True
+                B_Limiters.Enabled = True
+                B_Shifter.Enabled = True
+                B_FuelMap.Enabled = True
+                B_IgnitionMap.Enabled = True
+                B_AdvancedSettings.Enabled = True
+
+            Case "flashonly"
+                B_EngineData.Enabled = False
+                FlashToolStripMenuItem.Visible = Enabled
+                B_DataLogging.Enabled = False
+                SaveToolStripMenuItem.Enabled = True
+                B_FlashECU.Enabled = True
+                B_Limiters.Enabled = False
+                B_Shifter.Enabled = False
+                B_FuelMap.Enabled = False
+                B_IgnitionMap.Enabled = False
+                B_AdvancedSettings.Enabled = False
+
+            Case Else
+                MsgBox("feature not yet implemented")
         End Select
 
     End Sub
@@ -4597,40 +4482,6 @@ skip_update:
 
             My.Settings.Item("path") = path
             My.Settings.Item("comparepath") = comparepath
-            ' enable controls, otherwise at form load an event will occur
-            Limiters.C_RPM.Enabled = True
-            SaveToolStripMenuItem.Enabled = True
-            B_FlashECU.Enabled = True
-            B_Limiters.Enabled = True
-            B_Shifter.Enabled = True
-            B_FuelMap.Enabled = True
-            B_IgnitionMap.Enabled = True
-            B_AdvancedSettings.Enabled = True
-
-            Select Case ECUVersion
-                Case "gen1"
-                    B_EngineData.Enabled = True
-                    FuelMap.Close()
-                    IgnitionMap.Close()
-                    FlashToolStripMenuItem.Visible = False
-
-                Case "gen2"
-                    B_EngineData.Enabled = True
-                    K8Ignitionmap.Close()
-                    K8Fuelmap.Close()
-                    FlashToolStripMenuItem.Visible = Enabled
-                Case "gixxer"
-                    B_EngineData.Enabled = True
-                    GixxerIgnitionmap.Close()
-                    GixxerFuelmap.Close()
-                    FlashToolStripMenuItem.Visible = Enabled
-                Case "bking"
-                    B_EngineData.Enabled = True
-                    FlashToolStripMenuItem.Visible = Enabled
-
-                Case Else
-                    MsgBox("feature not yet implemented")
-            End Select
 
             MsgBox("Now remember to save the file with a different name to your default ecueditor.com files directory")
 
@@ -4706,21 +4557,6 @@ skip_update:
             SetECUType()
         End If
 
-        ' enable controls, otherwise at form load an event will occur
-        Limiters.C_RPM.Enabled = True
-        SaveToolStripMenuItem.Enabled = True
-        B_FlashECU.Enabled = True
-        B_Limiters.Enabled = True
-        B_EngineData.Enabled = True
-        B_Shifter.Enabled = True
-        B_FuelMap.Enabled = True
-        B_IgnitionMap.Enabled = True
-        B_AdvancedSettings.Enabled = True
-        B_DataLogging.Enabled = False
-
-        K8Fuelmap.Close()
-        K8Ignitionmap.Close()
-
         MsgBox("A new Gixxer K7- basemap is generated", MsgBoxStyle.Information)
 
         BlockPgm = True
@@ -4788,25 +4624,9 @@ skip_update:
             SetECUType()
         End If
 
-        ' enable controls, otherwise at form load an event will occur
-        Limiters.C_RPM.Enabled = True
-        SaveToolStripMenuItem.Enabled = True
-        B_FlashECU.Enabled = True
-        B_Limiters.Enabled = True
-        B_EngineData.Enabled = True
-        B_Shifter.Enabled = True
-        B_FuelMap.Enabled = True
-        B_IgnitionMap.Enabled = True
-        B_AdvancedSettings.Enabled = True
-        B_DataLogging.Enabled = False
-
-        K8Fuelmap.Close()
-        K8Ignitionmap.Close()
-
         MsgBox("A new Gixxer K8- basemap is generated", MsgBoxStyle.Information)
 
         BlockPgm = True
-
 
     End Sub
 
@@ -4866,25 +4686,9 @@ skip_update:
             SetECUType()
         End If
 
-        ' enable controls, otherwise at form load an event will occur
-        Limiters.C_RPM.Enabled = True
-        SaveToolStripMenuItem.Enabled = True
-        B_FlashECU.Enabled = True
-        B_Limiters.Enabled = True
-        B_EngineData.Enabled = True
-        B_Shifter.Enabled = True
-        B_FuelMap.Enabled = True
-        B_IgnitionMap.Enabled = True
-        B_AdvancedSettings.Enabled = True
-        B_DataLogging.Enabled = False
-
-        K8Fuelmap.Close()
-        K8Ignitionmap.Close()
-
         MsgBox("A new Gixxer K8- basemap is generated", MsgBoxStyle.Information)
 
         BlockPgm = True
-
 
     End Sub
 End Class
