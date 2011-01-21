@@ -136,6 +136,23 @@
             WriteFlashByte(&H3B4C0 + 3, &HF9)
         End If
 
+        C_ECU.Items.Add("EU") '0
+        C_ECU.Items.Add("US") '1
+        C_ECU.Items.Add("Gen") '2
+        Select Case ReadFlashByte(&H6292B)
+            Case &H35
+                C_ECU.SelectedIndex = 0
+            Case &H36
+                C_ECU.SelectedIndex = 1
+            Case &H39
+                C_ECU.SelectedIndex = 2
+            Case Else
+                MsgBox("ECU Type not detected, using generic")
+                C_ECU.SelectedIndex = 2
+        End Select
+
+
+
         loading = False
     End Sub
 
@@ -301,6 +318,45 @@
 
 
          End If
+
+    End Sub
+
+    Private Sub C_ECU_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_ECU.SelectedIndexChanged
+        Dim i As Integer
+
+        If Not loading Then
+
+            Select Case C_ECU.Text
+                Case "US"
+                    WriteFlashByte(&H604CF, &H80)
+                    WriteFlashByte(&H6000A, &H80)
+                    WriteFlashByte(&H6000B, &HC)
+                    WriteFlashByte(&H6000C, &H1A)
+                    WriteFlashByte(&H6000D, &HFF)
+                    WriteFlashByte(&H6000F, &H0)
+                    WriteFlashByte(&H60669, &HFF)
+                    WriteFlashByte(&H604BC, 1)
+                    WriteFlashByte(&H62ACA, &H1C)
+                    WriteFlashByte(&H6292B, &H36)
+                Case "EU"
+                    WriteFlashByte(&H604CF, &HFF)
+                    WriteFlashByte(&H6000A, &H0)
+                    WriteFlashByte(&H6000B, &H32)
+                    WriteFlashByte(&H6000C, &H8)
+                    WriteFlashByte(&H6000D, &H0)
+                    WriteFlashByte(&H6000F, &H80)
+                    WriteFlashByte(&H60669, &H1)
+                    WriteFlashByte(&H604BC, 3)
+                    WriteFlashByte(&H62ACA, &H7)
+                    WriteFlashByte(&H6292B, &H35)
+                Case "Gen" 'generic model for those we do not know
+                    WriteFlashByte(&H604CF, &H0)
+                    WriteFlashByte(&H6292B, &H39)
+            End Select
+
+            main.SetECUType()
+        End If
+
 
     End Sub
 End Class
