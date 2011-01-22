@@ -27,6 +27,7 @@ Public Class Gixxerinjectorbalancemap
     ' has the full ecu image loaded as byte values. the fuelmap is edited on a grid and changed values are
     ' written to the global variable flash(addr).
     '
+
     Dim change As Integer
     Dim previousrow As Integer
     Dim toprow(50) As Integer
@@ -80,8 +81,9 @@ Public Class Gixxerinjectorbalancemap
         modeabc = 0
         gear = 0
 
-        map_structure_table = &H5A7D8
-        Me.Text = "ecueditor.com - Gixxer injector balance map editing"
+        map_structure_table = gixxer_injectorbalance_map_first
+
+        Me.Text = gixxer_injectorbalance_map_name & "- injector balance map editing"
         fuelmap = False
         selectmap()
 

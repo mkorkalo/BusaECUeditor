@@ -80,6 +80,7 @@ Partial Class main
         Me.WebBrowser1 = New System.Windows.Forms.WebBrowser()
         Me.L_ProgramHomepage = New System.Windows.Forms.LinkLabel()
         Me.B_DataLogging = New System.Windows.Forms.Button()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -121,7 +122,7 @@ Partial Class main
         '
         'FileToolStripMenuItem
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.G1NewBaseMapUSToolStripMenuItem, Me.G1NewBaseMapEUToolStripMenuItem, Me.NewK8ToolStripMenuItem, Me.NewStockBkingToolStripMenuItem, Me.NewStockBkingUSToolStripMenuItem, Me.NewStockGixxerK7ToolStripMenuItem, Me.NewStockGixxerK7EUToolStripMenuItem, Me.NewStockGixxerK8ToolStripMenuItem, Me.ToolStripSeparator6, Me.GixxerK5K6EnginedataOnlyToolStripMenuItem, Me.ToolStripSeparator2, Me.OpenToolStripMenuItem, Me.SaveToolStripMenuItem, Me.OpenComparemapToolStripMenuItem, Me.ExitToolStripMenuItem, Me.ToolStripSeparator1, Me.RecoveryToolStripMenuItem})
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.G1NewBaseMapUSToolStripMenuItem, Me.G1NewBaseMapEUToolStripMenuItem, Me.NewK8ToolStripMenuItem, Me.NewStockBkingToolStripMenuItem, Me.NewStockBkingUSToolStripMenuItem, Me.ToolStripMenuItem1, Me.NewStockGixxerK7ToolStripMenuItem, Me.NewStockGixxerK7EUToolStripMenuItem, Me.NewStockGixxerK8ToolStripMenuItem, Me.ToolStripSeparator6, Me.GixxerK5K6EnginedataOnlyToolStripMenuItem, Me.ToolStripSeparator2, Me.OpenToolStripMenuItem, Me.SaveToolStripMenuItem, Me.OpenComparemapToolStripMenuItem, Me.ExitToolStripMenuItem, Me.ToolStripSeparator1, Me.RecoveryToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
         Me.FileToolStripMenuItem.Text = "File"
@@ -160,19 +161,19 @@ Partial Class main
         '
         Me.NewStockGixxerK7ToolStripMenuItem.Name = "NewStockGixxerK7ToolStripMenuItem"
         Me.NewStockGixxerK7ToolStripMenuItem.Size = New System.Drawing.Size(317, 22)
-        Me.NewStockGixxerK7ToolStripMenuItem.Text = "New/Stock Gixxer K7 (US)"
+        Me.NewStockGixxerK7ToolStripMenuItem.Text = "New/Stock Gixxer K7 (21H60)"
         '
         'NewStockGixxerK7EUToolStripMenuItem
         '
         Me.NewStockGixxerK7EUToolStripMenuItem.Name = "NewStockGixxerK7EUToolStripMenuItem"
         Me.NewStockGixxerK7EUToolStripMenuItem.Size = New System.Drawing.Size(317, 22)
-        Me.NewStockGixxerK7EUToolStripMenuItem.Text = "New/Stock Gixxer K7 (EU with recall fixes)"
+        Me.NewStockGixxerK7EUToolStripMenuItem.Text = "New/Stock Gixxer K7 (21H50)"
         '
         'NewStockGixxerK8ToolStripMenuItem
         '
         Me.NewStockGixxerK8ToolStripMenuItem.Name = "NewStockGixxerK8ToolStripMenuItem"
         Me.NewStockGixxerK8ToolStripMenuItem.Size = New System.Drawing.Size(317, 22)
-        Me.NewStockGixxerK8ToolStripMenuItem.Text = "New/Stock Gixxer K8-"
+        Me.NewStockGixxerK8ToolStripMenuItem.Text = "New/Stock Gixxer K8- (21H50)"
         '
         'ToolStripSeparator6
         '
@@ -536,6 +537,12 @@ Partial Class main
         Me.B_DataLogging.Text = "Data Logging"
         Me.B_DataLogging.UseVisualStyleBackColor = True
         '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(317, 22)
+        Me.ToolStripMenuItem1.Text = "New/Stock Gixxer K7 (21H00)"
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -631,5 +638,6 @@ Partial Class main
     Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ToolStripSeparator6 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents NewStockGixxerK7EUToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
 
 End Class
