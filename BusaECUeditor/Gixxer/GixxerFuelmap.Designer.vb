@@ -134,7 +134,7 @@ Partial Class GixxerFuelmap
         Me.T_change.Size = New System.Drawing.Size(80, 19)
         Me.T_change.TabIndex = 20
         Me.T_change.WordWrap = False
-         '
+        '
         'L_modeabc
         '
         Me.L_modeabc.AutoSize = True

@@ -24,26 +24,25 @@ Imports System.Windows.Forms
 Imports System.IO
 
 Public Class GixxerShifter
-    Dim ADJ As Integer = &H5D900 '&HFF if shifter inactive, no code present else shifter active
-    Dim FUELCODE As Integer = &H5DA00
-    Dim IGNCODE As Integer = &H5DE00
-    Dim IDTAG As Integer = ADJ
-    Dim minkillactive As Integer = ADJ + &H16
-    Dim killcountdelay As Integer = ADJ + &H18
+ 
+
+    Dim IDTAG As Integer = gixxer_shifter_ADJ
+    Dim minkillactive As Integer = gixxer_shifter_ADJ + &H16
+    Dim killcountdelay As Integer = gixxer_shifter_ADJ + &H18
     Dim SHIFTER2VERSION As Integer = 100
-    Dim shiftercodelenght As Integer = &H5DE50 - &H5D900 - 1 'lenght of the shifter code in bytes for clearing the memory, check this !!!
+    Dim shiftercodelenght As Integer = gixxer_shifter_IGNCODE + &H50 - gixxer_shifter_ADJ - 1 'lenght of the shifter code in bytes for clearing the memory, check this !!!
     Dim timerconst = 1 / 1.28
     Dim initiating As Boolean = True
 
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        If (ReadFlashByte(ADJ) <> &HFF) Then
-            WriteFlashWord((ADJ + 2), (Val(T_12000.Text)) / timerconst)
-            WriteFlashWord((ADJ + 4), (Val(T_11000.Text)) / timerconst)
-            WriteFlashWord((ADJ + 6), (Val(T_10000.Text)) / timerconst)
-            WriteFlashWord((ADJ + 8), (Val(T_9000.Text)) / timerconst)
-            WriteFlashWord((ADJ + &HA), (Val(T_8000.Text)) / timerconst)
-            WriteFlashWord((ADJ + &HC), (Val(T_7000.Text)) / timerconst)
+        If (ReadFlashByte(gixxer_shifter_ADJ) <> &HFF) Then
+            WriteFlashWord((gixxer_shifter_ADJ + 2), (Val(T_12000.Text)) / timerconst)
+            WriteFlashWord((gixxer_shifter_ADJ + 4), (Val(T_11000.Text)) / timerconst)
+            WriteFlashWord((gixxer_shifter_ADJ + 6), (Val(T_10000.Text)) / timerconst)
+            WriteFlashWord((gixxer_shifter_ADJ + 8), (Val(T_9000.Text)) / timerconst)
+            WriteFlashWord((gixxer_shifter_ADJ + &HA), (Val(T_8000.Text)) / timerconst)
+            WriteFlashWord((gixxer_shifter_ADJ + &HC), (Val(T_7000.Text)) / timerconst)
             WriteFlashWord(minkillactive, Val(T_minkillactive.Text))
             WriteFlashWord(killcountdelay, Val(T_killcountdelay.Text))
 
@@ -55,7 +54,7 @@ Public Class GixxerShifter
     Private Sub CheckBox1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_shifter_activation.CheckedChanged
         If C_shifter_activation.Checked Then
             C_shifter_activation.Text = "Shifter active"
-            If (ReadFlashByte(ADJ) = &HFF) Then
+            If (ReadFlashByte(gixxer_shifter_ADJ) = &HFF) Then
                 modify_original_ECU_code(True)
                 shifter_code_in_memory(True, shiftercodelenght)
             End If
@@ -71,7 +70,7 @@ Public Class GixxerShifter
     Private Sub K8shifter_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
         If e.KeyChar = Chr(27) Then Me.Close()
         If e.KeyChar = "P" Or e.KeyChar = "p" Then
-           printthis()
+            printthis()
         End If
     End Sub
 
@@ -85,7 +84,7 @@ Public Class GixxerShifter
         L_shifterver.Text = Str(SHIFTER2VERSION)
         P_shifterwiring.Image = Image.FromFile(".\gixxer\shifter.jpg")
 
-        If (ReadFlashByte(ADJ) = &HFF) Then
+        If (ReadFlashByte(gixxer_shifter_ADJ) = &HFF) Then
             C_shifter_activation.Checked = False
             hide_shifter_settings()
         Else
@@ -110,27 +109,27 @@ Public Class GixxerShifter
             ' this modifies the programmingcode so that the ecu does a loop to the shifter code
             ' as part of each main loop
             '
-            pcdisp = (FUELCODE - &H45A40) / 4
-            WriteFlashWord(&H45A40, &HFF00) ' bra.l 
-            WriteFlashWord(&H45A42, pcdisp) '         pcdisp
+            pcdisp = (gixxer_shifter_FUELCODE - gixxer_shifter_jmp_to_fuelcode) / 4
+            WriteFlashWord(gixxer_shifter_jmp_to_fuelcode, &HFF00) ' bra.l 
+            WriteFlashWord(gixxer_shifter_jmp_to_fuelcode + 2, pcdisp) '         pcdisp
             '
             ' Ignition
             '
-            pcdisp = (IGNCODE - &H3B9C0) / 4
-            WriteFlashWord(&H3B9C0, &HFF00) ' bra.l 
-            WriteFlashWord(&H3B9C2, pcdisp) '         pcdisp
+            pcdisp = (gixxer_shifter_IGNCODE - gixxer_shifter_jmp_to_igncode) / 4
+            WriteFlashWord(gixxer_shifter_jmp_to_igncode, &HFF00) ' bra.l 
+            WriteFlashWord(gixxer_shifter_jmp_to_igncode + 2, pcdisp) '         pcdisp
 
         Else
             '
             ' bring the ecu code back to original
             '
-            WriteFlashWord(&H45A40, &H4F10) ' addi sp, #0x10
-            WriteFlashWord(&H45A42, &H1FCE) ' jmp lr
+            WriteFlashWord(gixxer_shifter_jmp_to_fuelcode, &H4F10) ' addi sp, #0x10
+            WriteFlashWord(gixxer_shifter_jmp_to_fuelcode + 2, &H1FCE) ' jmp lr
             '
             ' Ignition
             '
-            WriteFlashWord(&H3B9C0, &H4F10) ' addi sp, #0x10
-            WriteFlashWord(&H3B9C2, &H1FCE) ' jmp lr
+            WriteFlashWord(gixxer_shifter_jmp_to_igncode, &H4F10) ' addi sp, #0x10
+            WriteFlashWord(gixxer_shifter_jmp_to_igncode + 2, &H1FCE) ' jmp lr
 
         End If
     End Sub
@@ -150,12 +149,12 @@ Public Class GixxerShifter
             '
             ' write the shifter code into memory address from the .bin file
             '
-            WriteFlashByte(ADJ, &H0)
+            WriteFlashByte(gixxer_shifter_ADJ, &H0)
             fs = File.OpenRead(path)
 
             i = 0
             Do While fs.Read(b, 0, 1) > 0
-                Flash(i + ADJ) = b(0)
+                Flash(i + gixxer_shifter_ADJ) = b(0)
                 i = i + 1
             Loop
             fs.Close()
@@ -163,14 +162,14 @@ Public Class GixxerShifter
             If ReadFlashWord(IDTAG) <> SHIFTER2VERSION Then
                 MsgBox("This shifter code is not compatible with this ECUeditor version !!! " & ReadFlashWord(IDTAG).ToString)
                 For i = 0 To lenght
-                    WriteFlashByte(i + ADJ, &HFF)
+                    WriteFlashByte(i + gixxer_shifter_ADJ, &HFF)
                 Next
                 Me.Close()
             End If
         Else
             ' reset the shifter code in memory back to &HFF. Remember that &HFF is the default value after EPROM erase
             For i = 0 To lenght
-                WriteFlashByte(i + ADJ, &HFF)
+                WriteFlashByte(i + gixxer_shifter_ADJ, &HFF)
             Next
         End If
     End Sub
@@ -186,31 +185,31 @@ Public Class GixxerShifter
         T_5000.Visible = True
         T_4000.Visible = True
         T_3000.Visible = True
-        T_12000.Text = Round5(ReadFlashWord(ADJ + 2) * timerconst)
-        T_11000.Text = Round5(ReadFlashWord(ADJ + 4) * timerconst)
-        T_10000.Text = Round5(ReadFlashWord(ADJ + 6) * timerconst)
-        T_9000.Text = Round5(ReadFlashWord(ADJ + 8) * timerconst)
-        T_8000.Text = Round5(ReadFlashWord(ADJ + &HA) * timerconst)
-        T_7000.Text = Round5(ReadFlashWord(ADJ + &HC) * timerconst)
+        T_12000.Text = Round5(ReadFlashWord(gixxer_shifter_ADJ + 2) * timerconst)
+        T_11000.Text = Round5(ReadFlashWord(gixxer_shifter_ADJ + 4) * timerconst)
+        T_10000.Text = Round5(ReadFlashWord(gixxer_shifter_ADJ + 6) * timerconst)
+        T_9000.Text = Round5(ReadFlashWord(gixxer_shifter_ADJ + 8) * timerconst)
+        T_8000.Text = Round5(ReadFlashWord(gixxer_shifter_ADJ + &HA) * timerconst)
+        T_7000.Text = Round5(ReadFlashWord(gixxer_shifter_ADJ + &HC) * timerconst)
 
         'Dim i As Integer
         'i = ReadFlashWord(ADJ + 26)
         'i = ReadFlashWord(ADJ + 28)
 
-        If ReadFlashWord(ADJ + 26) = 1 Then
+        If ReadFlashWord(gixxer_shifter_ADJ + 26) = 1 Then
             C_Fuelcut.Checked = True
         Else
             C_Fuelcut.Checked = False
         End If
-        If ReadFlashWord(ADJ + 28) = 1 Then
+        If ReadFlashWord(gixxer_shifter_ADJ + 28) = 1 Then
             C_igncut.Checked = True
         Else
             C_igncut.Checked = False
         End If
-        If ReadFlashByte(ADJ + &H20) = 0 Then
+        If ReadFlashByte(gixxer_shifter_ADJ + &H20) = 0 Then
             C_DSMactivation.Checked = False
             C_DSMactivation.Text = "Normal GPS resistor activation"
-            WriteFlashByte(ADJ + &H20, 0)
+            WriteFlashByte(gixxer_shifter_ADJ + &H20, 0)
             G_DSMACTIVATION.Visible = False
             Me.Height = 613
         Else
@@ -224,7 +223,7 @@ Public Class GixxerShifter
             'End If
             'Me.Focus()
             'End If
-            WriteFlashByte(ADJ + &H20, 1) ' 1 = DSM2, 2 = DSM1
+            WriteFlashByte(gixxer_shifter_ADJ + &H20, 1) ' 1 = DSM2, 2 = DSM1
             Me.Height = 265
         End If
 
@@ -241,10 +240,10 @@ Public Class GixxerShifter
         RPM1.Visible = True
 
         'populate RPM with initial value
-        populaterpm(ReadFlashWord(ADJ + &HE), Me.RPM1) ' this is the reference RPM that is stored in the system
-        populaterpm(ReadFlashWord(ADJ + &H10), Me.RPM2) ' this is the reference RPM that is stored in the system
-        populaterpm(ReadFlashWord(ADJ + &H12), Me.RPM3) ' this is the reference RPM that is stored in the system
-        populaterpm(ReadFlashWord(ADJ + &H14), Me.RPM456) ' this is the reference RPM that is stored in the system
+        populaterpm(ReadFlashWord(gixxer_shifter_ADJ + &HE), Me.RPM1) ' this is the reference RPM that is stored in the system
+        populaterpm(ReadFlashWord(gixxer_shifter_ADJ + &H10), Me.RPM2) ' this is the reference RPM that is stored in the system
+        populaterpm(ReadFlashWord(gixxer_shifter_ADJ + &H12), Me.RPM3) ' this is the reference RPM that is stored in the system
+        populaterpm(ReadFlashWord(gixxer_shifter_ADJ + &H14), Me.RPM456) ' this is the reference RPM that is stored in the system
 
 
 
@@ -309,12 +308,12 @@ Public Class GixxerShifter
             T_4000.Text = C_killtime.Text
             T_3000.Text = C_killtime.Text
 
-            WriteFlashWord((ADJ + 2), (Val(T_12000.Text)) / timerconst)
-            WriteFlashWord((ADJ + 4), (Val(T_11000.Text)) / timerconst)
-            WriteFlashWord((ADJ + 6), (Val(T_10000.Text)) / timerconst)
-            WriteFlashWord((ADJ + 8), (Val(T_9000.Text)) / timerconst)
-            WriteFlashWord((ADJ + &HA), (Val(T_8000.Text)) / timerconst)
-            WriteFlashWord((ADJ + &HC), (Val(T_7000.Text)) / timerconst)
+            WriteFlashWord((gixxer_shifter_ADJ + 2), (Val(T_12000.Text)) / timerconst)
+            WriteFlashWord((gixxer_shifter_ADJ + 4), (Val(T_11000.Text)) / timerconst)
+            WriteFlashWord((gixxer_shifter_ADJ + 6), (Val(T_10000.Text)) / timerconst)
+            WriteFlashWord((gixxer_shifter_ADJ + 8), (Val(T_9000.Text)) / timerconst)
+            WriteFlashWord((gixxer_shifter_ADJ + &HA), (Val(T_8000.Text)) / timerconst)
+            WriteFlashWord((gixxer_shifter_ADJ + &HC), (Val(T_7000.Text)) / timerconst)
         End If
 
     End Sub
@@ -322,7 +321,7 @@ Public Class GixxerShifter
     Private Sub T_killcountdelay_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_killcountdelay.TextChanged
         If Val(T_killcountdelay.Text) > 1000 Then T_killcountdelay.Text = "1000"
         If Val(T_killcountdelay.Text) <= 1 Then T_killcountdelay.Text = "1"
-        WriteFlashWord(ADJ + 24, Val(T_killcountdelay.Text))
+        WriteFlashWord(gixxer_shifter_ADJ + 24, Val(T_killcountdelay.Text))
 
     End Sub
 
@@ -331,48 +330,48 @@ Public Class GixxerShifter
     Private Sub C_Fuelcut_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_Fuelcut.CheckedChanged
         If C_Fuelcut.Checked Then
             C_Fuelcut.Text = "Fuelcut active"
-            WriteFlashWord(ADJ + 26, 1)
+            WriteFlashWord(gixxer_shifter_ADJ + 26, 1)
         Else
             If Not C_igncut.Checked Then C_igncut.Checked = True
             C_Fuelcut.Text = "Fuelcut not active"
-            WriteFlashWord(ADJ + 26, 0)
+            WriteFlashWord(gixxer_shifter_ADJ + 26, 0)
         End If
     End Sub
 
     Private Sub CheckBox1_CheckedChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_igncut.CheckedChanged
         If C_igncut.Checked Then
             C_igncut.Text = "Igncut active"
-            WriteFlashWord(ADJ + 28, 1)
+            WriteFlashWord(gixxer_shifter_ADJ + 28, 1)
         Else
             If Not C_Fuelcut.Checked Then C_Fuelcut.Checked = True
             C_igncut.Text = "Igncut not active"
-            WriteFlashWord(ADJ + 28, 0)
+            WriteFlashWord(gixxer_shifter_ADJ + 28, 0)
         End If
     End Sub
 
 
     Private Sub T_12000_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_12000.TextChanged
-        WriteFlashWord((ADJ + 2), (Val(T_12000.Text)) / timerconst)
+        WriteFlashWord((gixxer_shifter_ADJ + 2), (Val(T_12000.Text)) / timerconst)
     End Sub
 
     Private Sub T_11000_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_11000.TextChanged
-        WriteFlashWord((ADJ + 4), (Val(T_11000.Text)) / timerconst)
+        WriteFlashWord((gixxer_shifter_ADJ + 4), (Val(T_11000.Text)) / timerconst)
     End Sub
 
     Private Sub T_10000_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_10000.TextChanged
-        WriteFlashWord((ADJ + 6), (Val(T_10000.Text)) / timerconst)
+        WriteFlashWord((gixxer_shifter_ADJ + 6), (Val(T_10000.Text)) / timerconst)
     End Sub
 
     Private Sub T_9000_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_9000.TextChanged
-        WriteFlashWord((ADJ + 8), (Val(T_9000.Text)) / timerconst)
+        WriteFlashWord((gixxer_shifter_ADJ + 8), (Val(T_9000.Text)) / timerconst)
     End Sub
 
     Private Sub T_8000_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_8000.TextChanged
-        WriteFlashWord((ADJ + &HA), (Val(T_8000.Text)) / timerconst)
+        WriteFlashWord((gixxer_shifter_ADJ + &HA), (Val(T_8000.Text)) / timerconst)
     End Sub
 
     Private Sub T_7000_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_7000.TextChanged
-        WriteFlashWord((ADJ + &HC), (Val(T_7000.Text)) / timerconst)
+        WriteFlashWord((gixxer_shifter_ADJ + &HC), (Val(T_7000.Text)) / timerconst)
     End Sub
 
     'Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -387,7 +386,7 @@ Public Class GixxerShifter
             If Not C_DSMactivation.Checked Then
                 C_DSMactivation.Text = "Normal GPS resistor activation"
                 P_shifterwiring.Image = Image.FromFile(".\gixxer\shifter.jpg")
-                WriteFlashByte(ADJ + &H20, 0)
+                WriteFlashByte(gixxer_shifter_ADJ + &H20, 0)
                 G_DSMACTIVATION.Visible = False
                 Me.Height = 613
             Else
@@ -403,7 +402,7 @@ Public Class GixxerShifter
                 'End If
                 'Me.Focus()
                 'End If
-                WriteFlashByte(ADJ + &H20, 1) ' 1 = DSM2, 2 = DSM1
+                WriteFlashByte(gixxer_shifter_ADJ + &H20, 1) ' 1 = DSM2, 2 = DSM1
                 G_DSMACTIVATION.Visible = True
                 Me.Height = 613 'Me.Height = 263
             End If
@@ -415,7 +414,7 @@ Public Class GixxerShifter
         Dim i As Integer
         i = Val(RPM1.Text) * 2.56
         i = CInt(i / 50) * 50
-        WriteFlashWord(ADJ + &HE, i)
+        WriteFlashWord(gixxer_shifter_ADJ + &HE, i)
     End Sub
 
 
@@ -423,24 +422,24 @@ Public Class GixxerShifter
         Dim i As Integer
         i = Val(RPM456.Text) * 2.56
         i = CInt(i / 50) * 50
-        WriteFlashWord(ADJ + &H14, i)
+        WriteFlashWord(gixxer_shifter_ADJ + &H14, i)
     End Sub
     Private Sub ComboBox2_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RPM3.SelectedIndexChanged
         Dim i As Integer
         i = Val(RPM3.Text) * 2.56
         i = CInt(i / 50) * 50
-        WriteFlashWord(ADJ + &H12, i)
+        WriteFlashWord(gixxer_shifter_ADJ + &H12, i)
     End Sub
     Private Sub ComboBox1_SelectedIndexChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RPM2.SelectedIndexChanged
         Dim i As Integer
         i = Val(RPM2.Text) * 2.56
         i = CInt(i / 50) * 50
-        WriteFlashWord(ADJ + &H10, i)
+        WriteFlashWord(gixxer_shifter_ADJ + &H10, i)
     End Sub
 
     Private Sub T_minkillactive_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_minkillactive.TextChanged
         If Val(T_minkillactive.Text) > 100 Then T_minkillactive.Text = "100"
         If Val(T_minkillactive.Text) <= 1 Then T_minkillactive.Text = "1"
-        WriteFlashWord(ADJ + 22, Val(T_minkillactive.Text))
+        WriteFlashWord(gixxer_shifter_ADJ + 22, Val(T_minkillactive.Text))
     End Sub
 End Class

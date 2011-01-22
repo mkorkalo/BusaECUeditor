@@ -25,6 +25,8 @@ Public Class GixxerIgnitionmap
     ' has the full ecu image loaded as byte values. the fuelmap is edited on a grid and changed values are
     ' written to the global variable flash(addr).
     '
+
+
     Dim change As Integer
     Dim previousrow As Integer
     Dim toprow(50) As Integer
@@ -72,7 +74,8 @@ Public Class GixxerIgnitionmap
         previousrow = 0
         fuelmapvisible = True
 
-        If ReadFlashByte(&H60B5C) <> 0 Then ' use clutch map setting to detect if maps have been unified
+
+        If ReadFlashByte(gixxer_ignition_use_clutch_map) <> 0 Then ' use clutch map setting to detect if maps have been unified
             '
             ' First ask the user if the user wants to have ignition restrictions removed
             '
@@ -81,16 +84,16 @@ Public Class GixxerIgnitionmap
                 '
                 ' First make sure that only ignition group2 is used for tuning
                 '
-                WriteFlashByte(&H60B5D, 2)
-                WriteFlashByte(&H60B5E, 2)
-                WriteFlashByte(&H60B5F, 2)
-                WriteFlashByte(&H60B60, 2)
-                WriteFlashByte(&H60B61, 2)
-                WriteFlashByte(&H60B62, 2)
+                WriteFlashByte(gixxer_ignition_use_clutch_map + 1, 2)
+                WriteFlashByte(gixxer_ignition_use_clutch_map + 2, 2)
+                WriteFlashByte(gixxer_ignition_use_clutch_map + 3, 2)
+                WriteFlashByte(gixxer_ignition_use_clutch_map + 4, 2)
+                WriteFlashByte(gixxer_ignition_use_clutch_map + 5, 2)
+                WriteFlashByte(gixxer_ignition_use_clutch_map + 6, 2)
                 '
                 ' Make clutch map to use the same ignition map as for other gears too
                 '
-                WriteFlashByte(&H60B5C, 0)
+                WriteFlashByte(gixxer_ignition_use_clutch_map, 0)
             Else
                 '
                 ' Giving canlel as answer to question about removing ignition resrictions now means that the ignition tuning shall not be used...
@@ -573,22 +576,23 @@ Public Class GixxerIgnitionmap
         ' when programming the ecu. If .bin is edited with another methods it may destroy the integrity
         ' of how Ecueditor assumes .bin being built.
         '
+
         Select Case map
             Case 0
-                map_structure_table = &H5A3D8
-                Me.Text = "Ecueditor.com for Gixxer K7- - Ignition Neutral TPS/RPM map"
+                map_structure_table = gixxer_ignition_map_first
+                Me.Text = gixxer_ignition_map_name & "- Ignition Neutral TPS/RPM map"
                 ms01 = 0            ' 0,1
             Case 1
-                map_structure_table = &H5A498
-                Me.Text = "Ecueditor.com for Gixxer K7- - Ignition TPS/RPM map"
+                map_structure_table = gixxer_ignition_map_first + (3 * 4 * 24)
+                Me.Text = gixxer_ignition_map_name & "- Ignition TPS/RPM map"
                 ms01 = 0            ' 0,1
             Case 2
-                map_structure_table = &H5A498
-                Me.Text = "Ecueditor.com for Gixxer K7- - Ignition MS TPS/RPM map"
+                map_structure_table = gixxer_ignition_map_first + (3 * 4 * 24)
+                Me.Text = gixxer_ignition_map_name & "- Ignition MS TPS/RPM map"
                 ms01 = 1            ' 0,1
             Case 3
-                map_structure_table = &H5A3D8
-                Me.Text = "Ecueditor.com for Gixxer K7- - Ignition Neutral MS TPS/RPM map"
+                map_structure_table = gixxer_ignition_map_first
+                Me.Text = gixxer_ignition_map_name & "- Ignition Neutral MS TPS/RPM map"
                 ms01 = 1            ' 0,1
         End Select
         rr = 0
@@ -627,7 +631,7 @@ Public Class GixxerIgnitionmap
     End Sub
 
 
-      Private Sub Ignitionmapgrid_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Ignitionmapgrid.KeyDown
+    Private Sub Ignitionmapgrid_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Ignitionmapgrid.KeyDown
 
         If (e.Control = True And e.KeyCode = Keys.V) Then
             Dim rowIndex As Integer
@@ -685,5 +689,9 @@ Public Class GixxerIgnitionmap
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
         selectmap(3)
+    End Sub
+
+    Private Sub T_TPSIAP_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_TPSIAP.TextChanged
+
     End Sub
 End Class

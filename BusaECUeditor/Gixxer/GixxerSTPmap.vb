@@ -28,9 +28,7 @@ Public Class GixxerSTPmap
     ' written to the global variable flash(addr).
     '
 
-    Dim map_first_table As Long = &H59DD0
-    Dim modelname As String = "Gixxer K7- "
-
+ 
     Dim change As Integer
     Dim previousrow As Integer
     Dim toprow(50) As Integer
@@ -68,8 +66,8 @@ Public Class GixxerSTPmap
         modeabc = 0
         gear = 0
 
-        map_structure_table = Map_first_table
-        Me.Text = "ecueditor.com " & modelname & "- STP map editing - STP opening"
+        map_structure_table = gixxer_STP_map_first_table
+        Me.Text = "ecueditor.com " & gixxer_STP_modelname & "- STP map editing - STP opening"
         STPmap = False
         selectmap()
         LED_GEAR.Text = gear.ToString
@@ -117,23 +115,23 @@ Public Class GixxerSTPmap
                 gear = 6
                 selectmap()
             Case "f"
-                map_structure_table = map_first_table + (42 * 4)
-                Me.Text = "ecueditor.com" & modelname & "- STP map editing - STP FUEL adjustment"
+                map_structure_table = gixxer_STP_map_first_table + (42 * 4)
+                Me.Text = gixxer_modelname & "- STP map editing - STP FUEL adjustment"
                 STPmap = True
                 selectmap()
             Case "F"
-                map_structure_table = map_first_table + (42 * 4)
-                Me.Text = "ecueditor.com" & modelname & " STP map editing - STP FUEL adjustment"
+                map_structure_table = gixxer_STP_map_first_table + (42 * 4)
+                Me.Text = gixxer_modelname & " STP map editing - STP FUEL adjustment"
                 STPmap = True
                 selectmap()
             Case "s"
-                map_structure_table = map_first_table
-                Me.Text = "ecueditor.com" & modelname & " STP map editing - STP opening"
+                map_structure_table = gixxer_STP_map_first_table
+                Me.Text = gixxer_modelname & " STP map editing - STP opening"
                 STPmap = False
                 selectmap()
             Case "S"
-                map_structure_table = map_first_table
-                Me.Text = "ecueditor.com" & modelname & "- STP map editing - STP opening"
+                map_structure_table = gixxer_STP_map_first_table
+                Me.Text = gixxer_modelname & "- STP map editing - STP opening"
                 STPmap = False
                 selectmap()
             Case "a"

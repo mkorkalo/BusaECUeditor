@@ -19,10 +19,17 @@
 '    under this same license for free. For more information see paragraph 5
 '    of the GNU licence.
 '
+'       22.1.2011 - changed all memory addresses as variables
+'
+'
+'
+
+
 
 Public Class GixxerLimiters
     Dim rpmconv As Long
     Dim addedrpm As Integer
+
 
     Private Sub CheckBox1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_gearlimiter.CheckedChanged
         ' petrik, modified for K8
@@ -30,15 +37,15 @@ Public Class GixxerLimiters
             '
             ' Write limiters off values
             '
-            WriteFlashByte(&H614C1, &H0) 'fuel limiter by gear 
-            WriteFlashByte(&H614C4, &H0) 'fuel limiter by gear softcut
+            WriteFlashByte(gixxer_fuel_limiter_by_gear, &H0) 'fuel limiter by gear 
+            WriteFlashByte(gixxer_fuel_limiter_by_gear_softcut, &H0) 'fuel limiter by gear softcut
             C_gearlimiter.Text = "Gear limiters removed"
         Else
             '
             ' Write default values
             '
-            WriteFlashByte(&H614C1, &H80) 'fuel limiter by gear 
-            WriteFlashByte(&H614C4, &H80) 'fuel limiter by gear softcut
+            WriteFlashByte(gixxer_fuel_limiter_by_gear, &H80) 'fuel limiter by gear 
+            WriteFlashByte(gixxer_fuel_limiter_by_gear_softcut, &H80) 'fuel limiter by gear softcut
             C_gearlimiter.Text = "Gear limiters on"
 
         End If
@@ -47,12 +54,10 @@ Public Class GixxerLimiters
 
     Private Sub RPM_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RPM.SelectedIndexChanged
         Dim i As Integer
-        Dim baseline As Integer
 
-        baseline = 13450
         ' Set various RPM limits based on RPM value selected
         i = Val(RPM.Text)
-        addedrpm = i - baseline ' we are just setting here the baseline
+        addedrpm = i - gixxer_baseline ' we are just setting here the baseline
 
         If i >= 13500 Then
             C_gearlimiter.Checked = True
@@ -72,20 +77,21 @@ Public Class GixxerLimiters
         '
         ' RPM/Fuel soft type 1, the softcut hits earlier than hardcut. Abosolute limiter at hard cut limit.
         '
-        WriteFlashWord(&H61372, Int((rpmconv / (addedrpm + (rpmconv / &H45D)))))
-        WriteFlashWord(&H61374, Int((rpmconv / (addedrpm + (rpmconv / &H45B)))))
-        WriteFlashWord(&H61376, Int((rpmconv / (addedrpm + (rpmconv / &H459)))))
-        WriteFlashWord(&H61378, Int((rpmconv / (addedrpm + (rpmconv / &H457))))) ' 11304rpm
+
+        WriteFlashWord(gixxer_RPM_limit_type1, Int((rpmconv / (addedrpm + (rpmconv / &H45D)))))
+        WriteFlashWord(gixxer_RPM_limit_type1 + 2, Int((rpmconv / (addedrpm + (rpmconv / &H45B)))))
+        WriteFlashWord(gixxer_RPM_limit_type1 + 4, Int((rpmconv / (addedrpm + (rpmconv / &H459)))))
+        WriteFlashWord(gixxer_RPM_limit_type1 + 6, Int((rpmconv / (addedrpm + (rpmconv / &H457))))) ' 11304rpm
         '
         ' RPM/Fuel hard type 2, this is modified higher than stock as ecu default is not used in this case
         '
-        WriteFlashWord(&H6137A, Int((rpmconv / (addedrpm + (rpmconv / &H46C)))))
-        WriteFlashWord(&H6137C, Int((rpmconv / (addedrpm + (rpmconv / &H468)))))
+        WriteFlashWord(gixxer_RPM_limit_type1 + 8, Int((rpmconv / (addedrpm + (rpmconv / &H46C)))))
+        WriteFlashWord(gixxer_RPM_limit_type1 + 10, Int((rpmconv / (addedrpm + (rpmconv / &H468)))))
         '
         ' RPM/Fuel soft hard type 3 neutral, this is modified to be same as type2
         '
-        WriteFlashWord(&H6137E, Int((rpmconv / (addedrpm + (rpmconv / &H48F)))))
-        WriteFlashWord(&H61380, Int((rpmconv / (addedrpm + (rpmconv / &H48B)))))
+        WriteFlashWord(gixxer_RPM_limit_type1 + 12, Int((rpmconv / (addedrpm + (rpmconv / &H48F)))))
+        WriteFlashWord(gixxer_RPM_limit_type1 + 14, Int((rpmconv / (addedrpm + (rpmconv / &H48B)))))
         '
         ' RPM limiter type 6, this is the limiter when FI light is on but still running normally
         '
@@ -99,12 +105,12 @@ Public Class GixxerLimiters
         '
         ' RPM/Ignition limiters, these are set to around 150rpm higher than fuel limiters
         '
-        WriteFlashWord(&H60B2C, Int((rpmconv / (addedrpm + (rpmconv / &H44B))))) 'normal limiter
-        WriteFlashWord(&H60B2E, Int((rpmconv / (addedrpm + (rpmconv / &H447))))) 'normal limiter
-        If (ReadFlashByte(&H3B4C1) = &H80) Then WriteFlashWord(&H60B30, Int((rpmconv / (addedrpm + (rpmconv / &H47D))))) 'clutch limiter
-        If (ReadFlashByte(&H3B4C1) = &H80) Then WriteFlashWord(&H60B32, Int((rpmconv / (addedrpm + (rpmconv / &H479))))) 'clutch limiter
-        WriteFlashWord(&H60B38, Int((rpmconv / (addedrpm + (rpmconv / &H3EF))))) 'On TPS limiter a bit unsure about condition triggering this one
-        WriteFlashWord(&H60B3A, Int((rpmconv / (addedrpm + (rpmconv / &H3E8))))) 'On TPS limiter  a bit unsure about condition triggering this one
+        WriteFlashWord(gixxer_ignition_rpm_limiter, Int((rpmconv / (addedrpm + (rpmconv / &H44B))))) 'normal limiter
+        WriteFlashWord(gixxer_ignition_rpm_limiter + 2, Int((rpmconv / (addedrpm + (rpmconv / &H447))))) 'normal limiter
+        If (ReadFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill) = &H80) Then WriteFlashWord(gixxer_ignition_rpm_limiter + 4, Int((rpmconv / (addedrpm + (rpmconv / &H47D))))) 'clutch limiter
+        If (ReadFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill) = &H80) Then WriteFlashWord(gixxer_ignition_rpm_limiter + 6, Int((rpmconv / (addedrpm + (rpmconv / &H479))))) 'clutch limiter
+        WriteFlashWord(gixxer_ignition_rpm_limiter + 8, Int((rpmconv / (addedrpm + (rpmconv / &H3EF))))) 'On TPS limiter a bit unsure about condition triggering this one
+        WriteFlashWord(gixxer_ignition_rpm_limiter + 10, Int((rpmconv / (addedrpm + (rpmconv / &H3E8))))) 'On TPS limiter  a bit unsure about condition triggering this one
 
 
     End Sub
@@ -114,22 +120,17 @@ Public Class GixxerLimiters
         If e.KeyChar = "P" Or e.KeyChar = "p" Then
             printthis()
         End If
-        If (e.KeyChar = Chr(9)) And (ReadFlashByte(&H604CF) <> 0) Then
-            WriteFlashByte(&H604CF, 0)
-            Me.Text = Me.Text & " i"
-        End If
 
     End Sub
 
     Private Sub Limiters_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim i As Integer
         rpmconv = 3840000000 / &H100
-        If ReadFlashByte(&H604CF) = 0 Then Me.Text = Me.Text & " i"
 
         '
         ' Determine if gear limiters are on or off
         '
-        If ReadFlashByte(&H614C1) <> &H80 Then
+        If ReadFlashByte(gixxer_fuel_limiter_by_gear) <> &H80 Then
             C_gearlimiter.Checked = True
             C_gearlimiter.Text = "Gear limiters removed"
         Else
@@ -140,7 +141,7 @@ Public Class GixxerLimiters
         '
         ' Determine if softcut is on or off
         '
-        If ReadFlashByte(&H614BE) = &HFF Then
+        If ReadFlashByte(gixxer_fuel_limiter_softcut_or_hardcut) = &HFF Then
             Hardcut.Checked = True
             Hardcut.Text = "Fuel hardcut only"
         Else
@@ -150,7 +151,7 @@ Public Class GixxerLimiters
 
 
         'populate RPM with initial value
-        i = ReadFlashWord(&H61372) ' this is the reference RPM that is stored in the system
+        i = ReadFlashWord(gixxer_RPM_limit_type1) ' this is the reference RPM that is stored in the system
         i = Int(((rpmconv / (i + 0))) + 1)
         i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
         Me.RPM.Items.Add(i.ToString())
@@ -169,10 +170,10 @@ Public Class GixxerLimiters
 
     Private Sub Hardcut_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Hardcut.CheckedChanged
         If Hardcut.Checked = True Then
-            WriteFlashByte(&H614BE, &HFF)
+            WriteFlashByte(gixxer_fuel_limiter_softcut_or_hardcut, &HFF)
             Hardcut.Text = "Fuel hardcut only"
         Else
-            WriteFlashByte(&H614BE, &H80)
+            WriteFlashByte(gixxer_fuel_limiter_softcut_or_hardcut, &H80)
             Hardcut.Text = "Fuel softcut enabled"
         End If
 
@@ -182,6 +183,6 @@ Public Class GixxerLimiters
         Me.Close()
     End Sub
 
-    
-   
+
+
 End Class

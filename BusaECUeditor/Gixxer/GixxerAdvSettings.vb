@@ -31,7 +31,7 @@
         End If
     End Sub
 
- 
+
 
     Private Sub GixxerAdvSettings_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         loading = True
@@ -245,7 +245,7 @@
         End If
     End Sub
 
-   
+
     Private Sub ComboBox1_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NTCLT.SelectedIndexChanged
         Dim i As Integer
         Dim baseline As Integer
@@ -317,12 +317,11 @@
             End If
 
 
-         End If
+        End If
 
     End Sub
 
     Private Sub C_ECU_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_ECU.SelectedIndexChanged
-        Dim i As Integer
 
         If Not loading Then
 

@@ -90,6 +90,34 @@ Module CommonFunctions
     Private _metric As Boolean
     Private _eCUVersion As String ' either gen1 or gen2 indicating which ecu version is under modification
 
+    Public gixxer_modelname As String = "ecueditor.com for gixxer K8 "
+    Public gixxer_injectorbalance_map_first As Integer = &H370648
+    Public gixxer_injectorbalance_map_name As String = gixxer_modelname
+
+    Public gixxer_shifter_ADJ As Integer = &H5D900
+    Public gixxer_shifter_FUELCODE As Integer = &H5DA00
+    Public gixxer_shifter_IGNCODE As Integer = &H5DE00
+    Public gixxer_shifter_jmp_to_fuelcode As Integer = &H45A40
+    Public gixxer_shifter_jmp_to_igncode As Integer = &H3B9C0
+
+    Public gixxer_STP_map_first_table As Long = &H59DD0
+    Public gixxer_STP_modelname As String = "Gixxer K8 "
+
+    Public gixxer_fuelmap_map_first As Long = &H5A7F0
+    Public gixxer_fuelmap_map_bikename As String = gixxer_modelname
+    Public gixxer_ignition_rpm_limiter As Integer = &H60B2C
+    Public gixxer_GPS_AD_sensor_address_in_ignition_shiftkill As Integer = &H3B4C1
+
+    Public gixxer_fuel_limiter_by_gear As Integer = &H614C1
+    Public gixxer_fuel_limiter_by_gear_softcut As Integer = &H614C4
+    Public gixxer_RPM_limit_type1 As Integer = &H61372
+    Public gixxer_fuel_limiter_softcut_or_hardcut As Integer = &H614BE
+    Public gixxer_baseline As Integer = 13450
+
+    Public gixxer_ignition_map_first As Integer = &H5A3D8
+    Public gixxer_ignition_map_name As String = "ecueditor com for Gixxer K8 "
+    Public gixxer_ignition_use_clutch_map As Integer = &H60B5C
+
 #End Region
 
 #Region "Properties"
