@@ -42,6 +42,7 @@ Partial Class GixxerAdvSettings
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.C_ECU = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.C_ICS = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.G_misc.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -108,6 +109,7 @@ Partial Class GixxerAdvSettings
         '
         'G_misc
         '
+        Me.G_misc.Controls.Add(Me.C_ICS)
         Me.G_misc.Controls.Add(Me.C_HOX)
         Me.G_misc.Controls.Add(Me.C_EXC)
         Me.G_misc.Controls.Add(Me.C_PAIR)
@@ -250,6 +252,16 @@ Partial Class GixxerAdvSettings
         Me.Label4.TabIndex = 6
         Me.Label4.Text = "ECU"
         '
+        'C_ICS
+        '
+        Me.C_ICS.AutoSize = True
+        Me.C_ICS.Location = New System.Drawing.Point(179, 94)
+        Me.C_ICS.Name = "C_ICS"
+        Me.C_ICS.Size = New System.Drawing.Size(111, 17)
+        Me.C_ICS.TabIndex = 48
+        Me.C_ICS.Text = "ICS disable on/off"
+        Me.C_ICS.UseVisualStyleBackColor = True
+        '
         'GixxerAdvSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -293,4 +305,5 @@ Partial Class GixxerAdvSettings
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
     Friend WithEvents C_ECU As System.Windows.Forms.ComboBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents C_ICS As System.Windows.Forms.CheckBox
 End Class
