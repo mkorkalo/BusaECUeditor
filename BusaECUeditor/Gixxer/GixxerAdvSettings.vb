@@ -151,6 +151,20 @@
                 C_ECU.SelectedIndex = 2
         End Select
 
+        If ReadFlashByte(&H622EE) = &HFF Then C_ICS.Checked = True Else C_ICS.Checked = False
+        If C_ICS.Checked = True Then
+            C_ICS.Text = "ICS ON"
+            WriteFlashByte(&H622EE, &HFF) 'ICS solenoid port test error code disable
+            WriteFlashByte(&H622E4, &HFF) 'ICS port config const
+            WriteFlashByte(&H6230A, &HFF) 'rpm window error disable
+            WriteFlashWord(&H62296, &H1400) 'idle RPM limit normal 2000rpm
+        Else
+            C_ICS.Text = "ISC OFF"
+            WriteFlashByte(&H622EE, &H0)  'ICS solenoid port test error code disable
+            WriteFlashByte(&H622E4, &H0) 'ICS port config const
+            WriteFlashByte(&H6230A, &H0) 'rpm window error disable
+            WriteFlashWord(&H62296, &H7800) 'idle RPM high limit set to 12000rpm
+        End If
 
 
         loading = False
@@ -354,6 +368,26 @@
             End Select
 
             main.SetECUType()
+        End If
+
+
+    End Sub
+
+    Private Sub C_ICS_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_ICS.CheckedChanged
+        If Not loading Then
+            If C_ICS.Checked = True Then
+                C_ICS.Text = "ICS ON"
+                WriteFlashByte(&H622EE, &HFF) 'ICS solenoid port test error code disable
+                WriteFlashByte(&H622E4, &HFF) 'ICS port config const
+                WriteFlashByte(&H6230A, &HFF) 'rpm window error disable
+                WriteFlashWord(&H62296, &H1400) 'idle RPM limit normal 2000rpm
+            Else
+                C_ICS.Text = "ISC OFF"
+                WriteFlashByte(&H622EE, &H0)  'ICS solenoid port test error code disable
+                WriteFlashByte(&H622E4, &H0) 'ICS port config const
+                WriteFlashByte(&H6230A, &H0) 'rpm window error disable
+                WriteFlashWord(&H62296, &H7800) 'idle RPM high limit set to 12000rpm
+            End If
         End If
 
 
