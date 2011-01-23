@@ -1044,6 +1044,8 @@ Public Class K8Datastream
             Case "P1658" : Return "C46" & " " & dtc & " EXC motor not moving the EXC sensor"
             Case "P0480" : Return "C60" & " " & dtc & " FAN"
             Case "P0443" : Return "C62" & " " & dtc & " EVAP"
+            Case "P0500" : Return "C91" & " " & dtc & " Speed sensor circuit"
+            Case "P1769" : Return "C93" & " " & dtc & " Steering dampener solenoid"
             Case Else
                 Return dtc
         End Select
