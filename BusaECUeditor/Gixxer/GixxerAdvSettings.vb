@@ -3,6 +3,21 @@
     Dim rpmconv As Long = (3840000000 / &H100)
     Dim addedrpm As Integer
 
+    Public gixxer_msmode As Integer = &H6063A
+    Public gixxer_coilfi As Integer = &H60BC1
+    Public gixxer_fan As Integer = &H6296A
+    Public gixxer_pair As Integer = &H62ABA
+    Public gixxer_pairloop As Integer = &H56D5C
+    Public gixxer_excva As Integer = &H6000D
+    Public gixxer_excva_flag As Integer = &H60669
+    Public gixxer_hoxflag As Integer = &H614D4
+    Public gixxer_ecumode As Integer = &H604CF
+    Public gixxer_ics1 As Integer = &H622EE
+    Public gixxer_ics2 As Integer = &H6230A
+    Public gixxer_ics3 As Integer = &H62296
+    Public gixxer_hox1 As Integer = &H614D4
+    Public gixxer_hox2 As Integer = &H62243
+
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         GixxerSTPmap.Show()
@@ -19,11 +34,11 @@
             i = Me.C_msmode.SelectedIndex()
             Select Case i
                 Case 0
-                    WriteFlashByte(&H6063A, 0)
+                    WriteFlashByte(gixxer_msmode, 0)
                 Case 1
-                    WriteFlashByte(&H6063A, 1)
+                    WriteFlashByte(gixxer_msmode, 1)
                 Case 2
-                    WriteFlashByte(&H6063A, &HFF)
+                    WriteFlashByte(gixxer_msmode, &HFF)
                 Case Else
                     MsgBox("MS mode not detected, please reset the mode")
             End Select
@@ -41,7 +56,7 @@
         Me.C_msmode.Items.Add("mode 1")
         Me.C_msmode.Items.Add("switchable")
 
-        i = ReadFlashByte(&H6063A)
+        i = ReadFlashByte(gixxer_msmode)
         Select Case i
             Case 0
                 Me.C_msmode.SelectedIndex = 0
@@ -52,48 +67,49 @@
             Case Else
                 MsgBox("MS mode not detected, please reset the mode")
         End Select
-
-        If ReadFlashByte(&H60BC1) = &H80 Then
+        If ReadFlashByte(gixxer_coilfi) = &H80 Then
             C_coil_fi_disable.Text = "Coil FI disabled"
             C_coil_fi_disable.Checked = True
         Else
             C_coil_fi_disable.Text = "Coil FI normal"
             C_coil_fi_disable.Checked = False
-            WriteFlashByte(&H60BC1, &HFF)
+            WriteFlashByte(gixxer_coilfi, &HFF)
         End If
 
 
-        If ReadFlashByte(&H6296A) = &HC8 Then
+        If ReadFlashByte(gixxer_fan) = &HC8 Then
             C_FAN.Checked = True
             C_FAN.Text = "Fan ON/OFF 100/95"
-            WriteFlashByte(&H6296A, &HC8)
-            WriteFlashByte(&H6296B, &HD0)
+            WriteFlashByte(gixxer_fan, &HC8)
+            WriteFlashByte(gixxer_fan + 1, &HD0)
         Else
             C_FAN.Checked = False
             C_FAN.Text = "Fan ON/OFF 95/90"
-            WriteFlashByte(&H6296A, &HC0)
-            WriteFlashByte(&H6296B, &HC8)
+            WriteFlashByte(gixxer_fan, &HC0)
+            WriteFlashByte(gixxer_fan + 1, &HC8)
         End If
 
-        If ReadFlashByte(&H62ABA) = &HFF Then
+        If ReadFlashByte(gixxer_pair) = &HFF Then
             C_PAIR.Text = "PAIR ON"
             C_PAIR.Checked = True
-            WriteFlashByte(&H62ABA, &HFF) ' pair config flag
-            WriteFlashByte(&H56D5C, &HFE)
-            WriteFlashByte(&H56D5D, &HFF)
-            WriteFlashByte(&H56D5E, &HFC)
-            WriteFlashByte(&H56D5F, &H10)
+
+
+            WriteFlashByte(gixxer_pair, &HFF) ' pair config flag
+            WriteFlashByte(gixxer_pairloop, &HFE)
+            WriteFlashByte(gixxer_pairloop + 1, &HFF)
+            WriteFlashByte(gixxer_pairloop + 2, &HFC)
+            WriteFlashByte(gixxer_pairloop + 3, &H10)
         Else
             C_PAIR.Text = "PAIR OFF"
             C_PAIR.Checked = False
-            WriteFlashByte(&H62ABA, &H80) ' pair config flag
-            WriteFlashByte(&H56D5C, &H70)
-            WriteFlashByte(&H56D5D, &H0)
-            WriteFlashByte(&H56D5E, &H70)
-            WriteFlashByte(&H56D5F, &H0)
+            WriteFlashByte(gixxer_pair, &H80) ' pair config flag
+            WriteFlashByte(gixxer_pairloop, &H70)
+            WriteFlashByte(gixxer_pairloop + 1, &H0)
+            WriteFlashByte(gixxer_pairloop + 1, &H70)
+            WriteFlashByte(gixxer_pairloop + 3, &H0)
         End If
 
-        If ReadFlashByte(&H614D4) = &H80 Then
+        If ReadFlashByte(gixxer_hoxflag) = &H80 Then
             C_HOX.Text = "HOX sensor ON"
             C_HOX.Checked = True
         Else
@@ -101,7 +117,7 @@
             C_HOX.Checked = False
         End If
 
-        If ReadFlashByte(&H60669) = &HFF Then
+        If ReadFlashByte(gixxer_excva_flag) = &HFF Then
             C_EXC.Checked = True
             C_EXC.Text = "EXC ON"
         Else
@@ -139,31 +155,32 @@
         C_ECU.Items.Add("EU") '0
         C_ECU.Items.Add("US") '1
         C_ECU.Items.Add("Gen") '2
-        Select Case ReadFlashByte(&H6292B)
-            Case &H35
+        Select Case ReadFlashByte(gixxer_ecumode)
+            Case &HFF
                 C_ECU.SelectedIndex = 0
-            Case &H36
+            Case &H80
                 C_ECU.SelectedIndex = 1
-            Case &H39
+            Case &H0
                 C_ECU.SelectedIndex = 2
             Case Else
                 MsgBox("ECU Type not detected, using generic")
                 C_ECU.SelectedIndex = 2
         End Select
 
-        If ReadFlashByte(&H622EE) = &HFF Then C_ICS.Checked = True Else C_ICS.Checked = False
+ 
+        If ReadFlashByte(gixxer_ics1) = &HFF Then C_ICS.Checked = True Else C_ICS.Checked = False
         If C_ICS.Checked = True Then
             C_ICS.Text = "ICS ON"
-            WriteFlashByte(&H622EE, &HFF) 'ICS solenoid port test error code disable
-            WriteFlashByte(&H622E4, &HFF) 'ICS port config const
-            WriteFlashByte(&H6230A, &HFF) 'rpm window error disable
-            WriteFlashWord(&H62296, &H1400) 'idle RPM limit normal 2000rpm
+            WriteFlashByte(gixxer_ics1, &HFF) 'ICS solenoid port test error code disable
+            WriteFlashByte(gixxer_ics1 + 10, &HFF) 'ICS port config const
+            WriteFlashByte(gixxer_ics2, &HFF) 'rpm window error disable
+            WriteFlashWord(gixxer_ics3, &H1400) 'idle RPM limit normal 2000rpm
         Else
             C_ICS.Text = "ISC OFF"
-            WriteFlashByte(&H622EE, &H0)  'ICS solenoid port test error code disable
-            WriteFlashByte(&H622E4, &H0) 'ICS port config const
-            WriteFlashByte(&H6230A, &H0) 'rpm window error disable
-            WriteFlashWord(&H62296, &H7800) 'idle RPM high limit set to 12000rpm
+            WriteFlashByte(gixxer_ics1, &H0)  'ICS solenoid port test error code disable
+            WriteFlashByte(gixxer_ics1 + 10, &H0) 'ICS port config const
+            WriteFlashByte(gixxer_ics2, &H0) 'rpm window error disable
+            WriteFlashWord(gixxer_ics3, &H7800) 'idle RPM high limit set to 12000rpm
         End If
 
 
@@ -179,10 +196,10 @@
         If Not loading Then
             If C_coil_fi_disable.Checked = True Then
                 C_coil_fi_disable.Text = "Coil FI disabled"
-                WriteFlashByte(&H60BC1, &H80)
+                WriteFlashByte(gixxer_coilfi, &H80)
             Else
                 C_coil_fi_disable.Text = "Coil FI normal"
-                WriteFlashByte(&H60BC1, &HFF)
+                WriteFlashByte(gixxer_coilfi, &HFF)
             End If
         End If
 
@@ -193,12 +210,12 @@
         If Not loading Then
             If C_FAN.Checked = True Then
                 C_FAN.Text = "Fan ON/OFF 100/95"
-                WriteFlashByte(&H6296A, &HC8)
-                WriteFlashByte(&H6296B, &HD0)
+                WriteFlashByte(gixxer_fan, &HC8)
+                WriteFlashByte(gixxer_fan + 1, &HD0)
             Else
                 C_FAN.Text = "Fan ON/OFF 95/90"
-                WriteFlashByte(&H6296A, &HC0)
-                WriteFlashByte(&H6296B, &HC8)
+                WriteFlashByte(gixxer_fan, &HC0)
+                WriteFlashByte(gixxer_fan + 1, &HC8)
             End If
         End If
 
@@ -208,18 +225,18 @@
         If Not loading Then
             If C_PAIR.Checked = True Then
                 C_PAIR.Text = "PAIR ON"
-                WriteFlashByte(&H62ABA, &HFF) ' pair config flag
-                WriteFlashByte(&H56D5C, &HFE)
-                WriteFlashByte(&H56D5D, &HFF)
-                WriteFlashByte(&H56D5E, &HFC)
-                WriteFlashByte(&H56D5F, &H10)
+                WriteFlashByte(gixxer_pair, &HFF) ' pair config flag
+                WriteFlashByte(gixxer_pairloop, &HFE)
+                WriteFlashByte(gixxer_pairloop + 1, &HFF)
+                WriteFlashByte(gixxer_pairloop + 2, &HFC)
+                WriteFlashByte(gixxer_pairloop + 3, &H10)
             Else
                 C_PAIR.Text = "PAIR OFF"
-                WriteFlashByte(&H62ABA, &H80)
-                WriteFlashByte(&H56D5C, &H70)
-                WriteFlashByte(&H56D5D, &H0)
-                WriteFlashByte(&H56D5E, &H70)
-                WriteFlashByte(&H56D5F, &H0)
+                WriteFlashByte(gixxer_pair, &H80)
+                WriteFlashByte(gixxer_pairloop, &H70)
+                WriteFlashByte(gixxer_pairloop + 1, &H0)
+                WriteFlashByte(gixxer_pairloop + 2, &H70)
+                WriteFlashByte(gixxer_pairloop + 3, &H0)
 
             End If
         End If
@@ -229,32 +246,34 @@
     Private Sub C_EXC_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_EXC.CheckedChanged
         If Not loading Then
 
+
             If C_EXC.Checked = True Then
                 C_EXC.Text = "EXCV ON"
-                WriteFlashByte(&H60669, &HFF) '60669
-                WriteFlashByte(&H6000D, &HFF) '6000D
-                WriteFlashByte(&H6000F, &H0)  '6000F
+                WriteFlashByte(gixxer_excva_flag, &HFF) '60669
+                WriteFlashByte(gixxer_excva, &HFF) '6000D
+                WriteFlashByte(gixxer_excva + 1, &H0)  '6000F
             Else
                 C_EXC.Text = "EXCV OFF"
-                WriteFlashByte(&H60669, &H1) 'could be 0 or 1
-                WriteFlashByte(&H6000D, &H0) 'if 0 shows error on busa
-                WriteFlashByte(&H6000F, &H80)
+                WriteFlashByte(gixxer_excva_flag, &H1) 'could be 0 or 1
+                WriteFlashByte(gixxer_excva, &H0) 'if 0 shows error on busa
+                WriteFlashByte(gixxer_excva + 1, &H80)
             End If
 
         End If
 
     End Sub
 
+ 
     Private Sub C_HOX_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_HOX.CheckedChanged
         If Not loading Then
             If C_HOX.Checked = True Then
                 C_HOX.Text = "HOX sensor ON"
-                WriteFlashByte(&H614D4, &H80)
-                WriteFlashByte(&H62243, &HFF)
+                WriteFlashByte(gixxer_hox1, &H80)
+                WriteFlashByte(gixxer_hox2, &HFF)
             Else
                 C_HOX.Text = "HOX sensor OFF"
-                WriteFlashByte(&H614D4, &H0)
-                WriteFlashByte(&H62243, &H80)
+                WriteFlashByte(gixxer_hox1, &H0)
+                WriteFlashByte(gixxer_hox2, &H80)
             End If
         End If
     End Sub
@@ -377,16 +396,16 @@
         If Not loading Then
             If C_ICS.Checked = True Then
                 C_ICS.Text = "ICS ON"
-                WriteFlashByte(&H622EE, &HFF) 'ICS solenoid port test error code disable
-                WriteFlashByte(&H622E4, &HFF) 'ICS port config const
-                WriteFlashByte(&H6230A, &HFF) 'rpm window error disable
-                WriteFlashWord(&H62296, &H1400) 'idle RPM limit normal 2000rpm
+                WriteFlashByte(gixxer_ics1, &HFF) 'ICS solenoid port test error code disable
+                WriteFlashByte(gixxer_ics1 + 10, &HFF) 'ICS port config const
+                WriteFlashByte(gixxer_ics2, &HFF) 'rpm window error disable
+                WriteFlashWord(gixxer_ics3, &H1400) 'idle RPM limit normal 2000rpm
             Else
                 C_ICS.Text = "ISC OFF"
-                WriteFlashByte(&H622EE, &H0)  'ICS solenoid port test error code disable
-                WriteFlashByte(&H622E4, &H0) 'ICS port config const
-                WriteFlashByte(&H6230A, &H0) 'rpm window error disable
-                WriteFlashWord(&H62296, &H7800) 'idle RPM high limit set to 12000rpm
+                WriteFlashByte(gixxer_ics1, &H0)  'ICS solenoid port test error code disable
+                WriteFlashByte(gixxer_ics1 + 10, &H0) 'ICS port config const
+                WriteFlashByte(gixxer_ics2, &H0) 'rpm window error disable
+                WriteFlashWord(gixxer_ics3, &H7800) 'idle RPM high limit set to 12000rpm
             End If
         End If
 
