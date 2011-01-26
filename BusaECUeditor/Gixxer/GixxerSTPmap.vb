@@ -666,4 +666,8 @@ Public Class GixxerSTPmap
     Private Sub Button10_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button10.Click
         parsecommands("M")
     End Sub
+
+    Private Sub T_RPM_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_RPM.TextChanged
+
+    End Sub
 End Class
