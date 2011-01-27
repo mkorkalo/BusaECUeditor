@@ -2328,6 +2328,10 @@ skip_update:
         Dim chksum As Integer
         Dim chksumflash As Long
 
+        '
+        ' Reset ECUID to null string
+        '
+        ECUID.Text = ""
 
         '
         ' Get the FTDI device handle based on com port number and leave that port open
@@ -2671,26 +2675,13 @@ skip_update:
         ' Make sure the ECU id is supported type
         '
         i = 0
-        ECUID.Text = ""
         Do While i < 8
+            On Error Resume Next ' in case one of the characters is not displayable
             ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
             i = i + 1
         Loop
 
-        ECUVersion = ""
         SetECUType()
-        If ECUVersion = "" Then
-            Limiters.C_RPM.Enabled = False
-            B_Limiters.Enabled = False
-            B_Shifter.Enabled = False
-            B_FuelMap.Enabled = False
-            B_IgnitionMap.Enabled = False
-            B_AdvancedSettings.Enabled = False
-            B_DataLogging.Enabled = True
-            B_FlashECU.Enabled = False
-            SaveToolStripMenuItem.Enabled = True
-            MsgBox("ECU read into memory, but not recognized. please save as" & ECUID.Text & ".bin and send to info@ecueditor.com with notes about the bike and model.")
-        End If
 
     End Sub
 
@@ -3170,14 +3161,30 @@ skip_update:
                 B_FuelMap.Enabled = True
                 B_IgnitionMap.Enabled = True
                 B_AdvancedSettings.Enabled = False
-
-
             Case "41G10___"
                 Hayabusa.Text = "Gixxer K5-K6 enginedata only"
                 Metric = False
                 ECUVersion = "GixxerK5"
+                Limiters.C_RPM.Enabled = False
+                B_Limiters.Enabled = False
+                B_Shifter.Enabled = False
+                B_FuelMap.Enabled = False
+                B_IgnitionMap.Enabled = False
+                B_AdvancedSettings.Enabled = False
+                B_DataLogging.Enabled = True
+                B_FlashECU.Enabled = False
+                SaveToolStripMenuItem.Enabled = False
             Case Else
-                ECUNotSupported.Show()
+                Limiters.C_RPM.Enabled = False
+                B_Limiters.Enabled = False
+                B_Shifter.Enabled = False
+                B_FuelMap.Enabled = False
+                B_IgnitionMap.Enabled = False
+                B_AdvancedSettings.Enabled = False
+                B_DataLogging.Enabled = True
+                B_FlashECU.Enabled = False
+                SaveToolStripMenuItem.Enabled = True
+                MsgBox("ECU read into memory, but not recognized. please save as" & ECUID.Text & ".bin and send to info@ecueditor.com with notes about the bike and model.")
         End Select
 
         '
