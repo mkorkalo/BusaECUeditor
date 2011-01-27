@@ -29,6 +29,7 @@ Partial Class GixxerAdvSettings
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.G_misc = New System.Windows.Forms.GroupBox()
+        Me.C_ICS = New System.Windows.Forms.CheckBox()
         Me.C_HOX = New System.Windows.Forms.CheckBox()
         Me.C_EXC = New System.Windows.Forms.CheckBox()
         Me.C_PAIR = New System.Windows.Forms.CheckBox()
@@ -42,7 +43,7 @@ Partial Class GixxerAdvSettings
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.C_ECU = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.C_ICS = New System.Windows.Forms.CheckBox()
+        Me.C_SD = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.G_misc.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -69,7 +70,7 @@ Partial Class GixxerAdvSettings
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(291, 329)
+        Me.Button2.Location = New System.Drawing.Point(291, 354)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(75, 23)
         Me.Button2.TabIndex = 2
@@ -109,6 +110,7 @@ Partial Class GixxerAdvSettings
         '
         'G_misc
         '
+        Me.G_misc.Controls.Add(Me.C_SD)
         Me.G_misc.Controls.Add(Me.C_ICS)
         Me.G_misc.Controls.Add(Me.C_HOX)
         Me.G_misc.Controls.Add(Me.C_EXC)
@@ -119,10 +121,20 @@ Partial Class GixxerAdvSettings
         Me.G_misc.Controls.Add(Me.Label2)
         Me.G_misc.Location = New System.Drawing.Point(12, 165)
         Me.G_misc.Name = "G_misc"
-        Me.G_misc.Size = New System.Drawing.Size(354, 123)
+        Me.G_misc.Size = New System.Drawing.Size(354, 148)
         Me.G_misc.TabIndex = 11
         Me.G_misc.TabStop = False
         Me.G_misc.Text = "Misc settings"
+        '
+        'C_ICS
+        '
+        Me.C_ICS.AutoSize = True
+        Me.C_ICS.Location = New System.Drawing.Point(179, 94)
+        Me.C_ICS.Name = "C_ICS"
+        Me.C_ICS.Size = New System.Drawing.Size(111, 17)
+        Me.C_ICS.TabIndex = 48
+        Me.C_ICS.Text = "ICS disable on/off"
+        Me.C_ICS.UseVisualStyleBackColor = True
         '
         'C_HOX
         '
@@ -196,7 +208,7 @@ Partial Class GixxerAdvSettings
         '
         Me.GroupBox2.Controls.Add(Me.C_2step)
         Me.GroupBox2.Controls.Add(Me.NTCLT)
-        Me.GroupBox2.Location = New System.Drawing.Point(16, 294)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 319)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(269, 58)
         Me.GroupBox2.TabIndex = 103
@@ -252,15 +264,15 @@ Partial Class GixxerAdvSettings
         Me.Label4.TabIndex = 6
         Me.Label4.Text = "ECU"
         '
-        'C_ICS
+        'C_SD
         '
-        Me.C_ICS.AutoSize = True
-        Me.C_ICS.Location = New System.Drawing.Point(179, 94)
-        Me.C_ICS.Name = "C_ICS"
-        Me.C_ICS.Size = New System.Drawing.Size(111, 17)
-        Me.C_ICS.TabIndex = 48
-        Me.C_ICS.Text = "ICS disable on/off"
-        Me.C_ICS.UseVisualStyleBackColor = True
+        Me.C_SD.AutoSize = True
+        Me.C_SD.Location = New System.Drawing.Point(12, 117)
+        Me.C_SD.Name = "C_SD"
+        Me.C_SD.Size = New System.Drawing.Size(73, 17)
+        Me.C_SD.TabIndex = 49
+        Me.C_SD.Text = "SD on/off"
+        Me.C_SD.UseVisualStyleBackColor = True
         '
         'GixxerAdvSettings
         '
@@ -306,4 +318,5 @@ Partial Class GixxerAdvSettings
     Friend WithEvents C_ECU As System.Windows.Forms.ComboBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents C_ICS As System.Windows.Forms.CheckBox
+    Friend WithEvents C_SD As System.Windows.Forms.CheckBox
 End Class

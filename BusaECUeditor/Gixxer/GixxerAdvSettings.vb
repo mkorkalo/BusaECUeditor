@@ -17,6 +17,10 @@
     Public gixxer_ics3 As Integer = &H62296
     Public gixxer_hox1 As Integer = &H614D4
     Public gixxer_hox2 As Integer = &H62243
+    Public gixxer_sd1 As Integer = &H62AC1
+    Public gixxer_sd2 As Integer = &H62ACF
+    Public gixxer_sd3 As Integer = &H62AD2
+
 
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
@@ -183,6 +187,18 @@
             WriteFlashWord(gixxer_ics3, &H7800) 'idle RPM high limit set to 12000rpm
         End If
 
+        If ReadFlashByte(gixxer_sd1) = &HFF Then C_SD.Checked = True Else C_SD.Checked = False
+        If C_SD.Checked = True Then
+            C_SD.Text = "SD active"
+            WriteFlashByte(gixxer_sd1, &HFF)
+            WriteFlashByte(gixxer_sd2, &HFF)
+            WriteFlashByte(gixxer_sd3, &HFF)
+        Else
+            C_SD.Text = "SD disabled"
+            WriteFlashByte(gixxer_sd1, &H0)
+            WriteFlashByte(gixxer_sd2, &H0)
+            WriteFlashByte(gixxer_sd3, &H0)
+        End If
 
         loading = False
     End Sub
@@ -409,6 +425,27 @@
             End If
         End If
 
+
+    End Sub
+
+    Private Sub C_SD_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_SD.CheckedChanged
+        If Not loading Then
+            If C_SD.Checked = True Then
+                C_SD.Text = "SD active"
+                WriteFlashByte(gixxer_sd1, &HFF)
+                WriteFlashByte(gixxer_sd2, &HFF)
+                WriteFlashByte(gixxer_sd3, &HFF)
+            Else
+                C_SD.Text = "SD disabled"
+                WriteFlashByte(gixxer_sd1, &H0)
+                WriteFlashByte(gixxer_sd2, &H0)
+                WriteFlashByte(gixxer_sd3, &H0)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub G_misc_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles G_misc.Enter
 
     End Sub
 End Class
