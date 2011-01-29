@@ -310,17 +310,6 @@ Public Class K8Advsettings
 
         End If
 
-        If ReadFlashByte(&H7413D) = &HC8 Then
-            C_FAN.Text = "Fan ON/OFF 100/95"
-            C_FAN.Checked = True
-            WriteFlashByte(&H7413D, &HC8)
-            WriteFlashByte(&H7413E, &HD0)
-        Else
-            C_FAN.Text = "Fan ON/OFF 105/100"
-            C_FAN.Checked = False
-            WriteFlashByte(&H7413D, &HD0)
-            WriteFlashByte(&H7413E, &HE8)
-        End If
 
         If ReadFlashByte(&H553F4) = &HFF Then C_TOS.Checked = True Else C_TOS.Checked = False
         If C_TOS.Checked = True Then
@@ -343,6 +332,51 @@ Public Class K8Advsettings
             WriteFlashByte(&H4760 + 1, &H53)
             WriteFlashByte(&H4760 + 1, &HF4)
         End If
+
+        '
+        ' Setting fan on of speed based on ecu values
+        '
+        ' If Metric then
+        C_fan.Items.Add("105/100")
+        C_fan.Items.Add("100/95")
+        C_fan.Items.Add("95/90")
+        C_fan.Items.Add("90/85")
+        C_fan.Items.Add("85/80")
+        ' else
+        'c_fan.Items.Add("105/100")
+        'c_fan.Items.Add("100/95")
+        'c_fan.Items.Add("95/90")
+        'c_fan.Items.Add("90/85")
+        'c_fan.Items.Add("85/80")
+        'endif
+
+        Dim i As Integer
+        Dim fan As Integer = &H7D13D
+        i = ReadFlashByte(fan + 1)
+        Select Case i
+            Case &HD8 ' 105/100
+                C_fan.SelectedIndex = 0
+                WriteFlashByte(fan + 1, &HD8)
+                WriteFlashByte(fan, &HD0)
+            Case &HD0 '100/95
+                C_fan.SelectedIndex = 1
+                WriteFlashByte(fan + 1, &HD0)
+                WriteFlashByte(fan, &HC8)
+            Case &HC8 '95/90
+                C_fan.SelectedIndex = 2
+                WriteFlashByte(fan + 1, &HC8)
+                WriteFlashByte(fan, &HC0)
+            Case &HC0 '90/85
+                C_fan.SelectedIndex = 3
+                WriteFlashByte(fan + 1, &HC0)
+                WriteFlashByte(fan, &HB8)
+            Case &HB8 '90/85
+                C_fan.SelectedIndex = 4
+                WriteFlashByte(fan + 1, &HB8)
+                WriteFlashByte(fan, &HB0)
+        End Select
+
+
 
         loading = False
 
@@ -1096,7 +1130,7 @@ Public Class K8Advsettings
 
     End Sub
 
-    
+
     Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
         K8gaugetools.Show()
         K8gaugetools.Select()
@@ -1181,22 +1215,6 @@ Public Class K8Advsettings
         k8dragtools.select()
     End Sub
 
-    Private Sub CheckBox1_CheckedChanged_4(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_FAN.CheckedChanged
-        If Not loading Then
-            If C_FAN.Checked = True Then
-                C_FAN.Text = "Fan ON/OFF 100/95"
-                WriteFlashByte(&H7413D, &HC8)
-                WriteFlashByte(&H7413E, &HD0)
-            Else
-                C_FAN.Text = "Fan ON/OFF 105/100"
-                WriteFlashByte(&H7413D, &HD0)
-                WriteFlashByte(&H7413E, &HE8)
-            End If
-        End If
-
-
-    End Sub
-
     Private Sub C_TOS_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_TOS.CheckedChanged
         If Not loading Then
             '
@@ -1226,4 +1244,34 @@ Public Class K8Advsettings
         End If
 
     End Sub
+
+    Private Sub C_fan_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_fan.SelectedIndexChanged
+        Dim i As Integer
+        Dim fan As Integer = &H7D13D
+        If Not loading Then
+
+            i = Me.C_fan.SelectedIndex()
+            Select Case i
+                Case 0 ' 105/100
+                    WriteFlashByte(fan + 1, &HD8)
+                    WriteFlashByte(fan, &HD0)
+                Case 1 '100/95
+                    WriteFlashByte(fan + 1, &HD0)
+                    WriteFlashByte(fan, &HC8)
+                Case 2 '95/90
+                    WriteFlashByte(fan + 1, &HC8)
+                    WriteFlashByte(fan, &HC0)
+                Case 3 '90/85
+                    WriteFlashByte(fan + 1, &HC0)
+                    WriteFlashByte(fan, &HB8)
+                Case 4 '85/80
+                    WriteFlashByte(fan + 1, &HB8)
+                    WriteFlashByte(fan, &HB0)
+            End Select
+
+        End If
+
+    End Sub
+
+
 End Class

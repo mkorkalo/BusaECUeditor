@@ -69,12 +69,13 @@ Partial Class K8Advsettings
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.C_TOS = New System.Windows.Forms.CheckBox()
-        Me.C_FAN = New System.Windows.Forms.CheckBox()
         Me.C_FastBaudRate = New System.Windows.Forms.CheckBox()
         Me.C_DatalogO2Sensor = New System.Windows.Forms.CheckBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.C_ABCmode = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.C_fan = New System.Windows.Forms.ComboBox()
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -571,8 +572,9 @@ Partial Class K8Advsettings
         '
         'GroupBox7
         '
+        Me.GroupBox7.Controls.Add(Me.Label13)
+        Me.GroupBox7.Controls.Add(Me.C_fan)
         Me.GroupBox7.Controls.Add(Me.C_TOS)
-        Me.GroupBox7.Controls.Add(Me.C_FAN)
         Me.GroupBox7.Controls.Add(Me.C_FastBaudRate)
         Me.GroupBox7.Controls.Add(Me.C_DatalogO2Sensor)
         Me.GroupBox7.Controls.Add(Me.Label5)
@@ -599,16 +601,6 @@ Partial Class K8Advsettings
         Me.C_TOS.Text = "TOS acitive/deactive"
         Me.C_TOS.UseVisualStyleBackColor = True
         '
-        'C_FAN
-        '
-        Me.C_FAN.AutoSize = True
-        Me.C_FAN.Location = New System.Drawing.Point(9, 86)
-        Me.C_FAN.Name = "C_FAN"
-        Me.C_FAN.Size = New System.Drawing.Size(132, 17)
-        Me.C_FAN.TabIndex = 50
-        Me.C_FAN.Text = "Fan ON/OFF 105/100"
-        Me.C_FAN.UseVisualStyleBackColor = True
-        '
         'C_FastBaudRate
         '
         Me.C_FastBaudRate.AutoSize = True
@@ -632,7 +624,7 @@ Partial Class K8Advsettings
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(6, 63)
+        Me.Label5.Location = New System.Drawing.Point(10, 64)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(50, 13)
         Me.Label5.TabIndex = 8
@@ -657,6 +649,24 @@ Partial Class K8Advsettings
         Me.GroupBox2.TabIndex = 9
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Gaugemode"
+        '
+        'C_fan
+        '
+        Me.C_fan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.C_fan.FormattingEnabled = True
+        Me.C_fan.Location = New System.Drawing.Point(62, 84)
+        Me.C_fan.Name = "C_fan"
+        Me.C_fan.Size = New System.Drawing.Size(73, 21)
+        Me.C_fan.TabIndex = 103
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(6, 87)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(54, 13)
+        Me.Label13.TabIndex = 104
+        Me.Label13.Text = "FAN temp"
         '
         'K8Advsettings
         '
@@ -750,6 +760,7 @@ Partial Class K8Advsettings
     Friend WithEvents C_FastBaudRate As System.Windows.Forms.CheckBox
     Friend WithEvents B_dragtools As System.Windows.Forms.Button
     Friend WithEvents Label12 As System.Windows.Forms.Label
-    Friend WithEvents C_FAN As System.Windows.Forms.CheckBox
     Friend WithEvents C_TOS As System.Windows.Forms.CheckBox
+    Friend WithEvents C_fan As System.Windows.Forms.ComboBox
+    Friend WithEvents Label13 As System.Windows.Forms.Label
 End Class
