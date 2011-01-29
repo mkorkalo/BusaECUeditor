@@ -80,24 +80,9 @@
             WriteFlashByte(gixxer_coilfi, &HFF)
         End If
 
-
-        If ReadFlashByte(gixxer_fan) = &HC8 Then
-            C_FAN.Checked = True
-            C_FAN.Text = "Fan ON/OFF 100/95"
-            WriteFlashByte(gixxer_fan, &HC8)
-            WriteFlashByte(gixxer_fan + 1, &HD0)
-        Else
-            C_FAN.Checked = False
-            C_FAN.Text = "Fan ON/OFF 95/90"
-            WriteFlashByte(gixxer_fan, &HC0)
-            WriteFlashByte(gixxer_fan + 1, &HC8)
-        End If
-
         If ReadFlashByte(gixxer_pair) = &HFF Then
             C_PAIR.Text = "PAIR ON"
             C_PAIR.Checked = True
-
-
             WriteFlashByte(gixxer_pair, &HFF) ' pair config flag
             WriteFlashByte(gixxer_pairloop, &HFE)
             WriteFlashByte(gixxer_pairloop + 1, &HFF)
@@ -171,7 +156,7 @@
                 C_ECU.SelectedIndex = 2
         End Select
 
- 
+
         If ReadFlashByte(gixxer_ics1) = &HFF Then C_ICS.Checked = True Else C_ICS.Checked = False
         If C_ICS.Checked = True Then
             C_ICS.Text = "ICS ON"
@@ -200,6 +185,50 @@
             WriteFlashByte(gixxer_sd3, &H0)
         End If
 
+        '
+        ' Setting fan on of speed based on ecu values
+        '
+        ' If Metric then
+        c_fan.Items.Add("105/100")
+        c_fan.Items.Add("100/95")
+        c_fan.Items.Add("95/90")
+        c_fan.Items.Add("90/85")
+        c_fan.Items.Add("85/80")
+        ' else
+        'c_fan.Items.Add("105/100")
+        'c_fan.Items.Add("100/95")
+        'c_fan.Items.Add("95/90")
+        'c_fan.Items.Add("90/85")
+        'c_fan.Items.Add("85/80")
+        'endif
+
+
+        i = Me.c_fan.SelectedIndex()
+        i = ReadFlashByte(gixxer_fan)
+        Select Case i
+            Case &HD8 ' 105/100
+                c_fan.SelectedIndex = 0
+                WriteFlashByte(gixxer_fan, &HD8)
+                WriteFlashByte(gixxer_fan + 1, &HD0)
+            Case &HD0 '100/95
+                c_fan.SelectedIndex = 1
+                WriteFlashByte(gixxer_fan, &HD0)
+                WriteFlashByte(gixxer_fan + 1, &HC8)
+            Case &HC8 '95/90
+                c_fan.SelectedIndex = 2
+                WriteFlashByte(gixxer_fan, &HC8)
+                WriteFlashByte(gixxer_fan + 1, &HC0)
+            Case &HC0 '90/85
+                c_fan.SelectedIndex = 3
+                WriteFlashByte(gixxer_fan, &HC0)
+                WriteFlashByte(gixxer_fan + 1, &HB8)
+            Case &HB8 '90/85
+                c_fan.SelectedIndex = 4
+                WriteFlashByte(gixxer_fan, &HB8)
+                WriteFlashByte(gixxer_fan + 1, &HB0)
+        End Select
+
+
         loading = False
     End Sub
 
@@ -221,19 +250,7 @@
 
     End Sub
 
-    Private Sub CheckBox1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_FAN.CheckedChanged
-
-        If Not loading Then
-            If C_FAN.Checked = True Then
-                C_FAN.Text = "Fan ON/OFF 100/95"
-                WriteFlashByte(gixxer_fan, &HC8)
-                WriteFlashByte(gixxer_fan + 1, &HD0)
-            Else
-                C_FAN.Text = "Fan ON/OFF 95/90"
-                WriteFlashByte(gixxer_fan, &HC0)
-                WriteFlashByte(gixxer_fan + 1, &HC8)
-            End If
-        End If
+    Private Sub CheckBox1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
     End Sub
 
@@ -446,6 +463,33 @@
     End Sub
 
     Private Sub G_misc_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles G_misc.Enter
+
+    End Sub
+
+    Private Sub c_fan_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles c_fan.SelectedIndexChanged
+        Dim i As Integer
+        If Not loading Then
+
+            i = Me.c_fan.SelectedIndex()
+            Select Case i
+                Case 0 ' 105/100
+                    WriteFlashByte(gixxer_fan, &HD8)
+                    WriteFlashByte(gixxer_fan + 1, &HD0)
+                Case 1 '100/95
+                    WriteFlashByte(gixxer_fan, &HD0)
+                    WriteFlashByte(gixxer_fan + 1, &HC8)
+                Case 2 '95/90
+                    WriteFlashByte(gixxer_fan, &HC8)
+                    WriteFlashByte(gixxer_fan + 1, &HC0)
+                Case 3 '90/85
+                    WriteFlashByte(gixxer_fan, &HC0)
+                    WriteFlashByte(gixxer_fan + 1, &HB8)
+                Case 4 '85/80
+                    WriteFlashByte(gixxer_fan, &HB8)
+                    WriteFlashByte(gixxer_fan + 1, &HB0)
+            End Select
+
+        End If
 
     End Sub
 End Class
