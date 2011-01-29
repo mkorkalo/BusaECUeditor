@@ -29,11 +29,11 @@ Partial Class GixxerAdvSettings
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.G_misc = New System.Windows.Forms.GroupBox()
+        Me.C_SD = New System.Windows.Forms.CheckBox()
         Me.C_ICS = New System.Windows.Forms.CheckBox()
         Me.C_HOX = New System.Windows.Forms.CheckBox()
         Me.C_EXC = New System.Windows.Forms.CheckBox()
         Me.C_PAIR = New System.Windows.Forms.CheckBox()
-        Me.C_FAN = New System.Windows.Forms.CheckBox()
         Me.C_coil_fi_disable = New System.Windows.Forms.CheckBox()
         Me.C_msmode = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -43,7 +43,8 @@ Partial Class GixxerAdvSettings
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.C_ECU = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.C_SD = New System.Windows.Forms.CheckBox()
+        Me.c_fan = New System.Windows.Forms.ComboBox()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.G_misc.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -110,12 +111,13 @@ Partial Class GixxerAdvSettings
         '
         'G_misc
         '
+        Me.G_misc.Controls.Add(Me.Label5)
+        Me.G_misc.Controls.Add(Me.c_fan)
         Me.G_misc.Controls.Add(Me.C_SD)
         Me.G_misc.Controls.Add(Me.C_ICS)
         Me.G_misc.Controls.Add(Me.C_HOX)
         Me.G_misc.Controls.Add(Me.C_EXC)
         Me.G_misc.Controls.Add(Me.C_PAIR)
-        Me.G_misc.Controls.Add(Me.C_FAN)
         Me.G_misc.Controls.Add(Me.C_coil_fi_disable)
         Me.G_misc.Controls.Add(Me.C_msmode)
         Me.G_misc.Controls.Add(Me.Label2)
@@ -126,10 +128,20 @@ Partial Class GixxerAdvSettings
         Me.G_misc.TabStop = False
         Me.G_misc.Text = "Misc settings"
         '
+        'C_SD
+        '
+        Me.C_SD.AutoSize = True
+        Me.C_SD.Location = New System.Drawing.Point(12, 117)
+        Me.C_SD.Name = "C_SD"
+        Me.C_SD.Size = New System.Drawing.Size(73, 17)
+        Me.C_SD.TabIndex = 49
+        Me.C_SD.Text = "SD on/off"
+        Me.C_SD.UseVisualStyleBackColor = True
+        '
         'C_ICS
         '
         Me.C_ICS.AutoSize = True
-        Me.C_ICS.Location = New System.Drawing.Point(179, 94)
+        Me.C_ICS.Location = New System.Drawing.Point(175, 117)
         Me.C_ICS.Name = "C_ICS"
         Me.C_ICS.Size = New System.Drawing.Size(111, 17)
         Me.C_ICS.TabIndex = 48
@@ -139,7 +151,7 @@ Partial Class GixxerAdvSettings
         'C_HOX
         '
         Me.C_HOX.AutoSize = True
-        Me.C_HOX.Location = New System.Drawing.Point(179, 48)
+        Me.C_HOX.Location = New System.Drawing.Point(175, 71)
         Me.C_HOX.Name = "C_HOX"
         Me.C_HOX.Size = New System.Drawing.Size(115, 17)
         Me.C_HOX.TabIndex = 12
@@ -149,7 +161,7 @@ Partial Class GixxerAdvSettings
         'C_EXC
         '
         Me.C_EXC.AutoSize = True
-        Me.C_EXC.Location = New System.Drawing.Point(179, 71)
+        Me.C_EXC.Location = New System.Drawing.Point(175, 94)
         Me.C_EXC.Name = "C_EXC"
         Me.C_EXC.Size = New System.Drawing.Size(79, 17)
         Me.C_EXC.TabIndex = 47
@@ -166,20 +178,10 @@ Partial Class GixxerAdvSettings
         Me.C_PAIR.Text = "PAIR on/off"
         Me.C_PAIR.UseVisualStyleBackColor = True
         '
-        'C_FAN
-        '
-        Me.C_FAN.AutoSize = True
-        Me.C_FAN.Location = New System.Drawing.Point(12, 71)
-        Me.C_FAN.Name = "C_FAN"
-        Me.C_FAN.Size = New System.Drawing.Size(88, 17)
-        Me.C_FAN.TabIndex = 10
-        Me.C_FAN.Text = "Fan ON/OFF"
-        Me.C_FAN.UseVisualStyleBackColor = True
-        '
         'C_coil_fi_disable
         '
         Me.C_coil_fi_disable.AutoSize = True
-        Me.C_coil_fi_disable.Location = New System.Drawing.Point(12, 48)
+        Me.C_coil_fi_disable.Location = New System.Drawing.Point(12, 71)
         Me.C_coil_fi_disable.Name = "C_coil_fi_disable"
         Me.C_coil_fi_disable.Size = New System.Drawing.Size(100, 17)
         Me.C_coil_fi_disable.TabIndex = 9
@@ -264,15 +266,23 @@ Partial Class GixxerAdvSettings
         Me.Label4.TabIndex = 6
         Me.Label4.Text = "ECU"
         '
-        'C_SD
+        'c_fan
         '
-        Me.C_SD.AutoSize = True
-        Me.C_SD.Location = New System.Drawing.Point(12, 117)
-        Me.C_SD.Name = "C_SD"
-        Me.C_SD.Size = New System.Drawing.Size(73, 17)
-        Me.C_SD.TabIndex = 49
-        Me.C_SD.Text = "SD on/off"
-        Me.C_SD.UseVisualStyleBackColor = True
+        Me.c_fan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.c_fan.FormattingEnabled = True
+        Me.c_fan.Location = New System.Drawing.Point(258, 44)
+        Me.c_fan.Name = "c_fan"
+        Me.c_fan.Size = New System.Drawing.Size(75, 21)
+        Me.c_fan.TabIndex = 102
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(9, 47)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(226, 13)
+        Me.Label5.TabIndex = 103
+        Me.Label5.Text = "Select and set fan on/off temperature (Celsius)"
         '
         'GixxerAdvSettings
         '
@@ -307,7 +317,6 @@ Partial Class GixxerAdvSettings
     Friend WithEvents Button3 As System.Windows.Forms.Button
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents C_coil_fi_disable As System.Windows.Forms.CheckBox
-    Friend WithEvents C_FAN As System.Windows.Forms.CheckBox
     Friend WithEvents C_PAIR As System.Windows.Forms.CheckBox
     Friend WithEvents C_EXC As System.Windows.Forms.CheckBox
     Friend WithEvents C_HOX As System.Windows.Forms.CheckBox
@@ -319,4 +328,6 @@ Partial Class GixxerAdvSettings
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents C_ICS As System.Windows.Forms.CheckBox
     Friend WithEvents C_SD As System.Windows.Forms.CheckBox
+    Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents c_fan As System.Windows.Forms.ComboBox
 End Class
