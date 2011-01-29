@@ -204,28 +204,28 @@
 
 
         i = Me.c_fan.SelectedIndex()
-        i = ReadFlashByte(gixxer_fan)
+        i = ReadFlashByte(gixxer_fan + 1)
         Select Case i
             Case &HD8 ' 105/100
                 c_fan.SelectedIndex = 0
-                WriteFlashByte(gixxer_fan, &HD8)
-                WriteFlashByte(gixxer_fan + 1, &HD0)
+                WriteFlashByte(gixxer_fan + 1, &HD8)
+                WriteFlashByte(gixxer_fan, &HD0)
             Case &HD0 '100/95
                 c_fan.SelectedIndex = 1
-                WriteFlashByte(gixxer_fan, &HD0)
-                WriteFlashByte(gixxer_fan + 1, &HC8)
+                WriteFlashByte(gixxer_fan + 1, &HD0)
+                WriteFlashByte(gixxer_fan, &HC8)
             Case &HC8 '95/90
                 c_fan.SelectedIndex = 2
-                WriteFlashByte(gixxer_fan, &HC8)
-                WriteFlashByte(gixxer_fan + 1, &HC0)
+                WriteFlashByte(gixxer_fan + 1, &HC8)
+                WriteFlashByte(gixxer_fan, &HC0)
             Case &HC0 '90/85
                 c_fan.SelectedIndex = 3
-                WriteFlashByte(gixxer_fan, &HC0)
-                WriteFlashByte(gixxer_fan + 1, &HB8)
+                WriteFlashByte(gixxer_fan + 1, &HC0)
+                WriteFlashByte(gixxer_fan, &HB8)
             Case &HB8 '90/85
                 c_fan.SelectedIndex = 4
-                WriteFlashByte(gixxer_fan, &HB8)
-                WriteFlashByte(gixxer_fan + 1, &HB0)
+                WriteFlashByte(gixxer_fan + 1, &HB8)
+                WriteFlashByte(gixxer_fan, &HB0)
         End Select
 
 
@@ -473,20 +473,20 @@
             i = Me.c_fan.SelectedIndex()
             Select Case i
                 Case 0 ' 105/100
-                    WriteFlashByte(gixxer_fan, &HD8)
-                    WriteFlashByte(gixxer_fan + 1, &HD0)
-                Case 1 '100/95
+                    WriteFlashByte(gixxer_fan + 1, &HD8)
                     WriteFlashByte(gixxer_fan, &HD0)
-                    WriteFlashByte(gixxer_fan + 1, &HC8)
-                Case 2 '95/90
+                Case 1 '100/95
+                    WriteFlashByte(gixxer_fan + 1, &HD0)
                     WriteFlashByte(gixxer_fan, &HC8)
-                    WriteFlashByte(gixxer_fan + 1, &HC0)
-                Case 3 '90/85
+                Case 2 '95/90
+                    WriteFlashByte(gixxer_fan + 1, &HC8)
                     WriteFlashByte(gixxer_fan, &HC0)
-                    WriteFlashByte(gixxer_fan + 1, &HB8)
-                Case 4 '85/80
+                Case 3 '90/85
+                    WriteFlashByte(gixxer_fan + 1, &HC0)
                     WriteFlashByte(gixxer_fan, &HB8)
-                    WriteFlashByte(gixxer_fan + 1, &HB0)
+                Case 4 '85/80
+                    WriteFlashByte(gixxer_fan + 1, &HB8)
+                    WriteFlashByte(gixxer_fan, &HB0)
             End Select
 
         End If
