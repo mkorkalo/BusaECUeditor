@@ -496,11 +496,8 @@ skip_update:
                     Loop
 
                     ' check the ecu id bytes and validate that the ecu flash image is supported
-                    If (Mid(ECUID.Text, 1, 6) <> "DJ18SE") And (Mid(ECUID.Text, 1, 6) <> "DJ47SE") And (Mid(ECUID.Text, 1, 4) <> "DJ0H") And (Mid(ECUID.Text, 1, 4) <> "DT0H") And (Mid(ECUID.Text, 1, 4) <> "DJ21") And (Mid(ECUID.Text, 1, 4) <> "DJ0D") Then
-                        ECUNotSupported.ShowDialog()
-                    Else
-                        SetECUType()
-                    End If
+                    SetECUType()
+
                     BlockPgm = True
                     CloseChildWindows()
                 Case (262144)
@@ -3094,8 +3091,25 @@ skip_update:
                 B_IgnitionMap.Enabled = True
                 B_AdvancedSettings.Enabled = True
 
+                Select Case ReadFlashByte(&H6292B)
+                    Case &H35
+                        ECUVersion = "gixxer"
+                        Hayabusa.Text = "Gixxer K7- 32920-21H50"
+                        Metric = True
+                    Case &H36
+                        ECUVersion = "gixxer"
+                        Hayabusa.Text = "Gixxer K7- 32920-21H60"
+                        Metric = False
+                    Case &H39
+                        ECUVersion = "gixxer"
+                        Hayabusa.Text = "Gixxer K7- 32920-21Hxx Generic"
+                        Metric = True
+                    Case Else
+                        Hayabusa.Text = "unknown gixxer ecu"
+                        ECUVersion = "flashonly"
+                End Select
 
-            Case "DJOHSE51"
+            Case "DJ0HSE51"
                 gixxer_modelname = "ecueditor.com for gixxer K8 "
 
                 gixxer_shifter_ADJ = &H5D900
@@ -3140,15 +3154,15 @@ skip_update:
                 Select Case ReadFlashByte(&H6292B)
                     Case &H35
                         ECUVersion = "gixxer"
-                        Hayabusa.Text = "Gixxer K7- 32920-21H50"
+                        Hayabusa.Text = "Gixxer K8- 32920-21H50"
                         Metric = True
                     Case &H36
                         ECUVersion = "gixxer"
-                        Hayabusa.Text = "Gixxer K7- 32920-21H60"
+                        Hayabusa.Text = "Gixxer K8- 32920-21H60"
                         Metric = False
                     Case &H39
                         ECUVersion = "gixxer"
-                        Hayabusa.Text = "Gixxer K7- 32920-21Hxx Generic"
+                        Hayabusa.Text = "Gixxer K8- 32920-21Hxx Generic"
                         Metric = True
                     Case Else
                         Hayabusa.Text = "unknown gixxer ecu"
