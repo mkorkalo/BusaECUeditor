@@ -68,14 +68,14 @@ Partial Class K8Advsettings
         Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.C_fan = New System.Windows.Forms.ComboBox()
         Me.C_TOS = New System.Windows.Forms.CheckBox()
         Me.C_FastBaudRate = New System.Windows.Forms.CheckBox()
         Me.C_DatalogO2Sensor = New System.Windows.Forms.CheckBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.C_ABCmode = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.C_fan = New System.Windows.Forms.ComboBox()
-        Me.Label13 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -225,7 +225,7 @@ Partial Class K8Advsettings
         Me.C_ICS.Name = "C_ICS"
         Me.C_ICS.Size = New System.Drawing.Size(111, 17)
         Me.C_ICS.TabIndex = 4
-        Me.C_ICS.Text = "ICS disable on/off"
+        Me.C_ICS.Text = "ISC disable on/off"
         Me.ToolTip1.SetToolTip(Me.C_ICS, resources.GetString("C_ICS.ToolTip"))
         Me.C_ICS.UseVisualStyleBackColor = True
         '
@@ -591,6 +591,24 @@ Partial Class K8Advsettings
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Misc settings"
         '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(6, 87)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(54, 13)
+        Me.Label13.TabIndex = 104
+        Me.Label13.Text = "FAN temp"
+        '
+        'C_fan
+        '
+        Me.C_fan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.C_fan.FormattingEnabled = True
+        Me.C_fan.Location = New System.Drawing.Point(62, 84)
+        Me.C_fan.Name = "C_fan"
+        Me.C_fan.Size = New System.Drawing.Size(73, 21)
+        Me.C_fan.TabIndex = 103
+        '
         'C_TOS
         '
         Me.C_TOS.AutoSize = True
@@ -649,24 +667,6 @@ Partial Class K8Advsettings
         Me.GroupBox2.TabIndex = 9
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Gaugemode"
-        '
-        'C_fan
-        '
-        Me.C_fan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.C_fan.FormattingEnabled = True
-        Me.C_fan.Location = New System.Drawing.Point(62, 84)
-        Me.C_fan.Name = "C_fan"
-        Me.C_fan.Size = New System.Drawing.Size(73, 21)
-        Me.C_fan.TabIndex = 103
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(6, 87)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(54, 13)
-        Me.Label13.TabIndex = 104
-        Me.Label13.Text = "FAN temp"
         '
         'K8Advsettings
         '

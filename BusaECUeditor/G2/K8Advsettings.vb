@@ -206,7 +206,7 @@ Public Class K8Advsettings
 
 
         If ReadFlashByte(&H7CAC0) = &HFF Then
-            C_ICS.Text = "ICS ON"
+            C_ICS.Text = "ISC ON"
             C_ICS.Checked = True
         Else
             C_ICS.Text = "ISC OFF"
@@ -982,7 +982,7 @@ Public Class K8Advsettings
     Private Sub CheckBox1_CheckedChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_ICS.CheckedChanged
         If Not loading Then
             If C_ICS.Checked = True Then
-                C_ICS.Text = "ICS ON"
+                C_ICS.Text = "ISC ON"
                 WriteFlashByte(&H7CAC0, &HFF) 'ICS solenoid port test error code disable
                 WriteFlashByte(&H7CAB6, &HFF) 'ICS port config const
                 WriteFlashByte(&H7CADC, &HFF) 'rpm window error disable

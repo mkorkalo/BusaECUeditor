@@ -3095,6 +3095,48 @@ skip_update:
                 B_AdvancedSettings.Enabled = True
 
 
+            Case "DJOHSE51"
+                gixxer_modelname = "ecueditor.com for gixxer K8 "
+
+                gixxer_shifter_ADJ = &H5D900
+                gixxer_shifter_FUELCODE = &H5DA00
+                gixxer_shifter_IGNCODE = &H5DE00
+                gixxer_shifter_jmp_to_fuelcode = &H45A40
+                gixxer_shifter_jmp_to_igncode = &H3B9C0
+
+                gixxer_STP_map_first_table = &H59DD0
+                gixxer_injectorbalance_map_first = &H5A7D8
+
+                gixxer_fuelmap_map_first = &H5A7F0
+                gixxer_ignition_rpm_limiter = &H60B2C
+                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3B4C1
+
+                gixxer_fuel_limiter_by_gear = &H614C1
+                gixxer_fuel_limiter_by_gear_softcut = &H614C2
+                gixxer_RPM_limit_type1 = &H61372
+                gixxer_fuel_limiter_softcut_or_hardcut = &H614BE
+                gixxer_baseline = 13450
+
+                gixxer_ignition_map_first = &H5A3D8
+                gixxer_ignition_use_clutch_map = &H60B5C
+                gixxer_ignition_map_name = gixxer_modelname
+
+                gixxer_injectorbalance_map_name = gixxer_modelname
+                gixxer_STP_modelname = gixxer_modelname
+                gixxer_fuelmap_map_bikename = gixxer_modelname
+
+                B_EngineData.Enabled = True
+                FlashToolStripMenuItem.Visible = Enabled
+                B_DataLogging.Enabled = False
+                SaveToolStripMenuItem.Enabled = True
+                B_FlashECU.Enabled = True
+                B_Limiters.Enabled = True
+                B_Shifter.Enabled = True
+                B_FuelMap.Enabled = True
+                B_IgnitionMap.Enabled = True
+                B_AdvancedSettings.Enabled = True
+
+
                 Select Case ReadFlashByte(&H6292B)
                     Case &H35
                         ECUVersion = "gixxer"

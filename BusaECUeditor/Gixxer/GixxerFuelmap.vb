@@ -143,6 +143,9 @@ Public Class GixxerFuelmap
                 printthis()
             Case "p"
                 printthis()
+            Case "g"
+                graph.Show()
+                graph.Select()
         End Select
 
     End Sub
@@ -1317,4 +1320,6 @@ Public Class GixxerFuelmap
     Private Sub B_copy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_copy.Click
         copymaps(2)
     End Sub
+
+   
 End Class
