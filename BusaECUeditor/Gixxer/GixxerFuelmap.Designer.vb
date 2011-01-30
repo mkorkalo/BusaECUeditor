@@ -19,21 +19,21 @@ Partial Class GixxerFuelmap
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(GixxerFuelmap))
-        Me.Fuelmapgrid = New System.Windows.Forms.DataGridView
+        Me.Fuelmapgrid = New System.Windows.Forms.DataGridView()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.B_TPS = New System.Windows.Forms.Button
-        Me.B_IAP = New System.Windows.Forms.Button
-        Me.B_MSTP = New System.Windows.Forms.Button
-        Me.B_Apply_MAP = New System.Windows.Forms.Button
-        Me.T_TPSIAP = New System.Windows.Forms.TextBox
-        Me.T_RPM = New System.Windows.Forms.TextBox
-        Me.T_change = New System.Windows.Forms.TextBox
-        Me.L_modeabc = New System.Windows.Forms.Label
-        Me.B_MSIAP = New System.Windows.Forms.Button
+        Me.B_TPS = New System.Windows.Forms.Button()
+        Me.B_IAP = New System.Windows.Forms.Button()
+        Me.B_MSTP = New System.Windows.Forms.Button()
+        Me.B_Apply_MAP = New System.Windows.Forms.Button()
+        Me.T_TPSIAP = New System.Windows.Forms.TextBox()
+        Me.T_RPM = New System.Windows.Forms.TextBox()
+        Me.T_change = New System.Windows.Forms.TextBox()
+        Me.L_modeabc = New System.Windows.Forms.Label()
+        Me.B_MSIAP = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.B_copy = New System.Windows.Forms.Button
+        Me.B_copy = New System.Windows.Forms.Button()
         CType(Me.Fuelmapgrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -44,6 +44,7 @@ Partial Class GixxerFuelmap
         Me.Fuelmapgrid.AllowUserToResizeColumns = False
         Me.Fuelmapgrid.AllowUserToResizeRows = False
         Me.Fuelmapgrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.Fuelmapgrid.DataMember = "fuelmap_datamember"
         Me.Fuelmapgrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.Fuelmapgrid.Location = New System.Drawing.Point(3, 31)
         Me.Fuelmapgrid.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)

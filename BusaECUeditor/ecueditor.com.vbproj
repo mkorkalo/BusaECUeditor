@@ -50,7 +50,7 @@
     <WebPage>ecueditor_prerelease.htm</WebPage>
     <AutorunEnabled>true</AutorunEnabled>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>48</ApplicationRevision>
+    <ApplicationRevision>49</ApplicationRevision>
     <ApplicationVersion>2.5.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -92,10 +92,13 @@
       <HintPath>dlls\Lxsoft.Controls.LedControl.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -419,6 +422,12 @@
     <Compile Include="G2\K8AutoTuneSettings.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Gixxer\Graph.Designer.vb">
+      <DependentUpon>Graph.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Gixxer\Graph.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Gixxer\GixxerSTPmap.designer.vb">
       <DependentUpon>GixxerSTPmap.vb</DependentUpon>
     </Compile>
@@ -526,6 +535,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>FuelMap.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Gixxer\Graph.resx">
+      <DependentUpon>Graph.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Gixxer\GixxerSTPmap.resx">
       <DependentUpon>GixxerSTPmap.vb</DependentUpon>
     </EmbeddedResource>
@@ -610,6 +622,7 @@
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
+    <None Include="My Project\DataSources\GixxerFuelmap.datasource" />
     <None Include="My Project\DataSources\K8boostfuel.datasource">
       <SubType>Designer</SubType>
     </None>
