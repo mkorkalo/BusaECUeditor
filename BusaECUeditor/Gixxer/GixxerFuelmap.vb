@@ -144,8 +144,8 @@ Public Class GixxerFuelmap
             Case "p"
                 printthis()
             Case "g"
-                graph.Show()
-                graph.Select()
+                GixxerFuelGraph.Show()
+                GixxerFuelGraph.Select()
         End Select
 
     End Sub
@@ -437,6 +437,10 @@ Public Class GixxerFuelmap
             Next
         End If
         If mapsel = False Then MsgBox("Did not detect correct map, fuel mapping may be incorrect.")
+
+        If GixxerFuelGraph.Visible Then
+            GixxerFuelGraph.redraw()
+        End If
 
     End Sub
 

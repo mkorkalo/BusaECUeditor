@@ -62,10 +62,6 @@ Partial Class GixxerFuelGraph
         Me.Chart1.TabIndex = 0
         Me.Chart1.Text = "Chart1"
         '
-        'GixxerFuelmapBindingSource
-        '
-        Me.GixxerFuelmapBindingSource.DataSource = GetType(ecueditor_25.GixxerFuelmap)
-        '
         'graph
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
