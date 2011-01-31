@@ -496,4 +496,9 @@
         End If
 
     End Sub
+
+    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
+        Gixxersteeringdampenermap.Show()
+        Gixxersteeringdampenermap.Select()
+    End Sub
 End Class
