@@ -29,6 +29,8 @@ Partial Class GixxerAdvSettings
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.G_misc = New System.Windows.Forms.GroupBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.c_fan = New System.Windows.Forms.ComboBox()
         Me.C_SD = New System.Windows.Forms.CheckBox()
         Me.C_ICS = New System.Windows.Forms.CheckBox()
         Me.C_HOX = New System.Windows.Forms.CheckBox()
@@ -43,8 +45,8 @@ Partial Class GixxerAdvSettings
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.C_ECU = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.c_fan = New System.Windows.Forms.ComboBox()
-        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Button4 = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.G_misc.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -71,7 +73,7 @@ Partial Class GixxerAdvSettings
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(291, 354)
+        Me.Button2.Location = New System.Drawing.Point(291, 398)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(75, 23)
         Me.Button2.TabIndex = 2
@@ -80,13 +82,16 @@ Partial Class GixxerAdvSettings
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Button4)
+        Me.GroupBox1.Controls.Add(Me.Label6)
+        Me.GroupBox1.Controls.Add(Me.C_SD)
         Me.GroupBox1.Controls.Add(Me.Button3)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 71)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(354, 88)
+        Me.GroupBox1.Size = New System.Drawing.Size(354, 132)
         Me.GroupBox1.TabIndex = 10
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Misc maps"
@@ -113,7 +118,6 @@ Partial Class GixxerAdvSettings
         '
         Me.G_misc.Controls.Add(Me.Label5)
         Me.G_misc.Controls.Add(Me.c_fan)
-        Me.G_misc.Controls.Add(Me.C_SD)
         Me.G_misc.Controls.Add(Me.C_ICS)
         Me.G_misc.Controls.Add(Me.C_HOX)
         Me.G_misc.Controls.Add(Me.C_EXC)
@@ -121,17 +125,35 @@ Partial Class GixxerAdvSettings
         Me.G_misc.Controls.Add(Me.C_coil_fi_disable)
         Me.G_misc.Controls.Add(Me.C_msmode)
         Me.G_misc.Controls.Add(Me.Label2)
-        Me.G_misc.Location = New System.Drawing.Point(12, 165)
+        Me.G_misc.Location = New System.Drawing.Point(12, 209)
         Me.G_misc.Name = "G_misc"
         Me.G_misc.Size = New System.Drawing.Size(354, 148)
         Me.G_misc.TabIndex = 11
         Me.G_misc.TabStop = False
         Me.G_misc.Text = "Misc settings"
         '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(9, 47)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(226, 13)
+        Me.Label5.TabIndex = 103
+        Me.Label5.Text = "Select and set fan on/off temperature (Celsius)"
+        '
+        'c_fan
+        '
+        Me.c_fan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.c_fan.FormattingEnabled = True
+        Me.c_fan.Location = New System.Drawing.Point(258, 44)
+        Me.c_fan.Name = "c_fan"
+        Me.c_fan.Size = New System.Drawing.Size(75, 21)
+        Me.c_fan.TabIndex = 102
+        '
         'C_SD
         '
         Me.C_SD.AutoSize = True
-        Me.C_SD.Location = New System.Drawing.Point(12, 117)
+        Me.C_SD.Location = New System.Drawing.Point(258, 104)
         Me.C_SD.Name = "C_SD"
         Me.C_SD.Size = New System.Drawing.Size(73, 17)
         Me.C_SD.TabIndex = 49
@@ -210,7 +232,7 @@ Partial Class GixxerAdvSettings
         '
         Me.GroupBox2.Controls.Add(Me.C_2step)
         Me.GroupBox2.Controls.Add(Me.NTCLT)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 319)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 363)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(269, 58)
         Me.GroupBox2.TabIndex = 103
@@ -266,23 +288,23 @@ Partial Class GixxerAdvSettings
         Me.Label4.TabIndex = 6
         Me.Label4.Text = "ECU"
         '
-        'c_fan
+        'Label6
         '
-        Me.c_fan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.c_fan.FormattingEnabled = True
-        Me.c_fan.Location = New System.Drawing.Point(258, 44)
-        Me.c_fan.Name = "c_fan"
-        Me.c_fan.Size = New System.Drawing.Size(75, 21)
-        Me.c_fan.TabIndex = 102
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(9, 80)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(184, 13)
+        Me.Label6.TabIndex = 4
+        Me.Label6.Text = "View and edit steering dampener map"
         '
-        'Label5
+        'Button4
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(9, 47)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(226, 13)
-        Me.Label5.TabIndex = 103
-        Me.Label5.Text = "Select and set fan on/off temperature (Celsius)"
+        Me.Button4.Location = New System.Drawing.Point(258, 75)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(75, 23)
+        Me.Button4.TabIndex = 5
+        Me.Button4.Text = "SD map"
+        Me.Button4.UseVisualStyleBackColor = True
         '
         'GixxerAdvSettings
         '
@@ -330,4 +352,6 @@ Partial Class GixxerAdvSettings
     Friend WithEvents C_SD As System.Windows.Forms.CheckBox
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents c_fan As System.Windows.Forms.ComboBox
+    Friend WithEvents Button4 As System.Windows.Forms.Button
+    Friend WithEvents Label6 As System.Windows.Forms.Label
 End Class
