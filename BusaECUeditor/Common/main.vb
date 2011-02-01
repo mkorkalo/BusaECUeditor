@@ -3058,6 +3058,7 @@ skip_update:
                 gixxer_shifter_IGNCODE = &H5DE00
                 gixxer_shifter_jmp_to_fuelcode = &H45A40
                 gixxer_shifter_jmp_to_igncode = &H3B9C0
+                gixxer_abc = &H220C4
 
                 gixxer_STP_map_first_table = &H59DD0
                 gixxer_injectorbalance_map_first = &H5A7D8
@@ -3091,6 +3092,8 @@ skip_update:
                 B_IgnitionMap.Enabled = True
                 B_AdvancedSettings.Enabled = True
 
+
+
                 Select Case ReadFlashByte(&H6292B)
                     Case &H35
                         ECUVersion = "gixxer"
@@ -3117,6 +3120,7 @@ skip_update:
                 gixxer_shifter_IGNCODE = &H5DE00
                 gixxer_shifter_jmp_to_fuelcode = &H45A40
                 gixxer_shifter_jmp_to_igncode = &H3B9C0
+                gixxer_abc = &H220C4
 
                 gixxer_STP_map_first_table = &H59DD0
                 gixxer_injectorbalance_map_first = &H5A7D8

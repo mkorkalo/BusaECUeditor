@@ -99,6 +99,7 @@ Module CommonFunctions
     Public gixxer_shifter_IGNCODE As Integer = &H5DE00
     Public gixxer_shifter_jmp_to_fuelcode As Integer = &H45A40
     Public gixxer_shifter_jmp_to_igncode As Integer = &H3B9C0
+    Public gixxer_abc As Integer = &H220C4
 
     Public gixxer_STP_map_first_table As Long = &H59DD0
     Public gixxer_STP_modelname As String = "Gixxer K8 "
