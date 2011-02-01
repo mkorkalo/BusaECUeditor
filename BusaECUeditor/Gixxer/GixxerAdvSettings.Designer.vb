@@ -26,12 +26,14 @@ Partial Class GixxerAdvSettings
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.C_SD = New System.Windows.Forms.CheckBox()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.G_misc = New System.Windows.Forms.GroupBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.c_fan = New System.Windows.Forms.ComboBox()
-        Me.C_SD = New System.Windows.Forms.CheckBox()
         Me.C_ICS = New System.Windows.Forms.CheckBox()
         Me.C_HOX = New System.Windows.Forms.CheckBox()
         Me.C_EXC = New System.Windows.Forms.CheckBox()
@@ -45,8 +47,7 @@ Partial Class GixxerAdvSettings
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.C_ECU = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Button4 = New System.Windows.Forms.Button()
+        Me.C_ABCmode = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.G_misc.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -96,6 +97,34 @@ Partial Class GixxerAdvSettings
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Misc maps"
         '
+        'Button4
+        '
+        Me.Button4.Location = New System.Drawing.Point(258, 75)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(75, 23)
+        Me.Button4.TabIndex = 5
+        Me.Button4.Text = "SD map"
+        Me.Button4.UseVisualStyleBackColor = True
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(9, 80)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(184, 13)
+        Me.Label6.TabIndex = 4
+        Me.Label6.Text = "View and edit steering dampener map"
+        '
+        'C_SD
+        '
+        Me.C_SD.AutoSize = True
+        Me.C_SD.Location = New System.Drawing.Point(258, 104)
+        Me.C_SD.Name = "C_SD"
+        Me.C_SD.Size = New System.Drawing.Size(73, 17)
+        Me.C_SD.TabIndex = 49
+        Me.C_SD.Text = "SD on/off"
+        Me.C_SD.UseVisualStyleBackColor = True
+        '
         'Button3
         '
         Me.Button3.Location = New System.Drawing.Point(258, 46)
@@ -116,6 +145,7 @@ Partial Class GixxerAdvSettings
         '
         'G_misc
         '
+        Me.G_misc.Controls.Add(Me.C_ABCmode)
         Me.G_misc.Controls.Add(Me.Label5)
         Me.G_misc.Controls.Add(Me.c_fan)
         Me.G_misc.Controls.Add(Me.C_ICS)
@@ -149,16 +179,6 @@ Partial Class GixxerAdvSettings
         Me.c_fan.Name = "c_fan"
         Me.c_fan.Size = New System.Drawing.Size(75, 21)
         Me.c_fan.TabIndex = 102
-        '
-        'C_SD
-        '
-        Me.C_SD.AutoSize = True
-        Me.C_SD.Location = New System.Drawing.Point(258, 104)
-        Me.C_SD.Name = "C_SD"
-        Me.C_SD.Size = New System.Drawing.Size(73, 17)
-        Me.C_SD.TabIndex = 49
-        Me.C_SD.Text = "SD on/off"
-        Me.C_SD.UseVisualStyleBackColor = True
         '
         'C_ICS
         '
@@ -288,23 +308,15 @@ Partial Class GixxerAdvSettings
         Me.Label4.TabIndex = 6
         Me.Label4.Text = "ECU"
         '
-        'Label6
+        'C_ABCmode
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(9, 80)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(184, 13)
-        Me.Label6.TabIndex = 4
-        Me.Label6.Text = "View and edit steering dampener map"
-        '
-        'Button4
-        '
-        Me.Button4.Location = New System.Drawing.Point(258, 75)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(75, 23)
-        Me.Button4.TabIndex = 5
-        Me.Button4.Text = "SD map"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.C_ABCmode.AutoSize = True
+        Me.C_ABCmode.Location = New System.Drawing.Point(12, 117)
+        Me.C_ABCmode.Name = "C_ABCmode"
+        Me.C_ABCmode.Size = New System.Drawing.Size(94, 17)
+        Me.C_ABCmode.TabIndex = 104
+        Me.C_ABCmode.Text = "ABC fixed to A"
+        Me.C_ABCmode.UseVisualStyleBackColor = True
         '
         'GixxerAdvSettings
         '
@@ -354,4 +366,5 @@ Partial Class GixxerAdvSettings
     Friend WithEvents c_fan As System.Windows.Forms.ComboBox
     Friend WithEvents Button4 As System.Windows.Forms.Button
     Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents C_ABCmode As System.Windows.Forms.CheckBox
 End Class

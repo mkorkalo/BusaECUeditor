@@ -218,6 +218,21 @@
                 c_fan.SelectedIndex = 4
         End Select
 
+        If ReadFlashByte(gixxer_abc) = &HA1 Then C_ABCmode.Checked = True Else C_ABCmode.Checked = False
+        If C_ABCmode.Checked = True Then
+            C_ABCmode.Text = "ABC normal"
+            WriteFlashByte(gixxer_abc + 0, &HA1)
+            WriteFlashByte(gixxer_abc + 1, &H9F)
+            WriteFlashByte(gixxer_abc + 2, &H0)
+            WriteFlashByte(gixxer_abc + 3, &H8)
+        Else
+            C_ABCmode.Text = "Fixed A-mode"
+            WriteFlashByte(gixxer_abc + 0, &H91)
+            WriteFlashByte(gixxer_abc + 1, &HF0)
+            WriteFlashByte(gixxer_abc + 2, &H0)
+            WriteFlashByte(gixxer_abc + 3, &H0)
+        End If
+
 
         loading = False
     End Sub
@@ -500,5 +515,26 @@
     Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
         Gixxersteeringdampenermap.Show()
         Gixxersteeringdampenermap.Select()
+    End Sub
+
+    Private Sub C_ABCmode_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_ABCmode.CheckedChanged
+
+        If Not loading Then
+            If C_ABCmode.Checked = True Then
+                C_ABCmode.Text = "ABC normal"
+                WriteFlashByte(gixxer_abc + 0, &HA1)
+                WriteFlashByte(gixxer_abc + 1, &H9F)
+                WriteFlashByte(gixxer_abc + 2, &H0)
+                WriteFlashByte(gixxer_abc + 3, &H8)
+            Else
+                C_ABCmode.Text = "Fixed A-mode"
+                WriteFlashByte(gixxer_abc + 0, &H91)
+                WriteFlashByte(gixxer_abc + 1, &HF0)
+                WriteFlashByte(gixxer_abc + 2, &H0)
+                WriteFlashByte(gixxer_abc + 3, &H0)
+
+            End If
+        End If
+
     End Sub
 End Class
