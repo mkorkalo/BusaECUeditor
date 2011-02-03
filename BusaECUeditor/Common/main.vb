@@ -3071,20 +3071,38 @@ skip_update:
                 gixxer_baseline = 13450
                 gixxer_ignition_rpm_limiter = &H74344 '&H60B2C
 
-                B_AdvancedSettings.Enabled = False
-                gixxer_STP_map_first_table = &H59DD0
-                gixxer_injectorbalance_map_first = &H5A7D8
+                B_AdvancedSettings.Enabled = True
+                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3CE9D '&H3B4C1
+                gixxer_STP_map_first_table = &H5C450 '&H59DD0
 
+                gixxer_injectorbalance_map_first = 0 ' &H5A7D8
+                gixxer_abc = 0 '&H220C4
+                gixxer_msmode = 0 '&H6063A
+                gixxer_coilfi = 0 '&H60BC1
+                gixxer_fan = 0 '&H6296A
+                gixxer_pair = 0 '&H62ABA
+                gixxer_pairloop = 0 '&H56D5C
+                gixxer_excva = 0 '&H6000D
+                gixxer_excva_flag = 0 '&H60669
+                gixxer_hoxflag = 0 '&H614D4
+                gixxer_ecumode = 0 '&H604CF
+                gixxer_ics1 = 0 '&H622EE
+                gixxer_ics2 = 0 '&H6230A
+                gixxer_ics3 = 0 '&H62296
+                gixxer_hox1 = 0 '&H614D4
+                gixxer_hox2 = 0 '&H62243
 
+                gixxer_sdmap = &H606CC
+                gixxer_sd1 = &H7A398 '&H62AC1
+                gixxer_sd2 = &H7A395 '&H62ACF
+                gixxer_sd3 = &H7A398 '&H62AD2
 
                 B_Shifter.Enabled = False
-                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3B4C1
-                gixxer_shifter_ADJ = &H5D900
-                gixxer_shifter_FUELCODE = &H5DA00
-                gixxer_shifter_IGNCODE = &H5DE00
-                gixxer_shifter_jmp_to_fuelcode = &H45A40
-                gixxer_shifter_jmp_to_igncode = &H3B9C0
-                gixxer_abc = &H220C4
+                gixxer_shifter_ADJ = &H0 '&H5D900
+                gixxer_shifter_FUELCODE = &H0 '&H5DA00
+                gixxer_shifter_IGNCODE = &H0 '&H5DE00
+                gixxer_shifter_jmp_to_fuelcode = &H0 '&H45A40
+                gixxer_shifter_jmp_to_igncode = &H0 '&H3B9C0
 
                 gixxer_injectorbalance_map_name = gixxer_modelname
                 gixxer_STP_modelname = gixxer_modelname
@@ -3136,8 +3154,26 @@ skip_update:
                 B_Shifter.Enabled = True
                 B_FuelMap.Enabled = True
                 B_IgnitionMap.Enabled = True
-                B_AdvancedSettings.Enabled = True
 
+                B_AdvancedSettings.Enabled = True
+                gixxer_msmode = &H6063A
+                gixxer_coilfi = &H60BC1
+                gixxer_fan = &H6296A
+                gixxer_pair = &H62ABA
+                gixxer_pairloop = &H56D5C
+                gixxer_excva = &H6000D
+                gixxer_excva_flag = &H60669
+                gixxer_hoxflag = &H614D4
+                gixxer_ecumode = &H604CF
+                gixxer_ics1 = &H622EE
+                gixxer_ics2 = &H6230A
+                gixxer_ics3 = &H62296
+                gixxer_hox1 = &H614D4
+                gixxer_hox2 = &H62243
+                gixxer_sdmap = &H5D840
+                gixxer_sd1 = &H62AC1
+                gixxer_sd2 = &H62ACF
+                gixxer_sd3 = &H62AD2
 
 
                 Select Case ReadFlashByte(&H6292B)
@@ -3218,7 +3254,29 @@ skip_update:
                         Hayabusa.Text = "unknown gixxer ecu"
                         ECUVersion = "flashonly"
                 End Select
- 
+
+                B_AdvancedSettings.Enabled = True
+                gixxer_msmode = &H6063A
+                gixxer_coilfi = &H60BC1
+                gixxer_fan = &H6296A
+                gixxer_pair = &H62ABA
+                gixxer_pairloop = &H56D5C
+                gixxer_excva = &H6000D
+                gixxer_excva_flag = &H60669
+                gixxer_hoxflag = &H614D4
+                gixxer_ecumode = &H604CF
+                gixxer_ics1 = &H622EE
+                gixxer_ics2 = &H6230A
+                gixxer_ics3 = &H62296
+                gixxer_hox1 = &H614D4
+                gixxer_hox2 = &H62243
+                gixxer_sdmap = &H5D840
+                gixxer_sd1 = &H62AC1
+                gixxer_sd2 = &H62ACF
+                gixxer_sd3 = &H62AD2
+
+
+
             Case "DJ0DSE04"
                 Hayabusa.Text = "Gixxer K7- 32920-21H00"
                 Metric = True
@@ -3266,7 +3324,8 @@ skip_update:
                 B_Shifter.Enabled = True
                 B_FuelMap.Enabled = True
                 B_IgnitionMap.Enabled = True
-                B_AdvancedSettings.Enabled = False
+                B_AdvancedSettings.Enabled = True
+
             Case "41G10___"
                 Hayabusa.Text = "Gixxer K5-K6 enginedata only"
                 Metric = False

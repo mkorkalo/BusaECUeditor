@@ -91,33 +91,52 @@ Module CommonFunctions
     Private _eCUVersion As String ' either gen1 or gen2 indicating which ecu version is under modification
 
     Public gixxer_modelname As String = "ecueditor.com for gixxer K8 "
-    Public gixxer_injectorbalance_map_first As Integer = &H370648
+    Public gixxer_injectorbalance_map_first As Integer = 0 '&H370648
     Public gixxer_injectorbalance_map_name As String = gixxer_modelname
 
-    Public gixxer_shifter_ADJ As Integer = &H5D900
-    Public gixxer_shifter_FUELCODE As Integer = &H5DA00
-    Public gixxer_shifter_IGNCODE As Integer = &H5DE00
-    Public gixxer_shifter_jmp_to_fuelcode As Integer = &H45A40
-    Public gixxer_shifter_jmp_to_igncode As Integer = &H3B9C0
-    Public gixxer_abc As Integer = &H220C4
+    Public gixxer_shifter_ADJ As Integer = 0 '&H5D900
+    Public gixxer_shifter_FUELCODE As Integer = 0 '&H5DA00
+    Public gixxer_shifter_IGNCODE As Integer = 0 '&H5DE00
+    Public gixxer_shifter_jmp_to_fuelcode As Integer = 0 '&H45A40
+    Public gixxer_shifter_jmp_to_igncode As Integer = 0 '&H3B9C0
+    Public gixxer_abc As Integer = 0 '&H220C4
 
-    Public gixxer_STP_map_first_table As Long = &H59DD0
+    Public gixxer_STP_map_first_table As Long = 0 '&H59DD0
     Public gixxer_STP_modelname As String = "Gixxer K8 "
 
-    Public gixxer_fuelmap_map_first As Long = &H5A7F0
+    Public gixxer_fuelmap_map_first As Long = 0 '&H5A7F0
     Public gixxer_fuelmap_map_bikename As String = gixxer_modelname
-    Public gixxer_ignition_rpm_limiter As Integer = &H60B2C
-    Public gixxer_GPS_AD_sensor_address_in_ignition_shiftkill As Integer = &H3B4C1
+    Public gixxer_ignition_rpm_limiter As Integer = 0 '&H60B2C
+    Public gixxer_GPS_AD_sensor_address_in_ignition_shiftkill As Integer = 0 '&H3B4C1
 
-    Public gixxer_fuel_limiter_by_gear As Integer = &H614C1
-    Public gixxer_fuel_limiter_by_gear_softcut As Integer = &H614C4
-    Public gixxer_RPM_limit_type1 As Integer = &H61372
-    Public gixxer_fuel_limiter_softcut_or_hardcut As Integer = &H614BE
-    Public gixxer_baseline As Integer = 13450
+    Public gixxer_fuel_limiter_by_gear As Integer = 0 '&H614C1
+    Public gixxer_fuel_limiter_by_gear_softcut As Integer = 0 '&H614C4
+    Public gixxer_RPM_limit_type1 As Integer = 0 '&H61372
+    Public gixxer_fuel_limiter_softcut_or_hardcut As Integer = 0 '&H614BE
+    Public gixxer_baseline As Integer = 0 '13450
 
-    Public gixxer_ignition_map_first As Integer = &H5A3D8
-    Public gixxer_ignition_map_name As String = "ecueditor com for Gixxer K8 "
-    Public gixxer_ignition_use_clutch_map As Integer = &H60B5C
+    Public gixxer_ignition_map_first As Integer = 0 '&H5A3D8
+    Public gixxer_ignition_map_name As String = ""
+    Public gixxer_ignition_use_clutch_map As Integer = 0 '&H60B5C
+
+    Public gixxer_msmode As Integer = 0 '&H6063A
+    Public gixxer_coilfi As Integer = 0 '&H60BC1
+    Public gixxer_fan As Integer = 0 '&H6296A
+    Public gixxer_pair As Integer = 0 '&H62ABA
+    Public gixxer_pairloop As Integer = 0 '&H56D5C
+    Public gixxer_excva As Integer = 0 '&H6000D
+    Public gixxer_excva_flag As Integer = 0 '&H60669
+    Public gixxer_hoxflag As Integer = 0 '&H614D4
+    Public gixxer_ecumode As Integer = 0 '&H604CF
+    Public gixxer_ics1 As Integer = 0 '&H622EE
+    Public gixxer_ics2 As Integer = 0 '&H6230A
+    Public gixxer_ics3 As Integer = 0 '&H62296
+    Public gixxer_hox1 As Integer = 0 '&H614D4
+    Public gixxer_hox2 As Integer = 0 '&H62243
+    Public gixxer_sdmap As Integer = 0 'gixxer_sdmap = &H5D840
+    Public gixxer_sd1 As Integer = 0 '&H62AC1
+    Public gixxer_sd2 As Integer = 0 '&H62ACF
+    Public gixxer_sd3 As Integer = 0 '&H62AD2
 
 #End Region
 
