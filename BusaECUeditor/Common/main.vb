@@ -3050,6 +3050,50 @@ skip_update:
                 Hayabusa.Text = "Bking USA (California)"
                 Metric = False
                 ECUVersion = "bking"
+            Case "DJB5SE01"
+                gixxer_modelname = "ecueditor.com for gixxer K9- "
+                ECUVersion = "gixxer"
+                Hayabusa.Text = "Gixxer K9 32920-47H00"
+
+                B_FuelMap.Enabled = True
+                gixxer_fuelmap_map_first = &H5CFE8
+
+                B_Shifter.Enabled = False
+                gixxer_shifter_ADJ = &H5D900
+                gixxer_shifter_FUELCODE = &H5DA00
+                gixxer_shifter_IGNCODE = &H5DE00
+                gixxer_shifter_jmp_to_fuelcode = &H45A40
+                gixxer_shifter_jmp_to_igncode = &H3B9C0
+                gixxer_abc = &H220C4
+
+                B_AdvancedSettings.Enabled = False
+                gixxer_STP_map_first_table = &H59DD0
+                gixxer_injectorbalance_map_first = &H5A7D8
+
+                B_Limiters.Enabled = False
+                gixxer_fuel_limiter_by_gear = &H614C1
+                gixxer_fuel_limiter_by_gear_softcut = &H614C2
+                gixxer_RPM_limit_type1 = &H61372
+                gixxer_fuel_limiter_softcut_or_hardcut = &H614BE
+                gixxer_baseline = 13450
+                gixxer_ignition_rpm_limiter = &H60B2C
+                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3B4C1
+
+                B_IgnitionMap.Enabled = False
+                gixxer_ignition_map_first = &H5A3D8
+                gixxer_ignition_use_clutch_map = &H60B5C
+                gixxer_ignition_map_name = gixxer_modelname
+
+                gixxer_injectorbalance_map_name = gixxer_modelname
+                gixxer_STP_modelname = gixxer_modelname
+                gixxer_fuelmap_map_bikename = gixxer_modelname
+
+                B_EngineData.Enabled = True
+                FlashToolStripMenuItem.Visible = Enabled
+                B_DataLogging.Enabled = False
+                SaveToolStripMenuItem.Enabled = True
+                B_FlashECU.Enabled = True
+
             Case "DJ0HSE50"
                 gixxer_modelname = "ecueditor.com for gixxer K8 "
 
@@ -4888,6 +4932,57 @@ skip_update:
         BlockPgm = True
 
     End Sub
+
+    Private Sub ToolStripMenuItem3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem3.Click
+        Dim defpath As String ' this is for this subroutine only
+
+        CloseChildWindows()
+
+
+        ' OK, so the file is found, now lets start processing it
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\gixxerk9.bin"
+
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        DisableButtons()
+
+        ' Open the stream and read it to global variable "Flash". 
+        fs = File.OpenRead(defpath)
+        Dim b(1) As Byte
+        Dim i As Integer
+        i = 0
+        Do While fs.Read(b, 0, 1) > 0
+            Flash(i) = b(0)
+            FlashCopy(i) = b(0)
+            i = i + 1
+        Loop
+        fs.Close()
+
+        ' Check that the binary lenght matches expected ecu
+        If i <> (262144 * 4) Then
+            ECUNotSupported.ShowDialog()
+        End If
+
+        ECUVersion = "gixxer"
+        '
+        ' Make sure the ECU id is supported type
+        '
+        i = 0
+        ECUID.Text = ""
+        Do While i < 8
+            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
+            i = i + 1
+        Loop
+
+        ' check the ecu id bytes and validate that the ecu flash image is supported
+        SetECUType()
+
+        MsgBox("A new Gixxer K9 basemap is generated", MsgBoxStyle.Information)
+
+        BlockPgm = True
+
+    End Sub
+
 End Class
 
 
