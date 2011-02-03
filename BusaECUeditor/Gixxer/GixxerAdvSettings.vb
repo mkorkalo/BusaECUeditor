@@ -331,8 +331,8 @@
             i = Val(NTCLT.Text)
             addedrpm = i - baseline ' we are just setting here the baseline
 
-            WriteFlashWord(&H60B30, Int((rpmconv / (addedrpm + (rpmconv / &H47D))))) 'clutch limiter
-            WriteFlashWord(&H60B32, Int((rpmconv / (addedrpm + (rpmconv / &H479))))) 'clutch limiter
+            WriteFlashWord(gixxer_ignition_rpm_limiter + 4, Int((rpmconv / (addedrpm + (rpmconv / &H47D))))) 'clutch limiter
+            WriteFlashWord(gixxer_ignition_rpm_limiter + 6, Int((rpmconv / (addedrpm + (rpmconv / &H479))))) 'clutch limiter
 
             '
             ' Make ignition limiter to skip GPS error and GPS neutral using &H80 value as raw gps information
@@ -368,8 +368,8 @@
                 i = Int(((rpmconv / (i + 0))) + 1)
                 i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
                 addedrpm = i - baseline ' we are just setting here the baseline
-                If (ReadFlashByte(&H3B4C1) = &H80) Then WriteFlashWord(&H60B30, Int((rpmconv / (addedrpm + (rpmconv / &H47D))))) 'clutch limiter
-                If (ReadFlashByte(&H3B4C1) = &H80) Then WriteFlashWord(&H60B32, Int((rpmconv / (addedrpm + (rpmconv / &H479))))) 'clutch limiter
+                If (ReadFlashByte(&H3B4C1) = &H80) Then WriteFlashWord(gixxer_ignition_rpm_limiter + 4, Int((rpmconv / (addedrpm + (rpmconv / &H47D))))) 'clutch limiter
+                If (ReadFlashByte(&H3B4C1) = &H80) Then WriteFlashWord(gixxer_ignition_rpm_limiter + 6, Int((rpmconv / (addedrpm + (rpmconv / &H479))))) 'clutch limiter
                 NTCLT.Items.Clear()
                 'populate NTCLT with initial value
                 i = ReadFlashWord(&H60B30) ' this is the reference RPM that is stored in the system
@@ -395,34 +395,73 @@
     Private Sub C_ECU_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_ECU.SelectedIndexChanged
 
         If Not loading Then
+            If True Then
+                '
+                ' 21H50, 21H51, 21H60
+                '
+                Select Case C_ECU.Text
+                    Case "US"
+                        WriteFlashByte(&H604CF, &H80)
+                        WriteFlashByte(&H6000A, &H80)
+                        WriteFlashByte(&H6000B, &HC)
+                        WriteFlashByte(&H6000C, &H1A)
+                        WriteFlashByte(&H6000D, &HFF)
+                        WriteFlashByte(&H6000F, &H0)
+                        WriteFlashByte(&H60669, &HFF)
+                        WriteFlashByte(&H604BC, 1)
+                        WriteFlashByte(&H62ACA, &H1C)
+                        WriteFlashByte(&H6292B, &H36)
+                        WriteFlashByte(&HFFFF6, &H35)
+                        WriteFlashByte(&HFFFF6, &H30)
+                    Case "EU"
+                        WriteFlashByte(&H604CF, &HFF)
+                        WriteFlashByte(&H6000A, &H0)
+                        WriteFlashByte(&H6000B, &H32)
+                        WriteFlashByte(&H6000C, &H8)
+                        WriteFlashByte(&H6000D, &H0)
+                        WriteFlashByte(&H6000F, &H80)
+                        WriteFlashByte(&H60669, &H1)
+                        WriteFlashByte(&H604BC, 3)
+                        WriteFlashByte(&H62ACA, &H7)
+                        WriteFlashByte(&H6292B, &H35)
+                    Case "Gen" 'generic model for those we do not know
+                        WriteFlashByte(&H604CF, &H0)
+                        WriteFlashByte(&H6292B, &H39)
+                End Select
+            Else
+                '
+                ' 21H00, 21H10
+                '
+                Select Case C_ECU.Text
+                    Case "US"
+                        WriteFlashByte(&H604CB, &H80) 'immobilizer_type
+                        WriteFlashByte(&H6000A, &H80) 'same in 21H00 and 21H50/60
+                        WriteFlashByte(&H6000B, &HC) 'same in 21H00 and 21H50/60
+                        WriteFlashByte(&H6000C, &H1A) 'same in 21H00 and 21H50/60
+                        WriteFlashByte(&H6000D, &HFF) 'same in 21H00 and 21H50/60
+                        WriteFlashByte(&H6000F, &H0) 'same in 21H00 and 21H50/60
+                        WriteFlashByte(&H60656, &HFF) 'EXCVA
+                        WriteFlashByte(&H604B8, 1) 'US EU flag
+                        WriteFlashByte(&H62A76, &H1C)
+                        WriteFlashByte(&HFFFF6, &H30)
+                        WriteFlashByte(&HFFFF6, &H34)
+                    Case "EU"
+                        WriteFlashByte(&H604CB, &HFF)
+                        WriteFlashByte(&H6000A, &H0)
+                        WriteFlashByte(&H6000B, &H32)
+                        WriteFlashByte(&H6000C, &H8)
+                        WriteFlashByte(&H6000D, &H0)
+                        WriteFlashByte(&H6000F, &H80)
+                        WriteFlashByte(&H60656, &H1)
+                        WriteFlashByte(&H604B8, 3)
+                        WriteFlashByte(&H62A76, &H7)
+                        WriteFlashByte(&HFFFF6, &H31)
+                        WriteFlashByte(&HFFFF6, &H31)
 
-            Select Case C_ECU.Text
-                Case "US"
-                    WriteFlashByte(&H604CF, &H80)
-                    WriteFlashByte(&H6000A, &H80)
-                    WriteFlashByte(&H6000B, &HC)
-                    WriteFlashByte(&H6000C, &H1A)
-                    WriteFlashByte(&H6000D, &HFF)
-                    WriteFlashByte(&H6000F, &H0)
-                    WriteFlashByte(&H60669, &HFF)
-                    WriteFlashByte(&H604BC, 1)
-                    WriteFlashByte(&H62ACA, &H1C)
-                    WriteFlashByte(&H6292B, &H36)
-                Case "EU"
-                    WriteFlashByte(&H604CF, &HFF)
-                    WriteFlashByte(&H6000A, &H0)
-                    WriteFlashByte(&H6000B, &H32)
-                    WriteFlashByte(&H6000C, &H8)
-                    WriteFlashByte(&H6000D, &H0)
-                    WriteFlashByte(&H6000F, &H80)
-                    WriteFlashByte(&H60669, &H1)
-                    WriteFlashByte(&H604BC, 3)
-                    WriteFlashByte(&H62ACA, &H7)
-                    WriteFlashByte(&H6292B, &H35)
-                Case "Gen" 'generic model for those we do not know
-                    WriteFlashByte(&H604CF, &H0)
-                    WriteFlashByte(&H6292B, &H39)
-            End Select
+                    Case "Gen" 'generic model for those we do not know
+                        WriteFlashByte(&H604CB, &H0)
+                End Select
+            End If
 
             main.SetECUType()
         End If
