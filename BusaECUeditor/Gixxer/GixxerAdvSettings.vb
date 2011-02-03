@@ -3,23 +3,6 @@
     Dim rpmconv As Long = (3840000000 / &H100)
     Dim addedrpm As Integer
 
-    Public gixxer_msmode As Integer = &H6063A
-    Public gixxer_coilfi As Integer = &H60BC1
-    Public gixxer_fan As Integer = &H6296A
-    Public gixxer_pair As Integer = &H62ABA
-    Public gixxer_pairloop As Integer = &H56D5C
-    Public gixxer_excva As Integer = &H6000D
-    Public gixxer_excva_flag As Integer = &H60669
-    Public gixxer_hoxflag As Integer = &H614D4
-    Public gixxer_ecumode As Integer = &H604CF
-    Public gixxer_ics1 As Integer = &H622EE
-    Public gixxer_ics2 As Integer = &H6230A
-    Public gixxer_ics3 As Integer = &H62296
-    Public gixxer_hox1 As Integer = &H614D4
-    Public gixxer_hox2 As Integer = &H62243
-    Public gixxer_sd1 As Integer = &H62AC1
-    Public gixxer_sd2 As Integer = &H62ACF
-    Public gixxer_sd3 As Integer = &H62AD2
 
 
 
@@ -55,11 +38,13 @@
     Private Sub GixxerAdvSettings_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         loading = True
         Dim i As Integer
+        Me.Text = gixxer_modelname & " Advanced settings"
 
         Me.C_msmode.Items.Add("mode 0")
         Me.C_msmode.Items.Add("mode 1")
         Me.C_msmode.Items.Add("switchable")
 
+        If gixxer_msmode = 0 Then C_msmode.Enabled = False
         i = ReadFlashByte(gixxer_msmode)
         Select Case i
             Case 0
@@ -71,6 +56,8 @@
             Case Else
                 MsgBox("MS mode not detected, please reset the mode")
         End Select
+
+        If gixxer_coilfi = 0 Then C_coil_fi_disable.Enabled = False
         If ReadFlashByte(gixxer_coilfi) = &H80 Then
             C_coil_fi_disable.Text = "Coil FI disabled"
             C_coil_fi_disable.Checked = True
@@ -80,6 +67,7 @@
             WriteFlashByte(gixxer_coilfi, &HFF)
         End If
 
+        If gixxer_pair = 0 Then C_PAIR.Enabled = False
         If ReadFlashByte(gixxer_pair) = &HFF Then
             C_PAIR.Text = "PAIR ON"
             C_PAIR.Checked = True
@@ -98,6 +86,7 @@
             WriteFlashByte(gixxer_pairloop + 3, &H0)
         End If
 
+        If gixxer_hoxflag = 0 Then C_HOX.Enabled = False
         If ReadFlashByte(gixxer_hoxflag) = &H80 Then
             C_HOX.Text = "HOX sensor ON"
             C_HOX.Checked = True
@@ -106,6 +95,7 @@
             C_HOX.Checked = False
         End If
 
+        If gixxer_excva = 0 Then C_EXC.Enabled = False
         If ReadFlashByte(gixxer_excva_flag) = &HFF Then
             C_EXC.Checked = True
             C_EXC.Text = "EXC ON"
@@ -114,8 +104,9 @@
             C_EXC.Text = "EXC OFF"
         End If
 
+
         'populate NTCLT with initial value
-        i = ReadFlashWord(&H60B30) ' this is the reference RPM that is stored in the system
+        i = ReadFlashWord(gixxer_ignition_rpm_limiter + 4) ' &H60B30 this is the reference RPM that is stored in the system
         i = Int(((rpmconv / (i + 0))))
         i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
         Me.NTCLT.Items.Add(i.ToString())
@@ -127,20 +118,23 @@
         Me.NTCLT.Items.Add(i.ToString())
         Me.NTCLT.SelectedIndex = 0
         Me.NTCLT.Enabled = True
-        i = ReadFlashByte(&H3B4C1)
-        If ReadFlashByte(&H3B4C1) = &H6 Then C_2step.Checked = True Else C_2step.Checked = False
+        If gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = 0 Then NTCLT.Enabled = False
+        If gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = 0 Then C_2step.Enabled = False
+        i = ReadFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill)
+        If ReadFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill) = &H6 Then C_2step.Checked = True Else C_2step.Checked = False
         If C_2step.Checked = True Then
             C_2step.Text = "2 step limiter ON"
-            WriteFlashByte(&H3B4C0 + 1, &H6)
-            WriteFlashByte(&H3B4C0 + 2, &HB)
-            WriteFlashByte(&H3B4C0 + 3, &H57)
+            WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 1, &H6)
+            WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 2, &HB)
+            WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 3, &H57)
         Else
             C_2step.Text = "2 step limiter OFF"
-            WriteFlashByte(&H3B4C0 + 1, &H80)
-            WriteFlashByte(&H3B4C0 + 2, &H50)
-            WriteFlashByte(&H3B4C0 + 3, &HF9)
+            WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 1, &H80)
+            WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 2, &H50)
+            WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 3, &HF9)
         End If
 
+        If gixxer_ecumode = 0 Then C_ECU.Enabled = False
         C_ECU.Items.Add("EU") '0
         C_ECU.Items.Add("US") '1
         C_ECU.Items.Add("Gen") '2
@@ -156,7 +150,7 @@
                 C_ECU.SelectedIndex = 2
         End Select
 
-
+        If gixxer_ics1 = 0 Then C_ICS.Enabled = False
         If ReadFlashByte(gixxer_ics1) = &HFF Then C_ICS.Checked = True Else C_ICS.Checked = False
         If C_ICS.Checked = True Then
             C_ICS.Text = "ICS ON"
@@ -171,6 +165,9 @@
             WriteFlashByte(gixxer_ics2, &H0) 'rpm window error disable
             WriteFlashWord(gixxer_ics3, &H7800) 'idle RPM high limit set to 12000rpm
         End If
+
+        If gixxer_sd1 = 0 Then C_SD.Enabled = False
+        If gixxer_sd1 = 0 Then Button4.Enabled = False
 
         If ReadFlashByte(gixxer_sd1) = &HFF Then C_SD.Checked = True Else C_SD.Checked = False
         If C_SD.Checked = True Then
@@ -202,7 +199,7 @@
         'c_fan.Items.Add("85/80")
         'endif
 
-
+        If gixxer_fan = 0 Then c_fan.Enabled = False
         i = Me.c_fan.SelectedIndex()
         i = ReadFlashByte(gixxer_fan + 1)
         Select Case i
@@ -218,6 +215,7 @@
                 c_fan.SelectedIndex = 4
         End Select
 
+        If gixxer_abc = 0 Then C_ABCmode.Enabled = False
         If ReadFlashByte(gixxer_abc) = &HA1 Then C_ABCmode.Checked = True Else C_ABCmode.Checked = False
         If C_ABCmode.Checked = True Then
             C_ABCmode.Text = "ABC normal"
@@ -233,6 +231,9 @@
             WriteFlashByte(gixxer_abc + 3, &H0)
         End If
 
+
+        If gixxer_STP_map_first_table = 0 Then Button1.Enabled = False
+        If gixxer_injectorbalance_map_first = 0 Then Button3.Enabled = False
 
         loading = False
     End Sub

@@ -67,7 +67,7 @@ Public Class Gixxersteeringdampenermap
         previousrow = 0
 
 
-        map_structure_table = &H5D840
+        map_structure_table = gixxer_sdmap
 
         Me.Text = gixxer_injectorbalance_map_name & "- steering dampener map editing"
         selectmap()

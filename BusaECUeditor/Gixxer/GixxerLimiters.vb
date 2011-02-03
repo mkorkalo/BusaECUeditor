@@ -138,6 +138,8 @@ Public Class GixxerLimiters
         Dim i As Integer
         rpmconv = 3840000000 / &H100
 
+        Me.Text = gixxer_modelname & " - Limiters"
+
         '
         ' Determine if gear limiters are on or off
         '
