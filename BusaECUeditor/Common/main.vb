@@ -3058,31 +3058,33 @@ skip_update:
                 B_FuelMap.Enabled = True
                 gixxer_fuelmap_map_first = &H5CFE8
 
+                B_IgnitionMap.Enabled = True
+                gixxer_ignition_map_first = &H5CB70 '&H5A3D8
+                gixxer_ignition_use_clutch_map = &H7438A '&H60B5C
+                gixxer_ignition_map_name = gixxer_modelname
+
+                B_Limiters.Enabled = True
+                gixxer_fuel_limiter_by_gear = &H74F3B '&H614C1
+                gixxer_fuel_limiter_by_gear_softcut = &H74F3C '&H614C2
+                gixxer_RPM_limit_type1 = &H74DDE '&H61372
+                gixxer_fuel_limiter_softcut_or_hardcut = &H74F38 '&H614BE
+                gixxer_baseline = 13450
+                gixxer_ignition_rpm_limiter = &H74344 '&H60B2C
+
+                B_AdvancedSettings.Enabled = False
+                gixxer_STP_map_first_table = &H59DD0
+                gixxer_injectorbalance_map_first = &H5A7D8
+
+
+
                 B_Shifter.Enabled = False
+                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3B4C1
                 gixxer_shifter_ADJ = &H5D900
                 gixxer_shifter_FUELCODE = &H5DA00
                 gixxer_shifter_IGNCODE = &H5DE00
                 gixxer_shifter_jmp_to_fuelcode = &H45A40
                 gixxer_shifter_jmp_to_igncode = &H3B9C0
                 gixxer_abc = &H220C4
-
-                B_AdvancedSettings.Enabled = False
-                gixxer_STP_map_first_table = &H59DD0
-                gixxer_injectorbalance_map_first = &H5A7D8
-
-                B_Limiters.Enabled = False
-                gixxer_fuel_limiter_by_gear = &H614C1
-                gixxer_fuel_limiter_by_gear_softcut = &H614C2
-                gixxer_RPM_limit_type1 = &H61372
-                gixxer_fuel_limiter_softcut_or_hardcut = &H614BE
-                gixxer_baseline = 13450
-                gixxer_ignition_rpm_limiter = &H60B2C
-                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3B4C1
-
-                B_IgnitionMap.Enabled = False
-                gixxer_ignition_map_first = &H5A3D8
-                gixxer_ignition_use_clutch_map = &H60B5C
-                gixxer_ignition_map_name = gixxer_modelname
 
                 gixxer_injectorbalance_map_name = gixxer_modelname
                 gixxer_STP_modelname = gixxer_modelname

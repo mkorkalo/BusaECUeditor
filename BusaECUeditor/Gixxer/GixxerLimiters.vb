@@ -87,11 +87,22 @@ Public Class GixxerLimiters
         '
         WriteFlashWord(gixxer_RPM_limit_type1 + 8, Int((rpmconv / (addedrpm + (rpmconv / &H46C)))))
         WriteFlashWord(gixxer_RPM_limit_type1 + 10, Int((rpmconv / (addedrpm + (rpmconv / &H468)))))
+
         '
         ' RPM/Fuel soft hard type 3 neutral, this is modified to be same as type2
         '
-        WriteFlashWord(gixxer_RPM_limit_type1 + 12, Int((rpmconv / (addedrpm + (rpmconv / &H48F)))))
-        WriteFlashWord(gixxer_RPM_limit_type1 + 14, Int((rpmconv / (addedrpm + (rpmconv / &H48B)))))
+        If gixxer_fuel_limiter_by_gear = &H74F3B Then
+            'k9
+            WriteFlashWord(gixxer_RPM_limit_type1 + 12, Int((rpmconv / (addedrpm + (rpmconv / &H47D)))))
+            WriteFlashWord(gixxer_RPM_limit_type1 + 14, Int((rpmconv / (addedrpm + (rpmconv / &H479)))))
+            WriteFlashWord(gixxer_RPM_limit_type1 + 12, Int((rpmconv / (addedrpm + (rpmconv / &H4B5)))))
+            WriteFlashWord(gixxer_RPM_limit_type1 + 14, Int((rpmconv / (addedrpm + (rpmconv / &H4B0)))))
+        Else
+            'K7 K8
+            WriteFlashWord(gixxer_RPM_limit_type1 + 12, Int((rpmconv / (addedrpm + (rpmconv / &H48F)))))
+            WriteFlashWord(gixxer_RPM_limit_type1 + 14, Int((rpmconv / (addedrpm + (rpmconv / &H48B)))))
+        End If
+
         '
         ' RPM limiter type 6, this is the limiter when FI light is on but still running normally
         '
