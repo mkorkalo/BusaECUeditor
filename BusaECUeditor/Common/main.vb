@@ -3027,6 +3027,58 @@ skip_update:
         ' fast search key 111111
         '
 
+        '
+        ' Zero the variables so that values need to be assigned by this function
+        '
+        gixxer_modelname = "ecueditor.com for gixxer K8 "
+        gixxer_injectorbalance_map_first = 0 '&H370648
+        gixxer_injectorbalance_map_name = gixxer_modelname
+
+        gixxer_shifter_ADJ = 0 '&H5D900
+        gixxer_shifter_FUELCODE = 0 '&H5DA00
+        gixxer_shifter_IGNCODE = 0 '&H5DE00
+        gixxer_shifter_jmp_to_fuelcode = 0 '&H45A40
+        gixxer_shifter_jmp_to_igncode = 0 '&H3B9C0
+        gixxer_abc = 0 '&H220C4
+
+        gixxer_STP_map_first_table = 0 '&H59DD0
+        gixxer_STP_modelname = "Gixxer K8 "
+
+        gixxer_fuelmap_map_first = 0 '&H5A7F0
+        gixxer_fuelmap_map_bikename = gixxer_modelname
+        gixxer_ignition_rpm_limiter = 0 '&H60B2C
+        gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = 0 '&H3B4C1
+
+        gixxer_fuel_limiter_by_gear = 0 '&H614C1
+        gixxer_fuel_limiter_by_gear_softcut = 0 '&H614C4
+        gixxer_RPM_limit_type1 = 0 '&H61372
+        gixxer_fuel_limiter_softcut_or_hardcut = 0 '&H614BE
+        gixxer_baseline = 0 '13450
+
+        gixxer_ignition_map_first = 0 '&H5A3D8
+        gixxer_ignition_map_name = ""
+        gixxer_ignition_use_clutch_map = 0 '&H60B5C
+
+        gixxer_msmode = 0 '&H6063A
+        gixxer_coilfi = 0 '&H60BC1
+        gixxer_fan = 0 '&H6296A
+        gixxer_pair = 0 '&H62ABA
+        gixxer_pairloop = 0 '&H56D5C
+        gixxer_excva = 0 '&H6000D
+        gixxer_excva_flag = 0 '&H60669
+        gixxer_hoxflag = 0 '&H614D4
+        gixxer_ecumode = 0 '&H604CF
+        gixxer_ics1 = 0 '&H622EE
+        gixxer_ics2 = 0 '&H6230A
+        gixxer_ics3 = 0 '&H62296
+        gixxer_hox1 = 0 '&H614D4
+        gixxer_hox2 = 0 '&H62243
+        gixxer_sdmap = 0 'gixxer_sdmap = &H5D840
+        gixxer_sd1 = 0 '&H62AC1
+        gixxer_sd2 = 0 '&H62ACF
+        gixxer_sd3 = 0 '&H62AD2
+
+
         Hayabusa.Visible = True
         FlashToolStripMenuItem.Visible = True
         Select Case Mid(ECUID.Text, 1, 8)

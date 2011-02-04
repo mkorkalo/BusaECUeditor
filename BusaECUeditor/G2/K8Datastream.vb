@@ -28,41 +28,41 @@ Imports System.IO.Ports
 
 
 Public Class K8Datastream
-    Public Declare Function FT_GetModemStatus Lib "FTD2XX.DLL" (ByVal lnghandle As Integer, ByRef modstat As Integer) As Integer
-    Public Declare Function FT_SetRts Lib "FTD2XX.DLL" (ByVal lnghandle As Integer) As Integer
-    Public Declare Function FT_ClrRts Lib "FTD2XX.DLL" (ByVal lnghandle As Integer) As Integer
+    Public Declare Function FT_GetModemStatus Lib "FTD2XX.DLL" (ByVal _lnghandle As Integer, ByRef modstat As Integer) As Integer
+    Public Declare Function FT_SetRts Lib "FTD2XX.DLL" (ByVal _lnghandle As Integer) As Integer
+    Public Declare Function FT_ClrRts Lib "FTD2XX.DLL" (ByVal _lnghandle As Integer) As Integer
 
-    Public Declare Function FT_SetDtr Lib "FTD2XX.DLL" (ByVal lnghandle As Integer) As Integer 'new for Interface V1.1 ***************************************
-    Public Declare Function FT_ClrDtr Lib "FTD2XX.DLL" (ByVal lnghandle As Integer) As Integer 'new for Interface V1.1 ***************************************
+    Public Declare Function FT_SetDtr Lib "FTD2XX.DLL" (ByVal _lnghandle As Integer) As Integer 'new for Interface V1.1 ***************************************
+    Public Declare Function FT_ClrDtr Lib "FTD2XX.DLL" (ByVal _lnghandle As Integer) As Integer 'new for Interface V1.1 ***************************************
 
-    Public Declare Function FT_SetBreakOn Lib "FTD2XX.DLL" (ByVal lnghandle As Integer) As Integer
-    Public Declare Function FT_SetBreakOff Lib "FTD2XX.DLL" (ByVal lnghandle As Integer) As Integer
-    Public Declare Function FT_Open Lib "FTD2XX.DLL" (ByVal iDevice As Integer, ByRef lnghandle As Integer) As Integer
+    Public Declare Function FT_SetBreakOn Lib "FTD2XX.DLL" (ByVal _lnghandle As Integer) As Integer
+    Public Declare Function FT_SetBreakOff Lib "FTD2XX.DLL" (ByVal _lnghandle As Integer) As Integer
+    Public Declare Function FT_Open Lib "FTD2XX.DLL" (ByVal iDevice As Integer, ByRef _lnghandle As Integer) As Integer
     Public Declare Function FT_GetNumberOfDevices Lib "FTD2XX.DLL" Alias "FT_ListDevices" (ByRef lngNumberofdevices As Integer, ByVal pvarg2 As String, ByVal lngflags As Integer) As Integer
     Public Declare Function FT_ListDevices Lib "FTD2XX.DLL" (ByRef lngNumberofdevices As Integer, ByVal pvarg2 As String, ByVal lngflags As Integer) As Integer
-    Public Declare Function FT_Close Lib "FTD2XX.DLL" (ByVal lnghandle As Integer) As Integer
-    Public Declare Function FT_GetComPortNumber Lib "FTD2XX.DLL" (ByVal lnghandle As Integer, ByRef portnumber As Integer) As Integer
-    Public Declare Function FT_SetBaudRate Lib "FTD2XX.DLL" (ByVal lngHandle As Integer, ByVal lngBaudRate As Integer) As Integer
-    Public Declare Function FT_Write_Bytes Lib "FTD2XX.DLL" Alias "FT_Write" (ByVal lngHandle As Integer, ByRef lpvBuffer As Byte, ByVal lngBufferSize As Integer, ByRef lngBytesWritten As Integer) As Integer
-    Public Declare Function FT_Read_Bytes Lib "FTD2XX.DLL" Alias "FT_Read" (ByVal lngHandle As Integer, ByRef lpvBuffer As Byte, ByVal lngBufferSize As Integer, ByRef lngBytesReturned As Integer) As Integer
-    Public Declare Function FT_GetStatus Lib "FTD2XX.DLL" (ByVal lngHandle As Integer, ByRef lngamountInRxQueue As Integer, ByRef lngAmountInTxQueue As Integer, ByRef lngEventStatus As Integer) As Integer
+    Public Declare Function FT_Close Lib "FTD2XX.DLL" (ByVal _lnghandle As Integer) As Integer
+    Public Declare Function FT_GetComPortNumber Lib "FTD2XX.DLL" (ByVal _lnghandle As Integer, ByRef portnumber As Integer) As Integer
+    Public Declare Function FT_SetBaudRate Lib "FTD2XX.DLL" (ByVal _lngHandle As Integer, ByVal lngBaudRate As Integer) As Integer
+    Public Declare Function FT_Write_Bytes Lib "FTD2XX.DLL" Alias "FT_Write" (ByVal _lngHandle As Integer, ByRef lpvBuffer As Byte, ByVal lngBufferSize As Integer, ByRef lngBytesWritten As Integer) As Integer
+    Public Declare Function FT_Read_Bytes Lib "FTD2XX.DLL" Alias "FT_Read" (ByVal _lngHandle As Integer, ByRef lpvBuffer As Byte, ByVal lngBufferSize As Integer, ByRef lngBytesReturned As Integer) As Integer
+    Public Declare Function FT_GetStatus Lib "FTD2XX.DLL" (ByVal _lngHandle As Integer, ByRef lngamountInRxQueue As Integer, ByRef lngAmountInTxQueue As Integer, ByRef lngEventStatus As Integer) As Integer
     Public Declare Function timeBeginPeriod Lib "winmm.dll" (ByVal uPeriod As Integer) As Integer
     Public Declare Function timeEndPeriod Lib "winmm.dll" (ByVal uPeriod As Integer) As Integer
-    Public Declare Function FT_SetDataCharacteristics Lib "FTD2XX.DLL" (ByVal lnghandle As Integer, ByVal uWordLength As Byte, ByVal uStopBits As Byte, ByVal uParity As Byte) As Integer
-    Public Declare Function FT_SetTimeouts Lib "FTD2XX.DLL" (ByVal lngHandle As Integer, ByVal rxTimeout As Integer, ByVal txTimeout As Integer) As Integer
-    Public Declare Function FT_SetLatencyTimer Lib "FTD2XX.DLL" (ByVal lnghandle As Integer, ByVal uTime As Byte) As Integer
-    Public Declare Function FT_SetUSBParameters Lib "FTD2XX.DLL" (ByVal lnghandle As Integer, ByVal dwInTransferSize As Integer, ByVal dwOutTransferSize As Integer) As Integer
+    Public Declare Function FT_SetDataCharacteristics Lib "FTD2XX.DLL" (ByVal _lnghandle As Integer, ByVal uWordLength As Byte, ByVal uStopBits As Byte, ByVal uParity As Byte) As Integer
+    Public Declare Function FT_SetTimeouts Lib "FTD2XX.DLL" (ByVal _lngHandle As Integer, ByVal rxTimeout As Integer, ByVal txTimeout As Integer) As Integer
+    Public Declare Function FT_SetLatencyTimer Lib "FTD2XX.DLL" (ByVal _lnghandle As Integer, ByVal uTime As Byte) As Integer
+    Public Declare Function FT_SetUSBParameters Lib "FTD2XX.DLL" (ByVal _lnghandle As Integer, ByVal dwInTransferSize As Integer, ByVal dwOutTransferSize As Integer) As Integer
 
     Declare Function QueryPerformanceCounter Lib "Kernel32" (ByRef X As Long) As Short 'new HighResTimer*******************************
     Declare Function QueryPerformanceFrequency Lib "Kernel32" (ByRef X As Long) As Short    ' new HighResTimer************************
 
     Public debug As Boolean = False
 
-    Public lngHandle As Integer
+    Public lngHandle As Long
     Public comportnum As Integer
     Public rxbyte As Byte
     Public ticking As Integer
-    Public FT_status As Integer
+    Public FT_status As Long
     Public rxqueue, txqueue, eventstat As Integer
     Public rxsptr As Integer
     Public rxs(128) As Byte
@@ -574,7 +574,7 @@ Public Class K8Datastream
                 txbyte = (&H80 + &H12 + &HF1 + &H2 + &H21 + &H8) And &HFF ' &HAE
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
                 rxsptr = 0
-                Select Case ECUversion
+                Select Case ECUVersion
                     Case "gen2"
                         Me.Text = "ecueditor.com - Hayabusa gen2 Enginedata active..."
                     Case "bking"

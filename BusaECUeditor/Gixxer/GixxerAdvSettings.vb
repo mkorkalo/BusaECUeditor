@@ -141,12 +141,12 @@
             If ReadFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill) <> &H80 Then C_2step.Checked = True Else C_2step.Checked = False
             If C_2step.Checked = True Then
                 C_2step.Text = "2 step limiter ON"
-                WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 1, gixxer_set_ign_default / &HFFFF)
-                WriteFlashWord(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 2, gixxer_set_ign_default - (Int(gixxer_set_ign_default / &HFFFF)))
+                WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill, gixxer_set_ign_default / &HFFFF)
+                WriteFlashWord(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 1, gixxer_set_ign_default - (Int(gixxer_set_ign_default / &HFFFF) * &H10000))
             Else
                 C_2step.Text = "2 step limiter OFF"
-                WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 1, &H80)
-                WriteFlashWord(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 2, gixxer_GPS_voltage_raw - &H800000)
+                WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill, &H80)
+                WriteFlashWord(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 1, gixxer_GPS_voltage_raw - &H800000)
             End If
         End If
 
@@ -383,16 +383,16 @@
         If Not loading Then
             If C_2step.Checked = True Then
                 C_2step.Text = "2 step limiter ON"
-                WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 1, gixxer_set_ign_default / &HFFFF)
-                WriteFlashWord(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 2, gixxer_set_ign_default - (Int(gixxer_set_ign_default / &HFFFF)))
+                WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill, gixxer_set_ign_default / &HFFFF)
+                WriteFlashWord(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 1, gixxer_set_ign_default - (Int(gixxer_set_ign_default / &HFFFF) * &H10000))
             Else
                 C_2step.Text = "2 step limiter OFF"
-                WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 1, &H80)
-                WriteFlashWord(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 2, gixxer_GPS_voltage_raw - &H800000)
+                WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill, &H80)
+                WriteFlashWord(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 1, gixxer_GPS_voltage_raw - &H800000)
                 baseline = 13450
                 ' Set limiters back to stock
                 loading = True
-                i = ReadFlashWord(&H61372)
+                i = ReadFlashWord(gixxer_RPM_limit_type1)
                 i = Int(((rpmconv / (i + 0))) + 1)
                 i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
                 addedrpm = i - baseline ' we are just setting here the baseline
@@ -400,7 +400,7 @@
                 If (ReadFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill) = &H80) Then WriteFlashWord(gixxer_ignition_rpm_limiter + 6, Int((rpmconv / (addedrpm + (rpmconv / &H479))))) 'clutch limiter
                 NTCLT.Items.Clear()
                 'populate NTCLT with initial value
-                i = ReadFlashWord(&H60B30) ' this is the reference RPM that is stored in the system
+                i = ReadFlashWord(gixxer_ignition_rpm_limiter + 4) ' this is the reference RPM that is stored in the system
                 i = Int(((rpmconv / (i + 0))))
                 i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
                 Me.NTCLT.Items.Add(i.ToString())
