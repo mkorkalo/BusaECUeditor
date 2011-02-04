@@ -3051,12 +3051,13 @@ skip_update:
                 Metric = False
                 ECUVersion = "bking"
             Case "DJB5SE01"
-                gixxer_modelname = "ecueditor.com for gixxer K9- "
+                gixxer_modelname = "ecueditor.com for gixxer K9L0 - "
                 ECUVersion = "gixxer"
                 Hayabusa.Text = "Gixxer K9 32920-47H00"
 
                 B_FuelMap.Enabled = True
                 gixxer_fuelmap_map_first = &H5CFE8
+                gixxer_injectorbalance_map_first = &H5CFD0 ' &H5A7D8
 
                 B_IgnitionMap.Enabled = True
                 gixxer_ignition_map_first = &H5CB70 '&H5A3D8
@@ -3075,15 +3076,15 @@ skip_update:
                 gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3CE9D '&H3B4C1
                 gixxer_STP_map_first_table = &H5C450 '&H59DD0
 
-                gixxer_injectorbalance_map_first = 0 ' &H5A7D8
+                gixxer_excva = &H7000D '&H6000D
+                gixxer_excva_flag = &H73ECF '&H60669
+                gixxer_msmode = &H73E9E '&H6063A
+
                 gixxer_abc = 0 '&H220C4
-                gixxer_msmode = 0 '&H6063A
                 gixxer_coilfi = 0 '&H60BC1
                 gixxer_fan = 0 '&H6296A
                 gixxer_pair = 0 '&H62ABA
                 gixxer_pairloop = 0 '&H56D5C
-                gixxer_excva = 0 '&H6000D
-                gixxer_excva_flag = 0 '&H60669
                 gixxer_hoxflag = 0 '&H614D4
                 gixxer_ecumode = 0 '&H604CF
                 gixxer_ics1 = 0 '&H622EE
