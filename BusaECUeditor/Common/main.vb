@@ -3030,7 +3030,7 @@ skip_update:
         '
         ' Zero the variables so that values need to be assigned by this function
         '
-        gixxer_modelname = "ecueditor.com for gixxer K8 "
+        gixxer_modelname = ""
         gixxer_injectorbalance_map_first = 0 '&H370648
         gixxer_injectorbalance_map_name = gixxer_modelname
 
@@ -3104,9 +3104,9 @@ skip_update:
                 Metric = False
                 ECUVersion = "bking"
             Case "DJB5SE01"
-                gixxer_modelname = "ecueditor.com for gixxer K9L0 - "
+                gixxer_modelname = "ecueditor.com for gixxer K9-K11 "
                 ECUVersion = "gixxer"
-                Hayabusa.Text = "Gixxer K9 32920-47H00"
+                Hayabusa.Text = "Gixxer K9-11 32920-47H00"
 
                 B_FuelMap.Enabled = True
                 gixxer_fuelmap_map_first = &H5CFE8
