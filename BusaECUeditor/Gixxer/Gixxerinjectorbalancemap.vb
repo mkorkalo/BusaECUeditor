@@ -83,7 +83,7 @@ Public Class Gixxerinjectorbalancemap
 
         map_structure_table = gixxer_injectorbalance_map_first
 
-        Me.Text = gixxer_injectorbalance_map_name & "- injector balance map editing"
+        Me.Text = gixxer_injectorbalance_map_name & "- injector balance map RPM/TPS%"
         fuelmap = False
         selectmap()
 

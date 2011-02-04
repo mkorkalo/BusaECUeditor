@@ -115,12 +115,12 @@ Public Class GixxerSTPmap
                 gear = 6
                 selectmap()
             Case "f"
-                map_structure_table = gixxer_STP_map_first_table + (42 * 4)
+                map_structure_table = gixxer_STP_map_first_table_fuel
                 Me.Text = gixxer_modelname & "- STP map editing - STP FUEL adjustment"
                 STPmap = True
                 selectmap()
             Case "F"
-                map_structure_table = gixxer_STP_map_first_table + (42 * 4)
+                map_structure_table = gixxer_STP_map_first_table_fuel
                 Me.Text = gixxer_modelname & " STP map editing - STP FUEL adjustment"
                 STPmap = True
                 selectmap()

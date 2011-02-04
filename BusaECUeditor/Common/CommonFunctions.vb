@@ -102,7 +102,8 @@ Module CommonFunctions
     Public gixxer_abc As Integer = 0 '&H220C4
 
     Public gixxer_STP_map_first_table As Long = 0 '&H59DD0
-    Public gixxer_STP_modelname As String = "Gixxer K8 "
+    Public gixxer_STP_map_first_table_fuel As Long = 0
+    Public gixxer_STP_modelname As String = ""
 
     Public gixxer_fuelmap_map_first As Long = 0 '&H5A7F0
     Public gixxer_fuelmap_map_bikename As String = gixxer_modelname
