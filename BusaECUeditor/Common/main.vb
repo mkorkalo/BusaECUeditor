@@ -3042,7 +3042,8 @@ skip_update:
         gixxer_abc = 0 '&H220C4
 
         gixxer_STP_map_first_table = 0 '&H59DD0
-        gixxer_STP_modelname = "Gixxer K8 "
+        gixxer_STP_map_first_table_fuel = 0
+        gixxer_STP_modelname = ""
 
         gixxer_fuelmap_map_first = 0 '&H5A7F0
         gixxer_fuelmap_map_bikename = gixxer_modelname
@@ -3131,6 +3132,8 @@ skip_update:
                 gixxer_set_ign_default = &H74385
 
                 gixxer_STP_map_first_table = &H5C450 '&H59DD0
+                gixxer_STP_map_first_table_fuel = &H5D168
+
 
                 gixxer_excva = &H7000D '&H6000D
                 gixxer_excva_flag = &H73ECF '&H60669
@@ -3182,6 +3185,7 @@ skip_update:
                 gixxer_abc = &H220C4
 
                 gixxer_STP_map_first_table = &H59DD0
+                gixxer_STP_map_first_table_fuel = &H5A970
                 gixxer_injectorbalance_map_first = &H5A7D8
 
                 gixxer_fuelmap_map_first = &H5A7F0
@@ -3266,6 +3270,7 @@ skip_update:
                 gixxer_abc = &H220C4
 
                 gixxer_STP_map_first_table = &H59DD0
+                gixxer_STP_map_first_table_fuel = &H5A970
                 gixxer_injectorbalance_map_first = &H5A7D8
 
                 gixxer_fuelmap_map_first = &H5A7F0
@@ -3355,6 +3360,7 @@ skip_update:
                 gixxer_shifter_jmp_to_igncode = &H3B3C0         'last label at the end of function calculate_ignition_gear_limiters
 
                 gixxer_STP_map_first_table = &H58F80            ' STP_gear06_ms01_modeabc_STP_map_list_
+                gixxer_STP_map_first_table_fuel = &H59B04
 
                 gixxer_fuelmap_map_first = &H59984              'Fuel_IAP
                 gixxer_injectorbalance_map_first = &H5996C      'injector_balancing_volume_

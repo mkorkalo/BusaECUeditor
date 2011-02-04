@@ -68,7 +68,7 @@ Partial Class GixxerSTPmap
         Me.STPmapgrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
         Me.STPmapgrid.ShowEditingIcon = False
         Me.STPmapgrid.ShowRowErrors = False
-        Me.STPmapgrid.Size = New System.Drawing.Size(408, 413)
+        Me.STPmapgrid.Size = New System.Drawing.Size(408, 483)
         Me.STPmapgrid.TabIndex = 0
         '
         'Timer1
@@ -335,7 +335,7 @@ Partial Class GixxerSTPmap
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(5.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(561, 452)
+        Me.ClientSize = New System.Drawing.Size(561, 525)
         Me.Controls.Add(Me.Button10)
         Me.Controls.Add(Me.Button9)
         Me.Controls.Add(Me.Button8)
