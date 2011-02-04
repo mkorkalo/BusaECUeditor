@@ -138,17 +138,15 @@
             Me.NTCLT.Enabled = True
 
             i = ReadFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill)
-            If ReadFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill) = &H6 Then C_2step.Checked = True Else C_2step.Checked = False
+            If ReadFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill) <> &H80 Then C_2step.Checked = True Else C_2step.Checked = False
             If C_2step.Checked = True Then
                 C_2step.Text = "2 step limiter ON"
-                WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 1, &H6)
-                WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 2, &HB)
-                WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 3, &H57)
+                WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 1, gixxer_set_ign_default / &HFFFF)
+                WriteFlashWord(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 2, gixxer_set_ign_default - (Int(gixxer_set_ign_default / &HFFFF)))
             Else
                 C_2step.Text = "2 step limiter OFF"
                 WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 1, &H80)
-                WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 2, &H50)
-                WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 3, &HF9)
+                WriteFlashWord(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 2, gixxer_GPS_voltage_raw - &H800000)
             End If
         End If
 
@@ -383,17 +381,14 @@
         Dim i As Integer
 
         If Not loading Then
-
             If C_2step.Checked = True Then
                 C_2step.Text = "2 step limiter ON"
-                WriteFlashByte(&H3B4C0 + 1, &H6)
-                WriteFlashByte(&H3B4C0 + 2, &HB)
-                WriteFlashByte(&H3B4C0 + 3, &H57)
+                WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 1, gixxer_set_ign_default / &HFFFF)
+                WriteFlashWord(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 2, gixxer_set_ign_default - (Int(gixxer_set_ign_default / &HFFFF)))
             Else
                 C_2step.Text = "2 step limiter OFF"
-                WriteFlashByte(&H3B4C0 + 1, &H80)
-                WriteFlashByte(&H3B4C0 + 2, &H50)
-                WriteFlashByte(&H3B4C0 + 3, &HF9)
+                WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 1, &H80)
+                WriteFlashWord(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 2, gixxer_GPS_voltage_raw - &H800000)
                 baseline = 13450
                 ' Set limiters back to stock
                 loading = True
@@ -401,8 +396,8 @@
                 i = Int(((rpmconv / (i + 0))) + 1)
                 i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
                 addedrpm = i - baseline ' we are just setting here the baseline
-                If (ReadFlashByte(&H3B4C1) = &H80) Then WriteFlashWord(gixxer_ignition_rpm_limiter + 4, Int((rpmconv / (addedrpm + (rpmconv / &H47D))))) 'clutch limiter
-                If (ReadFlashByte(&H3B4C1) = &H80) Then WriteFlashWord(gixxer_ignition_rpm_limiter + 6, Int((rpmconv / (addedrpm + (rpmconv / &H479))))) 'clutch limiter
+                If (ReadFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill) = &H80) Then WriteFlashWord(gixxer_ignition_rpm_limiter + 4, Int((rpmconv / (addedrpm + (rpmconv / &H47D))))) 'clutch limiter
+                If (ReadFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill) = &H80) Then WriteFlashWord(gixxer_ignition_rpm_limiter + 6, Int((rpmconv / (addedrpm + (rpmconv / &H479))))) 'clutch limiter
                 NTCLT.Items.Clear()
                 'populate NTCLT with initial value
                 i = ReadFlashWord(&H60B30) ' this is the reference RPM that is stored in the system
@@ -428,77 +423,94 @@
     Private Sub C_ECU_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_ECU.SelectedIndexChanged
 
         If Not loading Then
-            If True Then
-                '
-                ' 21H50, 21H51, 21H60
-                '
-                Select Case C_ECU.Text
-                    Case "US"
-                        WriteFlashByte(&H604CF, &H80)
-                        WriteFlashByte(&H6000A, &H80)
-                        WriteFlashByte(&H6000B, &HC)
-                        WriteFlashByte(&H6000C, &H1A)
-                        WriteFlashByte(&H6000D, &HFF)
-                        WriteFlashByte(&H6000F, &H0)
-                        WriteFlashByte(&H60669, &HFF)
-                        WriteFlashByte(&H604BC, 1)
-                        WriteFlashByte(&H62ACA, &H1C)
-                        WriteFlashByte(&H6292B, &H36)
-                        WriteFlashByte(&HFFFF6, &H35)
-                        WriteFlashByte(&HFFFF6, &H30)
-                    Case "EU"
-                        WriteFlashByte(&H604CF, &HFF)
-                        WriteFlashByte(&H6000A, &H0)
-                        WriteFlashByte(&H6000B, &H32)
-                        WriteFlashByte(&H6000C, &H8)
-                        WriteFlashByte(&H6000D, &H0)
-                        WriteFlashByte(&H6000F, &H80)
-                        WriteFlashByte(&H60669, &H1)
-                        WriteFlashByte(&H604BC, 3)
-                        WriteFlashByte(&H62ACA, &H7)
-                        WriteFlashByte(&H6292B, &H35)
-                    Case "Gen" 'generic model for those we do not know
-                        WriteFlashByte(&H604CF, &H0)
-                        WriteFlashByte(&H6292B, &H39)
-                End Select
-            Else
-                '
-                ' 21H00, 21H10
-                '
-                Select Case C_ECU.Text
-                    Case "US"
-                        WriteFlashByte(&H604CB, &H80) 'immobilizer_type
-                        WriteFlashByte(&H6000A, &H80) 'same in 21H00 and 21H50/60
-                        WriteFlashByte(&H6000B, &HC) 'same in 21H00 and 21H50/60
-                        WriteFlashByte(&H6000C, &H1A) 'same in 21H00 and 21H50/60
-                        WriteFlashByte(&H6000D, &HFF) 'same in 21H00 and 21H50/60
-                        WriteFlashByte(&H6000F, &H0) 'same in 21H00 and 21H50/60
-                        WriteFlashByte(&H60656, &HFF) 'EXCVA
-                        WriteFlashByte(&H604B8, 1) 'US EU flag
-                        WriteFlashByte(&H62A76, &H1C)
-                        WriteFlashByte(&HFFFF6, &H30)
-                        WriteFlashByte(&HFFFF6, &H34)
-                    Case "EU"
-                        WriteFlashByte(&H604CB, &HFF)
-                        WriteFlashByte(&H6000A, &H0)
-                        WriteFlashByte(&H6000B, &H32)
-                        WriteFlashByte(&H6000C, &H8)
-                        WriteFlashByte(&H6000D, &H0)
-                        WriteFlashByte(&H6000F, &H80)
-                        WriteFlashByte(&H60656, &H1)
-                        WriteFlashByte(&H604B8, 3)
-                        WriteFlashByte(&H62A76, &H7)
-                        WriteFlashByte(&HFFFF6, &H31)
-                        WriteFlashByte(&HFFFF6, &H31)
+            Select Case gixxer_ecumode
 
-                    Case "Gen" 'generic model for those we do not know
-                        WriteFlashByte(&H604CB, &H0)
-                End Select
-            End If
+                Case &H73D2F
+                    '
+                    ' 21H50, 21H51, 21H60
+                    '
+                    Select Case C_ECU.Text
+                        Case "US"
+                            WriteFlashByte(gixxer_ecumode, &H80)
+                        Case "EU"
+                            WriteFlashByte(gixxer_ecumode, &HFF)
+                        Case "Gen" 'generic model for those we do not know
+                            WriteFlashByte(gixxer_ecumode, &H0)
+                    End Select
+
+                Case &H604CF
+
+                    '
+                    ' 21H50, 21H51, 21H60
+                    '
+                    Select Case C_ECU.Text
+                        Case "US"
+                            WriteFlashByte(gixxer_ecumode, &H80)
+                            WriteFlashByte(&H6000A, &H80)
+                            WriteFlashByte(&H6000B, &HC)
+                            WriteFlashByte(&H6000C, &H1A)
+                            WriteFlashByte(&H6000D, &HFF)
+                            WriteFlashByte(&H6000F, &H0)
+                            WriteFlashByte(&H60669, &HFF)
+                            WriteFlashByte(&H604BC, 1)
+                            WriteFlashByte(&H62ACA, &H1C)
+                            WriteFlashByte(&H6292B, &H36)
+                            WriteFlashByte(&HFFFF6, &H35)
+                            WriteFlashByte(&HFFFF6, &H30)
+                        Case "EU"
+                            WriteFlashByte(gixxer_ecumode, &HFF)
+                            WriteFlashByte(&H6000A, &H0)
+                            WriteFlashByte(&H6000B, &H32)
+                            WriteFlashByte(&H6000C, &H8)
+                            WriteFlashByte(&H6000D, &H0)
+                            WriteFlashByte(&H6000F, &H80)
+                            WriteFlashByte(&H60669, &H1)
+                            WriteFlashByte(&H604BC, 3)
+                            WriteFlashByte(&H62ACA, &H7)
+                            WriteFlashByte(&H6292B, &H35)
+                        Case "Gen" 'generic model for those we do not know
+                            WriteFlashByte(gixxer_ecumode, &H0)
+                            WriteFlashByte(&H6292B, &H39)
+                    End Select
+
+                Case &H604CB
+                    '
+                    ' 21H00, 21H10
+                    '
+                    Select Case C_ECU.Text
+                        Case "US"
+                            WriteFlashByte(gixxer_ecumode, &H80) 'immobilizer_type
+                            WriteFlashByte(&H6000A, &H80) 'same in 21H00 and 21H50/60
+                            WriteFlashByte(&H6000B, &HC) 'same in 21H00 and 21H50/60
+                            WriteFlashByte(&H6000C, &H1A) 'same in 21H00 and 21H50/60
+                            WriteFlashByte(&H6000D, &HFF) 'same in 21H00 and 21H50/60
+                            WriteFlashByte(&H6000F, &H0) 'same in 21H00 and 21H50/60
+                            WriteFlashByte(&H60656, &HFF) 'EXCVA
+                            WriteFlashByte(&H604B8, 1) 'US EU flag
+                            WriteFlashByte(&H62A76, &H1C)
+                            WriteFlashByte(&HFFFF6, &H30)
+                            WriteFlashByte(&HFFFF6, &H34)
+                        Case "EU"
+                            WriteFlashByte(gixxer_ecumode, &HFF)
+                            WriteFlashByte(&H6000A, &H0)
+                            WriteFlashByte(&H6000B, &H32)
+                            WriteFlashByte(&H6000C, &H8)
+                            WriteFlashByte(&H6000D, &H0)
+                            WriteFlashByte(&H6000F, &H80)
+                            WriteFlashByte(&H60656, &H1)
+                            WriteFlashByte(&H604B8, 3)
+                            WriteFlashByte(&H62A76, &H7)
+                            WriteFlashByte(&HFFFF6, &H31)
+                            WriteFlashByte(&HFFFF6, &H31)
+
+                        Case "Gen" 'generic model for those we do not know
+                            WriteFlashByte(gixxer_ecumode, &H0)
+                    End Select
+
+            End Select
 
             main.SetECUType()
         End If
-
 
     End Sub
 
