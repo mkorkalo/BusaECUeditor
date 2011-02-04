@@ -3072,13 +3072,18 @@ skip_update:
                 gixxer_baseline = 13450
                 gixxer_ignition_rpm_limiter = &H74344 '&H60B2C
 
+
                 B_AdvancedSettings.Enabled = True
                 gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3CE9D '&H3B4C1
+                gixxer_GPS_voltage_raw = &H805120
+                gixxer_set_ign_default = &H74385
+
                 gixxer_STP_map_first_table = &H5C450 '&H59DD0
 
                 gixxer_excva = &H7000D '&H6000D
                 gixxer_excva_flag = &H73ECF '&H60669
                 gixxer_msmode = &H73E9E '&H6063A
+                gixxer_ecumode = &H73D2F '&H604CF
 
                 gixxer_abc = 0 '&H220C4
                 gixxer_coilfi = 0 '&H60BC1
@@ -3086,7 +3091,6 @@ skip_update:
                 gixxer_pair = 0 '&H62ABA
                 gixxer_pairloop = 0 '&H56D5C
                 gixxer_hoxflag = 0 '&H614D4
-                gixxer_ecumode = 0 '&H604CF
                 gixxer_ics1 = 0 '&H622EE
                 gixxer_ics2 = 0 '&H6230A
                 gixxer_ics3 = 0 '&H62296
@@ -3130,7 +3134,11 @@ skip_update:
 
                 gixxer_fuelmap_map_first = &H5A7F0
                 gixxer_ignition_rpm_limiter = &H60B2C
+
                 gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3B4C1
+                gixxer_GPS_voltage_raw = &H8050F9
+                gixxer_set_ign_default = &H60B57
+
 
                 gixxer_fuel_limiter_by_gear = &H614C1
                 gixxer_fuel_limiter_by_gear_softcut = &H614C2
@@ -3176,7 +3184,7 @@ skip_update:
                 gixxer_sd2 = &H62ACF
                 gixxer_sd3 = &H62AD2
 
-
+ 
                 Select Case ReadFlashByte(&H6292B)
                     Case &H35
                         ECUVersion = "gixxer"
@@ -3210,7 +3218,10 @@ skip_update:
 
                 gixxer_fuelmap_map_first = &H5A7F0
                 gixxer_ignition_rpm_limiter = &H60B2C
+
                 gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3B4C1
+                gixxer_GPS_voltage_raw = &H8050F9
+                gixxer_set_ign_default = &H60B57
 
                 gixxer_fuel_limiter_by_gear = &H614C1
                 gixxer_fuel_limiter_by_gear_softcut = &H614C2
@@ -3297,7 +3308,10 @@ skip_update:
                 gixxer_injectorbalance_map_first = &H5996C      'injector_balancing_volume_
 
                 gixxer_ignition_rpm_limiter = &H60B14          'ignition_rpm_limiter
+
                 gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3AF15 'sub set_ignition_limiters beginning the GPS_sensor_RAW address
+                gixxer_GPS_voltage_raw = &H8050F7
+                gixxer_set_ign_default = &H60B3B
 
                 gixxer_fuel_limiter_by_gear = &H614A1            'fuelcut_by_gear
                 gixxer_RPM_limit_type1 = &H61356                 'RPM_limit_type1
@@ -3307,6 +3321,7 @@ skip_update:
                 gixxer_ignition_map_first = &H5956C               ' ign_group_clutch_neutral
                 gixxer_ignition_use_clutch_map = &H60B40          ' use_clutch_map_if_0x1
 
+
                 '
                 ' These do not need to be adjusted
                 '
@@ -3315,6 +3330,7 @@ skip_update:
                 gixxer_injectorbalance_map_name = gixxer_modelname
                 gixxer_STP_modelname = gixxer_modelname
                 gixxer_fuelmap_map_bikename = gixxer_modelname
+                gixxer_ecumode = &H604CB
 
                 B_EngineData.Enabled = True
                 FlashToolStripMenuItem.Visible = Enabled

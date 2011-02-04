@@ -138,6 +138,9 @@ Module CommonFunctions
     Public gixxer_sd2 As Integer = 0 '&H62ACF
     Public gixxer_sd3 As Integer = 0 '&H62AD2
 
+    Public gixxer_GPS_voltage_raw As Integer = 0
+    Public gixxer_set_ign_default As Integer = 0
+
 #End Region
 
 #Region "Properties"
