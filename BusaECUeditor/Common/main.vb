@@ -3083,6 +3083,10 @@ skip_update:
         Hayabusa.Visible = True
         FlashToolStripMenuItem.Visible = True
         Select Case Mid(ECUID.Text, 1, 8)
+            Case "DJ18SE10"
+                Hayabusa.Text = "Hayabusa gen2 USA 32920-15H10"
+                Metric = False
+                ECUVersion = "gen2"
             Case "DJ18SE11"
                 Hayabusa.Text = "Hayabusa gen2 USA 32920-15H10"
                 Metric = False
