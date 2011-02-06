@@ -3227,7 +3227,7 @@ skip_update:
                 B_AdvancedSettings.Enabled = True
                 gixxer_msmode = &H6063A
                 gixxer_coilfi = &H60BC1
-                gixxer_fan = &H6296A
+                gixxer_fan = &H62968
                 gixxer_pair = &H62ABA
                 gixxer_pairloop = &H56D5C
                 gixxer_excva = &H6000D
@@ -3331,7 +3331,7 @@ skip_update:
                 B_AdvancedSettings.Enabled = True
                 gixxer_msmode = &H6063A
                 gixxer_coilfi = &H60BC1
-                gixxer_fan = &H6296A
+                gixxer_fan = &H62968
                 gixxer_pair = &H62ABA
                 gixxer_pairloop = &H56D5C
                 gixxer_excva = &H6000D
