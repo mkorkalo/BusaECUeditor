@@ -562,32 +562,32 @@
             i = Me.c_fan.SelectedIndex()
             Select Case i
                 Case 0 ' 105/100
-                    WriteFlashByte(gixxer_fan + 1, &HD8)
                     WriteFlashByte(gixxer_fan, &HD0)
-                    WriteFlashByte(gixxer_fan + 3, &HD8)
+                    WriteFlashByte(gixxer_fan + 1, &HD8)
+                    WriteFlashByte(gixxer_fan + 3, &HC8)
                     WriteFlashByte(gixxer_fan + 2, &HD0)
                 Case 1 '100/95
-                    WriteFlashByte(gixxer_fan + 1, &HD0)
                     WriteFlashByte(gixxer_fan, &HC8)
-                    WriteFlashByte(gixxer_fan + 3, &HC8)
-                    WriteFlashByte(gixxer_fan + 2, &HC0)
+                    WriteFlashByte(gixxer_fan + 1, &HD0)
+                    WriteFlashByte(gixxer_fan + 3, &HC0)
+                    WriteFlashByte(gixxer_fan + 2, &HC8)
 
                 Case 2 '95/90
-                    WriteFlashByte(gixxer_fan + 1, &HC8)
                     WriteFlashByte(gixxer_fan, &HC0)
-                    WriteFlashByte(gixxer_fan + 3, &HC0)
-                    WriteFlashByte(gixxer_fan + 2, &HB8)
+                    WriteFlashByte(gixxer_fan + 1, &HC8)
+                    WriteFlashByte(gixxer_fan + 3, &HB8)
+                    WriteFlashByte(gixxer_fan + 2, &HC0)
 
                 Case 3 '90/85
-                    WriteFlashByte(gixxer_fan + 1, &HC0)
                     WriteFlashByte(gixxer_fan, &HB8)
-                    WriteFlashByte(gixxer_fan + 3, &HB8)
-                    WriteFlashByte(gixxer_fan + 2, &HB0)
+                    WriteFlashByte(gixxer_fan + 1, &HC0)
+                    WriteFlashByte(gixxer_fan + 3, &HB9)
+                    WriteFlashByte(gixxer_fan + 2, &HB8)
 
                 Case 4 '85/80
-                    WriteFlashByte(gixxer_fan + 1, &HB8)
                     WriteFlashByte(gixxer_fan, &HB0)
-                    WriteFlashByte(gixxer_fan + 3, &HB8)
+                    WriteFlashByte(gixxer_fan + 1, &HB8)
+                    WriteFlashByte(gixxer_fan + 3, &HA8)
                     WriteFlashByte(gixxer_fan + 2, &HB0)
 
             End Select
