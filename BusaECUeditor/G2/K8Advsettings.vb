@@ -1243,30 +1243,30 @@ Public Class K8Advsettings
             i = Me.C_fan.SelectedIndex()
             Select Case i
                 Case 0 ' 105/100
-                    WriteFlashByte(fan + 1, &HD8)
                     WriteFlashByte(fan, &HD0)
-                    WriteFlashByte(fan + 7, &HD0)
+                    WriteFlashByte(fan + 1, &HD8)
                     WriteFlashByte(fan + 6, &HC8)
+                    WriteFlashByte(fan + 7, &HD0)
                 Case 1 '100/95
-                    WriteFlashByte(fan + 1, &HD0)
                     WriteFlashByte(fan, &HC8)
-                    WriteFlashByte(fan + 7, &HC8)
+                    WriteFlashByte(fan + 1, &HD0)
                     WriteFlashByte(fan + 6, &HC0)
+                    WriteFlashByte(fan + 7, &HC8)
                 Case 2 '95/90
-                    WriteFlashByte(fan + 1, &HC8)
                     WriteFlashByte(fan, &HC0)
-                    WriteFlashByte(fan + 7, &HC0)
+                    WriteFlashByte(fan + 1, &HC8)
                     WriteFlashByte(fan + 6, &HB8)
+                    WriteFlashByte(fan + 7, &HC0)
                 Case 3 '90/85
-                    WriteFlashByte(fan + 1, &HC0)
                     WriteFlashByte(fan, &HB8)
-                    WriteFlashByte(fan + 7, &HB8)
+                    WriteFlashByte(fan + 1, &HC0)
                     WriteFlashByte(fan + 6, &HB0)
+                    WriteFlashByte(fan + 7, &HB8)
                 Case 4 '85/80
-                    WriteFlashByte(fan + 1, &HB8)
                     WriteFlashByte(fan, &HB0)
-                    WriteFlashByte(fan + 7, &HB8)
+                    WriteFlashByte(fan + 1, &HB8)
                     WriteFlashByte(fan + 6, &HB0)
+                    WriteFlashByte(fan + 7, &HB8)
             End Select
 
         End If
