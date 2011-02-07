@@ -29,7 +29,6 @@ Partial Class K8dragtools
         Me.K8dragtoolsBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Linklabel_program_homepage = New System.Windows.Forms.LinkLabel()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -112,7 +111,7 @@ Partial Class K8dragtools
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(432, 501)
+        Me.Button1.Location = New System.Drawing.Point(431, 356)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(77, 29)
         Me.Button1.TabIndex = 80
@@ -124,24 +123,12 @@ Partial Class K8dragtools
         Me.Linklabel_program_homepage.ActiveLinkColor = System.Drawing.Color.DimGray
         Me.Linklabel_program_homepage.AutoSize = True
         Me.Linklabel_program_homepage.LinkColor = System.Drawing.Color.Black
-        Me.Linklabel_program_homepage.Location = New System.Drawing.Point(22, 509)
+        Me.Linklabel_program_homepage.Location = New System.Drawing.Point(15, 356)
         Me.Linklabel_program_homepage.Name = "Linklabel_program_homepage"
         Me.Linklabel_program_homepage.Size = New System.Drawing.Size(215, 13)
         Me.Linklabel_program_homepage.TabIndex = 84
         Me.Linklabel_program_homepage.TabStop = True
         Me.Linklabel_program_homepage.Text = "Click here to visit: http//www.ecueditor.com"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.ForeColor = System.Drawing.Color.Red
-        Me.Label4.Location = New System.Drawing.Point(23, 415)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(334, 72)
-        Me.Label4.TabIndex = 85
-        Me.Label4.Text = "Second user test candidate - " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "RPM/SEC should be calculated closer," & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "otherwise fu" & _
-            "nctions work."
         '
         'Label5
         '
@@ -276,7 +263,7 @@ Partial Class K8dragtools
         Me.Label13.AutoSize = True
         Me.Label13.Location = New System.Drawing.Point(253, 73)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(226, 91)
+        Me.Label13.Size = New System.Drawing.Size(241, 104)
         Me.Label13.TabIndex = 100
         Me.Label13.Text = resources.GetString("Label13.Text")
         '
@@ -424,10 +411,9 @@ Partial Class K8dragtools
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(522, 542)
+        Me.ClientSize = New System.Drawing.Size(527, 398)
         Me.Controls.Add(Me.G_2step)
         Me.Controls.Add(Me.G_slewrate)
-        Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Linklabel_program_homepage)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Label3)
@@ -460,7 +446,6 @@ Partial Class K8dragtools
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents Linklabel_program_homepage As System.Windows.Forms.LinkLabel
-    Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents Label5 As System.Windows.Forms.Label

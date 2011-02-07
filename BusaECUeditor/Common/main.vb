@@ -4770,10 +4770,6 @@ skip_update:
         Process.Start("http://product-search.ebay.com/ecueditor.com")
     End Sub
 
-    Private Sub GroupBox2_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GroupBox2.Enter
-
-    End Sub
-
     Private Sub NewStockGixxerK7EUToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim defpath As String ' this is for this subroutine only
 
@@ -4828,18 +4824,6 @@ skip_update:
 
     End Sub
 
-    Private Sub ToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-    End Sub
-
-    Private Sub ToolStripMenuItem3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-    End Sub
-
-    Private Sub ToolStripMenuItem2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-    End Sub
-
-    Private Sub ToolStripComboBox1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-
-    End Sub
 
     Private Sub NewStockGixxerK721H00ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockGixxerK721H00ToolStripMenuItem.Click
         Dim defpath As String ' this is for this subroutine only
@@ -5337,8 +5321,6 @@ skip_update:
         Dim defpath As String ' this is for this subroutine only
         defpath = My.Application.Info.DirectoryPath & "\ecu.bin\G1BusaUSdefault.bin"
         G1ReadMap(defpath)
-
-
     End Sub
 End Class
 
