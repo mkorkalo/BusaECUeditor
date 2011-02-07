@@ -155,7 +155,7 @@ Partial Class main
         '
         Me.K8EUUSAU15HToolStripMenuItem.Name = "K8EUUSAU15HToolStripMenuItem"
         Me.K8EUUSAU15HToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
-        Me.K8EUUSAU15HToolStripMenuItem.Text = "K8 All (15H**)"
+        Me.K8EUUSAU15HToolStripMenuItem.Text = "K8-   (15H**)"
         '
         'ToolStripMenuItem1
         '
