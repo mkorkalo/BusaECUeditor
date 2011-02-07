@@ -127,6 +127,7 @@ before ignition retard is applied. After reaching
 the maximum allowed acceleration an user 
 defined amount of ignition retard is applied per 
 each 100rpm that exceeds the predefined 
-maximum acceleration limit.</value>
+maximum acceleration limit. 
+Note: The RPM/SEC calculated value may be off</value>
   </data>
 </root>
