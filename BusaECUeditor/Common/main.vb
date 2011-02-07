@@ -256,183 +256,19 @@ skip_update:
         End Select
     End Sub
 
-    Private Sub G1NewBaseMapUSToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles G1NewBaseMapUSToolStripMenuItem.Click
-        'JaSa 01.July.2010
-        'G1 US base map selected --> reading of bin will hapen on G1ReadMap procedure
-
-        Dim defpath As String ' this is for this subroutine only
-        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\G1BusaUSdefault.bin"
-        G1ReadMap(defpath)
-
+    Private Sub G1NewBaseMapUSToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
     End Sub
 
-    Private Sub G1NewBaseMapEUToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles G1NewBaseMapEUToolStripMenuItem.Click
-        'JaSa 01.July.2010
-        'G1 EU base map selected --> reading of bin will hapen on G1ReadMap procedure
-
-        Dim defpath As String ' this is for this subroutine only
-
-        ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\G1BusaEUdefault.bin"
-        G1ReadMap(defpath)
-
+    Private Sub G1NewBaseMapEUToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
     End Sub
 
-    Private Sub NewK8ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewK8ToolStripMenuItem.Click
-        Dim defpath As String ' this is for this subroutine only
-        CloseChildWindows()
-
-        ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\k8.bin"
-
-        L_File.Text = ""
-        L_Comparefile.Text = ""
-        DisableButtons()
-
-        ' Open the stream and read it to global variable "Flash". 
-        fs = File.OpenRead(defpath)
-        Dim b(1) As Byte
-        Dim i As Integer
-        i = 0
-        Do While fs.Read(b, 0, 1) > 0
-            Flash(i) = b(0)
-            FlashCopy(i) = b(0)
-            i = i + 1
-        Loop
-        fs.Close()
-
-        ' Check that the binary lenght matches expected ecu
-        If i <> (262144 * 4) Then
-            ECUNotSupported.ShowDialog()
-        End If
-
-        ECUVersion = "gen2"
-        '
-        ' Make sure the ECU id is supported type
-        '
-        i = 0
-        ECUID.Text = ""
-        Do While i < 8
-            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
-            i = i + 1
-        Loop
-
-        ' check the ecu id bytes and validate that the ecu flash image is supported
-        If Mid(ECUID.Text, 1, 6) <> "DJ18SE" Then
-            ECUNotSupported.ShowDialog()
-        Else
-            SetECUType()
-        End If
-
-        MsgBox("A new gen2 basemap is generated", MsgBoxStyle.Information)
-
-        BlockPgm = True
+    Private Sub NewK8ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
     End Sub
 
-    Private Sub NewStockBkingToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockBkingToolStripMenuItem.Click
-        Dim defpath As String ' this is for this subroutine only
-
-        CloseChildWindows()
-
-
-        ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\bking.bin"
-
-        L_File.Text = ""
-        L_Comparefile.Text = ""
-        DisableButtons()
-
-        ' Open the stream and read it to global variable "Flash". 
-        fs = File.OpenRead(defpath)
-        Dim b(1) As Byte
-        Dim i As Integer
-        i = 0
-        Do While fs.Read(b, 0, 1) > 0
-            Flash(i) = b(0)
-            FlashCopy(i) = b(0)
-            i = i + 1
-        Loop
-        fs.Close()
-
-        ' Check that the binary lenght matches expected ecu
-        If i <> (262144 * 4) Then
-            ECUNotSupported.ShowDialog()
-        End If
-
-        ECUVersion = "bking"
-        '
-        ' Make sure the ECU id is supported type
-        '
-        i = 0
-        ECUID.Text = ""
-        Do While i < 8
-            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
-            i = i + 1
-        Loop
-
-        ' check the ecu id bytes and validate that the ecu flash image is supported
-        If Mid(ECUID.Text, 1, 6) <> "DJ47SE" Then
-            ECUNotSupported.ShowDialog()
-        Else
-            SetECUType()
-        End If
-
-        MsgBox("A new Bking basemap is generated", MsgBoxStyle.Information)
-
-        BlockPgm = True
+    Private Sub NewStockBkingToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
     End Sub
 
-    Private Sub NewStockBkingUSToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockBkingUSToolStripMenuItem.Click
-        Dim defpath As String ' this is for this subroutine only
-
-        CloseChildWindows()
-
-
-        ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\BkingUS.bin"
-
-        L_File.Text = ""
-        L_Comparefile.Text = ""
-        DisableButtons()
-
-        ' Open the stream and read it to global variable "Flash". 
-        fs = File.OpenRead(defpath)
-        Dim b(1) As Byte
-        Dim i As Integer
-        i = 0
-        Do While fs.Read(b, 0, 1) > 0
-            Flash(i) = b(0)
-            FlashCopy(i) = b(0)
-            i = i + 1
-        Loop
-        fs.Close()
-
-        ' Check that the binary lenght matches expected ecu
-        If i <> (262144 * 4) Then
-            ECUNotSupported.ShowDialog()
-        End If
-
-        ECUVersion = "bking"
-        '
-        ' Make sure the ECU id is supported type
-        '
-        i = 0
-        ECUID.Text = ""
-        Do While i < 8
-            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
-            i = i + 1
-        Loop
-
-        ' check the ecu id bytes and validate that the ecu flash image is supported
-        If Mid(ECUID.Text, 1, 6) <> "DJ47SE" Then
-            ECUNotSupported.ShowDialog()
-        Else
-            SetECUType()
-        End If
-
-        MsgBox("A new Bking basemap is generated", MsgBoxStyle.Information)
-
-        BlockPgm = True
+    Private Sub NewStockBkingUSToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
     End Sub
 
     Private Sub OpenToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OpenToolStripMenuItem.Click
@@ -3178,6 +3014,77 @@ skip_update:
                 SaveToolStripMenuItem.Enabled = True
                 B_FlashECU.Enabled = True
 
+            Case "DJB5SE10"
+                gixxer_modelname = "ecueditor.com for gixxer K9-K11 "
+                ECUVersion = "gixxer"
+                Hayabusa.Text = "Gixxer K9-11 32920-47H10"
+
+                B_FuelMap.Enabled = True
+                gixxer_fuelmap_map_first = &H5CFE8
+                gixxer_injectorbalance_map_first = &H5CFD0 ' &H5A7D8
+
+                B_IgnitionMap.Enabled = True
+                gixxer_ignition_map_first = &H5CB70 '&H5A3D8
+                gixxer_ignition_use_clutch_map = &H7438A '&H60B5C
+                gixxer_ignition_map_name = gixxer_modelname
+
+                B_Limiters.Enabled = True
+                gixxer_fuel_limiter_by_gear = &H74F3B '&H614C1
+                gixxer_fuel_limiter_by_gear_softcut = &H74F3C '&H614C2
+                gixxer_RPM_limit_type1 = &H74DDE '&H61372
+                gixxer_fuel_limiter_softcut_or_hardcut = &H74F38 '&H614BE
+                gixxer_baseline = 13450
+                gixxer_ignition_rpm_limiter = &H74344 '&H60B2C
+
+
+                B_AdvancedSettings.Enabled = True
+                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3CE9D '&H3B4C1
+                gixxer_GPS_voltage_raw = &H805120
+                gixxer_set_ign_default = &H74385
+
+                gixxer_STP_map_first_table = &H5C450 '&H59DD0
+                gixxer_STP_map_first_table_fuel = &H5D168
+
+
+                gixxer_excva = &H7000D '&H6000D
+                gixxer_excva_flag = &H73ECF '&H60669
+                gixxer_msmode = &H73E9E '&H6063A
+                gixxer_ecumode = &H73D2F '&H604CF
+
+                gixxer_abc = 0 '&H220C4
+                gixxer_coilfi = 0 '&H60BC1
+                gixxer_fan = 0 '&H6296A
+                gixxer_pair = 0 '&H62ABA
+                gixxer_pairloop = 0 '&H56D5C
+                gixxer_hoxflag = 0 '&H614D4
+                gixxer_ics1 = 0 '&H622EE
+                gixxer_ics2 = 0 '&H6230A
+                gixxer_ics3 = 0 '&H62296
+                gixxer_hox1 = 0 '&H614D4
+                gixxer_hox2 = 0 '&H62243
+
+                gixxer_sdmap = &H606CC
+                gixxer_sd1 = &H7A398 '&H62AC1
+                gixxer_sd2 = &H7A395 '&H62ACF
+                gixxer_sd3 = &H7A398 '&H62AD2
+
+                B_Shifter.Enabled = False
+                gixxer_shifter_ADJ = &H0 '&H5D900
+                gixxer_shifter_FUELCODE = &H0 '&H5DA00
+                gixxer_shifter_IGNCODE = &H0 '&H5DE00
+                gixxer_shifter_jmp_to_fuelcode = &H0 '&H45A40
+                gixxer_shifter_jmp_to_igncode = &H0 '&H3B9C0
+
+                gixxer_injectorbalance_map_name = gixxer_modelname
+                gixxer_STP_modelname = gixxer_modelname
+                gixxer_fuelmap_map_bikename = gixxer_modelname
+
+                B_EngineData.Enabled = True
+                FlashToolStripMenuItem.Visible = Enabled
+                B_DataLogging.Enabled = False
+                SaveToolStripMenuItem.Enabled = True
+                B_FlashECU.Enabled = True
+
             Case "DJ0HSE50"
                 gixxer_modelname = "ecueditor.com for gixxer K8 "
 
@@ -3244,7 +3151,7 @@ skip_update:
                 gixxer_sd2 = &H62ACF
                 gixxer_sd3 = &H62AD2
 
- 
+
                 Select Case ReadFlashByte(&H6292B)
                     Case &H35
                         ECUVersion = "gixxer"
@@ -4840,58 +4747,7 @@ skip_update:
 
     End Sub
 
-    Private Sub NewStockGixxerK7ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockGixxerK7ToolStripMenuItem.Click
-        Dim defpath As String ' this is for this subroutine only
-
-        CloseChildWindows()
-
-
-        ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\GixxerK7.bin"
-
-        L_File.Text = ""
-        L_Comparefile.Text = ""
-        DisableButtons()
-
-        ' Open the stream and read it to global variable "Flash". 
-        fs = File.OpenRead(defpath)
-        Dim b(1) As Byte
-        Dim i As Integer
-        i = 0
-        Do While fs.Read(b, 0, 1) > 0
-            Flash(i) = b(0)
-            FlashCopy(i) = b(0)
-            i = i + 1
-        Loop
-        fs.Close()
-
-        ' Check that the binary lenght matches expected ecu
-        If i <> (262144 * 4) Then
-            ECUNotSupported.ShowDialog()
-        End If
-
-        ECUVersion = "gixxer"
-        '
-        ' Make sure the ECU id is supported type
-        '
-        i = 0
-        ECUID.Text = ""
-        Do While i < 8
-            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
-            i = i + 1
-        Loop
-
-        ' check the ecu id bytes and validate that the ecu flash image is supported
-        If (Mid(ECUID.Text, 1, 4) <> "DJ0H") And (Mid(ECUID.Text, 1, 4) <> "DT0H") And (Mid(ECUID.Text, 1, 4) <> "DJ21") Then
-            ECUNotSupported.ShowDialog()
-        Else
-            SetECUType()
-        End If
-
-        MsgBox("A new Gixxer K7- basemap is generated", MsgBoxStyle.Information)
-
-        BlockPgm = True
-
+    Private Sub NewStockGixxerK7ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
     End Sub
 
     Private Sub EcueditorcomHomepageToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EcueditorcomHomepageToolStripMenuItem.Click
@@ -4907,58 +4763,7 @@ skip_update:
         Process.Start("https://bitbucket.org/ecueditor/ecueditor/changesets")
     End Sub
 
-    Private Sub NewStockGixxerK8ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockGixxerK8ToolStripMenuItem.Click
-        Dim defpath As String ' this is for this subroutine only
-
-        CloseChildWindows()
-
-
-        ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\GixxerK7.bin"
-
-        L_File.Text = ""
-        L_Comparefile.Text = ""
-        DisableButtons()
-
-        ' Open the stream and read it to global variable "Flash". 
-        fs = File.OpenRead(defpath)
-        Dim b(1) As Byte
-        Dim i As Integer
-        i = 0
-        Do While fs.Read(b, 0, 1) > 0
-            Flash(i) = b(0)
-            FlashCopy(i) = b(0)
-            i = i + 1
-        Loop
-        fs.Close()
-
-        ' Check that the binary lenght matches expected ecu
-        If i <> (262144 * 4) Then
-            ECUNotSupported.ShowDialog()
-        End If
-
-        ECUVersion = "gixxer"
-        '
-        ' Make sure the ECU id is supported type
-        '
-        i = 0
-        ECUID.Text = ""
-        Do While i < 8
-            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
-            i = i + 1
-        Loop
-
-        ' check the ecu id bytes and validate that the ecu flash image is supported
-        If (Mid(ECUID.Text, 1, 4) <> "DJ0H") And (Mid(ECUID.Text, 1, 4) <> "DT0H") And (Mid(ECUID.Text, 1, 4) <> "DJ21") Then
-            ECUNotSupported.ShowDialog()
-        Else
-            SetECUType()
-        End If
-
-        MsgBox("A new Gixxer K8- basemap is generated", MsgBoxStyle.Information)
-
-        BlockPgm = True
-
+    Private Sub NewStockGixxerK8ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
     End Sub
 
     Private Sub BuyInterfaceFromEBayToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BuyInterfaceFromEBayToolStripMenuItem.Click
@@ -4969,7 +4774,7 @@ skip_update:
 
     End Sub
 
-    Private Sub NewStockGixxerK7EUToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockGixxerK7EUToolStripMenuItem.Click
+    Private Sub NewStockGixxerK7EUToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim defpath As String ' this is for this subroutine only
 
         CloseChildWindows()
@@ -5023,7 +4828,20 @@ skip_update:
 
     End Sub
 
-    Private Sub ToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem1.Click
+    Private Sub ToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    End Sub
+
+    Private Sub ToolStripMenuItem3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    End Sub
+
+    Private Sub ToolStripMenuItem2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem2.Click
+    End Sub
+
+    Private Sub ToolStripComboBox1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+    End Sub
+
+    Private Sub NewStockGixxerK721H00ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockGixxerK721H00ToolStripMenuItem.Click
         Dim defpath As String ' this is for this subroutine only
 
         CloseChildWindows()
@@ -5066,21 +4884,187 @@ skip_update:
 
         ' check the ecu id bytes and validate that the ecu flash image is supported
         SetECUType()
-        
+
         MsgBox("A new Gixxer K7- basemap is generated", MsgBoxStyle.Information)
 
         BlockPgm = True
 
+
     End Sub
 
-    Private Sub ToolStripMenuItem3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem3.Click
+    Private Sub NewStockGixxerK721H50ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockGixxerK721H50ToolStripMenuItem.Click
         Dim defpath As String ' this is for this subroutine only
 
         CloseChildWindows()
 
 
         ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\gixxerk9.bin"
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\GixxerK7EU.bin"
+
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        DisableButtons()
+
+        ' Open the stream and read it to global variable "Flash". 
+        fs = File.OpenRead(defpath)
+        Dim b(1) As Byte
+        Dim i As Integer
+        i = 0
+        Do While fs.Read(b, 0, 1) > 0
+            Flash(i) = b(0)
+            FlashCopy(i) = b(0)
+            i = i + 1
+        Loop
+        fs.Close()
+
+        ' Check that the binary lenght matches expected ecu
+        If i <> (262144 * 4) Then
+            ECUNotSupported.ShowDialog()
+        End If
+
+        ECUVersion = "gixxer"
+        '
+        ' Make sure the ECU id is supported type
+        '
+        i = 0
+        ECUID.Text = ""
+        Do While i < 8
+            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
+            i = i + 1
+        Loop
+
+        ' check the ecu id bytes and validate that the ecu flash image is supported
+        If (Mid(ECUID.Text, 1, 4) <> "DJ0H") And (Mid(ECUID.Text, 1, 4) <> "DT0H") And (Mid(ECUID.Text, 1, 4) <> "DJ21") Then
+            ECUNotSupported.ShowDialog()
+        Else
+            SetECUType()
+        End If
+
+        MsgBox("A new Gixxer K7- basemap is generated", MsgBoxStyle.Information)
+
+        BlockPgm = True
+
+
+    End Sub
+
+    Private Sub NewStockGixxerK721H60ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockGixxerK721H60ToolStripMenuItem.Click
+        Dim defpath As String ' this is for this subroutine only
+
+        CloseChildWindows()
+
+
+        ' OK, so the file is found, now lets start processing it
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\GixxerK7.bin"
+
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        DisableButtons()
+
+        ' Open the stream and read it to global variable "Flash". 
+        fs = File.OpenRead(defpath)
+        Dim b(1) As Byte
+        Dim i As Integer
+        i = 0
+        Do While fs.Read(b, 0, 1) > 0
+            Flash(i) = b(0)
+            FlashCopy(i) = b(0)
+            i = i + 1
+        Loop
+        fs.Close()
+
+        ' Check that the binary lenght matches expected ecu
+        If i <> (262144 * 4) Then
+            ECUNotSupported.ShowDialog()
+        End If
+
+        ECUVersion = "gixxer"
+        '
+        ' Make sure the ECU id is supported type
+        '
+        i = 0
+        ECUID.Text = ""
+        Do While i < 8
+            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
+            i = i + 1
+        Loop
+
+        ' check the ecu id bytes and validate that the ecu flash image is supported
+        If (Mid(ECUID.Text, 1, 4) <> "DJ0H") And (Mid(ECUID.Text, 1, 4) <> "DT0H") And (Mid(ECUID.Text, 1, 4) <> "DJ21") Then
+            ECUNotSupported.ShowDialog()
+        Else
+            SetECUType()
+        End If
+
+        MsgBox("A new Gixxer K7- basemap is generated", MsgBoxStyle.Information)
+
+        BlockPgm = True
+
+
+    End Sub
+
+    Private Sub NewStockGixxerK821H50ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockGixxerK821H50ToolStripMenuItem.Click
+        Dim defpath As String ' this is for this subroutine only
+
+        CloseChildWindows()
+
+
+        ' OK, so the file is found, now lets start processing it
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\GixxerK8.bin"
+
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        DisableButtons()
+
+        ' Open the stream and read it to global variable "Flash". 
+        fs = File.OpenRead(defpath)
+        Dim b(1) As Byte
+        Dim i As Integer
+        i = 0
+        Do While fs.Read(b, 0, 1) > 0
+            Flash(i) = b(0)
+            FlashCopy(i) = b(0)
+            i = i + 1
+        Loop
+        fs.Close()
+
+        ' Check that the binary lenght matches expected ecu
+        If i <> (262144 * 4) Then
+            ECUNotSupported.ShowDialog()
+        End If
+
+        ECUVersion = "gixxer"
+        '
+        ' Make sure the ECU id is supported type
+        '
+        i = 0
+        ECUID.Text = ""
+        Do While i < 8
+            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
+            i = i + 1
+        Loop
+
+        ' check the ecu id bytes and validate that the ecu flash image is supported
+        If (Mid(ECUID.Text, 1, 4) <> "DJ0H") And (Mid(ECUID.Text, 1, 4) <> "DT0H") And (Mid(ECUID.Text, 1, 4) <> "DJ21") Then
+            ECUNotSupported.ShowDialog()
+        Else
+            SetECUType()
+        End If
+
+        MsgBox("A new Gixxer K8- basemap is generated", MsgBoxStyle.Information)
+
+        BlockPgm = True
+
+
+    End Sub
+
+    Private Sub NewStockGixxerK9K1147H10ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockGixxerK9K1147H10ToolStripMenuItem.Click
+        Dim defpath As String ' this is for this subroutine only
+
+        CloseChildWindows()
+
+
+        ' OK, so the file is found, now lets start processing it
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\Gixxerk9.bin"
 
         L_File.Text = ""
         L_Comparefile.Text = ""
@@ -5121,8 +5105,241 @@ skip_update:
 
         BlockPgm = True
 
+
     End Sub
 
+    Private Sub NewStockGixxerK9K1147H10ToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewStockGixxerK9K1147H10ToolStripMenuItem1.Click
+        Dim defpath As String ' this is for this subroutine only
+
+        CloseChildWindows()
+
+
+        ' OK, so the file is found, now lets start processing it
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\Gixxerk9US.bin"
+
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        DisableButtons()
+
+        ' Open the stream and read it to global variable "Flash". 
+        fs = File.OpenRead(defpath)
+        Dim b(1) As Byte
+        Dim i As Integer
+        i = 0
+        Do While fs.Read(b, 0, 1) > 0
+            Flash(i) = b(0)
+            FlashCopy(i) = b(0)
+            i = i + 1
+        Loop
+        fs.Close()
+
+        ' Check that the binary lenght matches expected ecu
+        If i <> (262144 * 4) Then
+            ECUNotSupported.ShowDialog()
+        End If
+
+        ECUVersion = "gixxer"
+        '
+        ' Make sure the ECU id is supported type
+        '
+        i = 0
+        ECUID.Text = ""
+        Do While i < 8
+            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
+            i = i + 1
+        Loop
+
+        ' check the ecu id bytes and validate that the ecu flash image is supported
+        SetECUType()
+
+        MsgBox("A new Gixxer K9 basemap is generated", MsgBoxStyle.Information)
+
+        BlockPgm = True
+    End Sub
+
+    Private Sub USModelToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles USModelToolStripMenuItem.Click
+        Dim defpath As String ' this is for this subroutine only
+
+        CloseChildWindows()
+
+
+        ' OK, so the file is found, now lets start processing it
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\BkingUS.bin"
+
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        DisableButtons()
+
+        ' Open the stream and read it to global variable "Flash". 
+        fs = File.OpenRead(defpath)
+        Dim b(1) As Byte
+        Dim i As Integer
+        i = 0
+        Do While fs.Read(b, 0, 1) > 0
+            Flash(i) = b(0)
+            FlashCopy(i) = b(0)
+            i = i + 1
+        Loop
+        fs.Close()
+
+        ' Check that the binary lenght matches expected ecu
+        If i <> (262144 * 4) Then
+            ECUNotSupported.ShowDialog()
+        End If
+
+        ECUVersion = "bking"
+        '
+        ' Make sure the ECU id is supported type
+        '
+        i = 0
+        ECUID.Text = ""
+        Do While i < 8
+            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
+            i = i + 1
+        Loop
+
+        ' check the ecu id bytes and validate that the ecu flash image is supported
+        If Mid(ECUID.Text, 1, 6) <> "DJ47SE" Then
+            ECUNotSupported.ShowDialog()
+        Else
+            SetECUType()
+        End If
+
+        MsgBox("A new Bking basemap is generated", MsgBoxStyle.Information)
+
+        BlockPgm = True
+
+    End Sub
+
+    Private Sub EUAUModelToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EUAUModelToolStripMenuItem.Click
+        Dim defpath As String ' this is for this subroutine only
+
+        CloseChildWindows()
+
+
+        ' OK, so the file is found, now lets start processing it
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\bking.bin"
+
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        DisableButtons()
+
+        ' Open the stream and read it to global variable "Flash". 
+        fs = File.OpenRead(defpath)
+        Dim b(1) As Byte
+        Dim i As Integer
+        i = 0
+        Do While fs.Read(b, 0, 1) > 0
+            Flash(i) = b(0)
+            FlashCopy(i) = b(0)
+            i = i + 1
+        Loop
+        fs.Close()
+
+        ' Check that the binary lenght matches expected ecu
+        If i <> (262144 * 4) Then
+            ECUNotSupported.ShowDialog()
+        End If
+
+        ECUVersion = "bking"
+        '
+        ' Make sure the ECU id is supported type
+        '
+        i = 0
+        ECUID.Text = ""
+        Do While i < 8
+            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
+            i = i + 1
+        Loop
+
+        ' check the ecu id bytes and validate that the ecu flash image is supported
+        If Mid(ECUID.Text, 1, 6) <> "DJ47SE" Then
+            ECUNotSupported.ShowDialog()
+        Else
+            SetECUType()
+        End If
+
+        MsgBox("A new Bking basemap is generated", MsgBoxStyle.Information)
+
+        BlockPgm = True
+
+    End Sub
+
+    Private Sub K8EUUSAU15HToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles K8EUUSAU15HToolStripMenuItem.Click
+        Dim defpath As String ' this is for this subroutine only
+        CloseChildWindows()
+
+        ' OK, so the file is found, now lets start processing it
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\k8.bin"
+
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        DisableButtons()
+
+        ' Open the stream and read it to global variable "Flash". 
+        fs = File.OpenRead(defpath)
+        Dim b(1) As Byte
+        Dim i As Integer
+        i = 0
+        Do While fs.Read(b, 0, 1) > 0
+            Flash(i) = b(0)
+            FlashCopy(i) = b(0)
+            i = i + 1
+        Loop
+        fs.Close()
+
+        ' Check that the binary lenght matches expected ecu
+        If i <> (262144 * 4) Then
+            ECUNotSupported.ShowDialog()
+        End If
+
+        ECUVersion = "gen2"
+        '
+        ' Make sure the ECU id is supported type
+        '
+        i = 0
+        ECUID.Text = ""
+        Do While i < 8
+            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
+            i = i + 1
+        Loop
+
+        ' check the ecu id bytes and validate that the ecu flash image is supported
+        If Mid(ECUID.Text, 1, 6) <> "DJ18SE" Then
+            ECUNotSupported.ShowDialog()
+        Else
+            SetECUType()
+        End If
+
+        MsgBox("A new gen2 basemap is generated", MsgBoxStyle.Information)
+
+        BlockPgm = True
+
+    End Sub
+
+    Private Sub K2K724FG0ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles K2K724FG0ToolStripMenuItem.Click
+        'JaSa 01.July.2010
+        'G1 EU base map selected --> reading of bin will hapen on G1ReadMap procedure
+
+        Dim defpath As String ' this is for this subroutine only
+
+        ' OK, so the file is found, now lets start processing it
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\G1BusaEUdefault.bin"
+        G1ReadMap(defpath)
+
+
+    End Sub
+
+    Private Sub K2K724FK0ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles K2K724FK0ToolStripMenuItem.Click
+        'JaSa 01.July.2010
+        'G1 US base map selected --> reading of bin will hapen on G1ReadMap procedure
+
+        Dim defpath As String ' this is for this subroutine only
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\G1BusaUSdefault.bin"
+        G1ReadMap(defpath)
+
+
+    End Sub
 End Class
 
 
