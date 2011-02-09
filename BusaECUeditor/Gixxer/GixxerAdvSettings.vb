@@ -124,7 +124,7 @@
             C_2step.Enabled = False
         Else
             'populate NTCLT with initial value
-            i = ReadFlashWord(gixxer_ignition_rpm_limiter + 4) ' &H60B30 this is the reference RPM that is stored in the system
+            i = ReadFlashWord(gixxer_ignition_rpm_limiter + 6) ' &H60B30 this is the reference RPM that is stored in the system
             i = Int(((rpmconv / (i + 0))))
             i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
             Me.NTCLT.Items.Add(i.ToString())
@@ -357,7 +357,7 @@
             '
             ' RPM/Fuel hard type 2, this is modified higher than stock as ecu default is not used in this case
             '
-            baseline = 13050
+            baseline = 13100
             ' Set various RPM limits based on RPM value selected
             i = Val(NTCLT.Text)
             addedrpm = i - baseline ' we are just setting here the baseline
@@ -389,10 +389,10 @@
                 C_2step.Text = "2 step limiter OFF"
                 WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill, &H80)
                 WriteFlashWord(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 1, gixxer_GPS_voltage_raw - &H800000)
-                baseline = 13450
+                baseline = gixxer_baseline
                 ' Set limiters back to stock
                 loading = True
-                i = ReadFlashWord(gixxer_RPM_limit_type1)
+                i = ReadFlashWord(gixxer_RPM_limit_type1 + 6)
                 i = Int(((rpmconv / (i + 0))) + 1)
                 i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
                 addedrpm = i - baseline ' we are just setting here the baseline
@@ -400,12 +400,12 @@
                 If (ReadFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill) = &H80) Then WriteFlashWord(gixxer_ignition_rpm_limiter + 6, Int((rpmconv / (addedrpm + (rpmconv / &H479))))) 'clutch limiter
                 NTCLT.Items.Clear()
                 'populate NTCLT with initial value
-                i = ReadFlashWord(gixxer_ignition_rpm_limiter + 4) ' this is the reference RPM that is stored in the system
+                i = ReadFlashWord(gixxer_ignition_rpm_limiter + 6) ' this is the reference RPM that is stored in the system
                 i = Int(((rpmconv / (i + 0))))
                 i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
                 Me.NTCLT.Items.Add(i.ToString())
                 i = 3000
-                Do While i < 13500 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
+                Do While i < 14500 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
                     Me.NTCLT.Items.Add(i.ToString())
                     i = i + 100
                 Loop

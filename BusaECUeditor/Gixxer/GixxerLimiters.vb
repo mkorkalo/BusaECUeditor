@@ -81,7 +81,7 @@ Public Class GixxerLimiters
         WriteFlashWord(gixxer_RPM_limit_type1, Int((rpmconv / (addedrpm + (rpmconv / &H45D)))))
         WriteFlashWord(gixxer_RPM_limit_type1 + 2, Int((rpmconv / (addedrpm + (rpmconv / &H45B)))))
         WriteFlashWord(gixxer_RPM_limit_type1 + 4, Int((rpmconv / (addedrpm + (rpmconv / &H459)))))
-        WriteFlashWord(gixxer_RPM_limit_type1 + 6, Int((rpmconv / (addedrpm + (rpmconv / &H457))))) ' 11304rpm
+        WriteFlashWord(gixxer_RPM_limit_type1 + 6, Int((rpmconv / (addedrpm + (rpmconv / &H457)))))
         '
         ' RPM/Fuel hard type 2, this is modified higher than stock as ecu default is not used in this case
         '
@@ -164,7 +164,7 @@ Public Class GixxerLimiters
 
 
         'populate RPM with initial value
-        i = ReadFlashWord(gixxer_RPM_limit_type1) ' this is the reference RPM that is stored in the system
+        i = ReadFlashWord(gixxer_RPM_limit_type1 + 6) ' this is the reference RPM that is stored in the system
         i = Int(((rpmconv / (i + 0))) + 1)
         i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
         Me.RPM.Items.Add(i.ToString())
