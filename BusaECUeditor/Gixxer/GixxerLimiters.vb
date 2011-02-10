@@ -120,8 +120,10 @@ Public Class GixxerLimiters
         WriteFlashWord(gixxer_ignition_rpm_limiter + 2, Int((rpmconv / (addedrpm + (rpmconv / &H447))))) 'normal limiter
         If (ReadFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill) = &H80) Then WriteFlashWord(gixxer_ignition_rpm_limiter + 4, Int((rpmconv / (addedrpm + (rpmconv / &H47D))))) 'clutch limiter
         If (ReadFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill) = &H80) Then WriteFlashWord(gixxer_ignition_rpm_limiter + 6, Int((rpmconv / (addedrpm + (rpmconv / &H479))))) 'clutch limiter
-        WriteFlashWord(gixxer_ignition_rpm_limiter + 8, Int((rpmconv / (addedrpm + (rpmconv / &H3EF))))) 'On TPS limiter a bit unsure about condition triggering this one
-        WriteFlashWord(gixxer_ignition_rpm_limiter + 10, Int((rpmconv / (addedrpm + (rpmconv / &H3E8))))) 'On TPS limiter  a bit unsure about condition triggering this one
+        If gixxer_ignition_rpm_limiter = &H60B14 Then 'not for 21h00
+            WriteFlashWord(gixxer_ignition_rpm_limiter + 8, Int((rpmconv / (addedrpm + (rpmconv / &H3EF))))) 'On TPS limiter a bit unsure about condition triggering this one
+            WriteFlashWord(gixxer_ignition_rpm_limiter + 10, Int((rpmconv / (addedrpm + (rpmconv / &H3E8))))) 'On TPS limiter  a bit unsure about condition triggering this one
+        End If
 
 
     End Sub

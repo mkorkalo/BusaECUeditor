@@ -368,9 +368,9 @@
             '
             ' Make ignition limiter to skip GPS error and GPS neutral using &H80 value as raw gps information
             '
-            WriteFlashByte(&H3B4C0 + 1, &H6)
-            WriteFlashByte(&H3B4C0 + 2, &HB)
-            WriteFlashByte(&H3B4C0 + 3, &H57)
+            WriteFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill, gixxer_set_ign_default / &HFFFF)
+            WriteFlashWord(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill + 1, gixxer_set_ign_default - (Int(gixxer_set_ign_default / &HFFFF) * &H10000))
+
             C_2step.Checked = True
         End If
 
