@@ -41,6 +41,8 @@ Public Class GixxerIgnitionmap
     Dim prevMS As Integer
     Dim MSbias As Integer
     Dim rr, cc As Integer
+    Dim ignitiongroup As Integer = 2
+
 
 
     Public Function K8igndeg(ByVal i As Integer)
@@ -84,12 +86,12 @@ Public Class GixxerIgnitionmap
                 '
                 ' First make sure that only ignition group2 is used for tuning
                 '
-                WriteFlashByte(gixxer_ignition_use_clutch_map + 1, 2)
-                WriteFlashByte(gixxer_ignition_use_clutch_map + 2, 2)
-                WriteFlashByte(gixxer_ignition_use_clutch_map + 3, 2)
-                WriteFlashByte(gixxer_ignition_use_clutch_map + 4, 2)
-                WriteFlashByte(gixxer_ignition_use_clutch_map + 5, 2)
-                WriteFlashByte(gixxer_ignition_use_clutch_map + 6, 2)
+                WriteFlashByte(gixxer_ignition_use_clutch_map + 1, ignitiongroup)
+                WriteFlashByte(gixxer_ignition_use_clutch_map + 2, ignitiongroup)
+                WriteFlashByte(gixxer_ignition_use_clutch_map + 3, ignitiongroup)
+                WriteFlashByte(gixxer_ignition_use_clutch_map + 4, ignitiongroup)
+                WriteFlashByte(gixxer_ignition_use_clutch_map + 5, ignitiongroup)
+                WriteFlashByte(gixxer_ignition_use_clutch_map + 6, ignitiongroup)
                 '
                 ' Make clutch map to use the same ignition map as for other gears too
                 '
@@ -583,11 +585,11 @@ Public Class GixxerIgnitionmap
                 Me.Text = gixxer_ignition_map_name & "- Ignition Neutral TPS/RPM map"
                 ms01 = 0            ' 0,1
             Case 1
-                map_structure_table = gixxer_ignition_map_first + (3 * 4 * 24)
+                map_structure_table = gixxer_ignition_map_first + (4 * 24 * ignitiongroup)
                 Me.Text = gixxer_ignition_map_name & "- Ignition TPS/RPM map"
                 ms01 = 0            ' 0,1
             Case 2
-                map_structure_table = gixxer_ignition_map_first + (3 * 4 * 24)
+                map_structure_table = gixxer_ignition_map_first + (4 * 24 * ignitiongroup)
                 Me.Text = gixxer_ignition_map_name & "- Ignition MS TPS/RPM map"
                 ms01 = 1            ' 0,1
             Case 3
