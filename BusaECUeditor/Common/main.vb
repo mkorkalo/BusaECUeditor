@@ -5485,6 +5485,10 @@ skip_update:
 
 
     End Sub
+
+    Private Sub ReportABugToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ReportABugToolStripMenuItem.Click
+        Process.Start("https://bitbucket.org/ecueditor/ecueditor/issues?status=new")
+    End Sub
 End Class
 
 

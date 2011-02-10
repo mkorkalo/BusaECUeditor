@@ -38,6 +38,7 @@ Partial Class main
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewStockGixxerK721H50ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewStockGixxerK721H60ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem5 = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewStockGixxerK821H50ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewStockGixxerK9K1147H10ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewStockGixxerK9K1147H10ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
@@ -87,7 +88,7 @@ Partial Class main
         Me.WebBrowser1 = New System.Windows.Forms.WebBrowser()
         Me.L_ProgramHomepage = New System.Windows.Forms.LinkLabel()
         Me.B_DataLogging = New System.Windows.Forms.Button()
-        Me.ToolStripMenuItem5 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReportABugToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -208,6 +209,12 @@ Partial Class main
         Me.NewStockGixxerK721H60ToolStripMenuItem.Name = "NewStockGixxerK721H60ToolStripMenuItem"
         Me.NewStockGixxerK721H60ToolStripMenuItem.Size = New System.Drawing.Size(193, 22)
         Me.NewStockGixxerK721H60ToolStripMenuItem.Text = "K7 US (21H60)"
+        '
+        'ToolStripMenuItem5
+        '
+        Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
+        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(193, 22)
+        Me.ToolStripMenuItem5.Text = "K7 CAL (21H70)"
         '
         'NewStockGixxerK821H50ToolStripMenuItem
         '
@@ -351,7 +358,7 @@ Partial Class main
         '
         'AboutToolStripMenuItem1
         '
-        Me.AboutToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProgramInfoToolStripMenuItem, Me.VersionToolStripMenuItem, Me.ToolStripSeparator4, Me.DonateForKeepingTheProgramFreeToolStripMenuItem, Me.ToolStripSeparator3, Me.EcueditorcomHomepageToolStripMenuItem, Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem})
+        Me.AboutToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProgramInfoToolStripMenuItem, Me.VersionToolStripMenuItem, Me.ToolStripSeparator4, Me.DonateForKeepingTheProgramFreeToolStripMenuItem, Me.ToolStripSeparator3, Me.EcueditorcomHomepageToolStripMenuItem, Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem, Me.ReportABugToolStripMenuItem})
         Me.AboutToolStripMenuItem1.Name = "AboutToolStripMenuItem1"
         Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(52, 20)
         Me.AboutToolStripMenuItem1.Text = "About"
@@ -589,11 +596,11 @@ Partial Class main
         Me.B_DataLogging.Text = "Data Logging"
         Me.B_DataLogging.UseVisualStyleBackColor = True
         '
-        'ToolStripMenuItem5
+        'ReportABugToolStripMenuItem
         '
-        Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
-        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(193, 22)
-        Me.ToolStripMenuItem5.Text = "K7 CAL (21H70)"
+        Me.ReportABugToolStripMenuItem.Name = "ReportABugToolStripMenuItem"
+        Me.ReportABugToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
+        Me.ReportABugToolStripMenuItem.Text = "View and report bugs"
         '
         'main
         '
@@ -698,5 +705,6 @@ Partial Class main
     Friend WithEvents K8EUUSAU15HToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem5 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ReportABugToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class
