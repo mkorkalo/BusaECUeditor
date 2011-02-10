@@ -78,29 +78,29 @@ Public Class GixxerLimiters
         ' RPM/Fuel soft type 1, the softcut hits earlier than hardcut. Abosolute limiter at hard cut limit.
         '
 
-        WriteFlashWord(gixxer_RPM_limit_type1, Int((rpmconv / (addedrpm + (rpmconv / &H45D)))))
-        WriteFlashWord(gixxer_RPM_limit_type1 + 2, Int((rpmconv / (addedrpm + (rpmconv / &H45B)))))
-        WriteFlashWord(gixxer_RPM_limit_type1 + 4, Int((rpmconv / (addedrpm + (rpmconv / &H459)))))
-        WriteFlashWord(gixxer_RPM_limit_type1 + 6, Int((rpmconv / (addedrpm + (rpmconv / &H457)))))
+        WriteFlashWord(gixxer_RPM_limit_type1, Int((rpmconv / (addedrpm + (gixxer_baseline - 71)))))
+        WriteFlashWord(gixxer_RPM_limit_type1 + 2, Int((rpmconv / (addedrpm + (gixxer_baseline - 47)))))
+        WriteFlashWord(gixxer_RPM_limit_type1 + 4, Int((rpmconv / (addedrpm + (gixxer_baseline - 22)))))
+        WriteFlashWord(gixxer_RPM_limit_type1 + 6, Int((rpmconv / (addedrpm + (gixxer_baseline)))))
         '
         ' RPM/Fuel hard type 2, modified same as softlimit hardcut
         '
-        WriteFlashWord(gixxer_RPM_limit_type1 + 8, Int((rpmconv / (addedrpm + (rpmconv / &H459)))))
-        WriteFlashWord(gixxer_RPM_limit_type1 + 10, Int((rpmconv / (addedrpm + (rpmconv / &H457)))))
+        WriteFlashWord(gixxer_RPM_limit_type1 + 8, Int((rpmconv / (addedrpm + (gixxer_baseline - 22)))))
+        WriteFlashWord(gixxer_RPM_limit_type1 + 10, Int((rpmconv / (addedrpm + (gixxer_baseline)))))
 
         '
         ' RPM/Fuel soft hard type 3 neutral
         '
         If gixxer_fuel_limiter_by_gear = &H74F3B Then
             'k9
-            WriteFlashWord(gixxer_RPM_limit_type1 + 12, Int((rpmconv / (addedrpm + (rpmconv / &H47D)))))
-            WriteFlashWord(gixxer_RPM_limit_type1 + 14, Int((rpmconv / (addedrpm + (rpmconv / &H479)))))
-            WriteFlashWord(gixxer_RPM_limit_type1 + 16, Int((rpmconv / (addedrpm + (rpmconv / &H4B5)))))
-            WriteFlashWord(gixxer_RPM_limit_type1 + 18, Int((rpmconv / (addedrpm + (rpmconv / &H4B0)))))
+            WriteFlashWord(gixxer_RPM_limit_type1 + 12, Int((rpmconv / (addedrpm + (gixxer_baseline - 445)))))
+            WriteFlashWord(gixxer_RPM_limit_type1 + 14, Int((rpmconv / (addedrpm + (gixxer_baseline - 399)))))
+            WriteFlashWord(gixxer_RPM_limit_type1 + 16, Int((rpmconv / (addedrpm + (gixxer_baseline - 1051)))))
+            WriteFlashWord(gixxer_RPM_limit_type1 + 18, Int((rpmconv / (addedrpm + (gixxer_baseline - 1000)))))
         Else
             'K7 K8
-            WriteFlashWord(gixxer_RPM_limit_type1 + 12, Int((rpmconv / (addedrpm + (rpmconv / &H48F)))))
-            WriteFlashWord(gixxer_RPM_limit_type1 + 14, Int((rpmconv / (addedrpm + (rpmconv / &H48B)))))
+            WriteFlashWord(gixxer_RPM_limit_type1 + 12, Int((rpmconv / (addedrpm + (gixxer_baseline - 646)))))
+            WriteFlashWord(gixxer_RPM_limit_type1 + 14, Int((rpmconv / (addedrpm + (gixxer_baseline - 602)))))
         End If
 
         '
