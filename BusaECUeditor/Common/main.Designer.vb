@@ -35,6 +35,7 @@ Partial Class main
         Me.EUAUModelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewStockGixxerK721H00ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewStockGixxerK721H50ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewStockGixxerK721H60ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewStockGixxerK821H50ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -86,7 +87,7 @@ Partial Class main
         Me.WebBrowser1 = New System.Windows.Forms.WebBrowser()
         Me.L_ProgramHomepage = New System.Windows.Forms.LinkLabel()
         Me.B_DataLogging = New System.Windows.Forms.Button()
-        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem5 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -179,7 +180,7 @@ Partial Class main
         '
         'ToolStripMenuItem4
         '
-        Me.ToolStripMenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewStockGixxerK721H00ToolStripMenuItem, Me.ToolStripMenuItem2, Me.NewStockGixxerK721H50ToolStripMenuItem, Me.NewStockGixxerK721H60ToolStripMenuItem, Me.NewStockGixxerK821H50ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem1})
+        Me.ToolStripMenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewStockGixxerK721H00ToolStripMenuItem, Me.ToolStripMenuItem2, Me.NewStockGixxerK721H50ToolStripMenuItem, Me.NewStockGixxerK721H60ToolStripMenuItem, Me.ToolStripMenuItem5, Me.NewStockGixxerK821H50ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem1})
         Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
         Me.ToolStripMenuItem4.Size = New System.Drawing.Size(206, 22)
         Me.ToolStripMenuItem4.Text = "New/Stock Gixxer K7-K11"
@@ -189,6 +190,12 @@ Partial Class main
         Me.NewStockGixxerK721H00ToolStripMenuItem.Name = "NewStockGixxerK721H00ToolStripMenuItem"
         Me.NewStockGixxerK721H00ToolStripMenuItem.Size = New System.Drawing.Size(193, 22)
         Me.NewStockGixxerK721H00ToolStripMenuItem.Text = "K7 EU/AU (21H00)"
+        '
+        'ToolStripMenuItem2
+        '
+        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(193, 22)
+        Me.ToolStripMenuItem2.Text = "K7 US (21H10)"
         '
         'NewStockGixxerK721H50ToolStripMenuItem
         '
@@ -582,11 +589,11 @@ Partial Class main
         Me.B_DataLogging.Text = "Data Logging"
         Me.B_DataLogging.UseVisualStyleBackColor = True
         '
-        'ToolStripMenuItem2
+        'ToolStripMenuItem5
         '
-        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(193, 22)
-        Me.ToolStripMenuItem2.Text = "K7 US (21H10)"
+        Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
+        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(193, 22)
+        Me.ToolStripMenuItem5.Text = "K7 CAL (21H70)"
         '
         'main
         '
@@ -690,5 +697,6 @@ Partial Class main
     Friend WithEvents K2K724FG0ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents K8EUUSAU15HToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem5 As System.Windows.Forms.ToolStripMenuItem
 
 End Class
