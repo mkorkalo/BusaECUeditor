@@ -26,12 +26,14 @@ Partial Class GixxerAdvSettings
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.C_SD = New System.Windows.Forms.CheckBox()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.G_misc = New System.Windows.Forms.GroupBox()
+        Me.C_ABCmode = New System.Windows.Forms.CheckBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.c_fan = New System.Windows.Forms.ComboBox()
         Me.C_ICS = New System.Windows.Forms.CheckBox()
@@ -47,7 +49,7 @@ Partial Class GixxerAdvSettings
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.C_ECU = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.C_ABCmode = New System.Windows.Forms.CheckBox()
+        Me.B_ramairadjust = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.G_misc.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -74,7 +76,7 @@ Partial Class GixxerAdvSettings
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(291, 398)
+        Me.Button2.Location = New System.Drawing.Point(297, 418)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(75, 23)
         Me.Button2.TabIndex = 2
@@ -83,6 +85,8 @@ Partial Class GixxerAdvSettings
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.B_ramairadjust)
+        Me.GroupBox1.Controls.Add(Me.Label9)
         Me.GroupBox1.Controls.Add(Me.Button4)
         Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.C_SD)
@@ -92,10 +96,19 @@ Partial Class GixxerAdvSettings
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 71)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(354, 132)
+        Me.GroupBox1.Size = New System.Drawing.Size(354, 152)
         Me.GroupBox1.TabIndex = 10
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Misc maps"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(9, 129)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(175, 13)
+        Me.Label9.TabIndex = 50
+        Me.Label9.Text = "Ramair (RPM/Gear) fuelmap editing"
         '
         'Button4
         '
@@ -155,12 +168,22 @@ Partial Class GixxerAdvSettings
         Me.G_misc.Controls.Add(Me.C_coil_fi_disable)
         Me.G_misc.Controls.Add(Me.C_msmode)
         Me.G_misc.Controls.Add(Me.Label2)
-        Me.G_misc.Location = New System.Drawing.Point(12, 209)
+        Me.G_misc.Location = New System.Drawing.Point(12, 229)
         Me.G_misc.Name = "G_misc"
         Me.G_misc.Size = New System.Drawing.Size(354, 148)
         Me.G_misc.TabIndex = 11
         Me.G_misc.TabStop = False
         Me.G_misc.Text = "Misc settings"
+        '
+        'C_ABCmode
+        '
+        Me.C_ABCmode.AutoSize = True
+        Me.C_ABCmode.Location = New System.Drawing.Point(12, 117)
+        Me.C_ABCmode.Name = "C_ABCmode"
+        Me.C_ABCmode.Size = New System.Drawing.Size(94, 17)
+        Me.C_ABCmode.TabIndex = 104
+        Me.C_ABCmode.Text = "ABC fixed to A"
+        Me.C_ABCmode.UseVisualStyleBackColor = True
         '
         'Label5
         '
@@ -252,7 +275,7 @@ Partial Class GixxerAdvSettings
         '
         Me.GroupBox2.Controls.Add(Me.C_2step)
         Me.GroupBox2.Controls.Add(Me.NTCLT)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 363)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 383)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(269, 58)
         Me.GroupBox2.TabIndex = 103
@@ -308,21 +331,21 @@ Partial Class GixxerAdvSettings
         Me.Label4.TabIndex = 6
         Me.Label4.Text = "ECU"
         '
-        'C_ABCmode
+        'B_ramairadjust
         '
-        Me.C_ABCmode.AutoSize = True
-        Me.C_ABCmode.Location = New System.Drawing.Point(12, 117)
-        Me.C_ABCmode.Name = "C_ABCmode"
-        Me.C_ABCmode.Size = New System.Drawing.Size(94, 17)
-        Me.C_ABCmode.TabIndex = 104
-        Me.C_ABCmode.Text = "ABC fixed to A"
-        Me.C_ABCmode.UseVisualStyleBackColor = True
+        Me.B_ramairadjust.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.B_ramairadjust.Location = New System.Drawing.Point(254, 124)
+        Me.B_ramairadjust.Name = "B_ramairadjust"
+        Me.B_ramairadjust.Size = New System.Drawing.Size(79, 22)
+        Me.B_ramairadjust.TabIndex = 51
+        Me.B_ramairadjust.Text = "Ramair map"
+        Me.B_ramairadjust.UseVisualStyleBackColor = True
         '
         'GixxerAdvSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(384, 430)
+        Me.ClientSize = New System.Drawing.Size(384, 453)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.G_misc)
@@ -367,4 +390,6 @@ Partial Class GixxerAdvSettings
     Friend WithEvents Button4 As System.Windows.Forms.Button
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents C_ABCmode As System.Windows.Forms.CheckBox
+    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents B_ramairadjust As System.Windows.Forms.Button
 End Class

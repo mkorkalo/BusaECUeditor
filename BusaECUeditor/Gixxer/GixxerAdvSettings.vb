@@ -621,4 +621,13 @@
         End If
 
     End Sub
+
+    Private Sub B_ramairadjust_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_ramairadjust.Click
+        If gixxerramair_map = 0 Then
+            MsgBox("Feature not yet implemented")
+        Else
+            Gixxerramair.Show()
+            Gixxerramair.Select()
+        End If
+    End Sub
 End Class
