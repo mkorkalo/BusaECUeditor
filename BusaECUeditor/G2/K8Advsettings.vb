@@ -366,7 +366,7 @@ Public Class K8Advsettings
                 C_fan.SelectedIndex = 4
         End Select
 
-        If ReadFlashByte(&H5A000) = &HFF Then
+        If ReadFlashByte(&H5B000) = &HFF Then
             C_BkingGauges.Checked = False
         Else
             C_BkingGauges.Checked = True
