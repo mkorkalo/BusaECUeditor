@@ -366,7 +366,11 @@ Public Class K8Advsettings
                 C_fan.SelectedIndex = 4
         End Select
 
-
+        If ReadFlashByte(&H5A000) = &HFF Then
+            C_BkingGauges.Checked = False
+        Else
+            C_BkingGauges.Checked = True
+        End If
 
         loading = False
 
@@ -546,6 +550,7 @@ Public Class K8Advsettings
         End If
 
     End Sub
+
     Private Sub IAT_dynomode_normal()
         WriteFlashByte(&H221EC, &HE0)
         WriteFlashByte(&H221ED, &H80)
@@ -571,6 +576,7 @@ Public Class K8Advsettings
         WriteFlashByte(&H7F005, &HFF) ' back to original
 
     End Sub
+
     Private Sub IAT_dynomode_fixed()
 
         WriteFlashByte(&H221EC, &HE0)
@@ -742,6 +748,7 @@ Public Class K8Advsettings
         WriteFlashByte(&H728BD + 19, &HE3)
 
     End Sub
+
     Private Sub ramairmode_dynomode_on()
         Dim i As Integer
         If Not loading Then
@@ -790,9 +797,6 @@ Public Class K8Advsettings
 
     End Sub
 
-
-
-
     Private Sub R_IAT_dynomode_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles R_IAT_dynomode.CheckedChanged
         R_IAT_normal.Checked = Not R_IAT_dynomode.Checked
         If Not loading Then
@@ -838,7 +842,6 @@ Public Class K8Advsettings
         WriteFlashByte(&H41DFD, &HE0)
     End Sub
 
-
     Private Sub B_hexread_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If T_hexaddr.Text.Contains("&H") Then
             T_hexvaluehi.Text = "&H" & Hex(Flash(Val(T_hexaddr.Text)))
@@ -846,8 +849,6 @@ Public Class K8Advsettings
             T_hexvaluehi.Text = "&H" & Hex(Flash(Val("&H" & T_hexaddr.Text)))
         End If
     End Sub
-
-
 
     Private Sub T_hexaddr_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles T_hexaddr.TextChanged
         On Error Resume Next ' In case there is a typo written to the field
@@ -857,7 +858,6 @@ Public Class K8Advsettings
             T_hexvaluehi.Text = "&H" & Hex(Flash(CInt("&H" & T_hexaddr.Text)))
         End If
     End Sub
-
 
     Private Sub B_WRITE_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_WRITE.Click
 
@@ -874,8 +874,6 @@ Public Class K8Advsettings
         End Try
 
     End Sub
-
-
 
     Private Sub C_HOX_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_HOX.CheckedChanged
         If Not loading Then
@@ -1075,7 +1073,6 @@ Public Class K8Advsettings
 
     End Sub
 
-
     Private Sub ComboBox1_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_IAPTPS.SelectedIndexChanged
 
         If Not loading Then
@@ -1106,20 +1103,22 @@ Public Class K8Advsettings
 
     End Sub
 
-    Private Sub CheckBox1_CheckedChanged_3(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_ramairmode.CheckedChanged
+    Private Sub C_Rammode_CheckChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_ramairmode.CheckedChanged
 
-        If C_ramairmode.Checked Then
-            C_ramairmode.Text = "Normal ramair"
-            ramairmode_normal()
-            B_ramairadjust.Enabled = True
-        Else
-            C_ramairmode.Text = "Turbomode/Dynomode"
-            ramairmode_dynomode_on()
-            B_ramairadjust.Enabled = False
+        If Not loading Then
+
+            If C_ramairmode.Checked Then
+                C_ramairmode.Text = "Normal ramair"
+                ramairmode_normal()
+                B_ramairadjust.Enabled = True
+            Else
+                C_ramairmode.Text = "Turbomode/Dynomode"
+                ramairmode_dynomode_on()
+                B_ramairadjust.Enabled = False
+            End If
+
         End If
-
     End Sub
-
 
     Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
         K8gaugetools.Show()
@@ -1273,5 +1272,84 @@ Public Class K8Advsettings
 
     End Sub
 
+    Private Sub C_BkingGauges_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_BkingGauges.CheckedChanged
+
+        If Not loading Then
+
+            Dim ADJ As Integer
+            Dim i As Integer
+            ADJ = &H5B000
+
+            If C_BkingGauges.Checked Then
+
+                Dim fs As FileStream
+                Dim b(1) As Byte
+
+                fs = File.OpenRead(My.Application.Info.DirectoryPath & "\ecu.bin\BKingGauges.bin")
+
+                Do While fs.Read(b, 0, 1) > 0
+                    WriteFlashByte(i + ADJ, b(0))
+                    i = i + 1
+                Loop
+
+                fs.Close()
+
+                WriteAddressOffset(&H22A4, &H5B000)
+                WriteAddressOffset(&H4E708, &H5B320)
+
+                '
+                ' Gear 1
+                '
+                For i = &H72859 To &H7286C
+                    WriteFlashByte(i, &H5)
+                Next
+                '
+                ' Gear 2
+                '
+                For i = &H7286D To &H72880
+                    WriteFlashByte(i, &H5)
+                Next
+                '
+                ' Gear 3
+                '
+                For i = &H72881 To &H72894
+                    WriteFlashByte(i, &H5)
+                Next
+                '
+                ' Gear 4
+                '
+                For i = &H72895 To &H728A8
+                    WriteFlashByte(i, &H5)
+                Next
+                '
+                ' Gear 5
+                '
+                For i = &H728A9 To &H728BC
+                    WriteFlashByte(i, &H5)
+                Next
+                '
+                ' Gear 6
+                '
+                For i = &H728BD To &H728D0
+                    WriteFlashByte(i, &H5)
+                Next
+
+            Else
+
+                Do While (ReadFlashByte(ADJ + i) <> &HFF)
+                    WriteFlashByte(ADJ + i, &HFF)
+                    i = i + 1
+                Loop
+
+                WriteAddressOffset(&H22A4, &H135FC)
+                WriteAddressOffset(&H4E708, &H4E718)
+
+                ramairmode_normal()
+
+            End If
+
+        End If
+
+    End Sub
 
 End Class
