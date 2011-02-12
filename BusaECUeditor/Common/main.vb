@@ -5530,8 +5530,8 @@ skip_update:
         tweets = True
     End Sub
 
-    Private Sub R_tw_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles R_tw.Click
-        Process.Start("http://www.twitter.com#ecueditor")
+    Private Sub R_tw_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles R_tw.Click
+        Process.Start("http://twitter.com/ecueditor")
 
     End Sub
 
