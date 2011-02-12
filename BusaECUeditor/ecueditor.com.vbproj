@@ -50,7 +50,7 @@
     <WebPage>ecueditor_prerelease.htm</WebPage>
     <AutorunEnabled>true</AutorunEnabled>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>28</ApplicationRevision>
+    <ApplicationRevision>30</ApplicationRevision>
     <ApplicationVersion>2.5.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -160,6 +160,12 @@
       <DependentUpon>BKingIgnitionMap.vb</DependentUpon>
     </Compile>
     <Compile Include="BKing\BKingIgnitionMap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\tw_username.Designer.vb">
+      <DependentUpon>tw_username.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Common\tw_username.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Common\tw_auth.Designer.vb">
@@ -525,6 +531,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>AboutBox.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Common\tw_username.resx">
+      <DependentUpon>tw_username.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Common\tw_auth.resx">
       <DependentUpon>tw_auth.vb</DependentUpon>
     </EmbeddedResource>
@@ -599,10 +608,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="BusaECUeditor_TemporaryKey.pfx" />
-    <Content Include="Common\TwitterVB.dll" />
-    <None Include="dlls\TwitterVB.dll">
+    <EmbeddedResource Include="dlls\TwitterVB.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </EmbeddedResource>
     <Content Include="ecu.bin\shifterbking.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

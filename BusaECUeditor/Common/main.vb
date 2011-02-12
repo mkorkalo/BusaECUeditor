@@ -5523,19 +5523,42 @@ skip_update:
 
     Public Sub generate_tweets()
         R_tw.Text = ""
-        tw.AuthenticateWith("zujhQ6blnOQtdyMrAeEMg", "3cPI50r1d94URYkB2CNTxBuoa3bx0qKElOJHIMFseA", "251085356-cSzC5l59z4eepj3PrQMawd3XWTZpLvnANKt2ho", "25UcAcP1AMU4CDuIX1sVKu5bPNcToOyNp4o7VGrgY")
+        On Error Resume Next
+        tw.AuthenticateWith("cX1znXFEOvO3G2yeUZVXvw", "m5zZJ1fl8ygdwOq3bfUOqAzhdKmyoX2oNppS4nNbM", "251085356-DYkUUNAZScLYtXXSBi5UyKgbJM7eKbfySFggeBuw", "6PiFsw8K1nDbP8zu9outK7I3SBelkE8gEHHKxSfwA")
         For Each tweet As TwitterStatus In tw.HomeTimeline()
             R_tw.Text = R_tw.Text & (tweet.User.ScreenName & " : " & tweet.Text) & Chr(13) & Chr(10)
         Next
         tweets = True
     End Sub
 
-    Private Sub R_tw_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles R_tw.Click
+    Private Sub R_tw_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles R_tw.DoubleClick
         Process.Start("http://twitter.com/ecueditor")
-
     End Sub
 
+    
 
+
+    Private Sub R_tw_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles R_tw.KeyPress
+
+        If e.KeyChar = Chr(9) Or My.Settings.username = "" Then
+            tw_username.Show()
+            tw_username.Select()
+        End If
+
+        If tweets = True Then
+            R_tw.Text = ""
+            tweets = False
+        End If
+
+        On Error Resume Next 'until twitter gives token for write access
+        If e.KeyChar = Chr(13) Then
+            'tw.update(R_tw.text)
+            tw.AuthenticateWith("cX1znXFEOvO3G2yeUZVXvw", "m5zZJ1fl8ygdwOq3bfUOqAzhdKmyoX2oNppS4nNbM", "251085356-DYkUUNAZScLYtXXSBi5UyKgbJM7eKbfySFggeBuw", "6PiFsw8K1nDbP8zu9outK7I3SBelkE8gEHHKxSfwA")
+            tw.SendDirectMessage(My.Settings.username, R_tw.Text)
+            generate_tweets()
+        End If
+
+    End Sub
 End Class
 
 
