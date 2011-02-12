@@ -601,6 +601,7 @@ Partial Class main
         Me.R_tw.Size = New System.Drawing.Size(438, 61)
         Me.R_tw.TabIndex = 41
         Me.R_tw.Text = ""
+        Me.ToolTip1.SetToolTip(Me.R_tw, "Double click to go to Twitter.")
         '
         'Timer1
         '
