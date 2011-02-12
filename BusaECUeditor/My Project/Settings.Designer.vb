@@ -425,6 +425,54 @@ Namespace My
                 Me("AutoTuneExhaustGasOffset") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("zujhQ6blnOQtdyMrAeEMg")>  _
+        Public Property m_strConsumerKey() As String
+            Get
+                Return CType(Me("m_strConsumerKey"),String)
+            End Get
+            Set
+                Me("m_strConsumerKey") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("3cPI50r1d94URYkB2CNTxBuoa3bx0qKElOJHIMFseA")>  _
+        Public Property m_strConsumerSecret() As String
+            Get
+                Return CType(Me("m_strConsumerSecret"),String)
+            End Get
+            Set
+                Me("m_strConsumerSecret") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property m_strToken() As String
+            Get
+                Return CType(Me("m_strToken"),String)
+            End Get
+            Set
+                Me("m_strToken") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property m_strTokenSecret() As String
+            Get
+                Return CType(Me("m_strTokenSecret"),String)
+            End Get
+            Set
+                Me("m_strTokenSecret") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
