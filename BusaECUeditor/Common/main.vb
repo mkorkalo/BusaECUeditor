@@ -852,7 +852,7 @@ skip_update:
     Private Sub HomepageToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
     End Sub
 
-    Private Sub L_ProgramHomepage_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles L_ProgramHomepage.LinkClicked
+    Private Sub L_ProgramHomepage_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
 
         System.Diagnostics.Process.Start("http://www.ecueditor.com")
 
@@ -5509,6 +5509,7 @@ skip_update:
     Private Sub ReportABugToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ReportABugToolStripMenuItem.Click
         Process.Start("https://bitbucket.org/ecueditor/ecueditor/issues?status=new")
     End Sub
+
 End Class
 
 

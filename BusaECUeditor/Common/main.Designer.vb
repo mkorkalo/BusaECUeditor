@@ -69,6 +69,7 @@ Partial Class main
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.EcueditorcomHomepageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReportABugToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.B_Limiters = New System.Windows.Forms.Button()
         Me.B_FlashECU = New System.Windows.Forms.Button()
         Me.B_IgnitionMap = New System.Windows.Forms.Button()
@@ -86,12 +87,13 @@ Partial Class main
         Me.Hayabusa = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.WebBrowser1 = New System.Windows.Forms.WebBrowser()
-        Me.L_ProgramHomepage = New System.Windows.Forms.LinkLabel()
         Me.B_DataLogging = New System.Windows.Forms.Button()
-        Me.ReportABugToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.infoscreen = New System.Windows.Forms.WebBrowser()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
         Me.SuspendLayout()
         '
         'B_FuelMap
@@ -124,7 +126,7 @@ Partial Class main
         Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.SetupToolStripMenuItem, Me.FlashToolStripMenuItem, Me.AboutToolStripMenuItem1})
         Me.MenuStrip.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip.Name = "MenuStrip"
-        Me.MenuStrip.Size = New System.Drawing.Size(474, 24)
+        Me.MenuStrip.Size = New System.Drawing.Size(473, 24)
         Me.MenuStrip.TabIndex = 21
         Me.MenuStrip.Text = "MenuStrip1"
         '
@@ -366,42 +368,48 @@ Partial Class main
         'ProgramInfoToolStripMenuItem
         '
         Me.ProgramInfoToolStripMenuItem.Name = "ProgramInfoToolStripMenuItem"
-        Me.ProgramInfoToolStripMenuItem.Size = New System.Drawing.Size(179, 22)
+        Me.ProgramInfoToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
         Me.ProgramInfoToolStripMenuItem.Text = "Program info"
         '
         'VersionToolStripMenuItem
         '
         Me.VersionToolStripMenuItem.Name = "VersionToolStripMenuItem"
-        Me.VersionToolStripMenuItem.Size = New System.Drawing.Size(179, 22)
+        Me.VersionToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
         Me.VersionToolStripMenuItem.Text = "Version"
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(176, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(183, 6)
         '
         'DonateForKeepingTheProgramFreeToolStripMenuItem
         '
         Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Name = "DonateForKeepingTheProgramFreeToolStripMenuItem"
-        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Size = New System.Drawing.Size(179, 22)
+        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
         Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Text = "Donate with PayPal"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(176, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(183, 6)
         '
         'EcueditorcomHomepageToolStripMenuItem
         '
         Me.EcueditorcomHomepageToolStripMenuItem.Name = "EcueditorcomHomepageToolStripMenuItem"
-        Me.EcueditorcomHomepageToolStripMenuItem.Size = New System.Drawing.Size(179, 22)
+        Me.EcueditorcomHomepageToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
         Me.EcueditorcomHomepageToolStripMenuItem.Text = "View ecueditor.com"
         '
         'ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem
         '
         Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Name = "ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem"
-        Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Size = New System.Drawing.Size(179, 22)
+        Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
         Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Text = "View version history"
+        '
+        'ReportABugToolStripMenuItem
+        '
+        Me.ReportABugToolStripMenuItem.Name = "ReportABugToolStripMenuItem"
+        Me.ReportABugToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
+        Me.ReportABugToolStripMenuItem.Text = "View and report bugs"
         '
         'B_Limiters
         '
@@ -504,7 +512,7 @@ Partial Class main
         Me.GroupBox1.Controls.Add(Me.L_Comparefile)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 36)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(248, 73)
+        Me.GroupBox1.Size = New System.Drawing.Size(248, 82)
         Me.GroupBox1.TabIndex = 34
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Map file Info"
@@ -515,9 +523,9 @@ Partial Class main
         Me.GroupBox2.Controls.Add(Me.Label4)
         Me.GroupBox2.Controls.Add(Me.Label1)
         Me.GroupBox2.Controls.Add(Me.Hayabusa)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 115)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 135)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(248, 77)
+        Me.GroupBox2.Size = New System.Drawing.Size(248, 82)
         Me.GroupBox2.TabIndex = 35
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Bike info"
@@ -575,18 +583,6 @@ Partial Class main
         Me.WebBrowser1.TabIndex = 36
         Me.WebBrowser1.Url = New System.Uri("http://www.dolphinwebdevelopment.com/dolphin-web/dolphin/banner_blue.gif", System.UriKind.Absolute)
         '
-        'L_ProgramHomepage
-        '
-        Me.L_ProgramHomepage.ActiveLinkColor = System.Drawing.Color.DimGray
-        Me.L_ProgramHomepage.AutoSize = True
-        Me.L_ProgramHomepage.LinkColor = System.Drawing.Color.Black
-        Me.L_ProgramHomepage.Location = New System.Drawing.Point(18, 215)
-        Me.L_ProgramHomepage.Name = "L_ProgramHomepage"
-        Me.L_ProgramHomepage.Size = New System.Drawing.Size(215, 13)
-        Me.L_ProgramHomepage.TabIndex = 37
-        Me.L_ProgramHomepage.TabStop = True
-        Me.L_ProgramHomepage.Text = "Click here to visit: http//www.ecueditor.com"
-        '
         'B_DataLogging
         '
         Me.B_DataLogging.Location = New System.Drawing.Point(378, 185)
@@ -596,20 +592,37 @@ Partial Class main
         Me.B_DataLogging.Text = "Data Logging"
         Me.B_DataLogging.UseVisualStyleBackColor = True
         '
-        'ReportABugToolStripMenuItem
+        'infoscreen
         '
-        Me.ReportABugToolStripMenuItem.Name = "ReportABugToolStripMenuItem"
-        Me.ReportABugToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
-        Me.ReportABugToolStripMenuItem.Text = "View and report bugs"
+        Me.infoscreen.IsWebBrowserContextMenuEnabled = False
+        Me.infoscreen.Location = New System.Drawing.Point(9, 11)
+        Me.infoscreen.MinimumSize = New System.Drawing.Size(20, 20)
+        Me.infoscreen.Name = "infoscreen"
+        Me.infoscreen.ScriptErrorsSuppressed = True
+        Me.infoscreen.ScrollBarsEnabled = False
+        Me.infoscreen.Size = New System.Drawing.Size(435, 81)
+        Me.infoscreen.TabIndex = 39
+        Me.infoscreen.Url = New System.Uri("http://macmadigan.no-ip.com/infoscreen/index.mht", System.UriKind.Absolute)
+        Me.infoscreen.WebBrowserShortcutsEnabled = False
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.infoscreen)
+        Me.GroupBox3.Location = New System.Drawing.Point(12, 234)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(450, 98)
+        Me.GroupBox3.TabIndex = 40
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Infoscreen"
         '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlDark
-        Me.ClientSize = New System.Drawing.Size(474, 240)
+        Me.ClientSize = New System.Drawing.Size(473, 335)
+        Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.B_DataLogging)
-        Me.Controls.Add(Me.L_ProgramHomepage)
         Me.Controls.Add(Me.WebBrowser1)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
@@ -634,6 +647,7 @@ Partial Class main
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -674,7 +688,6 @@ Partial Class main
     Friend WithEvents FullEraseToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents FlashTheECUToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents VersionToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents L_ProgramHomepage As System.Windows.Forms.LinkLabel
     Friend WithEvents ECUID As System.Windows.Forms.Label
     Friend WithEvents RecoveryToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
@@ -706,5 +719,7 @@ Partial Class main
     Friend WithEvents ToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem5 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ReportABugToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents infoscreen As System.Windows.Forms.WebBrowser
+    Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
 
 End Class
