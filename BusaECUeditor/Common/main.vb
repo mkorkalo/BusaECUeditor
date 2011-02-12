@@ -2997,8 +2997,8 @@ skip_update:
                 gixxer_abc = 0 '&H220C4
                 gixxer_coilfi = 0 '&H60BC1
                 gixxer_fan = 0 '&H6296A
-                gixxer_pair = 0 '&H62ABA
-                gixxer_pairloop = 0 '&H56D5C
+                gixxer_pair = &H7A382 '&H62ABA
+                gixxer_pairloop = &H594F4 '&H56D5C
                 gixxer_hoxflag = 0 '&H614D4
                 gixxer_ics1 = 0 '&H622EE
                 gixxer_ics2 = 0 '&H6230A
@@ -3071,8 +3071,8 @@ skip_update:
                 gixxer_abc = 0 '&H220C4
                 gixxer_coilfi = 0 '&H60BC1
                 gixxer_fan = 0 '&H6296A
-                gixxer_pair = 0 '&H62ABA
-                gixxer_pairloop = 0 '&H56D5C
+                gixxer_pair = &H7A382 '&H62ABA
+                gixxer_pairloop = &H594F4 '&H56D5C
                 gixxer_hoxflag = 0 '&H614D4
                 gixxer_ics1 = 0 '&H622EE
                 gixxer_ics2 = 0 '&H6230A
