@@ -1056,6 +1056,28 @@ Module CommonFunctions
 
     End Sub
 
+    Public Sub WriteAddressOffset(ByVal address As Integer, ByVal location As Integer)
+
+        Dim offset As Integer
+        Dim hexString As String
+
+        offset = (location - address) / 4
+        hexString = String.Format("{0:x2}", offset)
+
+        While hexString.Length < 8
+            If offset > 0 Then
+                hexString = "0" & hexString
+            Else
+                hexString = "F" + hexString
+            End If
+        End While
+
+        WriteFlashByte(address + 1, Convert.ToByte(hexString.Substring(2, 2), 16))
+        WriteFlashByte(address + 2, Convert.ToByte(hexString.Substring(4, 2), 16))
+        WriteFlashByte(address + 3, Convert.ToByte(hexString.Substring(6, 2), 16))
+        
+    End Sub
+
     Public Function ReadFlashLongWord(ByVal address As Long)
         Dim tmp As Long
         tmp = ReadFlashWord(address)
@@ -1085,7 +1107,7 @@ Module CommonFunctions
         d = Int(i)
         WriteFlashByte(address + 3, d)
 
-        markblock(address)
+        MarkBlock(address)
 
     End Sub
 
@@ -1109,37 +1131,37 @@ Module CommonFunctions
 
         Select Case b
             Case 0
-                block0 = True
+                Block0 = True
             Case 1
-                block1 = True
+                Block1 = True
             Case 2
-                block2 = True
+                Block2 = True
             Case 3
-                block3 = True
+                Block3 = True
             Case 4
-                block4 = True
+                Block4 = True
             Case 5
-                block5 = True
+                Block5 = True
             Case 6
-                block6 = True
+                Block6 = True
             Case 7
-                block7 = True
+                Block7 = True
             Case 8
-                block8 = True
+                Block8 = True
             Case 9
-                block9 = True
+                Block9 = True
             Case 10
-                blockA = True
+                BlockA = True
             Case 11
-                blockB = True
+                BlockB = True
             Case 12
-                blockC = True
+                BlockC = True
             Case 13
-                blockD = True
+                BlockD = True
             Case 14
-                blockE = True
+                BlockE = True
             Case 15
-                blockF = True
+                BlockF = True
             Case Else
                 MsgBox("error in marking a block, programming may be unsuccesfull")
         End Select
@@ -1152,22 +1174,22 @@ Module CommonFunctions
 
         retval = False
 
-        If (b = 0) And (block0) Then retval = True
-        If (b = 1) And (block1) Then retval = True
-        If (b = 2) And (block2) Then retval = True
-        If (b = 3) And (block3) Then retval = True
-        If (b = 4) And (block4) Then retval = True
-        If (b = 5) And (block5) Then retval = True
-        If (b = 6) And (block6) Then retval = True
-        If (b = 7) And (block7) Then retval = True
-        If (b = 8) And (block8) Then retval = True
-        If (b = 9) And (block9) Then retval = True
-        If (b = 10) And (blockA) Then retval = True
-        If (b = 11) And (blockB) Then retval = True
-        If (b = 12) And (blockC) Then retval = True
-        If (b = 13) And (blockD) Then retval = True
-        If (b = 14) And (blockE) Then retval = True
-        If (b = 15) And (blockF) Then retval = True
+        If (b = 0) And (Block0) Then retval = True
+        If (b = 1) And (Block1) Then retval = True
+        If (b = 2) And (Block2) Then retval = True
+        If (b = 3) And (Block3) Then retval = True
+        If (b = 4) And (Block4) Then retval = True
+        If (b = 5) And (Block5) Then retval = True
+        If (b = 6) And (Block6) Then retval = True
+        If (b = 7) And (Block7) Then retval = True
+        If (b = 8) And (Block8) Then retval = True
+        If (b = 9) And (Block9) Then retval = True
+        If (b = 10) And (BlockA) Then retval = True
+        If (b = 11) And (BlockB) Then retval = True
+        If (b = 12) And (BlockC) Then retval = True
+        If (b = 13) And (BlockD) Then retval = True
+        If (b = 14) And (BlockE) Then retval = True
+        If (b = 15) And (BlockF) Then retval = True
 
         Return retval
 
@@ -1178,22 +1200,22 @@ Module CommonFunctions
         ' This sub is used for clearing all the block flags. E.g. after flashing or verify
         ' we know that this block has been flashed so it can be changed back to original
         '
-        block0 = False
-        block1 = False
-        block2 = False
-        block3 = False
-        block4 = False
-        block5 = False
-        block6 = False
-        block7 = False
-        block8 = False
-        block9 = False
-        blockA = False
-        blockB = False
-        blockC = False
-        blockD = False
-        blockE = False
-        blockF = False
+        Block0 = False
+        Block1 = False
+        Block2 = False
+        Block3 = False
+        Block4 = False
+        Block5 = False
+        Block6 = False
+        Block7 = False
+        Block8 = False
+        Block9 = False
+        BlockA = False
+        BlockB = False
+        BlockC = False
+        BlockD = False
+        BlockE = False
+        BlockF = False
 
     End Sub
 

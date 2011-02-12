@@ -76,6 +76,7 @@ Partial Class K8Advsettings
         Me.Label5 = New System.Windows.Forms.Label()
         Me.C_ABCmode = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.C_BkingGauges = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -91,7 +92,7 @@ Partial Class K8Advsettings
         '
         Me.GroupBox1.Controls.Add(Me.R_Normal)
         Me.GroupBox1.Controls.Add(Me.R_Flash)
-        Me.GroupBox1.Location = New System.Drawing.Point(332, 501)
+        Me.GroupBox1.Location = New System.Drawing.Point(332, 522)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(148, 67)
         Me.GroupBox1.TabIndex = 3
@@ -447,7 +448,7 @@ Partial Class K8Advsettings
         Me.GroupBox8.Controls.Add(Me.Label4)
         Me.GroupBox8.Controls.Add(Me.Label2)
         Me.GroupBox8.Controls.Add(Me.T_hexaddr)
-        Me.GroupBox8.Location = New System.Drawing.Point(17, 413)
+        Me.GroupBox8.Location = New System.Drawing.Point(17, 434)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(376, 65)
         Me.GroupBox8.TabIndex = 42
@@ -563,7 +564,7 @@ Partial Class K8Advsettings
         Me.GroupBox4.Controls.Add(Me.C_COV)
         Me.GroupBox4.Controls.Add(Me.Label6)
         Me.GroupBox4.Controls.Add(Me.C_secsize)
-        Me.GroupBox4.Location = New System.Drawing.Point(16, 501)
+        Me.GroupBox4.Location = New System.Drawing.Point(16, 522)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(295, 114)
         Me.GroupBox4.TabIndex = 45
@@ -572,6 +573,7 @@ Partial Class K8Advsettings
         '
         'GroupBox7
         '
+        Me.GroupBox7.Controls.Add(Me.C_BkingGauges)
         Me.GroupBox7.Controls.Add(Me.Label13)
         Me.GroupBox7.Controls.Add(Me.C_fan)
         Me.GroupBox7.Controls.Add(Me.C_TOS)
@@ -586,7 +588,7 @@ Partial Class K8Advsettings
         Me.GroupBox7.Controls.Add(Me.C_ICS)
         Me.GroupBox7.Location = New System.Drawing.Point(17, 276)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(374, 131)
+        Me.GroupBox7.Size = New System.Drawing.Size(374, 152)
         Me.GroupBox7.TabIndex = 46
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Misc settings"
@@ -612,7 +614,7 @@ Partial Class K8Advsettings
         'C_TOS
         '
         Me.C_TOS.AutoSize = True
-        Me.C_TOS.Location = New System.Drawing.Point(9, 107)
+        Me.C_TOS.Location = New System.Drawing.Point(7, 108)
         Me.C_TOS.Name = "C_TOS"
         Me.C_TOS.Size = New System.Drawing.Size(128, 17)
         Me.C_TOS.TabIndex = 51
@@ -622,7 +624,7 @@ Partial Class K8Advsettings
         'C_FastBaudRate
         '
         Me.C_FastBaudRate.AutoSize = True
-        Me.C_FastBaudRate.Location = New System.Drawing.Point(170, 107)
+        Me.C_FastBaudRate.Location = New System.Drawing.Point(172, 124)
         Me.C_FastBaudRate.Name = "C_FastBaudRate"
         Me.C_FastBaudRate.Size = New System.Drawing.Size(100, 17)
         Me.C_FastBaudRate.TabIndex = 49
@@ -632,7 +634,7 @@ Partial Class K8Advsettings
         'C_DatalogO2Sensor
         '
         Me.C_DatalogO2Sensor.AutoSize = True
-        Me.C_DatalogO2Sensor.Location = New System.Drawing.Point(170, 86)
+        Me.C_DatalogO2Sensor.Location = New System.Drawing.Point(171, 103)
         Me.C_DatalogO2Sensor.Name = "C_DatalogO2Sensor"
         Me.C_DatalogO2Sensor.Size = New System.Drawing.Size(128, 17)
         Me.C_DatalogO2Sensor.TabIndex = 48
@@ -668,11 +670,21 @@ Partial Class K8Advsettings
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Gaugemode"
         '
+        'C_BkingGauges
+        '
+        Me.C_BkingGauges.AutoSize = True
+        Me.C_BkingGauges.Location = New System.Drawing.Point(171, 82)
+        Me.C_BkingGauges.Name = "C_BkingGauges"
+        Me.C_BkingGauges.Size = New System.Drawing.Size(97, 17)
+        Me.C_BkingGauges.TabIndex = 105
+        Me.C_BkingGauges.Text = "B-King Gauges"
+        Me.C_BkingGauges.UseVisualStyleBackColor = True
+        '
         'K8Advsettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(400, 414)
+        Me.ClientSize = New System.Drawing.Size(397, 433)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox4)
@@ -763,4 +775,5 @@ Partial Class K8Advsettings
     Friend WithEvents C_TOS As System.Windows.Forms.CheckBox
     Friend WithEvents C_fan As System.Windows.Forms.ComboBox
     Friend WithEvents Label13 As System.Windows.Forms.Label
+    Friend WithEvents C_BkingGauges As System.Windows.Forms.CheckBox
 End Class
