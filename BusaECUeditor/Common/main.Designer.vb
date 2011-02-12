@@ -86,10 +86,10 @@ Partial Class main
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Hayabusa = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.WebBrowser1 = New System.Windows.Forms.WebBrowser()
         Me.B_DataLogging = New System.Windows.Forms.Button()
-        Me.infoscreen = New System.Windows.Forms.WebBrowser()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.R_tw = New System.Windows.Forms.RichTextBox()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -101,7 +101,7 @@ Partial Class main
         Me.B_FuelMap.Enabled = False
         Me.B_FuelMap.Location = New System.Drawing.Point(285, 36)
         Me.B_FuelMap.Name = "B_FuelMap"
-        Me.B_FuelMap.Size = New System.Drawing.Size(86, 44)
+        Me.B_FuelMap.Size = New System.Drawing.Size(86, 39)
         Me.B_FuelMap.TabIndex = 10
         Me.B_FuelMap.Text = "Edit Fuel map(s)"
         Me.ToolTip1.SetToolTip(Me.B_FuelMap, "EDIT Fuelmaps")
@@ -115,7 +115,7 @@ Partial Class main
         '
         Me.B_EngineData.Location = New System.Drawing.Point(377, 36)
         Me.B_EngineData.Name = "B_EngineData"
-        Me.B_EngineData.Size = New System.Drawing.Size(86, 44)
+        Me.B_EngineData.Size = New System.Drawing.Size(86, 39)
         Me.B_EngineData.TabIndex = 20
         Me.B_EngineData.Text = "Connect for engine data"
         Me.ToolTip1.SetToolTip(Me.B_EngineData, "Connect to engine data  - requires the interface cable")
@@ -413,9 +413,9 @@ Partial Class main
         '
         'B_Limiters
         '
-        Me.B_Limiters.Location = New System.Drawing.Point(285, 135)
+        Me.B_Limiters.Location = New System.Drawing.Point(286, 124)
         Me.B_Limiters.Name = "B_Limiters"
-        Me.B_Limiters.Size = New System.Drawing.Size(86, 43)
+        Me.B_Limiters.Size = New System.Drawing.Size(86, 37)
         Me.B_Limiters.TabIndex = 23
         Me.B_Limiters.Text = "Edit Limiters"
         Me.ToolTip1.SetToolTip(Me.B_Limiters, "Edit RPM limiters, set top speed limiter on/off")
@@ -423,9 +423,9 @@ Partial Class main
         '
         'B_FlashECU
         '
-        Me.B_FlashECU.Location = New System.Drawing.Point(285, 184)
+        Me.B_FlashECU.Location = New System.Drawing.Point(285, 167)
         Me.B_FlashECU.Name = "B_FlashECU"
-        Me.B_FlashECU.Size = New System.Drawing.Size(86, 44)
+        Me.B_FlashECU.Size = New System.Drawing.Size(86, 37)
         Me.B_FlashECU.TabIndex = 24
         Me.B_FlashECU.Text = "Flash the ECU"
         Me.ToolTip1.SetToolTip(Me.B_FlashECU, "Flash the active map in memory to the ECU." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Requires a programming interface sw" & _
@@ -434,9 +434,9 @@ Partial Class main
         '
         'B_IgnitionMap
         '
-        Me.B_IgnitionMap.Location = New System.Drawing.Point(285, 86)
+        Me.B_IgnitionMap.Location = New System.Drawing.Point(285, 81)
         Me.B_IgnitionMap.Name = "B_IgnitionMap"
-        Me.B_IgnitionMap.Size = New System.Drawing.Size(86, 43)
+        Me.B_IgnitionMap.Size = New System.Drawing.Size(86, 37)
         Me.B_IgnitionMap.TabIndex = 25
         Me.B_IgnitionMap.Text = "Edit Ignition map(s)"
         Me.ToolTip1.SetToolTip(Me.B_IgnitionMap, "Edit Ignition maps")
@@ -444,9 +444,9 @@ Partial Class main
         '
         'B_AdvancedSettings
         '
-        Me.B_AdvancedSettings.Location = New System.Drawing.Point(377, 86)
+        Me.B_AdvancedSettings.Location = New System.Drawing.Point(378, 81)
         Me.B_AdvancedSettings.Name = "B_AdvancedSettings"
-        Me.B_AdvancedSettings.Size = New System.Drawing.Size(86, 43)
+        Me.B_AdvancedSettings.Size = New System.Drawing.Size(86, 37)
         Me.B_AdvancedSettings.TabIndex = 26
         Me.B_AdvancedSettings.Text = "Advanced settings"
         Me.ToolTip1.SetToolTip(Me.B_AdvancedSettings, "Set various advanced settings including" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "fuel pressure, activation of window swit" & _
@@ -495,9 +495,9 @@ Partial Class main
         '
         'B_Shifter
         '
-        Me.B_Shifter.Location = New System.Drawing.Point(377, 135)
+        Me.B_Shifter.Location = New System.Drawing.Point(378, 126)
         Me.B_Shifter.Name = "B_Shifter"
-        Me.B_Shifter.Size = New System.Drawing.Size(86, 43)
+        Me.B_Shifter.Size = New System.Drawing.Size(86, 35)
         Me.B_Shifter.TabIndex = 32
         Me.B_Shifter.Text = "Shifter"
         Me.ToolTip1.SetToolTip(Me.B_Shifter, "Activate shifter module and set shifter kill time." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Requires shifter hardware bei" & _
@@ -512,7 +512,7 @@ Partial Class main
         Me.GroupBox1.Controls.Add(Me.L_Comparefile)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 36)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(248, 82)
+        Me.GroupBox1.Size = New System.Drawing.Size(248, 71)
         Me.GroupBox1.TabIndex = 34
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Map file Info"
@@ -523,7 +523,7 @@ Partial Class main
         Me.GroupBox2.Controls.Add(Me.Label4)
         Me.GroupBox2.Controls.Add(Me.Label1)
         Me.GroupBox2.Controls.Add(Me.Hayabusa)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 135)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 122)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(248, 82)
         Me.GroupBox2.TabIndex = 35
@@ -572,58 +572,48 @@ Partial Class main
         Me.ToolTip1.InitialDelay = 500
         Me.ToolTip1.ReshowDelay = 100
         '
-        'WebBrowser1
-        '
-        Me.WebBrowser1.Location = New System.Drawing.Point(0, 344)
-        Me.WebBrowser1.Margin = New System.Windows.Forms.Padding(0)
-        Me.WebBrowser1.MinimumSize = New System.Drawing.Size(20, 20)
-        Me.WebBrowser1.Name = "WebBrowser1"
-        Me.WebBrowser1.ScrollBarsEnabled = False
-        Me.WebBrowser1.Size = New System.Drawing.Size(487, 83)
-        Me.WebBrowser1.TabIndex = 36
-        Me.WebBrowser1.Url = New System.Uri("http://www.dolphinwebdevelopment.com/dolphin-web/dolphin/banner_blue.gif", System.UriKind.Absolute)
-        '
         'B_DataLogging
         '
-        Me.B_DataLogging.Location = New System.Drawing.Point(378, 185)
+        Me.B_DataLogging.Location = New System.Drawing.Point(379, 167)
         Me.B_DataLogging.Name = "B_DataLogging"
-        Me.B_DataLogging.Size = New System.Drawing.Size(84, 43)
+        Me.B_DataLogging.Size = New System.Drawing.Size(84, 37)
         Me.B_DataLogging.TabIndex = 38
         Me.B_DataLogging.Text = "Data Logging"
         Me.B_DataLogging.UseVisualStyleBackColor = True
         '
-        'infoscreen
-        '
-        Me.infoscreen.IsWebBrowserContextMenuEnabled = False
-        Me.infoscreen.Location = New System.Drawing.Point(9, 11)
-        Me.infoscreen.MinimumSize = New System.Drawing.Size(20, 20)
-        Me.infoscreen.Name = "infoscreen"
-        Me.infoscreen.ScriptErrorsSuppressed = True
-        Me.infoscreen.ScrollBarsEnabled = False
-        Me.infoscreen.Size = New System.Drawing.Size(435, 81)
-        Me.infoscreen.TabIndex = 39
-        Me.infoscreen.Url = New System.Uri("http://macmadigan.no-ip.com/infoscreen/index.mht", System.UriKind.Absolute)
-        Me.infoscreen.WebBrowserShortcutsEnabled = False
-        '
         'GroupBox3
         '
-        Me.GroupBox3.Controls.Add(Me.infoscreen)
-        Me.GroupBox3.Location = New System.Drawing.Point(12, 234)
+        Me.GroupBox3.Controls.Add(Me.R_tw)
+        Me.GroupBox3.Location = New System.Drawing.Point(12, 210)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(450, 98)
+        Me.GroupBox3.Size = New System.Drawing.Size(450, 83)
         Me.GroupBox3.TabIndex = 40
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Infoscreen"
+        Me.GroupBox3.Text = "Ecueditor tweets"
+        '
+        'R_tw
+        '
+        Me.R_tw.BackColor = System.Drawing.SystemColors.ButtonShadow
+        Me.R_tw.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.R_tw.Location = New System.Drawing.Point(6, 16)
+        Me.R_tw.Name = "R_tw"
+        Me.R_tw.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
+        Me.R_tw.Size = New System.Drawing.Size(438, 61)
+        Me.R_tw.TabIndex = 41
+        Me.R_tw.Text = ""
+        '
+        'Timer1
+        '
+        Me.Timer1.Interval = 10000
         '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlDark
-        Me.ClientSize = New System.Drawing.Size(473, 335)
+        Me.ClientSize = New System.Drawing.Size(473, 299)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.B_DataLogging)
-        Me.Controls.Add(Me.WebBrowser1)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.B_Shifter)
@@ -678,7 +668,6 @@ Partial Class main
     Friend WithEvents Hayabusa As System.Windows.Forms.Label
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
     Friend WithEvents ProgramInfoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents WebBrowser1 As System.Windows.Forms.WebBrowser
     Friend WithEvents SetupToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents InstallFTDIDriversToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SetupCOMPortToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -719,7 +708,8 @@ Partial Class main
     Friend WithEvents ToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem5 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ReportABugToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents infoscreen As System.Windows.Forms.WebBrowser
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
+    Friend WithEvents Timer1 As System.Windows.Forms.Timer
+    Friend WithEvents R_tw As System.Windows.Forms.RichTextBox
 
 End Class

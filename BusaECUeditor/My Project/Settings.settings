@@ -95,5 +95,17 @@
     <Setting Name="AutoTuneExhaustGasOffset" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">250</Value>
     </Setting>
+    <Setting Name="m_strConsumerKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">zujhQ6blnOQtdyMrAeEMg</Value>
+    </Setting>
+    <Setting Name="m_strConsumerSecret" Type="System.String" Scope="User">
+      <Value Profile="(Default)">3cPI50r1d94URYkB2CNTxBuoa3bx0qKElOJHIMFseA</Value>
+    </Setting>
+    <Setting Name="m_strToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="m_strTokenSecret" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

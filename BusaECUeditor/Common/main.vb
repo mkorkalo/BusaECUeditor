@@ -26,6 +26,11 @@ Imports System.IO
 Imports System.Text
 Imports System.Net.Mail
 Imports System.Deployment.Application
+Imports System.Net
+Imports System.Web
+Imports twittervb2
+
+
 
 
 Public Class main
@@ -72,6 +77,10 @@ Public Class main
     Dim path As String = ""
     Dim comparepath As String = ""
     Dim fs As FileStream
+    Dim tw As New TwitterAPI
+    Dim tweets As Boolean
+
+
 
 #End Region
 
@@ -79,6 +88,7 @@ Public Class main
 
     Private Sub Main_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
+        generate_tweets()
 
         Me.Visible = False
         '
@@ -2858,6 +2868,7 @@ skip_update:
     End Sub
 
     Public Sub SetECUType()
+
         '
         ' here we set ecutype based on ecuid and then enable respective windows
         ' fast search key 111111
@@ -5509,6 +5520,21 @@ skip_update:
     Private Sub ReportABugToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ReportABugToolStripMenuItem.Click
         Process.Start("https://bitbucket.org/ecueditor/ecueditor/issues?status=new")
     End Sub
+
+    Public Sub generate_tweets()
+        R_tw.Text = ""
+        tw.AuthenticateWith("zujhQ6blnOQtdyMrAeEMg", "3cPI50r1d94URYkB2CNTxBuoa3bx0qKElOJHIMFseA", "251085356-cSzC5l59z4eepj3PrQMawd3XWTZpLvnANKt2ho", "25UcAcP1AMU4CDuIX1sVKu5bPNcToOyNp4o7VGrgY")
+        For Each tweet As TwitterStatus In tw.HomeTimeline()
+            R_tw.Text = R_tw.Text & (tweet.User.ScreenName & " : " & tweet.Text) & Chr(13) & Chr(10)
+        Next
+        tweets = True
+    End Sub
+
+    Private Sub R_tw_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles R_tw.Click
+        Process.Start("http://www.twitter.com#ecueditor")
+
+    End Sub
+
 
 End Class
 
