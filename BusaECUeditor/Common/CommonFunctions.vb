@@ -141,7 +141,8 @@ Module CommonFunctions
 
     Public gixxer_GPS_voltage_raw As Integer = 0
     Public gixxer_set_ign_default As Integer = 0
-
+    Public gixxerramair_columnheader As Integer = 0 ' &H7268E
+    Public gixxerramair_map As Integer = 0 '&H72859
 #End Region
 
 #Region "Properties"

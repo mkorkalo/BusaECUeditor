@@ -2915,6 +2915,9 @@ skip_update:
         gixxer_sd2 = 0 '&H62ACF
         gixxer_sd3 = 0 '&H62AD2
 
+        gixxerramair_columnheader = 0 ' &H7268E
+        gixxerramair_map = 0 '&H72859
+
 
         Hayabusa.Visible = True
         FlashToolStripMenuItem.Visible = True
@@ -3004,6 +3007,9 @@ skip_update:
                 gixxer_shifter_jmp_to_fuelcode = &H0 '&H45A40
                 gixxer_shifter_jmp_to_igncode = &H0 '&H3B9C0
 
+                gixxerramair_columnheader = &H73FDE ' &H7268E
+                gixxerramair_map = &H741A9 '&H72859
+
                 gixxer_injectorbalance_map_name = gixxer_modelname
                 gixxer_STP_modelname = gixxer_modelname
                 gixxer_fuelmap_map_bikename = gixxer_modelname
@@ -3075,6 +3081,9 @@ skip_update:
                 gixxer_shifter_jmp_to_fuelcode = &H0 '&H45A40
                 gixxer_shifter_jmp_to_igncode = &H0 '&H3B9C0
 
+                gixxerramair_columnheader = &H73FDE ' &H7268E
+                gixxerramair_map = &H741A9 '&H72859
+
                 gixxer_injectorbalance_map_name = gixxer_modelname
                 gixxer_STP_modelname = gixxer_modelname
                 gixxer_fuelmap_map_bikename = gixxer_modelname
@@ -3116,6 +3125,9 @@ skip_update:
                 gixxer_ignition_map_first = &H5A3D8
                 gixxer_ignition_use_clutch_map = &H60B5C
                 gixxer_ignition_map_name = gixxer_modelname
+
+                gixxerramair_columnheader = &H60776 ' &H7268E
+                gixxerramair_map = &H60941 '&H72859
 
                 gixxer_injectorbalance_map_name = gixxer_modelname
                 gixxer_STP_modelname = gixxer_modelname
@@ -3204,6 +3216,9 @@ skip_update:
                 gixxer_ignition_map_first = &H5A3D8
                 gixxer_ignition_use_clutch_map = &H60B5C
                 gixxer_ignition_map_name = gixxer_modelname
+
+                gixxerramair_columnheader = &H60776 ' &H7268E
+                gixxerramair_map = &H60941 '&H72859
 
                 gixxer_injectorbalance_map_name = gixxer_modelname
                 gixxer_STP_modelname = gixxer_modelname
@@ -3294,6 +3309,9 @@ skip_update:
                 gixxer_ignition_use_clutch_map = &H60B40          ' use_clutch_map_if_0x1
 
 
+                gixxerramair_columnheader = &H60762 ' &H7268E
+                gixxerramair_map = &H6092D '&H72859
+
                 '
                 ' These do not need to be adjusted
                 '
@@ -3349,6 +3367,8 @@ skip_update:
                 gixxer_ignition_map_first = &H5956C               ' ign_group_clutch_neutral
                 gixxer_ignition_use_clutch_map = &H60B40          ' use_clutch_map_if_0x1
 
+                gixxerramair_columnheader = &H60762 ' &H7268E
+                gixxerramair_map = &H6092D '&H72859
 
                 '
                 ' These do not need to be adjusted
