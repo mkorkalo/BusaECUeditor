@@ -86,9 +86,9 @@ Partial Class main
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Hayabusa = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.R_tw = New System.Windows.Forms.RichTextBox()
         Me.B_DataLogging = New System.Windows.Forms.Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.R_tw = New System.Windows.Forms.RichTextBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -572,6 +572,18 @@ Partial Class main
         Me.ToolTip1.InitialDelay = 500
         Me.ToolTip1.ReshowDelay = 100
         '
+        'R_tw
+        '
+        Me.R_tw.BackColor = System.Drawing.SystemColors.ButtonShadow
+        Me.R_tw.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.R_tw.Location = New System.Drawing.Point(6, 16)
+        Me.R_tw.Name = "R_tw"
+        Me.R_tw.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical
+        Me.R_tw.Size = New System.Drawing.Size(438, 61)
+        Me.R_tw.TabIndex = 41
+        Me.R_tw.Text = ""
+        Me.ToolTip1.SetToolTip(Me.R_tw, resources.GetString("R_tw.ToolTip"))
+        '
         'B_DataLogging
         '
         Me.B_DataLogging.Location = New System.Drawing.Point(379, 167)
@@ -590,18 +602,6 @@ Partial Class main
         Me.GroupBox3.TabIndex = 40
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Ecueditor tweets"
-        '
-        'R_tw
-        '
-        Me.R_tw.BackColor = System.Drawing.SystemColors.ButtonShadow
-        Me.R_tw.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.R_tw.Location = New System.Drawing.Point(6, 16)
-        Me.R_tw.Name = "R_tw"
-        Me.R_tw.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
-        Me.R_tw.Size = New System.Drawing.Size(438, 61)
-        Me.R_tw.TabIndex = 41
-        Me.R_tw.Text = ""
-        Me.ToolTip1.SetToolTip(Me.R_tw, "Double click to go to Twitter.")
         '
         'Timer1
         '

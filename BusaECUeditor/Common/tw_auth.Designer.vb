@@ -24,12 +24,11 @@ Partial Class tw_auth
     Private Sub InitializeComponent()
         Me.t_username = New System.Windows.Forms.TextBox()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.t_pwd = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         't_username
         '
-        Me.t_username.Location = New System.Drawing.Point(101, 54)
+        Me.t_username.Location = New System.Drawing.Point(156, 105)
         Me.t_username.Name = "t_username"
         Me.t_username.Size = New System.Drawing.Size(97, 20)
         Me.t_username.TabIndex = 0
@@ -43,19 +42,11 @@ Partial Class tw_auth
         Me.Button1.Text = "Button1"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        't_pwd
-        '
-        Me.t_pwd.Location = New System.Drawing.Point(101, 80)
-        Me.t_pwd.Name = "t_pwd"
-        Me.t_pwd.Size = New System.Drawing.Size(97, 20)
-        Me.t_pwd.TabIndex = 2
-        '
         'tw_auth
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(284, 264)
-        Me.Controls.Add(Me.t_pwd)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.t_username)
         Me.Name = "tw_auth"
@@ -66,5 +57,4 @@ Partial Class tw_auth
     End Sub
     Friend WithEvents t_username As System.Windows.Forms.TextBox
     Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents t_pwd As System.Windows.Forms.TextBox
 End Class
