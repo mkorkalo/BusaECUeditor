@@ -148,6 +148,13 @@ in the top of the fuel and ignition map.
 Usually an active map, but you can set another map to 
 compare to with File, Set comparemap.</value>
   </data>
+  <data name="R_tw.ToolTip" xml:space="preserve">
+    <value>If you have a twitter account you can send your messages by typing just here.
+First time you start to write your message youll be asked for a pin number
+that twitter will provide to you on a web screen.
+
+If you dont know what is twitter, then double click to go to Twitter.</value>
+  </data>
   <metadata name="Timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>444, 17</value>
   </metadata>

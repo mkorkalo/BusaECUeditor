@@ -5523,7 +5523,7 @@ skip_update:
 
     Public Sub generate_tweets()
         R_tw.Text = ""
-        On Error Resume Next
+        On Error Resume Next ' in case the pc is not connected to internet
         tw.AuthenticateWith("cX1znXFEOvO3G2yeUZVXvw", "m5zZJ1fl8ygdwOq3bfUOqAzhdKmyoX2oNppS4nNbM", "251085356-DYkUUNAZScLYtXXSBi5UyKgbJM7eKbfySFggeBuw", "6PiFsw8K1nDbP8zu9outK7I3SBelkE8gEHHKxSfwA")
         For Each tweet As TwitterStatus In tw.HomeTimeline()
             R_tw.Text = R_tw.Text & (tweet.User.ScreenName & " : " & tweet.Text) & Chr(13) & Chr(10)
@@ -5540,25 +5540,50 @@ skip_update:
 
     Private Sub R_tw_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles R_tw.KeyPress
 
-        If e.KeyChar = Chr(9) Or My.Settings.username = "" Then
-            tw_username.Show()
-            tw_username.Select()
-        End If
+        Dim strURL As String
+        Dim strPIN As String
+        strPIN = ""
+
+
+        On Error Resume Next ' in case the pc is not connected to internet
+
 
         If tweets = True Then
             R_tw.Text = ""
             tweets = False
         End If
 
-        On Error Resume Next 'until twitter gives token for write access
+        If e.KeyChar = Chr(9) Or My.Settings.m_strToken = "" Then
+            strURL = GetLinkURL()
+            Process.Start(strURL)
+            Do
+                strPIN = InputBox("Please enter the pin as given by Twitter to you:")
+            Loop Until isValidPIN(strPIN) Or (strPIN = "")
+            My.Settings.m_strToken = tw.OAuth_Token()
+            My.Settings.m_strTokenSecret = tw.OAuth_TokenSecret()
+            My.Settings.Save()
+        End If
+
         If e.KeyChar = Chr(13) Then
-            'tw.update(R_tw.text)
-            tw.AuthenticateWith("cX1znXFEOvO3G2yeUZVXvw", "m5zZJ1fl8ygdwOq3bfUOqAzhdKmyoX2oNppS4nNbM", "251085356-DYkUUNAZScLYtXXSBi5UyKgbJM7eKbfySFggeBuw", "6PiFsw8K1nDbP8zu9outK7I3SBelkE8gEHHKxSfwA")
-            tw.SendDirectMessage(My.Settings.username, R_tw.Text)
+            tw.AuthenticateWith(My.Settings.m_strConsumerKey, My.Settings.m_strConsumerSecret, My.Settings.m_strToken, My.Settings.m_strTokenSecret)
+            tw.Update(R_tw.Text)
+            generate_tweets()
+        End If
+
+        If e.KeyChar = Chr(27) Then
             generate_tweets()
         End If
 
     End Sub
+
+    Function GetLinkURL() As String
+        Return tw.GetAuthorizationLink(My.Settings.m_strConsumerKey, My.Settings.m_strConsumerSecret)
+    End Function
+
+    Public Function isValidPIN(ByVal p_strPIN) As Boolean
+        Return tw.ValidatePIN(p_strPIN)
+    End Function
+
 End Class
 
 
