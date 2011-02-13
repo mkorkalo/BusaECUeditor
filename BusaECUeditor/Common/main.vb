@@ -5522,14 +5522,18 @@ skip_update:
     End Sub
 
     Public Sub generate_tweets()
+
+
+
         R_tw.Text = ""
+
         On Error Resume Next ' in case the pc is not connected to internet
 
         My.Settings.m_strConsumerKey = "fDEUnOOMBxtj5RjPuehV2g"
         My.Settings.m_strConsumerSecret = "CUtSovat53Hz9Cp7uzhP5yJTqnCcSjnV4PDROEBMk"
         My.Settings.Save()
 
-        tw.AuthenticateWith(My.Settings.m_strConsumerKey, My.Settings.m_strConsumerSecret, "251085356-DYkUUNAZScLYtXXSBi5UyKgbJM7eKbfySFggeBuw", "6PiFsw8K1nDbP8zu9outK7I3SBelkE8gEHHKxSfwA")
+        ' tw.AuthenticateWith(My.Settings.m_strConsumerKey, My.Settings.m_strConsumerSecret, "251085356-DYkUUNAZScLYtXXSBi5UyKgbJM7eKbfySFggeBuw", "6PiFsw8K1nDbP8zu9outK7I3SBelkE8gEHHKxSfwA")
         For Each tweet As TwitterStatus In tw.HomeTimeline()
             R_tw.Text = R_tw.Text & (tweet.User.ScreenName & " : " & tweet.Text) & Chr(13) & Chr(10)
         Next
@@ -5575,7 +5579,7 @@ skip_update:
         strPIN = ""
 
 
-        On Error Resume Next ' in case the pc is not connected to internet
+        'On Error Resume Next ' in case the pc is not connected to internet
 
 
         If tweets = True Then
@@ -5604,6 +5608,7 @@ skip_update:
         If e.KeyChar = Chr(13) Or (Len(R_tw.Text) >= 140) Then
             tw.AuthenticateWith(My.Settings.m_strConsumerKey, My.Settings.m_strConsumerSecret, My.Settings.m_strToken, My.Settings.m_strTokenSecret)
             tw.Update(R_tw.Text)
+            'tw.SendDirectMessage("ecueditor", R_tw.Text)
             generate_tweets()
         End If
 
@@ -5626,6 +5631,7 @@ skip_update:
             generate_tweets()
         End If
     End Sub
+
 End Class
 
 
