@@ -5524,7 +5524,12 @@ skip_update:
     Public Sub generate_tweets()
         R_tw.Text = ""
         On Error Resume Next ' in case the pc is not connected to internet
-        tw.AuthenticateWith("cX1znXFEOvO3G2yeUZVXvw", "m5zZJ1fl8ygdwOq3bfUOqAzhdKmyoX2oNppS4nNbM", "251085356-DYkUUNAZScLYtXXSBi5UyKgbJM7eKbfySFggeBuw", "6PiFsw8K1nDbP8zu9outK7I3SBelkE8gEHHKxSfwA")
+
+        My.Settings.m_strConsumerKey = "fDEUnOOMBxtj5RjPuehV2g"
+        My.Settings.m_strConsumerSecret = "CUtSovat53Hz9Cp7uzhP5yJTqnCcSjnV4PDROEBMk"
+        My.Settings.Save()
+
+        tw.AuthenticateWith(My.Settings.m_strConsumerKey, My.Settings.m_strConsumerSecret, "251085356-DYkUUNAZScLYtXXSBi5UyKgbJM7eKbfySFggeBuw", "6PiFsw8K1nDbP8zu9outK7I3SBelkE8gEHHKxSfwA")
         For Each tweet As TwitterStatus In tw.HomeTimeline()
             R_tw.Text = R_tw.Text & (tweet.User.ScreenName & " : " & tweet.Text) & Chr(13) & Chr(10)
         Next
@@ -5532,7 +5537,32 @@ skip_update:
     End Sub
 
     Private Sub R_tw_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles R_tw.DoubleClick
-        Process.Start("http://twitter.com/ecueditor")
+        Dim strURL As String
+        Dim strPIN As String
+        strPIN = ""
+
+        If My.Settings.m_strToken = "" Then
+
+            strURL = GetLinkURL()
+            Process.Start(strURL)
+            Do
+                strPIN = InputBox("Please enter the pin Twitter.com web page that should have been just opened:")
+            Loop Until isValidPIN(strPIN) Or (strPIN = "")
+            If strPIN = "" Then
+                My.Settings.m_strToken = ""
+                My.Settings.m_strTokenSecret = ""
+                My.Settings.Save()
+            Else
+                My.Settings.m_strToken = tw.OAuth_Token()
+                My.Settings.m_strTokenSecret = tw.OAuth_TokenSecret()
+                My.Settings.Save()
+            End If
+
+        Else
+            Process.Start("https://twitter.com/#!/ecueditor")
+        End If
+
+
     End Sub
 
     
@@ -5554,23 +5584,30 @@ skip_update:
         End If
 
         If e.KeyChar = Chr(9) Or My.Settings.m_strToken = "" Then
+ 
             strURL = GetLinkURL()
             Process.Start(strURL)
             Do
-                strPIN = InputBox("Please enter the pin as given by Twitter to you:")
+                strPIN = InputBox("Please enter the pin Twitter.com web page that should have been just opened:")
             Loop Until isValidPIN(strPIN) Or (strPIN = "")
-            My.Settings.m_strToken = tw.OAuth_Token()
-            My.Settings.m_strTokenSecret = tw.OAuth_TokenSecret()
-            My.Settings.Save()
+            If strPIN = "" Then
+                My.Settings.m_strToken = ""
+                My.Settings.m_strTokenSecret = ""
+                My.Settings.Save()
+            Else
+                My.Settings.m_strToken = tw.OAuth_Token()
+                My.Settings.m_strTokenSecret = tw.OAuth_TokenSecret()
+                My.Settings.Save()
+            End If
         End If
 
-        If e.KeyChar = Chr(13) Then
+        If e.KeyChar = Chr(13) Or (Len(R_tw.Text) >= 140) Then
             tw.AuthenticateWith(My.Settings.m_strConsumerKey, My.Settings.m_strConsumerSecret, My.Settings.m_strToken, My.Settings.m_strTokenSecret)
             tw.Update(R_tw.Text)
             generate_tweets()
         End If
 
-        If e.KeyChar = Chr(27) Then
+        If e.KeyChar = Chr(27) Or (My.Settings.m_strToken = "") Then
             generate_tweets()
         End If
 
@@ -5584,6 +5621,11 @@ skip_update:
         Return tw.ValidatePIN(p_strPIN)
     End Function
 
+    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
+        If tweets = True Then
+            generate_tweets()
+        End If
+    End Sub
 End Class
 
 

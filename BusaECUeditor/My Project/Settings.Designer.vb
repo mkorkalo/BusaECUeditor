@@ -428,7 +428,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("zujhQ6blnOQtdyMrAeEMg")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property m_strConsumerKey() As String
             Get
                 Return CType(Me("m_strConsumerKey"),String)
@@ -440,7 +440,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("3cPI50r1d94URYkB2CNTxBuoa3bx0qKElOJHIMFseA")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property m_strConsumerSecret() As String
             Get
                 Return CType(Me("m_strConsumerSecret"),String)

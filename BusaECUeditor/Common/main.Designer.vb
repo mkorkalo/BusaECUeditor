@@ -605,7 +605,8 @@ Partial Class main
         '
         'Timer1
         '
-        Me.Timer1.Interval = 10000
+        Me.Timer1.Enabled = True
+        Me.Timer1.Interval = 60000
         '
         'main
         '
