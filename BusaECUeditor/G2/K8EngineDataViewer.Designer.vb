@@ -23,33 +23,35 @@ Partial Class K8EngineDataViewer
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(K8EngineDataViewer))
-        Me.LV_ValueDetails = New System.Windows.Forms.ListView
-        Me.Column1 = New System.Windows.Forms.ColumnHeader
-        Me.Column2 = New System.Windows.Forms.ColumnHeader
-        Me.L_MinTPS = New System.Windows.Forms.Label
-        Me.N_MinTPS = New System.Windows.Forms.NumericUpDown
-        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog
-        Me.LB_Values = New System.Windows.Forms.ListBox
-        Me.G_FuelMap = New System.Windows.Forms.DataGridView
-        Me.B_LoadDataFile = New System.Windows.Forms.Button
-        Me.L_FileName = New System.Windows.Forms.Label
-        Me.C_WidebandO2Sensor = New System.Windows.Forms.CheckBox
-        Me.B_DataFilters = New System.Windows.Forms.Button
-        Me.R_LoggedAFR = New System.Windows.Forms.RadioButton
-        Me.R_TargetAFR = New System.Windows.Forms.RadioButton
-        Me.R_PercentageMapChange = New System.Windows.Forms.RadioButton
-        Me.B_AutoTuneSettings = New System.Windows.Forms.Button
-        Me.B_LoadTargetAFR = New System.Windows.Forms.Button
-        Me.B_SaveTargetAFR = New System.Windows.Forms.Button
-        Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.R_TPSRPM = New System.Windows.Forms.RadioButton
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.R_BOOSTRPM = New System.Windows.Forms.RadioButton
-        Me.R_IAPRPM = New System.Windows.Forms.RadioButton
-        Me.L_CellDataCount = New System.Windows.Forms.Label
-        Me.B_AutoTune = New System.Windows.Forms.Button
-        Me.L_AvgTPS = New System.Windows.Forms.Label
+        Me.LV_ValueDetails = New System.Windows.Forms.ListView()
+        Me.Column1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.Column2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.L_MinTPS = New System.Windows.Forms.Label()
+        Me.N_MinTPS = New System.Windows.Forms.NumericUpDown()
+        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
+        Me.LB_Values = New System.Windows.Forms.ListBox()
+        Me.G_FuelMap = New System.Windows.Forms.DataGridView()
+        Me.B_LoadDataFile = New System.Windows.Forms.Button()
+        Me.L_FileName = New System.Windows.Forms.Label()
+        Me.C_WidebandO2Sensor = New System.Windows.Forms.CheckBox()
+        Me.B_DataFilters = New System.Windows.Forms.Button()
+        Me.R_LoggedAFR = New System.Windows.Forms.RadioButton()
+        Me.R_TargetAFR = New System.Windows.Forms.RadioButton()
+        Me.R_PercentageMapChange = New System.Windows.Forms.RadioButton()
+        Me.B_AutoTuneSettings = New System.Windows.Forms.Button()
+        Me.B_LoadTargetAFR = New System.Windows.Forms.Button()
+        Me.B_SaveTargetAFR = New System.Windows.Forms.Button()
+        Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.R_TPSRPM = New System.Windows.Forms.RadioButton()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.R_BOOSTRPM = New System.Windows.Forms.RadioButton()
+        Me.R_IAPRPM = New System.Windows.Forms.RadioButton()
+        Me.L_CellDataCount = New System.Windows.Forms.Label()
+        Me.B_AutoTune = New System.Windows.Forms.Button()
+        Me.L_AvgTPS = New System.Windows.Forms.Label()
+        Me.R_DataCount = New System.Windows.Forms.RadioButton()
+        Me.L_AvgAFR = New System.Windows.Forms.Label()
         CType(Me.N_MinTPS, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.G_FuelMap, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -79,7 +81,7 @@ Partial Class K8EngineDataViewer
         'L_MinTPS
         '
         Me.L_MinTPS.AutoSize = True
-        Me.L_MinTPS.Location = New System.Drawing.Point(301, 57)
+        Me.L_MinTPS.Location = New System.Drawing.Point(376, 57)
         Me.L_MinTPS.Name = "L_MinTPS"
         Me.L_MinTPS.Size = New System.Drawing.Size(37, 13)
         Me.L_MinTPS.TabIndex = 20
@@ -88,7 +90,7 @@ Partial Class K8EngineDataViewer
         '
         'N_MinTPS
         '
-        Me.N_MinTPS.Location = New System.Drawing.Point(344, 55)
+        Me.N_MinTPS.Location = New System.Drawing.Point(419, 55)
         Me.N_MinTPS.Name = "N_MinTPS"
         Me.N_MinTPS.Size = New System.Drawing.Size(52, 20)
         Me.N_MinTPS.TabIndex = 19
@@ -102,9 +104,9 @@ Partial Class K8EngineDataViewer
         'LB_Values
         '
         Me.LB_Values.FormattingEnabled = True
-        Me.LB_Values.Location = New System.Drawing.Point(897, 33)
+        Me.LB_Values.Location = New System.Drawing.Point(897, 46)
         Me.LB_Values.Name = "LB_Values"
-        Me.LB_Values.Size = New System.Drawing.Size(168, 264)
+        Me.LB_Values.Size = New System.Drawing.Size(168, 251)
         Me.LB_Values.TabIndex = 15
         '
         'G_FuelMap
@@ -170,7 +172,7 @@ Partial Class K8EngineDataViewer
         'R_TargetAFR
         '
         Me.R_TargetAFR.AutoSize = True
-        Me.R_TargetAFR.Location = New System.Drawing.Point(97, 9)
+        Me.R_TargetAFR.Location = New System.Drawing.Point(182, 9)
         Me.R_TargetAFR.Name = "R_TargetAFR"
         Me.R_TargetAFR.Size = New System.Drawing.Size(80, 17)
         Me.R_TargetAFR.TabIndex = 27
@@ -180,7 +182,7 @@ Partial Class K8EngineDataViewer
         'R_PercentageMapChange
         '
         Me.R_PercentageMapChange.AutoSize = True
-        Me.R_PercentageMapChange.Location = New System.Drawing.Point(183, 9)
+        Me.R_PercentageMapChange.Location = New System.Drawing.Point(268, 9)
         Me.R_PercentageMapChange.Name = "R_PercentageMapChange"
         Me.R_PercentageMapChange.Size = New System.Drawing.Size(97, 17)
         Me.R_PercentageMapChange.TabIndex = 28
@@ -218,12 +220,13 @@ Partial Class K8EngineDataViewer
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.R_DataCount)
         Me.GroupBox1.Controls.Add(Me.R_LoggedAFR)
         Me.GroupBox1.Controls.Add(Me.R_TargetAFR)
         Me.GroupBox1.Controls.Add(Me.R_PercentageMapChange)
         Me.GroupBox1.Location = New System.Drawing.Point(5, 26)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(288, 28)
+        Me.GroupBox1.Size = New System.Drawing.Size(376, 28)
         Me.GroupBox1.TabIndex = 32
         Me.GroupBox1.TabStop = False
         '
@@ -272,7 +275,7 @@ Partial Class K8EngineDataViewer
         '
         'L_CellDataCount
         '
-        Me.L_CellDataCount.Location = New System.Drawing.Point(965, 9)
+        Me.L_CellDataCount.Location = New System.Drawing.Point(965, 3)
         Me.L_CellDataCount.Name = "L_CellDataCount"
         Me.L_CellDataCount.Size = New System.Drawing.Size(100, 18)
         Me.L_CellDataCount.TabIndex = 35
@@ -281,7 +284,7 @@ Partial Class K8EngineDataViewer
         '
         'B_AutoTune
         '
-        Me.B_AutoTune.Location = New System.Drawing.Point(304, 29)
+        Me.B_AutoTune.Location = New System.Drawing.Point(379, 29)
         Me.B_AutoTune.Name = "B_AutoTune"
         Me.B_AutoTune.Size = New System.Drawing.Size(75, 23)
         Me.B_AutoTune.TabIndex = 36
@@ -292,17 +295,38 @@ Partial Class K8EngineDataViewer
         'L_AvgTPS
         '
         Me.L_AvgTPS.AutoSize = True
-        Me.L_AvgTPS.Location = New System.Drawing.Point(897, 8)
+        Me.L_AvgTPS.Location = New System.Drawing.Point(894, 20)
         Me.L_AvgTPS.Name = "L_AvgTPS"
         Me.L_AvgTPS.Size = New System.Drawing.Size(10, 13)
         Me.L_AvgTPS.TabIndex = 37
         Me.L_AvgTPS.Text = "-"
+        '
+        'R_DataCount
+        '
+        Me.R_DataCount.AutoSize = True
+        Me.R_DataCount.Location = New System.Drawing.Point(97, 9)
+        Me.R_DataCount.Name = "R_DataCount"
+        Me.R_DataCount.Size = New System.Drawing.Size(79, 17)
+        Me.R_DataCount.TabIndex = 29
+        Me.R_DataCount.TabStop = True
+        Me.R_DataCount.Text = "Data Count"
+        Me.R_DataCount.UseVisualStyleBackColor = True
+        '
+        'L_AvgAFR
+        '
+        Me.L_AvgAFR.AutoSize = True
+        Me.L_AvgAFR.Location = New System.Drawing.Point(894, 3)
+        Me.L_AvgAFR.Name = "L_AvgAFR"
+        Me.L_AvgAFR.Size = New System.Drawing.Size(10, 13)
+        Me.L_AvgAFR.TabIndex = 38
+        Me.L_AvgAFR.Text = "-"
         '
         'K8EngineDataViewer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1077, 717)
+        Me.Controls.Add(Me.L_AvgAFR)
         Me.Controls.Add(Me.L_AvgTPS)
         Me.Controls.Add(Me.B_AutoTune)
         Me.Controls.Add(Me.L_CellDataCount)
@@ -360,4 +384,6 @@ Partial Class K8EngineDataViewer
     Friend WithEvents L_CellDataCount As System.Windows.Forms.Label
     Friend WithEvents B_AutoTune As System.Windows.Forms.Button
     Friend WithEvents L_AvgTPS As System.Windows.Forms.Label
+    Friend WithEvents R_DataCount As System.Windows.Forms.RadioButton
+    Friend WithEvents L_AvgAFR As System.Windows.Forms.Label
 End Class
