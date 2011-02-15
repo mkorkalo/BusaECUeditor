@@ -883,6 +883,38 @@ Public Class K8EngineDataViewer
 
     End Sub
 
+    Private Sub ShowDataCountTPSValues()
+
+        ShowTPSHeaders()
+
+        Dim dataCount As Integer
+
+        For xIndex As Integer = 0 To _tpsList.Count - 1 Step 1
+            For yIndex As Integer = 0 To _rpmList.Count - 1 Step 1
+
+                G_FuelMap.Item(xIndex, yIndex).Style.BackColor = Color.White
+                G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = Color.Black
+
+                Dim avgAfr As Double = CalculateAvgAFR(_tpsValues(xIndex, yIndex), dataCount)
+
+                If avgAfr > 0 Then
+
+                    Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _tpsTargetAFR(xIndex, yIndex)) / avgAfr * 100)
+
+                    G_FuelMap.Item(xIndex, yIndex).Value = _tpsValues(xIndex, yIndex).Count.ToString("0")
+                    G_FuelMap.Item(xIndex, yIndex).Style.BackColor = GetCellColor(percentageChange)
+                    G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = GetCellForeColor(percentageChange)
+
+                End If
+
+            Next
+
+        Next
+
+        L_FileName.Text = _filePath & " Data Samples: " + dataCount.ToString()
+
+    End Sub
+
     Private Sub ShowLoggedIAPValues()
 
         ShowIAPHeaders()
@@ -916,6 +948,39 @@ Public Class K8EngineDataViewer
 
     End Sub
 
+    Private Sub ShowDataCountIAPValues()
+
+        ShowIAPHeaders()
+
+        Dim dataCount As Integer
+
+        For xIndex As Integer = 0 To _iapList.Count - 1 Step 1
+            For yIndex As Integer = 0 To _rpmList.Count - 1 Step 1
+
+                G_FuelMap.Item(xIndex, yIndex).Style.BackColor = Color.White
+                G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = Color.Black
+
+                Dim avgAfr As Double = CalculateAvgAFR(_iapValues(xIndex, yIndex), dataCount)
+
+                If avgAfr > 0 Then
+
+                    Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _iapTargetAFR(xIndex, yIndex)) / avgAfr * 100)
+
+                    G_FuelMap.Item(xIndex, yIndex).Style.Alignment = DataGridViewContentAlignment.MiddleRight
+                    G_FuelMap.Item(xIndex, yIndex).Value = _iapValues(xIndex, yIndex).Count.ToString("0")
+                    G_FuelMap.Item(xIndex, yIndex).Style.BackColor = GetCellColor(percentageChange)
+                    G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = GetCellForeColor(percentageChange)
+
+                End If
+
+            Next
+
+        Next
+
+        L_FileName.Text = _filePath & " Data Samples: " + dataCount.ToString()
+
+    End Sub
+
     Private Sub ShowLoggedBoostValues()
 
         ShowBoostHeaders()
@@ -936,6 +1001,39 @@ Public Class K8EngineDataViewer
 
                     G_FuelMap.Item(xIndex, yIndex).Style.Alignment = DataGridViewContentAlignment.MiddleRight
                     G_FuelMap.Item(xIndex, yIndex).Value = avgAfr.ToString("0.00")
+                    G_FuelMap.Item(xIndex, yIndex).Style.BackColor = GetCellColor(percentageChange)
+                    G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = GetCellForeColor(percentageChange)
+
+                End If
+
+            Next
+
+        Next
+
+        L_FileName.Text = _filePath & " Data Samples: " + dataCount.ToString()
+
+    End Sub
+
+    Private Sub ShowDataCountBoostValues()
+
+        ShowBoostHeaders()
+
+        Dim dataCount As Integer
+
+        For xIndex As Integer = 0 To _boostList.Count - 1 Step 1
+            For yIndex As Integer = 0 To _boostRPMList.Count - 1 Step 1
+
+                G_FuelMap.Item(xIndex, yIndex).Style.BackColor = Color.White
+                G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = Color.Black
+
+                Dim avgAfr As Double = CalculateAvgAFR(_boostValues(xIndex, yIndex), dataCount)
+
+                If avgAfr > 0 Then
+
+                    Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _boostTargetAFR(xIndex, yIndex)) / avgAfr * 100)
+
+                    G_FuelMap.Item(xIndex, yIndex).Style.Alignment = DataGridViewContentAlignment.MiddleRight
+                    G_FuelMap.Item(xIndex, yIndex).Value = _boostValues(xIndex, yIndex).Count.ToString("0")
                     G_FuelMap.Item(xIndex, yIndex).Style.BackColor = GetCellColor(percentageChange)
                     G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = GetCellForeColor(percentageChange)
 
@@ -1102,17 +1200,27 @@ Public Class K8EngineDataViewer
         If e.RowIndex > -1 And e.ColumnIndex > -1 Then
 
             L_AvgTPS.Text = ""
+            L_AvgAFR.Text = ""
 
+            Dim dataCount As Integer
+            Dim avgAFR As Double
+            Dim targetAFR As Double
             Dim values As List(Of LogValue) = New List(Of LogValue)
 
             If _mapType = 1 Then
                 values = _tpsValues(e.ColumnIndex, e.RowIndex)
+                targetAFR = _tpsTargetAFR(e.ColumnIndex, e.RowIndex)
             ElseIf _mapType = 2 Then
                 values = _iapValues(e.ColumnIndex, e.RowIndex)
-                L_AvgTPS.Text = "Avg TPS: " & CalculateAvgTPS(values).ToString("0.0")
+                targetAFR = _iapTargetAFR(e.ColumnIndex, e.RowIndex)
+                L_AvgTPS.Text = "Avg TPS: " & CalculateAvgTPS(values).ToString("0.0")    
             ElseIf _mapType = 3 Then
                 values = _boostValues(e.ColumnIndex, e.RowIndex)
+                targetAFR = _boostTargetAFR(e.ColumnIndex, e.RowIndex)
             End If
+
+            avgAFR = CalculateAvgAFR(values, dataCount)
+            L_AvgAFR.Text = "Avg AFR: " & avgAFR.ToString("0.0") & " ( " & targetAFR.ToString("0.0") & " )"
 
             LB_Values.DataSource = values
             L_CellDataCount.Text = values.Count.ToString()
@@ -1311,6 +1419,17 @@ Public Class K8EngineDataViewer
 
     End Sub
 
+    Private Sub R_DataCount_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles R_DataCount.CheckedChanged
+
+        ShowMap()
+
+        SetAutoTuneButton()
+
+        B_LoadTargetAFR.Visible = True
+        B_SaveTargetAFR.Visible = True
+
+    End Sub
+
     Private Sub R_PercentageMapChange_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles R_PercentageMapChange.CheckedChanged
 
         ShowMap()
@@ -1384,6 +1503,18 @@ Public Class K8EngineDataViewer
                 ShowTargetIAPValues()
             ElseIf _mapType = 3 Then
                 ShowTargetBoostValues()
+            End If
+
+        ElseIf R_DataCount.Checked = True Then
+
+            G_FuelMap.EditMode = DataGridViewEditMode.EditProgrammatically
+
+            If _mapType = 1 Then
+                ShowDataCountTPSValues()
+            ElseIf _mapType = 2 Then
+                ShowDataCountIAPValues()
+            ElseIf _mapType = 3 Then
+                ShowDataCountBoostValues()
             End If
 
         ElseIf R_PercentageMapChange.Checked = True Then
@@ -1951,4 +2082,5 @@ Public Class K8EngineDataViewer
         End If
 
     End Sub
+
 End Class
