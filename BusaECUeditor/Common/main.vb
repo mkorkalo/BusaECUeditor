@@ -79,7 +79,8 @@ Public Class main
     Dim fs As FileStream
     Dim tw As New TwitterAPI
     Dim tweets As Boolean
-
+    Dim latest As DateTime
+    Dim latest_id As ULong
 
 
 #End Region
@@ -5524,8 +5525,9 @@ skip_update:
     Public Sub generate_tweets()
 
 
-
-        R_tw.Text = ""
+        If tweets = False Then
+            R_tw.Text = ""
+        End If
 
         On Error Resume Next ' in case the pc is not connected to internet
 
@@ -5533,10 +5535,20 @@ skip_update:
         My.Settings.m_strConsumerSecret = "CUtSovat53Hz9Cp7uzhP5yJTqnCcSjnV4PDROEBMk"
         My.Settings.Save()
 
-        ' tw.AuthenticateWith(My.Settings.m_strConsumerKey, My.Settings.m_strConsumerSecret, "251085356-DYkUUNAZScLYtXXSBi5UyKgbJM7eKbfySFggeBuw", "6PiFsw8K1nDbP8zu9outK7I3SBelkE8gEHHKxSfwA")
+        tw.AuthenticateWith(My.Settings.m_strConsumerKey, My.Settings.m_strConsumerSecret, "251085356-DYkUUNAZScLYtXXSBi5UyKgbJM7eKbfySFggeBuw", "6PiFsw8K1nDbP8zu9outK7I3SBelkE8gEHHKxSfwA")
         For Each tweet As TwitterStatus In tw.HomeTimeline()
-            R_tw.Text = R_tw.Text & (tweet.User.ScreenName & " : " & tweet.Text) & Chr(13) & Chr(10)
+            If tweets = False Then
+                R_tw.Text = R_tw.Text & (tweet.User.ScreenName & " : " & tweet.Text) & Chr(13) & Chr(10)
+                latest = tweet.CreatedAt()
+                latest_id = tweet.ID
+            End If
+            If tweet.CreatedAt() >= latest And tweet.ID <> latest_id Then
+                R_tw.Text = (tweet.User.ScreenName & " : " & tweet.Text) & Chr(13) & Chr(10) & R_tw.Text
+                latest = tweet.CreatedAt()
+                latest_id = tweet.ID
+            End If
         Next
+        R_tw.Refresh()
         tweets = True
     End Sub
 

@@ -136,8 +136,10 @@ Public Class GixxerShifter
     Private Sub shifter_code_in_memory(ByVal method As Boolean, ByVal lenght As Integer)
         Dim i As Integer
         Dim fs As FileStream
-        Dim path As String = My.Application.Info.DirectoryPath & "\ecu.bin\gixxershifter.bin"
+        Dim path As String
         Dim b(1) As Byte
+
+        path = My.Application.Info.DirectoryPath & "\ecu.bin\gixxershifter.bin"
 
         If Not File.Exists(path) Then
             MsgBox("Shifter code not found at: " & path, MsgBoxStyle.Critical)

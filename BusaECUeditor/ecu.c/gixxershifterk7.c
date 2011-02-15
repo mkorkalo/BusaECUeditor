@@ -2,7 +2,7 @@
 
    	shiftergixxerK7.c
 	
-    This file is part of ecueditor.com
+    This file is part of BusaECUeditor - ecueditor.com
 
     ecueditor.com is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

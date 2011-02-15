@@ -2,7 +2,7 @@
 
 	shiftergen2.c
 	
-    This file is part of ecueditor.com
+    This file is part of BusaECUeditor - Hayabusa ECUeditor
 
     Hayabusa ECUeditor is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
