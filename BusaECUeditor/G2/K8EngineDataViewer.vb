@@ -1200,7 +1200,6 @@ Public Class K8EngineDataViewer
         If e.RowIndex > -1 And e.ColumnIndex > -1 Then
 
             L_AvgTPS.Text = ""
-            L_AvgAFR.Text = ""
 
             Dim dataCount As Integer
             Dim avgAFR As Double
@@ -1210,20 +1209,22 @@ Public Class K8EngineDataViewer
             If _mapType = 1 Then
                 values = _tpsValues(e.ColumnIndex, e.RowIndex)
                 targetAFR = _tpsTargetAFR(e.ColumnIndex, e.RowIndex)
+                L_CellInfo.Text = "TPS: " & _tpsList(e.ColumnIndex) & "% RPM:" & _rpmList(e.RowIndex)
             ElseIf _mapType = 2 Then
                 values = _iapValues(e.ColumnIndex, e.RowIndex)
                 targetAFR = _iapTargetAFR(e.ColumnIndex, e.RowIndex)
-                L_AvgTPS.Text = "Avg TPS: " & CalculateAvgTPS(values).ToString("0.0")    
+                L_CellInfo.Text = "IAP: " & _iapList(e.ColumnIndex) & " RPM:" & _rpmList(e.RowIndex)
+                L_AvgTPS.Text = "Avg TPS: " & CalculateAvgTPS(values).ToString("0.0")
             ElseIf _mapType = 3 Then
                 values = _boostValues(e.ColumnIndex, e.RowIndex)
+                L_CellInfo.Text = "Boost: " & _boostList(e.ColumnIndex) & " RPM:" & _boostRPMList(e.RowIndex)
                 targetAFR = _boostTargetAFR(e.ColumnIndex, e.RowIndex)
             End If
 
             avgAFR = CalculateAvgAFR(values, dataCount)
-            L_AvgAFR.Text = "Avg AFR: " & avgAFR.ToString("0.0") & " ( " & targetAFR.ToString("0.0") & " )"
+            L_CellInfo.Text = L_CellInfo.Text & " Avg AFR: " & avgAFR.ToString("0.0") & " ( " & targetAFR.ToString("0.0") & " ) Count: " & values.Count.ToString()
 
             LB_Values.DataSource = values
-            L_CellDataCount.Text = values.Count.ToString()
 
         End If
     End Sub
@@ -2046,8 +2047,7 @@ Public Class K8EngineDataViewer
 
             LB_Values.DataSource = Nothing
             LB_Values.DataSource = values
-            L_CellDataCount.Text = values.Count.ToString()
-
+            
             G_FuelMap.CurrentCell.Style.BackColor = Color.White
             G_FuelMap.CurrentCell.Style.ForeColor = Color.Black
 

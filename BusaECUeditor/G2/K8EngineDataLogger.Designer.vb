@@ -22,37 +22,37 @@ Partial Class K8EngineDataLogger
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(K8EngineDataLogger))
-        Me.B_ClearCommsLog = New System.Windows.Forms.Button
-        Me.C_ShowCommsMessages = New System.Windows.Forms.CheckBox
-        Me.T_CommsLog = New System.Windows.Forms.TextBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.B_StopLogging = New System.Windows.Forms.Button
-        Me.B_StartLogging = New System.Windows.Forms.Button
-        Me.L_FileName = New System.Windows.Forms.Label
-        Me.B_CreateLogFile = New System.Windows.Forms.Button
-        Me.L_Status = New System.Windows.Forms.Label
-        Me.B_Connect_Datastream = New System.Windows.Forms.Button
-        Me.ComboBox_SerialPort = New System.Windows.Forms.ComboBox
-        Me.L_CommStatusColour = New System.Windows.Forms.Label
-        Me.NUD_DataRate = New System.Windows.Forms.NumericUpDown
-        Me.B_ResetComms = New System.Windows.Forms.Button
-        Me.L_AFR = New System.Windows.Forms.Label
-        Me.B_ViewDataLog = New System.Windows.Forms.Button
-        Me.L_BasicData = New System.Windows.Forms.Label
+        Me.B_ClearCommsLog = New System.Windows.Forms.Button()
+        Me.C_ShowCommsMessages = New System.Windows.Forms.CheckBox()
+        Me.T_CommsLog = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.B_StopLogging = New System.Windows.Forms.Button()
+        Me.B_StartLogging = New System.Windows.Forms.Button()
+        Me.L_FileName = New System.Windows.Forms.Label()
+        Me.B_CreateLogFile = New System.Windows.Forms.Button()
+        Me.L_Status = New System.Windows.Forms.Label()
+        Me.B_Connect_Datastream = New System.Windows.Forms.Button()
+        Me.ComboBox_SerialPort = New System.Windows.Forms.ComboBox()
+        Me.L_CommStatusColour = New System.Windows.Forms.Label()
+        Me.NUD_DataRate = New System.Windows.Forms.NumericUpDown()
+        Me.B_ResetComms = New System.Windows.Forms.Button()
+        Me.L_AFR = New System.Windows.Forms.Label()
+        Me.B_ViewDataLog = New System.Windows.Forms.Button()
+        Me.L_BasicData = New System.Windows.Forms.Label()
         Me.SerialPort1 = New System.IO.Ports.SerialPort(Me.components)
-        Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog
-        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog
+        Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
+        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.Timer_UpdateGUI = New System.Windows.Forms.Timer(Me.components)
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
-        Me.C_WidebandO2Sensor = New System.Windows.Forms.CheckBox
-        Me.L_Ov = New System.Windows.Forms.Label
-        Me.NUD_Widband0v = New System.Windows.Forms.NumericUpDown
-        Me.NUD_Widband5v = New System.Windows.Forms.NumericUpDown
-        Me.L_5V = New System.Windows.Forms.Label
-        Me.C_CreateConvertedFile = New System.Windows.Forms.CheckBox
-        Me.L_NewDataPercentage = New System.Windows.Forms.Label
+        Me.C_WidebandO2Sensor = New System.Windows.Forms.CheckBox()
+        Me.L_Ov = New System.Windows.Forms.Label()
+        Me.NUD_Widband0v = New System.Windows.Forms.NumericUpDown()
+        Me.NUD_Widband5v = New System.Windows.Forms.NumericUpDown()
+        Me.L_5V = New System.Windows.Forms.Label()
+        Me.C_CreateConvertedFile = New System.Windows.Forms.CheckBox()
+        Me.L_NewDataPercentage = New System.Windows.Forms.Label()
         CType(Me.NUD_DataRate, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_Widband0v, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_Widband5v, System.ComponentModel.ISupportInitialize).BeginInit()

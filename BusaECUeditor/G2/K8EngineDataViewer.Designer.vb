@@ -43,15 +43,14 @@ Partial Class K8EngineDataViewer
         Me.B_SaveTargetAFR = New System.Windows.Forms.Button()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.R_DataCount = New System.Windows.Forms.RadioButton()
         Me.R_TPSRPM = New System.Windows.Forms.RadioButton()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.R_BOOSTRPM = New System.Windows.Forms.RadioButton()
         Me.R_IAPRPM = New System.Windows.Forms.RadioButton()
-        Me.L_CellDataCount = New System.Windows.Forms.Label()
         Me.B_AutoTune = New System.Windows.Forms.Button()
         Me.L_AvgTPS = New System.Windows.Forms.Label()
-        Me.R_DataCount = New System.Windows.Forms.RadioButton()
-        Me.L_AvgAFR = New System.Windows.Forms.Label()
+        Me.L_CellInfo = New System.Windows.Forms.Label()
         CType(Me.N_MinTPS, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.G_FuelMap, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -230,6 +229,17 @@ Partial Class K8EngineDataViewer
         Me.GroupBox1.TabIndex = 32
         Me.GroupBox1.TabStop = False
         '
+        'R_DataCount
+        '
+        Me.R_DataCount.AutoSize = True
+        Me.R_DataCount.Location = New System.Drawing.Point(97, 9)
+        Me.R_DataCount.Name = "R_DataCount"
+        Me.R_DataCount.Size = New System.Drawing.Size(79, 17)
+        Me.R_DataCount.TabIndex = 29
+        Me.R_DataCount.TabStop = True
+        Me.R_DataCount.Text = "Data Count"
+        Me.R_DataCount.UseVisualStyleBackColor = True
+        '
         'R_TPSRPM
         '
         Me.R_TPSRPM.AutoSize = True
@@ -273,15 +283,6 @@ Partial Class K8EngineDataViewer
         Me.R_IAPRPM.Text = "IAP/RPM"
         Me.R_IAPRPM.UseVisualStyleBackColor = True
         '
-        'L_CellDataCount
-        '
-        Me.L_CellDataCount.Location = New System.Drawing.Point(965, 3)
-        Me.L_CellDataCount.Name = "L_CellDataCount"
-        Me.L_CellDataCount.Size = New System.Drawing.Size(100, 18)
-        Me.L_CellDataCount.TabIndex = 35
-        Me.L_CellDataCount.Text = "-"
-        Me.L_CellDataCount.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
         'B_AutoTune
         '
         Me.B_AutoTune.Location = New System.Drawing.Point(379, 29)
@@ -295,41 +296,30 @@ Partial Class K8EngineDataViewer
         'L_AvgTPS
         '
         Me.L_AvgTPS.AutoSize = True
-        Me.L_AvgTPS.Location = New System.Drawing.Point(894, 20)
+        Me.L_AvgTPS.Location = New System.Drawing.Point(898, 28)
         Me.L_AvgTPS.Name = "L_AvgTPS"
         Me.L_AvgTPS.Size = New System.Drawing.Size(10, 13)
         Me.L_AvgTPS.TabIndex = 37
         Me.L_AvgTPS.Text = "-"
         '
-        'R_DataCount
+        'L_CellInfo
         '
-        Me.R_DataCount.AutoSize = True
-        Me.R_DataCount.Location = New System.Drawing.Point(97, 9)
-        Me.R_DataCount.Name = "R_DataCount"
-        Me.R_DataCount.Size = New System.Drawing.Size(79, 17)
-        Me.R_DataCount.TabIndex = 29
-        Me.R_DataCount.TabStop = True
-        Me.R_DataCount.Text = "Data Count"
-        Me.R_DataCount.UseVisualStyleBackColor = True
-        '
-        'L_AvgAFR
-        '
-        Me.L_AvgAFR.AutoSize = True
-        Me.L_AvgAFR.Location = New System.Drawing.Point(894, 3)
-        Me.L_AvgAFR.Name = "L_AvgAFR"
-        Me.L_AvgAFR.Size = New System.Drawing.Size(10, 13)
-        Me.L_AvgAFR.TabIndex = 38
-        Me.L_AvgAFR.Text = "-"
+        Me.L_CellInfo.AutoSize = True
+        Me.L_CellInfo.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.L_CellInfo.Location = New System.Drawing.Point(436, 1)
+        Me.L_CellInfo.Name = "L_CellInfo"
+        Me.L_CellInfo.Size = New System.Drawing.Size(19, 26)
+        Me.L_CellInfo.TabIndex = 39
+        Me.L_CellInfo.Text = "-"
         '
         'K8EngineDataViewer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1077, 717)
-        Me.Controls.Add(Me.L_AvgAFR)
+        Me.Controls.Add(Me.L_CellInfo)
         Me.Controls.Add(Me.L_AvgTPS)
         Me.Controls.Add(Me.B_AutoTune)
-        Me.Controls.Add(Me.L_CellDataCount)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.B_SaveTargetAFR)
         Me.Controls.Add(Me.B_LoadTargetAFR)
@@ -381,9 +371,8 @@ Partial Class K8EngineDataViewer
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents R_IAPRPM As System.Windows.Forms.RadioButton
     Friend WithEvents R_BOOSTRPM As System.Windows.Forms.RadioButton
-    Friend WithEvents L_CellDataCount As System.Windows.Forms.Label
     Friend WithEvents B_AutoTune As System.Windows.Forms.Button
     Friend WithEvents L_AvgTPS As System.Windows.Forms.Label
     Friend WithEvents R_DataCount As System.Windows.Forms.RadioButton
-    Friend WithEvents L_AvgAFR As System.Windows.Forms.Label
+    Friend WithEvents L_CellInfo As System.Windows.Forms.Label
 End Class
