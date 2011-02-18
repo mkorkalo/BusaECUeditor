@@ -91,6 +91,7 @@ Partial Class main
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.K8EUAU21H50EarlyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -135,202 +136,202 @@ Partial Class main
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem3, Me.ToolStripMenuItem1, Me.ToolStripMenuItem4, Me.ToolStripSeparator6, Me.GixxerK5K6EnginedataOnlyToolStripMenuItem, Me.ToolStripSeparator2, Me.OpenToolStripMenuItem, Me.SaveToolStripMenuItem, Me.OpenComparemapToolStripMenuItem, Me.ExitToolStripMenuItem, Me.ToolStripSeparator1, Me.RecoveryToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.K2K724FK0ToolStripMenuItem, Me.K2K724FG0ToolStripMenuItem, Me.K8EUUSAU15HToolStripMenuItem})
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(206, 22)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(207, 22)
         Me.ToolStripMenuItem3.Text = "New/Stock Hayabusa"
         '
         'K2K724FK0ToolStripMenuItem
         '
         Me.K2K724FK0ToolStripMenuItem.Name = "K2K724FK0ToolStripMenuItem"
-        Me.K2K724FK0ToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
+        Me.K2K724FK0ToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
         Me.K2K724FK0ToolStripMenuItem.Text = "K2-K7 US (24FK0)"
         '
         'K2K724FG0ToolStripMenuItem
         '
         Me.K2K724FG0ToolStripMenuItem.Name = "K2K724FG0ToolStripMenuItem"
-        Me.K2K724FG0ToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
+        Me.K2K724FG0ToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
         Me.K2K724FG0ToolStripMenuItem.Text = "K2-K7 EU/AU (24FG0)"
         '
         'K8EUUSAU15HToolStripMenuItem
         '
         Me.K8EUUSAU15HToolStripMenuItem.Name = "K8EUUSAU15HToolStripMenuItem"
-        Me.K8EUUSAU15HToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
+        Me.K8EUUSAU15HToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
         Me.K8EUUSAU15HToolStripMenuItem.Text = "K8-   (15H**)"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.USModelToolStripMenuItem, Me.EUAUModelToolStripMenuItem})
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(206, 22)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(207, 22)
         Me.ToolStripMenuItem1.Text = "New/Stock Bking"
         '
         'USModelToolStripMenuItem
         '
         Me.USModelToolStripMenuItem.Name = "USModelToolStripMenuItem"
-        Me.USModelToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.USModelToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
         Me.USModelToolStripMenuItem.Text = "US model"
         '
         'EUAUModelToolStripMenuItem
         '
         Me.EUAUModelToolStripMenuItem.Name = "EUAUModelToolStripMenuItem"
-        Me.EUAUModelToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.EUAUModelToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
         Me.EUAUModelToolStripMenuItem.Text = "EU/AU model"
         '
         'ToolStripMenuItem4
         '
-        Me.ToolStripMenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewStockGixxerK721H00ToolStripMenuItem, Me.ToolStripMenuItem2, Me.NewStockGixxerK721H50ToolStripMenuItem, Me.NewStockGixxerK721H60ToolStripMenuItem, Me.ToolStripMenuItem5, Me.NewStockGixxerK821H50ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem1})
+        Me.ToolStripMenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewStockGixxerK721H00ToolStripMenuItem, Me.ToolStripMenuItem2, Me.NewStockGixxerK721H50ToolStripMenuItem, Me.NewStockGixxerK721H60ToolStripMenuItem, Me.ToolStripMenuItem5, Me.K8EUAU21H50EarlyToolStripMenuItem, Me.NewStockGixxerK821H50ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem1})
         Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
-        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(206, 22)
+        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(207, 22)
         Me.ToolStripMenuItem4.Text = "New/Stock Gixxer K7-K11"
         '
         'NewStockGixxerK721H00ToolStripMenuItem
         '
         Me.NewStockGixxerK721H00ToolStripMenuItem.Name = "NewStockGixxerK721H00ToolStripMenuItem"
-        Me.NewStockGixxerK721H00ToolStripMenuItem.Size = New System.Drawing.Size(193, 22)
+        Me.NewStockGixxerK721H00ToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
         Me.NewStockGixxerK721H00ToolStripMenuItem.Text = "K7 EU/AU (21H00)"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(193, 22)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(200, 22)
         Me.ToolStripMenuItem2.Text = "K7 US (21H10)"
         '
         'NewStockGixxerK721H50ToolStripMenuItem
         '
         Me.NewStockGixxerK721H50ToolStripMenuItem.Name = "NewStockGixxerK721H50ToolStripMenuItem"
-        Me.NewStockGixxerK721H50ToolStripMenuItem.Size = New System.Drawing.Size(193, 22)
+        Me.NewStockGixxerK721H50ToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
         Me.NewStockGixxerK721H50ToolStripMenuItem.Text = "K7 EU/AU (21H50)"
         '
         'NewStockGixxerK721H60ToolStripMenuItem
         '
         Me.NewStockGixxerK721H60ToolStripMenuItem.Name = "NewStockGixxerK721H60ToolStripMenuItem"
-        Me.NewStockGixxerK721H60ToolStripMenuItem.Size = New System.Drawing.Size(193, 22)
+        Me.NewStockGixxerK721H60ToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
         Me.NewStockGixxerK721H60ToolStripMenuItem.Text = "K7 US (21H60)"
         '
         'ToolStripMenuItem5
         '
         Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
-        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(193, 22)
+        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(200, 22)
         Me.ToolStripMenuItem5.Text = "K7 CAL (21H70)"
         '
         'NewStockGixxerK821H50ToolStripMenuItem
         '
         Me.NewStockGixxerK821H50ToolStripMenuItem.Name = "NewStockGixxerK821H50ToolStripMenuItem"
-        Me.NewStockGixxerK821H50ToolStripMenuItem.Size = New System.Drawing.Size(193, 22)
+        Me.NewStockGixxerK821H50ToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
         Me.NewStockGixxerK821H50ToolStripMenuItem.Text = "K8 EU/AU (21H50)"
         '
         'NewStockGixxerK9K1147H10ToolStripMenuItem
         '
         Me.NewStockGixxerK9K1147H10ToolStripMenuItem.Name = "NewStockGixxerK9K1147H10ToolStripMenuItem"
-        Me.NewStockGixxerK9K1147H10ToolStripMenuItem.Size = New System.Drawing.Size(193, 22)
+        Me.NewStockGixxerK9K1147H10ToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
         Me.NewStockGixxerK9K1147H10ToolStripMenuItem.Text = "K9-K11 EU/AU (47H00)"
         '
         'NewStockGixxerK9K1147H10ToolStripMenuItem1
         '
         Me.NewStockGixxerK9K1147H10ToolStripMenuItem1.Name = "NewStockGixxerK9K1147H10ToolStripMenuItem1"
-        Me.NewStockGixxerK9K1147H10ToolStripMenuItem1.Size = New System.Drawing.Size(193, 22)
+        Me.NewStockGixxerK9K1147H10ToolStripMenuItem1.Size = New System.Drawing.Size(200, 22)
         Me.NewStockGixxerK9K1147H10ToolStripMenuItem1.Text = "K9-K11 US (47H10)"
         '
         'ToolStripSeparator6
         '
         Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
-        Me.ToolStripSeparator6.Size = New System.Drawing.Size(203, 6)
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(204, 6)
         '
         'GixxerK5K6EnginedataOnlyToolStripMenuItem
         '
         Me.GixxerK5K6EnginedataOnlyToolStripMenuItem.Name = "GixxerK5K6EnginedataOnlyToolStripMenuItem"
-        Me.GixxerK5K6EnginedataOnlyToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
+        Me.GixxerK5K6EnginedataOnlyToolStripMenuItem.Size = New System.Drawing.Size(207, 22)
         Me.GixxerK5K6EnginedataOnlyToolStripMenuItem.Text = "Enginedata only mode"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(203, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(204, 6)
         '
         'OpenToolStripMenuItem
         '
         Me.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
-        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
+        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(207, 22)
         Me.OpenToolStripMenuItem.Text = "Open"
         '
         'SaveToolStripMenuItem
         '
         Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
+        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(207, 22)
         Me.SaveToolStripMenuItem.Text = "Save"
         '
         'OpenComparemapToolStripMenuItem
         '
         Me.OpenComparemapToolStripMenuItem.Name = "OpenComparemapToolStripMenuItem"
-        Me.OpenComparemapToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
+        Me.OpenComparemapToolStripMenuItem.Size = New System.Drawing.Size(207, 22)
         Me.OpenComparemapToolStripMenuItem.Text = "Set Compare Map"
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(207, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(203, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(204, 6)
         '
         'RecoveryToolStripMenuItem
         '
         Me.RecoveryToolStripMenuItem.Name = "RecoveryToolStripMenuItem"
-        Me.RecoveryToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
+        Me.RecoveryToolStripMenuItem.Size = New System.Drawing.Size(207, 22)
         Me.RecoveryToolStripMenuItem.Text = "Map recovery"
         '
         'SetupToolStripMenuItem
         '
         Me.SetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InstallFTDIDriversToolStripMenuItem, Me.SetupCOMPortToolStripMenuItem, Me.ToolStripSeparator5, Me.BuyInterfaceFromEBayToolStripMenuItem})
         Me.SetupToolStripMenuItem.Name = "SetupToolStripMenuItem"
-        Me.SetupToolStripMenuItem.Size = New System.Drawing.Size(90, 20)
+        Me.SetupToolStripMenuItem.Size = New System.Drawing.Size(86, 20)
         Me.SetupToolStripMenuItem.Text = "Bike Interface"
         '
         'InstallFTDIDriversToolStripMenuItem
         '
         Me.InstallFTDIDriversToolStripMenuItem.Name = "InstallFTDIDriversToolStripMenuItem"
-        Me.InstallFTDIDriversToolStripMenuItem.Size = New System.Drawing.Size(199, 22)
+        Me.InstallFTDIDriversToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
         Me.InstallFTDIDriversToolStripMenuItem.Tag = "This will install the com port drivers that are needed to run the interface."
         Me.InstallFTDIDriversToolStripMenuItem.Text = "Install COM port drivers"
         '
         'SetupCOMPortToolStripMenuItem
         '
         Me.SetupCOMPortToolStripMenuItem.Name = "SetupCOMPortToolStripMenuItem"
-        Me.SetupCOMPortToolStripMenuItem.Size = New System.Drawing.Size(199, 22)
+        Me.SetupCOMPortToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
         Me.SetupCOMPortToolStripMenuItem.Tag = resources.GetString("SetupCOMPortToolStripMenuItem.Tag")
         Me.SetupCOMPortToolStripMenuItem.Text = "Setup COM port"
         '
         'ToolStripSeparator5
         '
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
-        Me.ToolStripSeparator5.Size = New System.Drawing.Size(196, 6)
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(197, 6)
         '
         'BuyInterfaceFromEBayToolStripMenuItem
         '
         Me.BuyInterfaceFromEBayToolStripMenuItem.Name = "BuyInterfaceFromEBayToolStripMenuItem"
-        Me.BuyInterfaceFromEBayToolStripMenuItem.Size = New System.Drawing.Size(199, 22)
+        Me.BuyInterfaceFromEBayToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
         Me.BuyInterfaceFromEBayToolStripMenuItem.Text = "Get interface from eBay"
         '
         'FlashToolStripMenuItem
         '
         Me.FlashToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerifyChecksumToolStripMenuItem, Me.VerifyECUToolStripMenuItem, Me.FullEraseToolStripMenuItem, Me.FlashTheECUToolStripMenuItem})
         Me.FlashToolStripMenuItem.Name = "FlashToolStripMenuItem"
-        Me.FlashToolStripMenuItem.Size = New System.Drawing.Size(73, 20)
+        Me.FlashToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
         Me.FlashToolStripMenuItem.Text = "ECU Tools"
         '
         'VerifyChecksumToolStripMenuItem
         '
         Me.VerifyChecksumToolStripMenuItem.Name = "VerifyChecksumToolStripMenuItem"
-        Me.VerifyChecksumToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
+        Me.VerifyChecksumToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.VerifyChecksumToolStripMenuItem.Text = "Verify Checksum"
         Me.VerifyChecksumToolStripMenuItem.ToolTipText = "Verify checksum command is a fast way of ensuring that ecu has same image as in t" & _
             "he computer memory, this only compares checksum and therefore result is not 100%" & _
@@ -339,14 +340,14 @@ Partial Class main
         'VerifyECUToolStripMenuItem
         '
         Me.VerifyECUToolStripMenuItem.Name = "VerifyECUToolStripMenuItem"
-        Me.VerifyECUToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
+        Me.VerifyECUToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.VerifyECUToolStripMenuItem.Text = "Verify/Read"
         Me.VerifyECUToolStripMenuItem.ToolTipText = resources.GetString("VerifyECUToolStripMenuItem.ToolTipText")
         '
         'FullEraseToolStripMenuItem
         '
         Me.FullEraseToolStripMenuItem.Name = "FullEraseToolStripMenuItem"
-        Me.FullEraseToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
+        Me.FullEraseToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.FullEraseToolStripMenuItem.Text = "Full Erase"
         Me.FullEraseToolStripMenuItem.ToolTipText = "Use full erase in case ecu becomes locked or flashing fails constantly. This is l" & _
             "ike a format computer command that erases all data and allows full image being w" & _
@@ -355,7 +356,7 @@ Partial Class main
         'FlashTheECUToolStripMenuItem
         '
         Me.FlashTheECUToolStripMenuItem.Name = "FlashTheECUToolStripMenuItem"
-        Me.FlashTheECUToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
+        Me.FlashTheECUToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.FlashTheECUToolStripMenuItem.Text = "Flash"
         Me.FlashTheECUToolStripMenuItem.ToolTipText = "This is the normal flash command, similar as the button on main screen."
         '
@@ -363,53 +364,53 @@ Partial Class main
         '
         Me.AboutToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProgramInfoToolStripMenuItem, Me.VersionToolStripMenuItem, Me.ToolStripSeparator4, Me.DonateForKeepingTheProgramFreeToolStripMenuItem, Me.ToolStripSeparator3, Me.EcueditorcomHomepageToolStripMenuItem, Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem, Me.ReportABugToolStripMenuItem})
         Me.AboutToolStripMenuItem1.Name = "AboutToolStripMenuItem1"
-        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(52, 20)
+        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(48, 20)
         Me.AboutToolStripMenuItem1.Text = "About"
         '
         'ProgramInfoToolStripMenuItem
         '
         Me.ProgramInfoToolStripMenuItem.Name = "ProgramInfoToolStripMenuItem"
-        Me.ProgramInfoToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
+        Me.ProgramInfoToolStripMenuItem.Size = New System.Drawing.Size(187, 22)
         Me.ProgramInfoToolStripMenuItem.Text = "Program info"
         '
         'VersionToolStripMenuItem
         '
         Me.VersionToolStripMenuItem.Name = "VersionToolStripMenuItem"
-        Me.VersionToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
+        Me.VersionToolStripMenuItem.Size = New System.Drawing.Size(187, 22)
         Me.VersionToolStripMenuItem.Text = "Version"
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(183, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(184, 6)
         '
         'DonateForKeepingTheProgramFreeToolStripMenuItem
         '
         Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Name = "DonateForKeepingTheProgramFreeToolStripMenuItem"
-        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
+        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Size = New System.Drawing.Size(187, 22)
         Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Text = "Donate with PayPal"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(183, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(184, 6)
         '
         'EcueditorcomHomepageToolStripMenuItem
         '
         Me.EcueditorcomHomepageToolStripMenuItem.Name = "EcueditorcomHomepageToolStripMenuItem"
-        Me.EcueditorcomHomepageToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
+        Me.EcueditorcomHomepageToolStripMenuItem.Size = New System.Drawing.Size(187, 22)
         Me.EcueditorcomHomepageToolStripMenuItem.Text = "View ecueditor.com"
         '
         'ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem
         '
         Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Name = "ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem"
-        Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
+        Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Size = New System.Drawing.Size(187, 22)
         Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Text = "View version history"
         '
         'ReportABugToolStripMenuItem
         '
         Me.ReportABugToolStripMenuItem.Name = "ReportABugToolStripMenuItem"
-        Me.ReportABugToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
+        Me.ReportABugToolStripMenuItem.Size = New System.Drawing.Size(187, 22)
         Me.ReportABugToolStripMenuItem.Text = "View and report bugs"
         '
         'B_Limiters
@@ -619,6 +620,12 @@ Partial Class main
         Me.Button1.Text = ">>"
         Me.Button1.UseVisualStyleBackColor = False
         '
+        'K8EUAU21H50EarlyToolStripMenuItem
+        '
+        Me.K8EUAU21H50EarlyToolStripMenuItem.Name = "K8EUAU21H50EarlyToolStripMenuItem"
+        Me.K8EUAU21H50EarlyToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
+        Me.K8EUAU21H50EarlyToolStripMenuItem.Text = "K8 EU/AU (21H50 early)"
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -726,5 +733,6 @@ Partial Class main
     Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents R_tw As System.Windows.Forms.RichTextBox
     Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents K8EUAU21H50EarlyToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class
