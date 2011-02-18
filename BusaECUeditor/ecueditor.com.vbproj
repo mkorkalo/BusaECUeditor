@@ -28,15 +28,15 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
-    <PublishUrl>\\AMD\wwwroot\ecueditor2.5\</PublishUrl>
+    <PublishUrl>\\amd\wwwroot\ecueditor2.5\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Background</UpdateMode>
-    <UpdateInterval>4</UpdateInterval>
+    <UpdateInterval>2</UpdateInterval>
     <UpdateIntervalUnits>Weeks</UpdateIntervalUnits>
     <UpdatePeriodically>true</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
+    <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
     <InstallUrl>http://macmadigan.no-ip.com/ecueditor2.5/</InstallUrl>
     <UpdateUrl>http://macmadigan.no-ip.com/ecueditor2.5/</UpdateUrl>
@@ -45,12 +45,11 @@
     <TargetCulture>en</TargetCulture>
     <ProductName>ecueditor.com for Hayabusa K2-K7, K8-, BKing and Gixxer1K K7-</ProductName>
     <PublisherName>ecueditor.com</PublisherName>
-    <MinimumRequiredVersion>2.5.1.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>2.5.2.45</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>ecueditor_prerelease.htm</WebPage>
-    <AutorunEnabled>true</AutorunEnabled>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>46</ApplicationRevision>
+    <ApplicationRevision>50</ApplicationRevision>
     <ApplicationVersion>2.5.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -678,6 +677,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ecu.bin\21H50_DJ0HSE01.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\G750K9.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="My Project\Application.myapp">

@@ -143,20 +143,25 @@ Practical limit is 400 after which the injectors are getting maxed out.
   </data>
   <data name="B_MSTP.ToolTip" xml:space="preserve">
     <value>
-MS TPS map is active when ecu pin 58 is not grounded.
+MS TPS map is active when ecu pin 66 is not grounded. With gixxer you also need
+to use advanced settings and enable map switching.
 
-As stock the pin 58 is grounded and MS0 i.e. normal TPS and IAP maps are active. 
+As stock the pin 66 is grounded and MS0 i.e. normal TPS and IAP maps are active. 
 
-You can put a switch into the pin 58 wire. To select the MS0 and MS1 mode.
+You can put a switch into the pin 66 wire. To select the MS0 and MS1 mode.
+
 </value>
   </data>
   <data name="B_MSIAP.ToolTip" xml:space="preserve">
     <value>
-MS IAP map is active when ecu pin 58 is not grounded.
+MS IAP map is active when ecu pin 66 is not grounded. With gixxer you also need
+to use advanced settings and enable map switching.
 
-As stock the pin 58 is grounded and MS0 i.e. normal TPS and IAP maps are active. 
+As stock the pin 66 is grounded and MS0 i.e. normal TPS and IAP maps are active. 
 
-You can put a switch into the pin 58 wire. To select the MS0 and MS1 mode.</value>
+You can put a switch into the pin 66 wire. To select the MS0 and MS1 mode.
+
+</value>
   </data>
   <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

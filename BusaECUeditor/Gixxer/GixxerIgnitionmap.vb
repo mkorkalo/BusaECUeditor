@@ -109,8 +109,12 @@ Public Class GixxerIgnitionmap
         '
         ' select tpsmap as first map to show, this will unify cylinder specific fuelmaps
         '
-        selectmap(2)
-        Ignitionmapvisible = True
+        If ReadFlashByte(gixxer_msmode) = 1 Then
+            selectmap(2)
+        Else
+            selectmap(1)
+        End If
+        IgnitionMapVisible = True
 
     End Sub
 

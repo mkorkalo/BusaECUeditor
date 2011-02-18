@@ -142,43 +142,49 @@ Public Class GixxerLimiters
 
         Me.Text = gixxer_modelname & " - Limiters"
 
-        '
-        ' Determine if gear limiters are on or off
-        '
-        If ReadFlashByte(gixxer_fuel_limiter_by_gear) <> &H80 Then
-            C_gearlimiter.Checked = True
-            C_gearlimiter.Text = "Gear limiters removed"
+        If gixxer_fuel_limiter_by_gear = 0 Then
+            MsgBox("feature not yet implemented")
+            Me.Close()
         Else
-            C_gearlimiter.Checked = False
-            C_gearlimiter.Text = "Gear limiters on"
-        End If
 
-        '
-        ' Determine if softcut is on or off
-        '
-        If ReadFlashByte(gixxer_fuel_limiter_softcut_or_hardcut) = &HFF Then
-            Hardcut.Checked = True
-            Hardcut.Text = "Fuel hardcut only"
-        Else
-            Hardcut.Checked = False
-            Hardcut.Text = "Fuel softcut enabled"
-        End If
+            '
+            ' Determine if gear limiters are on or off
+            '
+            If ReadFlashByte(gixxer_fuel_limiter_by_gear) <> &H80 Then
+                C_gearlimiter.Checked = True
+                C_gearlimiter.Text = "Gear limiters removed"
+            Else
+                C_gearlimiter.Checked = False
+                C_gearlimiter.Text = "Gear limiters on"
+            End If
+
+            '
+            ' Determine if softcut is on or off
+            '
+            If ReadFlashByte(gixxer_fuel_limiter_softcut_or_hardcut) = &HFF Then
+                Hardcut.Checked = True
+                Hardcut.Text = "Fuel hardcut only"
+            Else
+                Hardcut.Checked = False
+                Hardcut.Text = "Fuel softcut enabled"
+            End If
 
 
-        'populate RPM with initial value
-        i = ReadFlashWord(gixxer_RPM_limit_type1 + 6) ' this is the reference RPM that is stored in the system
-        i = Int(((rpmconv / (i + 0))) + 1)
-        i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
-        Me.RPM.Items.Add(i.ToString())
-        i = 10000
-        Do While i < 15500 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
+            'populate RPM with initial value
+            i = ReadFlashWord(gixxer_RPM_limit_type1 + 6) ' this is the reference RPM that is stored in the system
+            i = Int(((rpmconv / (i + 0))) + 1)
+            i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
             Me.RPM.Items.Add(i.ToString())
-            i = i + 100
-        Loop
-        Me.RPM.Items.Add(i.ToString())
+            i = 10000
+            Do While i < 15500 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
+                Me.RPM.Items.Add(i.ToString())
+                i = i + 100
+            Loop
+            Me.RPM.Items.Add(i.ToString())
 
-        Me.RPM.SelectedIndex = 0
-        Me.RPM.Enabled = True
+            Me.RPM.SelectedIndex = 0
+            Me.RPM.Enabled = True
+        End If
 
     End Sub
 

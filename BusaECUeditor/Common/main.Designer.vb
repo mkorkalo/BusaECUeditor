@@ -39,6 +39,7 @@ Partial Class main
         Me.NewStockGixxerK721H50ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewStockGixxerK721H60ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem5 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.K8EUAU21H50EarlyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewStockGixxerK821H50ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewStockGixxerK9K1147H10ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewStockGixxerK9K1147H10ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
@@ -91,7 +92,7 @@ Partial Class main
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.K8EUAU21H50EarlyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.K9EU38H00ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -185,7 +186,7 @@ Partial Class main
         '
         'ToolStripMenuItem4
         '
-        Me.ToolStripMenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewStockGixxerK721H00ToolStripMenuItem, Me.ToolStripMenuItem2, Me.NewStockGixxerK721H50ToolStripMenuItem, Me.NewStockGixxerK721H60ToolStripMenuItem, Me.ToolStripMenuItem5, Me.K8EUAU21H50EarlyToolStripMenuItem, Me.NewStockGixxerK821H50ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem1})
+        Me.ToolStripMenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewStockGixxerK721H00ToolStripMenuItem, Me.ToolStripMenuItem2, Me.NewStockGixxerK721H50ToolStripMenuItem, Me.NewStockGixxerK721H60ToolStripMenuItem, Me.ToolStripMenuItem5, Me.K8EUAU21H50EarlyToolStripMenuItem, Me.NewStockGixxerK821H50ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem1, Me.K9EU38H00ToolStripMenuItem})
         Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
         Me.ToolStripMenuItem4.Size = New System.Drawing.Size(207, 22)
         Me.ToolStripMenuItem4.Text = "New/Stock Gixxer K7-K11"
@@ -219,6 +220,12 @@ Partial Class main
         Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
         Me.ToolStripMenuItem5.Size = New System.Drawing.Size(200, 22)
         Me.ToolStripMenuItem5.Text = "K7 CAL (21H70)"
+        '
+        'K8EUAU21H50EarlyToolStripMenuItem
+        '
+        Me.K8EUAU21H50EarlyToolStripMenuItem.Name = "K8EUAU21H50EarlyToolStripMenuItem"
+        Me.K8EUAU21H50EarlyToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
+        Me.K8EUAU21H50EarlyToolStripMenuItem.Text = "K8 EU/AU (21H50 early)"
         '
         'NewStockGixxerK821H50ToolStripMenuItem
         '
@@ -620,11 +627,11 @@ Partial Class main
         Me.Button1.Text = ">>"
         Me.Button1.UseVisualStyleBackColor = False
         '
-        'K8EUAU21H50EarlyToolStripMenuItem
+        'K9EU38H00ToolStripMenuItem
         '
-        Me.K8EUAU21H50EarlyToolStripMenuItem.Name = "K8EUAU21H50EarlyToolStripMenuItem"
-        Me.K8EUAU21H50EarlyToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
-        Me.K8EUAU21H50EarlyToolStripMenuItem.Text = "K8 EU/AU (21H50 early)"
+        Me.K9EU38H00ToolStripMenuItem.Name = "K9EU38H00ToolStripMenuItem"
+        Me.K9EU38H00ToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
+        Me.K9EU38H00ToolStripMenuItem.Text = "750K9 EU (38H00)"
         '
         'main
         '
@@ -734,5 +741,6 @@ Partial Class main
     Friend WithEvents R_tw As System.Windows.Forms.RichTextBox
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents K8EUAU21H50EarlyToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents K9EU38H00ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class
