@@ -219,7 +219,7 @@ skip_update:
             Case "gixxer"
                 K8Datastream.Show()
                 K8Datastream.Select()
-            Case "GixxerK5"
+            Case "enginedata"
                 K8Datastream.Show()
                 K8Datastream.Select()
             Case Else
@@ -3512,10 +3512,23 @@ skip_update:
                 B_IgnitionMap.Enabled = True
                 B_AdvancedSettings.Enabled = True
 
-            Case "41G10___"
-                Hayabusa.Text = "Gixxer K5-K6 enginedata only"
+            Case "US______"
+                Hayabusa.Text = "Enginedata only mode imperial"
                 Metric = False
-                ECUVersion = "GixxerK5"
+                ECUVersion = "enginedata"
+                Limiters.C_RPM.Enabled = False
+                B_Limiters.Enabled = False
+                B_Shifter.Enabled = False
+                B_FuelMap.Enabled = False
+                B_IgnitionMap.Enabled = False
+                B_AdvancedSettings.Enabled = False
+                B_DataLogging.Enabled = True
+                B_FlashECU.Enabled = False
+                SaveToolStripMenuItem.Enabled = False
+            Case "EU______"
+                Hayabusa.Text = "Enginedata only mode metric"
+                Metric = True
+                ECUVersion = "enginedata"
                 Limiters.C_RPM.Enabled = False
                 B_Limiters.Enabled = False
                 B_Shifter.Enabled = False
@@ -4939,7 +4952,7 @@ skip_update:
         L_Comparefile.Text = ""
         DisableButtons()
 
-        ECUID.Text = "41G10___"
+        ECUID.Text = "US________"
         SetECUType()
 
         ' enable controls, otherwise at form load an event will occur
@@ -5860,6 +5873,19 @@ skip_update:
 
     Private Sub EcueditorcomfacebookToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EcueditorcomfacebookToolStripMenuItem.Click
         Process.Start("http://www.facebook.com/pages/ecueditorcom/133860313347043#!/pages/ecueditorcom/133860313347043")
+    End Sub
+
+    Private Sub EnginedataOnlyModeMetricToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EnginedataOnlyModeMetricToolStripMenuItem.Click
+        CloseChildWindows()
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        DisableButtons()
+
+        ECUID.Text = "EU________"
+        SetECUType()
+
+        ' enable controls, otherwise at form load an event will occur
+        B_EngineData.Enabled = True
     End Sub
 End Class
 

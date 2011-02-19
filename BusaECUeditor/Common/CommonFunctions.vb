@@ -799,7 +799,7 @@ Module CommonFunctions
 
                 End If
 
-            ElseIf ECUVersion = "GixxerK5" Then
+            ElseIf ECUVersion = "enginedata" Then
 
                 Return 10400
 

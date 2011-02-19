@@ -19,119 +19,118 @@ Partial Class K8Datastream
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(K8Datastream))
-        Me.ComboBox_Serialport = New System.Windows.Forms.ComboBox
-        Me.T_datacomm = New System.Windows.Forms.TextBox
+        Me.ComboBox_Serialport = New System.Windows.Forms.ComboBox()
+        Me.T_datacomm = New System.Windows.Forms.TextBox()
         Me.SerialPort1 = New System.IO.Ports.SerialPort(Me.components)
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
-        Me.LED_RPM = New LxControl.LxLedControl
-        Me.LED_IGN = New LxControl.LxLedControl
-        Me.LED_CLT = New LxControl.LxLedControl
-        Me.L_CLT = New System.Windows.Forms.Label
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.LED_TPS = New LxControl.LxLedControl
-        Me.LED_IAP = New LxControl.LxLedControl
-        Me.B_Clear_DTC = New System.Windows.Forms.Button
-        Me.B_Connect_Datastream = New System.Windows.Forms.Button
-        Me.L_MS = New System.Windows.Forms.Label
-        Me.L_Clutch = New System.Windows.Forms.Label
-        Me.L_NT = New System.Windows.Forms.Label
-        Me.LED_HO2 = New LxControl.LxLedControl
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.AquaGauge1 = New AquaControls.AquaGauge
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.LED_IAPabs = New LxControl.LxLedControl
-        Me.LED_SAPabs = New LxControl.LxLedControl
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.LED_IAT = New LxControl.LxLedControl
-        Me.L_IAT = New System.Windows.Forms.Label
-        Me.LED_FUEL = New LxControl.LxLedControl
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.LED_BATT = New LxControl.LxLedControl
-        Me.LED_GEAR = New LxControl.LxLedControl
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.A_CLT = New AGauge.AGauge
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox
-        Me.L_modeC = New System.Windows.Forms.Label
-        Me.L_modeB = New System.Windows.Forms.Label
-        Me.L_modeA = New System.Windows.Forms.Label
-        Me.L_CLThigh = New System.Windows.Forms.Label
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.LED_TIME = New LxControl.LxLedControl
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox
-        Me.ListBox1 = New System.Windows.Forms.ListBox
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox
-        Me.L_msg = New System.Windows.Forms.Label
-        Me.L_PAIR = New System.Windows.Forms.Label
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.B_Enginedatalog = New System.Windows.Forms.Button
-        Me.L_comms = New System.Windows.Forms.Label
-        Me.T_2180 = New System.Windows.Forms.TextBox
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox
-        Me.pwrpm = New System.Windows.Forms.Label
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.L_ramair = New System.Windows.Forms.Label
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.L_seccyl4 = New System.Windows.Forms.Label
-        Me.L_seccyl3 = New System.Windows.Forms.Label
-        Me.L_seccyl2 = New System.Windows.Forms.Label
-        Me.L_seccyl1 = New System.Windows.Forms.Label
-        Me.L_pricyl4 = New System.Windows.Forms.Label
-        Me.L_pricyl3 = New System.Windows.Forms.Label
-        Me.L_pricyl2 = New System.Windows.Forms.Label
-        Me.L_pricyl1 = New System.Windows.Forms.Label
-        Me.L_Secondaries = New System.Windows.Forms.Label
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.L_primaries = New System.Windows.Forms.Label
-        Me.Label21 = New System.Windows.Forms.Label
-        Me.L_basefuel = New System.Windows.Forms.Label
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.T_21C0 = New System.Windows.Forms.TextBox
-        Me.B_stop_engine = New System.Windows.Forms.Button
-        Me.Label23 = New System.Windows.Forms.Label
-        Me.T_2108 = New System.Windows.Forms.TextBox
-        Me.GroupBox7 = New System.Windows.Forms.GroupBox
-        Me.L_STP = New System.Windows.Forms.Label
-        Me.Label33 = New System.Windows.Forms.Label
-        Me.Label32 = New System.Windows.Forms.Label
-        Me.LED_DUTY = New LxControl.LxLedControl
-        Me.L_cov4 = New System.Windows.Forms.Label
-        Me.L_cov3 = New System.Windows.Forms.Label
-        Me.L_cov2 = New System.Windows.Forms.Label
-        Me.L_cov1 = New System.Windows.Forms.Label
-        Me.L_covabc = New System.Windows.Forms.Label
-        Me.Label30 = New System.Windows.Forms.Label
-        Me.Label29 = New System.Windows.Forms.Label
-        Me.Label28 = New System.Windows.Forms.Label
-        Me.Label27 = New System.Windows.Forms.Label
-        Me.Label26 = New System.Windows.Forms.Label
-        Me.L_sec = New System.Windows.Forms.Label
-        Me.L_prim = New System.Windows.Forms.Label
-        Me.Label25 = New System.Windows.Forms.Label
-        Me.Label24 = New System.Windows.Forms.Label
-        Me.L_performanceindex = New System.Windows.Forms.Label
-        Me.L_perftext = New System.Windows.Forms.Label
-        Me.Label31 = New System.Windows.Forms.Label
-        Me.C_debug = New System.Windows.Forms.Button
+        Me.LED_RPM = New LxControl.LxLedControl()
+        Me.LED_IGN = New LxControl.LxLedControl()
+        Me.LED_CLT = New LxControl.LxLedControl()
+        Me.L_CLT = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.LED_TPS = New LxControl.LxLedControl()
+        Me.LED_IAP = New LxControl.LxLedControl()
+        Me.B_Clear_DTC = New System.Windows.Forms.Button()
+        Me.B_Connect_Datastream = New System.Windows.Forms.Button()
+        Me.L_MS = New System.Windows.Forms.Label()
+        Me.L_Clutch = New System.Windows.Forms.Label()
+        Me.L_NT = New System.Windows.Forms.Label()
+        Me.LED_HO2 = New LxControl.LxLedControl()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.AquaGauge1 = New AquaControls.AquaGauge()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.LED_IAPabs = New LxControl.LxLedControl()
+        Me.LED_SAPabs = New LxControl.LxLedControl()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.LED_IAT = New LxControl.LxLedControl()
+        Me.L_IAT = New System.Windows.Forms.Label()
+        Me.LED_FUEL = New LxControl.LxLedControl()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.LED_BATT = New LxControl.LxLedControl()
+        Me.LED_GEAR = New LxControl.LxLedControl()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.A_CLT = New AGauge.AGauge()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.L_modeC = New System.Windows.Forms.Label()
+        Me.L_modeB = New System.Windows.Forms.Label()
+        Me.L_modeA = New System.Windows.Forms.Label()
+        Me.L_CLThigh = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.LED_TIME = New LxControl.LxLedControl()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.ListBox1 = New System.Windows.Forms.ListBox()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.L_msg = New System.Windows.Forms.Label()
+        Me.L_PAIR = New System.Windows.Forms.Label()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.L_comms = New System.Windows.Forms.Label()
+        Me.T_2180 = New System.Windows.Forms.TextBox()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.pwrpm = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.L_ramair = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.L_seccyl4 = New System.Windows.Forms.Label()
+        Me.L_seccyl3 = New System.Windows.Forms.Label()
+        Me.L_seccyl2 = New System.Windows.Forms.Label()
+        Me.L_seccyl1 = New System.Windows.Forms.Label()
+        Me.L_pricyl4 = New System.Windows.Forms.Label()
+        Me.L_pricyl3 = New System.Windows.Forms.Label()
+        Me.L_pricyl2 = New System.Windows.Forms.Label()
+        Me.L_pricyl1 = New System.Windows.Forms.Label()
+        Me.L_Secondaries = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.L_primaries = New System.Windows.Forms.Label()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.L_basefuel = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.T_21C0 = New System.Windows.Forms.TextBox()
+        Me.B_stop_engine = New System.Windows.Forms.Button()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.T_2108 = New System.Windows.Forms.TextBox()
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.L_STP = New System.Windows.Forms.Label()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.LED_DUTY = New LxControl.LxLedControl()
+        Me.L_cov4 = New System.Windows.Forms.Label()
+        Me.L_cov3 = New System.Windows.Forms.Label()
+        Me.L_cov2 = New System.Windows.Forms.Label()
+        Me.L_cov1 = New System.Windows.Forms.Label()
+        Me.L_covabc = New System.Windows.Forms.Label()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.L_sec = New System.Windows.Forms.Label()
+        Me.L_prim = New System.Windows.Forms.Label()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.L_performanceindex = New System.Windows.Forms.Label()
+        Me.L_perftext = New System.Windows.Forms.Label()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.C_debug = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.B_ICS = New System.Windows.Forms.Button
-        Me.B_PAIR_ON = New System.Windows.Forms.Button
-        Me.B_PAIR_OFF = New System.Windows.Forms.Button
-        Me.B_FANOFF = New System.Windows.Forms.Button
-        Me.B_FANON = New System.Windows.Forms.Button
-        Me.L_ho2raw = New System.Windows.Forms.Label
+        Me.B_ICS = New System.Windows.Forms.Button()
+        Me.B_PAIR_ON = New System.Windows.Forms.Button()
+        Me.B_PAIR_OFF = New System.Windows.Forms.Button()
+        Me.B_FANOFF = New System.Windows.Forms.Button()
+        Me.B_FANON = New System.Windows.Forms.Button()
+        Me.L_ho2raw = New System.Windows.Forms.Label()
         CType(Me.LED_RPM, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_IGN, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_CLT, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -159,9 +158,9 @@ Partial Class K8Datastream
         '
         Me.ComboBox_Serialport.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox_Serialport.FormattingEnabled = True
-        Me.ComboBox_Serialport.Location = New System.Drawing.Point(82, 25)
+        Me.ComboBox_Serialport.Location = New System.Drawing.Point(70, 25)
         Me.ComboBox_Serialport.Name = "ComboBox_Serialport"
-        Me.ComboBox_Serialport.Size = New System.Drawing.Size(61, 21)
+        Me.ComboBox_Serialport.Size = New System.Drawing.Size(73, 21)
         Me.ComboBox_Serialport.TabIndex = 22
         '
         'T_datacomm
@@ -321,9 +320,9 @@ Partial Class K8Datastream
         '
         'B_Connect_Datastream
         '
-        Me.B_Connect_Datastream.Location = New System.Drawing.Point(81, 54)
+        Me.B_Connect_Datastream.Location = New System.Drawing.Point(70, 54)
         Me.B_Connect_Datastream.Name = "B_Connect_Datastream"
-        Me.B_Connect_Datastream.Size = New System.Drawing.Size(61, 27)
+        Me.B_Connect_Datastream.Size = New System.Drawing.Size(72, 27)
         Me.B_Connect_Datastream.TabIndex = 76
         Me.B_Connect_Datastream.Text = "Connect"
         Me.B_Connect_Datastream.UseVisualStyleBackColor = True
@@ -892,7 +891,6 @@ Partial Class K8Datastream
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.B_Enginedatalog)
         Me.GroupBox1.Controls.Add(Me.L_comms)
         Me.GroupBox1.Controls.Add(Me.ComboBox_Serialport)
         Me.GroupBox1.Controls.Add(Me.B_Connect_Datastream)
@@ -903,21 +901,12 @@ Partial Class K8Datastream
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Communication"
         '
-        'B_Enginedatalog
-        '
-        Me.B_Enginedatalog.Location = New System.Drawing.Point(14, 54)
-        Me.B_Enginedatalog.Name = "B_Enginedatalog"
-        Me.B_Enginedatalog.Size = New System.Drawing.Size(61, 27)
-        Me.B_Enginedatalog.TabIndex = 106
-        Me.B_Enginedatalog.Text = "Log a run"
-        Me.B_Enginedatalog.UseVisualStyleBackColor = True
-        '
         'L_comms
         '
         Me.L_comms.AutoSize = True
         Me.L_comms.Font = New System.Drawing.Font("Wingdings", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
         Me.L_comms.ForeColor = System.Drawing.Color.Firebrick
-        Me.L_comms.Location = New System.Drawing.Point(29, 25)
+        Me.L_comms.Location = New System.Drawing.Point(20, 25)
         Me.L_comms.Name = "L_comms"
         Me.L_comms.Size = New System.Drawing.Size(26, 23)
         Me.L_comms.TabIndex = 102
@@ -1131,7 +1120,7 @@ Partial Class K8Datastream
         Me.T_21C0.Name = "T_21C0"
         Me.T_21C0.Size = New System.Drawing.Size(347, 127)
         Me.T_21C0.TabIndex = 111
-         '
+        '
         'B_stop_engine
         '
         Me.B_stop_engine.Location = New System.Drawing.Point(12, 488)
@@ -1585,7 +1574,6 @@ Partial Class K8Datastream
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents L_CLThigh As System.Windows.Forms.Label
     Friend WithEvents L_comms As System.Windows.Forms.Label
-    Friend WithEvents B_Enginedatalog As System.Windows.Forms.Button
     Friend WithEvents T_2180 As System.Windows.Forms.TextBox
     Friend WithEvents L_modeC As System.Windows.Forms.Label
     Friend WithEvents L_modeB As System.Windows.Forms.Label
