@@ -1,15 +1,15 @@
 /*
 
-   	shiftergixxerK7.c
+	shiftergixxerk9.c
 	
-    This file is part of BusaECUeditor - ecueditor.com
+    This file is part of BusaECUeditor - Hayabusa ECUeditor
 
-    ecueditor.com is free software: you can redistribute it and/or modify
+    Hayabusa ECUeditor is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    ecueditor.com is distributed in the hope that it will be useful,
+    Hayabusa ECUeditor is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -22,24 +22,29 @@
     under this same license for free. For more information see paragraph 5
     of the GNU licence.
 
-	v1.00 first release for Gixxer K7,K8    - WORK IN PROGRESS
+	v1.00 first release for Hayabusa gen1
+	v1.01 added igncut and fuelcut const flags that can be set and pair output code
+	v2.00 changed to Hayabusa gen2 only, removed pair functionality and ignitioncut only for initial gen2 release
+	v2.01 lowest rpm when kill possible is now 2000rpm and only 500revs is needed before next kill
 	
 */
 
 /*
 	These are the RAM variable addresses that are internal to this subroutine
 */
-#define ECU_AD_GPS *(volatile unsigned short *)  		0x00804318 // Gixxer
-#define ECU_GPS	*(volatile unsigned char *)  			  0x008050FC // Gixxer
-#define ECU_RPM *(volatile unsigned short *)  			0x0080507A // Gixxer
-#define ECU_KillFlag *(volatile unsigned char *)  	0x0080657F // Gixxer
-#define IGN_KillFlag *(volatile unsigned char *)  	0x008063E2 // Gixxer
-#define PORT3   *(volatile unsigned char *)  				0x00804686 // Gixxer bit0=DSM2, bit1=DSM1
+
+#define ECU_AD_GPS *(volatile unsigned short *)                 0x00804318 // Gixxer K7-K9 all the same
+#define ECU_GPS            *(volatile unsigned char *)          0x00805123 // Gixxer K9:805123
+#define ECU_RPM *(volatile unsigned short *)                    0x00805096 // Gixxer K9:805096
+#define ECU_KillFlag *(volatile unsigned char *)                0x00806931 // Gixxer K9:806931
+#define IGN_KillFlag *(volatile unsigned char *)                0x0080674A // Gixxer K9:80674A
+#define PORT3   *(volatile unsigned char *)                     0x00804886 // K9:804886 Gixxer bit0=DSM2, bit1=DSM1
+
 /*
 	Internal variables for this subroutine only, these are borrowed from the ecu ram area using addresses
 	that are considered not having been assigned for any use.
 */
-#define ramaddr 										0x00806900 // Gixxer - this is the starting address for free ram area needed for this program
+#define ramaddr 										0x00807000 // This is the starting address for free ram area needed for this program
 #define killcount *(volatile unsigned short *)    		(ramaddr)
 #define killswitch *(volatile unsigned short *)   		(ramaddr + 4)
 #define killcountactive *(volatile unsigned short *) 	(ramaddr + 8)
@@ -53,6 +58,8 @@
 #define	duration_kill *(volatile unsigned short *)  	(ramaddr + 0x64 + 8)
 #define	minimum_killrpm *(volatile unsigned short *)  		(ramaddr + 0x64 + 12)
 
+#define BOOSTACTIVE *(volatile unsigned char *)  		0x00055800
+
 #define P8bit	*(volatile unsigned char *)					0x20
 #define ModeA						0x0
 #define ModeB						0x1
@@ -64,9 +71,8 @@
 /*
 	The shift kill variables are defined here, e.g kill times. These are adjusted using ecueditor.
 */
-
 #pragma SECTION C PARAMS //0x60800
-const short const_pgmid = 				100;			// 0 program id, must match to ecueditor version to be able to load this code to ecu
+const short const_pgmid = 				206;			// 0 program id, must match to ecueditor version to be able to load this code to ecu
 const short const_killtime_std = 		80;			// 2 kill times, these are egnie revolutions for the rpm range
 const short const_killtime_gear2 = 		80;			// 4
 const short const_killtime_gear3 = 		80;			// 6
@@ -95,7 +101,7 @@ const unsigned char	 DSMSELECTED =				0;		// 0x55420 Set this to 0x1 for DSM2 or
 /*
 	The fuelcut code, the program enters here each fuel calculation loop after calculating the limiters but before calculating the amount of fuel
 */
-#pragma SECTION P SHIFTERCODE //0x60900 Gixxer
+#pragma SECTION P SHIFTERCODE //0x60A00
 void shiftermain(void)
 {
 
@@ -104,6 +110,9 @@ void shiftermain(void)
 	*/		
  	if (initialized != 1)
   		{
+			/*killflag = DEACTIVE;
+   			killswitch = DEACTIVE;
+   			killcountactive= DEACTIVE;*/
    			initialized= 1;
 			killcount = killcountdelay;
   		}
@@ -241,6 +250,13 @@ void shiftermain(void)
 				ECU_KillFlag = ECU_KillFlag | CUTACTIVE; 
 			}
 
+	/*
+		This is the overboost limit that is checked if boostfuel module is loaded.
+	*/			
+	if ((BOOSTACTIVE != 0xFF ) && (overboost != 0))
+			{ 
+				ECU_KillFlag = ECU_KillFlag | CUTACTIVE; 
+			}
 
 
 /*
@@ -259,11 +275,19 @@ void shiftermain(void)
 		Use igncut only if parametrized to do so.
 		Set the ignitionkill on if KillFlag indicates that kill is active.
 */		
-#pragma SECTION P IGNCODE //0x60F00 Gixxer Check this after compiling the code
+#pragma SECTION P IGNCODE //0x60F00
 void ignmain(void)
 {
 	if (ignkillactive == ACTIVE)
 			if ( killflag == ACTIVE) 
+			{ 
+				IGN_KillFlag = IGN_KillFlag | CUTACTIVE; 
+			}
+
+	/*
+		This is the overboost limit that is checked if boostfuel module is loaded.
+	*/			
+	if ((BOOSTACTIVE != 0xFF ) && (overboost != 0))
 			{ 
 				IGN_KillFlag = IGN_KillFlag | CUTACTIVE; 
 			}
