@@ -5752,11 +5752,11 @@ skip_update:
         tw.AuthenticateWith(My.Settings.m_strConsumerKey, My.Settings.m_strConsumerSecret, "251085356-DYkUUNAZScLYtXXSBi5UyKgbJM7eKbfySFggeBuw", "6PiFsw8K1nDbP8zu9outK7I3SBelkE8gEHHKxSfwA")
         For Each tweet As TwitterStatus In tw.HomeTimeline()
             If tweets = False And latest_id <> tweet.ID Then
-                R_tw.Text = R_tw.Text & (tweet.User.ScreenName & " : " & tweet.Text) & Chr(13) & Chr(10)
+                If tweet.User.ScreenName = "ecueditor" Or tweet.User.ScreenName = "__petrik__" Then R_tw.Text = R_tw.Text & (tweet.User.ScreenName & " : " & tweet.Text) & Chr(13) & Chr(10)
                 latest = tweet.CreatedAt()
                 latest_id = tweet.ID
             ElseIf tweet.CreatedAt() >= latest And tweet.ID <> latest_id Then
-                R_tw.Text = (tweet.User.ScreenName & " : " & tweet.Text) & Chr(13) & Chr(10) & R_tw.Text
+                If tweet.User.ScreenName = "ecueditor" Or tweet.User.ScreenName = "__petrik__" Then R_tw.Text = (tweet.User.ScreenName & " : " & tweet.Text) & Chr(13) & Chr(10) & R_tw.Text
                 latest = tweet.CreatedAt()
                 latest_id = tweet.ID
             End If
@@ -5854,6 +5854,13 @@ skip_update:
         End If
     End Sub
 
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Process.Start("http://www.facebook.com/pages/ecueditorcom/133860313347043#!/pages/ecueditorcom/133860313347043")
+    End Sub
+
+    Private Sub EcueditorcomfacebookToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EcueditorcomfacebookToolStripMenuItem.Click
+        Process.Start("http://www.facebook.com/pages/ecueditorcom/133860313347043#!/pages/ecueditorcom/133860313347043")
+    End Sub
 End Class
 
 
