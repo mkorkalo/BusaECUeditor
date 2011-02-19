@@ -581,8 +581,8 @@ Public Class K8Datastream
                         Me.Text = "ecueditor.com - Bking Enginedata active..."
                     Case "gixxer"
                         Me.Text = "ecueditor.com - GSX-R Enginedata active..."
-                    Case "GixxerK5"
-                        Me.Text = "ecueditor.com - Gsx1000R K5K6 Enginedata active...(testing only)"
+                    Case "enginedata"
+                        Me.Text = "ecueditor.com - Enginedata only mode active..."
                     Case Else
                         MsgBox("Not known ecuversion...")
                 End Select
@@ -1700,7 +1700,7 @@ Public Class K8Datastream
     End Sub
 
 
-    Private Sub B_Enginedatalog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Enginedatalog.Click
+    Private Sub B_Enginedatalog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If K8enginedatalog.Visible() Then
             K8enginedatalog.Close()
         Else
