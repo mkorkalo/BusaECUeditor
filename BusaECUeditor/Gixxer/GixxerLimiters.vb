@@ -105,24 +105,17 @@ Public Class GixxerLimiters
 
         '
         ' RPM limiter type 6, this is the limiter when FI light is on but still running normally
-        '
-        'Not present in Gixxer ?
-        '
-        'writeflashword(&H739FE, Int((rpmconv / (addedrpm + (rpmconv / &H554)) + 1)))
-        'writeflashword(&H73A00, Int((rpmconv / (addedrpm + (rpmconv / &H547)) + 1)))
-        'writeflashword(&H73A02, Int((rpmconv / (addedrpm + (rpmconv / &H53B)) + 1)))
-        'writeflashword(&H73A04, Int((rpmconv / (addedrpm + (rpmconv / &H52F)) + 1)))
 
         '
         ' RPM/Ignition limiters, these are set to around 150rpm higher than fuel limiters
         '
-        WriteFlashWord(gixxer_ignition_rpm_limiter, Int((rpmconv / (addedrpm + (rpmconv / &H44B))))) 'normal limiter
-        WriteFlashWord(gixxer_ignition_rpm_limiter + 2, Int((rpmconv / (addedrpm + (rpmconv / &H447))))) 'normal limiter
-        If (ReadFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill) = &H80) Then WriteFlashWord(gixxer_ignition_rpm_limiter + 4, Int((rpmconv / (addedrpm + (rpmconv / &H47D))))) 'clutch limiter
-        If (ReadFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill) = &H80) Then WriteFlashWord(gixxer_ignition_rpm_limiter + 6, Int((rpmconv / (addedrpm + (rpmconv / &H479))))) 'clutch limiter
-        If gixxer_ignition_rpm_limiter = &H60B14 Then 'not for 21h00
-            WriteFlashWord(gixxer_ignition_rpm_limiter + 8, Int((rpmconv / (addedrpm + (rpmconv / &H3EF))))) 'On TPS limiter a bit unsure about condition triggering this one
-            WriteFlashWord(gixxer_ignition_rpm_limiter + 10, Int((rpmconv / (addedrpm + (rpmconv / &H3E8))))) 'On TPS limiter  a bit unsure about condition triggering this one
+        WriteFlashWord(gixxer_ignition_rpm_limiter, Int((rpmconv / (addedrpm + (gixxer_baseline + 148))))) 'normal limiter
+        WriteFlashWord(gixxer_ignition_rpm_limiter + 2, Int((rpmconv / (addedrpm + (gixxer_baseline + 198))))) 'normal limiter
+        If (ReadFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill) = &H80) Then WriteFlashWord(gixxer_ignition_rpm_limiter + 4, Int((rpmconv / (addedrpm + (gixxer_baseline - 445))))) 'clutch limiter
+        If (ReadFlashByte(gixxer_GPS_AD_sensor_address_in_ignition_shiftkill) = &H80) Then WriteFlashWord(gixxer_ignition_rpm_limiter + 6, Int((rpmconv / (addedrpm + (gixxer_baseline - 399))))) 'clutch limiter
+        If gixxer_ignition_rpm_limiter = &H60B14 Then ' only for 21h00
+            WriteFlashWord(gixxer_ignition_rpm_limiter + 8, Int((rpmconv / (addedrpm + (gixxer_baseline + 1395))))) 'On TPS limiter a bit unsure about condition triggering this one
+            WriteFlashWord(gixxer_ignition_rpm_limiter + 10, Int((rpmconv / (addedrpm + (gixxer_baseline + 1500))))) 'On TPS limiter  a bit unsure about condition triggering this one
         End If
 
 
@@ -176,7 +169,7 @@ Public Class GixxerLimiters
             i = CInt(i / 50) * 50 'the conversions are not exact, round it up to the closest 50 to avoid confusion
             Me.RPM.Items.Add(i.ToString())
             i = 10000
-            Do While i < 15500 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
+            Do While i < 15900 ' this is the maximum rpm allowed, abovet this the ecu will set up flags that are not known
                 Me.RPM.Items.Add(i.ToString())
                 i = i + 100
             Loop

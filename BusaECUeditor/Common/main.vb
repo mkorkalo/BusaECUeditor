@@ -3454,7 +3454,7 @@ skip_update:
                 B_AdvancedSettings.Enabled = True
 
             Case "DJ65SE00"
-                Hayabusa.Text = "Gixxer K9- 32920-38H00"
+                Hayabusa.Text = "Gixxer 750 K9- 32920-38H00"
                 Metric = True
                 ECUVersion = "gixxer"
 
@@ -3478,16 +3478,16 @@ skip_update:
                 gixxer_msmode = &H73E8F
                 gixxer_ecumode = 0
 
-                gixxer_ignition_rpm_limiter = 0          'ignition_rpm_limiter
+                gixxer_ignition_rpm_limiter = &H74374          'ignition_rpm_limiter
 
-                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = 0 'sub set_ignition_limiters beginning the GPS_sensor_RAW address
-                gixxer_GPS_voltage_raw = 0
-                gixxer_set_ign_default = 0
+                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3BD74 'sub set_ignition_limiters beginning the GPS_sensor_RAW address
+                gixxer_GPS_voltage_raw = &H80510D
+                gixxer_set_ign_default = &H7439F
 
-                gixxer_fuel_limiter_by_gear = 0            'fuelcut_by_gear
-                gixxer_RPM_limit_type1 = 0                 'RPM_limit_type1
-                gixxer_fuel_limiter_softcut_or_hardcut = 0 'fuel_limiter_softcut_or_hardcut
-                gixxer_baseline = 13500
+                gixxer_fuel_limiter_by_gear = &H74BE7            'fuelcut_by_gear
+                gixxer_RPM_limit_type1 = &H74A92                'RPM_limit_type1
+                gixxer_fuel_limiter_softcut_or_hardcut = &H74BE4 'fuel_limiter_softcut_or_hardcut
+                gixxer_baseline = 14500
 
                 gixxerramair_columnheader = 0
                 gixxerramair_map = 0
