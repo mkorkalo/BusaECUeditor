@@ -566,7 +566,7 @@ Public Class K8EngineDataLogger
 
             B_Connect_Datastream.Text = "Close"
             L_CommStatusColour.ForeColor = Color.Green
-            L_BasicData.Text = "TPS: " & CalcTPS(TPS) & " RPM: " & RPM & " IAP: " & CalcPressure(IAP) & " Gear: " & GEAR
+            L_BasicData.Text = "TPS: " & CalcTPS(TPS) & " RPM: " & RPM & " IAP: " & CalcPressure(IAP) & " Gear: " & GEAR & " Coolant: " & CalcTemp(CLT)
 
             If C_WidebandO2Sensor.Checked = True Then
                 L_AFR.Text = "AFR: " + CalcWidebandAFR(WIDEBAND).ToString("00.00")
