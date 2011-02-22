@@ -39,7 +39,7 @@ Public Class K8EngineDataLogger
     Public debug As Boolean = False
 
     Public lngHandle As Integer
-    Public comPortNumber As Integer
+    Public _comPortNumber As Integer
     Public rxbyte As Byte
     Public ticking As Integer
     Public FT_status As Integer
@@ -189,6 +189,27 @@ Public Class K8EngineDataLogger
         End Set
     End Property
 
+    Public ReadOnly Property ComPortNumber() As Integer
+        Get
+            Dim value As Integer
+
+            If ComboBox_SerialPort.Text <> "" Then
+
+                If Len(ComboBox_SerialPort.Text) = 4 Then
+                    value = Val(Mid$(SerialPort1.PortName, 4))   ' com port address
+                    If ((value < 0) Or (value > 15)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
+                Else
+                    value = Val(Mid$(SerialPort1.PortName, 5))   ' com port address
+                    If ((value < 0) Or (value > 15)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
+
+                End If
+
+            End If
+
+            Return value
+        End Get
+    End Property
+
     Public Property ContinueLogging() As Boolean
         Get
 
@@ -213,9 +234,7 @@ Public Class K8EngineDataLogger
         NUD_Widband5v.Value = My.Settings.Wideband5V
 
         If My.Settings.CreateConvertedValuesFile = True Then
-
             C_CreateConvertedFile.Checked = True
-
         End If
 
         Dim i As Integer
@@ -277,20 +296,20 @@ Public Class K8EngineDataLogger
         End If
 
         ' Initialize the program, input for everything is serialport.portname 
-        If ComboBox_SerialPort.Text <> "" Then
+        'If ComboBox_SerialPort.Text <> "" Then
 
-            SerialPort1.PortName = ComboBox_SerialPort.Text ' this will be used for FTDI device handle, important to have correct value here
+        '    SerialPort1.PortName = ComboBox_SerialPort.Text ' this will be used for FTDI device handle, important to have correct value here
 
-            If Len(SerialPort1.PortName) = 4 Then
-                comPortNumber = Val(Mid$(SerialPort1.PortName, 4))   ' com port address
-                If ((comPortNumber < 0) Or (comPortNumber > 15)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
-            Else
-                comPortNumber = Val(Mid$(SerialPort1.PortName, 5))   ' com port address
-                If ((comPortNumber < 0) Or (comPortNumber > 15)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
+        '    If Len(SerialPort1.PortName) = 4 Then
+        '        comPortNumber = Val(Mid$(SerialPort1.PortName, 4))   ' com port address
+        '        If ((comPortNumber < 0) Or (comPortNumber > 15)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
+        '    Else
+        '        comPortNumber = Val(Mid$(SerialPort1.PortName, 5))   ' com port address
+        '        If ((comPortNumber < 0) Or (comPortNumber > 15)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
 
-            End If
+        '    End If
 
-        End If
+        'End If
 
         QueryPerformanceFrequency(qfreq)
         slowinitdelay = 23
@@ -344,7 +363,7 @@ Public Class K8EngineDataLogger
         My.Settings.ComPort = ComboBox_SerialPort.Text
         My.Settings.Save()
 
-        comPortNumber = Val(Mid$(SerialPort1.PortName, 4))   ' com port address for FTDI driver
+        'ComPortNumber = Val(Mid$(SerialPort1.PortName, 4))   ' com port address for FTDI driver
 
         If ((comPortNumber < 0) Or (comPortNumber > 15)) Then
             MsgBox("USB FTDI COMport is non existing or out of range, program may not work")
@@ -406,17 +425,17 @@ Public Class K8EngineDataLogger
             ' Initialize the program, input for everything is serialport.portname 
             If ComboBox_SerialPort.Text <> "" Then
 
-                SerialPort1.PortName = ComboBox_SerialPort.Text ' this will be used for FTDI device handle, important to have correct value here
-                slowinitdelay = 23
+                'SerialPort1.PortName = ComboBox_SerialPort.Text ' this will be used for FTDI device handle, important to have correct value here
+                'slowinitdelay = 23
 
-                If Len(SerialPort1.PortName) = 4 Then
-                    comPortNumber = Val(Mid$(SerialPort1.PortName, 4))   ' com port address
-                    If ((comPortNumber < 0) Or (comPortNumber > 9)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
-                Else
-                    comPortNumber = Val(Mid$(SerialPort1.PortName, 5))   ' com port address
-                    If ((comPortNumber < 0) Or (comPortNumber > 15)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
+                'If Len(SerialPort1.PortName) = 4 Then
+                '    comPortNumber = Val(Mid$(SerialPort1.PortName, 4))   ' com port address
+                '    If ((comPortNumber < 0) Or (comPortNumber > 9)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
+                'Else
+                '    comPortNumber = Val(Mid$(SerialPort1.PortName, 5))   ' com port address
+                '    If ((comPortNumber < 0) Or (comPortNumber > 15)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
 
-                End If
+                'End If
 
                 B_Connect_Datastream.Enabled = True
 
@@ -551,8 +570,8 @@ Public Class K8EngineDataLogger
             Connect()
         End If
 
-        If Me.SendCommsMessages = True And (DateTime.Now.Subtract(_lastCommsDate).TotalSeconds > 60) Then
-            AddCommsMessage("Auto Reset Comms: Last Comms Date > 90sec ago or Same Data Repeated > 50 times")
+        If Me.SendCommsMessages = True And (DateTime.Now.Subtract(_lastCommsDate).TotalSeconds > 5) Then
+            AddCommsMessage("Auto Reset Comms: Last Comms Date > 5sec ago or Same Data Repeated > 50 times")
             EnableTimer2(False)
             Disconnect()
             _connected = False
@@ -603,8 +622,6 @@ Public Class K8EngineDataLogger
         Dim Ctr2 As Long
         Dim Freq As Long
         '*******************End************************************************
-
-        ' Disable timer when processing the received package
 
         ' Read if there is anything in the receive queue
         FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
@@ -1068,8 +1085,8 @@ Public Class K8EngineDataLogger
         ' No response from the line for a while, lets kill the comms
         If ticking > 25 Then
 
-            kwpcomm = &H82
-            EnableTimer2(True)
+            'kwpcomm = &H82
+            'EnableTimer2(True)
 
         End If
 
@@ -1249,31 +1266,15 @@ Public Class K8EngineDataLogger
             OkToActivate = True ' only one FTDI comport found, ok to activate
         Else
             OkToActivate = False
-            AddCommsMessage("Interface needs to be set. Select the correct com port on the following engine data monitoring screen. ")
+            AddCommsMessage(userComPort & " not found, check usb cable is plugged in...")
         End If
 
         SerialPort1.PortName = ComboBox_SerialPort.Text ' this will be used for FTDI device handle, important to have correct value here
         slowinitdelay = 23
 
-        If Len(SerialPort1.PortName) = 4 Then
-            comPortNumber = Val(Mid$(SerialPort1.PortName, 4))   ' com port address
-            If ((comPortNumber < 0) Or (comPortNumber > 9)) Then AddCommsMessage("USB FTDI COMport is non existing or out of normal range, program may not work")
-        Else
-            comPortNumber = Val(Mid$(SerialPort1.PortName, 5))   ' com port address
-            If ((comPortNumber < 0) Or (comPortNumber > 15)) Then AddCommsMessage("USB FTDI COMport is non existing or out of normal range, program may not work")
-        End If
-
         If OkToActivate Then
             StartEngineDataComms()
         End If
-
-        kwpcomm = &H10
-
-        FT_status = FT_SetRts(lngHandle)
-        System.Threading.Thread.Sleep(300)
-
-        FT_status = FT_ClrRts(lngHandle)
-        System.Threading.Thread.Sleep(2000)
 
     End Sub
 
