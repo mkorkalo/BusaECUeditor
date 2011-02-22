@@ -44,6 +44,7 @@ Partial Class main
         Me.NewStockGixxerK9K1147H10ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewStockGixxerK9K1147H10ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.K9EU38H00ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.K9GR38HH0ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
         Me.EnginedataOnlyModeMetricToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GixxerK5K6EnginedataOnlyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -95,7 +96,6 @@ Partial Class main
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.K9GR38HH0ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -253,6 +253,12 @@ Partial Class main
         Me.K9EU38H00ToolStripMenuItem.Name = "K9EU38H00ToolStripMenuItem"
         Me.K9EU38H00ToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
         Me.K9EU38H00ToolStripMenuItem.Text = "750K9 EU (38H00)"
+        '
+        'K9GR38HH0ToolStripMenuItem
+        '
+        Me.K9GR38HH0ToolStripMenuItem.Name = "K9GR38HH0ToolStripMenuItem"
+        Me.K9GR38HH0ToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
+        Me.K9GR38HH0ToolStripMenuItem.Text = "750K9 GR (38H00)"
         '
         'ToolStripSeparator6
         '
@@ -647,12 +653,6 @@ Partial Class main
         Me.Button1.Size = New System.Drawing.Size(25, 25)
         Me.Button1.TabIndex = 41
         Me.Button1.UseVisualStyleBackColor = False
-        '
-        'K9GR38HH0ToolStripMenuItem
-        '
-        Me.K9GR38HH0ToolStripMenuItem.Name = "K9GR38HH0ToolStripMenuItem"
-        Me.K9GR38HH0ToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
-        Me.K9GR38HH0ToolStripMenuItem.Text = "750K9 GR (38HH0)"
         '
         'main
         '

@@ -3454,11 +3454,11 @@ skip_update:
                 B_AdvancedSettings.Enabled = True
 
             Case "DJ65SE00"
-                Hayabusa.Text = "Gixxer 750 K9- 32920-38H00"
+                Hayabusa.Text = "Gixxer 750 EU K9- 32920-38H00"
                 Metric = True
                 ECUVersion = "gixxer"
 
-                gixxer_modelname = "ecueditor.com for gixxer 750 K9 (32920-38H00) "
+                gixxer_modelname = "ecueditor.com for gixxer 750 EU K9 (32920-38H00) "
 
                 gixxer_shifter_ADJ = 0
                 gixxer_shifter_FUELCODE = 0
@@ -3512,11 +3512,11 @@ skip_update:
                 B_IgnitionMap.Enabled = True
                 B_AdvancedSettings.Enabled = True
             Case "DJ64SE01"
-                Hayabusa.Text = "Gixxer K9- 32920-38HH0"
+                Hayabusa.Text = "Gixxer K9- GR 32920-38H00"
                 Metric = True
                 ECUVersion = "gixxer"
 
-                gixxer_modelname = "ecueditor.com for gixxer 750 K9 (32920-38HH0) "
+                gixxer_modelname = "ecueditor.com for gixxer 750 K9 GR (32920-38H00) "
 
                 gixxer_shifter_ADJ = 0
                 gixxer_shifter_FUELCODE = 0
