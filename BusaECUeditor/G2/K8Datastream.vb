@@ -293,22 +293,16 @@ Public Class K8Datastream
         Dim modemstat As Integer
         Dim failcount As Integer
 
-
         'new Var for HighResTimer*********************************************
         Dim Ctr1 As Long
         Dim Ctr2 As Long
         Dim Freq As Long
         '*******************End************************************************
 
-
-        '
-        ' Disable timer when processing the received package
-        '
+        ' Disable timer when processing the received 
         Timer2.Enabled = False
 
-        '
         ' Read if there is anything in the receive queue
-        '
         FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
 
         '
@@ -417,6 +411,7 @@ Public Class K8Datastream
                         FT_status = FT_Close(lngHandle)
                     End If
                 Next
+
                 FT_status = FT_SetBaudRate(lngHandle, BaudRate)
                 FT_status = FT_status + FT_SetDataCharacteristics(lngHandle, 8, 1, 0)   ' 8bits ,1 stop, parity none
                 FT_status = FT_status + FT_SetTimeouts(lngHandle, 5, 5)               'rx and tx timeouts 10ms
