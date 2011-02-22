@@ -45,6 +45,7 @@ Partial Class main
         Me.NewStockGixxerK9K1147H10ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.K9EU38H00ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
+        Me.EnginedataOnlyModeMetricToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GixxerK5K6EnginedataOnlyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.OpenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -94,7 +95,7 @@ Partial Class main
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.EnginedataOnlyModeMetricToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.K9GR38HH0ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -188,7 +189,7 @@ Partial Class main
         '
         'ToolStripMenuItem4
         '
-        Me.ToolStripMenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewStockGixxerK721H00ToolStripMenuItem, Me.ToolStripMenuItem2, Me.NewStockGixxerK721H50ToolStripMenuItem, Me.NewStockGixxerK721H60ToolStripMenuItem, Me.ToolStripMenuItem5, Me.K8EUAU21H50EarlyToolStripMenuItem, Me.NewStockGixxerK821H50ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem1, Me.K9EU38H00ToolStripMenuItem})
+        Me.ToolStripMenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewStockGixxerK721H00ToolStripMenuItem, Me.ToolStripMenuItem2, Me.NewStockGixxerK721H50ToolStripMenuItem, Me.NewStockGixxerK721H60ToolStripMenuItem, Me.ToolStripMenuItem5, Me.K8EUAU21H50EarlyToolStripMenuItem, Me.NewStockGixxerK821H50ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem1, Me.K9EU38H00ToolStripMenuItem, Me.K9GR38HH0ToolStripMenuItem})
         Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
         Me.ToolStripMenuItem4.Size = New System.Drawing.Size(239, 22)
         Me.ToolStripMenuItem4.Text = "New/Stock Gixxer K7-K11"
@@ -257,6 +258,12 @@ Partial Class main
         '
         Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
         Me.ToolStripSeparator6.Size = New System.Drawing.Size(236, 6)
+        '
+        'EnginedataOnlyModeMetricToolStripMenuItem
+        '
+        Me.EnginedataOnlyModeMetricToolStripMenuItem.Name = "EnginedataOnlyModeMetricToolStripMenuItem"
+        Me.EnginedataOnlyModeMetricToolStripMenuItem.Size = New System.Drawing.Size(239, 22)
+        Me.EnginedataOnlyModeMetricToolStripMenuItem.Text = "Enginedata only mode metric"
         '
         'GixxerK5K6EnginedataOnlyToolStripMenuItem
         '
@@ -641,11 +648,11 @@ Partial Class main
         Me.Button1.TabIndex = 41
         Me.Button1.UseVisualStyleBackColor = False
         '
-        'EnginedataOnlyModeMetricToolStripMenuItem
+        'K9GR38HH0ToolStripMenuItem
         '
-        Me.EnginedataOnlyModeMetricToolStripMenuItem.Name = "EnginedataOnlyModeMetricToolStripMenuItem"
-        Me.EnginedataOnlyModeMetricToolStripMenuItem.Size = New System.Drawing.Size(239, 22)
-        Me.EnginedataOnlyModeMetricToolStripMenuItem.Text = "Enginedata only mode metric"
+        Me.K9GR38HH0ToolStripMenuItem.Name = "K9GR38HH0ToolStripMenuItem"
+        Me.K9GR38HH0ToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
+        Me.K9GR38HH0ToolStripMenuItem.Text = "750K9 GR (38HH0)"
         '
         'main
         '
@@ -758,5 +765,6 @@ Partial Class main
     Friend WithEvents K9EU38H00ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents EcueditorcomfacebookToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents EnginedataOnlyModeMetricToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents K9GR38HH0ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class
