@@ -23,33 +23,33 @@ Partial Class K8AutoTuneSettings
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(K8AutoTuneSettings))
-        Me.NUD_AutoTuneMinAvgAFR = New System.Windows.Forms.NumericUpDown
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.NUD_AutoTuneMaxAvgAFR = New System.Windows.Forms.NumericUpDown
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.NUD_AutoTuneMaxPercentageFuelMapChange = New System.Windows.Forms.NumericUpDown
-        Me.NUD_AutoTuneMinNumberLoggedValuesInCell = New System.Windows.Forms.NumericUpDown
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Panel1 = New System.Windows.Forms.Panel
-        Me.Panel2 = New System.Windows.Forms.Panel
-        Me.L_AutoTuneStrength = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.TB_AutoTuneStrength = New System.Windows.Forms.TrackBar
-        Me.B_Cancel = New System.Windows.Forms.Button
-        Me.B_Ok = New System.Windows.Forms.Button
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.NUD_ExhaustGasVelocityOffset = New System.Windows.Forms.NumericUpDown
-        Me.Label8 = New System.Windows.Forms.Label
+        Me.NUD_AutoTuneMinAvgAFR = New System.Windows.Forms.NumericUpDown()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.NUD_AutoTuneMaxAvgAFR = New System.Windows.Forms.NumericUpDown()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.NUD_AutoTuneMaxPercentageFuelMapChange = New System.Windows.Forms.NumericUpDown()
+        Me.NUD_AutoTuneMinNumberLoggedValuesInCell = New System.Windows.Forms.NumericUpDown()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.NUD_ExhaustGasVelocityOffset = New System.Windows.Forms.NumericUpDown()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.L_AutoTuneStrength = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.TB_AutoTuneStrength = New System.Windows.Forms.TrackBar()
+        Me.B_Cancel = New System.Windows.Forms.Button()
+        Me.B_Ok = New System.Windows.Forms.Button()
         CType(Me.NUD_AutoTuneMinAvgAFR, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_AutoTuneMaxAvgAFR, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_AutoTuneMaxPercentageFuelMapChange, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_AutoTuneMinNumberLoggedValuesInCell, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
-        CType(Me.TB_AutoTuneStrength, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_ExhaustGasVelocityOffset, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TB_AutoTuneStrength, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'NUD_AutoTuneMinAvgAFR
@@ -164,6 +164,33 @@ Partial Class K8AutoTuneSettings
         Me.Panel2.Size = New System.Drawing.Size(404, 176)
         Me.Panel2.TabIndex = 10
         '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(310, 113)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(24, 13)
+        Me.Label8.TabIndex = 15
+        Me.Label8.Text = "rpm"
+        '
+        'NUD_ExhaustGasVelocityOffset
+        '
+        Me.NUD_ExhaustGasVelocityOffset.Location = New System.Drawing.Point(241, 110)
+        Me.NUD_ExhaustGasVelocityOffset.Maximum = New Decimal(New Integer() {600, 0, 0, 0})
+        Me.NUD_ExhaustGasVelocityOffset.Name = "NUD_ExhaustGasVelocityOffset"
+        Me.NUD_ExhaustGasVelocityOffset.Size = New System.Drawing.Size(60, 20)
+        Me.NUD_ExhaustGasVelocityOffset.TabIndex = 14
+        Me.NUD_ExhaustGasVelocityOffset.Value = New Decimal(New Integer() {200, 0, 0, 0})
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(18, 112)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(138, 13)
+        Me.Label7.TabIndex = 13
+        Me.Label7.Text = "Exhaust Gas Velocity Offset"
+        '
         'L_AutoTuneStrength
         '
         Me.L_AutoTuneStrength.AutoSize = True
@@ -211,33 +238,6 @@ Partial Class K8AutoTuneSettings
         Me.B_Ok.Text = "OK"
         Me.B_Ok.UseVisualStyleBackColor = True
         '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(18, 112)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(138, 13)
-        Me.Label7.TabIndex = 13
-        Me.Label7.Text = "Exhaust Gas Velocity Offset"
-        '
-        'NUD_ExhaustGasVelocityOffset
-        '
-        Me.NUD_ExhaustGasVelocityOffset.Location = New System.Drawing.Point(241, 110)
-        Me.NUD_ExhaustGasVelocityOffset.Maximum = New Decimal(New Integer() {600, 0, 0, 0})
-        Me.NUD_ExhaustGasVelocityOffset.Name = "NUD_ExhaustGasVelocityOffset"
-        Me.NUD_ExhaustGasVelocityOffset.Size = New System.Drawing.Size(60, 20)
-        Me.NUD_ExhaustGasVelocityOffset.TabIndex = 14
-        Me.NUD_ExhaustGasVelocityOffset.Value = New Decimal(New Integer() {250, 0, 0, 0})
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(310, 113)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(24, 13)
-        Me.Label8.TabIndex = 15
-        Me.Label8.Text = "rpm"
-        '
         'K8AutoTuneSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -257,8 +257,8 @@ Partial Class K8AutoTuneSettings
         Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
-        CType(Me.TB_AutoTuneStrength, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_ExhaustGasVelocityOffset, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TB_AutoTuneStrength, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
