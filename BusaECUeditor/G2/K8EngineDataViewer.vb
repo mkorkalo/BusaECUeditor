@@ -357,10 +357,12 @@ Public Class K8EngineDataViewer
 
                         If CheckEngineDataFilter(logValue) = True Then
 
-                            If logValue.TPS <= 25 Then
-                                logValue.RPM = logValue.RPM - My.Settings.AutoTuneExhaustGasOffset
-                            Else
-                                logValue.RPM = logValue.RPM - (100 - logValue.TPS) / 100 * My.Settings.AutoTuneExhaustGasOffset
+                            If previousLogValue Is Nothing = False And logValue.RPM - previousLogValue.RPM > My.Settings.AutoTuneExhaustGasOffset / 4 Then
+                                If logValue.TPS <= 25 Then
+                                    logValue.RPM = logValue.RPM - My.Settings.AutoTuneExhaustGasOffset
+                                Else
+                                    logValue.RPM = logValue.RPM - (100 - logValue.TPS) / 100 * My.Settings.AutoTuneExhaustGasOffset
+                                End If
                             End If
 
                             Dim tpsIndex As Integer
