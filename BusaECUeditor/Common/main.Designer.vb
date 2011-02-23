@@ -180,13 +180,13 @@ Partial Class main
         'USModelToolStripMenuItem
         '
         Me.USModelToolStripMenuItem.Name = "USModelToolStripMenuItem"
-        Me.USModelToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
+        Me.USModelToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.USModelToolStripMenuItem.Text = "US model"
         '
         'EUAUModelToolStripMenuItem
         '
         Me.EUAUModelToolStripMenuItem.Name = "EUAUModelToolStripMenuItem"
-        Me.EUAUModelToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
+        Me.EUAUModelToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.EUAUModelToolStripMenuItem.Text = "EU/AU model"
         '
         'ToolStripMenuItem4
@@ -199,73 +199,73 @@ Partial Class main
         'NewStockGixxerK721H00ToolStripMenuItem
         '
         Me.NewStockGixxerK721H00ToolStripMenuItem.Name = "NewStockGixxerK721H00ToolStripMenuItem"
-        Me.NewStockGixxerK721H00ToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
-        Me.NewStockGixxerK721H00ToolStripMenuItem.Text = "K7 EU/AU (21H00)"
+        Me.NewStockGixxerK721H00ToolStripMenuItem.Size = New System.Drawing.Size(224, 22)
+        Me.NewStockGixxerK721H00ToolStripMenuItem.Text = "1000K7 EU/AU (21H00)"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(200, 22)
-        Me.ToolStripMenuItem2.Text = "K7 US (21H10)"
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(224, 22)
+        Me.ToolStripMenuItem2.Text = "1000K7 US (21H10)"
         '
         'NewStockGixxerK721H50ToolStripMenuItem
         '
         Me.NewStockGixxerK721H50ToolStripMenuItem.Name = "NewStockGixxerK721H50ToolStripMenuItem"
-        Me.NewStockGixxerK721H50ToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
-        Me.NewStockGixxerK721H50ToolStripMenuItem.Text = "K7 EU/AU (21H50)"
+        Me.NewStockGixxerK721H50ToolStripMenuItem.Size = New System.Drawing.Size(224, 22)
+        Me.NewStockGixxerK721H50ToolStripMenuItem.Text = "1000K7 EU/AU (21H50)"
         '
         'NewStockGixxerK721H60ToolStripMenuItem
         '
         Me.NewStockGixxerK721H60ToolStripMenuItem.Name = "NewStockGixxerK721H60ToolStripMenuItem"
-        Me.NewStockGixxerK721H60ToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
-        Me.NewStockGixxerK721H60ToolStripMenuItem.Text = "K7 US (21H60)"
+        Me.NewStockGixxerK721H60ToolStripMenuItem.Size = New System.Drawing.Size(224, 22)
+        Me.NewStockGixxerK721H60ToolStripMenuItem.Text = "1000K7 US (21H60)"
         '
         'ToolStripMenuItem5
         '
         Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
-        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(200, 22)
-        Me.ToolStripMenuItem5.Text = "K7 CAL (21H70)"
+        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(224, 22)
+        Me.ToolStripMenuItem5.Text = "1000K7 CAL (21H70)"
         '
         'K8EUAU21H50EarlyToolStripMenuItem
         '
         Me.K8EUAU21H50EarlyToolStripMenuItem.Name = "K8EUAU21H50EarlyToolStripMenuItem"
-        Me.K8EUAU21H50EarlyToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
-        Me.K8EUAU21H50EarlyToolStripMenuItem.Text = "K8 EU/AU (21H50 early)"
+        Me.K8EUAU21H50EarlyToolStripMenuItem.Size = New System.Drawing.Size(224, 22)
+        Me.K8EUAU21H50EarlyToolStripMenuItem.Text = "1000K8 EU/AU (21H50 early)"
         '
         'NewStockGixxerK821H50ToolStripMenuItem
         '
         Me.NewStockGixxerK821H50ToolStripMenuItem.Name = "NewStockGixxerK821H50ToolStripMenuItem"
-        Me.NewStockGixxerK821H50ToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
-        Me.NewStockGixxerK821H50ToolStripMenuItem.Text = "K8 EU/AU (21H50)"
+        Me.NewStockGixxerK821H50ToolStripMenuItem.Size = New System.Drawing.Size(224, 22)
+        Me.NewStockGixxerK821H50ToolStripMenuItem.Text = "1000K8 EU/AU (21H50)"
         '
         'NewStockGixxerK9K1147H10ToolStripMenuItem
         '
         Me.NewStockGixxerK9K1147H10ToolStripMenuItem.Name = "NewStockGixxerK9K1147H10ToolStripMenuItem"
-        Me.NewStockGixxerK9K1147H10ToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
-        Me.NewStockGixxerK9K1147H10ToolStripMenuItem.Text = "K9-K11 EU/AU (47H00)"
+        Me.NewStockGixxerK9K1147H10ToolStripMenuItem.Size = New System.Drawing.Size(224, 22)
+        Me.NewStockGixxerK9K1147H10ToolStripMenuItem.Text = "1000K9-K11 EU/AU (47H00)"
         '
         'NewStockGixxerK9K1147H10ToolStripMenuItem1
         '
         Me.NewStockGixxerK9K1147H10ToolStripMenuItem1.Name = "NewStockGixxerK9K1147H10ToolStripMenuItem1"
-        Me.NewStockGixxerK9K1147H10ToolStripMenuItem1.Size = New System.Drawing.Size(200, 22)
-        Me.NewStockGixxerK9K1147H10ToolStripMenuItem1.Text = "K9-K11 US (47H10)"
+        Me.NewStockGixxerK9K1147H10ToolStripMenuItem1.Size = New System.Drawing.Size(224, 22)
+        Me.NewStockGixxerK9K1147H10ToolStripMenuItem1.Text = "1000K9-K11 US (47H10)"
         '
         'K9EU38H00ToolStripMenuItem
         '
         Me.K9EU38H00ToolStripMenuItem.Name = "K9EU38H00ToolStripMenuItem"
-        Me.K9EU38H00ToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
+        Me.K9EU38H00ToolStripMenuItem.Size = New System.Drawing.Size(224, 22)
         Me.K9EU38H00ToolStripMenuItem.Text = "750K9 EU (38H00)"
         '
         'K9GR38HH0ToolStripMenuItem
         '
         Me.K9GR38HH0ToolStripMenuItem.Name = "K9GR38HH0ToolStripMenuItem"
-        Me.K9GR38HH0ToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
+        Me.K9GR38HH0ToolStripMenuItem.Size = New System.Drawing.Size(224, 22)
         Me.K9GR38HH0ToolStripMenuItem.Text = "750K9 GR (38H00)"
         '
         'K8EU37H00ToolStripMenuItem
         '
         Me.K8EU37H00ToolStripMenuItem.Name = "K8EU37H00ToolStripMenuItem"
-        Me.K8EU37H00ToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
+        Me.K8EU37H00ToolStripMenuItem.Size = New System.Drawing.Size(224, 22)
         Me.K8EU37H00ToolStripMenuItem.Text = "600K8 EU (37H00)"
         '
         'ToolStripSeparator6
