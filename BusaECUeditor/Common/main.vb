@@ -5996,6 +5996,10 @@ skip_update:
         BlockPgm = True
 
     End Sub
+
+    Private Sub MakeAnDIYInterfaceToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MakeAnDIYInterfaceToolStripMenuItem.Click
+        Process.Start("http://macmadigan.no-ip.com/ecueditor/interface.html")
+    End Sub
 End Class
 
 

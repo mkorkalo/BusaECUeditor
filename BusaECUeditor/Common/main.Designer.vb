@@ -96,6 +96,7 @@ Partial Class main
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.MakeAnDIYInterfaceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -319,7 +320,7 @@ Partial Class main
         '
         'SetupToolStripMenuItem
         '
-        Me.SetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InstallFTDIDriversToolStripMenuItem, Me.SetupCOMPortToolStripMenuItem, Me.ToolStripSeparator5, Me.BuyInterfaceFromEBayToolStripMenuItem})
+        Me.SetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InstallFTDIDriversToolStripMenuItem, Me.SetupCOMPortToolStripMenuItem, Me.ToolStripSeparator5, Me.BuyInterfaceFromEBayToolStripMenuItem, Me.MakeAnDIYInterfaceToolStripMenuItem})
         Me.SetupToolStripMenuItem.Name = "SetupToolStripMenuItem"
         Me.SetupToolStripMenuItem.Size = New System.Drawing.Size(90, 20)
         Me.SetupToolStripMenuItem.Text = "Bike Interface"
@@ -654,6 +655,12 @@ Partial Class main
         Me.Button1.TabIndex = 41
         Me.Button1.UseVisualStyleBackColor = False
         '
+        'MakeAnDIYInterfaceToolStripMenuItem
+        '
+        Me.MakeAnDIYInterfaceToolStripMenuItem.Name = "MakeAnDIYInterfaceToolStripMenuItem"
+        Me.MakeAnDIYInterfaceToolStripMenuItem.Size = New System.Drawing.Size(199, 22)
+        Me.MakeAnDIYInterfaceToolStripMenuItem.Text = "Make a D.I.Y interface"
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -766,5 +773,6 @@ Partial Class main
     Friend WithEvents EcueditorcomfacebookToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents EnginedataOnlyModeMetricToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents K9GR38HH0ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MakeAnDIYInterfaceToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class
