@@ -589,9 +589,11 @@ Public Class K8Datastream
                 counter = counter + 1
                 If ((counter = 5) And modeabc) Or ((counter = 5) And (RPM < 2000)) Or ((counter = 5) And (debug)) Then
                     modeabc = False
+                    ' 1111 should be 2180
                     kwpcomm = &H2180
                 End If
                 If ((counter = 10) And (RPM < 2000)) Or ((counter = 10) And (debug)) Then
+                    ' 1111 should be 21C0
                     kwpcomm = &H21C0
                 End If
                 If ((counter = 15) And (RPM < 2000)) Or ((counter = 15) And (debug)) Then 'Get DTC
@@ -643,6 +645,30 @@ Public Class K8Datastream
                 txbyte = &HC0
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
                 txbyte = (&H80 + &H12 + &HF1 + &H2 + &H21 + &HC0) And &HFF ' &HAE
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+
+                Timer2.Enabled = True
+                kwpcomm = &H21
+                rxsptr = 0
+
+            Case &H2190
+                '
+                ' Request next data package and parse the package read earlier
+                '
+                L_comms.ForeColor = Color.Green
+                txbyte = &H80
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H12
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &HF1
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H2
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H21
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = &H90
+                FT_Write_Bytes(lngHandle, txbyte, 1, 1)
+                txbyte = (&H80 + &H12 + &HF1 + &H2 + &H21 + &H90) And &HFF ' &HAE
                 FT_Write_Bytes(lngHandle, txbyte, 1, 1)
 
                 Timer2.Enabled = True
@@ -1243,6 +1269,13 @@ Public Class K8Datastream
                         L_cov4.Text = Str(Int(100 * (rxs(x) - &H80) / 127)) & "%"
                 End Select
 
+            Next
+
+        End If
+        If (rxs(10) = &H48) And (rxs(11) = &H61) And (rxs(12) = &H90) Then
+            T_21C0.Text = ""
+            For x = 0 To 112
+                If debug Then T_21C0.Text = T_21C0.Text & Format(rxs(x), "x2") & " "
             Next
 
         End If

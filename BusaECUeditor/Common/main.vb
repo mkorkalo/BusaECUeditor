@@ -321,13 +321,6 @@ skip_update:
 
             ' Check that the binary lenght matches expected ecu
             ' and initialize variables and stuff as needed 
-            '
-            ' Remove v1.5 protection if exists
-            '
-            If Flash(&H2) = 0 Then
-                Flash(&H2) = 4
-                MsgBox("ECUeditor v1.5 protection detected and removed")
-            End If
 
             Select Case i
                 Case (262144 * 4)
@@ -365,7 +358,6 @@ skip_update:
                     Else
                         Hayabusa.Visible = True
                         G1BinFileVersion(ECUID.Text)
-
                     End If
 
                 Case Else
@@ -879,14 +871,50 @@ skip_update:
                 Hayabusa.Text = "Hayabusa EU 32920-24FGO"
                 Metric = True
                 ECUVersion = "gen1"
+                ' enable controls, otherwise at form load an event will occur
+                Limiters.C_RPM.Enabled = True
+                SaveToolStripMenuItem.Enabled = True
+                B_FlashECU.Enabled = True
+                B_Limiters.Enabled = True
+                B_Shifter.Enabled = True
+                B_FuelMap.Enabled = True
+                B_IgnitionMap.Enabled = True
+                B_AdvancedSettings.Enabled = True
+                B_EngineData.Enabled = True
+                B_DataLogging.Enabled = False
+
             Case "BB34BB35"
                 Hayabusa.Text = "Hayabusa USA 32920-24FKO"
                 Metric = False
                 ECUVersion = "gen1"
+                ' enable controls, otherwise at form load an event will occur
+                Limiters.C_RPM.Enabled = True
+                SaveToolStripMenuItem.Enabled = True
+                B_FlashECU.Enabled = True
+                B_Limiters.Enabled = True
+                B_Shifter.Enabled = True
+                B_FuelMap.Enabled = True
+                B_IgnitionMap.Enabled = True
+                B_AdvancedSettings.Enabled = True
+                B_EngineData.Enabled = True
+                B_DataLogging.Enabled = False
+
             Case Else
                 Hayabusa.Text = "Unknown model"
                 Metric = True
                 ECUVersion = ""
+                ' enable controls, otherwise at form load an event will occur
+                Limiters.C_RPM.Enabled = False
+                SaveToolStripMenuItem.Enabled = True
+                B_FlashECU.Enabled = True
+                B_Limiters.Enabled = False
+                B_Shifter.Enabled = False
+                B_FuelMap.Enabled = False
+                B_IgnitionMap.Enabled = False
+                B_AdvancedSettings.Enabled = False
+                B_EngineData.Enabled = True
+                B_DataLogging.Enabled = False
+
         End Select
     End Sub
 
@@ -932,21 +960,8 @@ skip_update:
             Hayabusa.Visible = True
             FlashToolStripMenuItem.Visible = False
             G1BinFileVersion(ECUID.Text)
-
-
         End If
 
-        ' enable controls, otherwise at form load an event will occur
-        Limiters.C_RPM.Enabled = True
-        SaveToolStripMenuItem.Enabled = True
-        B_FlashECU.Enabled = True
-        B_Limiters.Enabled = True
-        B_Shifter.Enabled = True
-        B_FuelMap.Enabled = True
-        B_IgnitionMap.Enabled = True
-        B_AdvancedSettings.Enabled = True
-        B_EngineData.Enabled = True
-        B_DataLogging.Enabled = False
 
         ' if the computername does not match to the stored computername, do not use the email address from this map
         CloseChildWindows()
@@ -5647,7 +5662,6 @@ skip_update:
         defpath = My.Application.Info.DirectoryPath & "\ecu.bin\G1BusaEUdefault.bin"
         G1ReadMap(defpath)
 
-
     End Sub
 
     Private Sub K2K724FK0ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles K2K724FK0ToolStripMenuItem.Click
@@ -5657,6 +5671,7 @@ skip_update:
         Dim defpath As String ' this is for this subroutine only
         defpath = My.Application.Info.DirectoryPath & "\ecu.bin\G1BusaUSdefault.bin"
         G1ReadMap(defpath)
+
     End Sub
 
     Private Sub ToolStripMenuItem2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem2.Click
