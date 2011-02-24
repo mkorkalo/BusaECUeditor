@@ -2171,6 +2171,7 @@ skip_update:
         Dim diffstr As String
         Dim chksum As Integer
         Dim chksumflash As Long
+        Dim chksumdiff As Boolean = False
 
         '
         ' Reset ECUID to null string
@@ -2464,7 +2465,19 @@ skip_update:
                 '
                 For j = 0 To &HFF
                     If Flash((midorder * &H100) + (highorder * &H10000) + j) <> FlashCopy((midorder * &H100) + (highorder * &H10000) + j) Then
-                        imageidentical = False
+                        If (imageidentical <> False) Then
+                            If (highorder = &HF) And (midorder = &HFF) And ((j = &HF8) Or j = &HF9) Then
+                                '
+                                ' The only difference is checksum so no trouble here
+                                '
+                                chksumdiff = True
+                            End If
+                        Else
+                            '
+                            ' Not a checksum difference image is not identical
+                            '
+                            imageidentical = False
+                        End If
                         If Len(diffstr) < 100 Then diffstr = diffstr & " " & Hex((midorder * &H100) + (highorder * &H10000) + j)
                     End If
                 Next
@@ -2476,6 +2489,8 @@ skip_update:
             Next
         Next
         VerifyInProgress.Close()
+
+
 
         '
         ' All done, close comms
@@ -2498,9 +2513,14 @@ skip_update:
 
 
         If imageidentical Then
-            MsgBox("Ecu verify complete, image same as comparemap. Ecu image is in ecueditor memory.")
+            If chksumdiff Then
+                MsgBox("Ecu verify complete, image same as comparemap with different checksum. Ecu image is in ecueditor memory.")
+            Else
+                MsgBox("Ecu verify complete, image same as comparemap with checksum match. Ecu image is in ecueditor memory.")
+            End If
             ResetBlocks()
             BlockPgm = False
+
         Else
             '
             ' Check that the binary lenght matches just in case
@@ -4070,24 +4090,7 @@ skip_update:
 
 #End Region
 
-#Region "Not In Use"
 
-    Private Sub B_MapSharing_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-
-        MapSharing.Show()
-        MapSharing.Select()
-
-    End Sub
-
-    Private Sub B_ReadECU_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        '
-        ' Lets put the verify function running in another thread, not for any particular reason
-        '
-        'Dim th As New System.Threading.Thread(AddressOf ReadECU)
-        'th.Start()
-
-        ReadECU()
-    End Sub
 
     Private Sub FlashSerial_old()
 
@@ -4944,7 +4947,7 @@ skip_update:
 
     End Sub
 
-#End Region
+
 
     Private Sub RecoveryToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RecoveryToolStripMenuItem.Click
         ' Lets use OpenFileDialog to open a new flash image file
@@ -5869,124 +5872,6 @@ skip_update:
         Process.Start("https://bitbucket.org/ecueditor/ecueditor/issues?status=new")
     End Sub
 
-    Public Sub generate_tweets()
-
-
-        If tweets = False Then
-            R_tw.Text = ""
-        End If
-
-        On Error Resume Next ' in case the pc is not connected to internet
-
-        My.Settings.m_strConsumerKey = "fDEUnOOMBxtj5RjPuehV2g"
-        My.Settings.m_strConsumerSecret = "CUtSovat53Hz9Cp7uzhP5yJTqnCcSjnV4PDROEBMk"
-        My.Settings.Save()
-
-        tw.AuthenticateWith(My.Settings.m_strConsumerKey, My.Settings.m_strConsumerSecret, "251085356-DYkUUNAZScLYtXXSBi5UyKgbJM7eKbfySFggeBuw", "6PiFsw8K1nDbP8zu9outK7I3SBelkE8gEHHKxSfwA")
-        For Each tweet As TwitterStatus In tw.HomeTimeline()
-            If tweets = False And latest_id <> tweet.ID Then
-                If tweet.User.ScreenName = "ecueditor" Or tweet.User.ScreenName = "__petrik__" Then R_tw.Text = R_tw.Text & (tweet.User.ScreenName & " : " & tweet.Text) & Chr(13) & Chr(10)
-                latest = tweet.CreatedAt()
-                latest_id = tweet.ID
-            ElseIf tweet.CreatedAt() >= latest And tweet.ID <> latest_id Then
-                If tweet.User.ScreenName = "ecueditor" Or tweet.User.ScreenName = "__petrik__" Then R_tw.Text = (tweet.User.ScreenName & " : " & tweet.Text) & Chr(13) & Chr(10) & R_tw.Text
-                latest = tweet.CreatedAt()
-                latest_id = tweet.ID
-            End If
-        Next
-        R_tw.Refresh()
-        tweets = True
-    End Sub
-
-    Private Sub R_tw_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles R_tw.DoubleClick
-        Dim strURL As String
-        Dim strPIN As String
-        strPIN = ""
-
-        If My.Settings.m_strToken = "" Then
-
-            strURL = GetLinkURL()
-            Process.Start(strURL)
-            Do
-                strPIN = InputBox("Please enter the pin Twitter.com web page that should have been just opened:")
-            Loop Until isValidPIN(strPIN) Or (strPIN = "")
-            If strPIN = "" Then
-                My.Settings.m_strToken = ""
-                My.Settings.m_strTokenSecret = ""
-                My.Settings.Save()
-            Else
-                My.Settings.m_strToken = tw.OAuth_Token()
-                My.Settings.m_strTokenSecret = tw.OAuth_TokenSecret()
-                My.Settings.Save()
-            End If
-
-        Else
-            Process.Start("https://twitter.com/#!/ecueditor")
-        End If
-
-
-    End Sub
-
-    Private Sub R_tw_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles R_tw.KeyPress
-
-        Dim strURL As String
-        Dim strPIN As String
-        strPIN = ""
-
-
-        'On Error Resume Next ' in case the pc is not connected to internet
-
-
-        If tweets = True Then
-            R_tw.Text = ""
-            tweets = False
-        End If
-
-        If e.KeyChar = Chr(9) Or My.Settings.m_strToken = "" Then
-
-            strURL = GetLinkURL()
-            Process.Start(strURL)
-            Do
-                strPIN = InputBox("Please enter the pin Twitter.com web page that should have been just opened:")
-            Loop Until isValidPIN(strPIN) Or (strPIN = "")
-            If strPIN = "" Then
-                My.Settings.m_strToken = ""
-                My.Settings.m_strTokenSecret = ""
-                My.Settings.Save()
-            Else
-                My.Settings.m_strToken = tw.OAuth_Token()
-                My.Settings.m_strTokenSecret = tw.OAuth_TokenSecret()
-                My.Settings.Save()
-            End If
-        End If
-
-        If e.KeyChar = Chr(13) Or (Len(R_tw.Text) >= 140) Then
-            tw.AuthenticateWith(My.Settings.m_strConsumerKey, My.Settings.m_strConsumerSecret, My.Settings.m_strToken, My.Settings.m_strTokenSecret)
-            tw.Update(R_tw.Text)
-            'tw.SendDirectMessage("ecueditor", R_tw.Text)
-            generate_tweets()
-        End If
-
-        If e.KeyChar = Chr(27) Or (My.Settings.m_strToken = "") Then
-            generate_tweets()
-        End If
-
-    End Sub
-
-    Function GetLinkURL() As String
-        Return tw.GetAuthorizationLink(My.Settings.m_strConsumerKey, My.Settings.m_strConsumerSecret)
-    End Function
-
-    Public Function isValidPIN(ByVal p_strPIN) As Boolean
-        Return tw.ValidatePIN(p_strPIN)
-    End Function
-
-    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
-        If tweets = True Then
-            generate_tweets()
-        End If
-    End Sub
-
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Process.Start("http://www.facebook.com/pages/ecueditorcom/133860313347043#!/pages/ecueditorcom/133860313347043")
     End Sub
@@ -6116,6 +6001,126 @@ skip_update:
 
 
     End Sub
-End Class
+
+
+    Public Sub generate_tweets()
+
+
+        If tweets = False Then
+            R_tw.Text = ""
+        End If
+
+        On Error Resume Next ' in case the pc is not connected to internet
+
+        My.Settings.m_strConsumerKey = "fDEUnOOMBxtj5RjPuehV2g"
+        My.Settings.m_strConsumerSecret = "CUtSovat53Hz9Cp7uzhP5yJTqnCcSjnV4PDROEBMk"
+        My.Settings.Save()
+
+        tw.AuthenticateWith(My.Settings.m_strConsumerKey, My.Settings.m_strConsumerSecret, "251085356-DYkUUNAZScLYtXXSBi5UyKgbJM7eKbfySFggeBuw", "6PiFsw8K1nDbP8zu9outK7I3SBelkE8gEHHKxSfwA")
+        For Each tweet As TwitterStatus In tw.HomeTimeline()
+            If tweets = False And latest_id <> tweet.ID Then
+                If tweet.User.ScreenName = "ecueditor" Or tweet.User.ScreenName = "__petrik__" Then R_tw.Text = R_tw.Text & (tweet.User.ScreenName & " : " & tweet.Text) & Chr(13) & Chr(10)
+                latest = tweet.CreatedAt()
+                latest_id = tweet.ID
+            ElseIf tweet.CreatedAt() >= latest And tweet.ID <> latest_id Then
+                If tweet.User.ScreenName = "ecueditor" Or tweet.User.ScreenName = "__petrik__" Then R_tw.Text = (tweet.User.ScreenName & " : " & tweet.Text) & Chr(13) & Chr(10) & R_tw.Text
+                latest = tweet.CreatedAt()
+                latest_id = tweet.ID
+            End If
+        Next
+        R_tw.Refresh()
+        tweets = True
+    End Sub
+
+    Private Sub R_tw_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles R_tw.DoubleClick
+        Dim strURL As String
+        Dim strPIN As String
+        strPIN = ""
+
+        If My.Settings.m_strToken = "" Then
+
+            strURL = GetLinkURL()
+            Process.Start(strURL)
+            Do
+                strPIN = InputBox("Please enter the pin Twitter.com web page that should have been just opened:")
+            Loop Until isValidPIN(strPIN) Or (strPIN = "")
+            If strPIN = "" Then
+                My.Settings.m_strToken = ""
+                My.Settings.m_strTokenSecret = ""
+                My.Settings.Save()
+            Else
+                My.Settings.m_strToken = tw.OAuth_Token()
+                My.Settings.m_strTokenSecret = tw.OAuth_TokenSecret()
+                My.Settings.Save()
+            End If
+
+        Else
+            Process.Start("https://twitter.com/#!/ecueditor")
+        End If
+
+
+    End Sub
+
+    Private Sub R_tw_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles R_tw.KeyPress
+
+        Dim strURL As String
+        Dim strPIN As String
+        strPIN = ""
+
+
+        'On Error Resume Next ' in case the pc is not connected to internet
+
+
+        If tweets = True Then
+            R_tw.Text = ""
+            tweets = False
+        End If
+
+        If e.KeyChar = Chr(9) Or My.Settings.m_strToken = "" Then
+
+            strURL = GetLinkURL()
+            Process.Start(strURL)
+            Do
+                strPIN = InputBox("Please enter the pin Twitter.com web page that should have been just opened:")
+            Loop Until isValidPIN(strPIN) Or (strPIN = "")
+            If strPIN = "" Then
+                My.Settings.m_strToken = ""
+                My.Settings.m_strTokenSecret = ""
+                My.Settings.Save()
+            Else
+                My.Settings.m_strToken = tw.OAuth_Token()
+                My.Settings.m_strTokenSecret = tw.OAuth_TokenSecret()
+                My.Settings.Save()
+            End If
+        End If
+
+        If e.KeyChar = Chr(13) Or (Len(R_tw.Text) >= 140) Then
+            tw.AuthenticateWith(My.Settings.m_strConsumerKey, My.Settings.m_strConsumerSecret, My.Settings.m_strToken, My.Settings.m_strTokenSecret)
+            tw.Update(R_tw.Text)
+            'tw.SendDirectMessage("ecueditor", R_tw.Text)
+            generate_tweets()
+        End If
+
+        If e.KeyChar = Chr(27) Or (My.Settings.m_strToken = "") Then
+            generate_tweets()
+        End If
+
+    End Sub
+
+    Function GetLinkURL() As String
+        Return tw.GetAuthorizationLink(My.Settings.m_strConsumerKey, My.Settings.m_strConsumerSecret)
+    End Function
+
+    Public Function isValidPIN(ByVal p_strPIN) As Boolean
+        Return tw.ValidatePIN(p_strPIN)
+    End Function
+
+    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
+        If tweets = True Then
+            generate_tweets()
+        End If
+    End Sub
+
+  End Class
 
 
