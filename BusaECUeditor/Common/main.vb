@@ -3232,6 +3232,8 @@ skip_update:
                 gixxerramair_columnheader = &H60776 ' &H7268E
                 gixxerramair_map = &H60941 '&H72859
 
+                gixxer_ecumode = &H604CF
+
                 gixxer_injectorbalance_map_name = gixxer_modelname
                 gixxer_STP_modelname = gixxer_modelname
                 gixxer_fuelmap_map_bikename = gixxer_modelname
@@ -3476,7 +3478,7 @@ skip_update:
                 gixxer_ignition_use_clutch_map = &H743A4         ' use_clutch_map_if_0x1
 
                 gixxer_msmode = &H73E8F
-                gixxer_ecumode = 0
+                gixxer_ecumode = &H73D2B
 
                 gixxer_ignition_rpm_limiter = &H74374          'ignition_rpm_limiter
 
@@ -3534,7 +3536,7 @@ skip_update:
                 gixxer_ignition_use_clutch_map = &H743A4         ' use_clutch_map_if_0x1
 
                 gixxer_msmode = &H73E8F
-                gixxer_ecumode = 0
+                gixxer_ecumode = &H73D2B
 
                 gixxer_ignition_rpm_limiter = &H74374          'ignition_rpm_limiter
 
@@ -3593,7 +3595,7 @@ skip_update:
                 gixxer_ignition_use_clutch_map = &H743A4         ' use_clutch_map_if_0x1
 
                 gixxer_msmode = &H73E8F
-                gixxer_ecumode = 0
+                gixxer_ecumode = &H73D2B
 
                 gixxer_ignition_rpm_limiter = &H74374          'ignition_rpm_limiter
 
