@@ -2439,13 +2439,13 @@ Public Class K8EngineDataLogger
                 InitializeComms()
                 Timer_EngineData.Enabled = True
                 B_StartStop.Text = "Stop"
-            Else
-
+                B_ResetComms.Enabled = True
             End If
         Else
             Timer_EngineData.Enabled = False
             CloseComms()
             B_StartStop.Text = "Start"
+            B_ResetComms.Enabled = False
         End If
 
     End Sub
@@ -2485,7 +2485,7 @@ Public Class K8EngineDataLogger
             AddCommsMessage("Modem Initialized")
             Return True
         Else
-            AddCommsMessage("Modem Failed to Initialize, Please check USB cable is plugged in and COM Port is set correctly and Interface is in Engine Data Mode.")
+            AddCommsMessage("Modem Failed to Initialize, Please check USB cable is plugged, COM Port is set correctly and Interface is set to Engine Data Mode.")
             Return False
         End If
 
@@ -2531,9 +2531,9 @@ Public Class K8EngineDataLogger
             FT_Write_Bytes(lngHandle, &H5, 1, 1)
         End If
 
-        Thread.Sleep(100)
-
+        Thread.Sleep(My.Settings.DataRate * 2)
         RequestEngineData()
+        Thread.Sleep(My.Settings.DataRate * 2)
 
     End Sub
 
