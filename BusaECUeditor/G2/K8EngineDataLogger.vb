@@ -172,6 +172,10 @@ Public Class K8EngineDataLogger
     Dim _dataCount As Integer = 0
     Dim _dataCountRepeated As Integer = 0
 
+    Dim _missedDataCount As Long
+    Dim _totalMissedDataCount As Long
+    Dim _initializing As Boolean
+
 #End Region
 
 #Region "Properties"
@@ -227,105 +231,106 @@ Public Class K8EngineDataLogger
 
 #Region "Form Events"
 
-    Private Sub K8EngineDataLogger_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    'Private Sub K8EngineDataLogger_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-        C_WidebandO2Sensor.Checked = My.Settings.WidebandO2Sensor
-        NUD_Widband0v.Value = My.Settings.Wideband0V
-        NUD_Widband5v.Value = My.Settings.Wideband5V
+    'C_WidebandO2Sensor.Checked = My.Settings.WidebandO2Sensor
+    'NUD_Widband0v.Value = My.Settings.Wideband0V
+    'NUD_Widband5v.Value = My.Settings.Wideband5V
+    'NUD_DataRate.Value = My.Settings.DataRate
 
-        If My.Settings.CreateConvertedValuesFile = True Then
-            C_CreateConvertedFile.Checked = True
-        End If
+    'Timer2.Interval = My.Settings.DataRate
+    'logRate = My.Settings.LogRate
 
-        Dim i As Integer
-        Dim j As Integer
-        Dim userComPort As String
-        Dim pvs As String
-        Dim OkToActivate As Boolean
-        Dim ports As String() = SerialPort.GetPortNames()
-        Dim port As String
-        doneonce = False
+    'If My.Settings.CreateConvertedValuesFile = True Then
+    '    C_CreateConvertedFile.Checked = True
+    'End If
 
-        LogCommsMessage = New LogMessage(AddressOf T_CommsLog_AddMessage)
+    'LogCommsMessage = New LogMessage(AddressOf T_CommsLog_AddMessage)
 
-        iactive = False
-        onceactive = False
-        RPM = 0
+    'Dim i As Integer
+    'Dim j As Integer
+    'Dim userComPort As String
+    'Dim pvs As String
+    'Dim OkToActivate As Boolean
+    'Dim ports As String() = SerialPort.GetPortNames()
+    'Dim port As String
+    'doneonce = False
 
-        j = 0
-        i = 1
-        pvs = ""
-        userComPort = My.Settings.Item("ComPort")
 
-        Try
 
-            j = -1
-            i = 0
-            ComboBox_SerialPort.Items.Clear()
+    'iactive = False
+    'onceactive = False
+    'RPM = 0
 
-            For Each port In ports
+    'j = 0
+    'i = 1
+    'pvs = ""
+    'userComPort = My.Settings.Item("ComPort")
 
-                ComboBox_SerialPort.Items.Add(port)
+    'Try
 
-                If port = userComPort Then
-                    j = i
-                End If
+    '    j = -1
+    '    i = 0
+    '    ComboBox_SerialPort.Items.Clear()
 
-                i = i + 1
+    '    For Each port In ports
 
-            Next port
+    '        ComboBox_SerialPort.Items.Add(port)
 
-        Catch ex As Exception
+    '        If port = userComPort Then
+    '            j = i
+    '        End If
 
-            MessageBox.Show("An error occurred while searching valid COM ports " & ex.Message)
-            _connected = False
-            OkToActivate = False
+    '        i = i + 1
 
-        End Try
+    '    Next port
 
-        If j >= 0 Then
-            ComboBox_SerialPort.SelectedIndex = j
+    'Catch ex As Exception
 
-            'If j = 1 Then OKtoactivate = True ' only one FTDI comport found, ok to activate
-            OkToActivate = True ' only one FTDI comport found, ok to activate
+    '    MessageBox.Show("An error occurred while searching valid COM ports " & ex.Message)
+    '    _connected = False
+    '    OkToActivate = False
 
-        Else
-            OkToActivate = False
-            _connected = False
-            MsgBox("Interface needs to be set. Select the correct com port. ", MsgBoxStyle.Information)
-        End If
+    'End Try
 
-        ' Initialize the program, input for everything is serialport.portname 
-        'If ComboBox_SerialPort.Text <> "" Then
+    'If j >= 0 Then
+    '    ComboBox_SerialPort.SelectedIndex = j
 
-        '    SerialPort1.PortName = ComboBox_SerialPort.Text ' this will be used for FTDI device handle, important to have correct value here
+    '    'If j = 1 Then OKtoactivate = True ' only one FTDI comport found, ok to activate
+    '    OkToActivate = True ' only one FTDI comport found, ok to activate
 
-        '    If Len(SerialPort1.PortName) = 4 Then
-        '        comPortNumber = Val(Mid$(SerialPort1.PortName, 4))   ' com port address
-        '        If ((comPortNumber < 0) Or (comPortNumber > 15)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
-        '    Else
-        '        comPortNumber = Val(Mid$(SerialPort1.PortName, 5))   ' com port address
-        '        If ((comPortNumber < 0) Or (comPortNumber > 15)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
+    'Else
+    '    OkToActivate = False
+    '    _connected = False
+    '    MsgBox("Interface needs to be set. Select the correct com port. ", MsgBoxStyle.Information)
+    'End If
 
-        '    End If
+    ' Initialize the program, input for everything is serialport.portname 
+    'If ComboBox_SerialPort.Text <> "" Then
 
-        'End If
+    '    SerialPort1.PortName = ComboBox_SerialPort.Text ' this will be used for FTDI device handle, important to have correct value here
 
-        QueryPerformanceFrequency(qfreq)
-        slowinitdelay = 23
+    '    If Len(SerialPort1.PortName) = 4 Then
+    '        comPortNumber = Val(Mid$(SerialPort1.PortName, 4))   ' com port address
+    '        If ((comPortNumber < 0) Or (comPortNumber > 15)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
+    '    Else
+    '        comPortNumber = Val(Mid$(SerialPort1.PortName, 5))   ' com port address
+    '        If ((comPortNumber < 0) Or (comPortNumber > 15)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
 
-        If OkToActivate Then
+    '    End If
 
-            StartEngineDataComms()
+    'End If
 
-        End If
+    'QueryPerformanceFrequency(qfreq)
+    'slowinitdelay = 23
 
-        NUD_DataRate.Value = My.Settings.DataRate
+    'If OkToActivate Then
 
-        Timer2.Interval = My.Settings.DataRate
-        logRate = My.Settings.LogRate
+    '    StartEngineDataComms()
 
-    End Sub
+    'End If
+
+    'End Sub
 
     Private Sub K8EngineDataLogger_Shown(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Shown
 
@@ -344,128 +349,115 @@ Public Class K8EngineDataLogger
 #Region "Control Events"
 
     Private Sub ComboBox_SerialPort_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ComboBox_SerialPort.SelectedIndexChanged
-        Try
-            If SerialPort1.IsOpen Then
-                SerialPort1.Close()
-                SerialPort1.PortName = ComboBox_SerialPort.Text
-                SerialPort1.Open()
-            Else
-                SerialPort1.PortName = ComboBox_SerialPort.Text
-                SerialPort1.Open()
-                SerialPort1.Close()
+
+        If _initializing = False Then
+
+            My.Settings.ComPort = ComboBox_SerialPort.Text
+            My.Settings.Save()
+
+            If ((ComPortNumber < 0) Or (ComPortNumber > 15)) Then
+                MsgBox("USB FTDI COMport is non existing or out of range, program may not work")
             End If
-        Catch ex As Exception
 
-            MsgBox(ex.Message, MsgBoxStyle.OkOnly)
-
-        End Try
-
-        My.Settings.ComPort = ComboBox_SerialPort.Text
-        My.Settings.Save()
-
-        'ComPortNumber = Val(Mid$(SerialPort1.PortName, 4))   ' com port address for FTDI driver
-
-        If ((comPortNumber < 0) Or (comPortNumber > 15)) Then
-            MsgBox("USB FTDI COMport is non existing or out of range, program may not work")
         End If
 
     End Sub
 
-    Private Sub B_Connect_Datastream_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Connect_Datastream.Click
+    'Private Sub B_Connect_Datastream_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Connect_Datastream.Click
 
-        Dim i As Integer
-        Dim j As Integer
-        Dim s As String
-        Dim pvs As String
+    '    Dim i As Integer
+    '    Dim j As Integer
+    '    Dim s As String
+    '    Dim pvs As String
 
-        Dim OKtoactivate As Boolean
-        Dim ports As String() = SerialPort.GetPortNames()
-        Dim port As String
+    '    Dim OKtoactivate As Boolean
+    '    Dim ports As String() = SerialPort.GetPortNames()
+    '    Dim port As String
 
-        If B_Connect_Datastream.Text = "Connect" Then
+    '    If B_Connect_Datastream.Text = "Connect" Then
 
-            B_Connect_Datastream.Text = "Close"
+    '        B_Connect_Datastream.Text = "Close"
 
-            _lastCommsDate = DateTime.Now
-            _repeatedDataCount = 0
+    '        _lastCommsDate = DateTime.Now
+    '        _repeatedDataCount = 0
 
-            j = 0
-            i = 1
-            pvs = ""
-            s = My.Settings.Item("ComPort")
+    '        j = 0
+    '        i = 1
+    '        pvs = ""
+    '        s = My.Settings.Item("ComPort")
 
-            Try
+    '        Try
 
-                j = -1
-                i = 0
-                ComboBox_SerialPort.Items.Clear()
+    '            j = -1
+    '            i = 0
+    '            ComboBox_SerialPort.Items.Clear()
 
-                For Each port In ports
-                    ComboBox_SerialPort.Items.Add(port)
-                    If port = s Then
-                        j = i
-                    End If
-                    i = i + 1
-                Next port
+    '            For Each port In ports
+    '                ComboBox_SerialPort.Items.Add(port)
+    '                If port = s Then
+    '                    j = i
+    '                End If
+    '                i = i + 1
+    '            Next port
 
-            Catch ex As Exception
-                MessageBox.Show("An error occurred while searching valid COM ports " & ex.Message)
-                OKtoactivate = False
-            End Try
-            If j >= 0 Then
-                ComboBox_SerialPort.SelectedIndex = j
-                'If j = 1 Then OKtoactivate = True ' only one FTDI comport found, ok to activate
-                OKtoactivate = True ' only one FTDI comport found, ok to activate
-            Else
-                OKtoactivate = False
-                MsgBox("Interface needs to be set. Select the correct com port on the following engine data monitoring screen. ", MsgBoxStyle.Information)
-            End If
+    '        Catch ex As Exception
+    '            MessageBox.Show("An error occurred while searching valid COM ports " & ex.Message)
+    '            OKtoactivate = False
+    '        End Try
+    '        If j >= 0 Then
+    '            ComboBox_SerialPort.SelectedIndex = j
+    '            'If j = 1 Then OKtoactivate = True ' only one FTDI comport found, ok to activate
+    '            OKtoactivate = True ' only one FTDI comport found, ok to activate
+    '        Else
+    '            OKtoactivate = False
+    '            MsgBox("Interface needs to be set. Select the correct com port on the following engine data monitoring screen. ", MsgBoxStyle.Information)
+    '        End If
 
 
-            ' Initialize the program, input for everything is serialport.portname 
-            If ComboBox_SerialPort.Text <> "" Then
+    '        ' Initialize the program, input for everything is serialport.portname 
+    '        If ComboBox_SerialPort.Text <> "" Then
 
-                'SerialPort1.PortName = ComboBox_SerialPort.Text ' this will be used for FTDI device handle, important to have correct value here
-                'slowinitdelay = 23
+    '            'SerialPort1.PortName = ComboBox_SerialPort.Text ' this will be used for FTDI device handle, important to have correct value here
+    '            'slowinitdelay = 23
 
-                'If Len(SerialPort1.PortName) = 4 Then
-                '    comPortNumber = Val(Mid$(SerialPort1.PortName, 4))   ' com port address
-                '    If ((comPortNumber < 0) Or (comPortNumber > 9)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
-                'Else
-                '    comPortNumber = Val(Mid$(SerialPort1.PortName, 5))   ' com port address
-                '    If ((comPortNumber < 0) Or (comPortNumber > 15)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
+    '            'If Len(SerialPort1.PortName) = 4 Then
+    '            '    comPortNumber = Val(Mid$(SerialPort1.PortName, 4))   ' com port address
+    '            '    If ((comPortNumber < 0) Or (comPortNumber > 9)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
+    '            'Else
+    '            '    comPortNumber = Val(Mid$(SerialPort1.PortName, 5))   ' com port address
+    '            '    If ((comPortNumber < 0) Or (comPortNumber > 15)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
 
-                'End If
+    '            'End If
 
-                B_Connect_Datastream.Enabled = True
+    '            B_Connect_Datastream.Enabled = True
 
-            End If
+    '        End If
 
-            If OKtoactivate Then
-                StartEngineDataComms()
-            End If
+    '        If OKtoactivate Then
+    '            StartEngineDataComms()
+    '        End If
 
-            kwpcomm = &H10
+    '        kwpcomm = &H10
 
-            FT_status = FT_SetRts(lngHandle)
-            System.Threading.Thread.Sleep(300)
+    '        FT_status = FT_SetRts(lngHandle)
+    '        System.Threading.Thread.Sleep(300)
 
-            FT_status = FT_ClrRts(lngHandle)
-            System.Threading.Thread.Sleep(2000)
+    '        FT_status = FT_ClrRts(lngHandle)
+    '        System.Threading.Thread.Sleep(2000)
 
-        Else
+    '    Else
 
-            FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+    '        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
 
-            If FT_status = 0 Then
-                StopEngineDataComms()
-            End If
+    '        If FT_status = 0 Then
+    '            StopEngineDataComms()
+    '        End If
 
-            ticking = 0
+    '        ticking = 0
 
-        End If
+    '    End If
 
-    End Sub
+    'End Sub
 
     Private Sub B_CreateLogFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_CreateLogFile.Click
 
@@ -512,9 +504,7 @@ Public Class K8EngineDataLogger
 
             _dataCount = 1
             _dataCountRepeated = 0
-
-            'Start Thread to log data
-            'ThreadPool.QueueUserWorkItem(New WaitCallback(AddressOf EngineDataLoggingLoop))
+            _missedDataCount = 0
 
         End If
 
@@ -563,49 +553,49 @@ Public Class K8EngineDataLogger
 
     End Sub
 
-    Private Sub Timer_UpdateGUI_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer_UpdateGUI.Tick
+    'Private Sub Timer_UpdateGUI_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer_UpdateGUI.Tick
 
-        If _reConnect = True Then
-            _reConnect = False
-            Connect()
-        End If
+    '    If _reConnect = True Then
+    '        _reConnect = False
+    '        Connect()
+    '    End If
 
-        If Me.SendCommsMessages = True And (DateTime.Now.Subtract(_lastCommsDate).TotalSeconds > 5) Then
-            AddCommsMessage("Auto Reset Comms: Last Comms Date > 5sec ago or Same Data Repeated > 50 times")
-            EnableTimer2(False)
-            Disconnect()
-            _connected = False
-            Thread.Sleep(2000)
-            _reConnect = True
-            _repeatedDataCount = 0
-            _lastCommsDate = DateTime.Now
-        End If
+    '    If Me.SendCommsMessages = True And (DateTime.Now.Subtract(_lastCommsDate).TotalSeconds > 5) Then
+    '        AddCommsMessage("Auto Reset Comms: Last Comms Date > 5sec ago or Same Data Repeated > 50 times")
+    '        EnableTimer2(False)
+    '        Disconnect()
+    '        _connected = False
+    '        Thread.Sleep(2000)
+    '        _reConnect = True
+    '        _repeatedDataCount = 0
+    '        _lastCommsDate = DateTime.Now
+    '    End If
 
-        If _connected = True Then
+    '    If _connected = True Then
 
-            B_Connect_Datastream.Text = "Close"
-            L_CommStatusColour.ForeColor = Color.Green
-            L_BasicData.Text = "TPS: " & CalcTPS(TPS) & " RPM: " & RPM & " IAP: " & CalcPressure(IAP) & " Gear: " & GEAR & " Coolant: " & CalcTemp(CLT)
+    '        B_StartStop.Text = "Close"
+    '        L_CommStatusColour.ForeColor = Color.Green
+    '        L_BasicData.Text = "TPS: " & CalcTPS(TPS) & " RPM: " & RPM & " IAP: " & CalcPressure(IAP) & " Gear: " & GEAR & " Coolant: " & CalcTemp(CLT)
 
-            If C_WidebandO2Sensor.Checked = True Then
-                L_AFR.Text = "AFR: " + CalcWidebandAFR(WIDEBAND).ToString("00.00")
-            Else
-                L_AFR.Text = "AFR: " + CalcAFR(HO2).ToString("00.00")
-            End If
+    '        If C_WidebandO2Sensor.Checked = True Then
+    '            L_AFR.Text = "AFR: " + CalcWidebandAFR(WIDEBAND).ToString("00.00")
+    '        Else
+    '            L_AFR.Text = "AFR: " + CalcAFR(HO2).ToString("00.00")
+    '        End If
 
-            L_NewDataPercentage.Text = (_dataCount / (_dataCount + _dataCountRepeated) * 100).ToString("000.0") & "%"
-        ElseIf _connected = False Then
+    '        L_NewDataPercentage.Text = (_dataCount / (_dataCount + _dataCountRepeated) * 100).ToString("000.0") & "%"
+    '    ElseIf _connected = False Then
 
-            B_Connect_Datastream.Text = "Connect"
-            L_CommStatusColour.ForeColor = Color.Red
-            L_BasicData.Text = ""
-            L_AFR.Text = ""
+    '        B_StartStop.Text = "Connect"
+    '        L_CommStatusColour.ForeColor = Color.Red
+    '        L_BasicData.Text = ""
+    '        L_AFR.Text = ""
 
-        End If
+    '    End If
 
-        L_Status.Text = "Log Count: " & numberOfLogs.ToString()
+    '    L_Status.Text = "Log Count: " & numberOfLogs.ToString()
 
-    End Sub
+    'End Sub
 
     Private Sub Timer2_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer2.Tick
 
@@ -718,7 +708,7 @@ Public Class K8EngineDataLogger
                     FT_status = FT_Open(i, lngHandle) ' only one
                     FT_status = FT_GetComPortNumber(lngHandle, y)
 
-                    If y = comPortNumber Then
+                    If y = ComPortNumber Then
                         x = i
                     Else
                         FT_status = FT_Close(lngHandle)
@@ -734,7 +724,7 @@ Public Class K8EngineDataLogger
 
                 FT_status = FT_ClrDtr(lngHandle) 'new for Interface V1.1 *****************************************************************
 
-                AddCommsMessage("FTDI USB device opened for " & BaudRate & " baud, id=" & i & ", port=" & comPortNumber)
+                AddCommsMessage("FTDI USB device opened for " & BaudRate & " baud, id=" & i & ", port=" & ComPortNumber)
                 AddCommsMessage("Initiating 5baud fast initialization")
 
                 i = slowinitdelay
@@ -1147,13 +1137,13 @@ Public Class K8EngineDataLogger
 
     End Sub
 
-    Private Sub B_ResetComms_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_ResetComms.Click
+    'Private Sub B_ResetComms_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_ResetComms.Click
 
-        Disconnect()
-        Thread.Sleep(2000)
-        _reConnect = True
+    '    Disconnect()
+    '    Thread.Sleep(2000)
+    '    _reConnect = True
 
-    End Sub
+    'End Sub
 
     Private Sub NUD_DataRate_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NUD_DataRate.ValueChanged
 
@@ -1162,7 +1152,8 @@ Public Class K8EngineDataLogger
             My.Settings.DataRate = NUD_DataRate.Value
             My.Settings.Save()
 
-            Timer2.Interval = NUD_DataRate.Value
+            Timer_EngineData.Interval = NUD_DataRate.Value
+            Timer_UpdateGUI.Interval = NUD_DataRate.Value * 2
 
         End If
 
@@ -1218,6 +1209,7 @@ Public Class K8EngineDataLogger
 
         _dataCount = 1
         _dataCountRepeated = 0
+        _totalMissedDataCount = 0
 
     End Sub
 
@@ -1412,139 +1404,139 @@ Public Class K8EngineDataLogger
 
     End Sub
 
-    Private Sub InitializeComms()
+    'Private Sub InitializeComms()
 
-        Me.SendCommsMessages = False
+    '    Me.SendCommsMessages = False
 
-        ' Initialize comms
-        AddCommsMessage("&H10 Initialize Comms")
+    '    ' Initialize comms
+    '    AddCommsMessage("&H10 Initialize Comms")
 
-        ' Get the FTDI device handle based on com port number
-        Dim numberOfDevices As Integer
-        Dim currentComPortNumber As Integer
-        Dim modemStatus As Integer
-        Dim stopwatch As Stopwatch = New Stopwatch()
+    '    ' Get the FTDI device handle based on com port number
+    '    Dim numberOfDevices As Integer
+    '    Dim currentComPortNumber As Integer
+    '    Dim modemStatus As Integer
+    '    Dim stopwatch As Stopwatch = New Stopwatch()
 
-        FT_status = FT_GetNumberOfDevices(numberOfDevices, 0, &H80000000)
+    '    FT_status = FT_GetNumberOfDevices(numberOfDevices, 0, &H80000000)
 
-        For index As Integer = 0 To numberOfDevices - 1
+    '    For index As Integer = 0 To numberOfDevices - 1
 
-            FT_status = FT_Open(index, lngHandle)
-            FT_status = FT_GetComPortNumber(lngHandle, currentComPortNumber)
+    '        FT_status = FT_Open(index, lngHandle)
+    '        FT_status = FT_GetComPortNumber(lngHandle, currentComPortNumber)
 
-            If currentComPortNumber <> comPortNumber Then
-                FT_status = FT_Close(lngHandle)
-            End If
+    '        If currentComPortNumber <> ComPortNumber Then
+    '            FT_status = FT_Close(lngHandle)
+    '        End If
 
-        Next
+    '    Next
 
-        FT_status = FT_SetBaudRate(lngHandle, 10400)
-        'FT_status = FT_SetBaudRate(lngHandle, 19230)
-        FT_status = FT_status + FT_SetDataCharacteristics(lngHandle, 8, 1, 0)   ' 8bits ,1 stop, parity none
-        FT_status = FT_status + FT_SetTimeouts(lngHandle, 5, 5)               'rx and tx timeouts 10ms
-        FT_status = FT_status + FT_SetLatencyTimer(lngHandle, 16)               'ms 16 is default
-        FT_status = FT_status + FT_SetUSBParameters(lngHandle, 4096, 4096)      'only rx is active by FTDI
+    '    FT_status = FT_SetBaudRate(lngHandle, 10400)
+    '    'FT_status = FT_SetBaudRate(lngHandle, 19230)
+    '    FT_status = FT_status + FT_SetDataCharacteristics(lngHandle, 8, 1, 0)   ' 8bits ,1 stop, parity none
+    '    FT_status = FT_status + FT_SetTimeouts(lngHandle, 5, 5)               'rx and tx timeouts 10ms
+    '    FT_status = FT_status + FT_SetLatencyTimer(lngHandle, 16)               'ms 16 is default
+    '    FT_status = FT_status + FT_SetUSBParameters(lngHandle, 4096, 4096)      'only rx is active by FTDI
 
-        FT_status = FT_ClrDtr(lngHandle)
+    '    FT_status = FT_ClrDtr(lngHandle)
 
-        AddCommsMessage("FTDI USB device opened for 10400 baud, port=" & comPortNumber)
-        AddCommsMessage("Initiating 5baud fast initialization")
+    '    AddCommsMessage("FTDI USB device opened for 10400 baud, port=" & ComPortNumber)
+    '    AddCommsMessage("Initiating 5baud fast initialization")
 
-        ' FTDI USB device ok, lets check that the device is in data monitoring mode
-        FT_status = FT_GetModemStatus(lngHandle, modemStatus)
+    '    ' FTDI USB device ok, lets check that the device is in data monitoring mode
+    '    FT_status = FT_GetModemStatus(lngHandle, modemStatus)
 
-        If (modemStatus <> &H6010) Then
+    '    If (modemStatus <> &H6010) Then
 
-            commStatus = "Error: Power is not on, ECU is in programming mode or COM port is not set correcly. Modemstat=" & Hex(modemStatus) & ", Comporterr=" & Hex(FT_status)
-            AddCommsMessage(commStatus)
-            StopEngineDataComms()
-            Return
+    '        commStatus = "Error: Power is not on, ECU is in programming mode or COM port is not set correcly. Modemstat=" & Hex(modemStatus) & ", Comporterr=" & Hex(FT_status)
+    '        AddCommsMessage(commStatus)
+    '        StopEngineDataComms()
+    '        Return
 
-        End If
+    '    End If
 
-        AddCommsMessage("Comms Initialization")
+    '    AddCommsMessage("Comms Initialization")
 
-        Dim Ctr1 As Long
-        Dim Ctr2 As Long
-        Dim Freq As Long
+    '    Dim Ctr1 As Long
+    '    Dim Ctr2 As Long
+    '    Dim Freq As Long
 
-        Ctr1 = 0
-        Ctr2 = 0
-        Freq = 0
+    '    Ctr1 = 0
+    '    Ctr2 = 0
+    '    Freq = 0
 
-        QueryPerformanceCounter(Ctr2)
-        QueryPerformanceFrequency(Freq)
+    '    QueryPerformanceCounter(Ctr2)
+    '    QueryPerformanceFrequency(Freq)
 
-        FT_status = FT_SetBreakOff(lngHandle)       ' K-line high
-        Do Until (Ctr2 - Ctr1) / (Freq / 1000000) >= 300000 'wait 300ms
-            QueryPerformanceCounter(Ctr2)
-        Loop
-        FT_status = FT_SetBreakOn(lngHandle)        ' K-line low
-        Do Until (Ctr1 - Ctr2) / (Freq / 1000000) >= 24500 'wait 25ms
-            QueryPerformanceCounter(Ctr1)
-        Loop
-        FT_status = FT_SetBreakOff(lngHandle)       ' K-line high
-        Do Until (Ctr2 - Ctr1) / (Freq / 1000000) >= 24500 'wait 25ms
-            QueryPerformanceCounter(Ctr2)
-        Loop
+    '    FT_status = FT_SetBreakOff(lngHandle)       ' K-line high
+    '    Do Until (Ctr2 - Ctr1) / (Freq / 1000000) >= 300000 'wait 300ms
+    '        QueryPerformanceCounter(Ctr2)
+    '    Loop
+    '    FT_status = FT_SetBreakOn(lngHandle)        ' K-line low
+    '    Do Until (Ctr1 - Ctr2) / (Freq / 1000000) >= 24500 'wait 25ms
+    '        QueryPerformanceCounter(Ctr1)
+    '    Loop
+    '    FT_status = FT_SetBreakOff(lngHandle)       ' K-line high
+    '    Do Until (Ctr2 - Ctr1) / (Freq / 1000000) >= 24500 'wait 25ms
+    '        QueryPerformanceCounter(Ctr2)
+    '    Loop
 
-        ' Capture &H00 from ECU that is not correct the &H00 is the echo from the FT_SetBreakOn
-        ticking = 0
-        rxbyte = &HFF
-        bytecount = 0
+    '    ' Capture &H00 from ECU that is not correct the &H00 is the echo from the FT_SetBreakOn
+    '    ticking = 0
+    '    rxbyte = &HFF
+    '    bytecount = 0
 
-        'the only thing is here to see that is the RXD Pin is high****************************
-        While (ticking < 25) And (rxbyte <> 0) And (bytecount = 0)
-            ticking = ticking + 1
-            FT_status = FT_Read_Bytes(lngHandle, rxbyte, 1, bytecount)
+    '    'the only thing is here to see that is the RXD Pin is high****************************
+    '    While (ticking < 25) And (rxbyte <> 0) And (bytecount = 0)
+    '        ticking = ticking + 1
+    '        FT_status = FT_Read_Bytes(lngHandle, rxbyte, 1, bytecount)
 
-            ' break the for next loop when &H00 found
-        End While
+    '        ' break the for next loop when &H00 found
+    '    End While
 
-        '&H00 read succesfully
-        If ticking < 25 Then
+    '    '&H00 read succesfully
+    '    If ticking < 25 Then
 
-            'Send init request to ecu
-            Dim txByte As Byte
+    '        'Send init request to ecu
+    '        Dim txByte As Byte
 
-            txByte = &H81
-            FT_Write_Bytes(lngHandle, txByte, 1, 1)
+    '        txByte = &H81
+    '        FT_Write_Bytes(lngHandle, txByte, 1, 1)
 
-            txByte = &H12
-            FT_Write_Bytes(lngHandle, txByte, 1, 1)
+    '        txByte = &H12
+    '        FT_Write_Bytes(lngHandle, txByte, 1, 1)
 
-            txByte = &HF1
-            FT_Write_Bytes(lngHandle, txByte, 1, 1)
+    '        txByte = &HF1
+    '        FT_Write_Bytes(lngHandle, txByte, 1, 1)
 
-            txByte = &H81
-            FT_Write_Bytes(lngHandle, txByte, 1, 1)
+    '        txByte = &H81
+    '        FT_Write_Bytes(lngHandle, txByte, 1, 1)
 
-            txByte = &H5
-            FT_Write_Bytes(lngHandle, txByte, 1, 1)
+    '        txByte = &H5
+    '        FT_Write_Bytes(lngHandle, txByte, 1, 1)
 
-            ' Pass control timer to read bytes continously with kwpcommand &H2108
-            kwpcomm = &H2108
-            ticking = 0
+    '        ' Pass control timer to read bytes continously with kwpcommand &H2108
+    '        kwpcomm = &H2108
+    '        ticking = 0
 
-            AddCommsMessage("Completed 5baud fast initialization" & Chr(13) & Chr(10))
+    '        AddCommsMessage("Completed 5baud fast initialization" & Chr(13) & Chr(10))
 
-        Else
+    '    Else
 
-            ticking = 0
-            AddCommsMessage("Failed 5baud initialization" & Chr(13) & Chr(10))
+    '        ticking = 0
+    '        AddCommsMessage("Failed 5baud initialization" & Chr(13) & Chr(10))
 
-            StopEngineDataComms()
-            StartEngineDataComms()
+    '        StopEngineDataComms()
+    '        StartEngineDataComms()
 
-        End If
+    '    End If
 
-        counter = 0
+    '    counter = 0
 
-        Thread.Sleep(logRate)
+    '    Thread.Sleep(logRate)
 
-        Me.SendCommsMessages = True
+    '    Me.SendCommsMessages = True
 
-    End Sub
+    'End Sub
 
     Private Sub ReadRxQueue()
 
@@ -1827,7 +1819,7 @@ Public Class K8EngineDataLogger
 
     Private Sub WriteDataLogs()
 
-        If Me.ContinueLogging = True Then
+        If Timer_EngineData.Enabled = True Then
 
             Dim logTime As StringBuilder = New StringBuilder()
             logTime.Append(EngineDataCommsStopwatch.Elapsed.Hours.ToString("00"))
@@ -2068,7 +2060,7 @@ Public Class K8EngineDataLogger
 
         SyncLock _syncRoot
 
-            If LogFile Is Nothing = False And Me.ContinueLogging = True And _connected = True Then
+            If LogFile Is Nothing = False And Timer_EngineData.Enabled = True Then
 
                 Dim logEntry As StringBuilder = New StringBuilder()
                 logEntry.Append(_logTime)
@@ -2139,7 +2131,7 @@ Public Class K8EngineDataLogger
 
         SyncLock _syncRoot
 
-            If LogFileRaw Is Nothing = False And Me.ContinueLogging = True And _connected = True Then
+            If LogFileRaw Is Nothing = False And Timer_EngineData.Enabled = True Then
 
                 numberOfLogs = numberOfLogs + 1
 
@@ -2388,4 +2380,346 @@ Public Class K8EngineDataLogger
 
 #End Region
 
+#Region "New"
+
+
+#End Region
+
+    Private Sub K8EngineDataLogger_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+        Dim comPortCount As Integer
+        Dim comPortNumber As Integer
+
+        _initializing = True
+
+        C_WidebandO2Sensor.Checked = My.Settings.WidebandO2Sensor
+        NUD_Widband0v.Value = My.Settings.Wideband0V
+        NUD_Widband5v.Value = My.Settings.Wideband5V
+        NUD_DataRate.Value = My.Settings.DataRate
+
+        Timer_EngineData.Interval = My.Settings.DataRate
+        Timer_UpdateGUI.Interval = My.Settings.DataRate * 2
+
+        logRate = My.Settings.LogRate
+
+        If My.Settings.CreateConvertedValuesFile = True Then
+            C_CreateConvertedFile.Checked = True
+        End If
+
+        LogCommsMessage = New LogMessage(AddressOf T_CommsLog_AddMessage)
+
+        FT_status = FT_GetNumberOfDevices(comPortCount, 0, &H80000000)
+
+        For index As Integer = 0 To comPortCount
+
+            FT_status = FT_Open(index - 1, lngHandle) ' only one
+            FT_status = FT_GetComPortNumber(lngHandle, comPortNumber)
+
+            Dim comPortName As String = "COM" & comPortNumber
+
+            If ComboBox_SerialPort.Items.Contains(comPortName) = False And comPortNumber > 0 Then
+                ComboBox_SerialPort.Items.Add(comPortName)
+            End If
+
+        Next
+
+        ComboBox_SerialPort.SelectedItem = My.Settings.ComPort
+
+        _initializing = False
+
+        B_StartStop_Click(sender, e)
+
+    End Sub
+
+    Private Sub B_StartStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_StartStop.Click
+
+        If Timer_EngineData.Enabled = False Then
+
+            If InitializeModem() Then
+                InitializeComms()
+                Timer_EngineData.Enabled = True
+                B_StartStop.Text = "Stop"
+            Else
+
+            End If
+        Else
+            Timer_EngineData.Enabled = False
+            CloseComms()
+            B_StartStop.Text = "Start"
+        End If
+
+    End Sub
+
+    Private Function InitializeModem() As Boolean
+
+        Dim comPortCount As Integer
+        Dim comPortNumber As Integer
+        Dim modemStatus As Integer
+
+        FT_status = FT_GetNumberOfDevices(comPortCount, 0, &H80000000)
+
+        For index As Integer = 0 To comPortCount
+
+            FT_status = FT_Open(index - 1, lngHandle)
+            FT_status = FT_GetComPortNumber(lngHandle, comPortNumber)
+
+            If ComboBox_SerialPort.SelectedItem Is Nothing = False Then
+                If ComboBox_SerialPort.SelectedItem.ToString() = "COM" & comPortNumber Then
+
+                    FT_status = FT_SetBaudRate(lngHandle, 50000)
+                    FT_status = FT_status + FT_SetDataCharacteristics(lngHandle, 8, 1, 0)   ' 8bits ,1 stop, parity none
+                    FT_status = FT_status + FT_SetTimeouts(lngHandle, 5, 5)                 ' rx and tx timeouts 10ms
+                    FT_status = FT_status + FT_SetLatencyTimer(lngHandle, 16)               ' ms 16 is default
+                    FT_status = FT_status + FT_SetUSBParameters(lngHandle, 4096, 4096)
+
+                    FT_status = FT_GetModemStatus(lngHandle, modemStatus)
+
+                    Exit For
+                Else
+                    FT_status = FT_Close(lngHandle)
+                End If
+            End If
+        Next
+
+        If modemStatus = &H6010 Then
+            AddCommsMessage("Modem Initialized")
+            Return True
+        Else
+            AddCommsMessage("Modem Failed to Initialize, Please check USB cable is plugged in and COM Port is set correctly and Interface is in Engine Data Mode.")
+            Return False
+        End If
+
+    End Function
+
+    Private Sub InitializeComms()
+
+        ticking = 0
+
+        Dim Ctr1 As Long
+        Dim Ctr2 As Long
+        Dim Freq As Long
+
+        If QueryPerformanceCounter(Ctr1) Then
+
+            QueryPerformanceCounter(Ctr2)
+            QueryPerformanceFrequency(Freq)
+
+            FT_status = FT_SetBreakOff(lngHandle)       ' K-line high
+            Do Until (Ctr2 - Ctr1) / (Freq / 1000000) >= 300000 'wait 300ms
+                QueryPerformanceCounter(Ctr2)
+            Loop
+            FT_status = FT_SetBreakOn(lngHandle)        ' K-line low
+            Do Until (Ctr1 - Ctr2) / (Freq / 1000000) >= 24500 'wait 25ms
+                QueryPerformanceCounter(Ctr1)
+            Loop
+            FT_status = FT_SetBreakOff(lngHandle)       ' K-line high
+            Do Until (Ctr2 - Ctr1) / (Freq / 1000000) >= 24500 'wait 25ms
+                QueryPerformanceCounter(Ctr2)
+            Loop
+        End If
+
+        While (ticking < 25) And (rxbyte <> 0) And (bytecount = 0)
+            ticking = ticking + 1
+            FT_status = FT_Read_Bytes(lngHandle, rxbyte, 1, bytecount)
+        End While
+
+        If ticking < 25 Then
+            FT_Write_Bytes(lngHandle, &H81, 1, 1)
+            FT_Write_Bytes(lngHandle, &H12, 1, 1)
+            FT_Write_Bytes(lngHandle, &HF1, 1, 1)
+            FT_Write_Bytes(lngHandle, &H81, 1, 1)
+            FT_Write_Bytes(lngHandle, &H5, 1, 1)
+        End If
+
+        Thread.Sleep(100)
+
+        RequestEngineData()
+
+    End Sub
+
+    Private Sub CloseComms()
+
+        ' Send Close Comms Command to ecu
+        FT_Write_Bytes(lngHandle, &H80, 1, 1)
+        FT_Write_Bytes(lngHandle, &H12, 1, 1)
+        FT_Write_Bytes(lngHandle, &HF1, 1, 1)
+        FT_Write_Bytes(lngHandle, &H1, 1, 1)
+        FT_Write_Bytes(lngHandle, &H81, 1, 1)
+        FT_Write_Bytes(lngHandle, ((&H80 + &H12 + &HF1 + &H1 + &H81) And &HFF), 1, 1)
+
+        'Close Comm Port
+        FT_status = FT_Close(lngHandle)
+
+        AddCommsMessage("Engine Data Comms Closed")
+
+    End Sub
+
+    Private Sub RequestEngineData()
+
+        'Send Engine Data Request to ECU
+        FT_Write_Bytes(lngHandle, &H80, 1, 1)
+        FT_Write_Bytes(lngHandle, &H12, 1, 1)
+        FT_Write_Bytes(lngHandle, &HF1, 1, 1)
+        FT_Write_Bytes(lngHandle, &H2, 1, 1)
+        FT_Write_Bytes(lngHandle, &H21, 1, 1)
+        FT_Write_Bytes(lngHandle, &H8, 1, 1)
+        FT_Write_Bytes(lngHandle, ((&H80 + &H12 + &HF1 + &H2 + &H21 + &H8) And &HFF), 1, 1)
+
+    End Sub
+
+    Private Function ReadRxBuffer() As Byte()
+
+        FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
+
+        Dim rx(0) As Byte
+        Dim index As Integer
+
+        If FT_status = 0 And rxqueue > 0 Then
+            ReDim rx(rxqueue)
+
+            For index = 1 To rxqueue
+                FT_status = FT_Read_Bytes(lngHandle, rxbyte, 1, 1)
+                rx(index - 1) = rxbyte
+            Next
+        Else
+
+        End If
+
+        Return rx
+
+    End Function
+
+    Private Sub ReadDataString(ByRef rx() As Byte)
+
+        ' Read datastring from &H21 read local id command to global variables if positive response (&H61)to service id
+        If (rx(10) = &H34) And (rx(11) = &H61) And (rx(12) = &H8) Then
+
+            WIDEBAND1 = rx(20)
+            WIDEBAND2 = rx(21)
+            WIDEBAND = (WIDEBAND1 * 256) + WIDEBAND2
+
+            BOOST = rx(22)
+            BOOST2 = rx(23)
+            RPMhi = rx(24)
+            RPMlo = rx(25)
+            RPM = CInt((((&HFF * RPMhi) + RPMlo) / 2.55) / 10) * 10
+            TPS = rx(26)
+            IP = rx(27)
+            IAPabs = rx(27)
+            CLT = rx(28)
+            IAT = rx(29)
+            AP = rx(30)
+            SAPabs = rx(30)
+            IAP = AP - IP
+            BATT = rx(31)
+            HO2 = rx(32)
+            GEAR = rx(33)
+            FUELhi1 = rx(38)
+            FUELlo1 = rx(39)
+            FUEL1 = (256 * FUELhi1) + FUELlo1
+            FUELhi2 = rx(40)
+            FUELlo2 = rx(41)
+            FUEL2 = (256 * FUELhi2) + FUELlo2
+            FUELhi3 = rx(42)
+            FUELlo3 = rx(43)
+            FUEL3 = (256 * FUELhi3) + FUELlo3
+            FUELhi4 = rx(44)
+            FUELlo4 = rx(45)
+            FUEL4 = (256 * FUELhi4) + FUELlo4
+            IGN = rx(49)
+            STP = rx(53)
+            PAIR = rx(58) And 1
+            MS = rx(59) And 1 'first bit is MS signal
+            CLUTCH = rx(59) And &H10 'b10000 is clutch switch signal
+            NT = (rx(60) And 2)
+            HOX_ON = (rx(60) And &H20)
+
+        End If
+
+        If _lastRPM = RPM And _lastTPS = TPS And _lastIAP = IAP And _lastHO2 = HO2 And _lastWideBand = WIDEBAND And _lastFuel1 = FUEL1 Then
+
+            _newData = False
+            _dataCountRepeated = _dataCountRepeated + 1
+
+        Else
+
+            _newData = True
+            _dataCount = _dataCount + 1
+
+            _lastRPM = RPM
+            _lastTPS = TPS
+            _lastIAP = IAP
+            _lastHO2 = HO2
+            _lastWideBand = WIDEBAND
+            _lastFuel1 = FUEL1
+
+            _lastCommsDate = DateTime.Now
+
+            WriteDataLogs()
+
+        End If
+
+    End Sub
+
+    Private Sub Timer_EngineData_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer_EngineData.Tick
+
+        Dim rx() As Byte = ReadRxBuffer()
+
+        If rx.Length < 5 Or _missedDataCount > 10 Then
+            InitializeComms()
+            _missedDataCount = 0
+        Else
+            If (rx.Length >= 64) Then
+                ReadDataString(rx)
+                _missedDataCount = 0
+            Else
+                _missedDataCount = _missedDataCount + 1
+                _totalMissedDataCount = _totalMissedDataCount + 1
+            End If
+
+            RequestEngineData()
+        End If
+
+    End Sub
+
+    Private Sub Timer_UpdateGUI_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer_UpdateGUI.Tick
+
+        If Timer_EngineData.Enabled = True Then
+
+            L_CommStatusColour.ForeColor = Color.Green
+            L_BasicData.Text = "TPS: " & CalcTPS(TPS) & " RPM: " & RPM & " IAP: " & CalcPressure(IAP) & " Gear: " & GEAR & " Coolant: " & CalcTemp(CLT)
+
+            If C_WidebandO2Sensor.Checked = True Then
+                L_AFR.Text = "AFR: " + CalcWidebandAFR(WIDEBAND).ToString("00.00")
+            Else
+                L_AFR.Text = "AFR: " + CalcAFR(HO2).ToString("00.00")
+            End If
+
+            L_NewDataPercentage.Text = (_dataCount / (_dataCount + _dataCountRepeated) * 100).ToString("00.0") & "%" & " - " & _totalMissedDataCount & " / " & _dataCount
+        ElseIf _connected = False Then
+
+            L_CommStatusColour.ForeColor = Color.Red
+            L_BasicData.Text = ""
+            L_AFR.Text = ""
+
+        End If
+
+        L_Status.Text = "Log Count: " & numberOfLogs.ToString()
+
+    End Sub
+
+    Private Sub B_ResetComms_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_ResetComms.Click
+
+        Timer_EngineData.Enabled = False
+
+        _dataCount = 0
+        _dataCountRepeated = 0
+        _missedDataCount = 0
+        _totalMissedDataCount = 0
+
+        InitializeComms()
+
+        Timer_EngineData.Enabled = True
+
+    End Sub
 End Class

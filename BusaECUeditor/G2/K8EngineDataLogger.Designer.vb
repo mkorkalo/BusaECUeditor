@@ -33,7 +33,7 @@ Partial Class K8EngineDataLogger
         Me.L_FileName = New System.Windows.Forms.Label()
         Me.B_CreateLogFile = New System.Windows.Forms.Button()
         Me.L_Status = New System.Windows.Forms.Label()
-        Me.B_Connect_Datastream = New System.Windows.Forms.Button()
+        Me.B_StartStop = New System.Windows.Forms.Button()
         Me.ComboBox_SerialPort = New System.Windows.Forms.ComboBox()
         Me.L_CommStatusColour = New System.Windows.Forms.Label()
         Me.NUD_DataRate = New System.Windows.Forms.NumericUpDown()
@@ -53,6 +53,7 @@ Partial Class K8EngineDataLogger
         Me.L_5V = New System.Windows.Forms.Label()
         Me.C_CreateConvertedFile = New System.Windows.Forms.CheckBox()
         Me.L_NewDataPercentage = New System.Windows.Forms.Label()
+        Me.Timer_EngineData = New System.Windows.Forms.Timer(Me.components)
         CType(Me.NUD_DataRate, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_Widband0v, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_Widband5v, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -145,14 +146,14 @@ Partial Class K8EngineDataLogger
         Me.L_Status.TabIndex = 37
         Me.L_Status.Text = "-"
         '
-        'B_Connect_Datastream
+        'B_StartStop
         '
-        Me.B_Connect_Datastream.Location = New System.Drawing.Point(827, 58)
-        Me.B_Connect_Datastream.Name = "B_Connect_Datastream"
-        Me.B_Connect_Datastream.Size = New System.Drawing.Size(75, 23)
-        Me.B_Connect_Datastream.TabIndex = 36
-        Me.B_Connect_Datastream.Text = "Connect"
-        Me.B_Connect_Datastream.UseVisualStyleBackColor = True
+        Me.B_StartStop.Location = New System.Drawing.Point(827, 58)
+        Me.B_StartStop.Name = "B_StartStop"
+        Me.B_StartStop.Size = New System.Drawing.Size(75, 23)
+        Me.B_StartStop.TabIndex = 36
+        Me.B_StartStop.Text = "Start"
+        Me.B_StartStop.UseVisualStyleBackColor = True
         '
         'ComboBox_SerialPort
         '
@@ -310,12 +311,15 @@ Partial Class K8EngineDataLogger
         '
         'L_NewDataPercentage
         '
-        Me.L_NewDataPercentage.AutoSize = True
-        Me.L_NewDataPercentage.Location = New System.Drawing.Point(171, 98)
+        Me.L_NewDataPercentage.Location = New System.Drawing.Point(747, 145)
         Me.L_NewDataPercentage.Name = "L_NewDataPercentage"
-        Me.L_NewDataPercentage.Size = New System.Drawing.Size(10, 13)
+        Me.L_NewDataPercentage.Size = New System.Drawing.Size(147, 17)
         Me.L_NewDataPercentage.TabIndex = 67
         Me.L_NewDataPercentage.Text = "-"
+        Me.L_NewDataPercentage.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'Timer_EngineData
+        '
         '
         'K8EngineDataLogger
         '
@@ -338,7 +342,7 @@ Partial Class K8EngineDataLogger
         Me.Controls.Add(Me.L_FileName)
         Me.Controls.Add(Me.B_CreateLogFile)
         Me.Controls.Add(Me.L_Status)
-        Me.Controls.Add(Me.B_Connect_Datastream)
+        Me.Controls.Add(Me.B_StartStop)
         Me.Controls.Add(Me.ComboBox_SerialPort)
         Me.Controls.Add(Me.L_CommStatusColour)
         Me.Controls.Add(Me.NUD_DataRate)
@@ -365,7 +369,7 @@ Partial Class K8EngineDataLogger
     Friend WithEvents L_FileName As System.Windows.Forms.Label
     Friend WithEvents B_CreateLogFile As System.Windows.Forms.Button
     Friend WithEvents L_Status As System.Windows.Forms.Label
-    Friend WithEvents B_Connect_Datastream As System.Windows.Forms.Button
+    Friend WithEvents B_StartStop As System.Windows.Forms.Button
     Friend WithEvents ComboBox_SerialPort As System.Windows.Forms.ComboBox
     Friend WithEvents L_CommStatusColour As System.Windows.Forms.Label
     Friend WithEvents NUD_DataRate As System.Windows.Forms.NumericUpDown
@@ -385,4 +389,5 @@ Partial Class K8EngineDataLogger
     Friend WithEvents L_5V As System.Windows.Forms.Label
     Friend WithEvents C_CreateConvertedFile As System.Windows.Forms.CheckBox
     Friend WithEvents L_NewDataPercentage As System.Windows.Forms.Label
+    Friend WithEvents Timer_EngineData As System.Windows.Forms.Timer
 End Class
