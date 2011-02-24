@@ -6121,6 +6121,9 @@ skip_update:
         End If
     End Sub
 
-  End Class
+    Private Sub ViewFAQFacebookToolStripMenuItem_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ViewFAQFacebookToolStripMenuItem.Click
+        Process.Start("http://www.facebook.com/topic.php?uid=133860313347043&topic=34")
+    End Sub
+End Class
 
 
