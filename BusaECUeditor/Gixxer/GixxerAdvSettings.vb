@@ -425,9 +425,35 @@
         If Not loading Then
             Select Case gixxer_ecumode
 
+                Case &H73D2B
+                    '
+                    ' g600, G750k9
+                    '
+                    Select Case C_ECU.Text
+                        Case "US"
+                            WriteFlashByte(gixxer_ecumode, &H80)
+                        Case "EU"
+                            WriteFlashByte(gixxer_ecumode, &HFF)
+                        Case "Gen" 'generic model for those we do not know
+                            WriteFlashByte(gixxer_ecumode, &H0)
+                    End Select
+
+                Case &H73DB2
+                    '
+                    ' G750K9
+                    '
+                    Select Case C_ECU.Text
+                        Case "US"
+                            WriteFlashByte(gixxer_ecumode, &H80)
+                        Case "EU"
+                            WriteFlashByte(gixxer_ecumode, &HFF)
+                        Case "Gen" 'generic model for those we do not know
+                            WriteFlashByte(gixxer_ecumode, &H0)
+                    End Select
+
                 Case &H73D2F
                     '
-                    ' 21H50, 21H51, 21H60
+                    '
                     '
                     Select Case C_ECU.Text
                         Case "US"
