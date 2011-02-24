@@ -186,6 +186,7 @@ Partial Class K8EngineDataLogger
         '
         'B_ResetComms
         '
+        Me.B_ResetComms.Enabled = False
         Me.B_ResetComms.Location = New System.Drawing.Point(744, 58)
         Me.B_ResetComms.Name = "B_ResetComms"
         Me.B_ResetComms.Size = New System.Drawing.Size(75, 23)
