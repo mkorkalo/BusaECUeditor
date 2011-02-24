@@ -2171,7 +2171,6 @@ skip_update:
         Dim diffstr As String
         Dim chksum As Integer
         Dim chksumflash As Long
-        Dim chksumdiff As Boolean = False
 
         '
         ' Reset ECUID to null string
@@ -2465,19 +2464,7 @@ skip_update:
                 '
                 For j = 0 To &HFF
                     If Flash((midorder * &H100) + (highorder * &H10000) + j) <> FlashCopy((midorder * &H100) + (highorder * &H10000) + j) Then
-                        If (imageidentical <> False) Then
-                            If (highorder = &HF) And (midorder = &HFF) And ((j = &HF8) Or j = &HF9) Then
-                                '
-                                ' The only difference is checksum so no trouble here
-                                '
-                                chksumdiff = True
-                            End If
-                        Else
-                            '
-                            ' Not a checksum difference image is not identical
-                            '
-                            imageidentical = False
-                        End If
+                        imageidentical = False
                         If Len(diffstr) < 100 Then diffstr = diffstr & " " & Hex((midorder * &H100) + (highorder * &H10000) + j)
                     End If
                 Next
@@ -2489,8 +2476,6 @@ skip_update:
             Next
         Next
         VerifyInProgress.Close()
-
-
 
         '
         ' All done, close comms
@@ -2513,14 +2498,9 @@ skip_update:
 
 
         If imageidentical Then
-            If chksumdiff Then
-                MsgBox("Ecu verify complete, image same as comparemap with different checksum. Ecu image is in ecueditor memory.")
-            Else
-                MsgBox("Ecu verify complete, image same as comparemap with checksum match. Ecu image is in ecueditor memory.")
-            End If
+            MsgBox("Ecu verify complete, image same as comparemap. Ecu image is in ecueditor memory.")
             ResetBlocks()
             BlockPgm = False
-
         Else
             '
             ' Check that the binary lenght matches just in case
@@ -3252,8 +3232,6 @@ skip_update:
                 gixxerramair_columnheader = &H60776 ' &H7268E
                 gixxerramair_map = &H60941 '&H72859
 
-                gixxer_ecumode = &H604CF
-
                 gixxer_injectorbalance_map_name = gixxer_modelname
                 gixxer_STP_modelname = gixxer_modelname
                 gixxer_fuelmap_map_bikename = gixxer_modelname
@@ -3498,7 +3476,7 @@ skip_update:
                 gixxer_ignition_use_clutch_map = &H743A4         ' use_clutch_map_if_0x1
 
                 gixxer_msmode = &H73E8F
-                gixxer_ecumode = &H73D2B
+                gixxer_ecumode = 0
 
                 gixxer_ignition_rpm_limiter = &H74374          'ignition_rpm_limiter
 
@@ -3533,71 +3511,13 @@ skip_update:
                 B_FuelMap.Enabled = True
                 B_IgnitionMap.Enabled = True
                 B_AdvancedSettings.Enabled = True
-            Case "DJ64SE01"
-                Hayabusa.Text = "Gixxer K9- GR 32920-38H00"
-                Metric = True
-                ECUVersion = "gixxer"
 
-                gixxer_modelname = "ecueditor.com for gixxer 750 K9 GR (32920-38H00) "
-
-                gixxer_shifter_ADJ = 0
-                gixxer_shifter_FUELCODE = 0
-                gixxer_shifter_IGNCODE = 0
-                gixxer_shifter_jmp_to_fuelcode = 0        'last label at the end of function set_fuel_gear_type2hard
-                gixxer_shifter_jmp_to_igncode = 0         'last label at the end of function calculate_ignition_gear_limiters
-
-                gixxer_STP_map_first_table = 0            ' STP_gear06_ms01_modeabc_STP_map_list_
-                gixxer_STP_map_first_table_fuel = 0
-
-                gixxer_fuelmap_map_first = &H5AC68              'Fuel_IAP
-                gixxer_injectorbalance_map_first = 0      'injector_balancing_volume_
-
-                gixxer_ignition_map_first = &H5A868              ' ign_group_clutch_neutral
-                gixxer_ignition_use_clutch_map = &H743A4         ' use_clutch_map_if_0x1
-
-                gixxer_msmode = &H73E8F
-                gixxer_ecumode = &H73D2B
-
-                gixxer_ignition_rpm_limiter = &H74374          'ignition_rpm_limiter
-
-                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3BD60 + 1 'sub set_ignition_limiters beginning the GPS_sensor_RAW address
-                gixxer_GPS_voltage_raw = &H80510D
-                gixxer_set_ign_default = &H7439F
-
-                gixxer_fuel_limiter_by_gear = &H74BE7            'fuelcut_by_gear
-                gixxer_RPM_limit_type1 = &H74A92                'RPM_limit_type1
-                gixxer_fuel_limiter_softcut_or_hardcut = &H74BE4 'fuel_limiter_softcut_or_hardcut
-                gixxer_baseline = 14500
-
-                gixxerramair_columnheader = 0
-                gixxerramair_map = 0
-
-
-                '
-                ' These do not need to be adjusted
-                '
-                gixxer_ignition_map_name = gixxer_modelname
-                gixxer_fuel_limiter_by_gear_softcut = gixxer_fuel_limiter_by_gear + 1
-                gixxer_injectorbalance_map_name = gixxer_modelname
-                gixxer_STP_modelname = gixxer_modelname
-                gixxer_fuelmap_map_bikename = gixxer_modelname
-
-                B_EngineData.Enabled = True
-                FlashToolStripMenuItem.Visible = Enabled
-                B_DataLogging.Enabled = False
-                SaveToolStripMenuItem.Enabled = True
-                B_FlashECU.Enabled = True
-                B_Limiters.Enabled = True
-                B_Shifter.Enabled = False
-                B_FuelMap.Enabled = True
-                B_IgnitionMap.Enabled = True
-                B_AdvancedSettings.Enabled = True
             Case "DJ55SE00"
-                Hayabusa.Text = "Gixxer K8- EU 32920-37H00"
+                Hayabusa.Text = "Gixxer 600 K8 EU - 32920-37H00"
                 Metric = True
                 ECUVersion = "gixxer"
 
-                gixxer_modelname = "ecueditor.com for gixxer 600 K8- EU (32920-37H00) "
+                gixxer_modelname = "ecueditor.com for gixxer 600 K8 EU (32920-37H00) "
 
                 gixxer_shifter_ADJ = 0
                 gixxer_shifter_FUELCODE = 0
@@ -3609,17 +3529,18 @@ skip_update:
                 gixxer_STP_map_first_table_fuel = 0
 
                 gixxer_fuelmap_map_first = &H5AC54             'Fuel_IAP
-                gixxer_injectorbalance_map_first = &H5AC3C     'injector_balancing_volume_
+                gixxer_injectorbalance_map_first = &H5AC3C      'injector_balancing_volume_
 
                 gixxer_ignition_map_first = &H5A854              ' ign_group_clutch_neutral
                 gixxer_ignition_use_clutch_map = &H743A4         ' use_clutch_map_if_0x1
 
                 gixxer_msmode = &H73E8F
-                gixxer_ecumode = &H73D2B
+
+                gixxer_ecumode = 0
 
                 gixxer_ignition_rpm_limiter = &H74374          'ignition_rpm_limiter
 
-                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3BD60 + 1 'sub set_ignition_limiters beginning the GPS_sensor_RAW address
+                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3BD60 + 1 ' &H3BD74 'sub set_ignition_limiters beginning the GPS_sensor_RAW address
                 gixxer_GPS_voltage_raw = &H80510D
                 gixxer_set_ign_default = &H7439F
 
@@ -4090,7 +4011,24 @@ skip_update:
 
 #End Region
 
+#Region "Not In Use"
 
+    Private Sub B_MapSharing_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+        MapSharing.Show()
+        MapSharing.Select()
+
+    End Sub
+
+    Private Sub B_ReadECU_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        '
+        ' Lets put the verify function running in another thread, not for any particular reason
+        '
+        'Dim th As New System.Threading.Thread(AddressOf ReadECU)
+        'th.Start()
+
+        ReadECU()
+    End Sub
 
     Private Sub FlashSerial_old()
 
@@ -4947,7 +4885,7 @@ skip_update:
 
     End Sub
 
-
+#End Region
 
     Private Sub RecoveryToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RecoveryToolStripMenuItem.Click
         ' Lets use OpenFileDialog to open a new flash image file
@@ -5872,137 +5810,6 @@ skip_update:
         Process.Start("https://bitbucket.org/ecueditor/ecueditor/issues?status=new")
     End Sub
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        Process.Start("http://www.facebook.com/pages/ecueditorcom/133860313347043#!/pages/ecueditorcom/133860313347043")
-    End Sub
-
-    Private Sub EcueditorcomfacebookToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EcueditorcomfacebookToolStripMenuItem.Click
-        Process.Start("http://www.facebook.com/pages/ecueditorcom/133860313347043#!/pages/ecueditorcom/133860313347043")
-    End Sub
-
-    Private Sub EnginedataOnlyModeMetricToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EnginedataOnlyModeMetricToolStripMenuItem.Click
-        CloseChildWindows()
-        L_File.Text = ""
-        L_Comparefile.Text = ""
-        DisableButtons()
-
-        ECUID.Text = "EU________"
-        SetECUType()
-
-        ' enable controls, otherwise at form load an event will occur
-        B_EngineData.Enabled = True
-    End Sub
-
-    Private Sub K9GR38HH0ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles K9GR38HH0ToolStripMenuItem.Click
-        Dim defpath As String ' this is for this subroutine only
-
-        CloseChildWindows()
-
-
-        ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\G750K9G.bin"
-
-        L_File.Text = ""
-        L_Comparefile.Text = ""
-        DisableButtons()
-
-        ' Open the stream and read it to global variable "Flash". 
-        fs = File.OpenRead(defpath)
-        Dim b(1) As Byte
-        Dim i As Integer
-        i = 0
-        Do While fs.Read(b, 0, 1) > 0
-            Flash(i) = b(0)
-            FlashCopy(i) = b(0)
-            i = i + 1
-        Loop
-        fs.Close()
-
-        ' Check that the binary lenght matches expected ecu
-        If i <> (262144 * 4) Then
-            ECUNotSupported.ShowDialog()
-        End If
-
-        ECUVersion = "gixxer"
-        '
-        ' Make sure the ECU id is supported type
-        '
-        i = 0
-        ECUID.Text = ""
-        Do While i < 8
-            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
-            i = i + 1
-        Loop
-
-        ' check the ecu id bytes and validate that the ecu flash image is supported
-        SetECUType()
-
-        MsgBox("A new Gixxer 750K9GR- basemap is generated", MsgBoxStyle.Information)
-
-        BlockPgm = True
-
-    End Sub
-
-    Private Sub MakeAnDIYInterfaceToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MakeAnDIYInterfaceToolStripMenuItem.Click
-        Process.Start("http://macmadigan.no-ip.com/ecueditor/interface.html")
-    End Sub
-
-    Private Sub ToolStripMenuItem4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem4.Click
-
-    End Sub
-
-    Private Sub K8EU37H00ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles K8EU37H00ToolStripMenuItem.Click
-        Dim defpath As String ' this is for this subroutine only
-
-        CloseChildWindows()
-
-
-        ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\37H00_DJ55SE00.bin"
-
-        L_File.Text = ""
-        L_Comparefile.Text = ""
-        DisableButtons()
-
-        ' Open the stream and read it to global variable "Flash". 
-        fs = File.OpenRead(defpath)
-        Dim b(1) As Byte
-        Dim i As Integer
-        i = 0
-        Do While fs.Read(b, 0, 1) > 0
-            Flash(i) = b(0)
-            FlashCopy(i) = b(0)
-            i = i + 1
-        Loop
-        fs.Close()
-
-        ' Check that the binary lenght matches expected ecu
-        If i <> (262144 * 4) Then
-            ECUNotSupported.ShowDialog()
-        End If
-
-        ECUVersion = "gixxer"
-        '
-        ' Make sure the ECU id is supported type
-        '
-        i = 0
-        ECUID.Text = ""
-        Do While i < 8
-            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
-            i = i + 1
-        Loop
-
-        ' check the ecu id bytes and validate that the ecu flash image is supported
-        SetECUType()
-
-        MsgBox("A new Gixxer 600K8- basemap is generated", MsgBoxStyle.Information)
-
-        BlockPgm = True
-
-
-    End Sub
-
-
     Public Sub generate_tweets()
 
 
@@ -6121,6 +5928,80 @@ skip_update:
         End If
     End Sub
 
-  End Class
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Process.Start("http://www.facebook.com/pages/ecueditorcom/133860313347043#!/pages/ecueditorcom/133860313347043")
+    End Sub
+
+    Private Sub EcueditorcomfacebookToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EcueditorcomfacebookToolStripMenuItem.Click
+        Process.Start("http://www.facebook.com/pages/ecueditorcom/133860313347043#!/pages/ecueditorcom/133860313347043")
+    End Sub
+
+    Private Sub EnginedataOnlyModeMetricToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EnginedataOnlyModeMetricToolStripMenuItem.Click
+        CloseChildWindows()
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        DisableButtons()
+
+        ECUID.Text = "EU________"
+        SetECUType()
+
+        ' enable controls, otherwise at form load an event will occur
+        B_EngineData.Enabled = True
+    End Sub
+
+    Private Sub KEU37H00ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles KEU37H00ToolStripMenuItem.Click
+        Dim defpath As String ' this is for this subroutine only
+
+        CloseChildWindows()
+
+
+        ' OK, so the file is found, now lets start processing it
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\37H00_DJ55SE00.bin"
+
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        DisableButtons()
+
+        ' Open the stream and read it to global variable "Flash". 
+        fs = File.OpenRead(defpath)
+        Dim b(1) As Byte
+        Dim i As Integer
+        i = 0
+        Do While fs.Read(b, 0, 1) > 0
+            Flash(i) = b(0)
+            FlashCopy(i) = b(0)
+            i = i + 1
+        Loop
+        fs.Close()
+
+        ' Check that the binary lenght matches expected ecu
+        If i <> (262144 * 4) Then
+            ECUNotSupported.ShowDialog()
+        End If
+
+        ECUVersion = "gixxer"
+        '
+        ' Make sure the ECU id is supported type
+        '
+        i = 0
+        ECUID.Text = ""
+        Do While i < 8
+            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
+            i = i + 1
+        Loop
+
+        ' check the ecu id bytes and validate that the ecu flash image is supported
+        SetECUType()
+
+        MsgBox("A new Gixxer 600 - basemap is generated", MsgBoxStyle.Information)
+
+        BlockPgm = True
+
+    End Sub
+
+    Private Sub MakeAnDIYInterfaceToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MakeAnDIYInterfaceToolStripMenuItem.Click
+        Process.Start("http://macmadigan.no-ip.com/ecueditor/interface.html")
+    End Sub
+End Class
 
 
