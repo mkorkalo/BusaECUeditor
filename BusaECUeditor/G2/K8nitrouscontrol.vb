@@ -123,7 +123,7 @@ Public Class K8nitrouscontrol
         Dim i As Integer
         C_RPM_LOW.Items.Clear()
         C_RPM_LOW.Items.Add(Str(CInt(ReadFlashWord(&H55802) / 2.56)))
-        For i = 5000 To 12500 Step 100
+        For i = 5000 To 15500 Step 100
             C_RPM_LOW.Items.Add(Str(i))
         Next
         C_RPM_LOW.SelectedIndex = 0
