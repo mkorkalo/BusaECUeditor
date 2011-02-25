@@ -1674,10 +1674,10 @@ Public Class K8Datastream
 
                 If Len(SerialPort1.PortName) = 4 Then
                     comportnum = Val(Mid$(SerialPort1.PortName, 4))   ' com port address
-                    If ((comportnum < 0) Or (comportnum > 9)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
+                    If ((comportnum < 0) Or (comportnum > 8)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
                 Else
                     comportnum = Val(Mid$(SerialPort1.PortName, 5))   ' com port address
-                    If ((comportnum < 0) Or (comportnum > 15)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
+                    If ((comportnum < 0) Or (comportnum >= 10)) Then MsgBox("USB FTDI COMport is non existing or out of normal range, program may not work")
 
                 End If
                 Timer2.Enabled = False
