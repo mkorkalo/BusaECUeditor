@@ -829,6 +829,8 @@ skip_update:
                 EraseECU()
             Case "bking"
                 EraseECU()
+            Case "gixxer"
+                EraseECU()
             Case Else
                 MsgBox("Unknown ecu type, command not supported.")
         End Select
@@ -2983,6 +2985,10 @@ skip_update:
                 ECUVersion = "gen2"
             Case "DJ18SE00"
                 Hayabusa.Text = "Hayabusa gen2 EU 32920-15H00"
+                Metric = True
+                ECUVersion = "gen2"
+            Case "DJ18SE55"
+                Hayabusa.Text = "Hayabusa gen2 Generic 32920-15H00"
                 Metric = True
                 ECUVersion = "gen2"
             Case "DJ47SE01"
@@ -6132,7 +6138,9 @@ skip_update:
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
         If tweets = True Then
-            generate_tweets()
+            If Not K8FlashStatus.Visible Then
+                generate_tweets()
+            End If
         End If
     End Sub
 
