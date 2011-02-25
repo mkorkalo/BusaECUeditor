@@ -6139,7 +6139,9 @@ skip_update:
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
         If tweets = True Then
             If Not K8FlashStatus.Visible Then
-                generate_tweets()
+                If Not K8Datastream.Visible Then
+                    generate_tweets()
+                End If
             End If
         End If
     End Sub
