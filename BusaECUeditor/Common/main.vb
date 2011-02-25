@@ -3149,6 +3149,7 @@ skip_update:
 
             Case "DJ0HSE50"
                 gixxer_modelname = "ecueditor.com for gixxer K8 "
+                ECUVersion = "gixxer"
 
                 gixxer_shifter_ADJ = &H5D900
                 gixxer_shifter_FUELCODE = &H5DA00
@@ -3241,6 +3242,8 @@ skip_update:
 
             Case "DJ0HSE51"
                 gixxer_modelname = "ecueditor.com for gixxer K8 "
+                ECUVersion = "gixxer"
+                Hayabusa.Text = "Gixxer K7-K8 32920-21H50"
 
                 gixxer_shifter_ADJ = &H5D900
                 gixxer_shifter_FUELCODE = &H5DA00
@@ -3293,6 +3296,8 @@ skip_update:
 
             Case "DJ0HSE01"
                 gixxer_modelname = "ecueditor.com for gixxer K8 "
+                Hayabusa.Text = "Gixxer K7-K8"
+                ECUVersion = "gixxer"
 
                 gixxer_shifter_ADJ = &H5D900
                 gixxer_shifter_FUELCODE = &H5DA00
@@ -5384,13 +5389,8 @@ skip_update:
             i = i + 1
         Loop
 
-        ' check the ecu id bytes and validate that the ecu flash image is supported
-        If (Mid(ECUID.Text, 1, 4) <> "DJ0H") And (Mid(ECUID.Text, 1, 4) <> "DT0H") And (Mid(ECUID.Text, 1, 4) <> "DJ21") Then
-            ECUNotSupported.ShowDialog()
-        Else
             SetECUType()
-        End If
-
+ 
         MsgBox("A new Gixxer K8- basemap is generated", MsgBoxStyle.Information)
 
         BlockPgm = True
