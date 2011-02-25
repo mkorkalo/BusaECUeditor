@@ -1130,7 +1130,7 @@ Public Class K8EngineDataLogger
 
         If C_ShowCommsMessages.Checked = True Then
 
-            T_CommsLog.AppendText(message)
+            T_CommsLog.AppendText(DateTime.Now.ToString("HH:mm:ss") & ":- " & message)
             T_CommsLog.AppendText(Environment.NewLine)
 
         End If
@@ -2485,7 +2485,7 @@ Public Class K8EngineDataLogger
             AddCommsMessage("Modem Initialized")
             Return True
         Else
-            AddCommsMessage("Modem Failed to Initialize, Please check USB cable is plugged, COM Port is set correctly and Interface is set to Engine Data Mode.")
+            AddCommsMessage("Modem Failed to Initialize, Check USB cable, COM Port selection and Interface is set to Engine Data Mode.")
             Return False
         End If
 
@@ -2550,7 +2550,26 @@ Public Class K8EngineDataLogger
         'Close Comm Port
         FT_status = FT_Close(lngHandle)
 
+
         AddCommsMessage("Engine Data Comms Closed")
+
+    End Sub
+
+    Private Sub ResetComms()
+
+        Timer_EngineData.Enabled = False
+
+        AddCommsMessage("Resetting Engine Data Comms ")
+
+        CloseComms()
+
+        Thread.Sleep(My.Settings.DataRate)
+
+        If InitializeModem() Then
+            InitializeComms()
+            _missedDataCount = 0
+            Timer_EngineData.Enabled = True
+        End If
 
     End Sub
 
@@ -2666,8 +2685,9 @@ Public Class K8EngineDataLogger
         Dim rx() As Byte = ReadRxBuffer()
 
         If rx.Length < 5 Or _missedDataCount > 10 Then
-            InitializeComms()
-            _missedDataCount = 0
+
+            ResetComms()
+
         Else
             If (rx.Length >= 64) Then
                 ReadDataString(rx)
@@ -2675,6 +2695,7 @@ Public Class K8EngineDataLogger
             Else
                 _missedDataCount = _missedDataCount + 1
                 _totalMissedDataCount = _totalMissedDataCount + 1
+                _dataCountRepeated = _dataCountRepeated + 1
             End If
 
             RequestEngineData()
@@ -2710,16 +2731,12 @@ Public Class K8EngineDataLogger
 
     Private Sub B_ResetComms_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_ResetComms.Click
 
-        Timer_EngineData.Enabled = False
-
         _dataCount = 0
         _dataCountRepeated = 0
         _missedDataCount = 0
         _totalMissedDataCount = 0
 
-        InitializeComms()
-
-        Timer_EngineData.Enabled = True
+        ResetComms()
 
     End Sub
 End Class
