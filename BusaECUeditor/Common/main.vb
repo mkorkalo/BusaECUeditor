@@ -5125,11 +5125,9 @@ skip_update:
         Process.Start("https://bitbucket.org/ecueditor/ecueditor/changesets")
     End Sub
 
-    Private Sub NewStockGixxerK8ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-    End Sub
-
     Private Sub BuyInterfaceFromEBayToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BuyInterfaceFromEBayToolStripMenuItem.Click
-        Process.Start("http://product-search.ebay.com/ecueditor.com")
+        'Process.Start("http://product-search.ebay.com/ecueditor.com") 'this seems to return only from american site
+        Process.Start("http://shop.ebay.com/i.html?_nkw=ecueditor.com&_sacat=0&_sop=12&LH_PrefLoc=2&_dmd=1&_odkw=ecueditor.com&_rdc=1") 'this is worldwide search string
     End Sub
 
     Private Sub NewStockGixxerK7EUToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
