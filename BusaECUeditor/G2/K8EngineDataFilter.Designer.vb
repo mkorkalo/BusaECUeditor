@@ -22,15 +22,15 @@ Partial Class K8EngineDataFilter
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.C_FilterCLT80 = New System.Windows.Forms.CheckBox
-        Me.C_GearNeutral = New System.Windows.Forms.CheckBox
-        Me.C_FilterClutchIn = New System.Windows.Forms.CheckBox
-        Me.btnOk = New System.Windows.Forms.Button
-        Me.btnCancel = New System.Windows.Forms.Button
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.NUD_FilterAFRGreaterThan = New System.Windows.Forms.NumericUpDown
-        Me.NUD_FilterAFRLessThan = New System.Windows.Forms.NumericUpDown
+        Me.C_FilterCLT80 = New System.Windows.Forms.CheckBox()
+        Me.C_GearNeutral = New System.Windows.Forms.CheckBox()
+        Me.C_FilterClutchIn = New System.Windows.Forms.CheckBox()
+        Me.btnOk = New System.Windows.Forms.Button()
+        Me.btnCancel = New System.Windows.Forms.Button()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.NUD_FilterAFRGreaterThan = New System.Windows.Forms.NumericUpDown()
+        Me.NUD_FilterAFRLessThan = New System.Windows.Forms.NumericUpDown()
         CType(Me.NUD_FilterAFRGreaterThan, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_FilterAFRLessThan, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -106,7 +106,7 @@ Partial Class K8EngineDataFilter
         Me.NUD_FilterAFRGreaterThan.DecimalPlaces = 1
         Me.NUD_FilterAFRGreaterThan.Location = New System.Drawing.Point(129, 100)
         Me.NUD_FilterAFRGreaterThan.Maximum = New Decimal(New Integer() {25, 0, 0, 0})
-        Me.NUD_FilterAFRGreaterThan.Minimum = New Decimal(New Integer() {16, 0, 0, 0})
+        Me.NUD_FilterAFRGreaterThan.Minimum = New Decimal(New Integer() {14, 0, 0, 0})
         Me.NUD_FilterAFRGreaterThan.Name = "NUD_FilterAFRGreaterThan"
         Me.NUD_FilterAFRGreaterThan.Size = New System.Drawing.Size(49, 20)
         Me.NUD_FilterAFRGreaterThan.TabIndex = 7

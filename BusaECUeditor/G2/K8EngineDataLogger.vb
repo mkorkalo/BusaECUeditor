@@ -2466,7 +2466,7 @@ Public Class K8EngineDataLogger
             If ComboBox_SerialPort.SelectedItem Is Nothing = False Then
                 If ComboBox_SerialPort.SelectedItem.ToString() = "COM" & comPortNumber Then
 
-                    FT_status = FT_SetBaudRate(lngHandle, 50000)
+                    FT_status = FT_SetBaudRate(lngHandle, BaudRate)
                     FT_status = FT_status + FT_SetDataCharacteristics(lngHandle, 8, 1, 0)   ' 8bits ,1 stop, parity none
                     FT_status = FT_status + FT_SetTimeouts(lngHandle, 5, 5)                 ' rx and tx timeouts 10ms
                     FT_status = FT_status + FT_SetLatencyTimer(lngHandle, 16)               ' ms 16 is default
@@ -2480,6 +2480,8 @@ Public Class K8EngineDataLogger
                 End If
             End If
         Next
+
+        FT_status = FT_ClrDtr(lngHandle)
 
         If modemStatus = &H6010 Then
             AddCommsMessage("Modem Initialized")
@@ -2567,6 +2569,7 @@ Public Class K8EngineDataLogger
 
         If InitializeModem() Then
             InitializeComms()
+            _repeatedDataCount = 0
             _missedDataCount = 0
             Timer_EngineData.Enabled = True
         End If
