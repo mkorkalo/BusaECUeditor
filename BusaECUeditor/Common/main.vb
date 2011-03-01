@@ -3041,12 +3041,12 @@ skip_update:
                 gixxer_fan = 0 '&H6296A
                 gixxer_pair = &H7A382 '&H62ABA
                 gixxer_pairloop = &H594F4 '&H56D5C
-                gixxer_hoxflag = 0 '&H614D4
                 gixxer_ics1 = 0 '&H622EE
                 gixxer_ics2 = 0 '&H6230A
                 gixxer_ics3 = 0 '&H62296
-                gixxer_hox1 = 0 '&H614D4
-                gixxer_hox2 = 0 '&H62243
+                gixxer_hoxflag = &H74F4E  '&H614D4
+                gixxer_hox1 = gixxer_hoxflag '&H614D4
+                gixxer_hox2 = &H74F4E '&H62243
 
                 gixxer_sdmap = &H606CC
                 gixxer_sd1 = &H7A398 '&H62AC1
@@ -3115,12 +3115,12 @@ skip_update:
                 gixxer_fan = 0 '&H6296A
                 gixxer_pair = &H7A382 '&H62ABA
                 gixxer_pairloop = &H594F4 '&H56D5C
-                gixxer_hoxflag = 0 '&H614D4
                 gixxer_ics1 = 0 '&H622EE
                 gixxer_ics2 = 0 '&H6230A
                 gixxer_ics3 = 0 '&H62296
-                gixxer_hox1 = 0 '&H614D4
-                gixxer_hox2 = 0 '&H62243
+                gixxer_hoxflag = &H74F4E  '&H614D4
+                gixxer_hox1 = gixxer_hoxflag '&H614D4
+                gixxer_hox2 = &H74F4E '&H62243
 
                 gixxer_sdmap = &H606CC
                 gixxer_sd1 = &H7A398 '&H62AC1
@@ -3205,11 +3205,11 @@ skip_update:
                 gixxer_pairloop = &H56D5C
                 gixxer_excva = &H6000D
                 gixxer_excva_flag = &H60669
-                gixxer_hoxflag = &H614D4
                 gixxer_ecumode = &H604CF
                 gixxer_ics1 = &H622EE
                 gixxer_ics2 = &H6230A
                 gixxer_ics3 = &H62296
+                gixxer_hoxflag = &H614D4
                 gixxer_hox1 = &H614D4
                 gixxer_hox2 = &H62243
                 gixxer_sdmap = &H5D840
