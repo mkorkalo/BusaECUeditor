@@ -28,6 +28,8 @@ Public Class K8EngineDataViewer
     Private _cltAbove80 As Boolean = False
     Private _mapType As Integer = 1
     Private _fileType As Integer = 0
+    Private _cellMean As Double = 0
+    Private _cellStdDev As Double = 0
 
     Private _autoTunedTPS = False
     Private _autoTunedIAP = False
@@ -544,10 +546,14 @@ Public Class K8EngineDataViewer
         Dim totalAfr As Double = 0
         Dim totalCount As Double = 0
         Dim avgAfr As Double
+        Dim mean As Double
+        Dim stdDev As Double
+
+        CalculateStdDevaition(values, mean, stdDev)
 
         For Each value As LogValue In values
 
-            If value.AFR > 0 Then
+            If value.AFR > mean - stdDev * My.Settings.AutoTuneCellStdDev And value.AFR < mean + stdDev * My.Settings.AutoTuneCellStdDev Then
                 dataCount = dataCount + 1
                 totalAfr = totalAfr + value.AFR
                 totalCount = totalCount + 1
@@ -867,7 +873,7 @@ Public Class K8EngineDataViewer
                 G_FuelMap.Item(xIndex, yIndex).Style.BackColor = Color.White
                 G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = Color.Black
 
-                Dim avgAfr As Double = CalculateAvgAFR(_tpsValues(xIndex, yIndex), dataCount)
+                Dim avgAfr = CalculateAvgAFR(_tpsValues(xIndex, yIndex), dataCount)
 
                 If avgAfr > 0 Then
 
@@ -1213,20 +1219,24 @@ Public Class K8EngineDataViewer
             If _mapType = 1 Then
                 values = _tpsValues(e.ColumnIndex, e.RowIndex)
                 targetAFR = _tpsTargetAFR(e.ColumnIndex, e.RowIndex)
-                L_CellInfo.Text = "TPS: " & _tpsList(e.ColumnIndex) & "% RPM:" & _rpmList(e.RowIndex)
+                L_CellInfo.Text = "TPS: " & _tpsList(e.ColumnIndex) & "% RPM: " & _rpmList(e.RowIndex)
             ElseIf _mapType = 2 Then
                 values = _iapValues(e.ColumnIndex, e.RowIndex)
                 targetAFR = _iapTargetAFR(e.ColumnIndex, e.RowIndex)
-                L_CellInfo.Text = "IAP: " & _iapList(e.ColumnIndex) & " RPM:" & _rpmList(e.RowIndex)
+                L_CellInfo.Text = "IAP: " & _iapList(e.ColumnIndex) & " RPM: " & _rpmList(e.RowIndex)
                 L_AvgTPS.Text = "Avg TPS: " & CalculateAvgTPS(values).ToString("0.0")
             ElseIf _mapType = 3 Then
                 values = _boostValues(e.ColumnIndex, e.RowIndex)
-                L_CellInfo.Text = "Boost: " & _boostList(e.ColumnIndex) & " RPM:" & _boostRPMList(e.RowIndex)
+                L_CellInfo.Text = "Boost: " & _boostList(e.ColumnIndex) & " RPM: " & _boostRPMList(e.RowIndex)
                 targetAFR = _boostTargetAFR(e.ColumnIndex, e.RowIndex)
             End If
 
             avgAFR = CalculateAvgAFR(values, dataCount)
-            L_CellInfo.Text = L_CellInfo.Text & " Avg AFR: " & avgAFR.ToString("0.0") & " ( " & targetAFR.ToString("0.0") & " ) Count: " & values.Count.ToString()
+
+            CalculateStdDevaition(values, _cellMean, _cellStdDev)
+
+            L_CellStats.Text = "Mean: " & _cellMean.ToString("0.00") & "  Std Dev: " & _cellStdDev.ToString("0.00")
+            L_CellInfo.Text = L_CellInfo.Text & " AFR: " & avgAFR.ToString("0.00") & " ( " & targetAFR.ToString("0.0") & " ) Count: " & values.Count.ToString()
 
             LB_Values.DataSource = values
 
@@ -1385,6 +1395,29 @@ Public Class K8EngineDataViewer
             LV_ValueDetails.Items.Add(item)
 
         End If
+
+    End Sub
+
+    Private Sub LB_Values_DrawItem(ByVal sender As Object, ByVal e As System.Windows.Forms.DrawItemEventArgs) Handles LB_Values.DrawItem
+
+        e.DrawBackground()
+
+        Dim backgroundBrush As Brush = Brushes.White
+        Dim textBrush As Brush = Brushes.Black
+
+        Dim value As LogValue = LB_Values.Items(e.Index)
+
+        ' Determine the color of the brush to draw each item based on the index of the item to draw.
+        If value.AFR > (_cellMean + _cellStdDev * My.Settings.AutoTuneCellStdDev) Then
+            backgroundBrush = Brushes.Coral
+        ElseIf value.AFR < (_cellMean - _cellStdDev * My.Settings.AutoTuneCellStdDev) Then
+            backgroundBrush = Brushes.LightBlue
+        End If
+
+        e.Graphics.FillRectangle(backgroundBrush, e.Bounds)
+        e.Graphics.DrawString(LB_Values.Items(e.Index).ToString(), e.Font, textBrush, e.Bounds, StringFormat.GenericDefault)
+
+        e.DrawFocusRectangle()
 
     End Sub
 
@@ -2082,6 +2115,32 @@ Public Class K8EngineDataViewer
                     G_FuelMap.CurrentCell.Value = ""
                 End If
             End If
+
+        End If
+
+    End Sub
+
+    Private Sub CalculateStdDevaition(ByRef logValues As List(Of LogValue), ByRef mean As Decimal, ByRef stdDev As Decimal)
+
+        If logValues.Count = 0 Then
+            mean = 0
+            stdDev = 0
+        Else
+
+            Dim total As Double
+            Dim sumOfSquaredDeviations As Double
+
+            For Each value As LogValue In logValues
+                total = total + value.AFR
+            Next
+
+            mean = total / logValues.Count
+
+            For Each value As LogValue In logValues
+                sumOfSquaredDeviations = sumOfSquaredDeviations + System.Math.Pow(value.AFR - mean, 2)
+            Next
+
+            stdDev = System.Math.Sqrt(sumOfSquaredDeviations / logValues.Count)
 
         End If
 
