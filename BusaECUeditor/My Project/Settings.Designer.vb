@@ -485,6 +485,18 @@ Namespace My
                 Me("username") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("1.5")>  _
+        Public Property AutoTuneCellStdDev() As Double
+            Get
+                Return CType(Me("AutoTuneCellStdDev"),Double)
+            End Get
+            Set
+                Me("AutoTuneCellStdDev") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

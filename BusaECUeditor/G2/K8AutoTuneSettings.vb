@@ -4,6 +4,7 @@
 
         NUD_AutoTuneMinAvgAFR.Value = My.Settings.AutoTuneMinAvgAFR
         NUD_AutoTuneMaxAvgAFR.Value = My.Settings.AutoTuneMaxAvgAFR
+        NUD_AFRStdDev.Value = My.Settings.AutoTuneCellStdDev
         NUD_AutoTuneMaxPercentageFuelMapChange.Value = My.Settings.AutoTuneMaxPercentageFuelMapChange
         NUD_AutoTuneMinNumberLoggedValuesInCell.Value = My.Settings.AutoTuneMinNumberLoggedValuesInCell
         TB_AutoTuneStrength.Value = My.Settings.AutoTuneStrength
@@ -16,6 +17,7 @@
 
         My.Settings.AutoTuneMinAvgAFR = NUD_AutoTuneMinAvgAFR.Value
         My.Settings.AutoTuneMaxAvgAFR = NUD_AutoTuneMaxAvgAFR.Value
+        My.Settings.AutoTuneCellStdDev = NUD_AFRStdDev.Value
         My.Settings.AutoTuneMaxPercentageFuelMapChange = NUD_AutoTuneMaxPercentageFuelMapChange.Value
         My.Settings.AutoTuneMinNumberLoggedValuesInCell = NUD_AutoTuneMinNumberLoggedValuesInCell.Value
         My.Settings.AutoTuneStrength = TB_AutoTuneStrength.Value

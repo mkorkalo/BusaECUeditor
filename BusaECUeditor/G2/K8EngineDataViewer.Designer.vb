@@ -51,6 +51,7 @@ Partial Class K8EngineDataViewer
         Me.B_AutoTune = New System.Windows.Forms.Button()
         Me.L_AvgTPS = New System.Windows.Forms.Label()
         Me.L_CellInfo = New System.Windows.Forms.Label()
+        Me.L_CellStats = New System.Windows.Forms.Label()
         CType(Me.N_MinTPS, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.G_FuelMap, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -60,9 +61,9 @@ Partial Class K8EngineDataViewer
         'LV_ValueDetails
         '
         Me.LV_ValueDetails.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.Column1, Me.Column2})
-        Me.LV_ValueDetails.Location = New System.Drawing.Point(897, 303)
+        Me.LV_ValueDetails.Location = New System.Drawing.Point(897, 321)
         Me.LV_ValueDetails.Name = "LV_ValueDetails"
-        Me.LV_ValueDetails.Size = New System.Drawing.Size(168, 406)
+        Me.LV_ValueDetails.Size = New System.Drawing.Size(168, 388)
         Me.LV_ValueDetails.TabIndex = 21
         Me.LV_ValueDetails.UseCompatibleStateImageBehavior = False
         Me.LV_ValueDetails.View = System.Windows.Forms.View.Details
@@ -102,10 +103,11 @@ Partial Class K8EngineDataViewer
         '
         'LB_Values
         '
+        Me.LB_Values.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
         Me.LB_Values.FormattingEnabled = True
-        Me.LB_Values.Location = New System.Drawing.Point(897, 46)
+        Me.LB_Values.Location = New System.Drawing.Point(897, 72)
         Me.LB_Values.Name = "LB_Values"
-        Me.LB_Values.Size = New System.Drawing.Size(168, 251)
+        Me.LB_Values.Size = New System.Drawing.Size(168, 238)
         Me.LB_Values.TabIndex = 15
         '
         'G_FuelMap
@@ -312,11 +314,21 @@ Partial Class K8EngineDataViewer
         Me.L_CellInfo.TabIndex = 39
         Me.L_CellInfo.Text = "-"
         '
+        'L_CellStats
+        '
+        Me.L_CellStats.AutoSize = True
+        Me.L_CellStats.Location = New System.Drawing.Point(898, 54)
+        Me.L_CellStats.Name = "L_CellStats"
+        Me.L_CellStats.Size = New System.Drawing.Size(10, 13)
+        Me.L_CellStats.TabIndex = 40
+        Me.L_CellStats.Text = "-"
+        '
         'K8EngineDataViewer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1077, 717)
+        Me.Controls.Add(Me.L_CellStats)
         Me.Controls.Add(Me.L_CellInfo)
         Me.Controls.Add(Me.L_AvgTPS)
         Me.Controls.Add(Me.B_AutoTune)
@@ -375,4 +387,5 @@ Partial Class K8EngineDataViewer
     Friend WithEvents L_AvgTPS As System.Windows.Forms.Label
     Friend WithEvents R_DataCount As System.Windows.Forms.RadioButton
     Friend WithEvents L_CellInfo As System.Windows.Forms.Label
+    Friend WithEvents L_CellStats As System.Windows.Forms.Label
 End Class
