@@ -125,6 +125,10 @@ Module CommonFunctions
     Public gixxer_fan As Integer = 0 '&H6296A
     Public gixxer_pair As Integer = 0 '&H62ABA
     Public gixxer_pairloop As Integer = 0 '&H56D5C
+    Public gixxer_pairloop1 As Integer = 0 '&H56D5C
+    Public gixxer_pairloop2 As Integer = 0 '&H56D5C
+    Public gixxer_pairloop3 As Integer = 0 '&H56D5C
+
     Public gixxer_excva As Integer = 0 '&H6000D
     Public gixxer_excva_flag As Integer = 0 '&H60669
     Public gixxer_hoxflag As Integer = 0 '&H614D4
