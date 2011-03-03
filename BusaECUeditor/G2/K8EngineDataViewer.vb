@@ -250,12 +250,16 @@ Public Class K8EngineDataViewer
         OpenFileDialog1.FileName = ""
         OpenFileDialog1.Filter = "*Raw.csv|*Raw.csv"
 
+        OpenFileDialog1.Multiselect = True
+
         If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
 
             _fileType = 1
-            _filePath = OpenFileDialog1.FileName
-            OpenFile(_filePath)
 
+            For Each fileName As String In OpenFileDialog1.FileNames
+                _filePath = fileName
+                OpenFile(_filePath)
+            Next
         End If
 
     End Sub
@@ -551,15 +555,55 @@ Public Class K8EngineDataViewer
 
         CalculateStdDevaition(values, mean, stdDev)
 
-        For Each value As LogValue In values
+        Dim timeWindowValues As List(Of LogValue) = New List(Of LogValue)
+        Dim timeWindowAvg As Double = 0
+
+        For index As Integer = 0 To values.Count - 1
+            Dim value As LogValue = values(index)
 
             If value.AFR > mean - stdDev * My.Settings.AutoTuneCellStdDev And value.AFR < mean + stdDev * My.Settings.AutoTuneCellStdDev Then
-                dataCount = dataCount + 1
-                totalAfr = totalAfr + value.AFR
-                totalCount = totalCount + 1
-            End If
 
+                dataCount = dataCount + 1
+
+                If timeWindowValues.Count = 0 Then
+                    timeWindowValues.Add(value)
+                End If
+
+                If value.LogTimeSpan.Subtract(timeWindowValues(0).LogTimeSpan).TotalMilliseconds < My.Settings.AutoTuneTimeWindow Then
+                    If timeWindowValues.Contains(value) = False Then
+                        timeWindowValues.Add(value)
+                    End If
+                Else
+
+                    timeWindowAvg = 0
+
+                    For Each timeWindowValue As LogValue In timeWindowValues
+                        timeWindowAvg = timeWindowAvg + timeWindowValue.AFR
+                    Next
+
+                    timeWindowAvg = timeWindowAvg / timeWindowValues.Count
+
+                    timeWindowValues.Clear()
+
+                    totalAfr = totalAfr + timeWindowAvg
+                    totalCount = totalCount + 1
+                End If
+            End If
         Next
+
+        timeWindowAvg = 0
+
+        For Each timeWindowValue As LogValue In timeWindowValues
+            timeWindowAvg = timeWindowAvg + timeWindowValue.AFR
+        Next
+
+        timeWindowAvg = timeWindowAvg / timeWindowValues.Count
+
+        timeWindowValues.Clear()
+
+        totalAfr = totalAfr + timeWindowAvg
+        totalCount = totalCount + 1
+        dataCount = dataCount + 1
 
         If totalCount > 0 Then
 
