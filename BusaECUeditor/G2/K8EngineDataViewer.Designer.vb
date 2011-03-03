@@ -298,7 +298,7 @@ Partial Class K8EngineDataViewer
         'L_AvgTPS
         '
         Me.L_AvgTPS.AutoSize = True
-        Me.L_AvgTPS.Location = New System.Drawing.Point(898, 28)
+        Me.L_AvgTPS.Location = New System.Drawing.Point(898, 34)
         Me.L_AvgTPS.Name = "L_AvgTPS"
         Me.L_AvgTPS.Size = New System.Drawing.Size(10, 13)
         Me.L_AvgTPS.TabIndex = 37
@@ -317,7 +317,7 @@ Partial Class K8EngineDataViewer
         'L_CellStats
         '
         Me.L_CellStats.AutoSize = True
-        Me.L_CellStats.Location = New System.Drawing.Point(898, 54)
+        Me.L_CellStats.Location = New System.Drawing.Point(898, 51)
         Me.L_CellStats.Name = "L_CellStats"
         Me.L_CellStats.Size = New System.Drawing.Size(10, 13)
         Me.L_CellStats.TabIndex = 40

@@ -497,6 +497,18 @@ Namespace My
                 Me("AutoTuneCellStdDev") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("500")>  _
+        Public Property AutoTuneTimeWindow() As Double
+            Get
+                Return CType(Me("AutoTuneTimeWindow"),Double)
+            End Get
+            Set
+                Me("AutoTuneTimeWindow") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

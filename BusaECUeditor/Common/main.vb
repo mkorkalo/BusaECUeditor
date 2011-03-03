@@ -6138,7 +6138,9 @@ skip_update:
         If tweets = True Then
             If Not K8FlashStatus.Visible Then
                 If Not K8Datastream.Visible Then
-                    generate_tweets()
+                    If Not K8EngineDataLogger.Visible Then
+                        generate_tweets()
+                    End If
                 End If
             End If
         End If

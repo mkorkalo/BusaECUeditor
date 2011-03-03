@@ -113,5 +113,8 @@
     <Setting Name="AutoTuneCellStdDev" Type="System.Double" Scope="User">
       <Value Profile="(Default)">1.5</Value>
     </Setting>
+    <Setting Name="AutoTuneTimeWindow" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">500</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
