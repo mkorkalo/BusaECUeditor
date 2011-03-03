@@ -80,9 +80,9 @@
                 C_PAIR.Checked = True
                 WriteFlashByte(gixxer_pair, &HFF) ' pair config flag
                 WriteFlashByte(gixxer_pairloop, &HFE)
-                WriteFlashByte(gixxer_pairloop + 1, &HFF)
-                WriteFlashByte(gixxer_pairloop + 2, &HFC)
-                WriteFlashByte(gixxer_pairloop + 3, &H10)
+                WriteFlashByte(gixxer_pairloop + 1, gixxer_pairloop1)
+                WriteFlashByte(gixxer_pairloop + 2, gixxer_pairloop2)
+                WriteFlashByte(gixxer_pairloop + 3, gixxer_pairloop3)
             Else
                 C_PAIR.Text = "PAIR OFF"
                 C_PAIR.Checked = False
@@ -296,9 +296,9 @@
                 C_PAIR.Text = "PAIR ON"
                 WriteFlashByte(gixxer_pair, &HFF) ' pair config flag
                 WriteFlashByte(gixxer_pairloop, &HFE)
-                WriteFlashByte(gixxer_pairloop + 1, &HFF)
-                WriteFlashByte(gixxer_pairloop + 2, &HFC)
-                WriteFlashByte(gixxer_pairloop + 3, &H10)
+                WriteFlashByte(gixxer_pairloop + 1, gixxer_pairloop1)
+                WriteFlashByte(gixxer_pairloop + 2, gixxer_pairloop2)
+                WriteFlashByte(gixxer_pairloop + 3, gixxer_pairloop3)
             Else
                 C_PAIR.Text = "PAIR OFF"
                 WriteFlashByte(gixxer_pair, &H80)
@@ -453,7 +453,7 @@
 
                 Case &H73D2F
                     '
-                    '
+                    ' 1000K9
                     '
                     Select Case C_ECU.Text
                         Case "US"

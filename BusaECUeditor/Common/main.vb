@@ -2933,7 +2933,7 @@ skip_update:
         gixxer_fuelmap_map_first = 0 '&H5A7F0
         gixxer_fuelmap_map_bikename = gixxer_modelname
         gixxer_ignition_rpm_limiter = 0 '&H60B2C
-        gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = 0 '&H3B4C1
+        gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = 0 'OK
 
         gixxer_fuel_limiter_by_gear = 0 '&H614C1
         gixxer_fuel_limiter_by_gear_softcut = 0 '&H614C4
@@ -2945,22 +2945,24 @@ skip_update:
         gixxer_ignition_map_name = ""
         gixxer_ignition_use_clutch_map = 0 '&H60B5C
 
-        gixxer_msmode = 0 '&H6063A
-        gixxer_coilfi = 0 '&H60BC1
-        gixxer_fan = 0 '&H6296A
-        gixxer_pair = 0 '&H62ABA
+        gixxer_msmode = 0 'OK
+        gixxer_coilfi = 0 'OK
+        gixxer_fan = 0 'OK
+        gixxer_pair = 0 'OK
         gixxer_pairloop = 0 '&H56D5C
-        gixxer_excva = 0 '&H6000D
+        gixxer_excva = 0 'OK
         gixxer_excva_flag = 0 '&H60669
-        gixxer_hoxflag = 0 '&H614D4
-        gixxer_ecumode = 0 '&H604CF
-        gixxer_ics1 = 0 '&H622EE
+        gixxer_ecumode = 0 'OK
+        gixxer_ics1 = 0 'OK
         gixxer_ics2 = 0 '&H6230A
         gixxer_ics3 = 0 '&H62296
+
+        gixxer_hoxflag = 0 'OK
         gixxer_hox1 = 0 '&H614D4
         gixxer_hox2 = 0 '&H62243
+
         gixxer_sdmap = 0 'gixxer_sdmap = &H5D840
-        gixxer_sd1 = 0 '&H62AC1
+        gixxer_sd1 = 0 'OK
         gixxer_sd2 = 0 '&H62ACF
         gixxer_sd3 = 0 '&H62AD2
 
@@ -3000,6 +3002,7 @@ skip_update:
                 Metric = False
                 ECUVersion = "bking"
             Case "DJB5SE01"
+
                 gixxer_modelname = "ecueditor.com for gixxer K9-K11 "
                 ECUVersion = "gixxer"
                 Hayabusa.Text = "Gixxer K9-11 32920-47H00"
@@ -3030,7 +3033,6 @@ skip_update:
                 gixxer_STP_map_first_table = &H5C450 '&H59DD0
                 gixxer_STP_map_first_table_fuel = &H5D168
 
-
                 gixxer_excva = &H7000D '&H6000D
                 gixxer_excva_flag = &H73ECF '&H60669
                 gixxer_msmode = &H73E9E '&H6063A
@@ -3041,6 +3043,8 @@ skip_update:
                 gixxer_fan = 0 '&H6296A
                 gixxer_pair = &H7A382 '&H62ABA
                 gixxer_pairloop = &H594F4 '&H56D5C
+                gixxer_pairloop3 = &H7F
+
                 gixxer_ics1 = 0 '&H622EE
                 gixxer_ics2 = 0 '&H6230A
                 gixxer_ics3 = 0 '&H62296
@@ -3053,12 +3057,12 @@ skip_update:
                 gixxer_sd2 = &H7A395 '&H62ACF
                 gixxer_sd3 = &H7A398 '&H62AD2
 
-                B_Shifter.Enabled = False
-                gixxer_shifter_ADJ = &H0 '&H5D900
-                gixxer_shifter_FUELCODE = &H0 '&H5DA00
-                gixxer_shifter_IGNCODE = &H0 '&H5DE00
-                gixxer_shifter_jmp_to_fuelcode = &H0 '&H45A40
-                gixxer_shifter_jmp_to_igncode = &H0 '&H3B9C0
+                B_Shifter.Enabled = True
+                gixxer_shifter_ADJ = &H60800
+                gixxer_shifter_FUELCODE = &H60A00
+                gixxer_shifter_IGNCODE = &H60F00
+                gixxer_shifter_jmp_to_fuelcode = &H478E8
+                gixxer_shifter_jmp_to_igncode = &H3D3A4
 
                 gixxerramair_columnheader = &H73FDE ' &H7268E
                 gixxerramair_map = &H741A9 '&H72859
@@ -3080,59 +3084,47 @@ skip_update:
 
                 B_FuelMap.Enabled = True
                 gixxer_fuelmap_map_first = &H5CFE8
-                gixxer_injectorbalance_map_first = &H5CFD0 ' &H5A7D8
+                gixxer_injectorbalance_map_first = &H5CFD0
 
                 B_IgnitionMap.Enabled = True
-                gixxer_ignition_map_first = &H5CB70 '&H5A3D8
-                gixxer_ignition_use_clutch_map = &H7438A '&H60B5C
+                gixxer_ignition_map_first = &H5CB70
+                gixxer_ignition_use_clutch_map = &H7438A
                 gixxer_ignition_map_name = gixxer_modelname
 
                 B_Limiters.Enabled = True
-                gixxer_fuel_limiter_by_gear = &H74F3B '&H614C1
-                gixxer_fuel_limiter_by_gear_softcut = &H74F3C '&H614C2
-                gixxer_RPM_limit_type1 = &H74DDE '&H61372
-                gixxer_fuel_limiter_softcut_or_hardcut = &H74F38 '&H614BE
+                gixxer_fuel_limiter_by_gear = &H74F3B
+                gixxer_fuel_limiter_by_gear_softcut = &H74F3C
+                gixxer_RPM_limit_type1 = &H74DDE
+                gixxer_fuel_limiter_softcut_or_hardcut = &H74F38
                 gixxer_baseline = 13500
-                gixxer_ignition_rpm_limiter = &H74344 '&H60B2C
-
+                gixxer_ignition_rpm_limiter = &H74344
 
                 B_AdvancedSettings.Enabled = True
-                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3CE9D '&H3B4C1
+                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3CE9C + 1
                 gixxer_GPS_voltage_raw = &H805120
                 gixxer_set_ign_default = &H74385
 
-                gixxer_STP_map_first_table = &H5C450 '&H59DD0
+                gixxer_STP_map_first_table = &H5C450
                 gixxer_STP_map_first_table_fuel = &H5D168
 
+                gixxer_ics2 = 0
+                gixxer_ics3 = 0
 
-                gixxer_excva = &H7000D '&H6000D
-                gixxer_excva_flag = &H73ECF '&H60669
-                gixxer_msmode = &H73E9E '&H6063A
-                gixxer_ecumode = &H73D2F '&H604CF
-
-                gixxer_abc = 0 '&H220C4
-                gixxer_coilfi = 0 '&H60BC1
-                gixxer_fan = 0 '&H6296A
-                gixxer_pair = &H7A382 '&H62ABA
-                gixxer_pairloop = &H594F4 '&H56D5C
-                gixxer_ics1 = 0 '&H622EE
-                gixxer_ics2 = 0 '&H6230A
-                gixxer_ics3 = 0 '&H62296
                 gixxer_hoxflag = &H74F4E  '&H614D4
                 gixxer_hox1 = gixxer_hoxflag '&H614D4
                 gixxer_hox2 = &H74F4E '&H62243
 
                 gixxer_sdmap = &H606CC
-                gixxer_sd1 = &H7A398 '&H62AC1
-                gixxer_sd2 = &H7A395 '&H62ACF
-                gixxer_sd3 = &H7A398 '&H62AD2
+                gixxer_sd1 = &H7A398
+                gixxer_sd2 = &H7A395
+                gixxer_sd3 = &H7A398
 
-                B_Shifter.Enabled = False
-                gixxer_shifter_ADJ = &H0 '&H5D900
-                gixxer_shifter_FUELCODE = &H0 '&H5DA00
-                gixxer_shifter_IGNCODE = &H0 '&H5DE00
-                gixxer_shifter_jmp_to_fuelcode = &H0 '&H45A40
-                gixxer_shifter_jmp_to_igncode = &H0 '&H3B9C0
+                B_Shifter.Enabled = True
+                gixxer_shifter_ADJ = &H60800
+                gixxer_shifter_FUELCODE = &H60A00
+                gixxer_shifter_IGNCODE = &H60F00
+                gixxer_shifter_jmp_to_fuelcode = &H478E8
+                gixxer_shifter_jmp_to_igncode = &H3D3A4
 
                 gixxerramair_columnheader = &H73FDE ' &H7268E
                 gixxerramair_map = &H741A9 '&H72859
@@ -3203,6 +3195,10 @@ skip_update:
                 gixxer_fan = &H62968
                 gixxer_pair = &H62ABA
                 gixxer_pairloop = &H56D5C
+                gixxer_pairloop1 = &HFF
+                gixxer_pairloop2 = &HFC
+                gixxer_pairloop3 = &H10
+
                 gixxer_excva = &H6000D
                 gixxer_excva_flag = &H60669
                 gixxer_ecumode = &H604CF
@@ -3278,6 +3274,16 @@ skip_update:
 
                 gixxer_ecumode = &H604CF
 
+                B_AdvancedSettings.Enabled = True
+                gixxer_msmode = &H6063A
+                gixxer_coilfi = &H60BC1
+                gixxer_fan = &H62968
+                gixxer_pair = &H62ABA
+                gixxer_pairloop = &H56D5C
+                gixxer_pairloop1 = &HFF
+                gixxer_pairloop2 = &HFC
+                gixxer_pairloop3 = &H10
+
                 gixxer_injectorbalance_map_name = gixxer_modelname
                 gixxer_STP_modelname = gixxer_modelname
                 gixxer_fuelmap_map_bikename = gixxer_modelname
@@ -3291,7 +3297,6 @@ skip_update:
                 B_Shifter.Enabled = True
                 B_FuelMap.Enabled = True
                 B_IgnitionMap.Enabled = True
-                B_AdvancedSettings.Enabled = True
 
 
             Case "DJ0HSE01"
@@ -6023,6 +6028,8 @@ skip_update:
 
 
     Public Sub generate_tweets()
+        Dim objImage As MemoryStream
+        Dim objwebClient As WebClient
 
 
         If tweets = False Then
@@ -6034,97 +6041,44 @@ skip_update:
         My.Settings.m_strConsumerKey = "fDEUnOOMBxtj5RjPuehV2g"
         My.Settings.m_strConsumerSecret = "CUtSovat53Hz9Cp7uzhP5yJTqnCcSjnV4PDROEBMk"
         My.Settings.Save()
+        objwebClient = New WebClient()
 
         tw.AuthenticateWith(My.Settings.m_strConsumerKey, My.Settings.m_strConsumerSecret, "251085356-DYkUUNAZScLYtXXSBi5UyKgbJM7eKbfySFggeBuw", "6PiFsw8K1nDbP8zu9outK7I3SBelkE8gEHHKxSfwA")
-        For Each tweet As TwitterStatus In tw.HomeTimeline()
-            If tweets = False And latest_id <> tweet.ID Then
-                If tweet.User.ScreenName = "ecueditor" Or tweet.User.ScreenName = "__petrik__" Then R_tw.Text = R_tw.Text & (tweet.User.ScreenName & " : " & tweet.Text) & Chr(13) & Chr(10)
-                latest = tweet.CreatedAt()
-                latest_id = tweet.ID
-            ElseIf tweet.CreatedAt() >= latest And tweet.ID <> latest_id Then
-                If tweet.User.ScreenName = "ecueditor" Or tweet.User.ScreenName = "__petrik__" Then R_tw.Text = (tweet.User.ScreenName & " : " & tweet.Text) & Chr(13) & Chr(10) & R_tw.Text
-                latest = tweet.CreatedAt()
-                latest_id = tweet.ID
-            End If
+        Dim tp As New TwitterParameters
+        tp.Add(TwitterParameterNames.Count, 1)
+        For Each tweet As TwitterStatus In tw.HomeTimeline(tp)
+            R_tw.Text = (tweet.User.ScreenName & " - " & tweet.Text)
+            objImage = New MemoryStream(objwebClient.DownloadData(tweet.User.ProfileImageUrl))
+            tw_p.Image = Image.FromStream(objImage)
         Next
+
+
+        'Dim tweet As TwitterStatus = tw.AccountInformation.Status()
+        'R_tw.Text = tweet.User.ScreenName & " : " & tweet.Text
+        'objImage = New MemoryStream(objwebClient.DownloadData(tweet.User.ProfileImageUrl))
+        'tw_p.Image = Image.FromStream(objImage)
+        'Dim tsp As New TwitterSearchParameters
+        'tsp.Add(TwitterSearchParameterNames.SearchTerm, "ecueditor")
+        'Dim ts As TwitterStatus = tw.UserTimeline.FindLast(tsp)
+
+        'R_tw.Text = tw.AccountInformation.ScreenName & " - " & tw.AccountInformation.Status.Text
+        'For Each tweet As TwitterStatus In tw.HomeTimeline()
+        ' If tweet.User.ScreenName = tw.AccountInformation.ScreenName Then
+        ' objImage = New MemoryStream(objwebClient.DownloadData(tweet.User.ProfileImageUrl))
+        ' tw_p.Image = Image.FromStream(objImage)
+        ' latest = tweet.CreatedAt()
+        ' latest_id = tweet.ID
+        ' End If
+        'Next
+
         R_tw.Refresh()
         tweets = True
     End Sub
 
     Private Sub R_tw_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles R_tw.DoubleClick
-        Dim strURL As String
-        Dim strPIN As String
-        strPIN = ""
-
-        If My.Settings.m_strToken = "" Then
-
-            strURL = GetLinkURL()
-            Process.Start(strURL)
-            Do
-                strPIN = InputBox("Please enter the pin Twitter.com web page that should have been just opened:")
-            Loop Until isValidPIN(strPIN) Or (strPIN = "")
-            If strPIN = "" Then
-                My.Settings.m_strToken = ""
-                My.Settings.m_strTokenSecret = ""
-                My.Settings.Save()
-            Else
-                My.Settings.m_strToken = tw.OAuth_Token()
-                My.Settings.m_strTokenSecret = tw.OAuth_TokenSecret()
-                My.Settings.Save()
-            End If
-
-        Else
-            Process.Start("https://twitter.com/#!/ecueditor")
-        End If
-
-
+        Process.Start("https://twitter.com/#!/ecueditor")
     End Sub
 
-    Private Sub R_tw_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles R_tw.KeyPress
-
-        Dim strURL As String
-        Dim strPIN As String
-        strPIN = ""
-
-
-        'On Error Resume Next ' in case the pc is not connected to internet
-
-
-        If tweets = True Then
-            R_tw.Text = ""
-            tweets = False
-        End If
-
-        If e.KeyChar = Chr(9) Or My.Settings.m_strToken = "" Then
-
-            strURL = GetLinkURL()
-            Process.Start(strURL)
-            Do
-                strPIN = InputBox("Please enter the pin Twitter.com web page that should have been just opened:")
-            Loop Until isValidPIN(strPIN) Or (strPIN = "")
-            If strPIN = "" Then
-                My.Settings.m_strToken = ""
-                My.Settings.m_strTokenSecret = ""
-                My.Settings.Save()
-            Else
-                My.Settings.m_strToken = tw.OAuth_Token()
-                My.Settings.m_strTokenSecret = tw.OAuth_TokenSecret()
-                My.Settings.Save()
-            End If
-        End If
-
-        If e.KeyChar = Chr(13) Or (Len(R_tw.Text) >= 140) Then
-            tw.AuthenticateWith(My.Settings.m_strConsumerKey, My.Settings.m_strConsumerSecret, My.Settings.m_strToken, My.Settings.m_strTokenSecret)
-            tw.Update(R_tw.Text)
-            'tw.SendDirectMessage("ecueditor", R_tw.Text)
-            generate_tweets()
-        End If
-
-        If e.KeyChar = Chr(27) Or (My.Settings.m_strToken = "") Then
-            generate_tweets()
-        End If
-
-    End Sub
 
     Function GetLinkURL() As String
         Return tw.GetAuthorizationLink(My.Settings.m_strConsumerKey, My.Settings.m_strConsumerSecret)
@@ -6141,6 +6095,9 @@ skip_update:
                     If Not K8EngineDataLogger.Visible Then
                         generate_tweets()
                     End If
+                    End If
+                    End If
+                    End If
                 End If
             End If
         End If
@@ -6149,6 +6106,7 @@ skip_update:
     Private Sub ViewFAQFacebookToolStripMenuItem_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ViewFAQFacebookToolStripMenuItem.Click
         Process.Start("http://www.facebook.com/topic.php?uid=133860313347043&topic=34")
     End Sub
+
 End Class
 
 

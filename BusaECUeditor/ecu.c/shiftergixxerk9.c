@@ -58,8 +58,6 @@
 #define	duration_kill *(volatile unsigned short *)  	(ramaddr + 0x64 + 8)
 #define	minimum_killrpm *(volatile unsigned short *)  		(ramaddr + 0x64 + 12)
 
-#define BOOSTACTIVE *(volatile unsigned char *)  		0x00055800
-
 #define P8bit	*(volatile unsigned char *)					0x20
 #define ModeA						0x0
 #define ModeB						0x1
@@ -72,7 +70,7 @@
 	The shift kill variables are defined here, e.g kill times. These are adjusted using ecueditor.
 */
 #pragma SECTION C PARAMS //0x60800
-const short const_pgmid = 				206;			// 0 program id, must match to ecueditor version to be able to load this code to ecu
+const short const_pgmid = 				100;			// 0 program id, must match to ecueditor version to be able to load this code to ecu
 const short const_killtime_std = 		80;			// 2 kill times, these are egnie revolutions for the rpm range
 const short const_killtime_gear2 = 		80;			// 4
 const short const_killtime_gear3 = 		80;			// 6
@@ -250,15 +248,6 @@ void shiftermain(void)
 				ECU_KillFlag = ECU_KillFlag | CUTACTIVE; 
 			}
 
-	/*
-		This is the overboost limit that is checked if boostfuel module is loaded.
-	*/			
-	if ((BOOSTACTIVE != 0xFF ) && (overboost != 0))
-			{ 
-				ECU_KillFlag = ECU_KillFlag | CUTACTIVE; 
-			}
-
-
 /*
 	This is inline assembly put at the end of the fuelcut code that returns control back to main loop in the ecu code.
 */
@@ -283,15 +272,6 @@ void ignmain(void)
 			{ 
 				IGN_KillFlag = IGN_KillFlag | CUTACTIVE; 
 			}
-
-	/*
-		This is the overboost limit that is checked if boostfuel module is loaded.
-	*/			
-	if ((BOOSTACTIVE != 0xFF ) && (overboost != 0))
-			{ 
-				IGN_KillFlag = IGN_KillFlag | CUTACTIVE; 
-			}
-
 
 #pragma keyword asm on
 	asm(
