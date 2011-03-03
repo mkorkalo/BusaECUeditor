@@ -3009,48 +3009,51 @@ skip_update:
 
                 B_FuelMap.Enabled = True
                 gixxer_fuelmap_map_first = &H5CFE8
-                gixxer_injectorbalance_map_first = &H5CFD0 ' &H5A7D8
+                gixxer_injectorbalance_map_first = &H5CFD0
 
                 B_IgnitionMap.Enabled = True
-                gixxer_ignition_map_first = &H5CB70 '&H5A3D8
-                gixxer_ignition_use_clutch_map = &H7438A '&H60B5C
+                gixxer_ignition_map_first = &H5CB70
+                gixxer_ignition_use_clutch_map = &H7438A
                 gixxer_ignition_map_name = gixxer_modelname
 
                 B_Limiters.Enabled = True
-                gixxer_fuel_limiter_by_gear = &H74F3B '&H614C1
-                gixxer_fuel_limiter_by_gear_softcut = &H74F3C '&H614C2
-                gixxer_RPM_limit_type1 = &H74DDE '&H61372
-                gixxer_fuel_limiter_softcut_or_hardcut = &H74F38 '&H614BE
+                gixxer_fuel_limiter_by_gear = &H74F3B
+                gixxer_fuel_limiter_by_gear_softcut = &H74F3C
+                gixxer_RPM_limit_type1 = &H74DDE
+                gixxer_fuel_limiter_softcut_or_hardcut = &H74F38
                 gixxer_baseline = 13500
-                gixxer_ignition_rpm_limiter = &H74344 '&H60B2C
-
+                gixxer_ignition_rpm_limiter = &H74344
 
                 B_AdvancedSettings.Enabled = True
-                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3CE9D '&H3B4C1
+                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3CE9D
                 gixxer_GPS_voltage_raw = &H805120
                 gixxer_set_ign_default = &H74385
 
-                gixxer_STP_map_first_table = &H5C450 '&H59DD0
+                gixxer_STP_map_first_table = &H5C450
                 gixxer_STP_map_first_table_fuel = &H5D168
 
-                gixxer_excva = &H7000D '&H6000D
-                gixxer_excva_flag = &H73ECF '&H60669
-                gixxer_msmode = &H73E9E '&H6063A
-                gixxer_ecumode = &H73D2F '&H604CF
+                gixxer_excva = &H7000D
+                gixxer_excva_flag = &H73ECF
+                gixxer_msmode = &H73E9E
+                gixxer_ecumode = &H73D2F
 
                 gixxer_abc = 0 '&H220C4
                 gixxer_coilfi = 0 '&H60BC1
                 gixxer_fan = 0 '&H6296A
-                gixxer_pair = &H7A382 '&H62ABA
-                gixxer_pairloop = &H594F4 '&H56D5C
+
+                gixxer_pair = &H7A382
+                gixxer_pairloop = &H594F4
+                gixxer_pairloop1 = &HFF
+                gixxer_pairloop2 = &HF9
                 gixxer_pairloop3 = &H7F
 
-                gixxer_ics1 = 0 '&H622EE
-                gixxer_ics2 = 0 '&H6230A
-                gixxer_ics3 = 0 '&H62296
-                gixxer_hoxflag = &H74F4E  '&H614D4
-                gixxer_hox1 = gixxer_hoxflag '&H614D4
-                gixxer_hox2 = &H74F4E '&H62243
+                gixxer_ics1 = 0
+                gixxer_ics2 = 0
+                gixxer_ics3 = 0
+
+                gixxer_hoxflag = &H74F4E
+                gixxer_hox1 = gixxer_hoxflag
+                gixxer_hox2 = &H79BBB
 
                 gixxer_sdmap = &H606CC
                 gixxer_sd1 = &H7A398 '&H62AC1
@@ -3082,6 +3085,7 @@ skip_update:
                 ECUVersion = "gixxer"
                 Hayabusa.Text = "Gixxer K9-11 32920-47H10"
 
+
                 B_FuelMap.Enabled = True
                 gixxer_fuelmap_map_first = &H5CFE8
                 gixxer_injectorbalance_map_first = &H5CFD0
@@ -3100,24 +3104,40 @@ skip_update:
                 gixxer_ignition_rpm_limiter = &H74344
 
                 B_AdvancedSettings.Enabled = True
-                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3CE9C + 1
+                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3CE9D
                 gixxer_GPS_voltage_raw = &H805120
                 gixxer_set_ign_default = &H74385
 
                 gixxer_STP_map_first_table = &H5C450
                 gixxer_STP_map_first_table_fuel = &H5D168
 
+                gixxer_excva = &H7000D
+                gixxer_excva_flag = &H73ECF
+                gixxer_msmode = &H73E9E
+                gixxer_ecumode = &H73D2F
+
+                gixxer_abc = 0 '&H220C4
+                gixxer_coilfi = 0 '&H60BC1
+                gixxer_fan = 0 '&H6296A
+
+                gixxer_pair = &H7A382
+                gixxer_pairloop = &H594F4
+                gixxer_pairloop1 = &HFF
+                gixxer_pairloop2 = &HF9
+                gixxer_pairloop3 = &H7F
+
+                gixxer_ics1 = 0
                 gixxer_ics2 = 0
                 gixxer_ics3 = 0
 
-                gixxer_hoxflag = &H74F4E  '&H614D4
-                gixxer_hox1 = gixxer_hoxflag '&H614D4
-                gixxer_hox2 = &H74F4E '&H62243
+                gixxer_hoxflag = &H74F4E
+                gixxer_hox1 = gixxer_hoxflag
+                gixxer_hox2 = &H79BBB
 
                 gixxer_sdmap = &H606CC
-                gixxer_sd1 = &H7A398
-                gixxer_sd2 = &H7A395
-                gixxer_sd3 = &H7A398
+                gixxer_sd1 = &H7A398 '&H62AC1
+                gixxer_sd2 = &H7A395 '&H62ACF
+                gixxer_sd3 = &H7A398 '&H62AD2
 
                 B_Shifter.Enabled = True
                 gixxer_shifter_ADJ = &H60800
@@ -3194,6 +3214,7 @@ skip_update:
                 gixxer_coilfi = &H60BC1
                 gixxer_fan = &H62968
                 gixxer_pair = &H62ABA
+
                 gixxer_pairloop = &H56D5C
                 gixxer_pairloop1 = &HFF
                 gixxer_pairloop2 = &HFC
@@ -3278,6 +3299,7 @@ skip_update:
                 gixxer_msmode = &H6063A
                 gixxer_coilfi = &H60BC1
                 gixxer_fan = &H62968
+
                 gixxer_pair = &H62ABA
                 gixxer_pairloop = &H56D5C
                 gixxer_pairloop1 = &HFF
@@ -3373,8 +3395,13 @@ skip_update:
                 gixxer_msmode = &H6063A
                 gixxer_coilfi = &H60BC1
                 gixxer_fan = &H62968
+
                 gixxer_pair = &H62ABA
                 gixxer_pairloop = &H56D5C
+                gixxer_pairloop1 = &HFF
+                gixxer_pairloop2 = &HFC
+                gixxer_pairloop3 = &H10
+
                 gixxer_excva = &H6000D
                 gixxer_excva_flag = &H60669
                 gixxer_hoxflag = &H614D4
@@ -6094,9 +6121,6 @@ skip_update:
                 If Not K8Datastream.Visible Then
                     If Not K8EngineDataLogger.Visible Then
                         generate_tweets()
-                    End If
-                    End If
-                    End If
                     End If
                 End If
             End If
