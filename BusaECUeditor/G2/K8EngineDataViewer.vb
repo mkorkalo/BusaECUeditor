@@ -30,6 +30,7 @@ Public Class K8EngineDataViewer
     Private _fileType As Integer = 0
     Private _cellMean As Double = 0
     Private _cellStdDev As Double = 0
+    Private _logValueSelectedIndex = -1
 
     Private _autoTunedTPS = False
     Private _autoTunedIAP = False
@@ -1328,6 +1329,7 @@ Public Class K8EngineDataViewer
 
     Private Sub LB_Values_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LB_Values.SelectedIndexChanged
 
+        _logValueSelectedIndex = LB_Values.SelectedIndex
         Dim logValue As LogValue = LB_Values.SelectedItem
 
         LV_ValueDetails.Items.Clear()
@@ -1450,9 +1452,13 @@ Public Class K8EngineDataViewer
         Dim textBrush As Brush = Brushes.Black
 
         Dim value As LogValue = LB_Values.Items(e.Index)
+        Dim selectedValue As LogValue = LB_Values.SelectedItem
 
         ' Determine the color of the brush to draw each item based on the index of the item to draw.
-        If value.AFR > (_cellMean + _cellStdDev * My.Settings.AutoTuneCellStdDev) Then
+        If (e.State And DrawItemState.Selected) = DrawItemState.Selected Then
+            backgroundBrush = Brushes.Blue
+            textBrush = Brushes.White
+        ElseIf value.AFR > (_cellMean + _cellStdDev * My.Settings.AutoTuneCellStdDev) Then
             backgroundBrush = Brushes.Coral
         ElseIf value.AFR < (_cellMean - _cellStdDev * My.Settings.AutoTuneCellStdDev) Then
             backgroundBrush = Brushes.LightBlue
