@@ -63,7 +63,7 @@ Partial Class K8EngineDataViewer
         Me.LV_ValueDetails.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.Column1, Me.Column2})
         Me.LV_ValueDetails.Location = New System.Drawing.Point(897, 321)
         Me.LV_ValueDetails.Name = "LV_ValueDetails"
-        Me.LV_ValueDetails.Size = New System.Drawing.Size(168, 388)
+        Me.LV_ValueDetails.Size = New System.Drawing.Size(200, 388)
         Me.LV_ValueDetails.TabIndex = 21
         Me.LV_ValueDetails.UseCompatibleStateImageBehavior = False
         Me.LV_ValueDetails.View = System.Windows.Forms.View.Details
@@ -107,7 +107,7 @@ Partial Class K8EngineDataViewer
         Me.LB_Values.FormattingEnabled = True
         Me.LB_Values.Location = New System.Drawing.Point(897, 72)
         Me.LB_Values.Name = "LB_Values"
-        Me.LB_Values.Size = New System.Drawing.Size(168, 238)
+        Me.LB_Values.Size = New System.Drawing.Size(200, 251)
         Me.LB_Values.TabIndex = 15
         '
         'G_FuelMap
@@ -327,7 +327,7 @@ Partial Class K8EngineDataViewer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1077, 717)
+        Me.ClientSize = New System.Drawing.Size(1099, 717)
         Me.Controls.Add(Me.L_CellStats)
         Me.Controls.Add(Me.L_CellInfo)
         Me.Controls.Add(Me.L_AvgTPS)

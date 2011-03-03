@@ -553,8 +553,11 @@ Public Class K8EngineDataViewer
         Dim avgAfr As Double
         Dim mean As Double
         Dim stdDev As Double
+        Dim groupNumber As Integer = 1
 
         CalculateStdDevaition(values, mean, stdDev)
+        _cellMean = mean
+        _cellStdDev = stdDev
 
         Dim timeWindowValues As List(Of LogValue) = New List(Of LogValue)
         Dim timeWindowAvg As Double = 0
@@ -567,16 +570,21 @@ Public Class K8EngineDataViewer
                 dataCount = dataCount + 1
 
                 If timeWindowValues.Count = 0 Then
+                    value.GroupNumber = groupNumber
                     timeWindowValues.Add(value)
                 End If
 
-                If value.LogTimeSpan.Subtract(timeWindowValues(0).LogTimeSpan).TotalMilliseconds < My.Settings.AutoTuneTimeWindow Then
+                Dim timeDifference As Integer = value.LogTimeSpan.Subtract(timeWindowValues(0).LogTimeSpan).TotalMilliseconds
+
+                If timeDifference < My.Settings.AutoTuneTimeWindow And timeDifference >= 0 Then
                     If timeWindowValues.Contains(value) = False Then
+                        value.GroupNumber = groupNumber
                         timeWindowValues.Add(value)
                     End If
                 Else
 
                     timeWindowAvg = 0
+                    groupNumber = groupNumber + 1
 
                     For Each timeWindowValue As LogValue In timeWindowValues
                         timeWindowAvg = timeWindowAvg + timeWindowValue.AFR
@@ -585,26 +593,30 @@ Public Class K8EngineDataViewer
                     timeWindowAvg = timeWindowAvg / timeWindowValues.Count
 
                     timeWindowValues.Clear()
+                    value.GroupNumber = groupNumber
+                    timeWindowValues.Add(value)
 
                     totalAfr = totalAfr + timeWindowAvg
                     totalCount = totalCount + 1
                 End If
+            Else
+                value.GroupNumber = 0
             End If
         Next
 
-        timeWindowAvg = 0
+        If timeWindowValues.Count > 0 Then
 
-        For Each timeWindowValue As LogValue In timeWindowValues
-            timeWindowAvg = timeWindowAvg + timeWindowValue.AFR
-        Next
+            timeWindowAvg = 0
+            
+            For Each timeWindowValue As LogValue In timeWindowValues
+                timeWindowAvg = timeWindowAvg + timeWindowValue.AFR
+            Next
 
-        timeWindowAvg = timeWindowAvg / timeWindowValues.Count
+            timeWindowAvg = timeWindowAvg / timeWindowValues.Count
 
-        timeWindowValues.Clear()
-
-        totalAfr = totalAfr + timeWindowAvg
-        totalCount = totalCount + 1
-        dataCount = dataCount + 1
+            totalAfr = totalAfr + timeWindowAvg
+            totalCount = totalCount + 1
+        End If
 
         If totalCount > 0 Then
 
@@ -1278,12 +1290,11 @@ Public Class K8EngineDataViewer
 
             avgAFR = CalculateAvgAFR(values, dataCount)
 
-            CalculateStdDevaition(values, _cellMean, _cellStdDev)
-
             L_CellStats.Text = "Mean: " & _cellMean.ToString("0.00") & "  Std Dev: " & _cellStdDev.ToString("0.00")
             L_CellInfo.Text = L_CellInfo.Text & " AFR: " & avgAFR.ToString("0.00") & " ( " & targetAFR.ToString("0.0") & " ) Count: " & values.Count.ToString()
 
             LB_Values.DataSource = values
+            LB_Values.Refresh()
 
         End If
     End Sub
