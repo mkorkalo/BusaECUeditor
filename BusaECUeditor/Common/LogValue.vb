@@ -24,6 +24,7 @@
     Public FUEL3 As Double
     Public FUEL4 As Double
     Public MTS_AFR As Double
+    Public GroupNumber As Integer
 
     Public ReadOnly Property LogTimeSpan() As TimeSpan
         Get
@@ -45,7 +46,12 @@
         If MTS_AFR > 0 Then
             Return AFR.ToString("0.00") & "  -  " & MTS_AFR.ToString("0.00") & " - " & WIDEBAND.ToString("0") & " - " & LogTime
         Else
-            Return AFR.ToString("0.00") & " - " & WIDEBAND.ToString("0") & " - " & LogTime
+            If GroupNumber > 0 Then
+                Return AFR.ToString("0.00") & " - " & WIDEBAND.ToString("0") & " - " & LogTime & " (" & GroupNumber & ")"
+            Else
+                Return AFR.ToString("0.00") & " - " & WIDEBAND.ToString("0") & " - " & LogTime
+            End If
+
         End If
 
     End Function
