@@ -34,6 +34,9 @@ Partial Class K8AutoTuneSettings
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.NUD_AutoTuneTimeWindow = New System.Windows.Forms.NumericUpDown()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.NUD_AFRStdDev = New System.Windows.Forms.NumericUpDown()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -44,19 +47,16 @@ Partial Class K8AutoTuneSettings
         Me.TB_AutoTuneStrength = New System.Windows.Forms.TrackBar()
         Me.B_Cancel = New System.Windows.Forms.Button()
         Me.B_Ok = New System.Windows.Forms.Button()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.NUD_AutoTuneTimeWindow = New System.Windows.Forms.NumericUpDown()
-        Me.Label11 = New System.Windows.Forms.Label()
         CType(Me.NUD_AutoTuneMinAvgAFR, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_AutoTuneMaxAvgAFR, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_AutoTuneMaxPercentageFuelMapChange, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_AutoTuneMinNumberLoggedValuesInCell, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        CType(Me.NUD_AutoTuneTimeWindow, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_AFRStdDev, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_ExhaustGasVelocityOffset, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TB_AutoTuneStrength, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NUD_AutoTuneTimeWindow, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'NUD_AutoTuneMinAvgAFR
@@ -176,6 +176,35 @@ Partial Class K8AutoTuneSettings
         Me.Panel2.Size = New System.Drawing.Size(404, 243)
         Me.Panel2.TabIndex = 10
         '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(310, 84)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(20, 13)
+        Me.Label11.TabIndex = 20
+        Me.Label11.Text = "ms"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(17, 84)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(72, 13)
+        Me.Label10.TabIndex = 19
+        Me.Label10.Text = "Time Window"
+        '
+        'NUD_AutoTuneTimeWindow
+        '
+        Me.NUD_AutoTuneTimeWindow.Increment = New Decimal(New Integer() {50, 0, 0, 0})
+        Me.NUD_AutoTuneTimeWindow.Location = New System.Drawing.Point(240, 82)
+        Me.NUD_AutoTuneTimeWindow.Maximum = New Decimal(New Integer() {5000, 0, 0, 0})
+        Me.NUD_AutoTuneTimeWindow.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NUD_AutoTuneTimeWindow.Name = "NUD_AutoTuneTimeWindow"
+        Me.NUD_AutoTuneTimeWindow.Size = New System.Drawing.Size(60, 20)
+        Me.NUD_AutoTuneTimeWindow.TabIndex = 18
+        Me.NUD_AutoTuneTimeWindow.Value = New Decimal(New Integer() {500, 0, 0, 0})
+        '
         'Label9
         '
         Me.Label9.AutoSize = True
@@ -271,35 +300,6 @@ Partial Class K8AutoTuneSettings
         Me.B_Ok.Text = "OK"
         Me.B_Ok.UseVisualStyleBackColor = True
         '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(17, 84)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(72, 13)
-        Me.Label10.TabIndex = 19
-        Me.Label10.Text = "Time Window"
-        '
-        'NUD_AutoTuneTimeWindow
-        '
-        Me.NUD_AutoTuneTimeWindow.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
-        Me.NUD_AutoTuneTimeWindow.Location = New System.Drawing.Point(240, 82)
-        Me.NUD_AutoTuneTimeWindow.Maximum = New Decimal(New Integer() {5000, 0, 0, 0})
-        Me.NUD_AutoTuneTimeWindow.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.NUD_AutoTuneTimeWindow.Name = "NUD_AutoTuneTimeWindow"
-        Me.NUD_AutoTuneTimeWindow.Size = New System.Drawing.Size(60, 20)
-        Me.NUD_AutoTuneTimeWindow.TabIndex = 18
-        Me.NUD_AutoTuneTimeWindow.Value = New Decimal(New Integer() {500, 0, 0, 0})
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(310, 84)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(20, 13)
-        Me.Label11.TabIndex = 20
-        Me.Label11.Text = "ms"
-        '
         'K8AutoTuneSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -319,10 +319,10 @@ Partial Class K8AutoTuneSettings
         Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        CType(Me.NUD_AutoTuneTimeWindow, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_AFRStdDev, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_ExhaustGasVelocityOffset, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TB_AutoTuneStrength, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NUD_AutoTuneTimeWindow, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
