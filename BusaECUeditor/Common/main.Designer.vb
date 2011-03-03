@@ -76,6 +76,7 @@ Partial Class main
         Me.EcueditorcomHomepageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ReportABugToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ViewFAQFacebookToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EcueditorcomfacebookToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.B_Limiters = New System.Windows.Forms.Button()
         Me.B_FlashECU = New System.Windows.Forms.Button()
@@ -96,13 +97,14 @@ Partial Class main
         Me.R_tw = New System.Windows.Forms.RichTextBox()
         Me.B_DataLogging = New System.Windows.Forms.Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.tw_p = New System.Windows.Forms.PictureBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.ViewFAQFacebookToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
+        CType(Me.tw_p, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'B_FuelMap
@@ -456,6 +458,12 @@ Partial Class main
         Me.ReportABugToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
         Me.ReportABugToolStripMenuItem.Text = "View and report bugs"
         '
+        'ViewFAQFacebookToolStripMenuItem
+        '
+        Me.ViewFAQFacebookToolStripMenuItem.Name = "ViewFAQFacebookToolStripMenuItem"
+        Me.ViewFAQFacebookToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.ViewFAQFacebookToolStripMenuItem.Text = "View FAQ @ facebook"
+        '
         'EcueditorcomfacebookToolStripMenuItem
         '
         Me.EcueditorcomfacebookToolStripMenuItem.Name = "EcueditorcomfacebookToolStripMenuItem"
@@ -627,13 +635,13 @@ Partial Class main
         '
         Me.R_tw.BackColor = System.Drawing.SystemColors.ButtonShadow
         Me.R_tw.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.R_tw.Location = New System.Drawing.Point(6, 16)
+        Me.R_tw.Location = New System.Drawing.Point(70, 19)
         Me.R_tw.Name = "R_tw"
         Me.R_tw.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical
-        Me.R_tw.Size = New System.Drawing.Size(438, 61)
+        Me.R_tw.Size = New System.Drawing.Size(374, 49)
         Me.R_tw.TabIndex = 41
         Me.R_tw.Text = ""
-        Me.ToolTip1.SetToolTip(Me.R_tw, resources.GetString("R_tw.ToolTip"))
+        Me.ToolTip1.SetToolTip(Me.R_tw, "Doubleclick here to see the latest news on twitter")
         '
         'B_DataLogging
         '
@@ -646,18 +654,27 @@ Partial Class main
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.tw_p)
         Me.GroupBox3.Controls.Add(Me.R_tw)
         Me.GroupBox3.Location = New System.Drawing.Point(12, 210)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(450, 83)
+        Me.GroupBox3.Size = New System.Drawing.Size(450, 77)
         Me.GroupBox3.TabIndex = 40
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Ecueditor tweets"
         '
+        'tw_p
+        '
+        Me.tw_p.Location = New System.Drawing.Point(9, 19)
+        Me.tw_p.Name = "tw_p"
+        Me.tw_p.Size = New System.Drawing.Size(49, 49)
+        Me.tw_p.TabIndex = 42
+        Me.tw_p.TabStop = False
+        '
         'Timer1
         '
         Me.Timer1.Enabled = True
-        Me.Timer1.Interval = 60000
+        Me.Timer1.Interval = 600000
         '
         'Button1
         '
@@ -669,18 +686,12 @@ Partial Class main
         Me.Button1.TabIndex = 41
         Me.Button1.UseVisualStyleBackColor = False
         '
-        'ViewFAQFacebookToolStripMenuItem
-        '
-        Me.ViewFAQFacebookToolStripMenuItem.Name = "ViewFAQFacebookToolStripMenuItem"
-        Me.ViewFAQFacebookToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.ViewFAQFacebookToolStripMenuItem.Text = "View FAQ @ facebook"
-        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlDark
-        Me.ClientSize = New System.Drawing.Size(469, 299)
+        Me.ClientSize = New System.Drawing.Size(469, 294)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.B_DataLogging)
@@ -708,6 +719,7 @@ Partial Class main
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
+        CType(Me.tw_p, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -790,5 +802,6 @@ Partial Class main
     Friend WithEvents MakeAnDIYInterfaceToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents K8EU37H00ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ViewFAQFacebookToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tw_p As System.Windows.Forms.PictureBox
 
 End Class
