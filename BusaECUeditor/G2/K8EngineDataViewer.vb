@@ -1457,28 +1457,32 @@ Public Class K8EngineDataViewer
 
     Private Sub LB_Values_DrawItem(ByVal sender As Object, ByVal e As System.Windows.Forms.DrawItemEventArgs) Handles LB_Values.DrawItem
 
-        e.DrawBackground()
+        If e.Index > -1 Then
 
-        Dim backgroundBrush As Brush = Brushes.White
-        Dim textBrush As Brush = Brushes.Black
+            e.DrawBackground()
 
-        Dim value As LogValue = LB_Values.Items(e.Index)
-        Dim selectedValue As LogValue = LB_Values.SelectedItem
+            Dim backgroundBrush As Brush = Brushes.White
+            Dim textBrush As Brush = Brushes.Black
 
-        ' Determine the color of the brush to draw each item based on the index of the item to draw.
-        If (e.State And DrawItemState.Selected) = DrawItemState.Selected Then
-            backgroundBrush = Brushes.Blue
-            textBrush = Brushes.White
-        ElseIf value.AFR > (_cellMean + _cellStdDev * My.Settings.AutoTuneCellStdDev) Then
-            backgroundBrush = Brushes.Coral
-        ElseIf value.AFR < (_cellMean - _cellStdDev * My.Settings.AutoTuneCellStdDev) Then
-            backgroundBrush = Brushes.LightBlue
+            Dim value As LogValue = LB_Values.Items(e.Index)
+            Dim selectedValue As LogValue = LB_Values.SelectedItem
+
+            ' Determine the color of the brush to draw each item based on the index of the item to draw.
+            If (e.State And DrawItemState.Selected) = DrawItemState.Selected Then
+                backgroundBrush = Brushes.Blue
+                textBrush = Brushes.White
+            ElseIf value.AFR > (_cellMean + _cellStdDev * My.Settings.AutoTuneCellStdDev) Then
+                backgroundBrush = Brushes.Coral
+            ElseIf value.AFR < (_cellMean - _cellStdDev * My.Settings.AutoTuneCellStdDev) Then
+                backgroundBrush = Brushes.LightBlue
+            End If
+
+            e.Graphics.FillRectangle(backgroundBrush, e.Bounds)
+            e.Graphics.DrawString(LB_Values.Items(e.Index).ToString(), e.Font, textBrush, e.Bounds, StringFormat.GenericDefault)
+
+            e.DrawFocusRectangle()
+
         End If
-
-        e.Graphics.FillRectangle(backgroundBrush, e.Bounds)
-        e.Graphics.DrawString(LB_Values.Items(e.Index).ToString(), e.Font, textBrush, e.Bounds, StringFormat.GenericDefault)
-
-        e.DrawFocusRectangle()
 
     End Sub
 

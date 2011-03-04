@@ -306,13 +306,13 @@ Partial Class K8EngineDataViewer
         '
         'L_CellInfo
         '
-        Me.L_CellInfo.AutoSize = True
         Me.L_CellInfo.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.L_CellInfo.Location = New System.Drawing.Point(436, 1)
+        Me.L_CellInfo.Location = New System.Drawing.Point(379, 4)
         Me.L_CellInfo.Name = "L_CellInfo"
-        Me.L_CellInfo.Size = New System.Drawing.Size(19, 26)
+        Me.L_CellInfo.Size = New System.Drawing.Size(718, 26)
         Me.L_CellInfo.TabIndex = 39
         Me.L_CellInfo.Text = "-"
+        Me.L_CellInfo.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'L_CellStats
         '
@@ -329,7 +329,6 @@ Partial Class K8EngineDataViewer
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1099, 717)
         Me.Controls.Add(Me.L_CellStats)
-        Me.Controls.Add(Me.L_CellInfo)
         Me.Controls.Add(Me.L_AvgTPS)
         Me.Controls.Add(Me.B_AutoTune)
         Me.Controls.Add(Me.GroupBox1)
@@ -346,6 +345,7 @@ Partial Class K8EngineDataViewer
         Me.Controls.Add(Me.G_FuelMap)
         Me.Controls.Add(Me.B_LoadDataFile)
         Me.Controls.Add(Me.GroupBox2)
+        Me.Controls.Add(Me.L_CellInfo)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "K8EngineDataViewer"
         Me.Text = "K8 Engine Data Viewer"
