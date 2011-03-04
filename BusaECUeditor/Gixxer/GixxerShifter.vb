@@ -30,7 +30,7 @@ Public Class GixxerShifter
     Dim minkillactive As Integer = gixxer_shifter_ADJ + &H16
     Dim killcountdelay As Integer = gixxer_shifter_ADJ + &H18
     Dim SHIFTER2VERSION As Integer = 100
-    Dim shiftercodelenght As Integer = gixxer_shifter_IGNCODE + &H50 - gixxer_shifter_ADJ - 1 'lenght of the shifter code in bytes for clearing the memory, check this !!!
+    Dim shiftercodelenght As Integer = &H60F2F - &H60800  'lenght of the shifter code in bytes for clearing the memory, check this !!!
     Dim timerconst = 1 / 1.28
     Dim initiating As Boolean = True
 
@@ -139,7 +139,18 @@ Public Class GixxerShifter
         Dim path As String
         Dim b(1) As Byte
 
-        path = My.Application.Info.DirectoryPath & "\ecu.bin\gixxershifter.bin"
+        If main.Hayabusa.Text.Contains("47H") Then
+            '
+            ' K9
+            '
+            path = My.Application.Info.DirectoryPath & "\ecu.bin\shiftergixxerk9.bin"
+        Else
+            '
+            ' K7-K8
+            '
+            path = My.Application.Info.DirectoryPath & "\ecu.bin\gixxershifter.bin"
+        End If
+
 
         If Not File.Exists(path) Then
             MsgBox("Shifter code not found at: " & path, MsgBoxStyle.Critical)
