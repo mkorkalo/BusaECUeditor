@@ -923,6 +923,7 @@ Public Class K8EngineDataViewer
         ShowTPSHeaders()
 
         Dim dataCount As Integer
+        Dim totalDataCount As Integer
 
         For xIndex As Integer = 0 To _tpsList.Count - 1 Step 1
             For yIndex As Integer = 0 To _rpmList.Count - 1 Step 1
@@ -931,6 +932,7 @@ Public Class K8EngineDataViewer
                 G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = Color.Black
 
                 Dim avgAfr = CalculateAvgAFR(_tpsValues(xIndex, yIndex), dataCount)
+                totalDataCount = totalDataCount + _tpsValues(xIndex, yIndex).Count
 
                 If avgAfr > 0 Then
 
@@ -946,7 +948,7 @@ Public Class K8EngineDataViewer
 
         Next
 
-        L_FileName.Text = _filePath & " Data Samples: " + dataCount.ToString()
+        L_FileName.Text = _filePath & " Data Samples: " + dataCount.ToString() & " (" & totalDataCount & ")"
 
     End Sub
 
@@ -955,6 +957,7 @@ Public Class K8EngineDataViewer
         ShowTPSHeaders()
 
         Dim dataCount As Integer
+        Dim totalDataCount As Integer
 
         For xIndex As Integer = 0 To _tpsList.Count - 1 Step 1
             For yIndex As Integer = 0 To _rpmList.Count - 1 Step 1
@@ -962,8 +965,9 @@ Public Class K8EngineDataViewer
                 G_FuelMap.Item(xIndex, yIndex).Style.BackColor = Color.White
                 G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = Color.Black
 
-                Dim avgAfr As Double = CalculateAvgAFR(_tpsValues(xIndex, yIndex), dataCount)
+                totalDataCount = totalDataCount + _tpsValues(xIndex, yIndex).Count
 
+                Dim avgAfr As Double = CalculateAvgAFR(_tpsValues(xIndex, yIndex), dataCount)
                 If avgAfr > 0 Then
 
                     Dim percentageChange As Double = AutoTuneCorrection((avgAfr - _tpsTargetAFR(xIndex, yIndex)) / avgAfr * 100)
@@ -978,7 +982,7 @@ Public Class K8EngineDataViewer
 
         Next
 
-        L_FileName.Text = _filePath & " Data Samples: " + dataCount.ToString()
+        L_FileName.Text = _filePath & " Data Samples: " + dataCount.ToString() & " (" & totalDataCount & ")"
 
     End Sub
 
@@ -987,6 +991,7 @@ Public Class K8EngineDataViewer
         ShowIAPHeaders()
 
         Dim dataCount As Integer
+        Dim totalDataCount As Integer
 
         For xIndex As Integer = 0 To _iapList.Count - 1 Step 1
             For yIndex As Integer = 0 To _rpmList.Count - 1 Step 1
@@ -995,6 +1000,7 @@ Public Class K8EngineDataViewer
                 G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = Color.Black
 
                 Dim avgAfr As Double = CalculateAvgAFR(_iapValues(xIndex, yIndex), dataCount)
+                totalDataCount = totalDataCount + _iapValues(xIndex, yIndex).Count
 
                 If avgAfr > 0 Then
 
@@ -1011,7 +1017,7 @@ Public Class K8EngineDataViewer
 
         Next
 
-        L_FileName.Text = _filePath & " Data Samples: " + dataCount.ToString()
+        L_FileName.Text = _filePath & " Data Samples: " + dataCount.ToString() & " (" & totalDataCount & ")"
 
     End Sub
 
