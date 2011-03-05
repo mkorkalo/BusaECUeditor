@@ -565,7 +565,7 @@ Public Class K8EngineDataViewer
         For index As Integer = 0 To values.Count - 1
             Dim value As LogValue = values(index)
 
-            If value.AFR > mean - stdDev * My.Settings.AutoTuneCellStdDev And value.AFR < mean + stdDev * My.Settings.AutoTuneCellStdDev Then
+            If value.AFR >= mean - stdDev * My.Settings.AutoTuneCellStdDev And value.AFR <= mean + stdDev * My.Settings.AutoTuneCellStdDev Then
 
                 dataCount = dataCount + 1
 
