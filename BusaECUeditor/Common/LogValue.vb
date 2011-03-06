@@ -30,10 +30,15 @@
         Get
             If String.IsNullOrEmpty(LogTime) = False Then
 
-                Dim hours As Integer = Integer.Parse(LogTime.Substring(0, 2))
-                Dim minutes As Integer = Integer.Parse(LogTime.Substring(3, 2))
-                Dim seconds As Integer = Integer.Parse(LogTime.Substring(6, 2))
-                Dim milliseconds As Integer = Integer.Parse(LogTime.Substring(9, 3))
+                Dim hours As Integer
+                Dim minutes As Integer
+                Dim seconds As Integer
+                Dim milliseconds As Integer
+
+                hours = Integer.Parse(LogTime.Substring(0, 2))
+                minutes = Integer.Parse(LogTime.Substring(3, 2))
+                seconds = Integer.Parse(LogTime.Substring(6, 2))
+                milliseconds = Integer.Parse(LogTime.Substring(9, LogTime.Length - 9))
 
                 Return New TimeSpan(0, hours, minutes, seconds, milliseconds)
 
