@@ -648,8 +648,6 @@ Public Class K8Ignitionmap
                 End If
             Next
 
-
-
             rowIndex = Ignitionmapgrid.CurrentCell.RowIndex
 
             lines = Clipboard.GetText().Split(ControlChars.CrLf)

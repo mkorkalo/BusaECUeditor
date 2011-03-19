@@ -614,8 +614,6 @@ Public Class K8STPmap
                 End If
             Next
 
-
-
             rowIndex = STPmapgrid.CurrentCell.RowIndex
 
             lines = Clipboard.GetText().Split(ControlChars.CrLf)

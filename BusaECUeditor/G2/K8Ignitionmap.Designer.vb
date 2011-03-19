@@ -19,17 +19,17 @@ Partial Class K8Ignitionmap
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(K8Ignitionmap))
-        Me.T_TPSIAP = New System.Windows.Forms.TextBox
-        Me.T_RPM = New System.Windows.Forms.TextBox
+        Me.T_TPSIAP = New System.Windows.Forms.TextBox()
+        Me.T_RPM = New System.Windows.Forms.TextBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.Ignitionmapgrid = New System.Windows.Forms.DataGridView
-        Me.B_MS0 = New System.Windows.Forms.Button
-        Me.B_MS1 = New System.Windows.Forms.Button
-        Me.T_DEG = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Button1 = New System.Windows.Forms.Button
+        Me.Ignitionmapgrid = New System.Windows.Forms.DataGridView()
+        Me.B_MS0 = New System.Windows.Forms.Button()
+        Me.B_MS1 = New System.Windows.Forms.Button()
+        Me.T_DEG = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         CType(Me.Ignitionmapgrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -112,6 +112,7 @@ Partial Class K8Ignitionmap
         Me.T_DEG.Size = New System.Drawing.Size(124, 22)
         Me.T_DEG.TabIndex = 20
         Me.T_DEG.WordWrap = False
+        '
         'Label1
         '
         Me.Label1.AutoSize = True
