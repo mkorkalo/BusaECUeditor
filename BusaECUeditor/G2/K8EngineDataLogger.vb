@@ -341,6 +341,7 @@ Public Class K8EngineDataLogger
     Private Sub K8EngineDataLogger_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
 
         StopEngineDataComms()
+        B_StopLogging_Click(sender, e)
 
     End Sub
 
@@ -1153,7 +1154,7 @@ Public Class K8EngineDataLogger
             My.Settings.Save()
 
             Timer_EngineData.Interval = NUD_DataRate.Value
-            Timer_UpdateGUI.Interval = NUD_DataRate.Value * 2
+            Timer_UpdateGUI.Interval = NUD_DataRate.Value
 
         End If
 
@@ -2398,7 +2399,7 @@ Public Class K8EngineDataLogger
         NUD_DataRate.Value = My.Settings.DataRate
 
         Timer_EngineData.Interval = My.Settings.DataRate
-        Timer_UpdateGUI.Interval = My.Settings.DataRate * 2
+        Timer_UpdateGUI.Interval = My.Settings.DataRate
 
         logRate = My.Settings.LogRate
 
