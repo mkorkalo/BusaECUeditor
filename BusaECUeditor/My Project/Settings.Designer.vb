@@ -509,6 +509,30 @@ Namespace My
                 Me("AutoTuneTimeWindow") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property AutoTuneMapSmooth() As Boolean
+            Get
+                Return CType(Me("AutoTuneMapSmooth"),Boolean)
+            End Get
+            Set
+                Me("AutoTuneMapSmooth") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("3")>  _
+        Public Property AutoTuneMapSmoothCells() As Integer
+            Get
+                Return CType(Me("AutoTuneMapSmoothCells"),Integer)
+            End Get
+            Set
+                Me("AutoTuneMapSmoothCells") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
