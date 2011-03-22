@@ -2217,4 +2217,255 @@ Public Class K8EngineDataViewer
 
     End Sub
 
+    Private Function D2Fit(ByVal x1 As Integer, ByVal x3 As Integer, ByVal y1 As Integer, ByVal y2 As Integer, ByVal y3 As Integer) As Integer
+
+        Dim d2 As Integer
+        Dim x2 As Integer
+
+        d2 = y1 - 2 * y2 + y3
+        x2 = (x1 + x3 - d2)
+
+        If x2 < Math.Min(x1, x3) Then
+            x2 = Math.Min(x1, x3)
+        End If
+
+        If x2 > Math.Max(x1, x3) Then
+            x2 = Math.Max(x1, x3)
+        End If
+
+        Return x2
+
+    End Function
+
+    ''' <summary>
+    '''  
+    ''' </summary>
+    ''' <param name="min_auto">The Minimum number of surrounding cells to allow map smoothing</param>
+    ''' <param name="maxVal">The number of horizontal cells in the map</param>
+    ''' <param name="maxRPM">The number of vertical cells in the map</param>
+    ''' <param name="c_map">The AutoTuned Fuel Map</param>
+    ''' <param name="p_map">The AutoTune Percentage Change Map</param>
+    ''' <param name="r_map">The Current Fuel Map</param>
+    ''' <param name="n_map">The New Smoothed Fuel Map</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Private Function MapPolisher(ByVal min_auto As Integer, ByVal maxVal As Integer, ByRef maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,), ByRef r_map As Integer(,), ByRef n_map As Integer(,))
+
+        Dim num_polished, num_autotuned, num_autounchg, num_autochged, num_confirmed, num_selected, num_added As Integer
+
+        Dim modified_around(9) As Integer
+        Dim modified_cross(5) As Integer
+        Dim modified_edge(5) As Integer
+
+        Dim tc As Integer   ' top cell on autotune matrix
+        Dim bc As Integer   ' bottom cell on autotune matrix
+        Dim lc As Integer   ' left cell on autotune matrix
+        Dim rc As Integer   ' right cell on autotune matrix
+        Dim cc As Integer   ' central cell on autotune matrix
+        Dim trc As Integer  ' top right corner cell on autotune matrix
+        Dim brc As Integer  ' bottom right corner cell on autotune matrix
+        Dim tlc As Integer  ' top left corner cell on autotune matrix
+        Dim blc As Integer  ' bottom left corner cell on autotune matrix
+        Dim tr As Integer   ' top cell on running fuel matrix
+        Dim br As Integer   ' bottom cell on running fuel matrix
+        Dim lr As Integer   ' left cell on running fuel matrix
+        Dim rr As Integer   ' right cell on running fuel matrix
+        Dim cr As Integer   ' central cell on running fuel matrix
+        Dim trr As Integer  ' top right corner cell on running fuel matrix
+        Dim brr As Integer  ' bottom right corner cell on running fuel matrix
+        Dim tlr As Integer  ' top left corner cell on running fuel matrix
+        Dim blr As Integer  ' bottom left cell on running fuel matrix
+
+        For j As Integer = 0 To maxVal - 1 Step 1
+            For i As Integer = 0 To maxRPM - 1 Step 1
+
+                If p_map(i, j) > 0 Then
+
+                    num_autotuned = num_autotuned + 1
+
+                    If c_map(i, j) = r_map(i, j) Then
+                        num_autounchg = num_autounchg + 1
+                    Else
+                        num_autochged = num_autochged + 1
+                    End If
+
+                ElseIf c_map(i, j) <> r_map(i, j) Then
+
+                    Throw New Exception("Percentage Change map does not indicate change, but current map cell does not match auto tuned map cell")
+
+                End If
+            Next
+        Next
+
+        For j As Integer = 0 To maxVal - 1 Step 1
+            For i As Integer = 0 To maxRPM - 1 Step 1
+
+                Dim num_auto, num_cross, num_edge As Integer
+
+                cc = c_map(i, j)
+                cr = r_map(i, j)
+
+                n_map(i, j) = cc
+
+                If p_map(i, j) = 0 Then
+
+                    If (j = 0 Or i = 0 Or i = maxRPM - 1) Or (j = maxRPM - 1 And (i = 0 Or i = maxRPM - 1)) Then
+
+                        cc = cr
+                        n_map(i, j) = cc
+                        Continue For
+
+                    ElseIf (j = maxVal - 1) Then
+                        ' Last Column
+
+                        lc = 0
+                        rc = 0
+                        trc = 0
+                        tlc = 0
+                        brc = 0
+                        blc = 0
+
+                        lr = 0
+                        rr = 0
+                        trr = 0
+                        tlr = 0
+                        brr = 0
+                        blr = 0
+
+                        tc = c_map(i - 1, j)
+                        bc = c_map(i + 1, j)
+                        tr = r_map(i - 1, j)
+                        br = r_map(i + 1, j)
+
+                        If p_map(i - 1, j) > 0 And p_map(i + 1, j) > 0 Then
+
+                            modified_around(2) = modified_around(2) + 1
+                            modified_cross(2) = modified_cross(2) + 1
+                            num_selected = num_selected + 1
+
+                            cc = D2Fit(tc, bc, tr, cr, br)
+
+                            If cc > Math.Max(tc, bc) Then
+                                cc = Math.Max(tc, bc)
+                            End If
+
+                            If cc < Math.Min(tc, bc) Then
+                                cc = Math.Min(tc, bc)
+                            End If
+
+                            If cc = cr Then
+                                num_confirmed = num_confirmed + 1
+                            End If
+
+                        Else
+
+                            cc = cr
+                            n_map(i, j) = cc
+                            Continue For
+
+                        End If
+                    Else
+
+                        tr = r_map(i - 1, j)
+                        br = r_map(i + 1, j)
+                        rr = r_map(i, j + 1)
+                        lr = r_map(i, j - 1)
+
+                        tc = c_map(i - 1, j)
+                        bc = c_map(i + 1, j)
+                        rc = c_map(i, j + 1)
+                        lc = c_map(i, j - 1)
+
+                        If p_map(i - 1, j) > 0 Then
+                            num_cross = num_cross + 1
+                        End If
+
+                        If p_map(i + 1, j) > 0 Then
+                            num_cross = num_cross + 1
+                        End If
+
+                        If p_map(i, j + 1) > 0 Then
+                            num_cross = num_cross + 1
+                        End If
+
+                        If p_map(i, j - 1) > 0 Then
+                            num_cross = num_cross + 1
+                        End If
+
+                        trr = r_map(i - 1, j + 1)
+                        tlr = r_map(i - 1, j - 1)
+                        brr = r_map(i + 1, j + 1)
+                        blr = r_map(i + 1, j - 1)
+
+                        trc = c_map(i - 1, j + 1)
+                        tlr = c_map(i - 1, j - 1)
+                        brc = c_map(i + 1, j + 1)
+                        blc = c_map(i + 1, j - 1)
+
+                        If p_map(i - 1, j + 1) > 0 Then
+                            num_edge = num_edge + 1
+                        End If
+
+                        If p_map(i - 1, j - 1) > 0 Then
+                            num_edge = num_edge + 1
+                        End If
+
+                        If p_map(i + 1, j + 1) > 0 Then
+                            num_edge = num_edge + 1
+                        End If
+
+                        If p_map(i + 1, j - 1) > 0 Then
+                            num_edge = num_edge + 1
+                        End If
+
+                        num_auto = num_cross + num_edge
+                        modified_cross(num_cross) = modified_cross(num_cross) + 1
+                        modified_edge(num_edge) = modified_edge(num_edge) + 1
+                        modified_around(num_auto) = modified_around(num_auto) + 1
+
+                        If num_auto < min_auto Or (min_auto > 1 And num_cross < 2) Then
+                            cc = cr
+                            n_map(i, j) = cc
+                            Continue For
+                        End If
+
+                        num_selected = num_selected + 1
+
+                        cc = 2 * (bc + br + tc - tr + rc - rr + lc - lr) + (brc - brr + tlr - trc + trr - blc + blr)
+                        cc = Math.Round((8 * cr + cc) / 8)
+
+                        If cc < Math.Min(tc, bc) Then
+                            cc = Math.Min(tc, bc)
+                        End If
+
+                        If cc > Math.Max(tc, bc) Then
+                            cc = Math.Max(tc, bc)
+                        End If
+
+                        If cc = cr Then
+                            num_confirmed = num_confirmed + 1
+                        End If
+
+                        If (num_auto >= 4 Or num_cross >= 3) And (cc <> cr) Then
+                            'Experimental to further fill holes in map
+                            c_map(i, j) = cc
+                            p_map(i, j) = 1
+                            num_added = num_added + 1
+                        End If
+                    End If
+
+                    n_map(i, j) = cc
+
+                    If cc <> cr Then
+                        num_polished = num_polished + 1
+                    End If
+
+                End If
+            Next
+        Next
+
+        Return num_polished
+
+    End Function
+
 End Class
