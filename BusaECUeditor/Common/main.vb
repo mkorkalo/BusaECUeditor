@@ -1,5 +1,5 @@
 '
-'    This file is part of ecueditor - Hayabusa ECUeditor
+'    This file is part of ecueditor - ecueditor.com
 '
 '    Hayabusa ECUeditor is free software: you can redistribute it and/or modify
 '    it under the terms of the GNU General Public License as published by
@@ -3256,6 +3256,103 @@ skip_update:
                         Hayabusa.Text = "unknown gixxer ecu"
                         ECUVersion = "flashonly"
                 End Select
+            Case "DJ0HSE70"
+                gixxer_modelname = "ecueditor.com for gixxer K8 (California)"
+                ECUVersion = "gixxer"
+
+                gixxer_shifter_ADJ = &H5D900
+                gixxer_shifter_FUELCODE = &H5DA00
+                gixxer_shifter_IGNCODE = &H5DE00
+                gixxer_shifter_jmp_to_fuelcode = &H45A40
+                gixxer_shifter_jmp_to_igncode = &H3B9C0
+                gixxer_abc = &H220C4
+
+                gixxer_STP_map_first_table = &H59DD0
+                gixxer_STP_map_first_table_fuel = &H5A970
+                gixxer_injectorbalance_map_first = &H5A7D8
+
+                gixxer_fuelmap_map_first = &H5A7F0
+                gixxer_ignition_rpm_limiter = &H60B2C
+
+                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3B4C1
+                gixxer_GPS_voltage_raw = &H8050F9
+                gixxer_set_ign_default = &H60B57
+
+
+                gixxer_fuel_limiter_by_gear = &H614C1
+                gixxer_fuel_limiter_by_gear_softcut = &H614C2
+                gixxer_RPM_limit_type1 = &H61372
+                gixxer_fuel_limiter_softcut_or_hardcut = &H614BE
+                gixxer_baseline = 13500
+
+                gixxer_ignition_map_first = &H5A3D8
+                gixxer_ignition_use_clutch_map = &H60B5C
+                gixxer_ignition_map_name = gixxer_modelname
+
+                gixxerramair_columnheader = &H60776 ' &H7268E
+                gixxerramair_map = &H60941 '&H72859
+
+                gixxer_injectorbalance_map_name = gixxer_modelname
+                gixxer_STP_modelname = gixxer_modelname
+                gixxer_fuelmap_map_bikename = gixxer_modelname
+
+                B_EngineData.Enabled = True
+                FlashToolStripMenuItem.Visible = Enabled
+                B_DataLogging.Enabled = True
+                SaveToolStripMenuItem.Enabled = True
+                B_FlashECU.Enabled = True
+                B_Limiters.Enabled = True
+                B_Shifter.Enabled = True
+                B_FuelMap.Enabled = True
+                B_IgnitionMap.Enabled = True
+
+                B_AdvancedSettings.Enabled = True
+                gixxer_msmode = &H6063A
+                gixxer_coilfi = &H60BC1
+                gixxer_fan = &H62968
+                gixxer_pair = &H62ABA
+
+                gixxer_pairloop = &H56D5C
+                gixxer_pairloop1 = &HFF
+                gixxer_pairloop2 = &HFC
+                gixxer_pairloop3 = &H10
+
+                gixxer_excva = &H6000D
+                gixxer_excva_flag = &H60669
+                gixxer_ecumode = &H604CF
+                gixxer_ics1 = &H622EE
+                gixxer_ics2 = &H6230A
+                gixxer_ics3 = &H62296
+                gixxer_hoxflag = &H614D4
+                gixxer_hox1 = &H614D4
+                gixxer_hox2 = &H62243
+                gixxer_sdmap = &H5D840
+                gixxer_sd1 = &H62AC1
+                gixxer_sd2 = &H62ACF
+                gixxer_sd3 = &H62AD2
+
+
+                Select Case ReadFlashByte(&H6292B)
+                    Case &H35
+                        ECUVersion = "gixxer"
+                        Hayabusa.Text = "Gixxer K7- 32920-21H50"
+                        Metric = True
+                    Case &H36
+                        ECUVersion = "gixxer"
+                        Hayabusa.Text = "Gixxer K7- 32920-21H60"
+                        Metric = False
+                    Case &H37
+                        ECUVersion = "gixxer"
+                        Hayabusa.Text = "Gixxer K7- 32920-21H70"
+                        Metric = False
+                    Case &H39
+                        ECUVersion = "gixxer"
+                        Hayabusa.Text = "Gixxer K7- 32920-21Hxx Generic"
+                        Metric = True
+                    Case Else
+                        Hayabusa.Text = "unknown gixxer ecu"
+                        ECUVersion = "flashonly"
+                End Select
 
             Case "DJ0HSE51"
                 gixxer_modelname = "ecueditor.com for gixxer K8 "
@@ -3656,6 +3753,66 @@ skip_update:
                 ECUVersion = "gixxer"
 
                 gixxer_modelname = "ecueditor.com for gixxer 600 K8- EU (32920-37H00) "
+
+                gixxer_shifter_ADJ = 0
+                gixxer_shifter_FUELCODE = 0
+                gixxer_shifter_IGNCODE = 0
+                gixxer_shifter_jmp_to_fuelcode = 0        'last label at the end of function set_fuel_gear_type2hard
+                gixxer_shifter_jmp_to_igncode = 0         'last label at the end of function calculate_ignition_gear_limiters
+
+                gixxer_STP_map_first_table = 0            ' STP_gear06_ms01_modeabc_STP_map_list_
+                gixxer_STP_map_first_table_fuel = 0
+
+                gixxer_fuelmap_map_first = &H5AC54             'Fuel_IAP
+                gixxer_injectorbalance_map_first = &H5AC3C     'injector_balancing_volume_
+
+                gixxer_ignition_map_first = &H5A854              ' ign_group_clutch_neutral
+                gixxer_ignition_use_clutch_map = &H743A4         ' use_clutch_map_if_0x1
+
+                gixxer_msmode = &H73E8F
+                gixxer_ecumode = &H73D2B
+
+                gixxer_ignition_rpm_limiter = &H74374          'ignition_rpm_limiter
+
+                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3BD60 + 1 'sub set_ignition_limiters beginning the GPS_sensor_RAW address
+                gixxer_GPS_voltage_raw = &H80510D
+                gixxer_set_ign_default = &H7439F
+
+                gixxer_fuel_limiter_by_gear = &H74BE7            'fuelcut_by_gear
+                gixxer_RPM_limit_type1 = &H74A92                'RPM_limit_type1
+                gixxer_fuel_limiter_softcut_or_hardcut = &H74BE4 'fuel_limiter_softcut_or_hardcut
+                gixxer_baseline = 15500
+
+                gixxerramair_columnheader = 0
+                gixxerramair_map = 0
+
+
+                '
+                ' These do not need to be adjusted
+                '
+                gixxer_ignition_map_name = gixxer_modelname
+                gixxer_fuel_limiter_by_gear_softcut = gixxer_fuel_limiter_by_gear + 1
+                gixxer_injectorbalance_map_name = gixxer_modelname
+                gixxer_STP_modelname = gixxer_modelname
+                gixxer_fuelmap_map_bikename = gixxer_modelname
+
+                B_EngineData.Enabled = True
+                FlashToolStripMenuItem.Visible = Enabled
+                B_DataLogging.Enabled = True
+                SaveToolStripMenuItem.Enabled = True
+                B_FlashECU.Enabled = True
+                B_Limiters.Enabled = True
+                B_Shifter.Enabled = False
+                B_FuelMap.Enabled = True
+                B_IgnitionMap.Enabled = True
+                B_AdvancedSettings.Enabled = True
+
+            Case "DJ55SE10"
+                Hayabusa.Text = "Gixxer K8- EU 32920-37H10"
+                Metric = True
+                ECUVersion = "gixxer"
+
+                gixxer_modelname = "ecueditor.com for gixxer 600 K8- US (32920-37H00) "
 
                 gixxer_shifter_ADJ = 0
                 gixxer_shifter_FUELCODE = 0
@@ -5769,7 +5926,7 @@ skip_update:
 
 
         ' OK, so the file is found, now lets start processing it
-        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\Gixxer21H70.bin"
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\DJ0HSE70.bin"
 
         L_File.Text = ""
         L_Comparefile.Text = ""
@@ -6131,6 +6288,55 @@ skip_update:
         Process.Start("http://www.facebook.com/topic.php?uid=133860313347043&topic=34")
     End Sub
 
+    Private Sub K8US37H10ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles K8US37H10ToolStripMenuItem.Click
+        Dim defpath As String ' this is for this subroutine only
+
+        CloseChildWindows()
+
+
+        ' OK, so the file is found, now lets start processing it
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\DJ55SE10.bin"
+
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        DisableButtons()
+
+        ' Open the stream and read it to global variable "Flash". 
+        fs = File.OpenRead(defpath)
+        Dim b(1) As Byte
+        Dim i As Integer
+        i = 0
+        Do While fs.Read(b, 0, 1) > 0
+            Flash(i) = b(0)
+            FlashCopy(i) = b(0)
+            i = i + 1
+        Loop
+        fs.Close()
+
+        ' Check that the binary lenght matches expected ecu
+        If i <> (262144 * 4) Then
+            ECUNotSupported.ShowDialog()
+        End If
+
+        ECUVersion = "gixxer"
+        '
+        ' Make sure the ECU id is supported type
+        '
+        i = 0
+        ECUID.Text = ""
+        Do While i < 8
+            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
+            i = i + 1
+        Loop
+
+        ' check the ecu id bytes and validate that the ecu flash image is supported
+        SetECUType()
+
+        MsgBox("A new Gixxer 600K8- basemap is generated", MsgBoxStyle.Information)
+
+        BlockPgm = True
+
+    End Sub
 End Class
 
 
