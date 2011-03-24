@@ -4,7 +4,7 @@ Imports System.Threading
 Imports System.Diagnostics
 Imports System.Text
 
-Public Class EngineDataLogger
+Public Class K8EngineDataLogger
 
 #Region "Variables"
 
@@ -539,8 +539,8 @@ Public Class EngineDataLogger
 
         Try
 
-            EngineDataViewer.Show()
-            EngineDataViewer.OpenFile(filePathRaw)
+            K8EngineDataViewer.Show()
+            K8EngineDataViewer.OpenFile(filePathRaw)
 
         Catch ex As Exception
             HandleException(ex)

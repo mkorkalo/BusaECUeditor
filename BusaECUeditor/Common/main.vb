@@ -1312,8 +1312,8 @@ skip_update:
             K8Datastream.closeenginedatacomms()
         End If
 
-        EngineDataViewer.Close()
-        EngineDataLogger.Close()
+        K8EngineDataViewer.Close()
+        K8EngineDataLogger.Close()
 
         '
         ' Get the FTDI device handle based on com port number and leave that port open
@@ -5123,7 +5123,7 @@ skip_update:
 
     Private Sub B_DataLogging_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_DataLogging.Click
 
-        EngineDataLogger.Show()
+        K8EngineDataLogger.Show()
 
     End Sub
 
@@ -6119,7 +6119,7 @@ skip_update:
         If tweets = True Then
             If Not K8FlashStatus.Visible Then
                 If Not K8Datastream.Visible Then
-                    If Not EngineDataLogger.Visible Then
+                    If Not K8EngineDataLogger.Visible Then
                         generate_tweets()
                     End If
                 End If
