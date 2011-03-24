@@ -161,16 +161,16 @@
     <Compile Include="BKing\BKingIgnitionMap.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Common\EngineDataLogger.Designer.vb">
-      <DependentUpon>EngineDataLogger.vb</DependentUpon>
+    <Compile Include="G2\K8EngineDataLogger.Designer.vb">
+      <DependentUpon>K8EngineDataLogger.vb</DependentUpon>
     </Compile>
-    <Compile Include="Common\EngineDataLogger.vb">
+    <Compile Include="G2\K8EngineDataLogger.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Common\EngineDataViewer.Designer.vb">
-      <DependentUpon>EngineDataViewer.vb</DependentUpon>
+    <Compile Include="G2\K8EngineDataViewer.Designer.vb">
+      <DependentUpon>K8EngineDataViewer.vb</DependentUpon>
     </Compile>
-    <Compile Include="Common\EngineDataViewer.vb">
+    <Compile Include="G2\K8EngineDataViewer.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Common\tw_username.Designer.vb">
@@ -530,12 +530,12 @@
       <SubType>Designer</SubType>
       <DependentUpon>AboutBox.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Common\EngineDataLogger.resx">
-      <DependentUpon>EngineDataLogger.vb</DependentUpon>
+    <EmbeddedResource Include="G2\K8EngineDataLogger.resx">
+      <DependentUpon>K8EngineDataLogger.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Common\EngineDataViewer.resx">
-      <DependentUpon>EngineDataViewer.vb</DependentUpon>
+    <EmbeddedResource Include="G2\K8EngineDataViewer.resx">
+      <DependentUpon>K8EngineDataViewer.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Common\tw_username.resx">

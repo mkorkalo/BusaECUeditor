@@ -2,7 +2,7 @@
 Imports System.Drawing
 Imports System.Text
 
-Public Class EngineDataViewer
+Public Class K8EngineDataViewer
 
     Private _filePath As String
     Private _tpsList As List(Of Double) = New List(Of Double)
@@ -330,29 +330,29 @@ Public Class EngineDataViewer
 
                         logValue.LogTime = values(0)
                         logValue.RPM = values(1)
-                        logValue.TPS = EngineDataLogger.CalcTPSDouble(values(2))
-                        logValue.IAP = EngineDataLogger.CalcPressure(values(13)) - EngineDataLogger.CalcPressure(values(12))
+                        logValue.TPS = K8EngineDataLogger.CalcTPSDouble(values(2))
+                        logValue.IAP = K8EngineDataLogger.CalcPressure(values(13)) - K8EngineDataLogger.CalcPressure(values(12))
                         logValue.H02 = values(4)
                         logValue.WIDEBAND = values(5)
 
                         If C_WidebandO2Sensor.Checked Then
-                            logValue.AFR = EngineDataLogger.CalcWidebandAFR(values(5))
+                            logValue.AFR = K8EngineDataLogger.CalcWidebandAFR(values(5))
                         Else
-                            logValue.AFR = EngineDataLogger.CalcAFR(values(4))
+                            logValue.AFR = K8EngineDataLogger.CalcAFR(values(4))
                         End If
 
-                        logValue.IGN = EngineDataLogger.CalcIgnDeg(values(6))
-                        logValue.STP = EngineDataLogger.CalcSTP(values(7))
+                        logValue.IGN = K8EngineDataLogger.CalcIgnDeg(values(6))
+                        logValue.STP = K8EngineDataLogger.CalcSTP(values(7))
                         logValue.GEAR = values(8)
                         logValue.CLUTCH = values(9)
                         logValue.NT = Boolean.Parse(values(10))
-                        logValue.BOOST = EngineDataLogger.CalcBoost(values(11))
-                        logValue.IP = EngineDataLogger.CalcPressure(values(12))
-                        logValue.AP = EngineDataLogger.CalcPressure(values(13))
-                        logValue.CLT = EngineDataLogger.CalcTemp(values(14))
-                        logValue.IAT = EngineDataLogger.CalcTemp(values(15))
-                        logValue.BATT = EngineDataLogger.CalcBattDouble(values(16))
-                        logValue.PAIR = EngineDataLogger.CalcPair(values(17))
+                        logValue.BOOST = K8EngineDataLogger.CalcBoost(values(11))
+                        logValue.IP = K8EngineDataLogger.CalcPressure(values(12))
+                        logValue.AP = K8EngineDataLogger.CalcPressure(values(13))
+                        logValue.CLT = K8EngineDataLogger.CalcTemp(values(14))
+                        logValue.IAT = K8EngineDataLogger.CalcTemp(values(15))
+                        logValue.BATT = K8EngineDataLogger.CalcBattDouble(values(16))
+                        logValue.PAIR = K8EngineDataLogger.CalcPair(values(17))
                         logValue.FUEL1 = values(18)
                         logValue.FUEL2 = values(19)
                         logValue.FUEL3 = values(20)

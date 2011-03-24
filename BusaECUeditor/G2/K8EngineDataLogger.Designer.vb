@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class EngineDataLogger
+Partial Class K8EngineDataLogger
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -23,7 +23,7 @@ Partial Class EngineDataLogger
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(EngineDataLogger))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(K8EngineDataLogger))
         Me.B_ClearCommsLog = New System.Windows.Forms.Button()
         Me.C_ShowCommsMessages = New System.Windows.Forms.CheckBox()
         Me.T_CommsLog = New System.Windows.Forms.TextBox()
@@ -353,7 +353,7 @@ Partial Class EngineDataLogger
         Me.Controls.Add(Me.L_BasicData)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "K8EngineDataLogger"
-        Me.Text = "K8 Engine Data Logger"
+        Me.Text = "Engine Data Logger"
         CType(Me.NUD_DataRate, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_Widband0v, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_Widband5v, System.ComponentModel.ISupportInitialize).EndInit()

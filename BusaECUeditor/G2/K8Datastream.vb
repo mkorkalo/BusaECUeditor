@@ -1425,9 +1425,9 @@ Public Class K8Datastream
         LED_IGN.Text = Str(IGN)
 
         If My.Settings.WidebandO2Sensor = True Then
-            LED_HO2.Text = EngineDataLogger.CalcWidebandAFR(WIDEBAND)
+            LED_HO2.Text = K8EngineDataLogger.CalcWidebandAFR(WIDEBAND)
         Else
-            LED_HO2.Text = EngineDataLogger.CalcAFR(HO2)
+            LED_HO2.Text = K8EngineDataLogger.CalcAFR(HO2)
         End If
 
         LED_BATT.Text = Replace(Format(BATT / 12.7, "#0.0"), ",", ".")

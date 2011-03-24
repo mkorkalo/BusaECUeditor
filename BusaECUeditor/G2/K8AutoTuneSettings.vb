@@ -26,8 +26,8 @@
         My.Settings.AutoTuneExhaustGasOffset = NUD_ExhaustGasVelocityOffset.Value
         My.Settings.Save()
 
-        EngineDataViewer.ClearData()
-        EngineDataViewer.OpenFile()
+        K8EngineDataViewer.ClearData()
+        K8EngineDataViewer.OpenFile()
 
         Me.Close()
 
