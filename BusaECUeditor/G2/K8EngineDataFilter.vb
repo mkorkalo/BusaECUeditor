@@ -19,8 +19,8 @@
         My.Settings.FilterAFRGreaterThan = NUD_FilterAFRGreaterThan.Value
         My.Settings.Save()
 
-        K8EngineDataViewer.ClearData()
-        K8EngineDataViewer.OpenFile()
+        EngineDataViewer.ClearData()
+        EngineDataViewer.OpenFile()
 
         Me.Close()
 

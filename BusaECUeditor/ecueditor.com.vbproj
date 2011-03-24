@@ -161,6 +161,18 @@
     <Compile Include="BKing\BKingIgnitionMap.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Common\EngineDataLogger.Designer.vb">
+      <DependentUpon>EngineDataLogger.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Common\EngineDataLogger.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\EngineDataViewer.Designer.vb">
+      <DependentUpon>EngineDataViewer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Common\EngineDataViewer.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Common\tw_username.Designer.vb">
       <DependentUpon>tw_username.vb</DependentUpon>
     </Compile>
@@ -202,18 +214,6 @@
       <DependentUpon>K8EngineDataFilter.vb</DependentUpon>
     </Compile>
     <Compile Include="G2\K8EngineDataFilter.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="G2\K8EngineDataLogger.Designer.vb">
-      <DependentUpon>K8EngineDataLogger.vb</DependentUpon>
-    </Compile>
-    <Compile Include="G2\K8EngineDataLogger.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="G2\K8EngineDataViewer.Designer.vb">
-      <DependentUpon>K8EngineDataViewer.vb</DependentUpon>
-    </Compile>
-    <Compile Include="G2\K8EngineDataViewer.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="G2\K8injectorbalancemap.Designer.vb">
@@ -529,6 +529,14 @@
     <EmbeddedResource Include="Common\AboutBox.resx">
       <SubType>Designer</SubType>
       <DependentUpon>AboutBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\EngineDataLogger.resx">
+      <DependentUpon>EngineDataLogger.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\EngineDataViewer.resx">
+      <DependentUpon>EngineDataViewer.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Common\tw_username.resx">
       <DependentUpon>tw_username.vb</DependentUpon>
@@ -876,14 +884,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8EngineDataFilter.resx">
       <DependentUpon>K8EngineDataFilter.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="G2\K8EngineDataLogger.resx">
-      <DependentUpon>K8EngineDataLogger.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="G2\K8EngineDataViewer.resx">
-      <DependentUpon>K8EngineDataViewer.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="G2\K8injectorbalancemap.resx">
