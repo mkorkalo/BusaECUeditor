@@ -2,7 +2,7 @@
 Imports System.Drawing
 Imports System.Text
 
-Public Class K8EngineDataViewer
+Public Class EngineDataViewer
 
     Private _filePath As String
     Private _tpsList As List(Of Double) = New List(Of Double)
@@ -41,33 +41,7 @@ Public Class K8EngineDataViewer
 
         C_WidebandO2Sensor.Checked = My.Settings.WidebandO2Sensor
 
-        If ECUVersion = "gen2" Then
-
-            _tpsList.Add(1.9)
-            _tpsList.Add(2.5)
-            _tpsList.Add(3.1)
-            _tpsList.Add(3.7)
-            _tpsList.Add(4.4)
-            _tpsList.Add(6)
-            _tpsList.Add(7)
-            _tpsList.Add(8)
-            _tpsList.Add(9)
-            _tpsList.Add(11)
-            _tpsList.Add(16)
-            _tpsList.Add(21)
-            _tpsList.Add(25)
-            _tpsList.Add(30)
-            _tpsList.Add(40)
-            _tpsList.Add(50)
-            _tpsList.Add(55)
-            _tpsList.Add(60)
-            _tpsList.Add(65)
-            _tpsList.Add(70)
-            _tpsList.Add(80)
-            _tpsList.Add(90)
-            _tpsList.Add(100)
-
-        Else
+        If ECUVersion = "bking" Then
 
             _tpsList.Add(0)
             _tpsList.Add(0.6)
@@ -90,6 +64,32 @@ Public Class K8EngineDataViewer
             _tpsList.Add(50)
             _tpsList.Add(60)
             _tpsList.Add(70)
+            _tpsList.Add(90)
+            _tpsList.Add(100)
+
+        Else
+
+            _tpsList.Add(1.9)
+            _tpsList.Add(2.5)
+            _tpsList.Add(3.1)
+            _tpsList.Add(3.7)
+            _tpsList.Add(4.4)
+            _tpsList.Add(6)
+            _tpsList.Add(7)
+            _tpsList.Add(8)
+            _tpsList.Add(9)
+            _tpsList.Add(11)
+            _tpsList.Add(16)
+            _tpsList.Add(21)
+            _tpsList.Add(25)
+            _tpsList.Add(30)
+            _tpsList.Add(40)
+            _tpsList.Add(50)
+            _tpsList.Add(55)
+            _tpsList.Add(60)
+            _tpsList.Add(65)
+            _tpsList.Add(70)
+            _tpsList.Add(80)
             _tpsList.Add(90)
             _tpsList.Add(100)
 
@@ -330,29 +330,29 @@ Public Class K8EngineDataViewer
 
                         logValue.LogTime = values(0)
                         logValue.RPM = values(1)
-                        logValue.TPS = K8EngineDataLogger.CalcTPSDouble(values(2))
-                        logValue.IAP = K8EngineDataLogger.CalcPressure(values(13)) - K8EngineDataLogger.CalcPressure(values(12))
+                        logValue.TPS = EngineDataLogger.CalcTPSDouble(values(2))
+                        logValue.IAP = EngineDataLogger.CalcPressure(values(13)) - EngineDataLogger.CalcPressure(values(12))
                         logValue.H02 = values(4)
                         logValue.WIDEBAND = values(5)
 
                         If C_WidebandO2Sensor.Checked Then
-                            logValue.AFR = K8EngineDataLogger.CalcWidebandAFR(values(5))
+                            logValue.AFR = EngineDataLogger.CalcWidebandAFR(values(5))
                         Else
-                            logValue.AFR = K8EngineDataLogger.CalcAFR(values(4))
+                            logValue.AFR = EngineDataLogger.CalcAFR(values(4))
                         End If
 
-                        logValue.IGN = K8EngineDataLogger.CalcIgnDeg(values(6))
-                        logValue.STP = K8EngineDataLogger.CalcSTP(values(7))
+                        logValue.IGN = EngineDataLogger.CalcIgnDeg(values(6))
+                        logValue.STP = EngineDataLogger.CalcSTP(values(7))
                         logValue.GEAR = values(8)
                         logValue.CLUTCH = values(9)
                         logValue.NT = Boolean.Parse(values(10))
-                        logValue.BOOST = K8EngineDataLogger.CalcBoost(values(11))
-                        logValue.IP = K8EngineDataLogger.CalcPressure(values(12))
-                        logValue.AP = K8EngineDataLogger.CalcPressure(values(13))
-                        logValue.CLT = K8EngineDataLogger.CalcTemp(values(14))
-                        logValue.IAT = K8EngineDataLogger.CalcTemp(values(15))
-                        logValue.BATT = K8EngineDataLogger.CalcBattDouble(values(16))
-                        logValue.PAIR = K8EngineDataLogger.CalcPair(values(17))
+                        logValue.BOOST = EngineDataLogger.CalcBoost(values(11))
+                        logValue.IP = EngineDataLogger.CalcPressure(values(12))
+                        logValue.AP = EngineDataLogger.CalcPressure(values(13))
+                        logValue.CLT = EngineDataLogger.CalcTemp(values(14))
+                        logValue.IAT = EngineDataLogger.CalcTemp(values(15))
+                        logValue.BATT = EngineDataLogger.CalcBattDouble(values(16))
+                        logValue.PAIR = EngineDataLogger.CalcPair(values(17))
                         logValue.FUEL1 = values(18)
                         logValue.FUEL2 = values(19)
                         logValue.FUEL3 = values(20)
@@ -607,7 +607,7 @@ Public Class K8EngineDataViewer
         If timeWindowValues.Count > 0 Then
 
             timeWindowAvg = 0
-            
+
             For Each timeWindowValue As LogValue In timeWindowValues
                 timeWindowAvg = timeWindowAvg + timeWindowValue.AFR
             Next
@@ -1582,6 +1582,10 @@ Public Class K8EngineDataViewer
             End If
         End If
 
+        If ECUVersion = "gixxer" Then
+            B_AutoTune.Enabled = False
+        End If
+
     End Sub
 
     Private Sub ShowMap()
@@ -2155,7 +2159,7 @@ Public Class K8EngineDataViewer
 
             LB_Values.DataSource = Nothing
             LB_Values.DataSource = values
-            
+
             G_FuelMap.CurrentCell.Style.BackColor = Color.White
             G_FuelMap.CurrentCell.Style.ForeColor = Color.Black
 
@@ -2244,14 +2248,14 @@ Public Class K8EngineDataViewer
     ''' <param name="maxVal">The number of horizontal cells in the map</param>
     ''' <param name="maxRPM">The number of vertical cells in the map</param>
     ''' <param name="c_map">The AutoTuned Fuel Map</param>
-    ''' <param name="p_map">The AutoTune Percentage Change Map</param>
+    ''' <param name="p_map">The AutoTune Percentage Change Map, 1 if value changed by autotune, 0 otherwise</param>
     ''' <param name="r_map">The Current Fuel Map</param>
     ''' <param name="n_map">The New Smoothed Fuel Map</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Function MapPolisher(ByVal min_auto As Integer, ByVal maxVal As Integer, ByRef maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,), ByRef r_map As Integer(,), ByRef n_map As Integer(,))
+    Private Function MapPolisher(ByVal min_auto As Integer, ByVal maxVal As Integer, ByVal maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,), ByRef r_map As Integer(,), ByRef n_map As Integer(,))
 
-        Dim num_polished, num_autotuned, num_autounchg, num_autochged, num_confirmed, num_selected, num_added As Integer
+        Dim num_polished, num_autotuned, num_autounchg, num_autochged, num_confirmed, num_selected As Integer
 
         Dim modified_around(9) As Integer
         Dim modified_cross(5) As Integer
@@ -2275,6 +2279,22 @@ Public Class K8EngineDataViewer
         Dim brr As Integer  ' bottom right corner cell on running fuel matrix
         Dim tlr As Integer  ' top left corner cell on running fuel matrix
         Dim blr As Integer  ' bottom left cell on running fuel matrix
+
+        num_polished = 0
+        num_autotuned = 0
+        num_autounchg = 0
+        num_autochged = 0
+        num_confirmed = 0
+        num_selected = 0
+
+        For k As Integer = 0 To 8 Step 1
+            modified_around(k) = 0
+        Next
+
+        For k As Integer = 0 To 4 Step 1
+            modified_cross(k) = 0
+            modified_edge(k) = 0
+        Next
 
         For j As Integer = 0 To maxVal - 1 Step 1
             For i As Integer = 0 To maxRPM - 1 Step 1
@@ -2302,161 +2322,155 @@ Public Class K8EngineDataViewer
 
                 Dim num_auto, num_cross, num_edge As Integer
 
+                num_auto = 0
+                num_cross = 0
+                num_edge = 0
+
                 cc = c_map(i, j)
                 cr = r_map(i, j)
 
                 n_map(i, j) = cc
 
-                If p_map(i, j) = 0 Then
+                If p_map(i, j) > 0 Then
+                    Continue For
+                End If
 
-                    If (j = 0 Or i = 0 Or i = maxRPM - 1) Or (j = maxRPM - 1 And (i = 0 Or i = maxRPM - 1)) Then
+                If (j = 0 Or i = 0 Or i = maxRPM - 1) Or (j = maxVal - 1 And (i = 0 Or i = maxRPM - 1)) Then
+
+                    cc = cr
+                    n_map(i, j) = cc
+                    Continue For
+
+                ElseIf (j = maxVal - 1) Then
+                    ' Last Column
+
+                    lc = 0
+                    rc = 0
+                    trc = 0
+                    tlc = 0
+                    brc = 0
+                    blc = 0
+
+                    lr = 0
+                    rr = 0
+                    trr = 0
+                    tlr = 0
+                    brr = 0
+                    blr = 0
+
+                    tc = c_map(i - 1, j)
+                    bc = c_map(i + 1, j)
+                    tr = r_map(i - 1, j)
+                    br = r_map(i + 1, j)
+
+                    If p_map(i - 1, j) > 0 And p_map(i + 1, j) > 0 Then
+
+                        modified_around(2) = modified_around(2) + 1
+                        modified_cross(2) = modified_cross(2) + 1
+                        num_selected = num_selected + 1
+
+                        cc = D2Fit(tc, bc, tr, cr, br)
+
+                        If cc > Math.Max(tc, bc) + 2 Then
+                            cc = Math.Max(tc, bc) + 2
+                        End If
+
+                        If cc < Math.Min(tc, bc) - 2 Then
+                            cc = Math.Min(tc, bc) - 2
+                        End If
+
+                    Else
 
                         cc = cr
                         n_map(i, j) = cc
                         Continue For
 
-                    ElseIf (j = maxVal - 1) Then
-                        ' Last Column
+                    End If
+                Else
 
-                        lc = 0
-                        rc = 0
-                        trc = 0
-                        tlc = 0
-                        brc = 0
-                        blc = 0
+                    tr = r_map(i - 1, j)
+                    br = r_map(i + 1, j)
+                    rr = r_map(i, j + 1)
+                    lr = r_map(i, j - 1)
 
-                        lr = 0
-                        rr = 0
-                        trr = 0
-                        tlr = 0
-                        brr = 0
-                        blr = 0
+                    tc = c_map(i - 1, j)
+                    bc = c_map(i + 1, j)
+                    rc = c_map(i, j + 1)
+                    lc = c_map(i, j - 1)
 
-                        tc = c_map(i - 1, j)
-                        bc = c_map(i + 1, j)
-                        tr = r_map(i - 1, j)
-                        br = r_map(i + 1, j)
-
-                        If p_map(i - 1, j) > 0 And p_map(i + 1, j) > 0 Then
-
-                            modified_around(2) = modified_around(2) + 1
-                            modified_cross(2) = modified_cross(2) + 1
-                            num_selected = num_selected + 1
-
-                            cc = D2Fit(tc, bc, tr, cr, br)
-
-                            If cc > Math.Max(tc, bc) Then
-                                cc = Math.Max(tc, bc)
-                            End If
-
-                            If cc < Math.Min(tc, bc) Then
-                                cc = Math.Min(tc, bc)
-                            End If
-
-                            If cc = cr Then
-                                num_confirmed = num_confirmed + 1
-                            End If
-
-                        Else
-
-                            cc = cr
-                            n_map(i, j) = cc
-                            Continue For
-
-                        End If
-                    Else
-
-                        tr = r_map(i - 1, j)
-                        br = r_map(i + 1, j)
-                        rr = r_map(i, j + 1)
-                        lr = r_map(i, j - 1)
-
-                        tc = c_map(i - 1, j)
-                        bc = c_map(i + 1, j)
-                        rc = c_map(i, j + 1)
-                        lc = c_map(i, j - 1)
-
-                        If p_map(i - 1, j) > 0 Then
-                            num_cross = num_cross + 1
-                        End If
-
-                        If p_map(i + 1, j) > 0 Then
-                            num_cross = num_cross + 1
-                        End If
-
-                        If p_map(i, j + 1) > 0 Then
-                            num_cross = num_cross + 1
-                        End If
-
-                        If p_map(i, j - 1) > 0 Then
-                            num_cross = num_cross + 1
-                        End If
-
-                        trr = r_map(i - 1, j + 1)
-                        tlr = r_map(i - 1, j - 1)
-                        brr = r_map(i + 1, j + 1)
-                        blr = r_map(i + 1, j - 1)
-
-                        trc = c_map(i - 1, j + 1)
-                        tlr = c_map(i - 1, j - 1)
-                        brc = c_map(i + 1, j + 1)
-                        blc = c_map(i + 1, j - 1)
-
-                        If p_map(i - 1, j + 1) > 0 Then
-                            num_edge = num_edge + 1
-                        End If
-
-                        If p_map(i - 1, j - 1) > 0 Then
-                            num_edge = num_edge + 1
-                        End If
-
-                        If p_map(i + 1, j + 1) > 0 Then
-                            num_edge = num_edge + 1
-                        End If
-
-                        If p_map(i + 1, j - 1) > 0 Then
-                            num_edge = num_edge + 1
-                        End If
-
-                        num_auto = num_cross + num_edge
-                        modified_cross(num_cross) = modified_cross(num_cross) + 1
-                        modified_edge(num_edge) = modified_edge(num_edge) + 1
-                        modified_around(num_auto) = modified_around(num_auto) + 1
-
-                        If num_auto < min_auto Or (min_auto > 1 And num_cross < 2) Then
-                            cc = cr
-                            n_map(i, j) = cc
-                            Continue For
-                        End If
-
-                        num_selected = num_selected + 1
-
-                        cc = 2 * (bc + br + tc - tr + rc - rr + lc - lr) + (brc - brr + tlr - trc + trr - blc + blr)
-                        cc = Math.Round((8 * cr + cc) / 8)
-
-                        If cc < Math.Min(tc, bc) Then
-                            cc = Math.Min(tc, bc)
-                        End If
-
-                        If cc > Math.Max(tc, bc) Then
-                            cc = Math.Max(tc, bc)
-                        End If
-
-                        If cc = cr Then
-                            num_confirmed = num_confirmed + 1
-                        End If
-
-                        If (num_auto >= 4 Or num_cross >= 3) And (cc <> cr) Then
-                            'Experimental to further fill holes in map
-                            c_map(i, j) = cc
-                            p_map(i, j) = 1
-                            num_added = num_added + 1
-                        End If
+                    If p_map(i - 1, j) > 0 Then
+                        num_cross = num_cross + 1
                     End If
 
+                    If p_map(i + 1, j) > 0 Then
+                        num_cross = num_cross + 1
+                    End If
+
+                    If p_map(i, j + 1) > 0 Then
+                        num_cross = num_cross + 1
+                    End If
+
+                    If p_map(i, j - 1) > 0 Then
+                        num_cross = num_cross + 1
+                    End If
+
+                    trr = r_map(i - 1, j + 1)
+                    tlr = r_map(i - 1, j - 1)
+                    brr = r_map(i + 1, j + 1)
+                    blr = r_map(i + 1, j - 1)
+
+                    trc = c_map(i - 1, j + 1)
+                    tlr = c_map(i - 1, j - 1)
+                    brc = c_map(i + 1, j + 1)
+                    blc = c_map(i + 1, j - 1)
+
+                    If p_map(i - 1, j + 1) > 0 Then
+                        num_edge = num_edge + 1
+                    End If
+
+                    If p_map(i - 1, j - 1) > 0 Then
+                        num_edge = num_edge + 1
+                    End If
+
+                    If p_map(i + 1, j + 1) > 0 Then
+                        num_edge = num_edge + 1
+                    End If
+
+                    If p_map(i + 1, j - 1) > 0 Then
+                        num_edge = num_edge + 1
+                    End If
+
+                    num_auto = num_cross + num_edge
+                    modified_cross(num_cross) = modified_cross(num_cross) + 1
+                    modified_edge(num_edge) = modified_edge(num_edge) + 1
+                    modified_around(num_auto) = modified_around(num_auto) + 1
+
+                    If num_auto < min_auto Or (min_auto > 1 And num_cross < 2) Then
+                        cc = cr
+                        n_map(i, j) = cc
+                        Continue For
+                    End If
+
+                    num_selected = num_selected + 1
+
+                    cc = 2 * (bc - br + tc - tr + rc - rr + lc - lr) + (brc - brr + tlc - tlr - trc + trr - blc + blr)
+                    cc = Math.Round((8 * cr + cc) / 8.0)
+
+                    If cc < Math.Min(tc, bc) - 2 Then
+                        cc = Math.Min(tc, bc) - 2
+                    End If
+
+                    If cc > Math.Max(tc, bc) + 2 Then
+                        cc = Math.Max(tc, bc) + 2
+                    End If
+
+                    p_map(i, j) = 1
+                    c_map(i, j) = cc
                     n_map(i, j) = cc
 
-                    If cc <> cr Then
+                    If cc = cr Then
+                        num_confirmed = num_confirmed + 1
+                    Else
                         num_polished = num_polished + 1
                     End If
 

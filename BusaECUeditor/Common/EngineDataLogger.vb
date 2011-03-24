@@ -4,7 +4,7 @@ Imports System.Threading
 Imports System.Diagnostics
 Imports System.Text
 
-Public Class K8EngineDataLogger
+Public Class EngineDataLogger
 
 #Region "Variables"
 
@@ -539,8 +539,8 @@ Public Class K8EngineDataLogger
 
         Try
 
-            K8EngineDataViewer.Show()
-            K8EngineDataViewer.OpenFile(filePathRaw)
+            EngineDataViewer.Show()
+            EngineDataViewer.OpenFile(filePathRaw)
 
         Catch ex As Exception
             HandleException(ex)
@@ -2430,6 +2430,10 @@ Public Class K8EngineDataLogger
 
         B_StartStop_Click(sender, e)
 
+        If ECUVersion = "gixxer" Then
+            C_WidebandO2Sensor.Enabled = False
+        End If
+
     End Sub
 
     Private Sub B_StartStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_StartStop.Click
@@ -2743,4 +2747,5 @@ Public Class K8EngineDataLogger
         ResetComms()
 
     End Sub
+
 End Class
