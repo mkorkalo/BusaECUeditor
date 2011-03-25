@@ -69,6 +69,7 @@ Public Class K8Fuelmap
         ' change ecu values on values on the screen.
         '
         Return CInt(pw / 24)
+
     End Function
     Function fuelpw_toecuval(ByVal pw As Integer)
         '
