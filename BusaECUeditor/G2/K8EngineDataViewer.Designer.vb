@@ -43,6 +43,7 @@ Partial Class K8EngineDataViewer
         Me.B_SaveTargetAFR = New System.Windows.Forms.Button()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.R_AutoTunedMap = New System.Windows.Forms.RadioButton()
         Me.R_DataCount = New System.Windows.Forms.RadioButton()
         Me.R_TPSRPM = New System.Windows.Forms.RadioButton()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -221,15 +222,26 @@ Partial Class K8EngineDataViewer
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.R_AutoTunedMap)
         Me.GroupBox1.Controls.Add(Me.R_DataCount)
         Me.GroupBox1.Controls.Add(Me.R_LoggedAFR)
         Me.GroupBox1.Controls.Add(Me.R_TargetAFR)
         Me.GroupBox1.Controls.Add(Me.R_PercentageMapChange)
         Me.GroupBox1.Location = New System.Drawing.Point(5, 26)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(376, 28)
+        Me.GroupBox1.Size = New System.Drawing.Size(483, 28)
         Me.GroupBox1.TabIndex = 32
         Me.GroupBox1.TabStop = False
+        '
+        'R_AutoTunedMap
+        '
+        Me.R_AutoTunedMap.AutoSize = True
+        Me.R_AutoTunedMap.Location = New System.Drawing.Point(369, 9)
+        Me.R_AutoTunedMap.Name = "R_AutoTunedMap"
+        Me.R_AutoTunedMap.Size = New System.Drawing.Size(105, 17)
+        Me.R_AutoTunedMap.TabIndex = 30
+        Me.R_AutoTunedMap.Text = "Auto Tuned Map"
+        Me.R_AutoTunedMap.UseVisualStyleBackColor = True
         '
         'R_DataCount
         '
@@ -287,7 +299,7 @@ Partial Class K8EngineDataViewer
         '
         'B_AutoTune
         '
-        Me.B_AutoTune.Location = New System.Drawing.Point(379, 29)
+        Me.B_AutoTune.Location = New System.Drawing.Point(492, 32)
         Me.B_AutoTune.Name = "B_AutoTune"
         Me.B_AutoTune.Size = New System.Drawing.Size(75, 23)
         Me.B_AutoTune.TabIndex = 36
@@ -388,4 +400,5 @@ Partial Class K8EngineDataViewer
     Friend WithEvents R_DataCount As System.Windows.Forms.RadioButton
     Friend WithEvents L_CellInfo As System.Windows.Forms.Label
     Friend WithEvents L_CellStats As System.Windows.Forms.Label
+    Friend WithEvents R_AutoTunedMap As System.Windows.Forms.RadioButton
 End Class
