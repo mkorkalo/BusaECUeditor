@@ -45,7 +45,9 @@ Partial Class main
         Me.NewStockGixxerK9K1147H10ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.K9EU38H00ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.K9GR38HH0ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.K11EUToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.K8EU37H00ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.K8US37H10ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
         Me.EnginedataOnlyModeMetricToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GixxerK5K6EnginedataOnlyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -100,7 +102,7 @@ Partial Class main
         Me.tw_p = New System.Windows.Forms.PictureBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.K8US37H10ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.K11EUToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -184,18 +186,18 @@ Partial Class main
         'USModelToolStripMenuItem
         '
         Me.USModelToolStripMenuItem.Name = "USModelToolStripMenuItem"
-        Me.USModelToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
+        Me.USModelToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.USModelToolStripMenuItem.Text = "US model"
         '
         'EUAUModelToolStripMenuItem
         '
         Me.EUAUModelToolStripMenuItem.Name = "EUAUModelToolStripMenuItem"
-        Me.EUAUModelToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
+        Me.EUAUModelToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.EUAUModelToolStripMenuItem.Text = "EU/AU model"
         '
         'ToolStripMenuItem4
         '
-        Me.ToolStripMenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewStockGixxerK721H00ToolStripMenuItem, Me.ToolStripMenuItem2, Me.NewStockGixxerK721H50ToolStripMenuItem, Me.NewStockGixxerK721H60ToolStripMenuItem, Me.ToolStripMenuItem5, Me.K8EUAU21H50EarlyToolStripMenuItem, Me.NewStockGixxerK821H50ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem1, Me.K9EU38H00ToolStripMenuItem, Me.K9GR38HH0ToolStripMenuItem, Me.K8EU37H00ToolStripMenuItem, Me.K8US37H10ToolStripMenuItem})
+        Me.ToolStripMenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewStockGixxerK721H00ToolStripMenuItem, Me.ToolStripMenuItem2, Me.NewStockGixxerK721H50ToolStripMenuItem, Me.NewStockGixxerK721H60ToolStripMenuItem, Me.ToolStripMenuItem5, Me.K8EUAU21H50EarlyToolStripMenuItem, Me.NewStockGixxerK821H50ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem1, Me.K9EU38H00ToolStripMenuItem, Me.K9GR38HH0ToolStripMenuItem, Me.K11EUToolStripMenuItem, Me.K8EU37H00ToolStripMenuItem, Me.K8US37H10ToolStripMenuItem, Me.K11EUToolStripMenuItem1})
         Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
         Me.ToolStripMenuItem4.Size = New System.Drawing.Size(230, 22)
         Me.ToolStripMenuItem4.Text = "New/Stock Gixxer K7-K11"
@@ -246,13 +248,13 @@ Partial Class main
         '
         Me.NewStockGixxerK9K1147H10ToolStripMenuItem.Name = "NewStockGixxerK9K1147H10ToolStripMenuItem"
         Me.NewStockGixxerK9K1147H10ToolStripMenuItem.Size = New System.Drawing.Size(224, 22)
-        Me.NewStockGixxerK9K1147H10ToolStripMenuItem.Text = "1000K9-K11 EU/AU (47H00)"
+        Me.NewStockGixxerK9K1147H10ToolStripMenuItem.Text = "1000K9K11 EU/AU (47H00)"
         '
         'NewStockGixxerK9K1147H10ToolStripMenuItem1
         '
         Me.NewStockGixxerK9K1147H10ToolStripMenuItem1.Name = "NewStockGixxerK9K1147H10ToolStripMenuItem1"
         Me.NewStockGixxerK9K1147H10ToolStripMenuItem1.Size = New System.Drawing.Size(224, 22)
-        Me.NewStockGixxerK9K1147H10ToolStripMenuItem1.Text = "1000K9-K11 US (47H10)"
+        Me.NewStockGixxerK9K1147H10ToolStripMenuItem1.Text = "1000K9K11 US (47H10)"
         '
         'K9EU38H00ToolStripMenuItem
         '
@@ -266,11 +268,23 @@ Partial Class main
         Me.K9GR38HH0ToolStripMenuItem.Size = New System.Drawing.Size(224, 22)
         Me.K9GR38HH0ToolStripMenuItem.Text = "750K9 GR (38H00)"
         '
+        'K11EUToolStripMenuItem
+        '
+        Me.K11EUToolStripMenuItem.Name = "K11EUToolStripMenuItem"
+        Me.K11EUToolStripMenuItem.Size = New System.Drawing.Size(224, 22)
+        Me.K11EUToolStripMenuItem.Text = "750K11 EU (15J00)"
+        '
         'K8EU37H00ToolStripMenuItem
         '
         Me.K8EU37H00ToolStripMenuItem.Name = "K8EU37H00ToolStripMenuItem"
         Me.K8EU37H00ToolStripMenuItem.Size = New System.Drawing.Size(224, 22)
         Me.K8EU37H00ToolStripMenuItem.Text = "600K8 EU (37H00)"
+        '
+        'K8US37H10ToolStripMenuItem
+        '
+        Me.K8US37H10ToolStripMenuItem.Name = "K8US37H10ToolStripMenuItem"
+        Me.K8US37H10ToolStripMenuItem.Size = New System.Drawing.Size(224, 22)
+        Me.K8US37H10ToolStripMenuItem.Text = "600K8 US (37H10)"
         '
         'ToolStripSeparator6
         '
@@ -687,11 +701,11 @@ Partial Class main
         Me.Button1.TabIndex = 41
         Me.Button1.UseVisualStyleBackColor = False
         '
-        'K8US37H10ToolStripMenuItem
+        'K11EUToolStripMenuItem1
         '
-        Me.K8US37H10ToolStripMenuItem.Name = "K8US37H10ToolStripMenuItem"
-        Me.K8US37H10ToolStripMenuItem.Size = New System.Drawing.Size(224, 22)
-        Me.K8US37H10ToolStripMenuItem.Text = "600K8 US (37H10)"
+        Me.K11EUToolStripMenuItem1.Name = "K11EUToolStripMenuItem1"
+        Me.K11EUToolStripMenuItem1.Size = New System.Drawing.Size(224, 22)
+        Me.K11EUToolStripMenuItem1.Text = "600K11 EU (14J00)"
         '
         'main
         '
@@ -811,5 +825,7 @@ Partial Class main
     Friend WithEvents ViewFAQFacebookToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tw_p As System.Windows.Forms.PictureBox
     Friend WithEvents K8US37H10ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents K11EUToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents K11EUToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
 
 End Class
