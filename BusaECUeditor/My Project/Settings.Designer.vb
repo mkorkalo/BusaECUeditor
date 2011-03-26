@@ -512,25 +512,13 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public Property AutoTuneMapSmooth() As Boolean
-            Get
-                Return CType(Me("AutoTuneMapSmooth"),Boolean)
-            End Get
-            Set
-                Me("AutoTuneMapSmooth") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("3")>  _
-        Public Property AutoTuneMapSmoothCells() As Integer
+        Public Property AutoTuneMinMapSmoothCells() As Integer
             Get
-                Return CType(Me("AutoTuneMapSmoothCells"),Integer)
+                Return CType(Me("AutoTuneMinMapSmoothCells"),Integer)
             End Get
             Set
-                Me("AutoTuneMapSmoothCells") = value
+                Me("AutoTuneMinMapSmoothCells") = value
             End Set
         End Property
     End Class
