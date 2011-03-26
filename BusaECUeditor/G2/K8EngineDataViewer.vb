@@ -375,10 +375,6 @@ Public Class K8EngineDataViewer
                         logValue.FUEL3 = values(20)
                         logValue.FUEL4 = values(21)
 
-                        If values(23) > 10 And values(23) < 20 Then
-                            logValue.MTS_AFR = values(23)
-                        End If
-
                         If CheckEngineDataFilter(logValue) = True Then
 
                             If previousLogValue Is Nothing = False And logValue.RPM - previousLogValue.RPM > My.Settings.AutoTuneExhaustGasOffset / 4 Then
@@ -1335,7 +1331,7 @@ Public Class K8EngineDataViewer
 
     End Sub
 
-    Private Sub ShowAutoTunedTPSMapOriginal()
+    Private Sub ShowAutoTunedTPSMap()
 
         ShowTPSFuelHeaders()
 
@@ -1406,7 +1402,7 @@ Public Class K8EngineDataViewer
         Dim totalCount As Integer
 
         Do
-            iterationCount = MapPolisherOriginal(My.Settings.AutoTuneMapSmoothCells, _tpsList.Count, _rpmList.Count, c_map, p_map, r_map, n_map)
+            iterationCount = MapSmoother(My.Settings.AutoTuneMinMapSmoothCells, _tpsList.Count, _rpmList.Count, c_map, p_map, r_map, n_map)
             totalCount = totalCount + iterationCount
 
         Loop While (iterationCount > 0)
@@ -1430,7 +1426,7 @@ Public Class K8EngineDataViewer
 
     End Sub
 
-    Private Sub ShowAutoTunedIAPMapOriginal()
+    Private Sub ShowAutoTunedIAPMap()
 
         ShowIAPFuelHeaders()
 
@@ -1501,7 +1497,7 @@ Public Class K8EngineDataViewer
         Dim totalCount As Integer
 
         Do
-            iterationCount = MapPolisherOriginal(My.Settings.AutoTuneMapSmoothCells, _iapList.Count, _rpmList.Count, c_map, p_map, r_map, n_map)
+            iterationCount = MapSmoother(My.Settings.AutoTuneMinMapSmoothCells, _iapList.Count, _rpmList.Count, c_map, p_map, r_map, n_map)
             totalCount = totalCount + iterationCount
 
         Loop While iterationCount > 0
@@ -1916,9 +1912,9 @@ Public Class K8EngineDataViewer
             G_FuelMap.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2
 
             If _mapType = 1 Then
-                ShowAutoTunedTPSMapOriginal()
+                ShowAutoTunedTPSMap()
             ElseIf _mapType = 2 Then
-                ShowAutoTunedIAPMapOriginal()
+                ShowAutoTunedIAPMap()
             ElseIf _mapType = 3 Then
 
             End If
@@ -2510,248 +2506,6 @@ Public Class K8EngineDataViewer
     End Function
 
     ''' <summary>
-    ''' Thanks to Ballard2 for his contribution of the Map Polisher Function
-    ''' </summary>
-    ''' <param name="min_auto">The Minimum number of surrounding cells to allow map smoothing</param>
-    ''' <param name="maxVal">The number of horizontal cells in the map</param>
-    ''' <param name="maxRPM">The number of vertical cells in the map</param>
-    ''' <param name="c_map">The AutoTuned Fuel Map</param>
-    ''' <param name="p_map">The AutoTune Percentage Change Map, 1 if value changed by autotune, 0 otherwise</param>
-    ''' <param name="r_map">The Current Fuel Map</param>
-    ''' <param name="n_map">The New Smoothed Fuel Map</param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Private Function MapPolisher(ByVal min_auto As Integer, ByVal maxVal As Integer, ByVal maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Double(,), ByRef r_map As Integer(,), ByRef n_map As Integer(,))
-
-        Dim num_polished, num_autotuned, num_autounchg, num_autochged, num_confirmed, num_selected As Integer
-
-        Dim modified_around(9) As Integer
-        Dim modified_cross(5) As Integer
-        Dim modified_edge(5) As Integer
-
-        Dim tc As Integer   ' top cell on autotune matrix
-        Dim bc As Integer   ' bottom cell on autotune matrix
-        Dim lc As Integer   ' left cell on autotune matrix
-        Dim rc As Integer   ' right cell on autotune matrix
-        Dim cc As Integer   ' central cell on autotune matrix
-        Dim trc As Integer  ' top right corner cell on autotune matrix
-        Dim brc As Integer  ' bottom right corner cell on autotune matrix
-        Dim tlc As Integer  ' top left corner cell on autotune matrix
-        Dim blc As Integer  ' bottom left corner cell on autotune matrix
-        Dim tr As Integer   ' top cell on running fuel matrix
-        Dim br As Integer   ' bottom cell on running fuel matrix
-        Dim lr As Integer   ' left cell on running fuel matrix
-        Dim rr As Integer   ' right cell on running fuel matrix
-        Dim cr As Integer   ' central cell on running fuel matrix
-        Dim trr As Integer  ' top right corner cell on running fuel matrix
-        Dim brr As Integer  ' bottom right corner cell on running fuel matrix
-        Dim tlr As Integer  ' top left corner cell on running fuel matrix
-        Dim blr As Integer  ' bottom left cell on running fuel matrix
-
-        num_polished = 0
-        num_autotuned = 0
-        num_autounchg = 0
-        num_autochged = 0
-        num_confirmed = 0
-        num_selected = 0
-
-        For k As Integer = 0 To 8 Step 1
-            modified_around(k) = 0
-        Next
-
-        For k As Integer = 0 To 4 Step 1
-            modified_cross(k) = 0
-            modified_edge(k) = 0
-        Next
-
-        For i As Integer = 0 To maxVal - 1 Step 1
-            For j As Integer = 0 To maxRPM - 1 Step 1
-
-                If p_map(i, j) <> 0 Then
-
-                    num_autotuned = num_autotuned + 1
-
-                    If c_map(i, j) = r_map(i, j) Then
-                        num_autounchg = num_autounchg + 1
-                    Else
-                        num_autochged = num_autochged + 1
-                    End If
-
-                ElseIf c_map(i, j) <> r_map(i, j) Then
-
-                    Throw New Exception("Percentage Change map does not indicate change, but current map cell does not match auto tuned map cell")
-
-                End If
-            Next
-        Next
-
-        For i As Integer = 0 To maxVal - 1 Step 1
-            For j As Integer = 0 To maxRPM - 1 Step 1
-
-                Dim num_auto, num_cross, num_edge As Integer
-
-                num_auto = 0
-                num_cross = 0
-                num_edge = 0
-
-                cc = c_map(i, j)
-                cr = r_map(i, j)
-
-                n_map(i, j) = cc
-
-                If p_map(i, j) <> 0 Then
-                    Continue For
-                End If
-
-                If (i = 0 Or j = 0 Or j = maxRPM - 1) Or (i = maxVal - 1 And (j = 0 Or j = maxRPM - 1)) Then
-
-                    cc = cr
-                    n_map(i, j) = cc
-                    Continue For
-
-                ElseIf (i = maxVal - 1) Then
-                    ' Last Column
-
-                    lc = 0
-                    rc = 0
-                    trc = 0
-                    tlc = 0
-                    brc = 0
-                    blc = 0
-
-                    lr = 0
-                    rr = 0
-                    trr = 0
-                    tlr = 0
-                    brr = 0
-                    blr = 0
-
-                    tc = c_map(i, j - 1)
-                    bc = c_map(i, j + 1)
-
-                    tr = r_map(i, j - 1)
-                    br = r_map(i, j + 1)
-
-                    If p_map(i, j - 1) <> 0 And p_map(i, j + 1) <> 0 Then
-
-                        modified_around(2) = modified_around(2) + 1
-                        modified_cross(2) = modified_cross(2) + 1
-                        num_selected = num_selected + 1
-
-                        cc = D2Fit(tc, bc, tr, cr, br)
-
-                        If cc > Math.Max(tc, bc) + 2 Then
-                            cc = Math.Max(tc, bc) + 2
-                        End If
-
-                        If cc < Math.Min(tc, bc) - 2 Then
-                            cc = Math.Min(tc, bc) - 2
-                        End If
-
-                    Else
-
-                        cc = cr
-                        n_map(i, j) = cc
-                        Continue For
-
-                    End If
-                Else
-
-                    tr = r_map(i, j - 1)
-                    br = r_map(i, j + 1)
-                    rr = r_map(i + 1, j)
-                    lr = r_map(i - 1, j)
-
-                    tc = c_map(i, j - 1)
-                    bc = c_map(i, j + 1)
-                    rc = c_map(i + 1, j)
-                    lc = c_map(i - 1, j)
-
-                    If p_map(i, j - 1) <> 0 Then
-                        num_cross = num_cross + 1
-                    End If
-
-                    If p_map(i, j + 1) <> 0 Then
-                        num_cross = num_cross + 1
-                    End If
-
-                    If p_map(i + 1, j) <> 0 Then
-                        num_cross = num_cross + 1
-                    End If
-
-                    If p_map(i - 1, j) <> 0 Then
-                        num_cross = num_cross + 1
-                    End If
-
-                    trr = r_map(i + 1, j - 1)
-                    tlr = r_map(i - 1, j - 1)
-                    brr = r_map(i + 1, j + 1)
-                    blr = r_map(i - 1, j + 1)
-
-                    trc = c_map(i + 1, j - 1)
-                    tlr = c_map(i - 1, j - 1)
-                    brc = c_map(i + 1, j + 1)
-                    blc = c_map(i - 1, j + 1)
-
-                    If p_map(i + 1, j - 1) <> 0 Then
-                        num_edge = num_edge + 1
-                    End If
-
-                    If p_map(i - 1, j - 1) <> 0 Then
-                        num_edge = num_edge + 1
-                    End If
-
-                    If p_map(i + 1, j + 1) <> 0 Then
-                        num_edge = num_edge + 1
-                    End If
-
-                    If p_map(i - 1, j + 1) <> 0 Then
-                        num_edge = num_edge + 1
-                    End If
-
-                    num_auto = num_cross + num_edge
-                    modified_cross(num_cross) = modified_cross(num_cross) + 1
-                    modified_edge(num_edge) = modified_edge(num_edge) + 1
-                    modified_around(num_auto) = modified_around(num_auto) + 1
-
-                    If num_auto < min_auto Or (min_auto > 1 And num_cross < 2) Then
-                        cc = cr
-                        n_map(i, j) = cc
-                        Continue For
-                    End If
-
-                    num_selected = num_selected + 1
-
-                    cc = 2 * (bc - br + tc - tr + rc - rr + lc - lr) + (brc - brr + tlc - tlr - trc + trr - blc + blr)
-                    cc = Math.Round((8 * cr + cc) / 8.0)
-
-                    If cc < Math.Min(tc, bc) - 2 Then
-                        cc = Math.Min(tc, bc) - 2
-                    End If
-
-                    If cc > Math.Max(tc, bc) + 2 Then
-                        cc = Math.Max(tc, bc) + 2
-                    End If
-
-                    p_map(i, j) = 1
-                    c_map(i, j) = cc
-                    n_map(i, j) = cc
-
-                    If cc = cr Then
-                        num_confirmed = num_confirmed + 1
-                    Else
-                        num_polished = num_polished + 1
-                    End If
-
-                End If
-            Next
-        Next
-
-        Return num_polished
-
-    End Function
-
-    ''' <summary>
     '''  Author of original C source: Dario Ballabio - March 2011
     ''' </summary>
     ''' <param name="min_auto">The Minimum number of surrounding cells to allow map smoothing</param>
@@ -2763,7 +2517,7 @@ Public Class K8EngineDataViewer
     ''' <param name="n_map">The New Smoothed Fuel Map</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Function MapPolisherOriginal(ByVal min_auto As Integer, ByVal maxVal As Integer, ByVal maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,), ByRef r_map As Integer(,), ByRef n_map As Integer(,))
+    Private Function MapSmoother(ByVal min_auto As Integer, ByVal maxVal As Integer, ByVal maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,), ByRef r_map As Integer(,), ByRef n_map As Integer(,))
 
         Dim num_polished, num_autotuned, num_autounchg, num_autochged, num_confirmed, num_selected As Integer
         Dim num_auto, num_cross, num_edge As Integer

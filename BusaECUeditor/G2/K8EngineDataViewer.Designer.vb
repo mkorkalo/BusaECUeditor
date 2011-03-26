@@ -339,7 +339,7 @@ Partial Class K8EngineDataViewer
         'L_SmoothedCells
         '
         Me.L_SmoothedCells.AutoSize = True
-        Me.L_SmoothedCells.Location = New System.Drawing.Point(391, 59)
+        Me.L_SmoothedCells.Location = New System.Drawing.Point(390, 59)
         Me.L_SmoothedCells.Name = "L_SmoothedCells"
         Me.L_SmoothedCells.Size = New System.Drawing.Size(10, 13)
         Me.L_SmoothedCells.TabIndex = 41

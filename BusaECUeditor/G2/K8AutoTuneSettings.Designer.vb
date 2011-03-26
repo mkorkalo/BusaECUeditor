@@ -34,6 +34,8 @@ Partial Class K8AutoTuneSettings
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.NUD_AutoTuneMapSmoothCells = New System.Windows.Forms.NumericUpDown()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.NUD_AutoTuneTimeWindow = New System.Windows.Forms.NumericUpDown()
@@ -47,19 +49,17 @@ Partial Class K8AutoTuneSettings
         Me.TB_AutoTuneStrength = New System.Windows.Forms.TrackBar()
         Me.B_Cancel = New System.Windows.Forms.Button()
         Me.B_Ok = New System.Windows.Forms.Button()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.NUD_AutoTuneMapSmoothCells = New System.Windows.Forms.NumericUpDown()
         CType(Me.NUD_AutoTuneMinAvgAFR, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_AutoTuneMaxAvgAFR, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_AutoTuneMaxPercentageFuelMapChange, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_AutoTuneMinNumberLoggedValuesInCell, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        CType(Me.NUD_AutoTuneMapSmoothCells, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_AutoTuneTimeWindow, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_AFRStdDev, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_ExhaustGasVelocityOffset, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TB_AutoTuneStrength, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NUD_AutoTuneMapSmoothCells, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'NUD_AutoTuneMinAvgAFR
@@ -180,6 +180,24 @@ Partial Class K8AutoTuneSettings
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(404, 255)
         Me.Panel2.TabIndex = 10
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(18, 108)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(178, 13)
+        Me.Label12.TabIndex = 22
+        Me.Label12.Text = "Min Number of Map Smoothing Cells"
+        '
+        'NUD_AutoTuneMapSmoothCells
+        '
+        Me.NUD_AutoTuneMapSmoothCells.Location = New System.Drawing.Point(241, 106)
+        Me.NUD_AutoTuneMapSmoothCells.Maximum = New Decimal(New Integer() {8, 0, 0, 0})
+        Me.NUD_AutoTuneMapSmoothCells.Name = "NUD_AutoTuneMapSmoothCells"
+        Me.NUD_AutoTuneMapSmoothCells.Size = New System.Drawing.Size(60, 20)
+        Me.NUD_AutoTuneMapSmoothCells.TabIndex = 21
+        Me.NUD_AutoTuneMapSmoothCells.Value = New Decimal(New Integer() {3, 0, 0, 0})
         '
         'Label11
         '
@@ -305,24 +323,6 @@ Partial Class K8AutoTuneSettings
         Me.B_Ok.Text = "OK"
         Me.B_Ok.UseVisualStyleBackColor = True
         '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(18, 108)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(158, 13)
-        Me.Label12.TabIndex = 22
-        Me.Label12.Text = "Number of Map Smoothing Cells"
-        '
-        'NUD_AutoTuneMapSmoothCells
-        '
-        Me.NUD_AutoTuneMapSmoothCells.Location = New System.Drawing.Point(241, 106)
-        Me.NUD_AutoTuneMapSmoothCells.Maximum = New Decimal(New Integer() {8, 0, 0, 0})
-        Me.NUD_AutoTuneMapSmoothCells.Name = "NUD_AutoTuneMapSmoothCells"
-        Me.NUD_AutoTuneMapSmoothCells.Size = New System.Drawing.Size(60, 20)
-        Me.NUD_AutoTuneMapSmoothCells.TabIndex = 21
-        Me.NUD_AutoTuneMapSmoothCells.Value = New Decimal(New Integer() {3, 0, 0, 0})
-        '
         'K8AutoTuneSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -342,11 +342,11 @@ Partial Class K8AutoTuneSettings
         Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        CType(Me.NUD_AutoTuneMapSmoothCells, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_AutoTuneTimeWindow, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_AFRStdDev, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_ExhaustGasVelocityOffset, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TB_AutoTuneStrength, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NUD_AutoTuneMapSmoothCells, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
