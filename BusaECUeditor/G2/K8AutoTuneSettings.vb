@@ -6,6 +6,7 @@
         NUD_AutoTuneMaxAvgAFR.Value = My.Settings.AutoTuneMaxAvgAFR
         NUD_AFRStdDev.Value = My.Settings.AutoTuneCellStdDev
         NUD_AutoTuneTimeWindow.Value = My.Settings.AutoTuneTimeWindow
+        NUD_AutoTuneMapSmoothCells.Value = My.Settings.AutoTuneMapSmoothCells
         NUD_AutoTuneMaxPercentageFuelMapChange.Value = My.Settings.AutoTuneMaxPercentageFuelMapChange
         NUD_AutoTuneMinNumberLoggedValuesInCell.Value = My.Settings.AutoTuneMinNumberLoggedValuesInCell
         TB_AutoTuneStrength.Value = My.Settings.AutoTuneStrength
@@ -20,6 +21,7 @@
         My.Settings.AutoTuneMaxAvgAFR = NUD_AutoTuneMaxAvgAFR.Value
         My.Settings.AutoTuneCellStdDev = NUD_AFRStdDev.Value
         My.Settings.AutoTuneTimeWindow = NUD_AutoTuneTimeWindow.Value
+        My.Settings.AutoTuneMapSmoothCells = NUD_AutoTuneMapSmoothCells.Value
         My.Settings.AutoTuneMaxPercentageFuelMapChange = NUD_AutoTuneMaxPercentageFuelMapChange.Value
         My.Settings.AutoTuneMinNumberLoggedValuesInCell = NUD_AutoTuneMinNumberLoggedValuesInCell.Value
         My.Settings.AutoTuneStrength = TB_AutoTuneStrength.Value
@@ -27,7 +29,7 @@
         My.Settings.Save()
 
         K8EngineDataViewer.ClearData()
-        K8EngineDataViewer.OpenFile()
+        K8EngineDataViewer.OpenFiles()
 
         Me.Close()
 

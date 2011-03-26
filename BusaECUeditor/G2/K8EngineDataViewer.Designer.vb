@@ -53,6 +53,7 @@ Partial Class K8EngineDataViewer
         Me.L_AvgTPS = New System.Windows.Forms.Label()
         Me.L_CellInfo = New System.Windows.Forms.Label()
         Me.L_CellStats = New System.Windows.Forms.Label()
+        Me.L_SmoothedCells = New System.Windows.Forms.Label()
         CType(Me.N_MinTPS, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.G_FuelMap, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -82,7 +83,7 @@ Partial Class K8EngineDataViewer
         'L_MinTPS
         '
         Me.L_MinTPS.AutoSize = True
-        Me.L_MinTPS.Location = New System.Drawing.Point(376, 57)
+        Me.L_MinTPS.Location = New System.Drawing.Point(271, 57)
         Me.L_MinTPS.Name = "L_MinTPS"
         Me.L_MinTPS.Size = New System.Drawing.Size(37, 13)
         Me.L_MinTPS.TabIndex = 20
@@ -91,7 +92,7 @@ Partial Class K8EngineDataViewer
         '
         'N_MinTPS
         '
-        Me.N_MinTPS.Location = New System.Drawing.Point(419, 55)
+        Me.N_MinTPS.Location = New System.Drawing.Point(314, 55)
         Me.N_MinTPS.Name = "N_MinTPS"
         Me.N_MinTPS.Size = New System.Drawing.Size(52, 20)
         Me.N_MinTPS.TabIndex = 19
@@ -143,7 +144,7 @@ Partial Class K8EngineDataViewer
         'C_WidebandO2Sensor
         '
         Me.C_WidebandO2Sensor.AutoSize = True
-        Me.C_WidebandO2Sensor.Location = New System.Drawing.Point(539, 58)
+        Me.C_WidebandO2Sensor.Location = New System.Drawing.Point(549, 58)
         Me.C_WidebandO2Sensor.Name = "C_WidebandO2Sensor"
         Me.C_WidebandO2Sensor.Size = New System.Drawing.Size(128, 17)
         Me.C_WidebandO2Sensor.TabIndex = 24
@@ -273,7 +274,7 @@ Partial Class K8EngineDataViewer
         Me.GroupBox2.Controls.Add(Me.R_TPSRPM)
         Me.GroupBox2.Location = New System.Drawing.Point(5, 47)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(288, 28)
+        Me.GroupBox2.Size = New System.Drawing.Size(262, 28)
         Me.GroupBox2.TabIndex = 34
         Me.GroupBox2.TabStop = False
         '
@@ -335,11 +336,21 @@ Partial Class K8EngineDataViewer
         Me.L_CellStats.TabIndex = 40
         Me.L_CellStats.Text = "-"
         '
+        'L_SmoothedCells
+        '
+        Me.L_SmoothedCells.AutoSize = True
+        Me.L_SmoothedCells.Location = New System.Drawing.Point(391, 59)
+        Me.L_SmoothedCells.Name = "L_SmoothedCells"
+        Me.L_SmoothedCells.Size = New System.Drawing.Size(10, 13)
+        Me.L_SmoothedCells.TabIndex = 41
+        Me.L_SmoothedCells.Text = "-"
+        '
         'K8EngineDataViewer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1099, 717)
+        Me.Controls.Add(Me.L_SmoothedCells)
         Me.Controls.Add(Me.L_CellStats)
         Me.Controls.Add(Me.L_AvgTPS)
         Me.Controls.Add(Me.B_AutoTune)
@@ -401,4 +412,5 @@ Partial Class K8EngineDataViewer
     Friend WithEvents L_CellInfo As System.Windows.Forms.Label
     Friend WithEvents L_CellStats As System.Windows.Forms.Label
     Friend WithEvents R_AutoTunedMap As System.Windows.Forms.RadioButton
+    Friend WithEvents L_SmoothedCells As System.Windows.Forms.Label
 End Class
