@@ -6,6 +6,7 @@ Imports System.Math
 Public Class K8EngineDataViewer
 
     Private _filePath As String
+    Private _filePaths As List(Of String) = New List(Of String)
     Private _tpsList As List(Of Double) = New List(Of Double)
     Private _iapList As List(Of Double) = New List(Of Double)
     Private _rpmList As List(Of Integer) = New List(Of Integer)
@@ -37,6 +38,8 @@ Public Class K8EngineDataViewer
     Private _autoTunedIAP = False
     Private _autoTunedBoost = False
 
+    Private _autoTunedTPSFuelMap(,) As Integer
+    Private _autoTunedIAPFuelMap(,) As Integer
 
     Private Sub K8EngineDataViewer_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -260,6 +263,11 @@ Public Class K8EngineDataViewer
 
             For Each fileName As String In OpenFileDialog1.FileNames
                 _filePath = fileName
+
+                If _filePaths.Contains(fileName) = False Then
+                    _filePaths.Add(fileName)
+                End If
+
                 OpenFile(_filePath)
             Next
         End If
@@ -304,10 +312,18 @@ Public Class K8EngineDataViewer
 
     End Sub
 
+    Public Sub OpenFiles()
+
+        For Each filePath As String In _filePaths
+            _filePath = filePath
+            OpenFile()
+        Next
+
+    End Sub
+
     Public Sub OpenFile()
 
         Try
-
             If String.IsNullOrEmpty(_filePath) = False Then
 
                 L_FileName.Text = _filePath
@@ -1319,90 +1335,6 @@ Public Class K8EngineDataViewer
 
     End Sub
 
-    Private Sub ShowAutoTunedTPSMap()
-
-        ShowTPSFuelHeaders()
-
-        Dim mapStructureTable As Integer
-        Dim cylinder As Integer = 0        ' 0,1,2,3
-        Dim ms01 As Integer = 0            ' 0,1
-        Dim modeabc As Integer = 0
-        Dim copyToMap As Long = 0
-        Dim editingMap As Integer = 0
-        Dim mapNumberOfColumns As Integer = 0
-        Dim mapNumberOfRows As Integer = 0
-        Dim autoTunePercentage As Double = 0
-        Dim newValue As Integer = 0
-        Dim percentageChange As Double
-        Dim dataCount As Integer
-
-        If ECUVersion = "gen2" Then
-            mapStructureTable = &H52304
-        ElseIf ECUVersion = "bking" Then
-            mapStructureTable = &H54EB4
-        End If
-
-        editingMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-        mapNumberOfColumns = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
-        mapNumberOfRows = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
-
-        Dim c_map(_tpsList.Count, _rpmList.Count) As Integer
-        Dim r_map(_tpsList.Count, _rpmList.Count) As Integer
-        Dim p_map(_tpsList.Count, _rpmList.Count) As Double
-        Dim n_map(_tpsList.Count, _rpmList.Count) As Integer
-
-        For xIndex As Integer = 0 To _tpsList.Count - 1
-
-            For yIndex As Integer = 0 To _rpmList.Count - 1
-
-                dataCount = 0
-                G_FuelMap.Item(xIndex, yIndex).Style.BackColor = Color.White
-                G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = Color.Black
-
-                Dim currentValue As Integer = ReadFlashWord(editingMap + (2 * (xIndex + (yIndex * mapNumberOfColumns))))
-
-                c_map(xIndex, yIndex) = currentValue
-                r_map(xIndex, yIndex) = currentValue
-                p_map(xIndex, yIndex) = 0
-
-                If _tpsList(xIndex) >= 11 Then
-
-                    Dim avgAfr As Double = CalculateAvgAFR(_tpsValues(xIndex, yIndex), dataCount)
-
-                    If avgAfr > 0 Then
-
-                        percentageChange = AutoTuneCorrection((avgAfr - _tpsTargetAFR(xIndex, yIndex)) / avgAfr * 100)
-
-                        If CheckAutoTuneFilter(avgAfr, percentageChange, dataCount) Then
-
-                            newValue = currentValue * (1 + percentageChange / 100)
-
-                            c_map(xIndex, yIndex) = newValue
-                            p_map(xIndex, yIndex) = percentageChange
-
-                        End If
-                    End If
-                End If
-            Next
-        Next
-
-        While (MapPolisher(My.Settings.AutoTuneMapSmoothCells, _tpsList.Count, _rpmList.Count, c_map, p_map, r_map, n_map) > 0)
-        End While
-
-        For xIndex As Integer = 0 To _tpsList.Count - 1
-            For yIndex As Integer = 0 To _rpmList.Count - 1
-
-                percentageChange = (n_map(xIndex, yIndex) - r_map(xIndex, yIndex)) / r_map(xIndex, yIndex) * 100
-
-                G_FuelMap.Item(xIndex, yIndex).Value = n_map(xIndex, yIndex) / 24
-                G_FuelMap.Item(xIndex, yIndex).Style.BackColor = GetCellColor(percentageChange)
-                G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = GetCellForeColor(percentageChange)
-
-            Next
-        Next
-
-    End Sub
-
     Private Sub ShowAutoTunedTPSMapOriginal()
 
         ShowTPSFuelHeaders()
@@ -1470,11 +1402,22 @@ Public Class K8EngineDataViewer
             Next
         Next
 
-        While (MapPolisherOriginal(My.Settings.AutoTuneMapSmoothCells, _tpsList.Count, _rpmList.Count, c_map, p_map, r_map, n_map) > 0)
-        End While
+        Dim iterationCount As Integer
+        Dim totalCount As Integer
+
+        Do
+            iterationCount = MapPolisherOriginal(My.Settings.AutoTuneMapSmoothCells, _tpsList.Count, _rpmList.Count, c_map, p_map, r_map, n_map)
+            totalCount = totalCount + iterationCount
+
+        Loop While (iterationCount > 0)
+
+        L_SmoothedCells.Text = "Cells Smoothed: " & totalCount.ToString()
+        ReDim _autoTunedTPSFuelMap(_tpsList.Count, _rpmList.Count)
 
         For xIndex As Integer = 0 To _tpsList.Count - 1
             For yIndex As Integer = 0 To _rpmList.Count - 1
+
+                _autoTunedTPSFuelMap(xIndex, yIndex) = n_map(yIndex, xIndex)
 
                 percentageChange = (n_map(yIndex, xIndex) - r_map(yIndex, xIndex)) / r_map(yIndex, xIndex) * 100
 
@@ -1487,7 +1430,7 @@ Public Class K8EngineDataViewer
 
     End Sub
 
-    Private Sub ShowAutoTunedIAPMap()
+    Private Sub ShowAutoTunedIAPMapOriginal()
 
         ShowIAPFuelHeaders()
 
@@ -1554,11 +1497,22 @@ Public Class K8EngineDataViewer
             Next
         Next
 
-        While (MapPolisherOriginal(My.Settings.AutoTuneMapSmoothCells, _iapList.Count, _rpmList.Count, c_map, p_map, r_map, n_map) > 0)
-        End While
+        Dim iterationCount As Integer
+        Dim totalCount As Integer
+
+        Do
+            iterationCount = MapPolisherOriginal(My.Settings.AutoTuneMapSmoothCells, _iapList.Count, _rpmList.Count, c_map, p_map, r_map, n_map)
+            totalCount = totalCount + iterationCount
+
+        Loop While iterationCount > 0
+
+        L_SmoothedCells.Text = "Cells Smoothed: " & totalCount.ToString()
+        ReDim _autoTunedIAPFuelMap(_iapList.Count, _rpmList.Count)
 
         For xIndex As Integer = 0 To _iapList.Count - 1
             For yIndex As Integer = 0 To _rpmList.Count - 1
+
+                _autoTunedIAPFuelMap(xIndex, yIndex) = n_map(yIndex, xIndex)
 
                 percentageChange = (n_map(yIndex, xIndex) - r_map(yIndex, xIndex)) / r_map(yIndex, xIndex) * 100
 
@@ -1617,6 +1571,7 @@ Public Class K8EngineDataViewer
         End If
 
         L_AvgTPS.Text = ""
+        L_SmoothedCells.Text = ""
 
         For x As Integer = 0 To G_FuelMap.ColumnCount - 1
             For y As Integer = 0 To G_FuelMap.RowCount - 1
@@ -1866,7 +1821,7 @@ Public Class K8EngineDataViewer
 
     Private Sub SetAutoTuneButton()
 
-        If R_PercentageMapChange.Checked = True Then
+        If R_AutoTunedMap.Checked = True Then
             B_AutoTune.Visible = True
         Else
             B_AutoTune.Visible = False
@@ -1963,7 +1918,7 @@ Public Class K8EngineDataViewer
             If _mapType = 1 Then
                 ShowAutoTunedTPSMapOriginal()
             ElseIf _mapType = 2 Then
-                ShowAutoTunedIAPMap()
+                ShowAutoTunedIAPMapOriginal()
             ElseIf _mapType = 3 Then
 
             End If
@@ -2199,6 +2154,21 @@ Public Class K8EngineDataViewer
                 G_FuelMap.Item(e.ColumnIndex, e.RowIndex).Style.ForeColor = GetCellForeColor(0)
 
             End If
+
+        ElseIf R_AutoTunedMap.Checked = True Then
+
+            Dim value As Double = 0
+
+            If Double.TryParse(G_FuelMap.Item(e.ColumnIndex, e.RowIndex).Value.ToString(), value) = True Then
+
+                If R_TPSRPM.Checked Then
+                    _autoTunedTPSFuelMap(e.ColumnIndex, e.RowIndex) = value * 24
+                ElseIf R_IAPRPM.Checked Then
+                    _autoTunedIAPFuelMap(e.ColumnIndex, e.RowIndex) = value * 24
+                End If
+
+            End If
+
         End If
 
     End Sub
@@ -2305,7 +2275,7 @@ Public Class K8EngineDataViewer
 
     Private Sub B_AutoTune_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_AutoTune.Click
 
-        Dim message As String = "You are about to apply the % Map Changes to the " & SelectedMapString & " fuel map." & Environment.NewLine & "Click OK to continue"
+        Dim message As String = "You are about to apply the Auto Tuned Map Changes to the " & SelectedMapString & " fuel map." & Environment.NewLine & "Click OK to continue"
 
         If MessageBox.Show(message, "ECU Editor Auto Tune", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = Windows.Forms.DialogResult.OK Then
 
@@ -2328,7 +2298,7 @@ Public Class K8EngineDataViewer
 
             End If
 
-            message = "% Map Changes have been applied to " & SelectedMapString & " fuel map." & Environment.NewLine & "Click OK to continue"
+            message = "Auto Tune Map Changes have been applied to " & SelectedMapString & " fuel map." & Environment.NewLine & "Click OK to continue"
             MessageBox.Show(message, "ECU Editor Auto Tune", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
 
             B_AutoTune.Enabled = False
@@ -2361,26 +2331,18 @@ Public Class K8EngineDataViewer
         mapNumberOfColumns = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
         mapNumberOfRows = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
 
-        For columnIndex As Integer = 0 To _tpsList.Count - 1
-            If _tpsList(columnIndex) >= 11 Then
+        For xIndex As Integer = 0 To _tpsList.Count - 1
+            For yIndex As Integer = 0 To _rpmList.Count - 1
 
-                For rowIndex As Integer = 0 To _rpmList.Count - 1
-                    If Double.TryParse(G_FuelMap.Item(columnIndex, rowIndex).Value, autoTunePercentage) = True Then
+                newValue = _autoTunedTPSFuelMap(xIndex, yIndex)
 
-                        currentValue = ReadFlashWord(editingMap + (2 * (columnIndex + (rowIndex * mapNumberOfColumns))))
-                        newValue = currentValue * (1 + autoTunePercentage / 100)
-
-                        For cylinder = 0 To 3
-                            For ms01 = 0 To 0
-                                copyToMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                                WriteFlashWord(copyToMap + (2 * (columnIndex + (rowIndex * mapNumberOfColumns))), newValue)
-                            Next
-                        Next
-
-                    End If
+                For cylinder = 0 To 3
+                    For ms01 = 0 To 0
+                        copyToMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        WriteFlashWord(copyToMap + (2 * (xIndex + (yIndex * mapNumberOfColumns))), newValue)
+                    Next
                 Next
-
-            End If
+            Next
         Next
 
     End Sub
@@ -2415,20 +2377,21 @@ Public Class K8EngineDataViewer
             mapNumberOfColumns = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
             mapNumberOfRows = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
 
-            For columnIndex As Integer = 0 To _iapList.Count - 1
-                For rowIndex As Integer = 0 To _rpmList.Count - 1
-                    If Double.TryParse(G_FuelMap.Item(columnIndex, rowIndex).Value, autoTunePercentage) = True Then
+            For xIndex As Integer = 0 To _iapList.Count - 1
+                For yIndex As Integer = 0 To _rpmList.Count - 1
+                    If Double.TryParse(G_FuelMap.Item(xIndex, yIndex).Value, autoTunePercentage) = True Then
 
-                        currentValue = ReadFlashWord(editingMap + (2 * (columnIndex + (rowIndex * mapNumberOfColumns))))
-                        newValue = currentValue * (1 + autoTunePercentage / 100)
+                        newValue = _autoTunedIAPFuelMap(xIndex, yIndex)
 
                         For cylinder = 0 To 3
                             For ms01 = 0 To 1
+
                                 copyToMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                                WriteFlashWord(copyToMap + (2 * (columnIndex + (rowIndex * mapNumberOfColumns))), newValue)
+                                WriteFlashWord(copyToMap + (2 * (xIndex + (yIndex * mapNumberOfColumns))), newValue)
 
                                 copyToMap2 = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable2 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                                WriteFlashWord(copyToMap2 + (2 * (columnIndex + (rowIndex * mapNumberOfColumns))), newValue)
+                                WriteFlashWord(copyToMap2 + (2 * (xIndex + (yIndex * mapNumberOfColumns))), newValue)
+
                             Next
                         Next
 
@@ -2540,14 +2503,7 @@ Public Class K8EngineDataViewer
 
         d2 = y1 - 2 * y2 + y3
         x2 = (x1 + x3 - d2)
-
-        If x2 < Math.Min(x1, x3) Then
-            x2 = Math.Min(x1, x3)
-        End If
-
-        If x2 > Math.Max(x1, x3) Then
-            x2 = Math.Max(x1, x3)
-        End If
+        x2 = Round(x2 / 2.0)
 
         Return x2
 
