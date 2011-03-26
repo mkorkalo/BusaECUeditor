@@ -1,6 +1,7 @@
 ﻿Imports System.IO
 Imports System.Drawing
 Imports System.Text
+Imports System.Math
 
 Public Class K8EngineDataViewer
 
@@ -918,6 +919,31 @@ Public Class K8EngineDataViewer
 
     End Sub
 
+    Private Sub ShowIAPFuelHeaders()
+
+        G_FuelMap.RowCount = _rpmList.Count
+        G_FuelMap.ColumnCount = _iapList.Count
+
+        For index As Integer = 0 To _iapList.Count - 1 Step 1
+
+            G_FuelMap.Columns(index).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            G_FuelMap.Columns(index).DefaultCellStyle.Format = "0"
+            G_FuelMap.Columns.Item(index).HeaderText() = _iapList(index)
+            G_FuelMap.Columns(index).Width = 35
+
+        Next
+
+        G_FuelMap.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
+
+        For index As Integer = 0 To _rpmList.Count - 1 Step 1
+
+            G_FuelMap.Rows.Item(index).HeaderCell.Value = _rpmList(index).ToString()
+            G_FuelMap.Rows.Item(index).Height = 15
+
+        Next
+
+    End Sub
+
     Private Sub ShowBoostHeaders()
 
         G_FuelMap.RowCount = _boostRPMList.Count
@@ -1377,7 +1403,171 @@ Public Class K8EngineDataViewer
 
     End Sub
 
+    Private Sub ShowAutoTunedTPSMapOriginal()
+
+        ShowTPSFuelHeaders()
+
+        Dim mapStructureTable As Integer
+        Dim cylinder As Integer = 0        ' 0,1,2,3
+        Dim ms01 As Integer = 0            ' 0,1
+        Dim modeabc As Integer = 0
+        Dim copyToMap As Long = 0
+        Dim editingMap As Integer = 0
+        Dim mapNumberOfColumns As Integer = 0
+        Dim mapNumberOfRows As Integer = 0
+        Dim autoTunePercentage As Double = 0
+        Dim newValue As Integer = 0
+        Dim percentageChange As Double
+        Dim dataCount As Integer
+
+        If ECUVersion = "gen2" Then
+            mapStructureTable = &H52304
+        ElseIf ECUVersion = "bking" Then
+            mapStructureTable = &H54EB4
+        End If
+
+        editingMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+        mapNumberOfColumns = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+        mapNumberOfRows = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
+
+        Dim c_map(_rpmList.Count, _tpsList.Count) As Integer
+        Dim r_map(_rpmList.Count, _tpsList.Count) As Integer
+        Dim p_map(_rpmList.Count, _tpsList.Count) As Integer
+        Dim n_map(_rpmList.Count, _tpsList.Count) As Integer
+
+        For xIndex As Integer = 0 To _tpsList.Count - 1
+
+            For yIndex As Integer = 0 To _rpmList.Count - 1
+
+                dataCount = 0
+                G_FuelMap.Item(xIndex, yIndex).Style.BackColor = Color.White
+                G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = Color.Black
+
+                Dim currentValue As Integer = ReadFlashWord(editingMap + (2 * (xIndex + (yIndex * mapNumberOfColumns))))
+
+                c_map(yIndex, xIndex) = currentValue
+                r_map(yIndex, xIndex) = currentValue
+                p_map(yIndex, xIndex) = 0
+
+                If _tpsList(xIndex) >= 11 Then
+
+                    Dim avgAfr As Double = CalculateAvgAFR(_tpsValues(xIndex, yIndex), dataCount)
+
+                    If avgAfr > 0 Then
+
+                        percentageChange = AutoTuneCorrection((avgAfr - _tpsTargetAFR(xIndex, yIndex)) / avgAfr * 100)
+
+                        If CheckAutoTuneFilter(avgAfr, percentageChange, dataCount) Then
+
+                            newValue = currentValue * (1 + percentageChange / 100)
+
+                            c_map(yIndex, xIndex) = newValue
+                            p_map(yIndex, xIndex) = 1 'percentageChange
+
+                        End If
+                    End If
+                End If
+            Next
+        Next
+
+        While (MapPolisherOriginal(My.Settings.AutoTuneMapSmoothCells, _tpsList.Count, _rpmList.Count, c_map, p_map, r_map, n_map) > 0)
+        End While
+
+        For xIndex As Integer = 0 To _tpsList.Count - 1
+            For yIndex As Integer = 0 To _rpmList.Count - 1
+
+                percentageChange = (n_map(yIndex, xIndex) - r_map(yIndex, xIndex)) / r_map(yIndex, xIndex) * 100
+
+                G_FuelMap.Item(xIndex, yIndex).Value = n_map(yIndex, xIndex) / 24
+                G_FuelMap.Item(xIndex, yIndex).Style.BackColor = GetCellColor(percentageChange)
+                G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = GetCellForeColor(percentageChange)
+
+            Next
+        Next
+
+    End Sub
+
     Private Sub ShowAutoTunedIAPMap()
+
+        ShowIAPFuelHeaders()
+
+        Dim mapStructureTable As Integer
+        Dim mapStructureTable2 As Integer
+        Dim cylinder As Integer = 0        ' 0,1,2,3
+        Dim ms01 As Integer = 0            ' 0,1
+        Dim modeabc As Integer = 0
+        Dim copyToMap As Long = 0
+        Dim copyToMap2 As Long = 0
+        Dim editingMap As Integer = 0
+        Dim mapNumberOfColumns As Integer = 0
+        Dim mapNumberOfRows As Integer = 0
+        Dim autoTunePercentage As Double = 0
+        Dim newValue As Integer = 0
+        Dim dataCount As Integer
+        Dim percentageChange As Double = 0
+
+        If ECUVersion = "gen2" Then
+            mapStructureTable = &H52244
+            mapStructureTable2 = &H522A4
+        ElseIf ECUVersion = "bking" Then
+            mapStructureTable = &H54DF4
+            mapStructureTable2 = &H54E54
+        End If
+
+        editingMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+        mapNumberOfColumns = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
+        mapNumberOfRows = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
+
+        Dim c_map(_rpmList.Count, _iapList.Count) As Integer
+        Dim r_map(_rpmList.Count, _iapList.Count) As Integer
+        Dim p_map(_rpmList.Count, _iapList.Count) As Integer
+        Dim n_map(_rpmList.Count, _iapList.Count) As Integer
+
+        For xIndex As Integer = 0 To _iapList.Count - 1
+            For yIndex As Integer = 0 To _rpmList.Count - 1
+
+                dataCount = 0
+                G_FuelMap.Item(xIndex, yIndex).Style.BackColor = Color.White
+                G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = Color.Black
+
+                Dim currentValue As Integer = ReadFlashWord(editingMap + (2 * (xIndex + (yIndex * mapNumberOfColumns))))
+
+                c_map(yIndex, xIndex) = currentValue
+                r_map(yIndex, xIndex) = currentValue
+                p_map(yIndex, xIndex) = 0
+
+                Dim avgAfr As Double = CalculateAvgAFR(_iapValues(xIndex, yIndex), dataCount)
+
+                If avgAfr > 0 Then
+
+                    percentageChange = AutoTuneCorrection((avgAfr - _iapTargetAFR(xIndex, yIndex)) / avgAfr * 100)
+
+                    If CheckAutoTuneFilter(avgAfr, percentageChange, dataCount) Then
+
+                        newValue = currentValue * (1 + percentageChange / 100)
+
+                        c_map(yIndex, xIndex) = newValue
+                        p_map(yIndex, xIndex) = 1 'percentageChange
+
+                    End If
+                End If
+            Next
+        Next
+
+        While (MapPolisherOriginal(My.Settings.AutoTuneMapSmoothCells, _iapList.Count, _rpmList.Count, c_map, p_map, r_map, n_map) > 0)
+        End While
+
+        For xIndex As Integer = 0 To _iapList.Count - 1
+            For yIndex As Integer = 0 To _rpmList.Count - 1
+
+                percentageChange = (n_map(yIndex, xIndex) - r_map(yIndex, xIndex)) / r_map(yIndex, xIndex) * 100
+
+                G_FuelMap.Item(xIndex, yIndex).Value = n_map(yIndex, xIndex) / 24
+                G_FuelMap.Item(xIndex, yIndex).Style.BackColor = GetCellColor(percentageChange)
+                G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = GetCellForeColor(percentageChange)
+
+            Next
+        Next
 
     End Sub
 
@@ -1676,8 +1866,8 @@ Public Class K8EngineDataViewer
 
     Private Sub SetAutoTuneButton()
 
-        If R_AutoTunedMap.Checked = True Then
-            'B_AutoTune.Visible = True
+        If R_PercentageMapChange.Checked = True Then
+            B_AutoTune.Visible = True
         Else
             B_AutoTune.Visible = False
         End If
@@ -1771,7 +1961,7 @@ Public Class K8EngineDataViewer
             G_FuelMap.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2
 
             If _mapType = 1 Then
-                ShowAutoTunedTPSMap()
+                ShowAutoTunedTPSMapOriginal()
             ElseIf _mapType = 2 Then
                 ShowAutoTunedIAPMap()
             ElseIf _mapType = 3 Then
@@ -2585,6 +2775,245 @@ Public Class K8EngineDataViewer
 
                     If cc > Math.Max(tc, bc) + 2 Then
                         cc = Math.Max(tc, bc) + 2
+                    End If
+
+                    p_map(i, j) = 1
+                    c_map(i, j) = cc
+                    n_map(i, j) = cc
+
+                    If cc = cr Then
+                        num_confirmed = num_confirmed + 1
+                    Else
+                        num_polished = num_polished + 1
+                    End If
+
+                End If
+            Next
+        Next
+
+        Return num_polished
+
+    End Function
+
+    ''' <summary>
+    '''  Author of original C source: Dario Ballabio - March 2011
+    ''' </summary>
+    ''' <param name="min_auto">The Minimum number of surrounding cells to allow map smoothing</param>
+    ''' <param name="maxVal">The number of horizontal cells in the map</param>
+    ''' <param name="maxRPM">The number of vertical cells in the map</param>
+    ''' <param name="c_map">The AutoTuned Fuel Map</param>
+    ''' <param name="p_map">The AutoTune Percentage Change Map, 1 if value changed by autotune, 0 otherwise</param>
+    ''' <param name="r_map">The Current Fuel Map</param>
+    ''' <param name="n_map">The New Smoothed Fuel Map</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Private Function MapPolisherOriginal(ByVal min_auto As Integer, ByVal maxVal As Integer, ByVal maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,), ByRef r_map As Integer(,), ByRef n_map As Integer(,))
+
+        Dim num_polished, num_autotuned, num_autounchg, num_autochged, num_confirmed, num_selected As Integer
+        Dim num_auto, num_cross, num_edge As Integer
+        Dim modified_around(9) As Integer
+        Dim modified_cross(5) As Integer
+        Dim modified_edge(5) As Integer
+
+        Dim tc As Integer   ' top cell on autotune matrix
+        Dim bc As Integer   ' bottom cell on autotune matrix
+        Dim lc As Integer   ' left cell on autotune matrix
+        Dim rc As Integer   ' right cell on autotune matrix
+        Dim cc As Integer   ' central cell on autotune matrix
+        Dim trc As Integer  ' top right corner cell on autotune matrix
+        Dim brc As Integer  ' bottom right corner cell on autotune matrix
+        Dim tlc As Integer  ' top left corner cell on autotune matrix
+        Dim blc As Integer  ' bottom left corner cell on autotune matrix
+        Dim tr As Integer   ' top cell on running fuel matrix
+        Dim br As Integer   ' bottom cell on running fuel matrix
+        Dim lr As Integer   ' left cell on running fuel matrix
+        Dim rr As Integer   ' right cell on running fuel matrix
+        Dim cr As Integer   ' central cell on running fuel matrix
+        Dim trr As Integer  ' top right corner cell on running fuel matrix
+        Dim brr As Integer  ' bottom right corner cell on running fuel matrix
+        Dim tlr As Integer  ' top left corner cell on running fuel matrix
+        Dim blr As Integer  ' bottom left cell on running fuel matrix
+
+        num_polished = 0
+        num_autotuned = 0
+        num_autounchg = 0
+        num_autochged = 0
+        num_confirmed = 0
+        num_selected = 0
+
+        For k As Integer = 0 To 8 Step 1
+            modified_around(k) = 0
+        Next
+
+        For k As Integer = 0 To 4 Step 1
+            modified_cross(k) = 0
+            modified_edge(k) = 0
+        Next
+
+        For j As Integer = 0 To maxVal - 1 Step 1
+            For i As Integer = 0 To maxRPM - 1 Step 1
+
+                If p_map(i, j) > 0 Then
+
+                    num_autotuned = num_autotuned + 1
+
+                    If c_map(i, j) = r_map(i, j) Then
+                        num_autounchg = num_autounchg + 1
+                    Else
+                        num_autochged = num_autochged + 1
+                    End If
+
+                ElseIf c_map(i, j) <> r_map(i, j) Then
+
+                    Throw New Exception("Percentage Change map does not indicate change, but current map cell does not match auto tuned map cell")
+
+                End If
+            Next
+        Next
+
+        For j As Integer = 0 To maxVal - 1 Step 1
+            For i As Integer = 0 To maxRPM - 1 Step 1
+
+                num_auto = 0
+                num_cross = 0
+                num_edge = 0
+
+                cc = c_map(i, j)
+                cr = r_map(i, j)
+
+                n_map(i, j) = cc
+
+                If p_map(i, j) > 0 Then
+                    Continue For
+                End If
+
+                If (j = 0 Or i = 0 Or i = maxRPM - 1) Or (j = maxVal - 1 And (i = 0 Or i = maxRPM - 1)) Then
+
+                    cc = cr
+                    n_map(i, j) = cc
+                    Continue For
+
+                ElseIf (j = maxVal - 1) Then
+                    ' Last Column
+
+                    lc = 0
+                    rc = 0
+                    trc = 0
+                    tlc = 0
+                    brc = 0
+                    blc = 0
+
+                    lr = 0
+                    rr = 0
+                    trr = 0
+                    tlr = 0
+                    brr = 0
+                    blr = 0
+
+                    tc = c_map(i - 1, j)
+                    bc = c_map(i + 1, j)
+                    tr = r_map(i - 1, j)
+                    br = r_map(i + 1, j)
+
+                    If (p_map(i - 1, j) > 0) And (p_map(i + 1, j) > 0) Then
+
+                        modified_around(2) = modified_around(2) + 1
+                        modified_cross(2) = modified_cross(2) + 1
+                        num_selected = num_selected + 1
+
+                        cc = D2Fit(tc, bc, tr, cr, br)
+
+                        If cc > Max(tc, bc) + 20 Then
+                            cc = Max(tc, bc) + 20
+                        End If
+
+                        If cc < Min(tc, bc) - 20 Then
+                            cc = Min(tc, bc) - 20
+                        End If
+
+                    Else
+
+                        cc = cr
+                        n_map(i, j) = cc
+                        Continue For
+
+                    End If
+                Else
+
+                    tr = r_map(i - 1, j)
+                    br = r_map(i + 1, j)
+                    rr = r_map(i, j + 1)
+                    lr = r_map(i, j - 1)
+
+                    tc = c_map(i - 1, j)
+                    bc = c_map(i + 1, j)
+                    rc = c_map(i, j + 1)
+                    lc = c_map(i, j - 1)
+
+                    If p_map(i - 1, j) > 0 Then
+                        num_cross = num_cross + 1
+                    End If
+
+                    If p_map(i + 1, j) > 0 Then
+                        num_cross = num_cross + 1
+                    End If
+
+                    If p_map(i, j + 1) > 0 Then
+                        num_cross = num_cross + 1
+                    End If
+
+                    If p_map(i, j - 1) > 0 Then
+                        num_cross = num_cross + 1
+                    End If
+
+                    trr = r_map(i - 1, j + 1)
+                    tlr = r_map(i - 1, j - 1)
+                    brr = r_map(i + 1, j + 1)
+                    blr = r_map(i + 1, j - 1)
+
+                    trc = c_map(i - 1, j + 1)
+                    tlc = c_map(i - 1, j - 1)
+                    brc = c_map(i + 1, j + 1)
+                    blc = c_map(i + 1, j - 1)
+
+                    If p_map(i - 1, j + 1) > 0 Then
+                        num_edge = num_edge + 1
+                    End If
+
+                    If p_map(i - 1, j - 1) > 0 Then
+                        num_edge = num_edge + 1
+                    End If
+
+                    If p_map(i + 1, j + 1) > 0 Then
+                        num_edge = num_edge + 1
+                    End If
+
+                    If p_map(i + 1, j - 1) > 0 Then
+                        num_edge = num_edge + 1
+                    End If
+
+                    num_auto = num_cross + num_edge
+                    modified_cross(num_cross) = modified_cross(num_cross) + 1
+                    modified_edge(num_edge) = modified_edge(num_edge) + 1
+                    modified_around(num_auto) = modified_around(num_auto) + 1
+
+                    If (num_auto < min_auto) Or (min_auto > 1 And num_cross < 2) Then
+                        cc = cr
+                        n_map(i, j) = cc
+                        Continue For
+                    End If
+
+                    num_selected = num_selected + 1
+
+                    cc = 2 * (bc - br + tc - tr + rc - rr + lc - lr) + (brc - brr + tlc - tlr - trc + trr - blc + blr)
+                    cc = Round((8 * cr + cc) / 8.0)
+
+                    If cc < Min(tc, bc) - 20 Then
+                        cc = Min(tc, bc) - 20
+                    End If
+
+                    If cc > Max(tc, bc) + 20 Then
+                        cc = Max(tc, bc) + 20
                     End If
 
                     p_map(i, j) = 1
