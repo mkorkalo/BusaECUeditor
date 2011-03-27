@@ -2592,7 +2592,7 @@ Public Class K8EngineDataViewer
 
         d2 = y1 - 2 * y2 + y3
         x2 = (x1 + x3 - d2)
-        x2 = Round(x2 / 2.0)
+        x2 = DRound(x2 / 2.0)
 
         Return x2
 
@@ -2809,7 +2809,7 @@ Public Class K8EngineDataViewer
                     num_selected = num_selected + 1
 
                     cc = 2 * (bc - br + tc - tr + rc - rr + lc - lr) + (brc - brr + tlc - tlr - trc + trr - blc + blr)
-                    cc = Round((8 * cr + cc) / 8.0)
+                    cc = DRound((8 * cr + cc) / 8.0)
 
                     If cc < Min(tc, bc) - 20 Then
                         cc = Min(tc, bc) - 20
@@ -2834,6 +2834,16 @@ Public Class K8EngineDataViewer
         Next
 
         Return num_polished
+
+    End Function
+
+    Private Function DRound(ByVal val As Double) As Integer
+
+        If val >= 0 Then
+            Return Math.Truncate(val + 0.5)
+        Else
+            Return Math.Truncate(val - 0.5)
+        End If
 
     End Function
 
