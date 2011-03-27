@@ -2726,21 +2726,21 @@ Public Class K8EngineDataViewer
 
                         cc = D2Fit(tc, bc, tr, cr, br)
 
-                        If cc > Max(tc, bc) + 20 Then
-                            cc = Max(tc, bc) + 20
-                        End If
+                        'If cc > Max(tc, bc) + 20 Then
+                        'cc = Max(tc, bc) + 20
+                        'End If
 
-                        If cc < Min(tc, bc) - 20 Then
-                            cc = Min(tc, bc) - 20
-                        End If
+                        'If cc < Min(tc, bc) - 20 Then
+                        'cc = Min(tc, bc) - 20
+                        'End If
 
-                    Else
+                Else
 
-                        cc = cr
-                        n_map(i, j) = cc
-                        Continue For
+                    cc = cr
+                    n_map(i, j) = cc
+                    Continue For
 
-                    End If
+                End If
                 Else
 
                     tr = r_map(i - 1, j)
