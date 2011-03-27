@@ -54,6 +54,7 @@ Partial Class K8EngineDataViewer
         Me.L_CellInfo = New System.Windows.Forms.Label()
         Me.L_CellStats = New System.Windows.Forms.Label()
         Me.L_SmoothedCells = New System.Windows.Forms.Label()
+        Me.C_ShowCurrentMap = New System.Windows.Forms.CheckBox()
         CType(Me.N_MinTPS, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.G_FuelMap, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -223,6 +224,7 @@ Partial Class K8EngineDataViewer
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.C_ShowCurrentMap)
         Me.GroupBox1.Controls.Add(Me.R_AutoTunedMap)
         Me.GroupBox1.Controls.Add(Me.R_DataCount)
         Me.GroupBox1.Controls.Add(Me.R_LoggedAFR)
@@ -230,14 +232,14 @@ Partial Class K8EngineDataViewer
         Me.GroupBox1.Controls.Add(Me.R_PercentageMapChange)
         Me.GroupBox1.Location = New System.Drawing.Point(5, 26)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(483, 28)
+        Me.GroupBox1.Size = New System.Drawing.Size(591, 28)
         Me.GroupBox1.TabIndex = 32
         Me.GroupBox1.TabStop = False
         '
         'R_AutoTunedMap
         '
         Me.R_AutoTunedMap.AutoSize = True
-        Me.R_AutoTunedMap.Location = New System.Drawing.Point(369, 9)
+        Me.R_AutoTunedMap.Location = New System.Drawing.Point(365, 9)
         Me.R_AutoTunedMap.Name = "R_AutoTunedMap"
         Me.R_AutoTunedMap.Size = New System.Drawing.Size(105, 17)
         Me.R_AutoTunedMap.TabIndex = 30
@@ -300,7 +302,7 @@ Partial Class K8EngineDataViewer
         '
         'B_AutoTune
         '
-        Me.B_AutoTune.Location = New System.Drawing.Point(492, 32)
+        Me.B_AutoTune.Location = New System.Drawing.Point(602, 32)
         Me.B_AutoTune.Name = "B_AutoTune"
         Me.B_AutoTune.Size = New System.Drawing.Size(75, 23)
         Me.B_AutoTune.TabIndex = 36
@@ -339,11 +341,21 @@ Partial Class K8EngineDataViewer
         'L_SmoothedCells
         '
         Me.L_SmoothedCells.AutoSize = True
-        Me.L_SmoothedCells.Location = New System.Drawing.Point(390, 59)
+        Me.L_SmoothedCells.Location = New System.Drawing.Point(387, 59)
         Me.L_SmoothedCells.Name = "L_SmoothedCells"
         Me.L_SmoothedCells.Size = New System.Drawing.Size(10, 13)
         Me.L_SmoothedCells.TabIndex = 41
         Me.L_SmoothedCells.Text = "-"
+        '
+        'C_ShowCurrentMap
+        '
+        Me.C_ShowCurrentMap.AutoSize = True
+        Me.C_ShowCurrentMap.Location = New System.Drawing.Point(470, 10)
+        Me.C_ShowCurrentMap.Name = "C_ShowCurrentMap"
+        Me.C_ShowCurrentMap.Size = New System.Drawing.Size(114, 17)
+        Me.C_ShowCurrentMap.TabIndex = 31
+        Me.C_ShowCurrentMap.Text = "Show Current Map"
+        Me.C_ShowCurrentMap.UseVisualStyleBackColor = True
         '
         'K8EngineDataViewer
         '
@@ -413,4 +425,5 @@ Partial Class K8EngineDataViewer
     Friend WithEvents L_CellStats As System.Windows.Forms.Label
     Friend WithEvents R_AutoTunedMap As System.Windows.Forms.RadioButton
     Friend WithEvents L_SmoothedCells As System.Windows.Forms.Label
+    Friend WithEvents C_ShowCurrentMap As System.Windows.Forms.CheckBox
 End Class

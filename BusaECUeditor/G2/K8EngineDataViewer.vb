@@ -39,7 +39,10 @@ Public Class K8EngineDataViewer
     Private _autoTunedBoost = False
 
     Private _autoTunedTPSFuelMap(,) As Integer
+    Private _currentTPSFuelMap(,) As Integer
+
     Private _autoTunedIAPFuelMap(,) As Integer
+    Private _currentIAPFuelMap(,) As Integer
 
     Private Sub K8EngineDataViewer_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -879,6 +882,12 @@ Public Class K8EngineDataViewer
 
         Next
 
+        For xIndex As Integer = 0 To _tpsList.Count - 1
+            For yIndex As Integer = 0 To _rpmList.Count - 1
+                G_FuelMap.Item(xIndex, yIndex).Style.Font = New Font(G_FuelMap.Font.FontFamily, G_FuelMap.Font.Size, FontStyle.Regular)
+            Next
+        Next
+
     End Sub
 
     Private Sub ShowTPSFuelHeaders()
@@ -1358,13 +1367,16 @@ Public Class K8EngineDataViewer
         mapNumberOfColumns = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
         mapNumberOfRows = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
 
+        ReDim _autoTunedTPSFuelMap(_tpsList.Count, _rpmList.Count)
+        ReDim _currentTPSFuelMap(_tpsList.Count, _rpmList.Count)
+
         Dim c_map(_rpmList.Count, _tpsList.Count) As Integer
         Dim r_map(_rpmList.Count, _tpsList.Count) As Integer
         Dim p_map(_rpmList.Count, _tpsList.Count) As Integer
         Dim n_map(_rpmList.Count, _tpsList.Count) As Integer
+        Dim op_map(_rpmList.Count, _tpsList.Count) As Integer
 
         For xIndex As Integer = 0 To _tpsList.Count - 1
-
             For yIndex As Integer = 0 To _rpmList.Count - 1
 
                 dataCount = 0
@@ -1373,9 +1385,12 @@ Public Class K8EngineDataViewer
 
                 Dim currentValue As Integer = ReadFlashWord(editingMap + (2 * (xIndex + (yIndex * mapNumberOfColumns))))
 
+                _currentTPSFuelMap(xIndex, yIndex) = currentValue
                 c_map(yIndex, xIndex) = currentValue
                 r_map(yIndex, xIndex) = currentValue
+                n_map(yIndex, xIndex) = currentValue
                 p_map(yIndex, xIndex) = 0
+                op_map(yIndex, xIndex) = 0
 
                 If _tpsList(xIndex) >= 11 Then
 
@@ -1390,7 +1405,8 @@ Public Class K8EngineDataViewer
                             newValue = currentValue * (1 + percentageChange / 100)
 
                             c_map(yIndex, xIndex) = newValue
-                            p_map(yIndex, xIndex) = 1 'percentageChange
+                            p_map(yIndex, xIndex) = 1
+                            op_map(yIndex, xIndex) = percentageChange
 
                         End If
                     End If
@@ -1408,12 +1424,12 @@ Public Class K8EngineDataViewer
         Loop While (iterationCount > 0)
 
         L_SmoothedCells.Text = "Cells Smoothed: " & totalCount.ToString()
-        ReDim _autoTunedTPSFuelMap(_tpsList.Count, _rpmList.Count)
 
         For xIndex As Integer = 0 To _tpsList.Count - 1
             For yIndex As Integer = 0 To _rpmList.Count - 1
 
                 _autoTunedTPSFuelMap(xIndex, yIndex) = n_map(yIndex, xIndex)
+
 
                 percentageChange = (n_map(yIndex, xIndex) - r_map(yIndex, xIndex)) / r_map(yIndex, xIndex) * 100
 
@@ -1421,8 +1437,18 @@ Public Class K8EngineDataViewer
                 G_FuelMap.Item(xIndex, yIndex).Style.BackColor = GetCellColor(percentageChange)
                 G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = GetCellForeColor(percentageChange)
 
+                If percentageChange <> 0 And op_map(yIndex, xIndex) = 0 Then
+                    G_FuelMap.Item(xIndex, yIndex).Style.Font = New Font(G_FuelMap.Font.FontFamily, G_FuelMap.Font.Size, FontStyle.Italic Or FontStyle.Bold)
+                Else
+                    G_FuelMap.Item(xIndex, yIndex).Style.Font = New Font(G_FuelMap.Font.FontFamily, G_FuelMap.Font.Size, FontStyle.Regular)
+                End If
+
             Next
         Next
+
+        If C_ShowCurrentMap.Checked Then
+            C_ShowCurrentMap.Checked = False
+        End If
 
     End Sub
 
@@ -1457,10 +1483,14 @@ Public Class K8EngineDataViewer
         mapNumberOfColumns = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 1)
         mapNumberOfRows = ReadFlashByte(ReadFlashLongWord(mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4) + 2)
 
+        ReDim _autoTunedIAPFuelMap(_iapList.Count, _rpmList.Count)
+        ReDim _currentIAPFuelMap(_iapList.Count, _rpmList.Count)
+
         Dim c_map(_rpmList.Count, _iapList.Count) As Integer
         Dim r_map(_rpmList.Count, _iapList.Count) As Integer
         Dim p_map(_rpmList.Count, _iapList.Count) As Integer
         Dim n_map(_rpmList.Count, _iapList.Count) As Integer
+        Dim op_map(_rpmList.Count, _tpsList.Count) As Integer
 
         For xIndex As Integer = 0 To _iapList.Count - 1
             For yIndex As Integer = 0 To _rpmList.Count - 1
@@ -1471,9 +1501,11 @@ Public Class K8EngineDataViewer
 
                 Dim currentValue As Integer = ReadFlashWord(editingMap + (2 * (xIndex + (yIndex * mapNumberOfColumns))))
 
+                _currentIAPFuelMap(xIndex, yIndex) = currentValue
                 c_map(yIndex, xIndex) = currentValue
                 r_map(yIndex, xIndex) = currentValue
                 p_map(yIndex, xIndex) = 0
+                op_map(yIndex, xIndex) = 0
 
                 Dim avgAfr As Double = CalculateAvgAFR(_iapValues(xIndex, yIndex), dataCount)
 
@@ -1486,7 +1518,8 @@ Public Class K8EngineDataViewer
                         newValue = currentValue * (1 + percentageChange / 100)
 
                         c_map(yIndex, xIndex) = newValue
-                        p_map(yIndex, xIndex) = 1 'percentageChange
+                        p_map(yIndex, xIndex) = 1
+                        op_map(yIndex, xIndex) = percentageChange
 
                     End If
                 End If
@@ -1503,7 +1536,6 @@ Public Class K8EngineDataViewer
         Loop While iterationCount > 0
 
         L_SmoothedCells.Text = "Cells Smoothed: " & totalCount.ToString()
-        ReDim _autoTunedIAPFuelMap(_iapList.Count, _rpmList.Count)
 
         For xIndex As Integer = 0 To _iapList.Count - 1
             For yIndex As Integer = 0 To _rpmList.Count - 1
@@ -1516,8 +1548,18 @@ Public Class K8EngineDataViewer
                 G_FuelMap.Item(xIndex, yIndex).Style.BackColor = GetCellColor(percentageChange)
                 G_FuelMap.Item(xIndex, yIndex).Style.ForeColor = GetCellForeColor(percentageChange)
 
+                If percentageChange <> 0 And op_map(yIndex, xIndex) = 0 Then
+                    G_FuelMap.Item(xIndex, yIndex).Style.Font = New Font(G_FuelMap.Font.FontFamily, G_FuelMap.Font.Size, FontStyle.Italic Or FontStyle.Bold)
+                Else
+                    G_FuelMap.Item(xIndex, yIndex).Style.Font = New Font(G_FuelMap.Font.FontFamily, G_FuelMap.Font.Size, FontStyle.Regular)
+                End If
+
             Next
         Next
+
+        If C_ShowCurrentMap.Checked Then
+            C_ShowCurrentMap.Checked = False
+        End If
 
     End Sub
 
@@ -1806,6 +1848,8 @@ Public Class K8EngineDataViewer
 
     Private Sub R_AutoTunedMap_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles R_AutoTunedMap.CheckedChanged
 
+        C_ShowCurrentMap.Checked = False
+
         ShowMap()
 
         SetAutoTuneButton()
@@ -1815,12 +1859,58 @@ Public Class K8EngineDataViewer
 
     End Sub
 
+    Private Sub C_ShowCurrentMap_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_ShowCurrentMap.CheckedChanged
+
+        If C_ShowCurrentMap.Checked Then
+
+            If R_TPSRPM.Checked Then
+
+                For xIndex As Integer = 0 To _tpsList.Count - 1
+                    For yIndex As Integer = 0 To _rpmList.Count - 1
+                        G_FuelMap.Item(xIndex, yIndex).Value = _currentTPSFuelMap(xIndex, yIndex) / 24
+                    Next
+                Next
+
+            ElseIf R_IAPRPM.Checked Then
+
+                For xIndex As Integer = 0 To _iapList.Count - 1
+                    For yIndex As Integer = 0 To _rpmList.Count - 1
+                        G_FuelMap.Item(xIndex, yIndex).Value = _currentIAPFuelMap(xIndex, yIndex) / 24
+                    Next
+                Next
+
+            End If
+
+        Else
+
+            If R_TPSRPM.Checked Then
+
+                For xIndex As Integer = 0 To _tpsList.Count - 1
+                    For yIndex As Integer = 0 To _rpmList.Count - 1
+                        G_FuelMap.Item(xIndex, yIndex).Value = _autoTunedTPSFuelMap(xIndex, yIndex) / 24
+                    Next
+                Next
+
+            ElseIf R_IAPRPM.Checked Then
+
+                For xIndex As Integer = 0 To _iapList.Count - 1
+                    For yIndex As Integer = 0 To _rpmList.Count - 1
+                        G_FuelMap.Item(xIndex, yIndex).Value = _autoTunedIAPFuelMap(xIndex, yIndex) / 24
+                    Next
+                Next
+
+            End If
+        End If
+    End Sub
+
     Private Sub SetAutoTuneButton()
 
         If R_AutoTunedMap.Checked = True Then
             B_AutoTune.Visible = True
+            C_ShowCurrentMap.Visible = True
         Else
             B_AutoTune.Visible = False
+            C_ShowCurrentMap.Visible = False
         End If
 
         If R_TPSRPM.Checked Then
@@ -2153,16 +2243,19 @@ Public Class K8EngineDataViewer
 
         ElseIf R_AutoTunedMap.Checked = True Then
 
-            Dim value As Double = 0
+            If C_ShowCurrentMap.Checked = False Then
 
-            If Double.TryParse(G_FuelMap.Item(e.ColumnIndex, e.RowIndex).Value.ToString(), value) = True Then
+                Dim value As Double = 0
 
-                If R_TPSRPM.Checked Then
-                    _autoTunedTPSFuelMap(e.ColumnIndex, e.RowIndex) = value * 24
-                ElseIf R_IAPRPM.Checked Then
-                    _autoTunedIAPFuelMap(e.ColumnIndex, e.RowIndex) = value * 24
+                If Double.TryParse(G_FuelMap.Item(e.ColumnIndex, e.RowIndex).Value.ToString(), value) = True Then
+
+                    If R_TPSRPM.Checked Then
+                        _autoTunedTPSFuelMap(e.ColumnIndex, e.RowIndex) = value * 24
+                    ElseIf R_IAPRPM.Checked Then
+                        _autoTunedIAPFuelMap(e.ColumnIndex, e.RowIndex) = value * 24
+                    End If
+
                 End If
-
             End If
 
         End If
