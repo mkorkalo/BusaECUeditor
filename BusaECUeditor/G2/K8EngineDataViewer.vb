@@ -1374,7 +1374,7 @@ Public Class K8EngineDataViewer
         Dim r_map(_rpmList.Count, _tpsList.Count) As Integer
         Dim p_map(_rpmList.Count, _tpsList.Count) As Integer
         Dim n_map(_rpmList.Count, _tpsList.Count) As Integer
-        Dim op_map(_rpmList.Count, _tpsList.Count) As Integer
+        Dim op_map(_rpmList.Count, _tpsList.Count) As Decimal
 
         For xIndex As Integer = 0 To _tpsList.Count - 1
             For yIndex As Integer = 0 To _rpmList.Count - 1
