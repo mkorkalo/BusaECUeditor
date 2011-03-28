@@ -35,7 +35,7 @@ Partial Class K8AutoTuneSettings
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.NUD_AutoTuneMapSmoothCells = New System.Windows.Forms.NumericUpDown()
+        Me.NUD_AutoTuneMapSmoothingStrength = New System.Windows.Forms.NumericUpDown()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.NUD_AutoTuneTimeWindow = New System.Windows.Forms.NumericUpDown()
@@ -55,7 +55,7 @@ Partial Class K8AutoTuneSettings
         CType(Me.NUD_AutoTuneMinNumberLoggedValuesInCell, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
-        CType(Me.NUD_AutoTuneMapSmoothCells, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NUD_AutoTuneMapSmoothingStrength, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_AutoTuneTimeWindow, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_AFRStdDev, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_ExhaustGasVelocityOffset, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -154,7 +154,7 @@ Partial Class K8AutoTuneSettings
         '
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel2.Controls.Add(Me.Label12)
-        Me.Panel2.Controls.Add(Me.NUD_AutoTuneMapSmoothCells)
+        Me.Panel2.Controls.Add(Me.NUD_AutoTuneMapSmoothingStrength)
         Me.Panel2.Controls.Add(Me.Label11)
         Me.Panel2.Controls.Add(Me.Label10)
         Me.Panel2.Controls.Add(Me.NUD_AutoTuneTimeWindow)
@@ -186,18 +186,18 @@ Partial Class K8AutoTuneSettings
         Me.Label12.AutoSize = True
         Me.Label12.Location = New System.Drawing.Point(18, 108)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(178, 13)
+        Me.Label12.Size = New System.Drawing.Size(124, 13)
         Me.Label12.TabIndex = 22
-        Me.Label12.Text = "Min Number of Map Smoothing Cells"
+        Me.Label12.Text = "Map Smoothing Strength"
         '
-        'NUD_AutoTuneMapSmoothCells
+        'NUD_AutoTuneMapSmoothingStrength
         '
-        Me.NUD_AutoTuneMapSmoothCells.Location = New System.Drawing.Point(241, 106)
-        Me.NUD_AutoTuneMapSmoothCells.Maximum = New Decimal(New Integer() {8, 0, 0, 0})
-        Me.NUD_AutoTuneMapSmoothCells.Name = "NUD_AutoTuneMapSmoothCells"
-        Me.NUD_AutoTuneMapSmoothCells.Size = New System.Drawing.Size(60, 20)
-        Me.NUD_AutoTuneMapSmoothCells.TabIndex = 21
-        Me.NUD_AutoTuneMapSmoothCells.Value = New Decimal(New Integer() {3, 0, 0, 0})
+        Me.NUD_AutoTuneMapSmoothingStrength.Location = New System.Drawing.Point(241, 106)
+        Me.NUD_AutoTuneMapSmoothingStrength.Maximum = New Decimal(New Integer() {8, 0, 0, 0})
+        Me.NUD_AutoTuneMapSmoothingStrength.Name = "NUD_AutoTuneMapSmoothingStrength"
+        Me.NUD_AutoTuneMapSmoothingStrength.Size = New System.Drawing.Size(60, 20)
+        Me.NUD_AutoTuneMapSmoothingStrength.TabIndex = 21
+        Me.NUD_AutoTuneMapSmoothingStrength.Value = New Decimal(New Integer() {8, 0, 0, 0})
         '
         'Label11
         '
@@ -342,7 +342,7 @@ Partial Class K8AutoTuneSettings
         Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
-        CType(Me.NUD_AutoTuneMapSmoothCells, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NUD_AutoTuneMapSmoothingStrength, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_AutoTuneTimeWindow, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_AFRStdDev, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_ExhaustGasVelocityOffset, System.ComponentModel.ISupportInitialize).EndInit()
@@ -375,5 +375,5 @@ Partial Class K8AutoTuneSettings
     Friend WithEvents NUD_AutoTuneTimeWindow As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents Label12 As System.Windows.Forms.Label
-    Friend WithEvents NUD_AutoTuneMapSmoothCells As System.Windows.Forms.NumericUpDown
+    Friend WithEvents NUD_AutoTuneMapSmoothingStrength As System.Windows.Forms.NumericUpDown
 End Class

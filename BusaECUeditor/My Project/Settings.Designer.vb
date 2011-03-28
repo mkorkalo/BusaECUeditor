@@ -512,13 +512,13 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("3")>  _
-        Public Property AutoTuneMinMapSmoothCells() As Integer
+         Global.System.Configuration.DefaultSettingValueAttribute("8")>  _
+        Public Property AutoTuneMapSmoothingStrength() As Integer
             Get
-                Return CType(Me("AutoTuneMinMapSmoothCells"),Integer)
+                Return CType(Me("AutoTuneMapSmoothingStrength"),Integer)
             End Get
             Set
-                Me("AutoTuneMinMapSmoothCells") = value
+                Me("AutoTuneMapSmoothingStrength") = value
             End Set
         End Property
     End Class
