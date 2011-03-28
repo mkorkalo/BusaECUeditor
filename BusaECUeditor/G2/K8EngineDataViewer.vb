@@ -1414,14 +1414,9 @@ Public Class K8EngineDataViewer
             Next
         Next
 
-        Dim iterationCount As Integer
         Dim totalCount As Integer
 
-        Do
-            iterationCount = MapSmoother(My.Settings.AutoTuneMinMapSmoothCells, _tpsList.Count, _rpmList.Count, c_map, p_map, r_map, n_map)
-            totalCount = totalCount + iterationCount
-
-        Loop While (iterationCount > 0)
+        totalCount = MapSmoother(My.Settings.AutoTuneMapSmoothingStrength, _tpsList.Count, _rpmList.Count, c_map, p_map, r_map, n_map)
 
         L_SmoothedCells.Text = "Cells Smoothed: " & totalCount.ToString()
 
@@ -1526,14 +1521,9 @@ Public Class K8EngineDataViewer
             Next
         Next
 
-        Dim iterationCount As Integer
         Dim totalCount As Integer
 
-        Do
-            iterationCount = MapSmoother(My.Settings.AutoTuneMinMapSmoothCells, _iapList.Count, _rpmList.Count, c_map, p_map, r_map, n_map)
-            totalCount = totalCount + iterationCount
-
-        Loop While iterationCount > 0
+        totalCount = MapSmoother(My.Settings.AutoTuneMapSmoothingStrength, _iapList.Count, _rpmList.Count, c_map, p_map, r_map, n_map)
 
         L_SmoothedCells.Text = "Cells Smoothed: " & totalCount.ToString()
 
@@ -2584,7 +2574,15 @@ Public Class K8EngineDataViewer
         End If
 
     End Sub
+    Private Function DRound(ByVal val As Double) As Integer
 
+        If val >= 0 Then
+            Return Math.Truncate(val + 0.5)
+        Else
+            Return Math.Truncate(val - 0.5)
+        End If
+
+    End Function
     Private Function D2Fit(ByVal x1 As Integer, ByVal x3 As Integer, ByVal y1 As Integer, ByVal y2 As Integer, ByVal y3 As Integer) As Integer
 
         Dim d2 As Integer
@@ -2601,7 +2599,7 @@ Public Class K8EngineDataViewer
     ''' <summary>
     '''  Author of original C source: Dario Ballabio - March 2011
     ''' </summary>
-    ''' <param name="min_auto">The Minimum number of surrounding cells to allow map smoothing</param>
+    ''' <param name="near_unchanged">The Minimum number of unchanged surrounding cells to allow map smoothing</param>
     ''' <param name="maxVal">The number of horizontal cells in the map</param>
     ''' <param name="maxRPM">The number of vertical cells in the map</param>
     ''' <param name="c_map">The AutoTuned Fuel Map</param>
@@ -2610,7 +2608,38 @@ Public Class K8EngineDataViewer
     ''' <param name="n_map">The New Smoothed Fuel Map</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Function MapSmoother(ByVal min_auto As Integer, ByVal maxVal As Integer, ByVal maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,), ByRef r_map As Integer(,), ByRef n_map As Integer(,))
+    Private Function MapSmoother(ByVal near_unchanged As Integer, ByVal maxVal As Integer, ByVal maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,), ByRef r_map As Integer(,), ByRef n_map As Integer(,))
+        Dim iterationCount As Integer
+        Dim totalCount As Integer
+        Dim min_auto As Integer
+
+        ' When near_unchanged is 0 the routine performs no action, otherwise performs multiple calls starting from 8 down to that value.
+        ' Best option is always to use near_unchanged = 8, so any cell could be a candidate for smoothing.
+        ' The idea is that the algorithm start focusing on the areas with higher level of information, 
+        ' so the interpolated cells are likely to have the best possible values. This is important since each generation
+        ' of new cells is the base for further interpolation and values once established are never modified.
+
+
+        If near_unchanged = 0 Then
+            Return 0
+        End If
+
+        min_auto = 8
+        totalCount = 0
+
+        Do
+            Do
+                iterationCount = Do_Smooth(min_auto, maxVal, maxRPM, c_map, p_map, r_map, n_map)
+                totalCount = totalCount + iterationCount
+            Loop While iterationCount > 0
+            min_auto = min_auto - 1
+        Loop While min_auto >= (8 - near_unchanged)
+
+        Return totalCount
+
+    End Function
+
+    Private Function Do_Smooth(ByVal min_auto As Integer, ByVal maxVal As Integer, ByVal maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,), ByRef r_map As Integer(,), ByRef n_map As Integer(,))
 
         Dim num_polished, num_autotuned, num_autounchg, num_autochged, num_confirmed, num_selected As Integer
         Dim num_auto, num_cross, num_edge As Integer
@@ -2726,21 +2755,21 @@ Public Class K8EngineDataViewer
 
                         cc = D2Fit(tc, bc, tr, cr, br)
 
-                        'If cc > Max(tc, bc) + 20 Then
-                        'cc = Max(tc, bc) + 20
-                        'End If
+                        If cc > Max(tc, bc) Then
+                            cc = Max(tc, bc)
+                        End If
 
-                        'If cc < Min(tc, bc) - 20 Then
-                        'cc = Min(tc, bc) - 20
-                        'End If
+                        If cc < Min(tc, bc) Then
+                            cc = Min(tc, bc)
+                        End If
 
-                Else
+                    Else
 
-                    cc = cr
-                    n_map(i, j) = cc
-                    Continue For
+                        cc = cr
+                        n_map(i, j) = cc
+                        Continue For
 
-                End If
+                    End If
                 Else
 
                     tr = r_map(i - 1, j)
@@ -2811,12 +2840,12 @@ Public Class K8EngineDataViewer
                     cc = 2 * (bc - br + tc - tr + rc - rr + lc - lr) + (brc - brr + tlc - tlr - trc + trr - blc + blr)
                     cc = DRound((8 * cr + cc) / 8.0)
 
-                    If cc < Min(tc, bc) - 20 Then
-                        cc = Min(tc, bc) - 20
+                    If cc < Min(tc, bc) Then
+                        cc = Min(tc, bc)
                     End If
 
-                    If cc > Max(tc, bc) + 20 Then
-                        cc = Max(tc, bc) + 20
+                    If cc > Max(tc, bc) Then
+                        cc = Max(tc, bc)
                     End If
 
                     p_map(i, j) = 1
@@ -2834,16 +2863,6 @@ Public Class K8EngineDataViewer
         Next
 
         Return num_polished
-
-    End Function
-
-    Private Function DRound(ByVal val As Double) As Integer
-
-        If val >= 0 Then
-            Return Math.Truncate(val + 0.5)
-        Else
-            Return Math.Truncate(val - 0.5)
-        End If
 
     End Function
 

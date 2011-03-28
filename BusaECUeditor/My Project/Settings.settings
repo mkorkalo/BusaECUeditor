@@ -116,8 +116,8 @@
     <Setting Name="AutoTuneTimeWindow" Type="System.Double" Scope="User">
       <Value Profile="(Default)">500</Value>
     </Setting>
-    <Setting Name="AutoTuneMinMapSmoothCells" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">3</Value>
+    <Setting Name="AutoTuneMapSmoothingStrength" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">8</Value>
     </Setting>
   </Settings>
 </SettingsFile>
