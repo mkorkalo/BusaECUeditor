@@ -1485,7 +1485,7 @@ Public Class K8EngineDataViewer
         Dim r_map(_rpmList.Count, _iapList.Count) As Integer
         Dim p_map(_rpmList.Count, _iapList.Count) As Integer
         Dim n_map(_rpmList.Count, _iapList.Count) As Integer
-        Dim op_map(_rpmList.Count, _tpsList.Count) As Integer
+        Dim op_map(_rpmList.Count, _tpsList.Count) As Decimal
 
         For xIndex As Integer = 0 To _iapList.Count - 1
             For yIndex As Integer = 0 To _rpmList.Count - 1
@@ -2621,6 +2621,11 @@ Public Class K8EngineDataViewer
 
 
         If near_unchanged = 0 Then
+            For j As Integer = 0 To maxVal - 1 Step 1
+                For i As Integer = 0 To maxRPM - 1 Step 1
+                    n_map(i, j) = c_map(i, j)
+                Next
+            Next
             Return 0
         End If
 
@@ -2633,14 +2638,52 @@ Public Class K8EngineDataViewer
                 totalCount = totalCount + iterationCount
             Loop While iterationCount > 0
             min_auto = min_auto - 1
-        Loop While min_auto >= (8 - near_unchanged)
+        Loop While min_auto > (8 - near_unchanged)
 
         Return totalCount
 
     End Function
 
     Private Function Do_Smooth(ByVal min_auto As Integer, ByVal maxVal As Integer, ByVal maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,), ByRef r_map As Integer(,), ByRef n_map As Integer(,))
-
+        '
+        ' Values in the RPM/TPS and RPM/IAP matrix are considered as a function
+        ' of 2 variables, with values sampled at regularly spaced increments.
+        ' The purpose of this routine is to update the current fuel matrix using
+        ' values coming from the autotuned matrix. The autotune matrix has frequently
+        ' unchanged cells surrounded by modified cells. This routine tries to
+        ' polish the surface with the objective of reproducing the shape of the current
+        ' running map, either as slope in the axis directions (i.e. first order
+        ' partial derivatives) or the curvature (i.e. second order partial derivaties).
+        ' 8 cells are required to approximate the derivatives by finite differences.
+        ' When less then 8 surrounding cells are modified, the missing cells are filled
+        ' with the running map values.
+        '
+        '
+        '               Autotune            Runtime
+        '               square              square
+        '
+        '             +----------+        +----------+
+        '             |tlc tc trc|        |tlr tr trr|
+        '             |lc  cc rc |        |lr  cr rr |
+        '             |blc bc brc|        |blr br brr|
+        '             +----------+        +----------+
+        '
+        ' d/dr    = cc-tc                 first partial derivative by row
+        ' d/dc    = cc-lc                 first partial derivative by column
+        ' d2/dr2  = bc-2cc+tc             second partial derivative by row 2 times
+        ' d2/dc2  = rc-2cc+lc             second partial derivative by col 2 times
+        ' d2/drdc = (brc+tlc-trc-blc)/4   second partial derivative mixed
+        '
+        ' d2 = d/dr2 + 2(d/drdc) + d/dc2    second order differential
+        '
+        ' By equting the second order differentials in cc and cr, the result is:
+        '
+        ' bc-2cc+tc +(brc+tlc-trc-blc)/2 +rc-2cc+lc =
+        ' br-2cr+tr +(brr+tlr-trr-blr)/2 +rr-2cr+lr
+        '
+        ' cc = cr +(bc-br+tc-tr+rc-rr+lc-lr)/4 +(brc-brr+tlc-tlr-trc+trr-blc+blr)/8
+        '
+        '
         Dim num_polished, num_autotuned, num_autounchg, num_autochged, num_confirmed, num_selected As Integer
         Dim num_auto, num_cross, num_edge As Integer
         Dim modified_around(9) As Integer
@@ -2829,7 +2872,7 @@ Public Class K8EngineDataViewer
                     modified_edge(num_edge) = modified_edge(num_edge) + 1
                     modified_around(num_auto) = modified_around(num_auto) + 1
 
-                    If (num_auto < min_auto) Or (min_auto > 1 And num_cross < 2) Then
+                    If (min_auto > 1 And (num_auto < min_auto Or num_cross < 2)) Then
                         cc = cr
                         n_map(i, j) = cc
                         Continue For
