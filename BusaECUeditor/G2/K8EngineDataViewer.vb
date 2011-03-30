@@ -2599,7 +2599,7 @@ Public Class K8EngineDataViewer
     ''' <summary>
     '''  Author of original C source: Dario Ballabio - March 2011
     ''' </summary>
-    ''' <param name="near_unchanged">The Minimum number of unchanged surrounding cells to allow map smoothing</param>
+    ''' <param name="map_smoothing_strength">The Minimum number of unchanged surrounding cells to allow map smoothing</param>
     ''' <param name="maxVal">The number of horizontal cells in the map</param>
     ''' <param name="maxRPM">The number of vertical cells in the map</param>
     ''' <param name="c_map">The AutoTuned Fuel Map</param>
@@ -2608,19 +2608,20 @@ Public Class K8EngineDataViewer
     ''' <param name="n_map">The New Smoothed Fuel Map</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Function MapSmoother(ByVal near_unchanged As Integer, ByVal maxVal As Integer, ByVal maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,), ByRef r_map As Integer(,), ByRef n_map As Integer(,))
+    Private Function MapSmoother(ByVal map_smoothing_strength As Integer, ByVal maxVal As Integer, ByVal maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,), ByRef r_map As Integer(,), ByRef n_map As Integer(,))
         Dim iterationCount As Integer
         Dim totalCount As Integer
         Dim min_auto As Integer
 
-        ' When near_unchanged is 0 the routine performs no action, otherwise performs multiple calls starting from 8 down to that value.
-        ' Best option is always to use near_unchanged = 8, so any cell could be a candidate for smoothing.
+        ' When map_smooth_strength is 0 the routine performs no action, otherwise performs multiple calls starting from 8 down to that value.
+        ' Best option is always to use map_smooth_strength = 8, so any cell could be a candidate for smoothing, including the cells with no close changes (num_auto = 0).
+        ' The special pass (min_auto = 0) has the only effect of applying  to all cells, including those with num_auto = 0, the "sanity check": min(tc,bc) <= cc <= max(tc,bc)
         ' The idea is that the algorithm start focusing on the areas with higher level of information, 
         ' so the interpolated cells are likely to have the best possible values. This is important since each generation
         ' of new cells is the base for further interpolation and values once established are never modified.
 
 
-        If near_unchanged = 0 Then
+        If map_smoothing_strength = 0 Then
             For j As Integer = 0 To maxVal - 1 Step 1
                 For i As Integer = 0 To maxRPM - 1 Step 1
                     n_map(i, j) = c_map(i, j)
@@ -2638,7 +2639,12 @@ Public Class K8EngineDataViewer
                 totalCount = totalCount + iterationCount
             Loop While iterationCount > 0
             min_auto = min_auto - 1
-        Loop While min_auto > (8 - near_unchanged)
+        Loop While min_auto > (8 - map_smoothing_strength)
+
+        If map_smoothing_strength = 8 Then
+            iterationCount = Do_Smooth(0, maxVal, maxRPM, c_map, p_map, r_map, n_map)
+            totalCount = totalCount + iterationCount
+        End If
 
         Return totalCount
 
@@ -2872,7 +2878,7 @@ Public Class K8EngineDataViewer
                     modified_edge(num_edge) = modified_edge(num_edge) + 1
                     modified_around(num_auto) = modified_around(num_auto) + 1
 
-                    If (min_auto > 1 And (num_auto < min_auto Or num_cross < 2)) Then
+                    If (Not (min_auto = 0 Or (min_auto = 1 And num_auto > 0) Or (min_auto > 1 And num_auto >= min_auto And num_cross >= 2))) Then
                         cc = cr
                         n_map(i, j) = cc
                         Continue For
