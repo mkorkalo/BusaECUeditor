@@ -366,7 +366,12 @@ Public Class GixxerIgnitionmap
         For cylinder = 0 To 3
             For ms01 = a To b
                 For modeabc = 0 To 2
+
                     copy_to_map = ReadFlashLongWord(ReadFlashLongWord((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                    If copy_to_map = 0 Then
+                        MsgBox("Error in ignition map definitions, please contact info@ecueditor.com. This program will now end just for safety")
+                        End
+                    End If
                     For cell = 0 To ((number_of_columns - 1) * (number_of_rows - 1))
                         WriteFlashByte(copy_to_map + (1 * cell), ReadFlashByte(copy_from_map + (1 * cell)))
                     Next
@@ -474,12 +479,12 @@ Public Class GixxerIgnitionmap
         '
         ' Lets select the map based on MS switch position for tracing and make sure that the correct map is visible when tracing
         '
-        If Me.Text.Contains("MS") And MS = 0 Then
-            selectmap(MS + 1)
-        End If
-        If (Not Me.Text.Contains("MS")) And MS = 1 Then
-            selectmap(MS + 1)
-        End If
+        'If Me.Text.Contains("MS") And MS = 0 Then
+        'selectmap(MS + 1)
+        'End If
+        'If (Not Me.Text.Contains("MS")) And MS = 1 Then
+        'selectmap(MS + 1)
+        'End If
 
         setCellColour(cc, rr)
 
