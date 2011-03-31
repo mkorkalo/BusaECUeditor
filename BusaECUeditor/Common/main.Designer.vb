@@ -730,7 +730,6 @@ Partial Class main
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip
         Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.Name = "main"
         Me.Text = "ecueditor.com for Hayabusa K2-K7, K8-.. , BKing, Gixxer K7- (by PetriK) "
         Me.MenuStrip.ResumeLayout(False)

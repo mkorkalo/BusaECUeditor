@@ -995,7 +995,7 @@ Public Class K8Datastream
 
 
         If K8boostfuel.Visible Then K8boostfuel.tracemap()
-        If GixxerSTPmap.Visible Then GixxerSTPmap.tracemap(GEAR, MS, MODE)
+        If K8STPmap.Visible Then K8STPmap.tracemap(Gear, MS, MODE)
         If K8nitrouscontrol.Visible Then K8nitrouscontrol.tracemap()
 
         If RPM = 0 Then
