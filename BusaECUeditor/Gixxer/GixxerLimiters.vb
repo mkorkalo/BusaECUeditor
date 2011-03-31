@@ -59,9 +59,9 @@ Public Class GixxerLimiters
         i = Val(RPM.Text)
         addedrpm = i - gixxer_baseline ' we are just setting here the baseline
 
-        If i >= 13500 Then
-            C_gearlimiter.Checked = True
-        End If
+        'If i >= 13500 Then
+        'C_gearlimiter.Checked = True
+        'End If
 
         '
         ' Fuel limiters

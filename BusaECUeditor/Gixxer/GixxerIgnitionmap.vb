@@ -71,6 +71,7 @@ Public Class GixxerIgnitionmap
     End Sub
 
     Private Sub Ignitionmap_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        Dim x As Integer
 
         change = 1 ' default change to map when pressing +,- or *,/
         previousrow = 0
@@ -81,17 +82,24 @@ Public Class GixxerIgnitionmap
             '
             ' First ask the user if the user wants to have ignition restrictions removed
             '
-            If (MsgBox("If you press OK then Ecueditor TRE for Gixxer K7- will be activated with ignition unify, using group2 maps for all gears and modes.", MsgBoxStyle.OkCancel) = MsgBoxResult.Ok) Then
+            If (MsgBox("If you press OK then Ecueditor TRE for Gixxer will be activated with ignition unify.", MsgBoxStyle.OkCancel) = MsgBoxResult.Ok) Then
 
                 '
                 ' First make sure that only ignition group2 is used for tuning
                 '
-                WriteFlashByte(gixxer_ignition_use_clutch_map + 1, ignitiongroup)
-                WriteFlashByte(gixxer_ignition_use_clutch_map + 2, ignitiongroup)
-                WriteFlashByte(gixxer_ignition_use_clutch_map + 3, ignitiongroup)
-                WriteFlashByte(gixxer_ignition_use_clutch_map + 4, ignitiongroup)
-                WriteFlashByte(gixxer_ignition_use_clutch_map + 5, ignitiongroup)
-                WriteFlashByte(gixxer_ignition_use_clutch_map + 6, ignitiongroup)
+                If main.Hayabusa.Text.Contains("32920-47H") Then
+                    For x = 1 To 36
+                        WriteFlashByte(gixxer_ignition_use_clutch_map + x, ignitiongroup)
+                    Next
+                Else
+                    WriteFlashByte(gixxer_ignition_use_clutch_map + 1, ignitiongroup)
+                    WriteFlashByte(gixxer_ignition_use_clutch_map + 2, ignitiongroup)
+                    WriteFlashByte(gixxer_ignition_use_clutch_map + 3, ignitiongroup)
+                    WriteFlashByte(gixxer_ignition_use_clutch_map + 4, ignitiongroup)
+                    WriteFlashByte(gixxer_ignition_use_clutch_map + 5, ignitiongroup)
+                    WriteFlashByte(gixxer_ignition_use_clutch_map + 6, ignitiongroup)
+                End If
+
                 '
                 ' Make clutch map to use the same ignition map as for other gears too
                 '
@@ -103,7 +111,7 @@ Public Class GixxerIgnitionmap
                 Me.Close()
             End If
 
-        End If
+            End If
 
 
         '
