@@ -938,6 +938,12 @@ Public Class K8EngineDataViewer
 
         Next
 
+        For xIndex As Integer = 0 To _iapList.Count - 1
+            For yIndex As Integer = 0 To _rpmList.Count - 1
+                G_FuelMap.Item(xIndex, yIndex).Style.Font = New Font(G_FuelMap.Font.FontFamily, G_FuelMap.Font.Size, FontStyle.Regular)
+            Next
+        Next
+
     End Sub
 
     Private Sub ShowIAPFuelHeaders()
@@ -2574,6 +2580,7 @@ Public Class K8EngineDataViewer
         End If
 
     End Sub
+
     Private Function DRound(ByVal val As Double) As Integer
 
         If val >= 0 Then
@@ -2583,6 +2590,7 @@ Public Class K8EngineDataViewer
         End If
 
     End Function
+
     Private Function D2Fit(ByVal x1 As Integer, ByVal x3 As Integer, ByVal y1 As Integer, ByVal y2 As Integer, ByVal y3 As Integer) As Integer
 
         Dim d2 As Integer
@@ -2690,11 +2698,7 @@ Public Class K8EngineDataViewer
         ' cc = cr +(bc-br+tc-tr+rc-rr+lc-lr)/4 +(brc-brr+tlc-tlr-trc+trr-blc+blr)/8
         '
         '
-        Dim num_polished, num_autotuned, num_autounchg, num_autochged, num_confirmed, num_selected As Integer
-        Dim num_auto, num_cross, num_edge As Integer
-        Dim modified_around(9) As Integer
-        Dim modified_cross(5) As Integer
-        Dim modified_edge(5) As Integer
+        Dim num_polished, num_auto, num_cross, num_edge As Integer
 
         Dim tc As Integer   ' top cell on autotune matrix
         Dim bc As Integer   ' bottom cell on autotune matrix
@@ -2716,41 +2720,6 @@ Public Class K8EngineDataViewer
         Dim blr As Integer  ' bottom left cell on running fuel matrix
 
         num_polished = 0
-        num_autotuned = 0
-        num_autounchg = 0
-        num_autochged = 0
-        num_confirmed = 0
-        num_selected = 0
-
-        For k As Integer = 0 To 8 Step 1
-            modified_around(k) = 0
-        Next
-
-        For k As Integer = 0 To 4 Step 1
-            modified_cross(k) = 0
-            modified_edge(k) = 0
-        Next
-
-        For j As Integer = 0 To maxVal - 1 Step 1
-            For i As Integer = 0 To maxRPM - 1 Step 1
-
-                If p_map(i, j) > 0 Then
-
-                    num_autotuned = num_autotuned + 1
-
-                    If c_map(i, j) = r_map(i, j) Then
-                        num_autounchg = num_autounchg + 1
-                    Else
-                        num_autochged = num_autochged + 1
-                    End If
-
-                ElseIf c_map(i, j) <> r_map(i, j) Then
-
-                    Throw New Exception("Percentage Change map does not indicate change, but current map cell does not match auto tuned map cell")
-
-                End If
-            Next
-        Next
 
         For j As Integer = 0 To maxVal - 1 Step 1
             For i As Integer = 0 To maxRPM - 1 Step 1
@@ -2768,58 +2737,74 @@ Public Class K8EngineDataViewer
                     Continue For
                 End If
 
-                If (j = 0 Or i = 0 Or i = maxRPM - 1) Or (j = maxVal - 1 And (i = 0 Or i = maxRPM - 1)) Then
-
+                If ((i = 0 Or i = maxRPM - 1) And (j = 0 Or j = maxVal - 1)) Then  ' ignore cells on the 4 corners
                     cc = cr
                     n_map(i, j) = cc
                     Continue For
 
-                ElseIf (j = maxVal - 1) Then
-                    ' Last Column
-
-                    lc = 0
-                    rc = 0
-                    trc = 0
-                    tlc = 0
-                    brc = 0
-                    blc = 0
-
-                    lr = 0
-                    rr = 0
-                    trr = 0
-                    tlr = 0
-                    brr = 0
-                    blr = 0
+                ElseIf (j = 0 Or j = maxVal - 1) Then    ' cell either on first or last column, performs 1 dimension, 2nd order interpolation
 
                     tc = c_map(i - 1, j)
                     bc = c_map(i + 1, j)
                     tr = r_map(i - 1, j)
                     br = r_map(i + 1, j)
 
-                    If (p_map(i - 1, j) > 0) And (p_map(i + 1, j) > 0) Then
+                    If (p_map(i - 1, j) > 0) Then
+                        num_cross = num_cross + 1
+                    End If
 
-                        modified_around(2) = modified_around(2) + 1
-                        modified_cross(2) = modified_cross(2) + 1
-                        num_selected = num_selected + 1
+                    If (p_map(i + 1, j) > 0) Then
+                        num_cross = num_cross + 1
+                    End If
 
-                        cc = D2Fit(tc, bc, tr, cr, br)
-
-                        If cc > Max(tc, bc) Then
-                            cc = Max(tc, bc)
-                        End If
-
-                        If cc < Min(tc, bc) Then
-                            cc = Min(tc, bc)
-                        End If
-
-                    Else
-
+                    If (Not (min_auto = 0 Or (min_auto = 1 And num_cross > 0) Or (min_auto > 1 And num_cross = 2))) Then
                         cc = cr
                         n_map(i, j) = cc
                         Continue For
-
                     End If
-                Else
+
+                    cc = D2Fit(tc, bc, tr, cr, br)
+
+                    If cc > Max(tc, bc) Then
+                        cc = Max(tc, bc)
+                    End If
+
+                    If cc < Min(tc, bc) Then
+                        cc = Min(tc, bc)
+                    End If
+
+                ElseIf (i = 0 Or i = maxRPM - 1) Then    ' cell either on first or last row, performs 1 dimension, 2nd order interpolation
+
+                    lc = c_map(i, j - 1)
+                    rc = c_map(i, j + 1)
+                    lr = r_map(i, j - 1)
+                    rr = r_map(i, j + 1)
+
+                    If (p_map(i, j - 1) > 0) Then
+                        num_cross = num_cross + 1
+                    End If
+
+                    If (p_map(i, j + 1) > 0) Then
+                        num_cross = num_cross + 1
+                    End If
+
+                    If (Not (min_auto = 0 Or (min_auto = 1 And num_cross > 0) Or (min_auto > 1 And num_cross = 2))) Then
+                        cc = cr
+                        n_map(i, j) = cc
+                        Continue For
+                    End If
+
+                    cc = D2Fit(lc, rc, lr, cr, rr)
+
+                    If cc > Max(lc, rc) Then
+                        cc = Max(lc, rc)
+                    End If
+
+                    If cc < Min(lc, rc) Then
+                        cc = Min(lc, rc)
+                    End If
+
+                Else  ' Any cell not on the boundary rows or columns, performs 2 dimensions, 2nd order interpolation
 
                     tr = r_map(i - 1, j)
                     br = r_map(i + 1, j)
@@ -2874,17 +2859,12 @@ Public Class K8EngineDataViewer
                     End If
 
                     num_auto = num_cross + num_edge
-                    modified_cross(num_cross) = modified_cross(num_cross) + 1
-                    modified_edge(num_edge) = modified_edge(num_edge) + 1
-                    modified_around(num_auto) = modified_around(num_auto) + 1
 
                     If (Not (min_auto = 0 Or (min_auto = 1 And num_auto > 0) Or (min_auto > 1 And num_auto >= min_auto And num_cross >= 2))) Then
                         cc = cr
                         n_map(i, j) = cc
                         Continue For
                     End If
-
-                    num_selected = num_selected + 1
 
                     cc = 2 * (bc - br + tc - tr + rc - rr + lc - lr) + (brc - brr + tlc - tlr - trc + trr - blc + blr)
                     cc = DRound((8 * cr + cc) / 8.0)
@@ -2897,17 +2877,16 @@ Public Class K8EngineDataViewer
                         cc = Max(tc, bc)
                     End If
 
-                    p_map(i, j) = 1
-                    c_map(i, j) = cc
-                    n_map(i, j) = cc
-
-                    If cc = cr Then
-                        num_confirmed = num_confirmed + 1
-                    Else
-                        num_polished = num_polished + 1
-                    End If
-
                 End If
+
+                p_map(i, j) = 1
+                c_map(i, j) = cc
+                n_map(i, j) = cc
+
+                If cc <> cr Then
+                    num_polished = num_polished + 1
+                End If
+
             Next
         Next
 
