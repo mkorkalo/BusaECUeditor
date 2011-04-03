@@ -186,14 +186,14 @@ Partial Class K8AutoTuneSettings
         Me.Label12.AutoSize = True
         Me.Label12.Location = New System.Drawing.Point(18, 108)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(124, 13)
+        Me.Label12.Size = New System.Drawing.Size(160, 13)
         Me.Label12.TabIndex = 22
-        Me.Label12.Text = "Map Smoothing Strength"
+        Me.Label12.Text = "Map Smoothing Strength ( 0 - 9 )"
         '
         'NUD_AutoTuneMapSmoothingStrength
         '
         Me.NUD_AutoTuneMapSmoothingStrength.Location = New System.Drawing.Point(241, 106)
-        Me.NUD_AutoTuneMapSmoothingStrength.Maximum = New Decimal(New Integer() {8, 0, 0, 0})
+        Me.NUD_AutoTuneMapSmoothingStrength.Maximum = New Decimal(New Integer() {9, 0, 0, 0})
         Me.NUD_AutoTuneMapSmoothingStrength.Name = "NUD_AutoTuneMapSmoothingStrength"
         Me.NUD_AutoTuneMapSmoothingStrength.Size = New System.Drawing.Size(60, 20)
         Me.NUD_AutoTuneMapSmoothingStrength.TabIndex = 21

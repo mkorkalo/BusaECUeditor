@@ -1800,59 +1800,78 @@ Public Class K8EngineDataViewer
 
     Private Sub R_LoggedAFR_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles R_LoggedAFR.CheckedChanged
 
-        ShowMap()
+        If R_LoggedAFR.Checked Then
 
-        SetAutoTuneButton()
+            ShowMap()
 
-        B_LoadTargetAFR.Visible = False
-        B_SaveTargetAFR.Visible = False
+            SetAutoTuneButton()
+
+            B_LoadTargetAFR.Visible = False
+            B_SaveTargetAFR.Visible = False
+
+        End If
 
     End Sub
 
     Private Sub R_TargetAFR_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles R_TargetAFR.CheckedChanged
 
-        ShowMap()
+        If R_TargetAFR.Checked Then
 
-        SetAutoTuneButton()
+            ShowMap()
 
-        B_LoadTargetAFR.Visible = True
-        B_SaveTargetAFR.Visible = True
+            SetAutoTuneButton()
+
+            B_LoadTargetAFR.Visible = True
+            B_SaveTargetAFR.Visible = True
+
+        End If
 
     End Sub
 
     Private Sub R_DataCount_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles R_DataCount.CheckedChanged
 
-        ShowMap()
+        If R_DataCount.Checked Then
 
-        SetAutoTuneButton()
+            ShowMap()
 
-        B_LoadTargetAFR.Visible = True
-        B_SaveTargetAFR.Visible = True
+            SetAutoTuneButton()
+
+            B_LoadTargetAFR.Visible = True
+            B_SaveTargetAFR.Visible = True
+
+        End If
 
     End Sub
 
     Private Sub R_PercentageMapChange_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles R_PercentageMapChange.CheckedChanged
 
-        ShowMap()
+        If R_PercentageMapChange.Checked Then
 
-        SetAutoTuneButton()
+            ShowMap()
 
-        B_LoadTargetAFR.Visible = False
-        B_SaveTargetAFR.Visible = False
+            SetAutoTuneButton()
+
+            B_LoadTargetAFR.Visible = False
+            B_SaveTargetAFR.Visible = False
+
+        End If
 
     End Sub
 
     Private Sub R_AutoTunedMap_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles R_AutoTunedMap.CheckedChanged
 
-        C_ShowCurrentMap.Checked = False
+        If R_AutoTunedMap.Checked Then
 
-        ShowMap()
+            C_ShowCurrentMap.Checked = False
 
-        SetAutoTuneButton()
+            ShowMap()
 
-        B_LoadTargetAFR.Visible = False
-        B_SaveTargetAFR.Visible = False
+            SetAutoTuneButton()
 
+            B_LoadTargetAFR.Visible = False
+            B_SaveTargetAFR.Visible = False
+
+        End If
     End Sub
 
     Private Sub C_ShowCurrentMap_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_ShowCurrentMap.CheckedChanged
@@ -2648,11 +2667,6 @@ Public Class K8EngineDataViewer
             Loop While iterationCount > 0
             min_auto = min_auto - 1
         Loop While min_auto > (8 - map_smoothing_strength)
-
-        If map_smoothing_strength = 8 Then
-            iterationCount = Do_Smooth(0, maxVal, maxRPM, c_map, p_map, r_map, n_map)
-            totalCount = totalCount + iterationCount
-        End If
 
         Return totalCount
 
