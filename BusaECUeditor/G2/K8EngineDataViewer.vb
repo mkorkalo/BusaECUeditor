@@ -1367,6 +1367,8 @@ Public Class K8EngineDataViewer
             mapStructureTable = &H52304
         ElseIf ECUVersion = "bking" Then
             mapStructureTable = &H54EB4
+        ElseIf ECUVersion = "gixxer" Then
+            mapStructureTable = gixxer_fuelmap_map_first + (2 * 4 * 24)
         End If
 
         editingMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
@@ -1478,6 +1480,9 @@ Public Class K8EngineDataViewer
         ElseIf ECUVersion = "bking" Then
             mapStructureTable = &H54DF4
             mapStructureTable2 = &H54E54
+        ElseIf ECUVersion = "gixxer" Then
+            mapStructureTable = gixxer_fuelmap_map_first
+            mapStructureTable2 = gixxer_fuelmap_map_first + (4 * 24)
         End If
 
         editingMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
@@ -1950,10 +1955,6 @@ Public Class K8EngineDataViewer
             Else
                 B_AutoTune.Enabled = False
             End If
-        End If
-
-        If ECUVersion = "gixxer" Then
-            B_AutoTune.Enabled = False
         End If
 
     End Sub
@@ -2429,6 +2430,8 @@ Public Class K8EngineDataViewer
             mapStructureTable = &H52304
         ElseIf ECUVersion = "bking" Then
             mapStructureTable = &H54EB4
+        ElseIf ECUVersion = "gixxer" Then
+            mapStructureTable = gixxer_fuelmap_map_first + (2 * 4 * 24)
         End If
 
         editingMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
@@ -2475,6 +2478,9 @@ Public Class K8EngineDataViewer
             ElseIf ECUVersion = "bking" Then
                 mapStructureTable = &H54DF4
                 mapStructureTable2 = &H54E54
+            ElseIf ECUVersion = "gixxer" Then
+                mapStructureTable = gixxer_fuelmap_map_first
+                mapStructureTable2 = gixxer_fuelmap_map_first + (4 * 24)
             End If
 
             editingMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)

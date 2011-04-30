@@ -394,7 +394,7 @@ Public Class GixxerIgnitionmap
         ' This function loads a map into a grid including map contents and heading information
         '
 
-        Dim columnheading_map, rowheading_map As Integer
+        Dim columnheading_map, rowheading_map As Long
         Dim i As Integer
         Dim ii As Integer
         Dim c As Integer

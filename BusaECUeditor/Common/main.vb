@@ -3886,13 +3886,13 @@ skip_update:
                 gixxer_fuelmap_map_first = &H6026C            'Fuel_IAP
                 gixxer_injectorbalance_map_first = &H60254     'injector_balancing_volume_
 
-                gixxer_ignition_map_first = 0 '&H5A854              ' ign_group_clutch_neutral
-                gixxer_ignition_use_clutch_map = 0 '&H743A4         ' use_clutch_map_if_0x1
+                gixxer_ignition_map_first = &H5A854              ' ign_group_clutch_neutral
+                gixxer_ignition_use_clutch_map = &H743A4         ' use_clutch_map_if_0x1
 
-                gixxer_msmode = 0 '&H73E8F
-                gixxer_ecumode = 0 '&H73D2B
+                gixxer_msmode = &H73E8F
+                gixxer_ecumode = &H73D2B
 
-                gixxer_ignition_rpm_limiter = 0 '&H74374          'ignition_rpm_limiter
+                gixxer_ignition_rpm_limiter = &H74374          'ignition_rpm_limiter
 
                 gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = 0 '&H3BD60 + 1 'sub set_ignition_limiters beginning the GPS_sensor_RAW address
                 gixxer_GPS_voltage_raw = 0 '&H80510D
