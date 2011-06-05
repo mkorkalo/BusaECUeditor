@@ -84,6 +84,11 @@ Public Class K8Shifter
         initiating = False
         L_shifterver.Text = Str(SHIFTER2VERSION)
 
+
+        C_DSM.Items.Add("Resistor")
+        C_DSM.Items.Add("DSM2 Lower")
+        C_DSM.Items.Add("DSM1 Upper")
+
         If (ReadFlashByte(ADJ) = &HFF) Then
             C_shifter_activation.Checked = False
             hide_shifter_settings()
@@ -211,24 +216,12 @@ Public Class K8Shifter
             C_igncut.Checked = False
         End If
         If ReadFlashByte(&H55420) = 0 Then
-            C_DSMactivation.Checked = False
-            C_DSMactivation.Text = "Normal GPS resistor activation"
-            WriteFlashByte(&H55420, 0)
-            G_DSMACTIVATION.Visible = False
-            Me.Height = 613
+            deactivate_DSM()
         Else
-            C_DSMactivation.Checked = True
-            C_DSMactivation.Text = "DSM2 and resistor activation"
-            G_DSMACTIVATION.Visible = True
-            If ReadFlashByte(&H72558) = &HFF Then
-                K8Advsettings.Show()
-                If K8Advsettings.C_ABCmode.Checked <> False Then
-                    K8Advsettings.C_ABCmode.Checked = False
-                End If
-                Me.Focus()
-            End If
-            WriteFlashByte(&H55420, 1) ' 1 = DSM2, 2 = DSM1
-            Me.Height = 265
+            activate_DSM(ReadFlashByte(&H55420))
+        End If
+        If ReadFlashByte(&H55420) >= 0 And ReadFlashByte(&H55420) <= 2 Then
+            C_DSM.SelectedIndex = ReadFlashByte(&H55420)
         End If
 
         L_minkillactive.Visible = True
@@ -240,7 +233,7 @@ Public Class K8Shifter
         C_killtime.Enabled = True
         C_Fuelcut.Visible = True
         C_igncut.Visible = True
-        C_DSMactivation.Visible = True
+        C_DSM.Visible = True
         RPM1.Visible = True
 
         'populate RPM with initial value
@@ -290,7 +283,7 @@ Public Class K8Shifter
         C_Fuelcut.Visible = False
         C_igncut.Visible = False
 
-        C_DSMactivation.Visible = False
+        C_DSM.Visible = False
 
         RPM1.Visible = False
         G_DSMACTIVATION.Visible = False
@@ -382,31 +375,45 @@ Public Class K8Shifter
         WriteFlashByte(&H525C7, &H65)
     End Sub
 
-    Private Sub CheckBox1_CheckedChanged_2(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_DSMactivation.CheckedChanged
-        If Not initiating Then
-
-            If Not C_DSMactivation.Checked Then
-                C_DSMactivation.Text = "Normal GPS resistor activation"
-                P_shifterwiring.Image = Image.FromFile(".\G2\shifter.jpg")
-                WriteFlashByte(&H55420, 0)
-                G_DSMACTIVATION.Visible = False
-                Me.Height = 613
-            Else
-                C_DSMactivation.Text = "DSM2 and resistor activation"
-                P_shifterwiring.Image = Image.FromFile(".\G2\shifter_DSM.jpg")
-                If ReadFlashByte(&H72558) = &HFF Then
-                    K8Advsettings.Show()
-                    If K8Advsettings.C_ABCmode.Checked <> False Then
-                        K8Advsettings.C_ABCmode.Checked = False
-                    End If
-                    Me.Focus()
-                End If
-                WriteFlashByte(&H55420, 1) ' 1 = DSM2, 2 = DSM1
-                G_DSMACTIVATION.Visible = True
-                Me.Height = 613 'Me.Height = 263
+    Private Sub deactivate_DSM()
+        C_DSM.Text = "Normal GPS resistor activation"
+        P_shifterwiring.Image = Image.FromFile(".\G2\shifter.jpg")
+        WriteFlashByte(&H55420, 0)
+        G_DSMACTIVATION.Visible = False
+        Me.Height = 613
+    End Sub
+    Private Sub activate_DSM(ByVal d As Integer)
+        C_DSM.Text = "DSM and resistor activation"
+        P_shifterwiring.Image = Image.FromFile(".\G2\shifter_DSM.jpg")
+        If ReadFlashByte(&H72558) = &HFF Then
+            K8Advsettings.Show()
+            If K8Advsettings.C_ABCmode.Checked <> False Then
+                K8Advsettings.C_ABCmode.Checked = False
             End If
+            Me.Focus()
+        End If
+        If d = 1 Or d = 2 Then
+            WriteFlashByte(&H55420, d) ' 1 = DSM2, 2 = DSM1
+            C_DSM.Text = "DSM" & d & " and resistor activation"
+        Else
+            deactivate_DSM()
         End If
 
+        G_DSMACTIVATION.Visible = True
+        Me.Height = 613 'Me.Height = 263
+
+    End Sub
+    Private Sub C_DSM_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_DSM.SelectedIndexChanged
+        If Not initiating Then
+            Select Case C_DSM.SelectedIndex
+                Case 1
+                    activate_DSM(1)
+                Case 2
+                    activate_DSM(2)
+                Case Else
+                    deactivate_DSM()
+            End Select
+        End If
     End Sub
 
     Private Sub RPM_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RPM1.SelectedIndexChanged
@@ -441,4 +448,5 @@ Public Class K8Shifter
         If Val(T_minkillactive.Text) <= 1 Then T_minkillactive.Text = "1"
         WriteFlashWord(ADJ + 22, Val(T_minkillactive.Text))
     End Sub
+
 End Class

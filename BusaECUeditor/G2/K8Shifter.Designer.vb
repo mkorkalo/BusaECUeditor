@@ -19,50 +19,50 @@ Partial Class K8Shifter
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(K8Shifter))
-        Me.C_shifter_activation = New System.Windows.Forms.CheckBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.T_12000 = New System.Windows.Forms.TextBox
-        Me.T_11000 = New System.Windows.Forms.TextBox
-        Me.T_10000 = New System.Windows.Forms.TextBox
-        Me.T_9000 = New System.Windows.Forms.TextBox
-        Me.T_8000 = New System.Windows.Forms.TextBox
-        Me.T_7000 = New System.Windows.Forms.TextBox
-        Me.T_6000 = New System.Windows.Forms.TextBox
-        Me.T_5000 = New System.Windows.Forms.TextBox
-        Me.T_4000 = New System.Windows.Forms.TextBox
-        Me.T_3000 = New System.Windows.Forms.TextBox
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.C_killtime = New System.Windows.Forms.ComboBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.G_DSMACTIVATION = New System.Windows.Forms.GroupBox
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.RPM456 = New System.Windows.Forms.ComboBox
-        Me.RPM3 = New System.Windows.Forms.ComboBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.RPM2 = New System.Windows.Forms.ComboBox
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.RPM1 = New System.Windows.Forms.ComboBox
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.C_DSMactivation = New System.Windows.Forms.CheckBox
-        Me.C_igncut = New System.Windows.Forms.CheckBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.C_Fuelcut = New System.Windows.Forms.CheckBox
-        Me.L_killcountdelay = New System.Windows.Forms.Label
-        Me.L_minkillactive = New System.Windows.Forms.Label
-        Me.T_killcountdelay = New System.Windows.Forms.TextBox
-        Me.T_minkillactive = New System.Windows.Forms.TextBox
-        Me.L_shifterver = New System.Windows.Forms.Label
-        Me.HelpProvider1 = New System.Windows.Forms.HelpProvider
-        Me.P_shifterwiring = New System.Windows.Forms.PictureBox
+        Me.C_shifter_activation = New System.Windows.Forms.CheckBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.T_12000 = New System.Windows.Forms.TextBox()
+        Me.T_11000 = New System.Windows.Forms.TextBox()
+        Me.T_10000 = New System.Windows.Forms.TextBox()
+        Me.T_9000 = New System.Windows.Forms.TextBox()
+        Me.T_8000 = New System.Windows.Forms.TextBox()
+        Me.T_7000 = New System.Windows.Forms.TextBox()
+        Me.T_6000 = New System.Windows.Forms.TextBox()
+        Me.T_5000 = New System.Windows.Forms.TextBox()
+        Me.T_4000 = New System.Windows.Forms.TextBox()
+        Me.T_3000 = New System.Windows.Forms.TextBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.C_killtime = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.C_DSM = New System.Windows.Forms.ComboBox()
+        Me.G_DSMACTIVATION = New System.Windows.Forms.GroupBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.RPM456 = New System.Windows.Forms.ComboBox()
+        Me.RPM3 = New System.Windows.Forms.ComboBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.RPM2 = New System.Windows.Forms.ComboBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.RPM1 = New System.Windows.Forms.ComboBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.C_igncut = New System.Windows.Forms.CheckBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.C_Fuelcut = New System.Windows.Forms.CheckBox()
+        Me.L_killcountdelay = New System.Windows.Forms.Label()
+        Me.L_minkillactive = New System.Windows.Forms.Label()
+        Me.T_killcountdelay = New System.Windows.Forms.TextBox()
+        Me.T_minkillactive = New System.Windows.Forms.TextBox()
+        Me.L_shifterver = New System.Windows.Forms.Label()
+        Me.HelpProvider1 = New System.Windows.Forms.HelpProvider()
+        Me.P_shifterwiring = New System.Windows.Forms.PictureBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.GroupBox2.SuspendLayout()
         Me.G_DSMACTIVATION.SuspendLayout()
@@ -196,11 +196,11 @@ Partial Class K8Shifter
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.C_DSM)
         Me.GroupBox2.Controls.Add(Me.G_DSMACTIVATION)
         Me.GroupBox2.Controls.Add(Me.Label11)
         Me.GroupBox2.Controls.Add(Me.RPM1)
         Me.GroupBox2.Controls.Add(Me.Label10)
-        Me.GroupBox2.Controls.Add(Me.C_DSMactivation)
         Me.GroupBox2.Controls.Add(Me.C_igncut)
         Me.GroupBox2.Controls.Add(Me.Label3)
         Me.GroupBox2.Controls.Add(Me.C_Fuelcut)
@@ -217,6 +217,17 @@ Partial Class K8Shifter
         Me.GroupBox2.TabIndex = 41
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Shifter settings"
+        '
+        'C_DSM
+        '
+        Me.C_DSM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.C_DSM.FormattingEnabled = True
+        Me.C_DSM.Location = New System.Drawing.Point(102, 123)
+        Me.C_DSM.MaxDropDownItems = 12
+        Me.C_DSM.Name = "C_DSM"
+        Me.C_DSM.Size = New System.Drawing.Size(85, 21)
+        Me.C_DSM.TabIndex = 61
+        Me.ToolTip1.SetToolTip(Me.C_DSM, "Set resistor or DSM activation")
         '
         'G_DSMACTIVATION
         '
@@ -377,17 +388,6 @@ Partial Class K8Shifter
         Me.Label10.TabIndex = 51
         Me.Label10.Text = "Minimum shift RPM"
         '
-        'C_DSMactivation
-        '
-        Me.C_DSMactivation.AutoSize = True
-        Me.C_DSMactivation.Location = New System.Drawing.Point(102, 125)
-        Me.C_DSMactivation.Name = "C_DSMactivation"
-        Me.C_DSMactivation.Size = New System.Drawing.Size(157, 17)
-        Me.C_DSMactivation.TabIndex = 50
-        Me.C_DSMactivation.Text = "DSM2 activated shift active"
-        Me.ToolTip1.SetToolTip(Me.C_DSMactivation, resources.GetString("C_DSMactivation.ToolTip"))
-        Me.C_DSMactivation.UseVisualStyleBackColor = True
-        '
         'C_igncut
         '
         Me.C_igncut.AutoSize = True
@@ -480,7 +480,7 @@ Partial Class K8Shifter
         Me.ToolTip1.InitialDelay = 500
         Me.ToolTip1.ReshowDelay = 100
         '
-        'K8shifter
+        'K8Shifter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -499,7 +499,7 @@ Partial Class K8Shifter
         Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "K8shifter"
+        Me.Name = "K8Shifter"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Hayabusa K8- Shiftkill module (fuelcut and ignitioncut)"
@@ -542,7 +542,6 @@ Partial Class K8Shifter
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents HelpProvider1 As System.Windows.Forms.HelpProvider
-    Friend WithEvents C_DSMactivation As System.Windows.Forms.CheckBox
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents RPM1 As System.Windows.Forms.ComboBox
     Friend WithEvents Label11 As System.Windows.Forms.Label
@@ -555,5 +554,6 @@ Partial Class K8Shifter
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents Label12 As System.Windows.Forms.Label
+    Friend WithEvents C_DSM As System.Windows.Forms.ComboBox
 
 End Class
