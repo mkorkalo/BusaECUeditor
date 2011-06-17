@@ -1004,17 +1004,22 @@ Public Class K8Advsettings
                 WriteFlashByte(&H72558, &HFF)
                 ' enable DSM1 and enable ABC
                 WriteFlashByte(&H1D9E7, &H2) 'dsm1
-                WriteFlashByte(&H1DCD7, &H2) 'dsm1
                 WriteFlashByte(&H1DA5B, &H1) 'dsm2
+
+                WriteFlashByte(&H1DCD7, &H2) 'dsm1
                 WriteFlashByte(&H1DCEF, &H1) 'dsm2
             Else
                 C_ABCmode.Text = "ABC mode fixed to A"
                 WriteFlashByte(&H72558, &H0)
                 ' disable DSM
-                WriteFlashByte(&H1D9E7, &HFF) 'dsm1
-                WriteFlashByte(&H1DCD7, &HFF) 'dsm1
-                WriteFlashByte(&H1DA5B, &HFF) 'dsm2
-                WriteFlashByte(&H1DCEF, &HFF) 'dsm2
+                '
+                ' 17.6.2011, Pka
+                ' 0xFF changed to 0x00 for disabling the dsm
+                '
+                WriteFlashByte(&H1D9E7, &H0) 'dsm1
+                WriteFlashByte(&H1DA5B, &H0) 'dsm2
+                WriteFlashByte(&H1DCD7, &H0) 'dsm1
+                WriteFlashByte(&H1DCEF, &H0) 'dsm2
 
             End If
         End If

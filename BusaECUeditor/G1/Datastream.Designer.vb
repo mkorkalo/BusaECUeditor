@@ -19,34 +19,34 @@ Partial Class Datastream
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
-        Me.TextBox2 = New System.Windows.Forms.TextBox
-        Me.C_SerialPort = New System.Windows.Forms.ComboBox
-        Me.TextBox1 = New System.Windows.Forms.TextBox
+        Me.components = New System.ComponentModel.Container()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.C_SerialPort = New System.Windows.Forms.ComboBox()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.SerialPort1 = New System.IO.Ports.SerialPort(Me.components)
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
-        Me.B_DataStreamOn = New System.Windows.Forms.Button
-        Me.B_Logging = New System.Windows.Forms.Button
-        Me.TrackBar_Datalog = New System.Windows.Forms.TrackBar
-        Me.C_Uservar1 = New System.Windows.Forms.ComboBox
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.LED_RPM = New LxControl.LxLedControl
-        Me.LED_IGN = New LxControl.LxLedControl
-        Me.LED_CLT = New LxControl.LxLedControl
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.LED_TPS = New LxControl.LxLedControl
-        Me.LED_IAP = New LxControl.LxLedControl
-        Me.LED_FUEL = New LxControl.LxLedControl
-        Me.LED_USR1 = New LxControl.LxLedControl
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.T_MapSelected = New System.Windows.Forms.TextBox
-        Me.R_OxySensor = New System.Windows.Forms.RadioButton
-        Me.B_LC1On = New System.Windows.Forms.Button
-        Me.RPMGauge = New ecueditor_25.ldGuage.ldGuage
+        Me.B_DataStreamOn = New System.Windows.Forms.Button()
+        Me.B_Logging = New System.Windows.Forms.Button()
+        Me.TrackBar_Datalog = New System.Windows.Forms.TrackBar()
+        Me.C_Uservar1 = New System.Windows.Forms.ComboBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.LED_RPM = New LxControl.LxLedControl()
+        Me.LED_IGN = New LxControl.LxLedControl()
+        Me.LED_CLT = New LxControl.LxLedControl()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.LED_TPS = New LxControl.LxLedControl()
+        Me.LED_IAP = New LxControl.LxLedControl()
+        Me.LED_FUEL = New LxControl.LxLedControl()
+        Me.LED_USR1 = New LxControl.LxLedControl()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.T_MapSelected = New System.Windows.Forms.TextBox()
+        Me.R_OxySensor = New System.Windows.Forms.RadioButton()
+        Me.B_LC1On = New System.Windows.Forms.Button()
+        Me.RPMGauge = New ecueditor_25.ldGuage.ldGuage()
         CType(Me.TrackBar_Datalog, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_RPM, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_IGN, System.ComponentModel.ISupportInitialize).BeginInit()
