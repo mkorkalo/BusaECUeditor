@@ -2997,6 +2997,10 @@ skip_update:
                 Hayabusa.Text = "Bking EU and AU"
                 Metric = True
                 ECUVersion = "bking"
+            Case "DJ47SE10"
+                Hayabusa.Text = "Bking Unknown"
+                Metric = False
+                ECUVersion = "bking"
             Case "DJ47SE20"
                 Hayabusa.Text = "Bking USA (California)"
                 Metric = False
