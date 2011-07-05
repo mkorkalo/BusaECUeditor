@@ -3886,7 +3886,7 @@ skip_update:
                 gixxer_fuelmap_map_first = &H6026C            'Fuel_IAP
                 gixxer_injectorbalance_map_first = &H60254     'injector_balancing_volume_
 
-                gixxer_ignition_map_first = &H5A854              ' ign_group_clutch_neutral
+                gixxer_ignition_map_first = &H5FA4C              ' ign_group_clutch_neutral
                 gixxer_ignition_use_clutch_map = &H743A4         ' use_clutch_map_if_0x1
 
                 gixxer_msmode = &H73E8F

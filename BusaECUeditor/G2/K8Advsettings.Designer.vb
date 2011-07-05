@@ -68,6 +68,7 @@ Partial Class K8Advsettings
         Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.C_BkingGauges = New System.Windows.Forms.CheckBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.C_fan = New System.Windows.Forms.ComboBox()
         Me.C_TOS = New System.Windows.Forms.CheckBox()
@@ -76,7 +77,6 @@ Partial Class K8Advsettings
         Me.Label5 = New System.Windows.Forms.Label()
         Me.C_ABCmode = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.C_BkingGauges = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -312,9 +312,9 @@ Partial Class K8Advsettings
         Me.C_warmup.AutoSize = True
         Me.C_warmup.Location = New System.Drawing.Point(6, 128)
         Me.C_warmup.Name = "C_warmup"
-        Me.C_warmup.Size = New System.Drawing.Size(135, 17)
+        Me.C_warmup.Size = New System.Drawing.Size(97, 17)
         Me.C_warmup.TabIndex = 4
-        Me.C_warmup.Text = "Warmup compensation"
+        Me.C_warmup.Text = "95C thermostat"
         Me.ToolTip1.SetToolTip(Me.C_warmup, resources.GetString("C_warmup.ToolTip"))
         Me.C_warmup.UseVisualStyleBackColor = True
         '
@@ -593,6 +593,16 @@ Partial Class K8Advsettings
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Misc settings"
         '
+        'C_BkingGauges
+        '
+        Me.C_BkingGauges.AutoSize = True
+        Me.C_BkingGauges.Location = New System.Drawing.Point(171, 82)
+        Me.C_BkingGauges.Name = "C_BkingGauges"
+        Me.C_BkingGauges.Size = New System.Drawing.Size(97, 17)
+        Me.C_BkingGauges.TabIndex = 105
+        Me.C_BkingGauges.Text = "B-King Gauges"
+        Me.C_BkingGauges.UseVisualStyleBackColor = True
+        '
         'Label13
         '
         Me.Label13.AutoSize = True
@@ -669,16 +679,6 @@ Partial Class K8Advsettings
         Me.GroupBox2.TabIndex = 9
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Gaugemode"
-        '
-        'C_BkingGauges
-        '
-        Me.C_BkingGauges.AutoSize = True
-        Me.C_BkingGauges.Location = New System.Drawing.Point(171, 82)
-        Me.C_BkingGauges.Name = "C_BkingGauges"
-        Me.C_BkingGauges.Size = New System.Drawing.Size(97, 17)
-        Me.C_BkingGauges.TabIndex = 105
-        Me.C_BkingGauges.Text = "B-King Gauges"
-        Me.C_BkingGauges.UseVisualStyleBackColor = True
         '
         'K8Advsettings
         '
