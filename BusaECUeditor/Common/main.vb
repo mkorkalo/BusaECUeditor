@@ -2998,7 +2998,7 @@ skip_update:
                 Metric = True
                 ECUVersion = "bking"
             Case "DJ47SE10"
-                Hayabusa.Text = "Bking Unknown"
+                Hayabusa.Text = "Bking Canada"
                 Metric = False
                 ECUVersion = "bking"
             Case "DJ47SE20"
@@ -6560,6 +6560,61 @@ skip_update:
         MsgBox("A new Gixxer basemap is generated", MsgBoxStyle.Information)
 
         BlockPgm = True
+
+    End Sub
+
+    Private Sub H10ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles H10ToolStripMenuItem.Click
+        Dim defpath As String ' this is for this subroutine only
+
+        CloseChildWindows()
+
+
+        ' OK, so the file is found, now lets start processing it
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\DJ47SE10.bin"
+
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        DisableButtons()
+
+        ' Open the stream and read it to global variable "Flash". 
+        fs = File.OpenRead(defpath)
+        Dim b(1) As Byte
+        Dim i As Integer
+        i = 0
+        Do While fs.Read(b, 0, 1) > 0
+            Flash(i) = b(0)
+            FlashCopy(i) = b(0)
+            i = i + 1
+        Loop
+        fs.Close()
+
+        ' Check that the binary lenght matches expected ecu
+        If i <> (262144 * 4) Then
+            ECUNotSupported.ShowDialog()
+        End If
+
+        ECUVersion = "bking"
+        '
+        ' Make sure the ECU id is supported type
+        '
+        i = 0
+        ECUID.Text = ""
+        Do While i < 8
+            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
+            i = i + 1
+        Loop
+
+        ' check the ecu id bytes and validate that the ecu flash image is supported
+        If Mid(ECUID.Text, 1, 6) <> "DJ47SE" Then
+            ECUNotSupported.ShowDialog()
+        Else
+            SetECUType()
+        End If
+
+        MsgBox("A new Bking basemap is generated", MsgBoxStyle.Information)
+
+        BlockPgm = True
+
 
     End Sub
 End Class
