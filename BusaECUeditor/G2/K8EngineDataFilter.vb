@@ -7,6 +7,7 @@
         C_FilterClutchIn.Checked = My.Settings.FilterClutchIn
         NUD_FilterAFRLessThan.Value = My.Settings.FilterAFRLessThan
         NUD_FilterAFRGreaterThan.Value = My.Settings.FilterAFRGreaterThan
+        C_FilterIAPDecel.Checked = My.Settings.FilterIAPDecl
 
     End Sub
 
@@ -17,6 +18,7 @@
         My.Settings.FilterGearNeutral = C_GearNeutral.Checked
         My.Settings.FilterAFRLessThan = NUD_FilterAFRLessThan.Value
         My.Settings.FilterAFRGreaterThan = NUD_FilterAFRGreaterThan.Value
+        My.Settings.FilterIAPDecl = C_FilterIAPDecel.Checked
         My.Settings.Save()
 
         K8EngineDataViewer.ClearData()
