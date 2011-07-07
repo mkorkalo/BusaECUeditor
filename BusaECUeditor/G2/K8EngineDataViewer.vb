@@ -378,7 +378,7 @@ Public Class K8EngineDataViewer
                         logValue.FUEL3 = values(20)
                         logValue.FUEL4 = values(21)
 
-                        If CheckEngineDataFilter(logValue) = True Then
+                        If CheckEngineDataFilter(logValue, previousLogValue) = True Then
 
                             If previousLogValue Is Nothing = False And logValue.RPM - previousLogValue.RPM > My.Settings.AutoTuneExhaustGasOffset / 4 Then
                                 If logValue.TPS <= 25 Then
@@ -510,10 +510,10 @@ Public Class K8EngineDataViewer
 
     End Sub
 
-    Public Function CheckEngineDataFilter(ByRef logValue As LogValue)
+    Public Function CheckEngineDataFilter(ByRef logValue As LogValue, ByRef previousLogValue As LogValue)
 
         If My.Settings.FilterCLT80 = True Then
-            If logValue.CLT > 80 Then
+            If logValue.CLT >= 80 Then
                 _cltAbove80 = True
             ElseIf _cltAbove80 = False Then
                 Return False
@@ -537,6 +537,10 @@ Public Class K8EngineDataViewer
         End If
 
         If logValue.AFR > My.Settings.FilterAFRGreaterThan Then
+            Return False
+        End If
+
+        If My.Settings.FilterIAPDecl = True And logValue.TPS < 11 And logValue.RPM < previousLogValue.RPM Then
             Return False
         End If
 
@@ -1432,7 +1436,6 @@ Public Class K8EngineDataViewer
             For yIndex As Integer = 0 To _rpmList.Count - 1
 
                 _autoTunedTPSFuelMap(xIndex, yIndex) = n_map(yIndex, xIndex)
-
 
                 percentageChange = (n_map(yIndex, xIndex) - r_map(yIndex, xIndex)) / r_map(yIndex, xIndex) * 100
 
