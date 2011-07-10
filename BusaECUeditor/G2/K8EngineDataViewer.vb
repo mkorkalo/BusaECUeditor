@@ -2428,6 +2428,11 @@ Public Class K8EngineDataViewer
         Dim autoTunePercentage As Double = 0
         Dim currentValue As Integer = 0
         Dim newValue As Integer = 0
+        Dim tuneSelectedCellsOnly As Boolean = False
+
+        If G_FuelMap.SelectedCells.Count > 1 Then
+            tuneSelectedCellsOnly = True
+        End If
 
         If ECUVersion = "gen2" Then
             mapStructureTable = &H52304
@@ -2444,14 +2449,24 @@ Public Class K8EngineDataViewer
         For xIndex As Integer = 0 To _tpsList.Count - 1
             For yIndex As Integer = 0 To _rpmList.Count - 1
 
-                newValue = _autoTunedTPSFuelMap(xIndex, yIndex)
+                Dim tuneCell As Boolean = True
 
-                For cylinder = 0 To 3
-                    For ms01 = 0 To 0
-                        copyToMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                        WriteFlashWord(copyToMap + (2 * (xIndex + (yIndex * mapNumberOfColumns))), newValue)
+                If tuneSelectedCellsOnly = True And G_FuelMap(xIndex, yIndex).Selected = False Then
+                    tuneCell = False
+                End If
+
+                If tuneCell = True Then
+
+                    newValue = _autoTunedTPSFuelMap(xIndex, yIndex)
+
+                    For cylinder = 0 To 3
+                        For ms01 = 0 To 0
+                            copyToMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                            WriteFlashWord(copyToMap + (2 * (xIndex + (yIndex * mapNumberOfColumns))), newValue)
+                        Next
                     Next
-                Next
+                End If
+
             Next
         Next
 
@@ -2474,6 +2489,11 @@ Public Class K8EngineDataViewer
             Dim autoTunePercentage As Double = 0
             Dim currentValue As Integer = 0
             Dim newValue As Integer = 0
+            Dim tuneSelectedCellsOnly As Boolean = False
+
+            If G_FuelMap.SelectedCells.Count > 1 Then
+                tuneSelectedCellsOnly = True
+            End If
 
             If ECUVersion = "gen2" Then
                 mapStructureTable = &H52244
@@ -2494,20 +2514,28 @@ Public Class K8EngineDataViewer
                 For yIndex As Integer = 0 To _rpmList.Count - 1
                     If Double.TryParse(G_FuelMap.Item(xIndex, yIndex).Value, autoTunePercentage) = True Then
 
-                        newValue = _autoTunedIAPFuelMap(xIndex, yIndex)
+                        Dim tuneCell As Boolean = True
 
-                        For cylinder = 0 To 3
-                            For ms01 = 0 To 1
+                        If tuneSelectedCellsOnly = True And G_FuelMap(xIndex, yIndex).Selected = False Then
+                            tuneCell = False
+                        End If
 
-                                copyToMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                                WriteFlashWord(copyToMap + (2 * (xIndex + (yIndex * mapNumberOfColumns))), newValue)
+                        If tuneCell = True Then
 
-                                copyToMap2 = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable2 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                                WriteFlashWord(copyToMap2 + (2 * (xIndex + (yIndex * mapNumberOfColumns))), newValue)
+                            newValue = _autoTunedIAPFuelMap(xIndex, yIndex)
 
+                            For cylinder = 0 To 3
+                                For ms01 = 0 To 1
+
+                                    copyToMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                                    WriteFlashWord(copyToMap + (2 * (xIndex + (yIndex * mapNumberOfColumns))), newValue)
+
+                                    copyToMap2 = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable2 + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                                    WriteFlashWord(copyToMap2 + (2 * (xIndex + (yIndex * mapNumberOfColumns))), newValue)
+
+                                Next
                             Next
-                        Next
-
+                        End If
                     End If
                 Next
             Next
