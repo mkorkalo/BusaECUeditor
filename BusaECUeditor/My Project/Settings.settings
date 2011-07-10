@@ -117,10 +117,28 @@
       <Value Profile="(Default)">500</Value>
     </Setting>
     <Setting Name="AutoTuneMapSmoothingStrength" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">8</Value>
+      <Value Profile="(Default)">19</Value>
     </Setting>
     <Setting Name="FilterIAPDecl" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="AutoTuneExhaustGasOffsetType" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="AutoTuneExhaustGasOffsetEngineCapacity" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1340</Value>
+    </Setting>
+    <Setting Name="AutoTuneExhaustGasOffsetMaxEngineRPM" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">11000</Value>
+    </Setting>
+    <Setting Name="AutoTuneExhaustGasOffsetHeaderPipeDiameter" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">37.8</Value>
+    </Setting>
+    <Setting Name="AutoTuneExhaustGasOffsetHeaderPipeLength" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
+    <Setting Name="AutoTuneExhaustGasOffsetMaxTimeOffset" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">250</Value>
     </Setting>
   </Settings>
 </SettingsFile>

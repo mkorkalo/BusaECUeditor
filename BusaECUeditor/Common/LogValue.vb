@@ -25,6 +25,7 @@
     Public FUEL4 As Double
     Public MTS_AFR As Double
     Public GroupNumber As Integer
+    Public ExhaustGasOffsetApplied As Boolean = False
 
     Public ReadOnly Property LogTimeSpan() As TimeSpan
         Get
