@@ -332,6 +332,7 @@ Public Class K8EngineDataViewer
                 L_FileName.Text = _filePath
 
                 Dim reader As TextReader = New StreamReader(_filePath)
+                Dim logValues As List(Of LogValue) = New List(Of LogValue)
                 Dim previousLogValue As New LogValue
 
                 Dim lineCount As Integer
@@ -379,14 +380,6 @@ Public Class K8EngineDataViewer
                         logValue.FUEL4 = values(21)
 
                         If CheckEngineDataFilter(logValue, previousLogValue) = True Then
-
-                            If previousLogValue Is Nothing = False And logValue.RPM - previousLogValue.RPM > My.Settings.AutoTuneExhaustGasOffset / 4 Then
-                                If logValue.TPS <= 25 Then
-                                    logValue.RPM = logValue.RPM - My.Settings.AutoTuneExhaustGasOffset
-                                Else
-                                    logValue.RPM = logValue.RPM - (100 - logValue.TPS) / 100 * My.Settings.AutoTuneExhaustGasOffset
-                                End If
-                            End If
 
                             Dim tpsIndex As Integer
                             Dim iapIndex As Integer
@@ -490,6 +483,8 @@ Public Class K8EngineDataViewer
 
                             End If
 
+                            logValues.Add(logValue)
+
                         End If
 
                         previousLogValue = logValue
@@ -500,6 +495,8 @@ Public Class K8EngineDataViewer
 
                 reader.Close()
 
+                ApplyExhaustGasOffset(logValues)
+
                 ShowMap()
 
             End If
@@ -508,6 +505,87 @@ Public Class K8EngineDataViewer
             HandleException(ex)
         End Try
 
+    End Sub
+
+    Public Sub ApplyExhaustGasOffset(ByRef logValues As List(Of LogValue))
+
+        If My.Settings.AutoTuneExhaustGasOffsetType = 1 Then
+
+            For index As Integer = 1 To logValues.Count - 1
+
+                Dim logValue As LogValue = logValues(index)
+                Dim previousLogValue As LogValue = logValues(index - 1)
+
+                If logValue.RPM - previousLogValue.RPM > My.Settings.AutoTuneExhaustGasOffset / 4 Then
+                    If logValue.TPS <= 25 Then
+                        logValue.RPM = logValue.RPM - My.Settings.AutoTuneExhaustGasOffset
+                    Else
+                        logValue.RPM = logValue.RPM - (100 - logValue.TPS) / 100 * My.Settings.AutoTuneExhaustGasOffset
+                    End If
+                End If
+
+            Next
+
+        Else
+
+            ' (1340 cc / 2 rotations) * (10000 / 60 rotations/sec) = 111666 cc/sec
+            Dim maxflux As Double = My.Settings.AutoTuneExhaustGasOffsetEngineCapacity / 2 * My.Settings.AutoTuneExhaustGasOffsetMaxEngineRPM / 60
+
+            ' cc = cm3 =  (pipe cross section 10 cm2) * 4 * (pipe length 100 cm) = 4000
+            Dim gasvolume As Double = Math.PI * ((My.Settings.AutoTuneExhaustGasOffsetHeaderPipeDiameter - 2) / 2 / 10) ^ 2 * 4 * My.Settings.AutoTuneExhaustGasOffsetHeaderPipeLength / 10
+
+            Dim minflux As Double = gasvolume * 1000.0 / My.Settings.AutoTuneExhaustGasOffsetMaxTimeOffset
+
+            For index As Integer = 0 To logValues.Count - 1
+
+                Dim previousLogValues As SortedList(Of Integer, LogValue) = New SortedList(Of Integer, LogValue)
+                Dim logValue As LogValue = logValues(index)
+
+                ' cc/sec, Exhaust gas flux assumed to increase linearly with RPM and TPS
+                Dim partflux As Double = maxflux * (logValue.RPM / My.Settings.AutoTuneExhaustGasOffsetMaxEngineRPM) * (logValue.TPS / 100.0)
+                Dim flux As Double = partflux + minflux
+                Dim timedelayms As Double = gasvolume * 1000.0 / flux
+
+                For offset As Integer = 1 To 10
+
+                    If index - offset > 1 Then
+
+                        Dim previousLogValue As LogValue = logValues(index - offset)
+                        Dim timeDifference As TimeSpan = logValue.LogTimeSpan.Subtract(previousLogValue.LogTimeSpan)
+                        Dim difference As Integer = timeDifference.TotalMilliseconds - timedelayms
+
+                        If previousLogValues.Keys.Contains(Math.Abs(difference)) = False Then
+                            previousLogValues.Add(Math.Abs(difference), previousLogValue)
+                        Else
+                            previousLogValues.Add(Math.Abs(difference) - 1, previousLogValue)
+                        End If
+
+                        'Exit when the difference gets positive
+                        If difference > 0 Then
+                            Exit For
+                        End If
+
+                    End If
+                Next
+
+                If previousLogValues.Count > 0 Then
+                    If previousLogValues.Keys(0) < 200 Then
+                        previousLogValues.Values(0).AFR = logValue.AFR
+                        previousLogValues.Values(0).ExhaustGasOffsetApplied = True
+                    End If
+                End If
+
+            Next
+
+            'Adjust values that were not adjusted by the Exhaust Gas Offset Process
+            For index As Integer = 1 To logValues.Count - 2
+                If logValues(index).ExhaustGasOffsetApplied = False Then
+                    If logValues(index - 1).ExhaustGasOffsetApplied = True And logValues(index + 1).ExhaustGasOffsetApplied = True Then
+                        logValues(index).AFR = (logValues(index - 1).AFR + logValues(index + 1).AFR) / 2
+                    End If
+                End If
+            Next
+        End If
     End Sub
 
     Public Function CheckEngineDataFilter(ByRef logValue As LogValue, ByRef previousLogValue As LogValue)
@@ -2672,6 +2750,7 @@ Public Class K8EngineDataViewer
     ''' <param name="n_map">The New Smoothed Fuel Map</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
+    ''' 
     Private Function MapSmoother(ByVal map_smoothing_strength As Integer, ByVal maxVal As Integer, ByVal maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,), ByRef r_map As Integer(,), ByRef n_map As Integer(,))
         Dim iterationCount As Integer
         Dim totalCount As Integer
@@ -2684,6 +2763,13 @@ Public Class K8EngineDataViewer
         ' so the interpolated cells are likely to have the best possible values. This is important since each generation
         ' of new cells is the base for further interpolation and values once established are never modified.
 
+        min_auto = 8
+        totalCount = 0
+
+        If map_smoothing_strength > 9 Then
+            totalCount = Do_Pre_Smooth(maxVal, maxRPM, c_map, p_map, r_map)
+            map_smoothing_strength = map_smoothing_strength - 10
+        End If
 
         If map_smoothing_strength = 0 Then
             For j As Integer = 0 To maxVal - 1 Step 1
@@ -2691,11 +2777,8 @@ Public Class K8EngineDataViewer
                     n_map(i, j) = c_map(i, j)
                 Next
             Next
-            Return 0
+            Return totalCount
         End If
-
-        min_auto = 8
-        totalCount = 0
 
         Do
             Do
@@ -2706,6 +2789,73 @@ Public Class K8EngineDataViewer
         Loop While min_auto > (8 - map_smoothing_strength)
 
         Return totalCount
+
+    End Function
+
+    Private Function Do_Pre_Smooth(ByVal maxVal As Integer, ByVal maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,), ByRef r_map As Integer(,))
+        '
+        '
+        '               Autotune            Runtime
+        '               square              square
+        '
+        '             +----------+        +----------+
+        '             |tlc tc trc|        |tlr tr trr|
+        '             |lc  cc rc |        |lr  cr rr |
+        '             |blc bc brc|        |blr br brr|
+        '             +----------+        +----------+
+        '
+        '
+        '
+        Dim num_polished As Integer
+        Dim ncc As Integer
+
+
+        Dim cc As Integer   ' central cell on autotune matrix
+        Dim brc As Integer  ' bottom right corner cell on autotune matrix
+        Dim tlc As Integer  ' top left corner cell on autotune matrix
+        Dim cr As Integer   ' central cell on running fuel matrix
+        Dim brr As Integer  ' bottom right corner cell on running fuel matrix
+        Dim tlr As Integer  ' top left corner cell on running fuel matrix
+
+        num_polished = 0
+
+        For j As Integer = 1 To maxVal - 2 Step 1
+            For i As Integer = 1 To maxRPM - 2 Step 1
+
+                If p_map(i, j) = 0 Or p_map(i - 1, j - 1) = 0 Or p_map(i + 1, j + 1) = 0 Then
+                    Continue For
+                End If
+
+                ' tlc, cc, brc are set, performs 1 dimension, 2nd order interpolation
+
+                tlc = c_map(i - 1, j - 1)
+                brc = c_map(i + 1, j + 1)
+                cc = c_map(i, j)
+
+                tlr = r_map(i - 1, j - 1)
+                brr = r_map(i + 1, j + 1)
+                cr = r_map(i, j)
+
+                ncc = D2Fit(tlc, brc, tlr, cr, brr)
+
+                If ncc > Max(tlc, brc) Then
+                    ncc = Max(tlc, brc)
+                End If
+
+                If ncc < Min(tlc, brc) Then
+                    ncc = Min(tlc, brc)
+                End If
+
+                c_map(i, j) = ncc
+
+                If ncc <> cc Then
+                    num_polished = num_polished + 1
+                End If
+
+            Next
+        Next
+
+        Return num_polished
 
     End Function
 
@@ -2944,5 +3094,5 @@ Public Class K8EngineDataViewer
         Return num_polished
 
     End Function
-
+    
 End Class

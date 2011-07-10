@@ -512,7 +512,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("8")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("19")>  _
         Public Property AutoTuneMapSmoothingStrength() As Integer
             Get
                 Return CType(Me("AutoTuneMapSmoothingStrength"),Integer)
@@ -531,6 +531,78 @@ Namespace My
             End Get
             Set
                 Me("FilterIAPDecl") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("1")>  _
+        Public Property AutoTuneExhaustGasOffsetType() As Integer
+            Get
+                Return CType(Me("AutoTuneExhaustGasOffsetType"),Integer)
+            End Get
+            Set
+                Me("AutoTuneExhaustGasOffsetType") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("1340")>  _
+        Public Property AutoTuneExhaustGasOffsetEngineCapacity() As Integer
+            Get
+                Return CType(Me("AutoTuneExhaustGasOffsetEngineCapacity"),Integer)
+            End Get
+            Set
+                Me("AutoTuneExhaustGasOffsetEngineCapacity") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("11000")>  _
+        Public Property AutoTuneExhaustGasOffsetMaxEngineRPM() As Integer
+            Get
+                Return CType(Me("AutoTuneExhaustGasOffsetMaxEngineRPM"),Integer)
+            End Get
+            Set
+                Me("AutoTuneExhaustGasOffsetMaxEngineRPM") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("37.8")>  _
+        Public Property AutoTuneExhaustGasOffsetHeaderPipeDiameter() As Double
+            Get
+                Return CType(Me("AutoTuneExhaustGasOffsetHeaderPipeDiameter"),Double)
+            End Get
+            Set
+                Me("AutoTuneExhaustGasOffsetHeaderPipeDiameter") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("1000")>  _
+        Public Property AutoTuneExhaustGasOffsetHeaderPipeLength() As Double
+            Get
+                Return CType(Me("AutoTuneExhaustGasOffsetHeaderPipeLength"),Double)
+            End Get
+            Set
+                Me("AutoTuneExhaustGasOffsetHeaderPipeLength") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("250")>  _
+        Public Property AutoTuneExhaustGasOffsetMaxTimeOffset() As Integer
+            Get
+                Return CType(Me("AutoTuneExhaustGasOffsetMaxTimeOffset"),Integer)
+            End Get
+            Set
+                Me("AutoTuneExhaustGasOffsetMaxTimeOffset") = value
             End Set
         End Property
     End Class
