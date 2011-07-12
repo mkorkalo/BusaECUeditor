@@ -2782,7 +2782,7 @@ Public Class K8EngineDataViewer
         totalCount = 0
 
         If map_smoothing_strength > 9 Then
-            totalCount = Do_Pre_Smooth(maxVal, maxRPM, c_map, p_map, r_map)
+            totalCount = Do_Pre_Smooth(maxVal, maxRPM, c_map, p_map)
             map_smoothing_strength = map_smoothing_strength - 10
         End If
 
@@ -2807,7 +2807,7 @@ Public Class K8EngineDataViewer
 
     End Function
 
-    Private Function Do_Pre_Smooth(ByVal maxVal As Integer, ByVal maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,), ByRef r_map As Integer(,))
+    Private Function Do_Pre_Smooth(ByVal maxVal As Integer, ByVal maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,))
         '
         '
         '               Autotune            Runtime
@@ -2821,49 +2821,68 @@ Public Class K8EngineDataViewer
         '
         '
         '
-        Dim num_polished As Integer
-        Dim ncc As Integer
+        Dim num_polished As Integer = 0
+        Dim a_map(maxRPM, maxVal) As Integer
+        Dim num_close As Integer
+        Dim acc As Double
+        Dim cc As Integer
+        Dim i As Integer
+        Dim j As Integer
+        Dim k As Integer
+        Dim m As Integer
+        Dim n As Integer
 
+        ' fill each a_map cell with  the average of the changed cells surrounding it
 
-        Dim cc As Integer   ' central cell on autotune matrix
-        Dim brc As Integer  ' bottom right corner cell on autotune matrix
-        Dim tlc As Integer  ' top left corner cell on autotune matrix
-        Dim cr As Integer   ' central cell on running fuel matrix
-        Dim brr As Integer  ' bottom right corner cell on running fuel matrix
-        Dim tlr As Integer  ' top left corner cell on running fuel matrix
+        For j = 1 To maxVal - 1 Step 1
+            For i = 1 To maxRPM - 2 Step 1
 
-        num_polished = 0
-
-        For j As Integer = 1 To maxVal - 2 Step 1
-            For i As Integer = 1 To maxRPM - 2 Step 1
-
-                If p_map(i, j) = 0 Or p_map(i - 1, j - 1) = 0 Or p_map(i + 1, j + 1) = 0 Then
+                If p_map(i, j) = 0 Then
                     Continue For
                 End If
 
-                ' tlc, cc, brc are set, performs 1 dimension, 2nd order interpolation
+                num_close = 0
+                acc = 0
 
-                tlc = c_map(i - 1, j - 1)
-                brc = c_map(i + 1, j + 1)
-                cc = c_map(i, j)
-
-                tlr = r_map(i - 1, j - 1)
-                brr = r_map(i + 1, j + 1)
-                cr = r_map(i, j)
-
-                ncc = D2Fit(tlc, brc, tlr, cr, brr)
-
-                If ncc > Max(tlc, brc) Then
-                    ncc = Max(tlc, brc)
+                If j = maxVal - 1 Then  ' special case for lastr column
+                    n = 0
+                Else
+                    n = 1
                 End If
 
-                If ncc < Min(tlc, brc) Then
-                    ncc = Min(tlc, brc)
+                For m = j - 1 To j + n Step 1
+                    For k = i - 1 To i + 1 Step 1
+
+                        If p_map(k, m) = 0 Then
+                            Continue For
+                        End If
+
+                        num_close = num_close + 1
+                        acc = acc + c_map(k, m)
+
+                    Next
+                Next
+
+                a_map(i, j) = DRound(acc / num_close)
+
+            Next
+        Next
+
+        ' do top left to bottom right diagonal linear interpolation
+
+        For j = 1 To maxVal - 1 Step 1
+            For i = 1 To maxRPM - 2 Step 1
+
+                If p_map(i, j) = 0 Then
+                    Continue For
+                    '   ElseIf j < maxVal - 1 And p_map(i - 1, j - 1) > 0 And p_map(i + 1, j + 1) > 0 Then
+                    '      cc = DRound((a_map(i - 1, j - 1) + a_map(i + 1, j + 1)) / 2.0)
+                Else
+                    cc = a_map(i, j)
                 End If
 
-                c_map(i, j) = ncc
-
-                If ncc <> cc Then
+                If c_map(i, j) <> cc Then
+                    c_map(i, j) = cc
                     num_polished = num_polished + 1
                 End If
 
