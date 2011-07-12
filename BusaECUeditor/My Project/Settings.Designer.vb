@@ -596,13 +596,49 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("250")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("300")>  _
         Public Property AutoTuneExhaustGasOffsetMaxTimeOffset() As Integer
             Get
                 Return CType(Me("AutoTuneExhaustGasOffsetMaxTimeOffset"),Integer)
             End Get
             Set
                 Me("AutoTuneExhaustGasOffsetMaxTimeOffset") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property AutoTuneFilterTransitions() As Boolean
+            Get
+                Return CType(Me("AutoTuneFilterTransitions"),Boolean)
+            End Get
+            Set
+                Me("AutoTuneFilterTransitions") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("1")>  _
+        Public Property AutoTuneFilterTransitionsIAP() As Double
+            Get
+                Return CType(Me("AutoTuneFilterTransitionsIAP"),Double)
+            End Get
+            Set
+                Me("AutoTuneFilterTransitionsIAP") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
+        Public Property AutoTuneFilterTransitionsTPS() As Double
+            Get
+                Return CType(Me("AutoTuneFilterTransitionsTPS"),Double)
+            End Get
+            Set
+                Me("AutoTuneFilterTransitionsTPS") = value
             End Set
         End Property
     End Class

@@ -32,8 +32,15 @@ Partial Class K8EngineDataFilter
         Me.NUD_FilterAFRGreaterThan = New System.Windows.Forms.NumericUpDown()
         Me.NUD_FilterAFRLessThan = New System.Windows.Forms.NumericUpDown()
         Me.C_FilterIAPDecel = New System.Windows.Forms.CheckBox()
+        Me.C_FilterCellTransitions = New System.Windows.Forms.CheckBox()
+        Me.L_AutoTuneFilterTransitionsIAP = New System.Windows.Forms.Label()
+        Me.L_AutoTuneFilterTransitionsTPS = New System.Windows.Forms.Label()
+        Me.NUD_AutoTuneFilterTransitionsIAP = New System.Windows.Forms.NumericUpDown()
+        Me.NUD_AutoTuneFilterTransitionsTPS = New System.Windows.Forms.NumericUpDown()
         CType(Me.NUD_FilterAFRGreaterThan, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_FilterAFRLessThan, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NUD_AutoTuneFilterTransitionsIAP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NUD_AutoTuneFilterTransitionsTPS, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'C_FilterCLT80
@@ -133,12 +140,65 @@ Partial Class K8EngineDataFilter
         Me.C_FilterIAPDecel.Text = "IAP Deceleration Filter"
         Me.C_FilterIAPDecel.UseVisualStyleBackColor = True
         '
+        'C_FilterCellTransitions
+        '
+        Me.C_FilterCellTransitions.AutoSize = True
+        Me.C_FilterCellTransitions.Location = New System.Drawing.Point(13, 140)
+        Me.C_FilterCellTransitions.Name = "C_FilterCellTransitions"
+        Me.C_FilterCellTransitions.Size = New System.Drawing.Size(122, 17)
+        Me.C_FilterCellTransitions.TabIndex = 10
+        Me.C_FilterCellTransitions.Text = "Filter Cell Transitions"
+        Me.C_FilterCellTransitions.UseVisualStyleBackColor = True
+        '
+        'L_AutoTuneFilterTransitionsIAP
+        '
+        Me.L_AutoTuneFilterTransitionsIAP.AutoSize = True
+        Me.L_AutoTuneFilterTransitionsIAP.Location = New System.Drawing.Point(29, 161)
+        Me.L_AutoTuneFilterTransitionsIAP.Name = "L_AutoTuneFilterTransitionsIAP"
+        Me.L_AutoTuneFilterTransitionsIAP.Size = New System.Drawing.Size(98, 13)
+        Me.L_AutoTuneFilterTransitionsIAP.TabIndex = 11
+        Me.L_AutoTuneFilterTransitionsIAP.Text = "IAP Filter Transition"
+        '
+        'L_AutoTuneFilterTransitionsTPS
+        '
+        Me.L_AutoTuneFilterTransitionsTPS.AutoSize = True
+        Me.L_AutoTuneFilterTransitionsTPS.Location = New System.Drawing.Point(29, 185)
+        Me.L_AutoTuneFilterTransitionsTPS.Name = "L_AutoTuneFilterTransitionsTPS"
+        Me.L_AutoTuneFilterTransitionsTPS.Size = New System.Drawing.Size(102, 13)
+        Me.L_AutoTuneFilterTransitionsTPS.TabIndex = 12
+        Me.L_AutoTuneFilterTransitionsTPS.Text = "TPS Filter Transition"
+        '
+        'NUD_AutoTuneFilterTransitionsIAP
+        '
+        Me.NUD_AutoTuneFilterTransitionsIAP.DecimalPlaces = 1
+        Me.NUD_AutoTuneFilterTransitionsIAP.Location = New System.Drawing.Point(129, 159)
+        Me.NUD_AutoTuneFilterTransitionsIAP.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
+        Me.NUD_AutoTuneFilterTransitionsIAP.Name = "NUD_AutoTuneFilterTransitionsIAP"
+        Me.NUD_AutoTuneFilterTransitionsIAP.Size = New System.Drawing.Size(49, 20)
+        Me.NUD_AutoTuneFilterTransitionsIAP.TabIndex = 13
+        Me.NUD_AutoTuneFilterTransitionsIAP.Value = New Decimal(New Integer() {10, 0, 0, 0})
+        '
+        'NUD_AutoTuneFilterTransitionsTPS
+        '
+        Me.NUD_AutoTuneFilterTransitionsTPS.DecimalPlaces = 1
+        Me.NUD_AutoTuneFilterTransitionsTPS.Location = New System.Drawing.Point(129, 183)
+        Me.NUD_AutoTuneFilterTransitionsTPS.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
+        Me.NUD_AutoTuneFilterTransitionsTPS.Name = "NUD_AutoTuneFilterTransitionsTPS"
+        Me.NUD_AutoTuneFilterTransitionsTPS.Size = New System.Drawing.Size(49, 20)
+        Me.NUD_AutoTuneFilterTransitionsTPS.TabIndex = 14
+        Me.NUD_AutoTuneFilterTransitionsTPS.Value = New Decimal(New Integer() {10, 0, 0, 0})
+        '
         'K8EngineDataFilter
         '
         Me.AcceptButton = Me.btnOk
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(407, 144)
+        Me.ClientSize = New System.Drawing.Size(407, 208)
+        Me.Controls.Add(Me.NUD_AutoTuneFilterTransitionsTPS)
+        Me.Controls.Add(Me.NUD_AutoTuneFilterTransitionsIAP)
+        Me.Controls.Add(Me.L_AutoTuneFilterTransitionsTPS)
+        Me.Controls.Add(Me.L_AutoTuneFilterTransitionsIAP)
+        Me.Controls.Add(Me.C_FilterCellTransitions)
         Me.Controls.Add(Me.C_FilterIAPDecel)
         Me.Controls.Add(Me.NUD_FilterAFRLessThan)
         Me.Controls.Add(Me.NUD_FilterAFRGreaterThan)
@@ -157,6 +217,8 @@ Partial Class K8EngineDataFilter
         Me.Text = "K8 Engine Data Logging Filter"
         CType(Me.NUD_FilterAFRGreaterThan, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_FilterAFRLessThan, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NUD_AutoTuneFilterTransitionsIAP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NUD_AutoTuneFilterTransitionsTPS, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -171,4 +233,9 @@ Partial Class K8EngineDataFilter
     Friend WithEvents NUD_FilterAFRGreaterThan As System.Windows.Forms.NumericUpDown
     Friend WithEvents NUD_FilterAFRLessThan As System.Windows.Forms.NumericUpDown
     Friend WithEvents C_FilterIAPDecel As System.Windows.Forms.CheckBox
+    Friend WithEvents C_FilterCellTransitions As System.Windows.Forms.CheckBox
+    Friend WithEvents L_AutoTuneFilterTransitionsIAP As System.Windows.Forms.Label
+    Friend WithEvents L_AutoTuneFilterTransitionsTPS As System.Windows.Forms.Label
+    Friend WithEvents NUD_AutoTuneFilterTransitionsIAP As System.Windows.Forms.NumericUpDown
+    Friend WithEvents NUD_AutoTuneFilterTransitionsTPS As System.Windows.Forms.NumericUpDown
 End Class

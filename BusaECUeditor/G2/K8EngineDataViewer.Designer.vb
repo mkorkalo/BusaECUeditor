@@ -43,6 +43,7 @@ Partial Class K8EngineDataViewer
         Me.B_SaveTargetAFR = New System.Windows.Forms.Button()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.C_ShowCurrentMap = New System.Windows.Forms.CheckBox()
         Me.R_AutoTunedMap = New System.Windows.Forms.RadioButton()
         Me.R_DataCount = New System.Windows.Forms.RadioButton()
         Me.R_TPSRPM = New System.Windows.Forms.RadioButton()
@@ -54,7 +55,7 @@ Partial Class K8EngineDataViewer
         Me.L_CellInfo = New System.Windows.Forms.Label()
         Me.L_CellStats = New System.Windows.Forms.Label()
         Me.L_SmoothedCells = New System.Windows.Forms.Label()
-        Me.C_ShowCurrentMap = New System.Windows.Forms.CheckBox()
+        Me.btnClear = New System.Windows.Forms.LinkLabel()
         CType(Me.N_MinTPS, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.G_FuelMap, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -136,7 +137,7 @@ Partial Class K8EngineDataViewer
         'L_FileName
         '
         Me.L_FileName.AutoSize = True
-        Me.L_FileName.Location = New System.Drawing.Point(110, 9)
+        Me.L_FileName.Location = New System.Drawing.Point(138, 9)
         Me.L_FileName.Name = "L_FileName"
         Me.L_FileName.Size = New System.Drawing.Size(10, 13)
         Me.L_FileName.TabIndex = 22
@@ -235,6 +236,16 @@ Partial Class K8EngineDataViewer
         Me.GroupBox1.Size = New System.Drawing.Size(591, 28)
         Me.GroupBox1.TabIndex = 32
         Me.GroupBox1.TabStop = False
+        '
+        'C_ShowCurrentMap
+        '
+        Me.C_ShowCurrentMap.AutoSize = True
+        Me.C_ShowCurrentMap.Location = New System.Drawing.Point(470, 10)
+        Me.C_ShowCurrentMap.Name = "C_ShowCurrentMap"
+        Me.C_ShowCurrentMap.Size = New System.Drawing.Size(114, 17)
+        Me.C_ShowCurrentMap.TabIndex = 31
+        Me.C_ShowCurrentMap.Text = "Show Current Map"
+        Me.C_ShowCurrentMap.UseVisualStyleBackColor = True
         '
         'R_AutoTunedMap
         '
@@ -347,21 +358,22 @@ Partial Class K8EngineDataViewer
         Me.L_SmoothedCells.TabIndex = 41
         Me.L_SmoothedCells.Text = "-"
         '
-        'C_ShowCurrentMap
+        'btnClear
         '
-        Me.C_ShowCurrentMap.AutoSize = True
-        Me.C_ShowCurrentMap.Location = New System.Drawing.Point(470, 10)
-        Me.C_ShowCurrentMap.Name = "C_ShowCurrentMap"
-        Me.C_ShowCurrentMap.Size = New System.Drawing.Size(114, 17)
-        Me.C_ShowCurrentMap.TabIndex = 31
-        Me.C_ShowCurrentMap.Text = "Show Current Map"
-        Me.C_ShowCurrentMap.UseVisualStyleBackColor = True
+        Me.btnClear.AutoSize = True
+        Me.btnClear.Location = New System.Drawing.Point(108, 9)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(30, 13)
+        Me.btnClear.TabIndex = 42
+        Me.btnClear.TabStop = True
+        Me.btnClear.Text = "clear"
         '
         'K8EngineDataViewer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1099, 717)
+        Me.Controls.Add(Me.btnClear)
         Me.Controls.Add(Me.L_SmoothedCells)
         Me.Controls.Add(Me.L_CellStats)
         Me.Controls.Add(Me.L_AvgTPS)
@@ -426,4 +438,5 @@ Partial Class K8EngineDataViewer
     Friend WithEvents R_AutoTunedMap As System.Windows.Forms.RadioButton
     Friend WithEvents L_SmoothedCells As System.Windows.Forms.Label
     Friend WithEvents C_ShowCurrentMap As System.Windows.Forms.CheckBox
+    Friend WithEvents btnClear As System.Windows.Forms.LinkLabel
 End Class
