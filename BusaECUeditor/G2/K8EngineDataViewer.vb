@@ -2533,6 +2533,7 @@ Public Class K8EngineDataViewer
             mapStructureTable = &H54EB4
         ElseIf ECUVersion = "gixxer" Then
             mapStructureTable = gixxer_fuelmap_map_first + (2 * 4 * 24)
+            ms01 = 1
         End If
 
         editingMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
@@ -2553,13 +2554,10 @@ Public Class K8EngineDataViewer
                     newValue = _autoTunedTPSFuelMap(xIndex, yIndex)
 
                     For cylinder = 0 To 3
-                        For ms01 = 0 To 0
-                            copyToMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
-                            WriteFlashWord(copyToMap + (2 * (xIndex + (yIndex * mapNumberOfColumns))), newValue)
-                        Next
+                        copyToMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
+                        WriteFlashWord(copyToMap + (2 * (xIndex + (yIndex * mapNumberOfColumns))), newValue)
                     Next
                 End If
-
             Next
         Next
 
@@ -2597,6 +2595,7 @@ Public Class K8EngineDataViewer
             ElseIf ECUVersion = "gixxer" Then
                 mapStructureTable = gixxer_fuelmap_map_first
                 mapStructureTable2 = gixxer_fuelmap_map_first + (4 * 24)
+                ms01 = 1
             End If
 
             editingMap = ReadFlashLongWord(ReadFlashLongWord((mapStructureTable + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
