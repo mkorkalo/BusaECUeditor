@@ -127,23 +127,23 @@ Public Class BKingSTPMap
                 GEAR = 6
                 SelectMap()
             Case "f"
-                _mapStructureTable = &H523E4
-                Me.Text = "ECUeditor - STP map editing - STP FUEL deduction"
+                _mapStructureTable = &H54F74
+                Me.Text = "ECUeditor - Bking STP map editing - STP FUEL deduction"
                 _fuelmap = True
                 SelectMap()
             Case "F"
-                _mapStructureTable = &H523E4
-                Me.Text = "ECUeditor - STP map editing - STP FUEL deduction"
+                _mapStructureTable = &H54F74
+                Me.Text = "ECUeditor - BKing STP map editing - STP FUEL deduction"
                 _fuelmap = True
                 SelectMap()
             Case "s"
-                _mapStructureTable = &H517B8
-                Me.Text = "ECUeditor - STP map editing - STP opening"
+                _mapStructureTable = &H542C8
+                Me.Text = "ECUeditor - BKing STP map editing - STP opening"
                 _fuelmap = False
                 SelectMap()
             Case "S"
-                _mapStructureTable = &H517B8
-                Me.Text = "ECUeditor - STP map editing - STP opening"
+                _mapStructureTable = &H542C8
+                Me.Text = "ECUeditor - BKing STP map editing - STP opening"
                 _fuelmap = False
                 SelectMap()
             Case "a"
@@ -558,8 +558,8 @@ Public Class BKingSTPMap
                 _modeABC = 0
             End If
 
-            _mapStructureTable = &H517B8
-            Me.Text = "ECUeditor - STP map editing - STP opening"
+            _mapStructureTable = &H542C8
+            Me.Text = "ECUeditor - BKing STP map editing - STP opening"
 
             SelectMap()
 
