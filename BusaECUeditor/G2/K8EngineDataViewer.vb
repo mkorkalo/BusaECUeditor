@@ -2781,7 +2781,7 @@ Public Class K8EngineDataViewer
         totalCount = 0
 
         If map_smoothing_strength > 9 Then
-            totalCount = Do_Pre_Smooth(maxVal, maxRPM, c_map, p_map)
+            totalCount = Do_Pre_Smooth(maxVal, maxRPM, c_map, p_map, r_map)
             map_smoothing_strength = map_smoothing_strength - 10
         End If
 
@@ -2806,82 +2806,180 @@ Public Class K8EngineDataViewer
 
     End Function
 
-    Private Function Do_Pre_Smooth(ByVal maxVal As Integer, ByVal maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,))
+    Private Function Do_Pre_Smooth(ByVal maxVal As Integer, ByVal maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,), ByRef r_map As Integer(,))
+
+
+        ', ByRef p_map As Integer(,)
+        ' Values in the RPM/TPS and RPM/IAP matrix are considered as a function
+        ' of 2 variables, with values sampled at regularly spaced increments.
+        ' The purpose of this routine is to smooth the values comint from 
+        ' the autotuned matrix. Each value is compared with the 8 surrounding
+        ' values in order to correct or filer unlikely values.
+        ' When less then 8 surrounding cells are modified, the missing cells are filled
+        ' with the running map value.
         '
         '
-        '               Autotune            Runtime
-        '               square              square
+        '               Autotune            
+        '               square              
         '
-        '             +----------+        +----------+
-        '             |tlc tc trc|        |tlr tr trr|
-        '             |lc  cc rc |        |lr  cr rr |
-        '             |blc bc brc|        |blr br brr|
-        '             +----------+        +----------+
+        '             +----------+        
+        '             |tlc tc trc|        
+        '             |lc  cc rc |        
+        '             |blc bc brc|       
+        '             +----------+       
+        '
+        ' d/dr    = cc-tc                 first partial derivative by row
+        ' d/dc    = cc-lc                 first partial derivative by column
+        ' d2/dr2  = bc-2cc+tc             second partial derivative by row 2 times
+        ' d2/dc2  = rc-2cc+lc             second partial derivative by col 2 times
+        ' d2/drdc = (brc+tlc-trc-blc)/4   second partial derivative mixed
+        '
+        ' d2 = d/dr2 + 2(d/drdc) + d/dc2    second order differential
+        '
+        ' By equting the second order differentials in cc and cr, the result is:
+        '
+        ' bc-2cc+tc +(brc+tlc-trc-blc)/2 +rc-2cc+lc =
+        ' br-2cr+tr +(brr+tlr-trr-blr)/2 +rr-2cr+lr
+        '
+        ' cc = cr +(bc-br+tc-tr+rc-rr+lc-lr)/4 +(brc-brr+tlc-tlr-trc+trr-blc+blr)/8
         '
         '
-        '
-        Dim num_polished As Integer = 0
-        Dim a_map(maxRPM, maxVal) As Integer
-        Dim num_close As Integer
-        Dim acc As Double
-        Dim cc As Integer
-        Dim i As Integer
-        Dim j As Integer
-        Dim k As Integer
-        Dim m As Integer
+        Dim num_polished As Integer
+
+        Dim tc As Integer   ' top cell on autotune matrix
+        Dim bc As Integer   ' bottom cell on autotune matrix
+        Dim lc As Integer   ' left cell on autotune matrix
+        Dim rc As Integer   ' right cell on autotune matrix
+        Dim cc As Integer   ' central cell on autotune matrix
+        Dim trc As Integer  ' top right corner cell on autotune matrix
+        Dim brc As Integer  ' bottom right corner cell on autotune matrix
+        Dim tlc As Integer  ' top left corner cell on autotune matrix
+        Dim blc As Integer  ' bottom left corner cell on autotune matrix
+        Dim tr As Integer   ' top cell on running fuel matrix
+        Dim br As Integer   ' bottom cell on running fuel matrix
+        Dim lr As Integer   ' left cell on running fuel matrix
+        Dim rr As Integer   ' right cell on running fuel matrix
+        Dim cr As Integer   ' central cell on running fuel matrix
+        Dim trr As Integer  ' top right corner cell on running fuel matrix
+        Dim brr As Integer  ' bottom right corner cell on running fuel matrix
+        Dim tlr As Integer  ' top left corner cell on running fuel matrix
+        Dim blr As Integer  ' bottom left cell on running fuel matrix
+
+        Dim local_factor As Double = 2.0 * 8
+        Dim clocal As Double
+        Dim idiff As Integer
+        Dim num_auto As Integer
+        Dim s_map(maxRPM, maxVal) As Integer
         Dim n As Integer
+        num_polished = 0
 
-        ' fill each a_map cell with  the average of the changed cells surrounding it
-
-        For j = 1 To maxVal - 1 Step 1
-            For i = 1 To maxRPM - 2 Step 1
+        For j As Integer = 1 To maxVal - 1 Step 1
+            For i As Integer = 1 To maxRPM - 2 Step 1
 
                 If p_map(i, j) = 0 Then
                     Continue For
                 End If
 
-                num_close = 0
-                acc = 0
+                ' On each cell not on the boundary rows or columns, performs 2 dimensions, 2nd order interpolation
 
-                If j = maxVal - 1 Then  ' special case for lastr column
+                ' Last column is handled as if it had an identical column on its right.
+                If j = maxVal - 1 Then
                     n = 0
                 Else
                     n = 1
                 End If
 
-                For m = j - 1 To j + n Step 1
-                    For k = i - 1 To i + 1 Step 1
+                num_auto = 0
+                cc = c_map(i, j)
+                cr = r_map(i, j)
 
-                        If p_map(k, m) = 0 Then
-                            Continue For
-                        End If
+                tr = r_map(i - 1, j)
+                br = r_map(i + 1, j)
+                rr = r_map(i, j + n)
+                lr = r_map(i, j - 1)
 
-                        num_close = num_close + 1
-                        acc = acc + c_map(k, m)
+                trr = r_map(i - 1, j + n)
+                tlr = r_map(i - 1, j - 1)
+                brr = r_map(i + 1, j + n)
+                blr = r_map(i + 1, j - 1)
 
-                    Next
-                Next
+                If p_map(i - 1, j) > 0 Then
+                    tc = c_map(i - 1, j)
+                    num_auto = num_auto + 1
+                Else
+                    tc = tr
+                End If
 
-                a_map(i, j) = DRound(acc / num_close)
+                If p_map(i + 1, j) > 0 Then
+                    bc = c_map(i + 1, j)
+                    num_auto = num_auto + 1
+                Else
+                    bc = br
+                End If
+
+                If p_map(i, j + n) > 0 Then
+                    rc = c_map(i, j + n)
+                    num_auto = num_auto + 1
+                Else
+                    rc = rr
+                End If
+
+                If p_map(i, j - 1) > 0 Then
+                    lc = c_map(i, j - 1)
+                    num_auto = num_auto + 1
+                Else
+                    lc = lr
+                End If
+
+
+                If p_map(i - 1, j + n) > 0 Then
+                    trc = c_map(i - 1, j + n)
+                    num_auto = num_auto + 1
+                Else
+                    trc = trr
+                End If
+
+                If p_map(i - 1, j - 1) > 0 Then
+                    tlc = c_map(i - 1, j - 1)
+                    num_auto = num_auto + 1
+                Else
+                    tlc = tlr
+                End If
+
+                If p_map(i + 1, j + n) > 0 Then
+                    brc = c_map(i + 1, j + n)
+                    num_auto = num_auto + 1
+                Else
+                    brc = brr
+                End If
+
+                If p_map(i + 1, j - 1) > 0 Then
+                    blc = c_map(i + 1, j - 1)
+                    num_auto = num_auto + 1
+                Else
+                    blc = blr
+                End If
+
+                idiff = 2 * (bc - br + tc - tr + rc - rr + lc - lr) + (brc - brr + tlc - tlr - trc + trr - blc + blr)
+                clocal = (8 * cr + idiff) / 8.0
+
+                ' weighted average between the current central value and the value suggested by num_auto surrounding cells 
+                ' if local_factor = 16, the central value weight is never less than 50%
+
+                s_map(i, j) = DRound(clocal * (num_auto / local_factor) + cc * (1.0 - (num_auto / local_factor)))
 
             Next
         Next
 
-        ' do top left to bottom right diagonal linear interpolation
-
-        For j = 1 To maxVal - 1 Step 1
-            For i = 1 To maxRPM - 2 Step 1
+        For j As Integer = 1 To maxVal - 1 Step 1
+            For i As Integer = 1 To maxRPM - 2 Step 1
 
                 If p_map(i, j) = 0 Then
                     Continue For
-                    '   ElseIf j < maxVal - 1 And p_map(i - 1, j - 1) > 0 And p_map(i + 1, j + 1) > 0 Then
-                    '      cc = DRound((a_map(i - 1, j - 1) + a_map(i + 1, j + 1)) / 2.0)
-                Else
-                    cc = a_map(i, j)
                 End If
 
-                If c_map(i, j) <> cc Then
-                    c_map(i, j) = cc
+                If c_map(i, j) <> s_map(i, j) Then
+                    c_map(i, j) = s_map(i, j)
                     num_polished = num_polished + 1
                 End If
 
