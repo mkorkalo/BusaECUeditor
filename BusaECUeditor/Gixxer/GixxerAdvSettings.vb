@@ -265,6 +265,31 @@
         If gixxer_STP_map_first_table = 0 Then Button1.Enabled = False
         If gixxer_injectorbalance_map_first = 0 Then Button3.Enabled = False
 
+        If gixxer_baud_rate = 0 Then
+            C_FastBaudRate.Enabled = False
+        Else
+            C_FastBaudRate.Enabled = True
+
+            If ReadFlashByte(gixxer_baud_rate) = &H4 Then
+                C_FastBaudRate.Checked = True
+            Else
+                C_FastBaudRate.Checked = False
+            End If
+        End If
+
+        If gixxer_wideband1 = 0 Then
+            C_Wideband.Enabled = False
+        Else
+
+            C_Wideband.Enabled = True
+
+            If ReadFlashWord(gixxer_wideband1) = &H80 Then
+                C_Wideband.Checked = True
+            Else
+                C_Wideband.Checked = False
+            End If
+
+        End If
         loading = False
     End Sub
 
@@ -654,6 +679,74 @@
         Else
             Gixxerramair.Show()
             Gixxerramair.Select()
+        End If
+    End Sub
+
+    Private Sub C_FastBaudRate_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_FastBaudRate.CheckedChanged
+
+        If loading = False Then
+
+            If gixxer_baud_rate = 0 Then
+                MsgBox("Feature not available yet")
+            Else
+
+                If C_FastBaudRate.Checked = True Then
+
+                    'Change Baud Rate = 50000
+                    WriteFlashByte(gixxer_baud_rate, &H4)
+
+                    'Change MJT IRQ 5 Timer
+                    WriteFlashWord(gixxer_baud_rate_timer1, &HFA)
+                    WriteFlashWord(gixxer_baud_rate_timer2, &HF9)
+
+                Else
+
+                    'Change Baud Rate = 10400
+                    WriteFlashByte(gixxer_baud_rate, &H17)
+
+                    'Change MJT IRQ 5 Timer
+                    WriteFlashWord(gixxer_baud_rate_timer1, &H1F4)
+                    WriteFlashWord(gixxer_baud_rate_timer2, &H1F3)
+
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub C_Wideband_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_Wideband.CheckedChanged
+
+        If loading = False Then
+
+            If C_Wideband.Checked = True Then
+
+                C_HOX.Checked = False
+                C_HOX.Enabled = False
+
+                '10 Bit AD Sensor Value
+                WriteFlashWord(gixxer_wideband1, &H80)
+                WriteFlashWord(gixxer_wideband1 + 2, &H9C)
+                WriteFlashWord(gixxer_wideband1 + 4, &H80)
+                WriteFlashWord(gixxer_wideband1 + 6, &H9D)
+
+                '8 Bit AD Sensor Value
+                WriteFlashWord(gixxer_wideband2, &H80)
+                WriteFlashWord(gixxer_wideband2 + 2, &HDD)
+
+            Else
+
+                C_HOX.Enabled = True
+
+                '10 Bit AD Sensor Value
+                WriteFlashWord(gixxer_wideband1, &H7)
+                WriteFlashWord(gixxer_wideband1 + 2, &HA1FF)
+                WriteFlashWord(gixxer_wideband1 + 4, &H7)
+                WriteFlashWord(gixxer_wideband1 + 6, &HA1FF)
+
+                '8 Bit AD Sensor Value
+                WriteFlashWord(gixxer_wideband2, &H80)
+                WriteFlashWord(gixxer_wideband2 + 2, &H6B3B)
+
+            End If
         End If
     End Sub
 End Class
