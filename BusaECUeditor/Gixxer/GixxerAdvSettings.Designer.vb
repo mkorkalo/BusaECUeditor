@@ -26,6 +26,7 @@ Partial Class GixxerAdvSettings
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.B_ramairadjust = New System.Windows.Forms.Button()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -49,7 +50,8 @@ Partial Class GixxerAdvSettings
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.C_ECU = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.B_ramairadjust = New System.Windows.Forms.Button()
+        Me.C_FastBaudRate = New System.Windows.Forms.CheckBox()
+        Me.C_Wideband = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.G_misc.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -76,7 +78,7 @@ Partial Class GixxerAdvSettings
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(297, 418)
+        Me.Button2.Location = New System.Drawing.Point(297, 439)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(75, 23)
         Me.Button2.TabIndex = 2
@@ -100,6 +102,16 @@ Partial Class GixxerAdvSettings
         Me.GroupBox1.TabIndex = 10
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Misc maps"
+        '
+        'B_ramairadjust
+        '
+        Me.B_ramairadjust.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.B_ramairadjust.Location = New System.Drawing.Point(254, 124)
+        Me.B_ramairadjust.Name = "B_ramairadjust"
+        Me.B_ramairadjust.Size = New System.Drawing.Size(79, 22)
+        Me.B_ramairadjust.TabIndex = 51
+        Me.B_ramairadjust.Text = "Ramair map"
+        Me.B_ramairadjust.UseVisualStyleBackColor = True
         '
         'Label9
         '
@@ -158,6 +170,8 @@ Partial Class GixxerAdvSettings
         '
         'G_misc
         '
+        Me.G_misc.Controls.Add(Me.C_Wideband)
+        Me.G_misc.Controls.Add(Me.C_FastBaudRate)
         Me.G_misc.Controls.Add(Me.C_ABCmode)
         Me.G_misc.Controls.Add(Me.Label5)
         Me.G_misc.Controls.Add(Me.c_fan)
@@ -170,7 +184,7 @@ Partial Class GixxerAdvSettings
         Me.G_misc.Controls.Add(Me.Label2)
         Me.G_misc.Location = New System.Drawing.Point(12, 229)
         Me.G_misc.Name = "G_misc"
-        Me.G_misc.Size = New System.Drawing.Size(354, 148)
+        Me.G_misc.Size = New System.Drawing.Size(354, 169)
         Me.G_misc.TabIndex = 11
         Me.G_misc.TabStop = False
         Me.G_misc.Text = "Misc settings"
@@ -206,7 +220,7 @@ Partial Class GixxerAdvSettings
         'C_ICS
         '
         Me.C_ICS.AutoSize = True
-        Me.C_ICS.Location = New System.Drawing.Point(175, 117)
+        Me.C_ICS.Location = New System.Drawing.Point(193, 117)
         Me.C_ICS.Name = "C_ICS"
         Me.C_ICS.Size = New System.Drawing.Size(111, 17)
         Me.C_ICS.TabIndex = 48
@@ -216,7 +230,7 @@ Partial Class GixxerAdvSettings
         'C_HOX
         '
         Me.C_HOX.AutoSize = True
-        Me.C_HOX.Location = New System.Drawing.Point(175, 71)
+        Me.C_HOX.Location = New System.Drawing.Point(193, 71)
         Me.C_HOX.Name = "C_HOX"
         Me.C_HOX.Size = New System.Drawing.Size(115, 17)
         Me.C_HOX.TabIndex = 12
@@ -226,7 +240,7 @@ Partial Class GixxerAdvSettings
         'C_EXC
         '
         Me.C_EXC.AutoSize = True
-        Me.C_EXC.Location = New System.Drawing.Point(175, 94)
+        Me.C_EXC.Location = New System.Drawing.Point(193, 94)
         Me.C_EXC.Name = "C_EXC"
         Me.C_EXC.Size = New System.Drawing.Size(79, 17)
         Me.C_EXC.TabIndex = 47
@@ -275,7 +289,7 @@ Partial Class GixxerAdvSettings
         '
         Me.GroupBox2.Controls.Add(Me.C_2step)
         Me.GroupBox2.Controls.Add(Me.NTCLT)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 383)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 404)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(269, 58)
         Me.GroupBox2.TabIndex = 103
@@ -331,21 +345,31 @@ Partial Class GixxerAdvSettings
         Me.Label4.TabIndex = 6
         Me.Label4.Text = "ECU"
         '
-        'B_ramairadjust
+        'C_FastBaudRate
         '
-        Me.B_ramairadjust.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.B_ramairadjust.Location = New System.Drawing.Point(254, 124)
-        Me.B_ramairadjust.Name = "B_ramairadjust"
-        Me.B_ramairadjust.Size = New System.Drawing.Size(79, 22)
-        Me.B_ramairadjust.TabIndex = 51
-        Me.B_ramairadjust.Text = "Ramair map"
-        Me.B_ramairadjust.UseVisualStyleBackColor = True
+        Me.C_FastBaudRate.AutoSize = True
+        Me.C_FastBaudRate.Location = New System.Drawing.Point(12, 141)
+        Me.C_FastBaudRate.Name = "C_FastBaudRate"
+        Me.C_FastBaudRate.Size = New System.Drawing.Size(167, 17)
+        Me.C_FastBaudRate.TabIndex = 105
+        Me.C_FastBaudRate.Text = "Fast Baud Rate (data logging)"
+        Me.C_FastBaudRate.UseVisualStyleBackColor = True
+        '
+        'C_Wideband
+        '
+        Me.C_Wideband.AutoSize = True
+        Me.C_Wideband.Location = New System.Drawing.Point(193, 141)
+        Me.C_Wideband.Name = "C_Wideband"
+        Me.C_Wideband.Size = New System.Drawing.Size(128, 17)
+        Me.C_Wideband.TabIndex = 106
+        Me.C_Wideband.Text = "Wideband O2 Sensor"
+        Me.C_Wideband.UseVisualStyleBackColor = True
         '
         'GixxerAdvSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(384, 453)
+        Me.ClientSize = New System.Drawing.Size(384, 474)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.G_misc)
@@ -392,4 +416,6 @@ Partial Class GixxerAdvSettings
     Friend WithEvents C_ABCmode As System.Windows.Forms.CheckBox
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents B_ramairadjust As System.Windows.Forms.Button
+    Friend WithEvents C_FastBaudRate As System.Windows.Forms.CheckBox
+    Friend WithEvents C_Wideband As System.Windows.Forms.CheckBox
 End Class

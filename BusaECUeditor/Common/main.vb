@@ -2969,6 +2969,12 @@ skip_update:
         gixxerramair_columnheader = 0 ' &H7268E
         gixxerramair_map = 0 '&H72859
 
+        gixxer_baud_rate = 0
+        gixxer_baud_rate_timer1 = 0
+        gixxer_baud_rate_timer2 = 0
+
+        gixxer_wideband1 = 0
+        gixxer_wideband2 = 0
 
         Hayabusa.Visible = True
         FlashToolStripMenuItem.Visible = True
@@ -3077,6 +3083,13 @@ skip_update:
                 gixxer_injectorbalance_map_name = gixxer_modelname
                 gixxer_STP_modelname = gixxer_modelname
                 gixxer_fuelmap_map_bikename = gixxer_modelname
+
+                gixxer_baud_rate = &H13FE9
+                gixxer_baud_rate_timer1 = &H13902
+                gixxer_baud_rate_timer2 = &H1397E
+
+                gixxer_wideband1 = &H5D354
+                gixxer_wideband2 = &H5D384
 
                 B_EngineData.Enabled = True
                 FlashToolStripMenuItem.Visible = Enabled

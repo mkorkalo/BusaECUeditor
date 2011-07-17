@@ -147,6 +147,14 @@ Module CommonFunctions
     Public gixxer_set_ign_default As Integer = 0
     Public gixxerramair_columnheader As Integer = 0 ' &H7268E
     Public gixxerramair_map As Integer = 0 '&H72859
+
+    Public gixxer_baud_rate As Integer
+    Public gixxer_baud_rate_timer1 As Integer
+    Public gixxer_baud_rate_timer2 As Integer
+
+    Public gixxer_wideband1 As Integer
+    Public gixxer_wideband2 As Integer
+
 #End Region
 
 #Region "Properties"
@@ -809,7 +817,14 @@ Module CommonFunctions
 
             ElseIf ECUVersion = "gixxer" Then
 
+                If gixxer_baud_rate > 0 Then
+                    If ReadFlashByte(gixxer_baud_rate) = &H4 Then
+                        Return 50000
+                    End If
+                End If
+
                 Return 10400
+
             End If
 
         End Get
