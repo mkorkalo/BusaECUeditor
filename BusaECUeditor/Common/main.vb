@@ -2973,6 +2973,11 @@ skip_update:
         gixxer_baud_rate_timer1 = 0
         gixxer_baud_rate_timer2 = 0
 
+        gixxer_wideband1_original = 0
+        gixxer_wideband2_original = 0
+        gixxer_wideband3_original = 0
+        gixxer_wideband4_original = 0
+
         gixxer_wideband1 = 0
         gixxer_wideband2 = 0
 
@@ -3088,6 +3093,11 @@ skip_update:
                 gixxer_baud_rate_timer1 = &H13902
                 gixxer_baud_rate_timer2 = &H1397E
 
+                gixxer_wideband1_original = &H7
+                gixxer_wideband2_original = &HA1FF
+                gixxer_wideband3_original = &H80
+                gixxer_wideband4_original = &H6B3B
+
                 gixxer_wideband1 = &H5D354
                 gixxer_wideband2 = &H5D384
 
@@ -3170,6 +3180,18 @@ skip_update:
                 gixxer_STP_modelname = gixxer_modelname
                 gixxer_fuelmap_map_bikename = gixxer_modelname
 
+                gixxer_baud_rate = &H13FE9
+                gixxer_baud_rate_timer1 = &H13902
+                gixxer_baud_rate_timer2 = &H1397E
+
+                gixxer_wideband1_original = &H7
+                gixxer_wideband2_original = &HA1FF
+                gixxer_wideband3_original = &H80
+                gixxer_wideband4_original = &H6B3B
+
+                gixxer_wideband1 = &H5D354
+                gixxer_wideband2 = &H5D384
+
                 B_EngineData.Enabled = True
                 FlashToolStripMenuItem.Visible = Enabled
                 B_DataLogging.Enabled = True
@@ -3251,6 +3273,17 @@ skip_update:
                 gixxer_sd2 = &H62ACF
                 gixxer_sd3 = &H62AD2
 
+                gixxer_baud_rate = &H13F91
+                gixxer_baud_rate_timer1 = &H138AA
+                gixxer_baud_rate_timer2 = &H13926
+
+                gixxer_wideband1_original = &H6
+                gixxer_wideband2_original = &H28F3
+                gixxer_wideband3_original = &H80
+                gixxer_wideband4_original = &H6760
+
+                gixxer_wideband1 = &H59C98
+                gixxer_wideband2 = &H59CC4
 
                 Select Case ReadFlashByte(&H6292B)
                     Case &H35
@@ -3294,7 +3327,6 @@ skip_update:
                 gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3B4C1
                 gixxer_GPS_voltage_raw = &H8050F9
                 gixxer_set_ign_default = &H60B57
-
 
                 gixxer_fuel_limiter_by_gear = &H614C1
                 gixxer_fuel_limiter_by_gear_softcut = &H614C2
@@ -3348,6 +3380,17 @@ skip_update:
                 gixxer_sd2 = &H62ACF
                 gixxer_sd3 = &H62AD2
 
+                gixxer_baud_rate = &H13F91
+                gixxer_baud_rate_timer1 = &H138AA
+                gixxer_baud_rate_timer2 = &H13926
+
+                gixxer_wideband1_original = &H6
+                gixxer_wideband2_original = &H2947
+                gixxer_wideband3_original = &H80
+                gixxer_wideband4_original = &H6761
+
+                gixxer_wideband1 = &H5AB04
+                gixxer_wideband2 = &H5AB24
 
                 Select Case ReadFlashByte(&H6292B)
                     Case &H35
@@ -3424,6 +3467,18 @@ skip_update:
                 gixxer_STP_modelname = gixxer_modelname
                 gixxer_fuelmap_map_bikename = gixxer_modelname
 
+                gixxer_baud_rate = &H13F91
+                gixxer_baud_rate_timer1 = &H138AA
+                gixxer_baud_rate_timer2 = &H13926
+
+                gixxer_wideband1_original = &H6
+                gixxer_wideband2_original = &H2947
+                gixxer_wideband3_original = &H80
+                gixxer_wideband4_original = &H6760
+
+                gixxer_wideband1 = &H5AB04
+                gixxer_wideband2 = &H5AB34
+
                 B_EngineData.Enabled = True
                 FlashToolStripMenuItem.Visible = Enabled
                 B_DataLogging.Enabled = True
@@ -3474,6 +3529,18 @@ skip_update:
                 gixxer_injectorbalance_map_name = gixxer_modelname
                 gixxer_STP_modelname = gixxer_modelname
                 gixxer_fuelmap_map_bikename = gixxer_modelname
+
+                gixxer_baud_rate = &H13F91
+                gixxer_baud_rate_timer1 = &H138AA
+                gixxer_baud_rate_timer2 = &H13926
+
+                gixxer_wideband1_original = &H6
+                gixxer_wideband2_original = &H2947
+                gixxer_wideband3_original = &H80
+                gixxer_wideband4_original = &H676D
+
+                gixxer_wideband1 = &H5AB04
+                gixxer_wideband2 = &H5AB34
 
                 B_EngineData.Enabled = True
                 FlashToolStripMenuItem.Visible = Enabled
@@ -3578,6 +3645,18 @@ skip_update:
                 gixxer_STP_modelname = gixxer_modelname
                 gixxer_fuelmap_map_bikename = gixxer_modelname
 
+                gixxer_baud_rate = &H13F91
+                gixxer_baud_rate_timer1 = &H138AA
+                gixxer_baud_rate_timer2 = &H13926
+
+                gixxer_wideband1_original = &H6
+                gixxer_wideband2_original = &H28F3
+                gixxer_wideband3_original = &H80
+                gixxer_wideband4_original = &H6760
+
+                gixxer_wideband1 = &H59C98
+                gixxer_wideband2 = &H59CC4
+
                 B_EngineData.Enabled = True
                 FlashToolStripMenuItem.Visible = Enabled
                 B_DataLogging.Enabled = True
@@ -3635,6 +3714,18 @@ skip_update:
                 gixxer_injectorbalance_map_name = gixxer_modelname
                 gixxer_STP_modelname = gixxer_modelname
                 gixxer_fuelmap_map_bikename = gixxer_modelname
+
+                gixxer_baud_rate = &H13F91
+                gixxer_baud_rate_timer1 = &H138AA
+                gixxer_baud_rate_timer2 = &H13926
+
+                gixxer_wideband1_original = &H6
+                gixxer_wideband2_original = &H28F3
+                gixxer_wideband3_original = &H80
+                gixxer_wideband4_original = &H6760
+
+                gixxer_wideband1 = &H59C98
+                gixxer_wideband2 = &H59CC4
 
                 B_EngineData.Enabled = True
                 FlashToolStripMenuItem.Visible = Enabled

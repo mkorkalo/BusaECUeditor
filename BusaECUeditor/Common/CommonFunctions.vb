@@ -152,6 +152,11 @@ Module CommonFunctions
     Public gixxer_baud_rate_timer1 As Integer
     Public gixxer_baud_rate_timer2 As Integer
 
+    Public gixxer_wideband1_original As Integer
+    Public gixxer_wideband2_original As Integer
+    Public gixxer_wideband3_original As Integer
+    Public gixxer_wideband4_original As Integer
+
     Public gixxer_wideband1 As Integer
     Public gixxer_wideband2 As Integer
 

@@ -737,14 +737,14 @@
                 C_HOX.Enabled = True
 
                 '10 Bit AD Sensor Value
-                WriteFlashWord(gixxer_wideband1, &H7)
-                WriteFlashWord(gixxer_wideband1 + 2, &HA1FF)
-                WriteFlashWord(gixxer_wideband1 + 4, &H7)
-                WriteFlashWord(gixxer_wideband1 + 6, &HA1FF)
+                WriteFlashWord(gixxer_wideband1, gixxer_wideband1_original)
+                WriteFlashWord(gixxer_wideband1 + 2, gixxer_wideband2_original)
+                WriteFlashWord(gixxer_wideband1 + 4, gixxer_wideband1_original)
+                WriteFlashWord(gixxer_wideband1 + 6, gixxer_wideband2_original)
 
                 '8 Bit AD Sensor Value
-                WriteFlashWord(gixxer_wideband2, &H80)
-                WriteFlashWord(gixxer_wideband2 + 2, &H6B3B)
+                WriteFlashWord(gixxer_wideband2, gixxer_wideband3_original)
+                WriteFlashWord(gixxer_wideband2 + 2, gixxer_wideband4_original)
 
             End If
         End If
