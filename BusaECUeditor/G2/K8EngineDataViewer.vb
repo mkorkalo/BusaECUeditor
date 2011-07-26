@@ -2752,19 +2752,6 @@ Public Class K8EngineDataViewer
 
     End Function
 
-    ''' <summary>
-    '''  Author of original C source: Dario Ballabio - March 2011
-    ''' </summary>
-    ''' <param name="map_smoothing_strength">The Minimum number of unchanged surrounding cells to allow map smoothing</param>
-    ''' <param name="maxVal">The number of horizontal cells in the map</param>
-    ''' <param name="maxRPM">The number of vertical cells in the map</param>
-    ''' <param name="c_map">The AutoTuned Fuel Map</param>
-    ''' <param name="p_map">The AutoTune Percentage Change Map, 1 if value changed by autotune, 0 otherwise</param>
-    ''' <param name="r_map">The Current Fuel Map</param>
-    ''' <param name="n_map">The New Smoothed Fuel Map</param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    ''' 
     Private Function MapSmoother(ByVal map_smoothing_strength As Integer, ByVal maxVal As Integer, ByVal maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,), ByRef r_map As Integer(,), ByRef n_map As Integer(,))
         Dim iterationCount As Integer
         Dim totalCount As Integer
@@ -2780,8 +2767,18 @@ Public Class K8EngineDataViewer
         min_auto = 8
         totalCount = 0
 
+        For j As Integer = 0 To maxVal - 1 Step 1
+            For i As Integer = 0 To maxRPM - 1 Step 1
+                n_map(i, j) = c_map(i, j)
+            Next
+        Next
+
         If map_smoothing_strength > 9 Then
-            totalCount = Do_Pre_Smooth(maxVal, maxRPM, c_map, p_map, r_map)
+
+            For k As Integer = 1 To 3 Step 1
+                totalCount = Do_Pre_Smooth(maxVal, maxRPM, c_map, p_map, r_map, n_map)
+            Next
+
             map_smoothing_strength = map_smoothing_strength - 10
         End If
 
@@ -2806,10 +2803,8 @@ Public Class K8EngineDataViewer
 
     End Function
 
-    Private Function Do_Pre_Smooth(ByVal maxVal As Integer, ByVal maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,), ByRef r_map As Integer(,))
+    Private Function Do_Pre_Smooth(ByVal maxVal As Integer, ByVal maxRPM As Integer, ByRef c_map As Integer(,), ByRef p_map As Integer(,), ByRef r_map As Integer(,), ByRef n_map As Integer(,))
 
-
-        ', ByRef p_map As Integer(,)
         ' Values in the RPM/TPS and RPM/IAP matrix are considered as a function
         ' of 2 variables, with values sampled at regularly spaced increments.
         ' The purpose of this routine is to smooth the values comint from 
@@ -2865,9 +2860,10 @@ Public Class K8EngineDataViewer
         Dim tlr As Integer  ' top left corner cell on running fuel matrix
         Dim blr As Integer  ' bottom left cell on running fuel matrix
 
-        Dim local_factor As Double = 2.0 * 8
+        Dim local_factor As Double
         Dim clocal As Double
         Dim idiff As Integer
+        Dim cdiff As Double
         Dim num_auto As Integer
         Dim s_map(maxRPM, maxVal) As Integer
         Dim n As Integer
@@ -2892,6 +2888,10 @@ Public Class K8EngineDataViewer
                 num_auto = 0
                 cc = c_map(i, j)
                 cr = r_map(i, j)
+
+                If j = maxVal - 1 Then
+                    idiff = 0
+                End If
 
                 tr = r_map(i - 1, j)
                 br = r_map(i + 1, j)
@@ -2963,10 +2963,17 @@ Public Class K8EngineDataViewer
                 idiff = 2 * (bc - br + tc - tr + rc - rr + lc - lr) + (brc - brr + tlc - tlr - trc + trr - blc + blr)
                 clocal = (8 * cr + idiff) / 8.0
 
-                ' weighted average between the current central value and the value suggested by num_auto surrounding cells 
-                ' if local_factor = 16, the central value weight is never less than 50%
+                ' weighted average between the current central value and the value suggested by num_auto surrounding cells
 
-                s_map(i, j) = DRound(clocal * (num_auto / local_factor) + cc * (1.0 - (num_auto / local_factor)))
+                cdiff = 0.3 + (5.0 * Abs(cc - cr)) / cr  ' A large %map change reduces the trust on the central cell
+
+                local_factor = num_auto * cdiff / 8.0
+
+                If local_factor > 0.7 Then       ' Surrounding cells weight limited to 70%
+                    local_factor = 0.7
+                End If
+
+                s_map(i, j) = DRound(clocal * local_factor + cc * (1.0 - local_factor))
 
             Next
         Next
@@ -2974,13 +2981,14 @@ Public Class K8EngineDataViewer
         For j As Integer = 1 To maxVal - 1 Step 1
             For i As Integer = 1 To maxRPM - 2 Step 1
 
-                If p_map(i, j) = 0 Then
-                    Continue For
-                End If
+                If p_map(i, j) > 0 Then
 
-                If c_map(i, j) <> s_map(i, j) Then
                     c_map(i, j) = s_map(i, j)
-                    num_polished = num_polished + 1
+
+                    If (Abs(c_map(i, j) - n_map(i, j)) * 1.0) / n_map(i, j) > 0.01 Then
+                        num_polished = num_polished + 1
+                    End If
+
                 End If
 
             Next
@@ -3225,7 +3233,7 @@ Public Class K8EngineDataViewer
         Return num_polished
 
     End Function
-    
+
     Private Sub btnClear_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles btnClear.LinkClicked
 
         ClearData()
