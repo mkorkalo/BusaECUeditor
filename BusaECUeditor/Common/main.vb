@@ -3294,6 +3294,15 @@ skip_update:
                         ECUVersion = "gixxer"
                         Hayabusa.Text = "Gixxer K7- 32920-21H60"
                         Metric = False
+
+                        gixxer_wideband1_original = &H6
+                        gixxer_wideband2_original = &H2947
+                        gixxer_wideband3_original = &H80
+                        gixxer_wideband4_original = &H676D
+
+                        gixxer_wideband1 = &H5AB04
+                        gixxer_wideband2 = &H5AB34
+
                     Case &H37
                         ECUVersion = "gixxer"
                         Hayabusa.Text = "Gixxer K7- 32920-21H70"
@@ -3474,7 +3483,7 @@ skip_update:
                 gixxer_wideband1_original = &H6
                 gixxer_wideband2_original = &H2947
                 gixxer_wideband3_original = &H80
-                gixxer_wideband4_original = &H6760
+                gixxer_wideband4_original = &H676D
 
                 gixxer_wideband1 = &H5AB04
                 gixxer_wideband2 = &H5AB34
