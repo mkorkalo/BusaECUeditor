@@ -1,0 +1,19 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PublishUrlHistory>\\AMD\wwwroot\Ecueditor2.5\|C:\Ecueditor2.5\|E:\Projects\Ecu Editor\Publish\|\\amd\wwwroot\Ecueditor2.5\|\\amd\wwwroot\Ecueditor2.4\</PublishUrlHistory>
+    <InstallUrlHistory>http://www.ecueditor.net/|http://macmadigan.no-ip.com/ecueditor2.5/|http://macmadigan.no-ip.com/Ecueditor2.5/|http://macmadigan.no-ip.com/ecueditor2.5/ecueditor_prerelease.htm/|http://macmadigan.no-ip.com/ecueditor2.4/</InstallUrlHistory>
+    <SupportUrlHistory>http://www.ecueditor.info|http://www.ecueditor.com|http://www.activeboard.com/forum.spark%3fforumID=99460|http://www.busanistit.org</SupportUrlHistory>
+    <UpdateUrlHistory>http://macmadigan.no-ip.com/ecueditor2.5/|http://macmadigan.no-ip.com/ecueditor2.4/|http://macmadigan.no-ip.com/ecueditor2.3/|http://macmadigan.no-ip.com/ecueditor2.2/|http://macmadigan.no-ip.com/ecueditor2.1/</UpdateUrlHistory>
+    <BootstrapperUrlHistory>
+    </BootstrapperUrlHistory>
+    <FallbackCulture>en-US</FallbackCulture>
+    <VerifyUploadedFiles>true</VerifyUploadedFiles>
+    <ProjectView>ShowAllFiles</ProjectView>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
+    <ErrorReportUrlHistory>http://www.ecueditor.info|http://bitbucket.org/ecueditor/ecueditor/issues%3fstatus=new</ErrorReportUrlHistory>
+    <ReferencePath>C:\Users\PetriK\Desktop\ecueditor2.4\BusaECUeditor\dlls\</ReferencePath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
+  </PropertyGroup>
+</Project>
