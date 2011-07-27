@@ -1503,7 +1503,13 @@ Public Class K8EngineDataViewer
 
                     If avgAfr > 0 Then
 
-                        percentageChange = AutoTuneCorrection((avgAfr - _tpsTargetAFR(xIndex, yIndex)) / avgAfr * 100)
+                        If Math.Abs(avgAfr - _tpsTargetAFR(xIndex, yIndex)) < 0.1 Then
+                            percentageChange = AutoTuneCorrection((avgAfr - _tpsTargetAFR(xIndex, yIndex)) / avgAfr * 100) / 2
+                        ElseIf Math.Abs(avgAfr - _tpsTargetAFR(xIndex, yIndex)) > 2 Then
+                            percentageChange = AutoTuneCorrection((avgAfr - _iapTargetAFR(xIndex, yIndex)) / avgAfr * 100) * 2
+                        Else
+                            percentageChange = AutoTuneCorrection((avgAfr - _tpsTargetAFR(xIndex, yIndex)) / avgAfr * 100)
+                        End If
 
                         If CheckAutoTuneFilter(avgAfr, percentageChange, dataCount) Then
 
@@ -1515,7 +1521,7 @@ Public Class K8EngineDataViewer
 
                         End If
                     End If
-                End If
+                    End If
             Next
         Next
 
@@ -1613,7 +1619,13 @@ Public Class K8EngineDataViewer
 
                 If avgAfr > 0 Then
 
-                    percentageChange = AutoTuneCorrection((avgAfr - _iapTargetAFR(xIndex, yIndex)) / avgAfr * 100)
+                    If Math.Abs(avgAfr - _tpsTargetAFR(xIndex, yIndex)) < 0.1 Then
+                        percentageChange = AutoTuneCorrection((avgAfr - _iapTargetAFR(xIndex, yIndex)) / avgAfr * 100) / 2
+                    ElseIf Math.Abs(avgAfr - _tpsTargetAFR(xIndex, yIndex)) > 2 Then
+                        percentageChange = AutoTuneCorrection((avgAfr - _iapTargetAFR(xIndex, yIndex)) / avgAfr * 100) * 2
+                    Else
+                        percentageChange = AutoTuneCorrection((avgAfr - _iapTargetAFR(xIndex, yIndex)) / avgAfr * 100)
+                    End If
 
                     If CheckAutoTuneFilter(avgAfr, percentageChange, dataCount) Then
 
