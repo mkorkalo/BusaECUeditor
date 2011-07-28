@@ -181,20 +181,44 @@ Public Class K8Advsettings
         End If
 
         If ReadFlashByte(&H51794) = &HFE Then
-            C_PAIR.Text = "PAIR ON"
+            C_PAIR.Text = "PAIR ACTIVE"
             C_PAIR.Checked = True
             WriteFlashByte(&H51794, &HFE)
             WriteFlashByte(&H51795, &HFF)
             WriteFlashByte(&H51796, &HFC)
             WriteFlashByte(&H51797, &HA8)
+            C_pair_voltage.Checked = False
+            C_pair_voltage.Enabled = True
         Else
-            C_PAIR.Text = "PAIR OFF"
+            C_PAIR.Text = "PAIR DISABLED"
             C_PAIR.Checked = False
             WriteFlashByte(&H51794, &H70)
             WriteFlashByte(&H51795, &H0)
             WriteFlashByte(&H51796, &H70)
             WriteFlashByte(&H51797, &H0)
+            C_pair_voltage.Enabled = False
         End If
+
+        '
+        ' 28.7.2011 PKa Added closing the pair valve
+        '
+        If ReadFlashByte(&H51165) = 1 Then
+            C_pair_voltage.Checked = True
+        Else
+            C_pair_voltage.Checked = False
+        End If
+        If C_pair_voltage.Checked = True Then
+            C_pair_voltage.Text = "PAIR VALVE CLOSED"
+            WriteFlashByte(&H51165, 1)
+            WriteFlashByte(&H51299, 1)
+            WriteFlashByte(&H512DD, 1)
+        Else
+            C_pair_voltage.Text = "PAIR VALVE NORMAL"
+            WriteFlashByte(&H51165, 0)
+            WriteFlashByte(&H51299, 0)
+            WriteFlashByte(&H512DD, 0)
+        End If
+
 
         If ReadFlashByte(&H72584) = &H0 Then
             C_COV.Text = "COV ON"
@@ -242,20 +266,20 @@ Public Class K8Advsettings
         End If
 
 
-        If readflashbyte(&H3E047) = 0 Then
+        If ReadFlashByte(&H3E047) = 0 Then
             C_secondaries.Text = "Secondaries FI disabled"
             C_secondaries.Checked = True
-            writeflashbyte(&H3E047, 0)
-            writeflashbyte(&H3E26F, 0)
-            writeflashbyte(&H3E497, 0)
-            writeflashbyte(&H3E6BF, 0)
+            WriteFlashByte(&H3E047, 0)
+            WriteFlashByte(&H3E26F, 0)
+            WriteFlashByte(&H3E497, 0)
+            WriteFlashByte(&H3E6BF, 0)
         Else
             C_secondaries.Text = "Secondaries FI normal"
             C_secondaries.Checked = False
-            writeflashbyte(&H3E047, &HCD)
-            writeflashbyte(&H3E26F, &HCD)
-            writeflashbyte(&H3E497, &HCD)
-            writeflashbyte(&H3E6BF, &HCD)
+            WriteFlashByte(&H3E047, &HCD)
+            WriteFlashByte(&H3E26F, &HCD)
+            WriteFlashByte(&H3E497, &HCD)
+            WriteFlashByte(&H3E6BF, &HCD)
         End If
 
         '
@@ -927,27 +951,47 @@ Public Class K8Advsettings
     Private Sub C_PAIR_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_PAIR.CheckedChanged
         If Not loading Then
             If C_PAIR.Checked = True Then
-                C_PAIR.Text = "PAIR ON"
+                C_PAIR.Text = "PAIR ACTIVE"
                 WriteFlashByte(&H51794, &HFE) ' jump to set pair port subroutine
                 WriteFlashByte(&H51795, &HFF)
                 WriteFlashByte(&H51796, &HFC)
                 WriteFlashByte(&H51797, &HA8)
                 WriteFlashByte(&H7D24C, &HFF) ' pair config flag
+                C_pair_voltage.Enabled = True
+                C_pair_voltage.Checked = False
             Else
-                C_PAIR.Text = "PAIR OFF"
+                C_PAIR.Text = "PAIR DÌSABLED"
                 WriteFlashByte(&H51794, &H70)
                 WriteFlashByte(&H51795, &H0)
                 WriteFlashByte(&H51796, &H70)
                 WriteFlashByte(&H51797, &H0)
                 WriteFlashByte(&H7D24C, &H80)
+                C_pair_voltage.Enabled = False
             End If
         End If
 
     End Sub
 
-    Private Sub GroupBox7_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    '
+    ' 28.7.2011 PKa added pair valve control for dyno use
+    '
+    Private Sub CheckBox1_CheckedChanged_3(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_pair_voltage.CheckedChanged
+        If Not loading Then
+            If C_pair_voltage.Checked = True Then
+                C_pair_voltage.Text = "PAIR VALVE CLOSED"
+                WriteFlashByte(&H51165, 1)
+                WriteFlashByte(&H51299, 1)
+                WriteFlashByte(&H512DD, 1)
+            Else
+                C_pair_voltage.Text = "PAIR VALVE NORMAL"
+                WriteFlashByte(&H51165, 0)
+                WriteFlashByte(&H51299, 0)
+                WriteFlashByte(&H512DD, 0)
+            End If
+        End If
 
     End Sub
+
 
     Private Sub Button1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         K8STPmap.Show()

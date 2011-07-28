@@ -106,15 +106,25 @@
             End If
         End If
 
+        '
+        ' 28.7.2011 PKa, fixed so reopening info is correct
+        '
         If gixxer_excva = 0 Then
             C_EXC.Enabled = False
         Else
-            If ReadFlashByte(gixxer_excva_flag) = &HFF Then
+            C_EXC.Enabled = True
+            If ReadFlashByte(gixxer_excva) = &HFF Then
                 C_EXC.Checked = True
-                C_EXC.Text = "EXC ON"
+                C_EXC.Text = "EXCV FI ON"
+                WriteFlashByte(gixxer_excva_flag, &HFF) '60669
+                WriteFlashByte(gixxer_excva, &HFF) '6000D
+                WriteFlashByte(gixxer_excva + 1, &H0)  '6000F
             Else
                 C_EXC.Checked = False
-                C_EXC.Text = "EXC OFF"
+                C_EXC.Text = "EXCV FI OFF"
+                WriteFlashByte(gixxer_excva_flag, &H1) 'could be 0 or 1
+                WriteFlashByte(gixxer_excva, &H0) 'if 0 shows error on busa
+                WriteFlashByte(gixxer_excva + 1, &H80)
             End If
         End If
 
@@ -339,15 +349,13 @@
 
     Private Sub C_EXC_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_EXC.CheckedChanged
         If Not loading Then
-
-
             If C_EXC.Checked = True Then
-                C_EXC.Text = "EXCV ON"
+                C_EXC.Text = "EXCV FI ON"
                 WriteFlashByte(gixxer_excva_flag, &HFF) '60669
                 WriteFlashByte(gixxer_excva, &HFF) '6000D
                 WriteFlashByte(gixxer_excva + 1, &H0)  '6000F
             Else
-                C_EXC.Text = "EXCV OFF"
+                C_EXC.Text = "EXCV FI OFF"
                 WriteFlashByte(gixxer_excva_flag, &H1) 'could be 0 or 1
                 WriteFlashByte(gixxer_excva, &H0) 'if 0 shows error on busa
                 WriteFlashByte(gixxer_excva + 1, &H80)
