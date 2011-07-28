@@ -1005,13 +1005,13 @@ skip_update:
         K8boostfuel.Close()
         K8Fuelmap.Close()
         K8Datastream.Close()
-        GixxerIgnitionmap.Close()
-        GixxerShifter.Close()
+        K8Ignitionmap.Close()
+        K8Shifter.Close()
         K8dragtools.Close()
-        Gixxerinjectorbalancemap.Close()
+        K8injectorbalancemap.Close()
         K8dwellignition.Close()
-        GixxerSTPmap.Close()
-        GixxerLimiters.Close()
+        K8STPmap.Close()
+        K8Limiters.Close()
 
         'gen1 
         FuelMap.Close()
@@ -1029,6 +1029,16 @@ skip_update:
 
         'gixxer
         GixxerFuelmap.Close()
+        GixxerIgnitionmap.Close()
+        GixxerAdvSettings.Close()
+        GixxerShifter.Close()
+        GixxerLimiters.Close()
+        Gixxerramair.Close()
+        Gixxersteeringdampenermap.Close()
+        GixxerSTPmap.Close()
+        Gixxerinjectorbalancemap.Close()
+        GixxerFuelGraph.Close()
+
 
     End Sub
 
@@ -4207,6 +4217,11 @@ skip_update:
                 B_AdvancedSettings.Enabled = False
 
         End Select
+
+        '
+        ' 28.7.2011 PKa Close all open windows when you change the file
+        '
+        CloseChildWindows()
 
     End Sub
 

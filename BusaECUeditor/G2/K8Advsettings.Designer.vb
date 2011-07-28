@@ -77,6 +77,7 @@ Partial Class K8Advsettings
         Me.Label5 = New System.Windows.Forms.Label()
         Me.C_ABCmode = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.C_pair_voltage = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -166,7 +167,7 @@ Partial Class K8Advsettings
         'C_HOX
         '
         Me.C_HOX.AutoSize = True
-        Me.C_HOX.Location = New System.Drawing.Point(6, 65)
+        Me.C_HOX.Location = New System.Drawing.Point(6, 70)
         Me.C_HOX.Name = "C_HOX"
         Me.C_HOX.Size = New System.Drawing.Size(115, 17)
         Me.C_HOX.TabIndex = 2
@@ -288,7 +289,7 @@ Partial Class K8Advsettings
         'C_ramairmode
         '
         Me.C_ramairmode.AutoSize = True
-        Me.C_ramairmode.Location = New System.Drawing.Point(6, 105)
+        Me.C_ramairmode.Location = New System.Drawing.Point(6, 145)
         Me.C_ramairmode.Name = "C_ramairmode"
         Me.C_ramairmode.Size = New System.Drawing.Size(88, 17)
         Me.C_ramairmode.TabIndex = 2
@@ -299,7 +300,7 @@ Partial Class K8Advsettings
         'Button5
         '
         Me.Button5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button5.Location = New System.Drawing.Point(67, 8)
+        Me.Button5.Location = New System.Drawing.Point(111, 12)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(80, 23)
         Me.Button5.TabIndex = 7
@@ -310,7 +311,7 @@ Partial Class K8Advsettings
         'C_warmup
         '
         Me.C_warmup.AutoSize = True
-        Me.C_warmup.Location = New System.Drawing.Point(6, 128)
+        Me.C_warmup.Location = New System.Drawing.Point(6, 168)
         Me.C_warmup.Name = "C_warmup"
         Me.C_warmup.Size = New System.Drawing.Size(97, 17)
         Me.C_warmup.TabIndex = 4
@@ -330,15 +331,16 @@ Partial Class K8Advsettings
         '
         'GroupBox6
         '
+        Me.GroupBox6.Controls.Add(Me.C_pair_voltage)
         Me.GroupBox6.Controls.Add(Me.C_warmup)
-        Me.GroupBox6.Controls.Add(Me.C_ramairmode)
         Me.GroupBox6.Controls.Add(Me.C_PAIR)
+        Me.GroupBox6.Controls.Add(Me.C_ramairmode)
         Me.GroupBox6.Controls.Add(Me.C_HOX)
         Me.GroupBox6.Controls.Add(Me.R_IAT_normal)
         Me.GroupBox6.Controls.Add(Me.R_IAT_dynomode)
         Me.GroupBox6.Location = New System.Drawing.Point(17, 71)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(154, 152)
+        Me.GroupBox6.Size = New System.Drawing.Size(154, 219)
         Me.GroupBox6.TabIndex = 10
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Dynomode settings"
@@ -346,11 +348,14 @@ Partial Class K8Advsettings
         'C_PAIR
         '
         Me.C_PAIR.AutoSize = True
-        Me.C_PAIR.Location = New System.Drawing.Point(6, 85)
+        Me.C_PAIR.Location = New System.Drawing.Point(6, 98)
         Me.C_PAIR.Name = "C_PAIR"
         Me.C_PAIR.Size = New System.Drawing.Size(83, 17)
         Me.C_PAIR.TabIndex = 3
         Me.C_PAIR.Text = "PAIR on/off"
+        Me.ToolTip1.SetToolTip(Me.C_PAIR, "This setting allows you to activate/disable the pair functionality.  Disabling th" & _
+                "e pair is needed if:" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "1) Pair is removed" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2) Pair connector is used as a nitrous" & _
+                " controller or as a boost controller" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10))
         Me.C_PAIR.UseVisualStyleBackColor = True
         '
         'B_boostfuel
@@ -372,7 +377,7 @@ Partial Class K8Advsettings
         Me.GroupBox5.Controls.Add(Me.B_boostfuel)
         Me.GroupBox5.Location = New System.Drawing.Point(179, 12)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(213, 118)
+        Me.GroupBox5.Size = New System.Drawing.Size(213, 103)
         Me.GroupBox5.TabIndex = 40
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Powertools"
@@ -448,7 +453,7 @@ Partial Class K8Advsettings
         Me.GroupBox8.Controls.Add(Me.Label4)
         Me.GroupBox8.Controls.Add(Me.Label2)
         Me.GroupBox8.Controls.Add(Me.T_hexaddr)
-        Me.GroupBox8.Location = New System.Drawing.Point(17, 434)
+        Me.GroupBox8.Location = New System.Drawing.Point(17, 451)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(376, 65)
         Me.GroupBox8.TabIndex = 42
@@ -516,7 +521,7 @@ Partial Class K8Advsettings
         Me.GroupBox9.Controls.Add(Me.Label9)
         Me.GroupBox9.Controls.Add(Me.Button1)
         Me.GroupBox9.Controls.Add(Me.Label7)
-        Me.GroupBox9.Location = New System.Drawing.Point(178, 139)
+        Me.GroupBox9.Location = New System.Drawing.Point(179, 115)
         Me.GroupBox9.Name = "GroupBox9"
         Me.GroupBox9.Size = New System.Drawing.Size(214, 131)
         Me.GroupBox9.TabIndex = 44
@@ -586,9 +591,9 @@ Partial Class K8Advsettings
         Me.GroupBox7.Controls.Add(Me.C_ABCmode)
         Me.GroupBox7.Controls.Add(Me.C_coil_fi_disable)
         Me.GroupBox7.Controls.Add(Me.C_ICS)
-        Me.GroupBox7.Location = New System.Drawing.Point(17, 276)
+        Me.GroupBox7.Location = New System.Drawing.Point(16, 290)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(374, 152)
+        Me.GroupBox7.Size = New System.Drawing.Size(374, 169)
         Me.GroupBox7.TabIndex = 46
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Misc settings"
@@ -673,18 +678,31 @@ Partial Class K8Advsettings
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.Button5)
-        Me.GroupBox2.Location = New System.Drawing.Point(19, 229)
+        Me.GroupBox2.Location = New System.Drawing.Point(179, 249)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(153, 41)
+        Me.GroupBox2.Size = New System.Drawing.Size(214, 41)
         Me.GroupBox2.TabIndex = 9
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Gaugemode"
+        '
+        'C_pair_voltage
+        '
+        Me.C_pair_voltage.AutoSize = True
+        Me.C_pair_voltage.Location = New System.Drawing.Point(6, 117)
+        Me.C_pair_voltage.Name = "C_pair_voltage"
+        Me.C_pair_voltage.Size = New System.Drawing.Size(121, 17)
+        Me.C_pair_voltage.TabIndex = 106
+        Me.C_pair_voltage.Text = "PAIR voltage on/off"
+        Me.ToolTip1.SetToolTip(Me.C_pair_voltage, "This setting allows you to set pair voltage permanently on to close the pair valv" & _
+                "e" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "fully for e.g. dyno sessions. This setting to work the PAIR setting must be s" & _
+                "et to normal.")
+        Me.C_pair_voltage.UseVisualStyleBackColor = True
         '
         'K8Advsettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(397, 433)
+        Me.ClientSize = New System.Drawing.Size(397, 570)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox4)
@@ -776,4 +794,5 @@ Partial Class K8Advsettings
     Friend WithEvents C_fan As System.Windows.Forms.ComboBox
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents C_BkingGauges As System.Windows.Forms.CheckBox
+    Friend WithEvents C_pair_voltage As System.Windows.Forms.CheckBox
 End Class
