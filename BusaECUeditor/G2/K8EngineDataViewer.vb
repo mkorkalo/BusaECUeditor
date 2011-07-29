@@ -1503,12 +1503,16 @@ Public Class K8EngineDataViewer
 
                     If avgAfr > 0 Then
 
-                        If Math.Abs(avgAfr - _tpsTargetAFR(xIndex, yIndex)) < 0.1 Then
+                        Dim afrDelta As Double = Math.Abs(avgAfr - _tpsTargetAFR(xIndex, yIndex))
+
+                        If afrDelta < 0.1 Then
                             percentageChange = AutoTuneCorrection((avgAfr - _tpsTargetAFR(xIndex, yIndex)) / avgAfr * 100) / 2
-                        ElseIf Math.Abs(avgAfr - _tpsTargetAFR(xIndex, yIndex)) > 2 Then
+                        ElseIf afrDelta < 0.5 Then
+                            percentageChange = AutoTuneCorrection((avgAfr - _tpsTargetAFR(xIndex, yIndex)) / avgAfr * 100)
+                        ElseIf afrDelta < 1.0 Then
                             percentageChange = AutoTuneCorrection((avgAfr - _iapTargetAFR(xIndex, yIndex)) / avgAfr * 100) * 2
                         Else
-                            percentageChange = AutoTuneCorrection((avgAfr - _tpsTargetAFR(xIndex, yIndex)) / avgAfr * 100)
+                            percentageChange = AutoTuneCorrection((avgAfr - _iapTargetAFR(xIndex, yIndex)) / avgAfr * 100) * 3
                         End If
 
                         If CheckAutoTuneFilter(avgAfr, percentageChange, dataCount) Then
@@ -1619,12 +1623,16 @@ Public Class K8EngineDataViewer
 
                 If avgAfr > 0 Then
 
-                    If Math.Abs(avgAfr - _tpsTargetAFR(xIndex, yIndex)) < 0.1 Then
+                    Dim afrDelta As Double = Math.Abs(avgAfr - _tpsTargetAFR(xIndex, yIndex))
+
+                    If afrDelta < 0.1 Then
                         percentageChange = AutoTuneCorrection((avgAfr - _iapTargetAFR(xIndex, yIndex)) / avgAfr * 100) / 2
-                    ElseIf Math.Abs(avgAfr - _tpsTargetAFR(xIndex, yIndex)) > 2 Then
+                    ElseIf afrDelta < 0.5 Then
+                        percentageChange = AutoTuneCorrection((avgAfr - _iapTargetAFR(xIndex, yIndex)) / avgAfr * 100)
+                    ElseIf afrDelta < 1 Then
                         percentageChange = AutoTuneCorrection((avgAfr - _iapTargetAFR(xIndex, yIndex)) / avgAfr * 100) * 2
                     Else
-                        percentageChange = AutoTuneCorrection((avgAfr - _iapTargetAFR(xIndex, yIndex)) / avgAfr * 100)
+                        percentageChange = AutoTuneCorrection((avgAfr - _iapTargetAFR(xIndex, yIndex)) / avgAfr * 100) * 3
                     End If
 
                     If CheckAutoTuneFilter(avgAfr, percentageChange, dataCount) Then
