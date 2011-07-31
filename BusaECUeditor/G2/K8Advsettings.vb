@@ -555,7 +555,7 @@ Public Class K8Advsettings
                 main.ECUID.Text = main.ECUID.Text & Chr(Flash(&HFFFF0 + i))
                 i = i + 1
             Loop
-            main.setecutype()
+            main.SetECUType()
         End If
 
     End Sub
