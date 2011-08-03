@@ -168,6 +168,7 @@ Public Class K8EngineDataLogger
     Dim _lastFuel1 As Integer
     Dim _newData As Boolean = False
     Dim _reConnect As Boolean = False
+    Dim _avgAFR As Double = 0
 
     Dim _dataCount As Integer = 0
     Dim _dataCountRepeated As Integer = 0
@@ -2719,7 +2720,9 @@ Public Class K8EngineDataLogger
             L_BasicData.Text = "TPS: " & CalcTPS(TPS) & " RPM: " & RPM & " IAP: " & CalcPressure(IAP) & " Gear: " & GEAR & " Coolant: " & CalcTemp(CLT)
 
             If C_WidebandO2Sensor.Checked = True Then
-                L_AFR.Text = "AFR: " + CalcWidebandAFR(WIDEBAND).ToString("00.00")
+
+                _avgAFR = 0.25 * CalcWidebandAFR(WIDEBAND) + 0.75 * _avgAFR
+                L_AFR.Text = "AFR: " + _avgAFR.ToString("00.00")
             Else
                 L_AFR.Text = "AFR: " + CalcAFR(HO2).ToString("00.00")
             End If
