@@ -1401,4 +1401,10 @@ Public Class K8Advsettings
 
     End Sub
 
+    Private Sub B_ResetBlocks_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_ResetBlocks.Click
+
+        BlockPgm = False
+        ResetBlocks()
+
+    End Sub
 End Class
