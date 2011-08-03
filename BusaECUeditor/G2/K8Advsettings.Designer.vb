@@ -712,7 +712,7 @@ Partial Class K8Advsettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(501, 443)
+        Me.ClientSize = New System.Drawing.Size(398, 443)
         Me.Controls.Add(Me.B_ResetBlocks)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox7)
