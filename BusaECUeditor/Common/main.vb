@@ -1039,6 +1039,9 @@ skip_update:
         Gixxerinjectorbalancemap.Close()
         GixxerFuelGraph.Close()
 
+        '
+        ' resume on error back to default
+        '
 
     End Sub
 
@@ -2919,6 +2922,11 @@ skip_update:
 
         '
         ' here we set ecutype based on ecuid and then enable respective windows
+        ' fast search key  1111
+        '
+
+        '
+        ' here we set ecutype based on ecuid and then enable respective windows
         ' fast search key 111111
         '
 
@@ -4218,11 +4226,7 @@ skip_update:
 
         End Select
 
-        '
-        ' 28.7.2011 PKa Close all open windows when you change the file
-        '
-        CloseChildWindows()
-
+     
     End Sub
 
     Private Sub TestCheckSum()
