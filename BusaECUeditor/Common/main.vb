@@ -1005,13 +1005,13 @@ skip_update:
         K8boostfuel.Close()
         K8Fuelmap.Close()
         K8Datastream.Close()
-        GixxerIgnitionmap.Close()
-        GixxerShifter.Close()
+        K8Ignitionmap.Close()
+        K8Shifter.Close()
         K8dragtools.Close()
-        Gixxerinjectorbalancemap.Close()
+        K8injectorbalancemap.Close()
         K8dwellignition.Close()
-        GixxerSTPmap.Close()
-        GixxerLimiters.Close()
+        K8STPmap.Close()
+        K8Limiters.Close()
 
         'gen1 
         FuelMap.Close()
@@ -1029,6 +1029,19 @@ skip_update:
 
         'gixxer
         GixxerFuelmap.Close()
+        GixxerIgnitionmap.Close()
+        GixxerAdvSettings.Close()
+        GixxerShifter.Close()
+        GixxerLimiters.Close()
+        Gixxerramair.Close()
+        Gixxersteeringdampenermap.Close()
+        GixxerSTPmap.Close()
+        Gixxerinjectorbalancemap.Close()
+        GixxerFuelGraph.Close()
+
+        '
+        ' resume on error back to default
+        '
 
     End Sub
 
@@ -2909,6 +2922,11 @@ skip_update:
 
         '
         ' here we set ecutype based on ecuid and then enable respective windows
+        ' fast search key  1111
+        '
+
+        '
+        ' here we set ecutype based on ecuid and then enable respective windows
         ' fast search key 111111
         '
 
@@ -4208,6 +4226,7 @@ skip_update:
 
         End Select
 
+     
     End Sub
 
     Private Sub TestCheckSum()
