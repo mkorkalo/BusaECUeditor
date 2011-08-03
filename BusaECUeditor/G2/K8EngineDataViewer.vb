@@ -1510,9 +1510,9 @@ Public Class K8EngineDataViewer
                         ElseIf afrDelta < 0.5 Then
                             percentageChange = AutoTuneCorrection((avgAfr - _tpsTargetAFR(xIndex, yIndex)) / avgAfr * 100)
                         ElseIf afrDelta < 1.0 Then
-                            percentageChange = AutoTuneCorrection((avgAfr - _iapTargetAFR(xIndex, yIndex)) / avgAfr * 100) * 2
+                            percentageChange = AutoTuneCorrection((avgAfr - _tpsTargetAFR(xIndex, yIndex)) / avgAfr * 100) * 2
                         Else
-                            percentageChange = AutoTuneCorrection((avgAfr - _iapTargetAFR(xIndex, yIndex)) / avgAfr * 100) * 3
+                            percentageChange = AutoTuneCorrection((avgAfr - _tpsTargetAFR(xIndex, yIndex)) / avgAfr * 100) * 3
                         End If
 
                         If CheckAutoTuneFilter(avgAfr, percentageChange, dataCount) Then

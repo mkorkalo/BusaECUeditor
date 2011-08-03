@@ -78,6 +78,7 @@ Partial Class K8Advsettings
         Me.Label5 = New System.Windows.Forms.Label()
         Me.C_ABCmode = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.B_ResetBlocks = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -698,11 +699,21 @@ Partial Class K8Advsettings
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Gaugemode"
         '
+        'B_ResetBlocks
+        '
+        Me.B_ResetBlocks.Location = New System.Drawing.Point(399, 30)
+        Me.B_ResetBlocks.Name = "B_ResetBlocks"
+        Me.B_ResetBlocks.Size = New System.Drawing.Size(75, 23)
+        Me.B_ResetBlocks.TabIndex = 47
+        Me.B_ResetBlocks.Text = "Reset Blocks"
+        Me.B_ResetBlocks.UseVisualStyleBackColor = True
+        '
         'K8Advsettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(397, 443)
+        Me.ClientSize = New System.Drawing.Size(501, 443)
+        Me.Controls.Add(Me.B_ResetBlocks)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox4)
@@ -795,4 +806,5 @@ Partial Class K8Advsettings
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents C_BkingGauges As System.Windows.Forms.CheckBox
     Friend WithEvents C_pair_voltage As System.Windows.Forms.CheckBox
+    Friend WithEvents B_ResetBlocks As System.Windows.Forms.Button
 End Class

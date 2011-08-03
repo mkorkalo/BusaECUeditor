@@ -19,31 +19,31 @@ Partial Class BKingAdvSettings
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BKingAdvSettings))
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.GroupBox8 = New System.Windows.Forms.GroupBox
-        Me.B_WRITE = New System.Windows.Forms.Button
-        Me.T_hexvaluehi = New System.Windows.Forms.TextBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.T_hexaddr = New System.Windows.Forms.TextBox
-        Me.C_HOX = New System.Windows.Forms.CheckBox
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.C_DatalogO2Sensor = New System.Windows.Forms.CheckBox
-        Me.C_EXC = New System.Windows.Forms.CheckBox
-        Me.C_FastBaudRate = New System.Windows.Forms.CheckBox
-        Me.C_EVAP = New System.Windows.Forms.CheckBox
-        Me.C_PAIR = New System.Windows.Forms.CheckBox
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.GroupBox9 = New System.Windows.Forms.GroupBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.B_Inj_Bal_Map = New System.Windows.Forms.Button
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.B_STP_Map = New System.Windows.Forms.Button
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Button2 = New System.Windows.Forms.Button
-        Me.Button3 = New System.Windows.Forms.Button
+        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
+        Me.B_WRITE = New System.Windows.Forms.Button()
+        Me.T_hexvaluehi = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.T_hexaddr = New System.Windows.Forms.TextBox()
+        Me.C_HOX = New System.Windows.Forms.CheckBox()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.C_DatalogO2Sensor = New System.Windows.Forms.CheckBox()
+        Me.C_EXC = New System.Windows.Forms.CheckBox()
+        Me.C_FastBaudRate = New System.Windows.Forms.CheckBox()
+        Me.C_EVAP = New System.Windows.Forms.CheckBox()
+        Me.C_PAIR = New System.Windows.Forms.CheckBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.GroupBox9 = New System.Windows.Forms.GroupBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.B_Inj_Bal_Map = New System.Windows.Forms.Button()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.B_STP_Map = New System.Windows.Forms.Button()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox9.SuspendLayout()
@@ -269,7 +269,7 @@ Partial Class BKingAdvSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(415, 181)
+        Me.ClientSize = New System.Drawing.Size(415, 186)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.GroupBox9)
