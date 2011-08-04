@@ -2214,7 +2214,7 @@ Public Class K8EngineDataLogger
             tps = 100
         End If
 
-        Return Format(tps, "#0.#")
+        Return Format(tps, "#0.0")
 
     End Function
 
@@ -2717,22 +2717,33 @@ Public Class K8EngineDataLogger
         If Timer_EngineData.Enabled = True Then
 
             L_CommStatusColour.ForeColor = Color.Green
-            L_BasicData.Text = "TPS: " & CalcTPS(TPS) & " RPM: " & RPM & " IAP: " & CalcPressure(IAP) & " Gear: " & GEAR & " Coolant: " & CalcTemp(CLT)
+
+            RPM_GAUGE.Value = RPM
+            L_TPS.Text = CalcTPS(TPS)
+            L_IAP.Text = CalcPressure(IAP)
+            L_GEAR.Text = GEAR
+            L_Temp.Text = CalcTemp(CLT)
+            L_Boost.Text = CalcPressure(BOOST)
 
             If C_WidebandO2Sensor.Checked = True Then
-
                 _avgAFR = 0.25 * CalcWidebandAFR(WIDEBAND) + 0.75 * _avgAFR
-                L_AFR.Text = "AFR: " + _avgAFR.ToString("00.00")
+                L_AFR.Text = _avgAFR.ToString("00.0")
             Else
-                L_AFR.Text = "AFR: " + CalcAFR(HO2).ToString("00.00")
+                L_AFR.Text = CalcAFR(HO2).ToString("00.0")
             End If
 
             L_NewDataPercentage.Text = (_dataCount / (_dataCount + _dataCountRepeated) * 100).ToString("00.0") & "%" & " - " & _totalMissedDataCount & " / " & _dataCount
+
         ElseIf _connected = False Then
 
             L_CommStatusColour.ForeColor = Color.Red
-            L_BasicData.Text = ""
+            RPM_GAUGE.Value = 0
             L_AFR.Text = ""
+            L_TPS.Text = ""
+            L_IAP.Text = ""
+            L_GEAR.Text = ""
+            L_Temp.Text = ""
+            L_Boost.Text = ""
 
         End If
 

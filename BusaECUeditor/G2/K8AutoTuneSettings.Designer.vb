@@ -53,13 +53,14 @@ Partial Class K8AutoTuneSettings
         Me.NUD_AutoTuneTimeWindow = New System.Windows.Forms.NumericUpDown()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.NUD_AFRStdDev = New System.Windows.Forms.NumericUpDown()
-        Me.Label8 = New System.Windows.Forms.Label()
         Me.NUD_ExhaustGasVelocityOffset = New System.Windows.Forms.NumericUpDown()
         Me.L_AutoTuneStrength = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TB_AutoTuneStrength = New System.Windows.Forms.TrackBar()
         Me.B_Cancel = New System.Windows.Forms.Button()
         Me.B_Ok = New System.Windows.Forms.Button()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.C_BoostPressureSensor = New System.Windows.Forms.ComboBox()
         CType(Me.NUD_AutoTuneMinAvgAFR, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_AutoTuneMaxAvgAFR, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_AutoTuneMaxPercentageFuelMapChange, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -169,6 +170,8 @@ Partial Class K8AutoTuneSettings
         'Panel2
         '
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel2.Controls.Add(Me.C_BoostPressureSensor)
+        Me.Panel2.Controls.Add(Me.Label7)
         Me.Panel2.Controls.Add(Me.NUD_MaxTimeOffset)
         Me.Panel2.Controls.Add(Me.L_MaxTimeOffset)
         Me.Panel2.Controls.Add(Me.NUD_HeaderPipeLength)
@@ -188,7 +191,6 @@ Partial Class K8AutoTuneSettings
         Me.Panel2.Controls.Add(Me.NUD_AutoTuneTimeWindow)
         Me.Panel2.Controls.Add(Me.Label9)
         Me.Panel2.Controls.Add(Me.NUD_AFRStdDev)
-        Me.Panel2.Controls.Add(Me.Label8)
         Me.Panel2.Controls.Add(Me.NUD_ExhaustGasVelocityOffset)
         Me.Panel2.Controls.Add(Me.L_AutoTuneStrength)
         Me.Panel2.Controls.Add(Me.Label6)
@@ -203,7 +205,7 @@ Partial Class K8AutoTuneSettings
         Me.Panel2.Controls.Add(Me.Label3)
         Me.Panel2.Location = New System.Drawing.Point(7, 77)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(631, 255)
+        Me.Panel2.Size = New System.Drawing.Size(631, 273)
         Me.Panel2.TabIndex = 10
         '
         'NUD_MaxTimeOffset
@@ -393,15 +395,6 @@ Partial Class K8AutoTuneSettings
         Me.NUD_AFRStdDev.TabIndex = 16
         Me.NUD_AFRStdDev.Value = New Decimal(New Integer() {5, 0, 0, 65536})
         '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(310, 186)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(24, 13)
-        Me.Label8.TabIndex = 15
-        Me.Label8.Text = "rpm"
-        '
         'NUD_ExhaustGasVelocityOffset
         '
         Me.NUD_ExhaustGasVelocityOffset.Location = New System.Drawing.Point(555, 12)
@@ -431,7 +424,7 @@ Partial Class K8AutoTuneSettings
         '
         'TB_AutoTuneStrength
         '
-        Me.TB_AutoTuneStrength.Location = New System.Drawing.Point(124, 211)
+        Me.TB_AutoTuneStrength.Location = New System.Drawing.Point(186, 223)
         Me.TB_AutoTuneStrength.Maximum = 120
         Me.TB_AutoTuneStrength.Minimum = 40
         Me.TB_AutoTuneStrength.Name = "TB_AutoTuneStrength"
@@ -458,11 +451,28 @@ Partial Class K8AutoTuneSettings
         Me.B_Ok.Text = "OK"
         Me.B_Ok.UseVisualStyleBackColor = True
         '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(19, 186)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(114, 13)
+        Me.Label7.TabIndex = 35
+        Me.Label7.Text = "Boost Pressure Sensor"
+        '
+        'C_BoostPressureSensor
+        '
+        Me.C_BoostPressureSensor.FormattingEnabled = True
+        Me.C_BoostPressureSensor.Location = New System.Drawing.Point(210, 183)
+        Me.C_BoostPressureSensor.Name = "C_BoostPressureSensor"
+        Me.C_BoostPressureSensor.Size = New System.Drawing.Size(90, 21)
+        Me.C_BoostPressureSensor.TabIndex = 36
+        '
         'K8AutoTuneSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(650, 338)
+        Me.ClientSize = New System.Drawing.Size(650, 362)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.B_Ok)
@@ -509,7 +519,6 @@ Partial Class K8AutoTuneSettings
     Friend WithEvents L_AutoTuneStrength As System.Windows.Forms.Label
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents NUD_ExhaustGasVelocityOffset As System.Windows.Forms.NumericUpDown
-    Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents NUD_AFRStdDev As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents Label10 As System.Windows.Forms.Label
@@ -529,4 +538,6 @@ Partial Class K8AutoTuneSettings
     Friend WithEvents NUD_HeaderPipeLength As System.Windows.Forms.NumericUpDown
     Friend WithEvents L_MaxTimeOffset As System.Windows.Forms.Label
     Friend WithEvents NUD_MaxTimeOffset As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label7 As System.Windows.Forms.Label
+    Friend WithEvents C_BoostPressureSensor As System.Windows.Forms.ComboBox
 End Class
