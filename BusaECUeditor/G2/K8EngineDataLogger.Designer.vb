@@ -40,7 +40,6 @@ Partial Class K8EngineDataLogger
         Me.B_ResetComms = New System.Windows.Forms.Button()
         Me.L_AFR = New System.Windows.Forms.Label()
         Me.B_ViewDataLog = New System.Windows.Forms.Button()
-        Me.L_BasicData = New System.Windows.Forms.Label()
         Me.SerialPort1 = New System.IO.Ports.SerialPort(Me.components)
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
@@ -54,6 +53,18 @@ Partial Class K8EngineDataLogger
         Me.C_CreateConvertedFile = New System.Windows.Forms.CheckBox()
         Me.L_NewDataPercentage = New System.Windows.Forms.Label()
         Me.Timer_EngineData = New System.Windows.Forms.Timer(Me.components)
+        Me.RPM_GAUGE = New AquaControls.AquaGauge()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.L_TPS = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.L_IAP = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.L_GEAR = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.L_Temp = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.L_Boost = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
         CType(Me.NUD_DataRate, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_Widband0v, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_Widband5v, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -61,7 +72,7 @@ Partial Class K8EngineDataLogger
         '
         'B_ClearCommsLog
         '
-        Me.B_ClearCommsLog.Location = New System.Drawing.Point(2, 140)
+        Me.B_ClearCommsLog.Location = New System.Drawing.Point(824, 474)
         Me.B_ClearCommsLog.Name = "B_ClearCommsLog"
         Me.B_ClearCommsLog.Size = New System.Drawing.Size(75, 24)
         Me.B_ClearCommsLog.TabIndex = 45
@@ -73,7 +84,7 @@ Partial Class K8EngineDataLogger
         Me.C_ShowCommsMessages.AutoSize = True
         Me.C_ShowCommsMessages.Checked = True
         Me.C_ShowCommsMessages.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.C_ShowCommsMessages.Location = New System.Drawing.Point(2, 121)
+        Me.C_ShowCommsMessages.Location = New System.Drawing.Point(763, 504)
         Me.C_ShowCommsMessages.Name = "C_ShowCommsMessages"
         Me.C_ShowCommsMessages.Size = New System.Drawing.Size(141, 17)
         Me.C_ShowCommsMessages.TabIndex = 44
@@ -82,11 +93,11 @@ Partial Class K8EngineDataLogger
         '
         'T_CommsLog
         '
-        Me.T_CommsLog.Location = New System.Drawing.Point(-1, 170)
+        Me.T_CommsLog.Location = New System.Drawing.Point(1, 474)
         Me.T_CommsLog.Multiline = True
         Me.T_CommsLog.Name = "T_CommsLog"
         Me.T_CommsLog.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.T_CommsLog.Size = New System.Drawing.Size(900, 251)
+        Me.T_CommsLog.Size = New System.Drawing.Size(756, 47)
         Me.T_CommsLog.TabIndex = 43
         '
         'Label2
@@ -140,7 +151,7 @@ Partial Class K8EngineDataLogger
         '
         Me.L_Status.AutoSize = True
         Me.L_Status.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.L_Status.Location = New System.Drawing.Point(4, 60)
+        Me.L_Status.Location = New System.Drawing.Point(208, 31)
         Me.L_Status.Name = "L_Status"
         Me.L_Status.Size = New System.Drawing.Size(16, 24)
         Me.L_Status.TabIndex = 37
@@ -196,13 +207,14 @@ Partial Class K8EngineDataLogger
         '
         'L_AFR
         '
-        Me.L_AFR.AutoSize = True
-        Me.L_AFR.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.L_AFR.Location = New System.Drawing.Point(217, 37)
+        Me.L_AFR.BackColor = System.Drawing.SystemColors.Control
+        Me.L_AFR.Font = New System.Drawing.Font("Arial Narrow", 48.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.L_AFR.ForeColor = System.Drawing.Color.Green
+        Me.L_AFR.Location = New System.Drawing.Point(147, 87)
         Me.L_AFR.Name = "L_AFR"
-        Me.L_AFR.Size = New System.Drawing.Size(21, 29)
+        Me.L_AFR.Size = New System.Drawing.Size(178, 72)
         Me.L_AFR.TabIndex = 49
-        Me.L_AFR.Text = "-"
+        Me.L_AFR.Text = "00.0"
         '
         'B_ViewDataLog
         '
@@ -212,16 +224,6 @@ Partial Class K8EngineDataLogger
         Me.B_ViewDataLog.TabIndex = 48
         Me.B_ViewDataLog.Text = "View Data Log"
         Me.B_ViewDataLog.UseVisualStyleBackColor = True
-        '
-        'L_BasicData
-        '
-        Me.L_BasicData.AutoSize = True
-        Me.L_BasicData.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.L_BasicData.Location = New System.Drawing.Point(83, 137)
-        Me.L_BasicData.Name = "L_BasicData"
-        Me.L_BasicData.Size = New System.Drawing.Size(19, 25)
-        Me.L_BasicData.TabIndex = 46
-        Me.L_BasicData.Text = "-"
         '
         'SerialPort1
         '
@@ -303,7 +305,7 @@ Partial Class K8EngineDataLogger
         'C_CreateConvertedFile
         '
         Me.C_CreateConvertedFile.AutoSize = True
-        Me.C_CreateConvertedFile.Location = New System.Drawing.Point(2, 98)
+        Me.C_CreateConvertedFile.Location = New System.Drawing.Point(2, 64)
         Me.C_CreateConvertedFile.Name = "C_CreateConvertedFile"
         Me.C_CreateConvertedFile.Size = New System.Drawing.Size(163, 17)
         Me.C_CreateConvertedFile.TabIndex = 66
@@ -322,11 +324,157 @@ Partial Class K8EngineDataLogger
         'Timer_EngineData
         '
         '
+        'RPM_GAUGE
+        '
+        Me.RPM_GAUGE.BackColor = System.Drawing.Color.Transparent
+        Me.RPM_GAUGE.DialColor = System.Drawing.Color.Black
+        Me.RPM_GAUGE.DialText = Nothing
+        Me.RPM_GAUGE.ForeColor = System.Drawing.SystemColors.Desktop
+        Me.RPM_GAUGE.Glossiness = 11.36364!
+        Me.RPM_GAUGE.Location = New System.Drawing.Point(331, 51)
+        Me.RPM_GAUGE.MaxValue = 13.0!
+        Me.RPM_GAUGE.MinValue = 0.0!
+        Me.RPM_GAUGE.Name = "RPM_GAUGE"
+        Me.RPM_GAUGE.NoOfDivisions = 13
+        Me.RPM_GAUGE.NoOfSubDivisions = 1
+        Me.RPM_GAUGE.RecommendedValue = 12.0!
+        Me.RPM_GAUGE.Size = New System.Drawing.Size(444, 444)
+        Me.RPM_GAUGE.TabIndex = 88
+        Me.RPM_GAUGE.ThresholdPercent = 0.0!
+        Me.RPM_GAUGE.Value = 0.0!
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Arial Narrow", 48.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(-11, 84)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(167, 75)
+        Me.Label1.TabIndex = 95
+        Me.Label1.Text = "AFR: "
+        '
+        'L_TPS
+        '
+        Me.L_TPS.BackColor = System.Drawing.SystemColors.Control
+        Me.L_TPS.Font = New System.Drawing.Font("Arial Narrow", 48.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.L_TPS.ForeColor = System.Drawing.Color.Green
+        Me.L_TPS.Location = New System.Drawing.Point(147, 151)
+        Me.L_TPS.Name = "L_TPS"
+        Me.L_TPS.Size = New System.Drawing.Size(172, 75)
+        Me.L_TPS.TabIndex = 96
+        Me.L_TPS.Text = "00"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Arial Narrow", 48.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(-11, 151)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(164, 75)
+        Me.Label4.TabIndex = 97
+        Me.Label4.Text = "TPS: "
+        '
+        'L_IAP
+        '
+        Me.L_IAP.BackColor = System.Drawing.SystemColors.Control
+        Me.L_IAP.Font = New System.Drawing.Font("Arial Narrow", 48.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.L_IAP.ForeColor = System.Drawing.Color.Green
+        Me.L_IAP.Location = New System.Drawing.Point(147, 212)
+        Me.L_IAP.Name = "L_IAP"
+        Me.L_IAP.Size = New System.Drawing.Size(172, 70)
+        Me.L_IAP.TabIndex = 98
+        Me.L_IAP.Text = "00"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Arial Narrow", 48.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(-11, 212)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(147, 75)
+        Me.Label5.TabIndex = 99
+        Me.Label5.Text = "IAP: "
+        '
+        'L_GEAR
+        '
+        Me.L_GEAR.BackColor = System.Drawing.SystemColors.Control
+        Me.L_GEAR.Font = New System.Drawing.Font("Arial Narrow", 48.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.L_GEAR.ForeColor = System.Drawing.Color.Green
+        Me.L_GEAR.Location = New System.Drawing.Point(147, 335)
+        Me.L_GEAR.Name = "L_GEAR"
+        Me.L_GEAR.Size = New System.Drawing.Size(109, 68)
+        Me.L_GEAR.TabIndex = 100
+        Me.L_GEAR.Text = "0"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Arial Narrow", 48.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(-11, 335)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(178, 75)
+        Me.Label7.TabIndex = 101
+        Me.Label7.Text = "Gear: "
+        '
+        'L_Temp
+        '
+        Me.L_Temp.BackColor = System.Drawing.SystemColors.Control
+        Me.L_Temp.Font = New System.Drawing.Font("Arial Narrow", 48.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.L_Temp.ForeColor = System.Drawing.Color.Green
+        Me.L_Temp.Location = New System.Drawing.Point(147, 398)
+        Me.L_Temp.Name = "L_Temp"
+        Me.L_Temp.Size = New System.Drawing.Size(119, 68)
+        Me.L_Temp.TabIndex = 102
+        Me.L_Temp.Text = "0"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Arial Narrow", 48.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(-11, 396)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(196, 75)
+        Me.Label6.TabIndex = 103
+        Me.Label6.Text = "Temp: "
+        '
+        'L_Boost
+        '
+        Me.L_Boost.BackColor = System.Drawing.SystemColors.Control
+        Me.L_Boost.Font = New System.Drawing.Font("Arial Narrow", 48.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.L_Boost.ForeColor = System.Drawing.Color.Green
+        Me.L_Boost.Location = New System.Drawing.Point(147, 273)
+        Me.L_Boost.Name = "L_Boost"
+        Me.L_Boost.Size = New System.Drawing.Size(151, 68)
+        Me.L_Boost.TabIndex = 104
+        Me.L_Boost.Text = "0"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Arial Narrow", 48.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(-11, 273)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(181, 75)
+        Me.Label8.TabIndex = 105
+        Me.Label8.Text = "Boost:"
+        '
         'K8EngineDataLogger
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(905, 429)
+        Me.ClientSize = New System.Drawing.Size(905, 526)
+        Me.Controls.Add(Me.L_Boost)
+        Me.Controls.Add(Me.Label8)
+        Me.Controls.Add(Me.L_Temp)
+        Me.Controls.Add(Me.L_GEAR)
+        Me.Controls.Add(Me.L_IAP)
+        Me.Controls.Add(Me.L_TPS)
+        Me.Controls.Add(Me.L_AFR)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.Label7)
+        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.L_NewDataPercentage)
         Me.Controls.Add(Me.C_CreateConvertedFile)
         Me.Controls.Add(Me.NUD_Widband5v)
@@ -348,9 +496,8 @@ Partial Class K8EngineDataLogger
         Me.Controls.Add(Me.L_CommStatusColour)
         Me.Controls.Add(Me.NUD_DataRate)
         Me.Controls.Add(Me.B_ResetComms)
-        Me.Controls.Add(Me.L_AFR)
         Me.Controls.Add(Me.B_ViewDataLog)
-        Me.Controls.Add(Me.L_BasicData)
+        Me.Controls.Add(Me.RPM_GAUGE)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "K8EngineDataLogger"
         Me.Text = "Engine Data Logger"
@@ -377,7 +524,6 @@ Partial Class K8EngineDataLogger
     Friend WithEvents B_ResetComms As System.Windows.Forms.Button
     Friend WithEvents L_AFR As System.Windows.Forms.Label
     Friend WithEvents B_ViewDataLog As System.Windows.Forms.Button
-    Friend WithEvents L_BasicData As System.Windows.Forms.Label
     Friend WithEvents SerialPort1 As System.IO.Ports.SerialPort
     Friend WithEvents SaveFileDialog1 As System.Windows.Forms.SaveFileDialog
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
@@ -391,4 +537,16 @@ Partial Class K8EngineDataLogger
     Friend WithEvents C_CreateConvertedFile As System.Windows.Forms.CheckBox
     Friend WithEvents L_NewDataPercentage As System.Windows.Forms.Label
     Friend WithEvents Timer_EngineData As System.Windows.Forms.Timer
+    Friend WithEvents RPM_GAUGE As AquaControls.AquaGauge
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents L_TPS As System.Windows.Forms.Label
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents L_IAP As System.Windows.Forms.Label
+    Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents L_GEAR As System.Windows.Forms.Label
+    Friend WithEvents Label7 As System.Windows.Forms.Label
+    Friend WithEvents L_Temp As System.Windows.Forms.Label
+    Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents L_Boost As System.Windows.Forms.Label
+    Friend WithEvents Label8 As System.Windows.Forms.Label
 End Class

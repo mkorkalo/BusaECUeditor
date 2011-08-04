@@ -25,6 +25,10 @@
             R_ExhaustGasVelocityOffset2.Checked = True
         End If
 
+        C_BoostPressureSensor.Items.Add("GM 3 Bar")
+        C_BoostPressureSensor.Items.Add("GM 3 Bar Ext")
+        C_BoostPressureSensor.SelectedIndex = My.Settings.AutoTuneBoostPressureSensor
+
     End Sub
 
     Private Sub B_Ok_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Ok.Click
@@ -50,6 +54,8 @@
         Else
             My.Settings.AutoTuneExhaustGasOffsetType = 2
         End If
+
+        My.Settings.AutoTuneBoostPressureSensor = C_BoostPressureSensor.SelectedIndex
 
         My.Settings.Save()
 
