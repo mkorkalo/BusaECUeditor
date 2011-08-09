@@ -3947,7 +3947,7 @@ skip_update:
                 Metric = True
                 ECUVersion = "gixxer"
 
-                gixxer_modelname = "ecueditor.com for gixxer 600 K8- EU (32920-37H00) "
+                gixxer_modelname = "ecueditor.com for gixxer 600 K8 EU (32920-37H00) "
 
                 gixxer_shifter_ADJ = 0
                 gixxer_shifter_FUELCODE = 0
@@ -3981,6 +3981,11 @@ skip_update:
                 gixxerramair_columnheader = 0
                 gixxerramair_map = 0
 
+                gixxer_excva = &H7000D
+                gixxer_excva_flag = &H73EC0
+                gixxer_hoxflag = &H74BFA
+                gixxer_hox1 = gixxer_hoxflag
+                gixxer_hox2 = &H794AF
 
                 '
                 ' These do not need to be adjusted
@@ -4063,7 +4068,7 @@ skip_update:
                 B_AdvancedSettings.Enabled = True
 
             Case "DJ55SE10"
-                Hayabusa.Text = "Gixxer K8- EU 32920-37H10"
+                Hayabusa.Text = "Gixxer K8 EU 32920-37H10"
                 Metric = True
                 ECUVersion = "gixxer"
 
@@ -4101,6 +4106,11 @@ skip_update:
                 gixxerramair_columnheader = 0
                 gixxerramair_map = 0
 
+                gixxer_excva = &H7000D
+                gixxer_excva_flag = &H73EC0
+                gixxer_hoxflag = &H74BFA
+                gixxer_hox1 = gixxer_hoxflag
+                gixxer_hox2 = &H794AF
 
                 '
                 ' These do not need to be adjusted
