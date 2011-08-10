@@ -29,6 +29,10 @@
         C_BoostPressureSensor.Items.Add("GM 3 Bar Ext")
         C_BoostPressureSensor.SelectedIndex = My.Settings.AutoTuneBoostPressureSensor
 
+        C_BoostTPSFilterEnabled.Checked = My.Settings.AutoTuneBoostTPSFilterEnabled
+        NUD_BoostTPSFilterValue.Enabled = My.Settings.AutoTuneBoostTPSFilterEnabled
+        NUD_BoostTPSFilterValue.Value = My.Settings.AutoTuneBoostTPSFilterValue
+
     End Sub
 
     Private Sub B_Ok_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Ok.Click
@@ -56,6 +60,8 @@
         End If
 
         My.Settings.AutoTuneBoostPressureSensor = C_BoostPressureSensor.SelectedIndex
+        My.Settings.AutoTuneBoostTPSFilterEnabled = C_BoostTPSFilterEnabled.Checked
+        My.Settings.AutoTuneBoostTPSFilterValue = NUD_BoostTPSFilterValue.Value
 
         My.Settings.Save()
 
@@ -107,6 +113,12 @@
             NUD_HeaderPipeLength.Enabled = True
 
         End If
+
+    End Sub
+
+    Private Sub C_BoostTPSFilterEnabled_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_BoostTPSFilterEnabled.CheckedChanged
+
+        NUD_BoostTPSFilterValue.Enabled = C_BoostTPSFilterEnabled.Checked
 
     End Sub
 End Class

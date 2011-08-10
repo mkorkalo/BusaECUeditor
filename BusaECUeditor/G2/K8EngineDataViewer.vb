@@ -504,7 +504,13 @@ Public Class K8EngineDataViewer
 
                         If rpmIndex > -1 Then
 
-                            _tpsValues(tpsIndex, rpmIndex).Add(logValue)
+                            If My.Settings.AutoTuneBoostTPSFilterEnabled = True Then
+                                If logValue.BOOST < My.Settings.AutoTuneBoostTPSFilterValue Then
+                                    _tpsValues(tpsIndex, rpmIndex).Add(logValue)
+                                End If
+                            Else
+                                _tpsValues(tpsIndex, rpmIndex).Add(logValue)
+                            End If
 
                         End If
 

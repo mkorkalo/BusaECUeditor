@@ -653,6 +653,30 @@ Namespace My
                 Me("AutoTuneBoostPressureSensor") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property AutoTuneBoostTPSFilterEnabled() As Boolean
+            Get
+                Return CType(Me("AutoTuneBoostTPSFilterEnabled"),Boolean)
+            End Get
+            Set
+                Me("AutoTuneBoostTPSFilterEnabled") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property AutoTuneBoostTPSFilterValue() As Double
+            Get
+                Return CType(Me("AutoTuneBoostTPSFilterValue"),Double)
+            End Get
+            Set
+                Me("AutoTuneBoostTPSFilterValue") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
