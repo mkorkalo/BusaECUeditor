@@ -2718,7 +2718,7 @@ Public Class K8EngineDataLogger
 
             L_CommStatusColour.ForeColor = Color.Green
 
-            RPM_GAUGE.Value = RPM
+            RPM_GAUGE.Value = RPM / 1000
             L_TPS.Text = CalcTPS(TPS)
             L_IAP.Text = CalcPressure(IAP)
             L_GEAR.Text = GEAR
