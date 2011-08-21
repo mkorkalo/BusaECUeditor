@@ -3,14 +3,14 @@
 [DATABASE_VERSION]
 "2.8" 
 [PROJECT_DETAILS]
-"ShiftLight" "D:\Projects\ecueditor\Workspace\ecueditor\ShiftLight" "D:\Projects\ecueditor\Workspace\ecueditor\ShiftLight\ShiftLight.hwp" "M32R" "Renesas M32R Standard" "Application" "M32R/ECU" "Other" 
+"DragTools" "D:\Projects\ecueditor\Workspace\ecueditor\DragTools" "D:\Projects\ecueditor\Workspace\ecueditor\DragTools\DragTools.hwp" "M32R" "Renesas M32R Standard" "Application" "M32R/ECU" "Other" 
 [INFORMATION]
 "No project information available" 
 [TOOL_CHAIN]
 "Renesas M32R Standard Toolchain" "5.01.01" 
 [CONFIGURATIONS]
-"Debug" "D:\Projects\ecueditor\Workspace\ecueditor\ShiftLight\Debug" 
-"Release" "D:\Projects\ecueditor\Workspace\ecueditor\ShiftLight\Release" 
+"Debug" "D:\Projects\ecueditor\Workspace\ecueditor\DragTools\Debug" 
+"Release" "D:\Projects\ecueditor\Workspace\ecueditor\DragTools\Release" 
 [BUILD_PHASES]
 "Renesas M32R Assembler" 1 
 "Renesas M32R C Compiler" 1 
@@ -99,76 +99,68 @@
 "Relocatable file" "Renesas M32R Linker" "Renesas M32R Assembler" 
 "Relocatable file" "Renesas M32R Linker" "Renesas M32R C Compiler" 
 [PROJECT_FILES]
-"D:\Projects\ecueditor\Workspace\ecueditor\ShiftLight\ShiftLight.c" "User" "C source file" 2 
+"D:\Projects\ecueditor\Workspace\ecueditor\DragTools\DragTools.c" "User" "C source file" 2 
 [FOLDER]
-"Assembly source file" "Assembly source file" 
 "C source file" "C source file" 
 [GENERAL_DATA_PROJECT]
-"MAKEGEN_GENERATE_MAKEFILE_FOR" "0" 
-"MAKEGEN_MAKEFILE_FORMAT" "0" 
-"MAKEGEN_MAKEFILE_RELATIVITY" "1" 
-"MAKEGEN_SCAN_DEPENDENCIES_WHILST_BUILDING_MAKEFILE" "1" 
-"MAKEGEN_USE_STATIC_SUBCOMMAND_FILES" "0" 
-"USE_CUSTOM_LINKAGE_ORDER" "1" 
+"USE_CUSTOM_LINKAGE_ORDER" "0" 
 [ON_DEMAND_COMPONENTS_LOADED]
 [SYNC_SESSION_NAMES]
 [SESSIONS]
-"DefaultSession" "D:\Projects\ecueditor\Workspace\ecueditor\ShiftLight\DefaultSession.hsf" 0 
+"DefaultSession" "D:\Projects\ecueditor\Workspace\ecueditor\DragTools\DefaultSession.hsf" 0 
 [GENERAL_DATA_SESSION_DefaultSession]
 [OPTIONS_Debug_Renesas M32R Assembler]
-"Assembly source file" "03c361e815c5cc10" 2 
+"Assembly source file" "09839bcec5c5cc10" 2 
 [OPTIONS_Debug_Renesas M32R C Compiler]
-"C source file" "03c361e815c5cc10" 1 
-"C++ source file" "03c361e815c5cc10" 1 
-"D:\Projects\ecueditor\Workspace\ecueditor\ShiftLight\ShiftLight.c" "03c361e815c5cc10" 1 
+"C source file" "09839bcec5c5cc10" 1 
+"C++ source file" "09839bcec5c5cc10" 1 
+"D:\Projects\ecueditor\Workspace\ecueditor\DragTools\DragTools.c" "09839bcec5c5cc10" 1 
 [OPTIONS_Debug_Renesas M32R Configurator]
-"Single Shot" "06b4242c25c5cc10" 6 
+"Single Shot" "0bc0dc28a5c5cc10" 6 
 [OPTIONS_Debug_Renesas M32R Librarian]
-"Single Shot" "06b4242c25c5cc10" 5 
+"Single Shot" "0bc0dc28a5c5cc10" 5 
 [OPTIONS_Debug_Renesas M32R Linker]
-"Single Shot" "0fb1642c25c5cc10" 3 
+"Single Shot" "09839bcec5c5cc10" 3 
 [OPTIONS_Debug_Renesas M32R Stype Converter]
-"Single Shot" "0fb1642c25c5cc10" 4 
+"Single Shot" "0bc0dc28a5c5cc10" 4 
 [OPTIONS_Debug]
 "" 0 
 "[V|VERSION|1] [B|COMMANDLINE|1] " 6 
-"[V|VERSION|1] [B|DEBUG|1] [S|MAP|^"$(CONFIGDIR)\$(PROJECTNAME).map^"] [S|OUTPUT|^"$(CONFIGDIR)\$(PROJECTNAME).abs^"] [S|SECTION_SEC|^"PARAMS=05B000|SHIFTLIGHTCODE=05B050^"]
-" 3 
-"[V|VERSION|1] [S|DEFINE|__STANDARD_IO__=0|__HEAPSIZE__=H'4000|__USTACKSIZE__=H'1000|__ISTACKSIZE__=H'1000] [B|DEBUG|1] [S|LIST|^"$(CONFIGDIR)\$(FILELEAF).lst^"] [S|OUTPUT|^"$(CONFIGDIR)\$(FILELEAF).mo^"]
+"[V|VERSION|1] [B|DEBUG|1] [S|LIST|^"$(CONFIGDIR)\$(FILELEAF).lst^"] [S|OUTPUT|^"$(CONFIGDIR)\$(FILELEAF).mo^"]
 " 2 
+"[V|VERSION|1] [S|INPUTLIBRARY|^"L=m32RcR.lib^"] [B|DEBUG|1] [S|OUTPUT|^"$(CONFIGDIR)\$(PROJECTNAME).abs^"] [S|SECTION_SEC|^"PARAMS=05A000|TOOLSCODE=05A100^"]
+" 3 
 "[V|VERSION|1] [S|MODE|CREATE] [S|OUTPUT|^"$(CONFIGDIR)\$(PROJECTNAME).lib^"] " 5 
 "[V|VERSION|1] [S|OUTPUT_TYPE|OBJECTCODE_ASMCODE] [B|DEBUG|1] [S|OUTPUT|^"$(CONFIGDIR)\$(FILELEAF).mo^"] [S|OPTIMIZE_LEVEL|1] [B|OPTIMIZE_DISABLE|1] [S|MEMORYMODEL|SMALL] [S|EXCEPTION|DISABLE]
 " 1 
 "[V|VERSION|1] [S|OUTPUT|^"$(CONFIGDIR)\$(PROJECTNAME).mot^"] " 4 
 [EXCLUDED_FILES_Debug]
 [LINKAGE_ORDER_Debug]
-"D:\Projects\ecueditor\Workspace\ecueditor\ShiftLight\Debug\start.mo" 
 [GENERAL_DATA_CONFIGURATION_Debug]
 [OPTIONS_Release_Renesas M32R Assembler]
-"Assembly source file" "047b3d7805c5cc10" 2 
+"Assembly source file" "0bc0dc28a5c5cc10" 2 
 [OPTIONS_Release_Renesas M32R C Compiler]
-"C source file" "047b3d7805c5cc10" 1 
-"C++ source file" "047b3d7805c5cc10" 1 
-"D:\Projects\ecueditor\Workspace\ecueditor\ShiftLight\ShiftLight.c" "047b3d7805c5cc10" 1 
+"C source file" "0bc0dc28a5c5cc10" 1 
+"C++ source file" "0bc0dc28a5c5cc10" 1 
+"D:\Projects\ecueditor\Workspace\ecueditor\DragTools\DragTools.c" "0bc0dc28a5c5cc10" 1 
 [OPTIONS_Release_Renesas M32R Configurator]
-"Single Shot" "06b4242c25c5cc10" 6 
+"Single Shot" "0bc0dc28a5c5cc10" 6 
 [OPTIONS_Release_Renesas M32R Librarian]
-"Single Shot" "06b4242c25c5cc10" 5 
+"Single Shot" "0bc0dc28a5c5cc10" 5 
 [OPTIONS_Release_Renesas M32R Linker]
-"Single Shot" "0fb1642c25c5cc10" 3 
+"Single Shot" "0bc0dc28a5c5cc10" 3 
 [OPTIONS_Release_Renesas M32R Stype Converter]
-"Single Shot" "0fb1642c25c5cc10" 4 
+"Single Shot" "0bc0dc28a5c5cc10" 4 
 [OPTIONS_Release]
 "" 0 
 "[V|VERSION|1] [B|COMMANDLINE|1] " 6 
 "[V|VERSION|1] [S|MODE|CREATE] [S|OUTPUT|^"$(CONFIGDIR)\$(PROJECTNAME).lib^"] " 5 
 "[V|VERSION|1] [S|OUTPUT_TYPE|OBJECTCODE] [S|OUTPUT|^"$(CONFIGDIR)\$(FILELEAF).mo^"] [B|DEBUG|1] " 1 
-"[V|VERSION|1] [S|OUTPUT|^"$(CONFIGDIR)\$(FILELEAF).mo^"] [B|DEBUG|1] [S|DEFINE|__STANDARD_IO__=0] [S|DEFINE|__HEAPSIZE__=H'4000]   [S|DEFINE|__USTACKSIZE__=H'1000] [S|DEFINE|__ISTACKSIZE__=H'1000]" 2 
+"[V|VERSION|1] [S|OUTPUT|^"$(CONFIGDIR)\$(FILELEAF).mo^"] [B|DEBUG|1] " 2 
 "[V|VERSION|1] [S|OUTPUT|^"$(CONFIGDIR)\$(PROJECTNAME).abs^"] [B|DEBUG|1] [S|INPUTLIBRARY|^"L=m32RcR.lib^"] " 3 
 "[V|VERSION|1] [S|OUTPUT|^"$(CONFIGDIR)\$(PROJECTNAME).mot^"] " 4 
 [EXCLUDED_FILES_Release]
 [LINKAGE_ORDER_Release]
-"D:\Projects\ecueditor\Workspace\ecueditor\ShiftLight\Release\start.mo" 
 [GENERAL_DATA_CONFIGURATION_Release]
 [GENERAL_DATA_CONFIGURATION_SESSION_Debug_DefaultSession]
 [SESSION_DATA_CONFIGURATION_SESSION_Debug_DefaultSession]

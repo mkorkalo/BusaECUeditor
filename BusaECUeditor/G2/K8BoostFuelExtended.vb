@@ -24,19 +24,71 @@ Imports System.Windows.Forms
 Imports System.IO
 Imports System.Math
 
-Public Class K8boostfuel
+Public Class K8BoostFuelExtended
     Public ADJ As Integer = &H55800 '&HFF if boostfuel inactive, no code present else boostfuel active
-    Dim BOOSTFUELCODE As Integer = &H55A00
+    Dim BOOSTFUELCODE As Integer = &H55D00
     Dim IDTAG As Integer = &H55800
-    Dim BOOSTFUELVERSION As Integer = 112
-    Dim boostfuelcodelenght As Integer = &H1000 'lenght of the boostfuel code in bytes for clearing the memory
+    Dim BOOSTFUELVERSION As Integer = 113
+    Dim boostfuelcodelenght As Integer = &H1000 'length of the boostfuel code in bytes for clearing the memory
+
+    Dim rowheading_map As Integer = &H5585C
+    Dim columnheading_map As Integer = &H55844
+    Dim editing_map As Integer = &H5588C
+
+    Dim ignitionretard_columns As Integer = &H55ADC
+    Dim ignitionretard_map As Integer = &H55AF4
+
     Dim loading As Boolean = True
 
-    Dim rowheading_map As Integer = &H55854
-    Dim columnheading_map As Integer = &H55844
-    Dim editing_map As Integer = &H55874 '&H55854
     Dim change As Integer = 1
     Dim rr, cc As Integer
+    Dim KPA_PSI As Double = 6.8947572931683609
+
+    Private Sub boostfuel_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Dim i As Integer
+
+        D_BoostIgnitionRetard.RowCount = 1
+        D_BoostIgnitionRetard.ColumnCount = 24
+
+        D_BoostIgnitionRetard(0, 0).Value = 12
+
+        L_boostfuelver.Text = Str(BOOSTFUELVERSION)
+        loading = True
+
+        If (ReadFlashByte(ADJ) = &HFF) Then
+            C_BoostfuelActivation.Checked = False
+            hide_boostfuel_settings()
+        Else
+            i = ReadFlashWord(IDTAG)
+
+            If i = 112 Then
+
+                MessageBox.Show("The current bin file uses an older version of Boost Fuel, you are able to continue using this version, To use the new extended version of Boost Fuel, deactivate the current version, close the Boost Fuel Window then re-open and activate the new version", "Boost Fuel", MessageBoxButtons.OK)
+                K8boostfuel.Show()
+                K8boostfuel.Focus()
+                Me.Close()
+
+            ElseIf (i <> BOOSTFUELVERSION) Then
+                MsgBox("boostfuel code incompatible with this version, please reactivate the boostfuel on this map " & Str(ReadFlashWord(IDTAG)))
+                C_BoostfuelActivation.Checked = False
+                hide_boostfuel_settings()
+            Else
+                C_BoostfuelActivation.Checked = True
+                read_boostfuel_settings()
+                generate_map_table()
+            End If
+
+        End If
+
+        If Metric Then
+            G_boosttable.Text = "% add per each RPM/kPa range"
+        Else
+            G_boosttable.Text = "% add per each RPM/PSi range"
+        End If
+
+        loading = False
+
+    End Sub
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If (ReadFlashByte(ADJ) <> &HFF) Then
@@ -45,20 +97,17 @@ Public Class K8boostfuel
         Me.Close()
     End Sub
 
-    Private Sub CheckBox1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_boostfuel_activation.CheckedChanged, C_boostfuel_activation.CheckedChanged
-        If C_boostfuel_activation.Checked Then
-
-            C_boostfuel_activation.Text = "Code active"
-
+    Private Sub C_BoostfuelActivation_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_BoostfuelActivation.CheckedChanged, C_BoostfuelActivation.CheckedChanged
+        If C_BoostfuelActivation.Checked Then
+            C_BoostfuelActivation.Text = "Code active"
             If (ReadFlashByte(ADJ) = &HFF) Then
                 modify_original_ECU_code(True)
                 boostfuel_code_in_memory(True, boostfuelcodelenght)
                 generate_map_table()
             End If
-
             read_boostfuel_settings()
         Else
-            C_boostfuel_activation.Text = "Code not active"
+            C_BoostfuelActivation.Text = "Code not active"
             modify_original_ECU_code(False)
             boostfuel_code_in_memory(False, boostfuelcodelenght)
             hide_boostfuel_settings()
@@ -68,40 +117,8 @@ Public Class K8boostfuel
     Private Sub K8boostfuel_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
         If e.KeyChar = Chr(27) Then Me.Close()
         If e.KeyChar = "P" Or e.KeyChar = "p" Then
-         printthis()
+            printthis()
         End If
-
-    End Sub
-
-    Private Sub boostfuel_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        Dim i As Integer
-
-        L_boostfuelver.Text = Str(BOOSTFUELVERSION)
-
-        If (ReadFlashByte(ADJ) = &HFF) Then
-            C_boostfuel_activation.Checked = False
-            hide_boostfuel_settings()
-        Else
-            C_boostfuel_activation.Checked = True
-            read_boostfuel_settings()
-            'boostfuel_code_in_memory(True, boostfuelcodelenght)
-            generate_map_table()
-
-            If (ReadFlashWord(IDTAG) <> BOOSTFUELVERSION) Then
-                MsgBox("boostfuel code incompatible with this version, please reactivate the boostfuel on this map " & Str(ReadFlashWord(IDTAG)))
-                C_boostfuel_activation.Checked = False
-                hide_boostfuel_settings()
-            End If
-
-        End If
-
-        If metric Then
-            G_boosttable.Text = "% add per each RPM/kPa range"
-        Else
-            G_boosttable.Text = "% add per each RPM/PSi range"
-        End If
-
-        loading = False
 
     End Sub
 
@@ -116,22 +133,29 @@ Public Class K8boostfuel
             '
             ' GAUGEDATA BITFLAG FOR BLINKING LIGHT
             WriteFlashWord(&H4E122, &H6828) 'let the gaugedata read the copy of the variable
+
             ' KWP protocol to be able to read boost and COV1
             WriteFlashWord(&H525C8, &H80)
             WriteFlashWord(&H525CA, &H6824) 'RAW pressure voltage from AD converter
             WriteFlashWord(&H525CC, &H80)
             WriteFlashWord(&H525CE, &H681A) 'EMULATED IAP after GM3 bar map conversion
+
             ' AD_conversion loop 
             WriteFlashWord(&H4112, &H682A) 'ECU AD converter value
+
             pcdisp = (BOOSTFUELCODE - &H41D8) / 4
             blk = 0
+
             If pcdisp > &HFFFF Then
                 blk = Int(pcdisp / &H10000)
                 pcdisp = pcdisp And &HFFFF
             End If
+
+            'Branch to Boost Fuel Code
             WriteFlashByte(&H41D8, &HFE)
             WriteFlashByte(&H41D9, blk)
             WriteFlashWord(&H41DA, pcdisp)
+
             'cylinder 1 
             WriteFlashWord(&H41408, &H6400) ' ldi R4, 0
             WriteFlashWord(&H413E2, &H6818)
@@ -152,6 +176,7 @@ Public Class K8boostfuel
             WriteFlashWord(&H41652, &H6818)
             WriteFlashWord(&H416D0, &H4400) ' + 0
             WriteFlashWord(&H416D2, &H5446) ' << 5
+
             ' set ignition retard to read the nitrouscontrol module variable
             WriteFlashByte(&H33C22, &H68)
             WriteFlashByte(&H33C23, &H56)
@@ -159,42 +184,46 @@ Public Class K8boostfuel
             K8Advsettings.C_ABCmode.Checked = False
 
         Else
-            '
             ' bring the ecu code back to original
-            '
+
             ' GAUGEDATA BITFLAG
             WriteFlashWord(&H4E122, &H6874)
+
             ' KWP protocol to be able to read boost
             WriteFlashWord(&H525C8, &H7)
             WriteFlashWord(&H525CA, &HD11B)
             WriteFlashWord(&H525CC, &H7)
             WriteFlashWord(&H525CE, &HD11B)
-            'WriteFlashWord(&H525CC, &H80) ' just for debugging
-            'WriteFlashWord(&H525CE, &H652A) 'COV1 just for debugging
+            
             ' AD_conversion loop no jump to separate code
             WriteFlashWord(&H41D8, &HFE00)
             WriteFlashWord(&H41DA, &HBAC9)
             WriteFlashWord(&H4112, &H42F0) 'ECU AD converter value
+
             'cylinder 1 
             WriteFlashWord(&H41408, &H4400)
             WriteFlashWord(&H413E2, &H652A)
             WriteFlashWord(&H41460, &H4480)
             WriteFlashWord(&H41462, &H5442)
+
             'cylinder 2 
             WriteFlashWord(&H414D8, &H4400)
             WriteFlashWord(&H414B2, &H652B)
             WriteFlashWord(&H41530, &H4480)
             WriteFlashWord(&H41532, &H5442)
+
             'cylinder 3 
             WriteFlashWord(&H415A8, &H4400)
             WriteFlashWord(&H41582, &H652C)
             WriteFlashWord(&H41600, &H4480)
             WriteFlashWord(&H41602, &H5442)
+
             'cylinder 4 
             WriteFlashWord(&H41678, &H4400)
             WriteFlashWord(&H41652, &H652D)
             WriteFlashWord(&H416D0, &H4480)
             WriteFlashWord(&H416D2, &H5442)
+
             ' set ignition retard to read the stock variable
             WriteFlashByte(&H33C22, &H63)
             WriteFlashByte(&H33C23, &HA2)
@@ -205,19 +234,18 @@ Public Class K8boostfuel
     Private Sub boostfuel_code_in_memory(ByVal method As Boolean, ByVal lenght As Integer)
         Dim i As Integer
         Dim fs As FileStream
-        Dim path As String = My.Application.Info.DirectoryPath & "\ecu.bin\boostfuel.bin"
+        Dim path As String = My.Application.Info.DirectoryPath & "\ecu.bin\BoostFuelExtended.bin"
         Dim b(1) As Byte
 
         If Not File.Exists(path) Then
             MsgBox("boostfuel code not found at: " & path, MsgBoxStyle.Critical)
-            C_boostfuel_activation.Checked = False
+            C_BoostfuelActivation.Checked = False
         End If
 
 
         If method And File.Exists(path) Then
-            '
+
             ' write the boostfuel code into memory address from the .bin file
-            '
             fs = File.OpenRead(path)
 
             i = 0
@@ -226,8 +254,6 @@ Public Class K8boostfuel
                 i = i + 1
             Loop
             fs.Close()
-
-            i = ReadFlashWord(IDTAG)
 
             If ReadFlashWord(IDTAG) <> BOOSTFUELVERSION Then
                 MsgBox("This boostfuel code is not compatible with this ECUeditor version !!!")
@@ -245,7 +271,8 @@ Public Class K8boostfuel
     End Sub
 
     Private Sub read_boostfuel_settings()
-        If ReadFlashByte(&H559D1) = &H0 Then
+
+        If ReadFlashByte(&H55C39) = &H0 Then
             C_fueladd.Text = "+ to TPS"
             C_fueladd.Checked = True
         Else
@@ -253,29 +280,23 @@ Public Class K8boostfuel
             C_fueladd.Checked = False
         End If
 
-        Select Case ReadFlashByte(&H55844)
-            Case &H52
-                B_rescale.Text = "GM3bar"
-            Case Int(&H52 * 1.18)
-                B_rescale.Text = "GM3bar ext"
-            Case Else ' return back to GM3 bar standard map
-                B_rescale.Text = "SSI5bar"
-        End Select
-
-        D_boostfuel.Visible = True
+        G_BoostIgnitionRetard.Visible = True
+        D_BoostFuel.Visible = True
         C_solenoidcontrol.Visible = True
         solenoidcontrol_visible()
+
     End Sub
 
     Private Sub hide_boostfuel_settings()
-        D_boostfuel.Visible = False
+        D_BoostFuel.Visible = False
         C_solenoidcontrol.Visible = False
+        G_BoostIgnitionRetard.Visible = False
         solenoidcontrol_visible()
     End Sub
 
     Private Sub solenoidcontrol_visible()
 
-        If ReadFlashByte(&H559D2) = &H0 Then 'Dutyactive
+        If ReadFlashByte(&H55C3A) = &H0 Then 'Dutyactive
             D_solenoidcontrol.Visible = True
             C_solenoidcontrol.Checked = True
         Else
@@ -283,7 +304,7 @@ Public Class K8boostfuel
             C_solenoidcontrol.Checked = False
         End If
 
-        If ReadFlashByte(&H559D3) = &H0 Then 'Solenoidtype
+        If ReadFlashByte(&H55C3B) = &H0 Then 'Solenoidtype
             C_bleed.Checked = True
             C_bleed.Text = "Normally Open"
         Else
@@ -293,51 +314,73 @@ Public Class K8boostfuel
     End Sub
 
     Private Sub generate_map_table()
-        Dim c, r, i As Integer
-        '
+        Dim i, c, r, value, lastValue As Integer
+
+        NUD_SensorVoltage1.Value = ReadFlashWord(&H55C30) / 10
+        NUD_SensorPressure1.Value = ReadFlashWord(&H55C32) / 10
+
+        NUD_SensorVoltage2.Value = ReadFlashWord(&H55C34) / 10
+        NUD_SensorPressure2.Value = ReadFlashWord(&H55C36) / 10
+
+        C_BoostPressureDisplay.SelectedIndex = My.Settings.BoostPressureDisplay
+
         ' Generate column headings
-        '
-        D_boostfuel.ColumnCount = 16
+        D_BoostFuel.ColumnCount = 24
+        D_BoostIgnitionRetard.ColumnCount = 24
+        D_BoostIgnitionRetard.Rows.Item(0).HeaderCell.Value = "_____"
 
         c = 0
 
-        Do While c < D_boostfuel.ColumnCount
-            i = ReadFlashByte(columnheading_map + c)
+        Do While c < D_BoostFuel.ColumnCount
 
-            If B_rescale.Text.Contains("GM3") Then
-                If Metric Then
-                    D_boostfuel.Columns.Item(c).HeaderText = Int(((((i / 50.5) * 9.2) - 14.7) / 14.7) * 100)
-                Else
-                    D_boostfuel.Columns.Item(c).HeaderText = Int(((((i / 50.5) * 9.2) - 14.7)))
-                End If
+            D_BoostFuel.Columns(c).Visible = True
+            D_BoostIgnitionRetard.Columns(c).Visible = True
+
+            value = ReadFlashByte(columnheading_map + c)
+
+            If C_BoostPressureDisplay.SelectedIndex = 0 Then
+                Dim psi As Double = ConvertIntToPSI(value)
+                D_BoostFuel.Columns.Item(c).HeaderText = (psi - 14.7).ToString("0")
+                D_BoostIgnitionRetard.Columns.Item(c).HeaderText = (psi - 14.7).ToString("0")
             Else
-                '
-                ' SSI5 bar calculates this differently
-                '
-                If Metric Then
-                    'D_boostfuel.Columns.Item(c).HeaderText = Int(((((i / 50.5) * 9.2) - 14.7) / 14.7) * 100) * 1.5
-                    D_boostfuel.Columns.Item(c).HeaderText = "n/a"
-                Else
-                    'D_boostfuel.Columns.Item(c).HeaderText = Int(((((i / 50.5) * 9.2) - 14.7))) * 1.5
-                    D_boostfuel.Columns.Item(c).HeaderText = "n/a"
+                Dim kpa As Double = ConvertIntToKPa(value)
+
+                If kpa < 101 Then
+                    kpa = 101
                 End If
+
+                D_BoostFuel.Columns.Item(c).HeaderText = (kpa - 101).ToString("0")
+                D_BoostIgnitionRetard.Columns.Item(c).HeaderText = (kpa - 101).ToString("0")
             End If
-            D_boostfuel.Columns.Item(c).Width = 35
+
+            D_BoostFuel.Columns.Item(c).Width = 35
+            D_BoostIgnitionRetard.Columns.Item(c).Width = 35
+
+            If lastValue = &HFF Then
+                D_BoostFuel.Columns(c).Visible = False
+                D_BoostIgnitionRetard.Columns(c).Visible = False
+            End If
+
             c = c + 1
+            lastValue = value
         Loop
 
+        D_BoostIgnitionRetard.RowCount = 1
+
         ' Generate row headings
-        D_boostfuel.RowCount = 16
-        D_boostfuel.RowHeadersWidth = 60
+        D_BoostFuel.RowCount = 24
+        D_BoostFuel.RowHeadersWidth = 60
         r = 0
-        Do While (r < D_boostfuel.RowCount)
+
+        Do While (r < D_BoostFuel.RowCount)
             i = ReadFlashWord(rowheading_map + (r * 2))
-            D_boostfuel.Rows.Item(r).HeaderCell.Value = Str(Int(i / 2.56))
-            D_boostfuel.Rows.Item(r).Height = 15
+            D_BoostFuel.Rows.Item(r).HeaderCell.Value = Str(Int(i / 2.56))
+            D_BoostFuel.Rows.Item(r).Height = 15
             r = r + 1
         Loop
 
         ' Show overboost limit
+        '
         If ReadFlashByte(&H55400) <> &HFF Then ' If shifter module is active, then enable overboost limit adjusting
             T_overboost.Enabled = True
             T_overboost.Visible = True
@@ -346,29 +389,27 @@ Public Class K8boostfuel
             T_overboost.Visible = False
         End If
 
-        If metric Then
-            T_overboost.Text = Int(((((ReadFlashWord(&H55802) / 50.5) * 9.2) - 14.7) / 14.7) * 100)
+        If C_BoostPressureDisplay.SelectedIndex = 0 Then
+            T_overboost.Text = ConvertIntToPSI(ReadFlashWord(&H55802)).ToString("0")
         Else
-            T_overboost.Text = Int(((((ReadFlashWord(&H55802) / 50.5) * 9.2) - 14.7)))
+            T_overboost.Text = ConvertIntToKPa(ReadFlashWord(&H55802)).ToString("0")
         End If
 
-
-        '
         ' Generate map contents into a grid
-        '
         c = 0
         r = 0
         i = 0
-        Do While (r < D_boostfuel.RowCount)
 
-            If (D_boostfuel.Columns.Item(c).HeaderText > Abs(Val(T_overboost.Text))) And (ReadFlashByte(&H55400) <> &HFF) Then
-                D_boostfuel.Item(c, r).Style.ForeColor = Color.Gray
+        Do While (r < D_BoostFuel.RowCount)
+
+            If (D_BoostFuel.Columns.Item(c).HeaderText > Abs(Val(T_overboost.Text))) And (ReadFlashByte(&H55400) <> &HFF) Then
+                D_BoostFuel.Item(c, r).Style.ForeColor = Color.Gray
             Else
-                D_boostfuel.Item(c, r).Style.ForeColor = Color.Black
+                D_BoostFuel.Item(c, r).Style.ForeColor = Color.Black
             End If
 
-            D_boostfuel.Item(c, r).Value = Int(ReadFlashByte(i + editing_map))
-            If c < D_boostfuel.ColumnCount - 1 Then
+            D_BoostFuel.Item(c, r).Value = Int(ReadFlashByte(i + editing_map))
+            If c < D_BoostFuel.ColumnCount - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -377,84 +418,56 @@ Public Class K8boostfuel
             i = i + 1
         Loop
 
-        If metric Then
-            G_boosttable.Text = "% add per each RPM/kPa range"
-        Else
+        If C_BoostPressureDisplay.SelectedIndex = 0 Then
             G_boosttable.Text = "% add per each RPM/PSi range"
+        Else
+            G_boosttable.Text = "% add per each RPM/kPa range"
         End If
 
-
+        LoadIgnitionRetardMap()
         generate_duty_table()
 
     End Sub
 
-    Private Sub D_boostfuel_CellEndEdit(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles D_boostfuel.CellEndEdit
-        writemaptoflash()
+    Private Sub generate_duty_table()
+        Dim c, r, i As Integer
 
-    End Sub
-
-    Private Sub writemaptoflash()
-        Dim r, c, i As Integer
-        '
-        ' Copy grid contents to the bin
-        '
+        ' Generate column headings
+        D_duty.ColumnCount = 6
         c = 0
-        r = 0
-        i = 0
-        Do While (r < D_boostfuel.RowCount)
-            If D_boostfuel.Item(c, r).Value < 0 Then
-                D_boostfuel.Item(c, r).Value = 0
-                MsgBox("Min value exceeded, using min value")
-            End If
-            If D_boostfuel.Item(c, r).Value > 255 Then
-                D_boostfuel.Item(c, r).Value = 255
-                MsgBox("Max value exceeded, using max value")
-            End If
-
-            WriteFlashByte(i + editing_map, (D_boostfuel.Item(c, r).Value))
-            If c < D_boostfuel.ColumnCount - 1 Then
-                c = c + 1
-            Else
-                c = 0
-                r = r + 1
-            End If
-            i = i + 1
+        Do While c < D_duty.ColumnCount
+            D_duty.Columns.Item(c).HeaderText = "Gear " & Str(c + 1)
+            D_duty.Columns.Item(c).Width = 70
+            c = c + 1
         Loop
-    End Sub
 
-    Private Sub duty_writemaptoflash()
-        Dim r, c, i As Integer
-        '
-        ' Copy grid contents to the bin
-        '
+        ' Generate row headings
+        D_duty.RowCount = 4
+
+        D_duty.RowHeadersWidth = 110
+        D_duty.Rows.Item(0).HeaderCell.Value = "0% over"
+        D_duty.Rows.Item(1).HeaderCell.Value = "100% below"
+        D_duty.Rows.Item(2).HeaderCell.Value = "Duty%"
+        D_duty.Rows.Item(3).HeaderCell.Value = "Ign ret"
+
+        ' Generate map contents into a grid
         c = 0
         r = 0
         i = 0
+
+        Dim address As Integer = &H55C00
+
         Do While (r < D_duty.RowCount)
-            If D_duty.Item(c, r).Value < 0 Then
-                D_duty.Item(c, r).Value = 0
-                MsgBox("Min value exceeded, using min value")
-            End If
-            If D_duty.Item(c, r).Value > 255 Then
-                D_duty.Item(c, r).Value = 255
-                MsgBox("Max value exceeded, using max value")
-            End If
+
             If (r = 0) Or (r = 1) Then
-                If metric Then
-                    WriteFlashWord((i * 2) + &H559A0, (((14.7 * D_duty.Item(c, r).Value / 100) + 14.7) * 50.5 / 9.2))
-                    'D_duty.Item(c, r).Value = Int(((((ReadFlashWord((i * 2) + &H559A4) / 50.5) * 9.2) - 14.7) / 14.7) * 100)
+
+                If C_BoostPressureDisplay.SelectedIndex = 0 Then
+                    D_duty.Item(c, r).Value = (ConvertIntToPSI(ReadFlashWord((i * 2) + address)) - 14.7).ToString("0")
                 Else
-                    WriteFlashWord((i * 2) + &H559A0, ((D_duty.Item(c, r).Value + 14.7) * 50.5 / 9.2))
-                    ' D_duty.Item(c, r).Value = Int(((((ReadFlashWord((i * 2) + &H559A4) / 50.5) * 9.2) - 14.7)))
+                    D_duty.Item(c, r).Value = (ConvertIntToKPa(ReadFlashWord((i * 2) + address)) - 101).ToString("0")
                 End If
             Else
-                'if Not ((C_bleed.Checked) And (r = 2)) Then
-                WriteFlashWord((i * 2) + &H559A0, (D_duty.Item(c, r).Value))
-                'Else
-                'WriteFlashWord((i * 2) + &H559A0, (100 - D_duty.Item(c, r).Value))
-                'End If
-
-
+                D_duty.Item(c, r).Value = Int((ReadFlashWord((i * 2) + address)))
             End If
 
             If c < D_duty.ColumnCount - 1 Then
@@ -465,6 +478,94 @@ Public Class K8boostfuel
             End If
             i = i + 1
         Loop
+
+        If metric Then
+            L_solenoid_control.Text = "Solenoid controlled boost duty and max pressure Kpa"
+        Else
+            L_solenoid_control.Text = "Solenoid controlled boost duty and max pressure Psi"
+        End If
+
+    End Sub
+
+    Private Sub D_boostfuel_CellEndEdit(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles D_BoostFuel.CellEndEdit
+        writemaptoflash()
+    End Sub
+
+    Private Sub writemaptoflash()
+        Dim r, c, i As Integer
+
+        ' Copy grid contents to the bin
+        c = 0
+        r = 0
+        i = 0
+
+        Do While (r < D_BoostFuel.RowCount)
+
+            If D_BoostFuel.Item(c, r).Value < 0 Then
+                D_BoostFuel.Item(c, r).Value = 0
+                MsgBox("Min value exceeded, using min value")
+            End If
+
+            If D_BoostFuel.Item(c, r).Value > 255 Then
+                D_BoostFuel.Item(c, r).Value = 255
+                MsgBox("Max value exceeded, using max value")
+            End If
+
+            WriteFlashByte(i + editing_map, (D_BoostFuel.Item(c, r).Value))
+
+            If c < D_BoostFuel.ColumnCount - 1 Then
+                c = c + 1
+            Else
+                c = 0
+                r = r + 1
+            End If
+            i = i + 1
+        Loop
+
+    End Sub
+
+    Private Sub duty_writemaptoflash()
+        Dim r, c, i As Integer
+
+        ' Copy grid contents to the bin
+        c = 0
+        r = 0
+        i = 0
+
+        Do While (r < D_duty.RowCount)
+            If D_duty.Item(c, r).Value < 0 Then
+                D_duty.Item(c, r).Value = 0
+                MsgBox("Min value exceeded, using min value")
+            End If
+            If D_duty.Item(c, r).Value > 255 Then
+                D_duty.Item(c, r).Value = 255
+                MsgBox("Max value exceeded, using max value")
+            End If
+
+            Dim address As Integer = &H55C00
+
+            If (r = 0) Or (r = 1) Then
+                If C_BoostPressureDisplay.SelectedIndex = 0 Then
+                    Dim value As Integer = ConvertPSIToInt(D_duty.Item(c, r).Value + 14.7)
+                    WriteFlashWord((i * 2) + address, value)
+                Else
+                    Dim value As Integer = ConvertKPaToInt(D_duty.Item(c, r).Value + 101)
+                    WriteFlashWord((i * 2) + address, value)
+                End If
+            Else
+                WriteFlashWord((i * 2) + address, (D_duty.Item(c, r).Value))
+            End If
+
+            If c < D_duty.ColumnCount - 1 Then
+                c = c + 1
+            Else
+                c = 0
+                r = r + 1
+            End If
+
+            i = i + 1
+
+        Loop
     End Sub
 
     Private Sub Duty_DecreaseSelectedCells()
@@ -474,7 +575,6 @@ Public Class K8boostfuel
         Dim n As Integer
 
         Dim decrease As Integer
-
 
         decrease = change ' This is the amount that value is decreased when pressing "-"
 
@@ -497,16 +597,17 @@ Public Class K8boostfuel
             End If
             i = i + 1
         Loop
+
     End Sub
 
     Private Sub Duty_IncreaseSelectedCells()
+
         Dim c As Integer
         Dim r As Integer
         Dim i As Integer
         Dim n As Integer
 
         Dim increase As Integer
-
 
         increase = change ' This is the amount that value is decreased when pressing "-"
 
@@ -529,6 +630,7 @@ Public Class K8boostfuel
             End If
             i = i + 1
         Loop
+
     End Sub
 
     Private Sub DecreaseSelectedCells()
@@ -539,21 +641,20 @@ Public Class K8boostfuel
 
         Dim decrease As Integer
 
-
         decrease = change ' This is the amount that value is decreased when pressing "-"
 
         i = 0
 
-        n = D_boostfuel.SelectedCells.Count()
+        n = D_BoostFuel.SelectedCells.Count()
 
-        Do While (r < D_boostfuel.RowCount)
+        Do While (r < D_BoostFuel.RowCount)
 
-            If D_boostfuel.Item(c, r).Selected And n > 0 Then
-                D_boostfuel.Item(c, r).Value = D_boostfuel.Item(c, r).Value - decrease
+            If D_BoostFuel.Item(c, r).Selected And n > 0 Then
+                D_BoostFuel.Item(c, r).Value = D_BoostFuel.Item(c, r).Value - decrease
                 n = n - 1
             End If
 
-            If c < D_boostfuel.ColumnCount - 1 Then
+            If c < D_BoostFuel.ColumnCount - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -571,21 +672,20 @@ Public Class K8boostfuel
 
         Dim decrease As Integer
 
-
         decrease = change ' This is the amount that value is decreased when pressing "-"
 
         i = 0
 
-        n = D_boostfuel.SelectedCells.Count()
+        n = D_BoostFuel.SelectedCells.Count()
 
-        Do While (r < D_boostfuel.RowCount)
+        Do While (r < D_BoostFuel.RowCount)
 
-            If D_boostfuel.Item(c, r).Selected And n > 0 Then
-                D_boostfuel.Item(c, r).Value = Int(D_boostfuel.Item(c, r).Value / 1.05)
+            If D_BoostFuel.Item(c, r).Selected And n > 0 Then
+                D_BoostFuel.Item(c, r).Value = Int(D_BoostFuel.Item(c, r).Value / 1.05)
                 n = n - 1
             End If
 
-            If c < D_boostfuel.ColumnCount - 1 Then
+            If c < D_BoostFuel.ColumnCount - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -603,21 +703,20 @@ Public Class K8boostfuel
 
         Dim decrease As Integer
 
-
         decrease = change ' This is the amount that value is decreased when pressing "-"
 
         i = 0
 
-        n = D_boostfuel.SelectedCells.Count()
+        n = D_BoostFuel.SelectedCells.Count()
 
-        Do While (r < D_boostfuel.RowCount)
+        Do While (r < D_BoostFuel.RowCount)
 
-            If D_boostfuel.Item(c, r).Selected And n > 0 Then
-                D_boostfuel.Item(c, r).Value = Int(D_boostfuel.Item(c, r).Value * 1.05)
+            If D_BoostFuel.Item(c, r).Selected And n > 0 Then
+                D_BoostFuel.Item(c, r).Value = Int(D_BoostFuel.Item(c, r).Value * 1.05)
                 n = n - 1
             End If
 
-            If c < D_boostfuel.ColumnCount - 1 Then
+            If c < D_BoostFuel.ColumnCount - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -639,17 +738,16 @@ Public Class K8boostfuel
         r = 0
         c = 0
 
+        n = D_BoostFuel.SelectedCells.Count()
 
-        n = D_boostfuel.SelectedCells.Count()
+        Do While (r < D_BoostFuel.RowCount) And n > 0
 
-        Do While (r < D_boostfuel.RowCount) And n > 0
-
-            If D_boostfuel.Item(c, r).Selected And n > 0 Then
-                D_boostfuel.Item(c, r).Value = D_boostfuel.Item(c, r).Value + increase
+            If D_BoostFuel.Item(c, r).Selected And n > 0 Then
+                D_BoostFuel.Item(c, r).Value = D_BoostFuel.Item(c, r).Value + increase
                 n = n - 1
             End If
 
-            If c < D_boostfuel.ColumnCount - 1 Then
+            If c < D_BoostFuel.ColumnCount - 1 Then
                 c = c + 1
             Else
                 c = 0
@@ -660,7 +758,7 @@ Public Class K8boostfuel
 
     End Sub
 
-    Private Sub D_boostfuel_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles D_boostfuel.KeyPress
+    Private Sub D_boostfuel_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles D_BoostFuel.KeyPress
 
         ' this is the user interface shortcut keys processor
         Select Case e.KeyChar
@@ -686,77 +784,55 @@ Public Class K8boostfuel
         Dim i As Integer
         Dim c As Integer
         Dim r As Integer
-        If B_rescale.Text.Contains("GM3") Then
-            If Metric Then
-                i = Int(((((BOOST / 50.5) * 9.2) - 14.7) / 14.7) * 100)
-            Else
-                i = Int(((((BOOST / 50.5) * 9.2) - 14.7)))
-            End If
+
+        If C_BoostPressureDisplay.SelectedIndex = 0 Then
+            i = ConvertIntToPSI(BOOST) - ConvertKPaToPSI(101)
         Else
-            '
-            ' ssI5BAR sensor calculates differently
-            '
-            If Metric Then
-                'i = Int(((((BOOST / 50.5) * 9.2) - 14.7) / 14.7) * 100)
-                i = 0
-            Else
-                'i = Int(((((BOOST / 50.5) * 9.2) - 14.7)))
-                i = 0
-            End If
+            i = ConvertIntToKPa(BOOST) - 101
         End If
 
         LED_BOOST.Text = Str(i)
 
-        If C_boostfuel_activation.Checked = True Then
+        If C_BoostfuelActivation.Checked = True Then
 
-            '
             ' based on enginedata show the position on the map and trace which cell is being accessed by ecu (almost)
-            '
-            D_boostfuel.Item(cc, rr).Style.BackColor = Color.White
+            D_BoostFuel.Item(cc, rr).Style.BackColor = Color.White
 
             Dim map_number_of_rows, map_number_of_columns As Integer
 
-            map_number_of_rows = 16
-            map_number_of_columns = 16
+            map_number_of_rows = 24
+            map_number_of_columns = 24
 
-            '
             ' Lets select the map based on MS switch position for tracing and make sure that the correct map is visible when tracing
-            '
-
             ' enable automatic map switching when tracing and datastream on
 
             r = map_number_of_rows
             c = map_number_of_columns
 
-            '
             ' Process RPM rows
-            '
             r = 0
             rr = 0
             Do While (r < map_number_of_rows - 1)
-                If RPM >= rr And RPM < Int(D_boostfuel.Rows(r + 1).HeaderCell.Value) Then
+                If RPM >= rr And RPM < Int(D_BoostFuel.Rows(r + 1).HeaderCell.Value) Then
                     rr = r
                     r = 256
                 Else
                     r = r + 1
-                    rr = Int(D_boostfuel.Rows(r).HeaderCell.Value)
+                    rr = Int(D_BoostFuel.Rows(r).HeaderCell.Value)
                 End If
             Loop
 
-
-            '
             ' Process BOOST columns
-            '
             c = 0
             cc = 0
-            If i < Val(D_boostfuel.Columns.Item(map_number_of_columns - 1).HeaderCell.Value) Then
+            If i < Val(D_BoostFuel.Columns.Item(map_number_of_columns - 1).HeaderCell.Value) Then
                 Do While (c < map_number_of_columns - 1)
-                    If i >= cc And i < D_boostfuel.Columns.Item(c + 1).HeaderCell.Value Then
+                    If i >= cc And i < D_BoostFuel.Columns.Item(c + 1).HeaderCell.Value Then
                         cc = c
                         c = 256
                     Else
                         c = c + 1
-                        cc = Int(D_boostfuel.Columns.Item(c).HeaderCell.Value)
+                        cc = Int(D_BoostFuel.Columns.Item(c).HeaderCell.Value)
                     End If
                 Loop
             Else
@@ -769,100 +845,13 @@ Public Class K8boostfuel
             If cc < 0 Then cc = 0
             If rr <> 0 Or cc <> 0 Then
                 If RPM >= 4000 Then
-                    D_boostfuel.Item(cc, rr).Style.BackColor = Color.Blue
+                    D_BoostFuel.Item(cc, rr).Style.BackColor = Color.Blue
                 Else
-                    D_boostfuel.Item(cc, rr).Style.BackColor = Color.White
+                    D_BoostFuel.Item(cc, rr).Style.BackColor = Color.White
                 End If
             Else
-                D_boostfuel.Item(cc, rr).Style.BackColor = Color.White
+                D_BoostFuel.Item(cc, rr).Style.BackColor = Color.White
             End If
-        End If
-
-    End Sub
-
-    Private Sub B_print_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        '
-        '
-        '
-
-    End Sub
-
-    Private Sub generate_duty_table()
-        Dim c, r, i As Integer
-
-        '
-        ' Generate column headings
-        '
-        D_duty.ColumnCount = 6
-        c = 0
-        Do While c < D_duty.ColumnCount
-            D_duty.Columns.Item(c).HeaderText = "Gear " & Str(c + 1)
-            D_duty.Columns.Item(c).Width = 70
-            c = c + 1
-        Loop
-
-        '
-        ' Generate row headings
-        '
-        D_duty.RowCount = 4
-
-        D_duty.RowHeadersWidth = 110
-        D_duty.Rows.Item(0).HeaderCell.Value = "0% over"
-        D_duty.Rows.Item(1).HeaderCell.Value = "100% below"
-        D_duty.Rows.Item(2).HeaderCell.Value = "Duty%"
-        D_duty.Rows.Item(3).HeaderCell.Value = "Ign ret"
-
-
-        '
-        ' Generate map contents into a grid
-        '
-        c = 0
-        r = 0
-        i = 0
-        Do While (r < D_duty.RowCount)
-
-            If (r = 0) Or (r = 1) Then
-                If B_rescale.Text.Contains("GM3") Then
-                    If Metric Then
-                        D_duty.Item(c, r).Value = Int(((((ReadFlashWord((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7) / 14.7) * 100)
-                    Else
-                        D_duty.Item(c, r).Value = Int(((((ReadFlashWord((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7)))
-                    End If
-                Else
-                    '
-                    ' SSI5 bar sensor calculates differently
-                    '
-                    If Metric Then
-                        'D_duty.Item(c, r).Value = Int(((((ReadFlashWord((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7) / 14.7) * 100) * 1.5
-                        D_duty.Item(c, r).Value = 0
-                    Else
-                        'D_duty.Item(c, r).Value = Int(((((ReadFlashWord((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7))) * 1.5
-                        D_duty.Item(c, r).Value = 0
-                    End If
-
-                End If
-            Else
-                'If Not ((C_bleed.Checked) And (r = 2)) Then
-                D_duty.Item(c, r).Value = Int((ReadFlashWord((i * 2) + &H559A0)))
-                'Else
-                'D_duty.Item(c, r).Value = 100 - Int((ReadFlashWord((i * 2) + &H559A0)))
-                ' End If
-                'D_duty.Item(c, r).Value = Int((ReadFlashWord((i * 2) + &H559A0)))
-            End If
-
-                If c < D_duty.ColumnCount - 1 Then
-                    c = c + 1
-                Else
-                    c = 0
-                    r = r + 1
-                End If
-                i = i + 1
-        Loop
-
-        If metric Then
-            L_solenoid_control.Text = "Solenoid controlled boost duty and max pressure Kpa"
-        Else
-            L_solenoid_control.Text = "Solenoid controlled boost duty and max pressure Psi"
         End If
 
     End Sub
@@ -872,13 +861,14 @@ Public Class K8boostfuel
         If C_solenoidcontrol.Checked = True Then
             C_solenoidcontrol.Text = "Active"
             D_solenoidcontrol.Visible = True
-            WriteFlashByte(&H559D2, &H0) ' Dutyactive
+            WriteFlashByte(&H55C3A, &H0)
             K8Advsettings.C_PAIR.Checked = False
         Else
             C_solenoidcontrol.Text = "Not active"
             D_solenoidcontrol.Visible = False
-            WriteFlashByte(&H559D2, &HFF) ' Dutyactive
+            WriteFlashByte(&H55C3A, &HFF)
         End If
+
         generate_duty_table()
 
     End Sub
@@ -904,12 +894,13 @@ Public Class K8boostfuel
     End Sub
 
     Private Sub C_bleed_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_bleed.CheckedChanged
+
         If C_bleed.Checked = True Then
             C_bleed.Text = "Normally Open"
-            WriteFlashByte(&H559D3, &H0)
+            WriteFlashByte(&H55C3B, &H0)
         Else
             C_bleed.Text = "Normally Closed"
-            WriteFlashByte(&H559D3, &HFF)
+            WriteFlashByte(&H55C3B, &HFF)
         End If
         generate_duty_table()
 
@@ -938,26 +929,14 @@ Public Class K8boostfuel
                 Case "-"
                     T_overboost.Text = Abs(Val(T_overboost.Text)) - 1
             End Select
+
             If Abs(Val(T_overboost.Text)) <= 5 Then T_overboost.Text = "5"
             If Abs(Val(T_overboost.Text)) > 250 Then T_overboost.Text = "250"
 
-            If B_rescale.Text.Contains("GM3") Then
-                If Metric Then
-                    WriteFlashWord(&H55802, (((14.7 * Int(T_overboost.Text) / 100) + 14.7) * 50.5 / 9.2))
-                Else
-                    WriteFlashWord(&H55802, ((Int(T_overboost.Text) + 14.7) * 50.5 / 9.2))
-                End If
+            If Metric Then
+                WriteFlashWord(&H55802, (((14.7 * Int(T_overboost.Text) / 100) + 14.7) * 50.5 / 9.2))
             Else
-                '
-                ' SSI5bar sensor calculates boost settigns differently
-                '
-                If Metric Then
-                    'WriteFlashWord(&H55802, (((14.7 * Int(T_overboost.Text) / 100) + 14.7) * 50.5 / 9.2) * 1.5)
-                    WriteFlashWord(&H55802, 0)
-                Else
-                    'WriteFlashWord(&H55802, ((Int(T_overboost.Text) + 14.7) * 50.5 / 9.2) * 1.5)
-                    WriteFlashWord(&H55802, 0)
-                End If
+                WriteFlashWord(&H55802, ((Int(T_overboost.Text) + 14.7) * 50.5 / 9.2))
             End If
 
             i = ReadFlashWord(&H55802)
@@ -970,26 +949,25 @@ Public Class K8boostfuel
     Private Sub C_fueladd_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_fueladd.CheckedChanged
         If C_fueladd.Checked = True Then
             C_fueladd.Text = "+ to TPS"
-            WriteFlashByte(&H559D1, &H0)
+            WriteFlashByte(&H55C39, &H0)
         Else
             C_fueladd.Text = "% of TPS"
-            WriteFlashByte(&H559D1, &H10)
+            WriteFlashByte(&H55C39, &H10)
         End If
 
     End Sub
 
-    Private Sub D_boostfuel_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles D_boostfuel.KeyDown
+    Private Sub D_boostfuel_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles D_BoostFuel.KeyDown
 
         If (e.Control = True And e.KeyCode = Keys.V) Then
             Dim rowIndex As Integer
             Dim lines As String()
-
             Dim columnStartIndex As Integer
 
             rowIndex = Integer.MaxValue
             columnStartIndex = Integer.MaxValue
 
-            For Each cell As DataGridViewCell In D_boostfuel.SelectedCells()
+            For Each cell As DataGridViewCell In D_BoostFuel.SelectedCells()
                 If cell.RowIndex < rowIndex Then
                     rowIndex = cell.RowIndex
                 End If
@@ -999,9 +977,7 @@ Public Class K8boostfuel
                 End If
             Next
 
-
-
-            rowIndex = D_boostfuel.CurrentCell.RowIndex
+            rowIndex = D_BoostFuel.CurrentCell.RowIndex
 
             lines = Clipboard.GetText().Split(ControlChars.CrLf)
 
@@ -1013,9 +989,9 @@ Public Class K8boostfuel
                 columnIndex = columnStartIndex
 
                 For Each value As String In values
-                    If columnIndex < D_boostfuel.ColumnCount And rowIndex < D_boostfuel.RowCount Then
+                    If columnIndex < D_BoostFuel.ColumnCount And rowIndex < D_BoostFuel.RowCount Then
                         If IsNumeric(value) Then
-                            D_boostfuel(columnIndex, rowIndex).Value = value
+                            D_BoostFuel(columnIndex, rowIndex).Value = value
                             'SetFlashItem(columnIndex, rowIndex)
                         End If
                     End If
@@ -1036,7 +1012,6 @@ Public Class K8boostfuel
         If (e.Control = True And e.KeyCode = Keys.V) Then
             Dim rowIndex As Integer
             Dim lines As String()
-
             Dim columnStartIndex As Integer
 
             rowIndex = Integer.MaxValue
@@ -1052,10 +1027,7 @@ Public Class K8boostfuel
                 End If
             Next
 
-
-
             rowIndex = D_duty.CurrentCell.RowIndex
-
             lines = Clipboard.GetText().Split(ControlChars.CrLf)
 
             For Each line As String In lines
@@ -1067,7 +1039,7 @@ Public Class K8boostfuel
 
                 For Each value As String In values
                     value = Replace(value, ControlChars.Lf, "") ' removing extra LF - issue 38
-                    If columnIndex < D_boostfuel.ColumnCount And rowIndex < D_duty.RowCount Then
+                    If columnIndex < D_BoostFuel.ColumnCount And rowIndex < D_duty.RowCount Then
                         If IsNumeric(value) Then
                             D_duty(columnIndex, rowIndex).Value = value
                         End If
@@ -1088,7 +1060,7 @@ Public Class K8boostfuel
         K8BoostControlDiagram.Show()
     End Sub
 
-    Private Sub B_Apply_Map_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Apply_Map.Click
+    Private Sub B_Apply_Map_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         ' Lets use OpenFileDialog to open a new flash image file
         Dim fdlg As OpenFileDialog = New OpenFileDialog()
         Dim fs As FileStream
@@ -1170,7 +1142,7 @@ Public Class K8boostfuel
                             i = (rp * noc) + cp
 
                             em = &H55874
-                            D_boostfuel.Item(cp, rp).Value = bin(em + i)
+                            D_BoostFuel.Item(cp, rp).Value = bin(em + i)
 
                             '
                             ' Set value on map to ecu flash
@@ -1186,7 +1158,7 @@ Public Class K8boostfuel
 
     End Sub
 
-    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_rescale.Click
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim multiplier As Decimal = 1.18
         Dim i As Integer
         i = ReadFlashByte(&H55844)
@@ -1195,74 +1167,8 @@ Public Class K8boostfuel
 
             Select Case i
                 Case &H52
-                    B_rescale.Text = "GM3bar ext"
-                    ' extend the map
-                    WriteFlashByte(&H55844 + 0, Int(&H52 * multiplier))
-                    WriteFlashByte(&H55844 + 1, Int(&H58 * multiplier))
-                    WriteFlashByte(&H55844 + 2, Int(&H5E * multiplier))
-                    WriteFlashByte(&H55844 + 3, Int(&H63 * multiplier))
-                    WriteFlashByte(&H55844 + 4, Int(&H6C * multiplier))
-                    WriteFlashByte(&H55844 + 5, Int(&H73 * multiplier))
-                    WriteFlashByte(&H55844 + 6, Int(&H81 * multiplier))
-                    WriteFlashByte(&H55844 + 7, Int(&H8B * multiplier))
-                    WriteFlashByte(&H55844 + 8, Int(&H92 * multiplier))
-                    WriteFlashByte(&H55844 + 9, Int(&H98 * multiplier))
-                    WriteFlashByte(&H55844 + 10, Int(&HA0 * multiplier))
-                    WriteFlashByte(&H55844 + 11, Int(&HA6 * multiplier))
-                    WriteFlashByte(&H55844 + 12, Int(&HB2 * multiplier))
-                    WriteFlashByte(&H55844 + 13, Int(&HBD * multiplier))
-                    WriteFlashByte(&H55844 + 14, Int(&HCB * multiplier))
-                    WriteFlashByte(&H55844 + 15, Int(&HD8 * multiplier))
-                Case Int(&H52 * multiplier)
-                    B_rescale.Text = "SSI5bar"
-                    MsgBox("Please note that SSI5 bar sensor conversion is not yet functional, waiting for formulas")
 
-                    '
                     ' vacuum area conversion
-                    '
-                    WriteFlashByte(&H55814 + 0, &H19)
-                    WriteFlashByte(&H55814 + 1, &H1D)
-                    WriteFlashByte(&H55814 + 2, &H21)
-                    WriteFlashByte(&H55814 + 3, &H25)
-                    WriteFlashByte(&H55814 + 4, &H29)
-                    WriteFlashByte(&H55814 + 5, &H2D)
-                    WriteFlashByte(&H55814 + 6, &H31)
-                    WriteFlashByte(&H55814 + 7, &H35)
-                    WriteFlashByte(&H55814 + 8, &H39)
-                    WriteFlashByte(&H55814 + 9, &H42)
-                    WriteFlashByte(&H55814 + 10, &H46)
-                    WriteFlashByte(&H55814 + 11, &H4C)
-                    WriteFlashByte(&H55814 + 12, &H51)
-                    WriteFlashByte(&H55814 + 13, &HFF)
-                    WriteFlashByte(&H55814 + 14, &HFF)
-                    WriteFlashByte(&H55814 + 15, &HFF)
-                    '
-                    ' boostmap
-                    '
-                    WriteFlashByte(&H55844 + 0, &H42)
-                    WriteFlashByte(&H55844 + 1, &H46)
-                    WriteFlashByte(&H55844 + 2, &H4C)
-                    WriteFlashByte(&H55844 + 3, &H51)
-                    WriteFlashByte(&H55844 + 4, &H57)
-                    WriteFlashByte(&H55844 + 5, &H5C)
-                    WriteFlashByte(&H55844 + 6, &H62)
-                    WriteFlashByte(&H55844 + 7, &H67)
-                    WriteFlashByte(&H55844 + 8, &H6D)
-                    WriteFlashByte(&H55844 + 9, &H72)
-                    WriteFlashByte(&H55844 + 10, &H77)
-                    WriteFlashByte(&H55844 + 11, &H7D)
-                    WriteFlashByte(&H55844 + 12, &H85)
-                    WriteFlashByte(&H55844 + 13, &HA0)
-                    WriteFlashByte(&H55844 + 14, &HAE)
-                    WriteFlashByte(&H55844 + 15, &HBB)
-
-
-                Case Else ' return back to GM3 bar standard map
-                    B_rescale.Text = "GM3bar"
-
-                    '
-                    ' vacuum area conversion
-                    '
                     WriteFlashByte(&H55814 + 0, &H0)
                     WriteFlashByte(&H55814 + 1, &H8)
                     WriteFlashByte(&H55814 + 2, &H10)
@@ -1279,9 +1185,8 @@ Public Class K8boostfuel
                     WriteFlashByte(&H55814 + 13, &HFF)
                     WriteFlashByte(&H55814 + 14, &HFF)
                     WriteFlashByte(&H55814 + 15, &HFF)
-                    '
+
                     ' boostmap
-                    '
                     WriteFlashByte(&H55844 + 0, &H52)
                     WriteFlashByte(&H55844 + 1, &H58)
                     WriteFlashByte(&H55844 + 2, &H5E)
@@ -1304,6 +1209,280 @@ Public Class K8boostfuel
             writemaptoflash()
 
         End If
+
+    End Sub
+
+    Private Sub C_SensorType_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_SensorType.SelectedIndexChanged
+
+        If C_SensorType.SelectedItem.ToString() = "GM 3 Bar" Then
+
+            NUD_SensorVoltage1.Value = 0
+            NUD_SensorPressure1.Value = 0
+
+            NUD_SensorVoltage2.Value = 5
+            NUD_SensorPressure2.Value = 313
+
+        ElseIf C_SensorType.SelectedItem.ToString() = "SSI 5 Bar" Then
+
+            NUD_SensorVoltage1.Value = 0.5
+            NUD_SensorPressure1.Value = 0
+
+            NUD_SensorVoltage2.Value = 4.5
+            NUD_SensorPressure2.Value = 516
+
+        Else
+
+            NUD_SensorVoltage1.Value = 0
+            NUD_SensorPressure1.Value = 0
+
+            NUD_SensorVoltage2.Value = 5
+            NUD_SensorPressure2.Value = 516
+
+        End If
+
+    End Sub
+
+    Private Sub B_ApplySensorValues_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_ApplySensorValues.Click
+
+        SaveSensorValues()
+
+        Dim kpa = 101
+        Dim psi = 0
+        Dim value As Double = ConvertKPaToInt(101)
+
+        WriteFlashByte(columnheading_map, value)
+
+        For count As Integer = 0 To 22
+
+            psi = 1 + count * 2
+            kpa = 101 + (psi * KPA_PSI)
+            value = ConvertKPaToInt(kpa)
+            WriteFlashByte((count + 1) + columnheading_map, value)
+            WriteFlashByte((count + 1) + ignitionretard_columns, value)
+
+        Next
+
+        Dim address As Integer = &H55814
+
+        'Sensor Map
+        WriteFlashByte(address, ConvertKPaToInt(0))
+        WriteFlashByte(address + 1, ConvertKPaToInt(10))
+        WriteFlashByte(address + 2, ConvertKPaToInt(20))
+        WriteFlashByte(address + 3, ConvertKPaToInt(30))
+        WriteFlashByte(address + 4, ConvertKPaToInt(40))
+        WriteFlashByte(address + 5, ConvertKPaToInt(49))
+        WriteFlashByte(address + 6, ConvertKPaToInt(60))
+        WriteFlashByte(address + 7, ConvertKPaToInt(70))
+        WriteFlashByte(address + 8, ConvertKPaToInt(79))
+        WriteFlashByte(address + 9, ConvertKPaToInt(101))
+        WriteFlashByte(address + 10, ConvertKPaToInt(121))
+        WriteFlashByte(address + 11, ConvertKPaToInt(136))
+
+        generate_map_table()
+
+    End Sub
+
+    Public Function ConvertPSIToInt(ByVal value As Double) As Integer
+
+        value = ConvertPSIToKPa(value)
+        Return ConvertKPaToInt(value)
+
+    End Function
+
+    Public Function ConvertKPaToInt(ByVal value As Double) As Integer
+
+        Dim kpaRange As Double = NUD_SensorPressure2.Value - NUD_SensorPressure1.Value
+        Dim voltageRange As Double = NUD_SensorVoltage2.Value - NUD_SensorVoltage1.Value
+        Dim kpaPerVolt As Double = kpaRange / voltageRange
+
+        Dim voltage As Double = ((value - NUD_SensorPressure1.Value) / kpaRange * voltageRange) + NUD_SensorVoltage1.Value
+
+        Dim result As Integer = ConvertVoltageToInt(voltage)
+
+        If result > 255 Then
+            result = 255
+        End If
+
+        If result < 0 Then
+            result = 0
+        End If
+
+        Return result
+
+    End Function
+
+    Public Function ConvertVoltageToInt(ByVal voltage As Double) As Double
+
+        If voltage < 0 Then
+            voltage = 0
+        End If
+
+        If voltage > 5 Then
+            voltage = 5
+        End If
+
+        Return voltage * 255 / 5
+
+    End Function
+
+    Public Function ConvertIntToVoltage(ByVal value As Integer) As Double
+
+        If value > 255 Then
+            value = 255
+        End If
+
+        If value < 0 Then
+            value = 0
+        End If
+
+        Return value * 5 / 255
+
+    End Function
+
+    Public Function ConvertIntToKPa(ByVal value As Integer) As Double
+
+        Dim voltage As Double = ConvertIntToVoltage(value)
+        Return ConvertVoltageToKPa(voltage)
+
+    End Function
+
+    Public Function ConvertIntToPSI(ByVal value As Integer) As Double
+
+        Return ConvertKPaToPSI(ConvertIntToKPa(value))
+
+    End Function
+
+    Public Function ConvertVoltageToKPa(ByVal voltage As Double) As Double
+
+        Dim pressureRange As Double = NUD_SensorPressure2.Value - NUD_SensorPressure1.Value
+        Dim voltageRange As Double = NUD_SensorVoltage2.Value - NUD_SensorVoltage1.Value
+
+        Return (voltage - NUD_SensorVoltage1.Value) / voltageRange * pressureRange
+
+    End Function
+
+    Public Function ConvertKPaToPSI(ByVal kPa As Double) As Double
+
+        Return kPa / KPA_PSI
+
+    End Function
+
+    Public Function ConvertPSIToKPa(ByVal psi As Double) As Double
+
+        Return psi * KPA_PSI
+
+    End Function
+
+    Private Sub C_BoostPressureDisplay_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_BoostPressureDisplay.SelectedIndexChanged
+
+        My.Settings.BoostPressureDisplay = C_BoostPressureDisplay.SelectedIndex
+        My.Settings.Save()
+
+        generate_map_table()
+
+    End Sub
+
+    Private Sub SaveSensorValues()
+
+        WriteFlashWord(&H55C30, NUD_SensorVoltage1.Value * 10)
+        WriteFlashWord(&H55C32, NUD_SensorPressure1.Value * 10)
+        WriteFlashWord(&H55C34, NUD_SensorVoltage2.Value * 10)
+        WriteFlashWord(&H55C36, NUD_SensorPressure2.Value * 10)
+
+    End Sub
+
+    Private Sub D_BoostIgnitionRetard_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles D_BoostIgnitionRetard.KeyDown
+
+        If (e.Control = True And e.KeyCode = Keys.V) Then
+            Dim rowIndex As Integer
+            Dim lines As String()
+            Dim columnStartIndex As Integer
+
+            rowIndex = Integer.MaxValue
+            columnStartIndex = Integer.MaxValue
+
+            For Each cell As DataGridViewCell In D_BoostIgnitionRetard.SelectedCells()
+                If cell.RowIndex < rowIndex Then
+                    rowIndex = cell.RowIndex
+                End If
+
+                If cell.ColumnIndex < columnStartIndex Then
+                    columnStartIndex = cell.ColumnIndex
+                End If
+            Next
+
+            rowIndex = D_BoostIgnitionRetard.CurrentCell.RowIndex
+
+            lines = Clipboard.GetText().Split(ControlChars.CrLf)
+
+            For Each line As String In lines
+                Dim columnIndex As Integer
+                Dim values As String()
+
+                values = line.Split(ControlChars.Tab)
+                columnIndex = columnStartIndex
+
+                For Each value As String In values
+                    If columnIndex < D_BoostIgnitionRetard.ColumnCount And rowIndex < D_BoostIgnitionRetard.RowCount Then
+                        If IsNumeric(value) Then
+                            D_BoostIgnitionRetard(columnIndex, rowIndex).Value = value
+                        End If
+                    End If
+
+                    columnIndex = columnIndex + 1
+                Next
+
+                rowIndex = rowIndex + 1
+            Next
+
+        End If
+
+        WriteIgnitionRetardMap()
+
+    End Sub
+
+    Private Sub D_BoostIgnitionRetard_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles D_BoostIgnitionRetard.KeyPress
+
+        ' this is the user interface shortcut keys processor
+        Select Case e.KeyChar
+            Case "+"
+
+                For Each cell As DataGridViewCell In D_BoostIgnitionRetard.SelectedCells()
+                    cell.Value = cell.Value + 1
+                Next
+
+            Case "-"
+
+                For Each cell As DataGridViewCell In D_BoostIgnitionRetard.SelectedCells()
+
+                    If cell.Value > 0 Then
+                        cell.Value = cell.Value - 1
+                    End If
+                Next
+
+        End Select
+
+        WriteIgnitionRetardMap()
+
+    End Sub
+
+    Private Sub WriteIgnitionRetardMap()
+
+        Dim address As Integer = &H55AF4
+
+        For index As Integer = 0 To D_BoostIgnitionRetard.ColumnCount - 1
+            WriteFlashByte(address + index, D_BoostIgnitionRetard.Item(index, 0).Value)
+        Next
+
+    End Sub
+
+    Private Sub LoadIgnitionRetardMap()
+
+        Dim address As Integer = &H55AF4
+
+        For index As Integer = 0 To D_BoostIgnitionRetard.ColumnCount - 1
+            D_BoostIgnitionRetard.Item(index, 0).Value = ReadFlashByte(address + index)
+        Next
 
     End Sub
 
