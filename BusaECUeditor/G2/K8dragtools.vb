@@ -27,13 +27,12 @@ Public Class K8dragtools
     Dim ADJ As Integer = &H5A000 '&HFF if dragtools inactive, no code present else dragtools active
     Dim dragtoolsCODE As Integer = &H5A100
     Dim IDTAG As Integer = &H5A000
-    Dim dragtoolsVERSION As Integer = 100
+    Dim dragtoolsVERSION As Integer = 102
     Dim dragtoolscodelenght As Integer = &H1000 'lenght of the dragtools code in bytes for clearing the memory
     Dim rpmconv As Long
     Dim addedrpm As Integer
     Dim refrpm As Integer = 10900
-
-
+    Dim loading As Boolean = False
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If (ReadFlashByte(ADJ) <> &HFF) Then
@@ -41,7 +40,6 @@ Public Class K8dragtools
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
     End Sub
-
 
     Private Sub K8dragtools_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
         Select Case e.KeyChar
@@ -52,12 +50,16 @@ Public Class K8dragtools
             Case Chr(27)
                 Me.Close()
         End Select
+    End Sub
 
+    Public Sub New()
+
+        loading = True
+        InitializeComponent()
 
     End Sub
 
     Private Sub dragtools_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
         L_dragtoolsver.Text = Str(dragtoolsVERSION)
         rpmconv = 3840000000 / &H100
 
@@ -79,7 +81,10 @@ Public Class K8dragtools
             show_settings()
             generate_dragtools_table()
         End If
+
+        loading = False
     End Sub
+
     Public Sub generate_dragtools_table()
         Dim i As Integer
         '
@@ -168,8 +173,22 @@ Public Class K8dragtools
         Me.NTCLT.SelectedIndex = 0
         Me.NTCLT.Enabled = True
 
+        If ReadFlashWord(&H5A010) = 1 Then
+
+            C_ShiftLightActive.Checked = True
+            C_ShiftLightActive_CheckedChanged(New Object(), New EventArgs())
+        End If
+
+        NUD_LaunchRPM.Value = ReadFlashWord(&H5A012) / 2.56
+        NUD_LaunchRPMMax.Value = ReadFlashWord(&H5A014) / 2.56
+        NUD_Gear1RPM.Value = ReadFlashWord(&H5A016) / 2.56
+        NUD_Gear2RPM.Value = ReadFlashWord(&H5A018) / 2.56
+        NUD_Gear3RPM.Value = ReadFlashWord(&H5A01A) / 2.56
+        NUD_Gear4RPM.Value = ReadFlashWord(&H5A01C) / 2.56
+        NUD_Gear5RPM.Value = ReadFlashWord(&H5A01E) / 2.56
 
     End Sub
+
     Private Sub modify_original_ECU_code(ByVal method As Boolean)
         Dim pcdisp, blk As Integer
 
@@ -238,6 +257,7 @@ Public Class K8dragtools
 
         End If
     End Sub
+
     Private Sub dragtools_code_in_memory(ByVal method As Boolean, ByVal lenght As Integer)
         Dim i As Integer
         Dim fs As FileStream
@@ -281,9 +301,6 @@ Public Class K8dragtools
             Next
         End If
     End Sub
-
-
-
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Me.Close()
@@ -335,9 +352,70 @@ Public Class K8dragtools
         WriteFlashWord(&H5A00C, Val(C_GEAR36_RETARD.Text))
     End Sub
 
-
     Private Sub C_ACTIVATION_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_ACTIVATION.SelectedIndexChanged
         WriteFlashWord(&H5A00E, Int(Val(C_ACTIVATION.Text) * 2.56))
+    End Sub
+
+    Private Sub C_ShiftLightActive_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_ShiftLightActive.CheckedChanged
+
+        If C_ShiftLightActive.Checked = True Then
+            C_ShiftLightActive.Text = "Shift Light Active"
+            WriteFlashWord(&H5A010, 1)
+        Else
+            C_ShiftLightActive.Text = "Shift Light Not Active"
+            WriteFlashWord(&H5A010, 0)
+        End If
+
+        NUD_LaunchRPM.Enabled = C_ShiftLightActive.Checked
+        NUD_LaunchRPMMax.Enabled = C_ShiftLightActive.Checked
+        NUD_Gear1RPM.Enabled = C_ShiftLightActive.Checked
+        NUD_Gear2RPM.Enabled = C_ShiftLightActive.Checked
+        NUD_Gear3RPM.Enabled = C_ShiftLightActive.Checked
+        NUD_Gear4RPM.Enabled = C_ShiftLightActive.Checked
+        NUD_Gear5RPM.Enabled = C_ShiftLightActive.Checked
+
+    End Sub
+
+    Private Sub NUD_LaunchRPM_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NUD_LaunchRPM.ValueChanged
+        If loading = False Then
+            WriteFlashWord(&H5A012, Int(NUD_LaunchRPM.Value * 2.56))
+        End If
+    End Sub
+
+    Private Sub NUD_LaunchRPMMax_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NUD_LaunchRPMMax.ValueChanged
+        If loading = False Then
+            WriteFlashWord(&H5A014, Int(NUD_LaunchRPMMax.Value * 2.56))
+        End If
+    End Sub
+
+    Private Sub NUD_Gear1RPM_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NUD_Gear1RPM.ValueChanged
+        If loading = False Then
+            WriteFlashWord(&H5A016, Int(NUD_Gear1RPM.Value * 2.56))
+        End If
+    End Sub
+
+    Private Sub NUD_Gear2RPM_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NUD_Gear2RPM.ValueChanged
+        If loading = False Then
+            WriteFlashWord(&H5A018, Int(NUD_Gear2RPM.Value * 2.56))
+        End If
+    End Sub
+
+    Private Sub NUD_Gear3RPM_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NUD_Gear3RPM.ValueChanged
+        If loading = False Then
+            WriteFlashWord(&H5A01A, Int(NUD_Gear3RPM.Value * 2.56))
+        End If
+    End Sub
+
+    Private Sub NUD_Gear4RPM_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NUD_Gear4RPM.ValueChanged
+        If loading = False Then
+            WriteFlashWord(&H5A01C, Int(NUD_Gear4RPM.Value * 2.56))
+        End If
+    End Sub
+
+    Private Sub NUD_Gear5RPM_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NUD_Gear5RPM.ValueChanged
+        If loading = False Then
+            WriteFlashWord(&H5A01E, Int(NUD_Gear5RPM.Value * 2.56))
+        End If
     End Sub
 
     Private Sub NTCLT_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NTCLT.SelectedIndexChanged
@@ -370,6 +448,7 @@ Public Class K8dragtools
 
         G_slewrate.Hide()
         G_2step.Hide()
+        G_ShiftLight.Hide()
 
         '
         ' Remove settings 2 step limiter settings
@@ -390,6 +469,7 @@ Public Class K8dragtools
     Private Sub show_settings()
         G_slewrate.Show()
         G_2step.Show()
+        G_ShiftLight.Show()
     End Sub
 
 End Class

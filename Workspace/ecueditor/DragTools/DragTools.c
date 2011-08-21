@@ -32,6 +32,10 @@ These are the RAM variable addresses that are internal to this subroutine
 #define ECU_RPM *(volatile unsigned short *)  			0x0080502E
 #define TML1CT *(volatile unsigned long *)				0x00800FE0 // timer, only upper word counting
 
+#define CLUTCH 	*(volatile unsigned short *)			0x0080651C
+#define PORT1   *(volatile unsigned char *)  			0x00800701 // bit5=PAIR
+#define PAIR											0x20
+
 /*
 The programmer installer removes SAP_ignition compensation from sub_33C00 and replaces that with ign retard from this program.
 */
@@ -58,29 +62,34 @@ that are considered not having been assigned for any use.
 #define	ign_retard *(volatile unsigned char *)  	(ramaddr + 0x90)
 
 #pragma SECTION C PARAMS //0x5A000
-const short const_pgmid = 				100;			// 0 program id, must match to ecueditor version to be able to load this code to ecu
-const short GEAR1_RATE = 0x1400;
-const short GEAR2_RATE = 0x1200;
-const short GEAR36_RATE = 0x1000;
-const short GEAR1_RETARD = 10;
-const short GEAR2_RETARD = 5;
-const short GEAR36_RETARD = 5;
-const short ACTIVATION = 0x3200;
+const short const_pgmid 	= 102;			// 0 program id, must match to ecueditor version to be able to load this code to ecu
+const short GEAR1_RATE 		= 0x1400;
+const short GEAR2_RATE 		= 0x1200;
+const short GEAR36_RATE 	= 0x1000;
+const short GEAR1_RETARD 	= 10;
+const short GEAR2_RETARD 	= 5;
+const short GEAR36_RETARD 	= 5;
+const short ACTIVATION 		= 0x3200;
+
+const short SHIFTLIGHT_ACTIVE	= 		0x0;	// 0 Inactive 1 Active
+const short LAUNCH_MIN_RPM 	 	= 		0x5000; //  8000
+const short LAUNCH_MAX_RPM 	 	= 		0x5500; //  8500
+const short GEAR1_SHIFT_RPM 	= 		0x6900; // 10500
+const short GEAR2_SHIFT_RPM 	= 		0x6900; // 10500
+const short GEAR3_SHIFT_RPM 	= 		0x6900; // 10500
+const short GEAR4_SHIFT_RPM 	= 		0x6900; // 10500
+const short GEAR5_SHIFT_RPM 	= 		0x6900; // 10500
 
 #define divider 0x64									// this is the amount of cycles that is used for calculatting average RPM
 
 #pragma SECTION P TOOLSCODE //0x5A100
 void toolsmain(void)
 {
-	/*
-	Here is the main program. 
-	*/
-
 	counter = counter + 1;
+	
 	if (counter <= divider) 
 	{
 		rpm_tmp = rpm_tmp + (ECU_RPM / divider) ;
-
 	}
 	else
 	{
@@ -92,7 +101,6 @@ void toolsmain(void)
 		if ((TML1CT > timer_old) & (ECU_RPM > ACTIVATION) & (rpm_now > rpm_old))
 		{
 			/*
-
 			Timer difference is calculated once per "divider" cycles
 
 			Timer runs BCLK/4
@@ -141,7 +149,6 @@ void toolsmain(void)
 			{
 				ign_retard = ((ECU_SAP_IAT_ignition_compensation + (((rpm_rate - GEAR2_RATE)) * GEAR2_RETARD)) & 0xFF);
 			}
-
 		}
 		else if (ECU_GPS > 2) // Gear 3-6
 		{
@@ -149,13 +156,49 @@ void toolsmain(void)
 			{
 				ign_retard = ((ECU_SAP_IAT_ignition_compensation + (((rpm_rate - GEAR36_RATE)) * GEAR36_RETARD))  & 0xFF);
 			}
-
-
 		}
-
-
 	}
-
+	
+	if(SHIFTLIGHT_ACTIVE == 1)
+	{
+		//Shift Light Code
+		if(ECU_GPS == 1
+			&& (CLUTCH & 1) == 1
+			&& ECU_RPM >= LAUNCH_MIN_RPM
+			&& ECU_RPM <= LAUNCH_MAX_RPM)
+		{// Gear 1 + Clutch In => Launch Light
+			PORT1 = PORT1 | PAIR;
+		}
+		else if(ECU_GPS == 1
+			&& ECU_RPM >= GEAR1_SHIFT_RPM)
+		{// Gear 1 Shift Light
+			PORT1 = PORT1 | PAIR;
+		}
+		else if(ECU_GPS == 2
+			&& ECU_RPM >= GEAR2_SHIFT_RPM)
+		{// Gear 2 Shift Light
+			PORT1 = PORT1 | PAIR;
+		}
+		else if(ECU_GPS == 3
+			&& ECU_RPM >= GEAR3_SHIFT_RPM)
+		{// Gear 3 Shift Light
+			PORT1 = PORT1 | PAIR;
+		}
+		else if(ECU_GPS == 4
+			&& ECU_RPM >= GEAR4_SHIFT_RPM)
+		{// Gear 4 Shift Light
+			PORT1 = PORT1 | PAIR;
+		}
+		else if(ECU_GPS == 5
+			&& ECU_RPM >= GEAR5_SHIFT_RPM)
+		{// Gear 5 Shift Light
+			PORT1 = PORT1 | PAIR;
+		}
+		else
+		{// Not over Shift or Launch Light RPM -> Turn off Port 1
+			PORT1 = PORT1 & (0xFF - PAIR);	
+		}
+	}	
 	/*
 	This is inline assembly put at the end of the code that returns control back to main loop in the ecu code.
 	*/
@@ -165,4 +208,3 @@ void toolsmain(void)
 		);
 
 }
-

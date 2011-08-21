@@ -32,7 +32,6 @@ Public Class K8Advsettings
     Dim _500cc = &H20
     Dim _600cc = &H10
 
-
     Private Sub B_Close_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Me.Close()
     End Sub
@@ -850,8 +849,23 @@ Public Class K8Advsettings
 
     Private Sub B_boostfuel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_boostfuel.Click
         If (ReadFlashWord(&H55800) < 200) Or (ReadFlashByte(&H55800) = &HFF) Then
-            K8boostfuel.Show()
-            K8boostfuel.Select()
+
+            If BoostFuelMode = 0 Then
+                If MessageBox.Show("Click OK to open the latest Extended version of Boost Fuel, Click Cancel to open the legacy version of Boost Fuel", "Boost Fuel", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = Windows.Forms.DialogResult.OK Then
+                    BoostFuelMode = 1
+                Else
+                    BoostFuelMode = 2
+                End If
+            End If
+
+            If BoostFuelMode = 1 Then
+                K8BoostFuelExtended.Show()
+                K8BoostFuelExtended.Select()
+            Else
+                K8boostfuel.Show()
+                K8boostfuel.Focus()
+            End If
+
         Else
             MsgBox("Nitrouscontrol in use, please first deactivate it to use boostfuel")
         End If

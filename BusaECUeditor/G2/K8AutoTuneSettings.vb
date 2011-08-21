@@ -27,6 +27,7 @@
 
         C_BoostPressureSensor.Items.Add("GM 3 Bar")
         C_BoostPressureSensor.Items.Add("GM 3 Bar Ext")
+        C_BoostPressureSensor.Items.Add("Extended Boost Map")
         C_BoostPressureSensor.SelectedIndex = My.Settings.AutoTuneBoostPressureSensor
 
         C_BoostTPSFilterEnabled.Checked = My.Settings.AutoTuneBoostTPSFilterEnabled

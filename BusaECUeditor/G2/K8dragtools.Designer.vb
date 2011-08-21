@@ -57,9 +57,33 @@ Partial Class K8dragtools
         Me.Label19 = New System.Windows.Forms.Label()
         Me.NTCLT = New System.Windows.Forms.ComboBox()
         Me.Label18 = New System.Windows.Forms.Label()
+        Me.G_ShiftLight = New System.Windows.Forms.GroupBox()
+        Me.NUD_Gear5RPM = New System.Windows.Forms.NumericUpDown()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.NUD_Gear4RPM = New System.Windows.Forms.NumericUpDown()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.NUD_Gear3RPM = New System.Windows.Forms.NumericUpDown()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.NUD_Gear2RPM = New System.Windows.Forms.NumericUpDown()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.NUD_Gear1RPM = New System.Windows.Forms.NumericUpDown()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.C_ShiftLightActive = New System.Windows.Forms.CheckBox()
+        Me.NUD_LaunchRPM = New System.Windows.Forms.NumericUpDown()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.NUD_LaunchRPMMax = New System.Windows.Forms.NumericUpDown()
+        Me.Label25 = New System.Windows.Forms.Label()
         CType(Me.K8dragtoolsBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.G_slewrate.SuspendLayout()
         Me.G_2step.SuspendLayout()
+        Me.G_ShiftLight.SuspendLayout()
+        CType(Me.NUD_Gear5RPM, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NUD_Gear4RPM, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NUD_Gear3RPM, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NUD_Gear2RPM, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NUD_Gear1RPM, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NUD_LaunchRPM, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NUD_LaunchRPMMax, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'C_dragtools_activation
@@ -84,7 +108,7 @@ Partial Class K8dragtools
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(352, 37)
+        Me.Label2.Location = New System.Drawing.Point(486, 36)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(162, 13)
         Me.Label2.TabIndex = 3
@@ -93,7 +117,7 @@ Partial Class K8dragtools
         'L_dragtoolsver
         '
         Me.L_dragtoolsver.AutoSize = True
-        Me.L_dragtoolsver.Location = New System.Drawing.Point(407, 37)
+        Me.L_dragtoolsver.Location = New System.Drawing.Point(540, 37)
         Me.L_dragtoolsver.Name = "L_dragtoolsver"
         Me.L_dragtoolsver.Size = New System.Drawing.Size(25, 13)
         Me.L_dragtoolsver.TabIndex = 42
@@ -103,7 +127,7 @@ Partial Class K8dragtools
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(305, 13)
+        Me.Label3.Location = New System.Drawing.Point(458, 9)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(209, 24)
         Me.Label3.TabIndex = 72
@@ -111,7 +135,7 @@ Partial Class K8dragtools
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(431, 356)
+        Me.Button1.Location = New System.Drawing.Point(654, 332)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(77, 29)
         Me.Button1.TabIndex = 80
@@ -123,7 +147,7 @@ Partial Class K8dragtools
         Me.Linklabel_program_homepage.ActiveLinkColor = System.Drawing.Color.DimGray
         Me.Linklabel_program_homepage.AutoSize = True
         Me.Linklabel_program_homepage.LinkColor = System.Drawing.Color.Black
-        Me.Linklabel_program_homepage.Location = New System.Drawing.Point(15, 356)
+        Me.Linklabel_program_homepage.Location = New System.Drawing.Point(15, 348)
         Me.Linklabel_program_homepage.Name = "Linklabel_program_homepage"
         Me.Linklabel_program_homepage.Size = New System.Drawing.Size(215, 13)
         Me.Linklabel_program_homepage.TabIndex = 84
@@ -407,11 +431,201 @@ Partial Class K8dragtools
         Me.Label18.TabIndex = 99
         Me.Label18.Text = "Clutched Ign limiter"
         '
+        'G_ShiftLight
+        '
+        Me.G_ShiftLight.Controls.Add(Me.Label25)
+        Me.G_ShiftLight.Controls.Add(Me.NUD_LaunchRPMMax)
+        Me.G_ShiftLight.Controls.Add(Me.NUD_Gear5RPM)
+        Me.G_ShiftLight.Controls.Add(Me.Label24)
+        Me.G_ShiftLight.Controls.Add(Me.NUD_Gear4RPM)
+        Me.G_ShiftLight.Controls.Add(Me.Label23)
+        Me.G_ShiftLight.Controls.Add(Me.NUD_Gear3RPM)
+        Me.G_ShiftLight.Controls.Add(Me.Label22)
+        Me.G_ShiftLight.Controls.Add(Me.NUD_Gear2RPM)
+        Me.G_ShiftLight.Controls.Add(Me.Label21)
+        Me.G_ShiftLight.Controls.Add(Me.NUD_Gear1RPM)
+        Me.G_ShiftLight.Controls.Add(Me.Label20)
+        Me.G_ShiftLight.Controls.Add(Me.C_ShiftLightActive)
+        Me.G_ShiftLight.Controls.Add(Me.NUD_LaunchRPM)
+        Me.G_ShiftLight.Controls.Add(Me.Label4)
+        Me.G_ShiftLight.Location = New System.Drawing.Point(516, 71)
+        Me.G_ShiftLight.Name = "G_ShiftLight"
+        Me.G_ShiftLight.Size = New System.Drawing.Size(221, 203)
+        Me.G_ShiftLight.TabIndex = 99
+        Me.G_ShiftLight.TabStop = False
+        Me.G_ShiftLight.Text = "Shift Light"
+        Me.G_ShiftLight.Visible = False
+        '
+        'NUD_Gear5RPM
+        '
+        Me.NUD_Gear5RPM.Enabled = False
+        Me.NUD_Gear5RPM.Increment = New Decimal(New Integer() {100, 0, 0, 0})
+        Me.NUD_Gear5RPM.Location = New System.Drawing.Point(83, 174)
+        Me.NUD_Gear5RPM.Maximum = New Decimal(New Integer() {16000, 0, 0, 0})
+        Me.NUD_Gear5RPM.Minimum = New Decimal(New Integer() {2000, 0, 0, 0})
+        Me.NUD_Gear5RPM.Name = "NUD_Gear5RPM"
+        Me.NUD_Gear5RPM.Size = New System.Drawing.Size(60, 20)
+        Me.NUD_Gear5RPM.TabIndex = 12
+        Me.NUD_Gear5RPM.ThousandsSeparator = True
+        Me.NUD_Gear5RPM.Value = New Decimal(New Integer() {10500, 0, 0, 0})
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Location = New System.Drawing.Point(6, 176)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(69, 13)
+        Me.Label24.TabIndex = 11
+        Me.Label24.Text = "Grear 5 RPM"
+        '
+        'NUD_Gear4RPM
+        '
+        Me.NUD_Gear4RPM.Enabled = False
+        Me.NUD_Gear4RPM.Increment = New Decimal(New Integer() {100, 0, 0, 0})
+        Me.NUD_Gear4RPM.Location = New System.Drawing.Point(83, 149)
+        Me.NUD_Gear4RPM.Maximum = New Decimal(New Integer() {16000, 0, 0, 0})
+        Me.NUD_Gear4RPM.Minimum = New Decimal(New Integer() {2000, 0, 0, 0})
+        Me.NUD_Gear4RPM.Name = "NUD_Gear4RPM"
+        Me.NUD_Gear4RPM.Size = New System.Drawing.Size(60, 20)
+        Me.NUD_Gear4RPM.TabIndex = 10
+        Me.NUD_Gear4RPM.ThousandsSeparator = True
+        Me.NUD_Gear4RPM.Value = New Decimal(New Integer() {10500, 0, 0, 0})
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Location = New System.Drawing.Point(6, 151)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(66, 13)
+        Me.Label23.TabIndex = 9
+        Me.Label23.Text = "Gear 4 RPM"
+        '
+        'NUD_Gear3RPM
+        '
+        Me.NUD_Gear3RPM.Enabled = False
+        Me.NUD_Gear3RPM.Increment = New Decimal(New Integer() {100, 0, 0, 0})
+        Me.NUD_Gear3RPM.Location = New System.Drawing.Point(83, 125)
+        Me.NUD_Gear3RPM.Maximum = New Decimal(New Integer() {16000, 0, 0, 0})
+        Me.NUD_Gear3RPM.Minimum = New Decimal(New Integer() {2000, 0, 0, 0})
+        Me.NUD_Gear3RPM.Name = "NUD_Gear3RPM"
+        Me.NUD_Gear3RPM.Size = New System.Drawing.Size(60, 20)
+        Me.NUD_Gear3RPM.TabIndex = 8
+        Me.NUD_Gear3RPM.ThousandsSeparator = True
+        Me.NUD_Gear3RPM.Value = New Decimal(New Integer() {10500, 0, 0, 0})
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(6, 127)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(66, 13)
+        Me.Label22.TabIndex = 7
+        Me.Label22.Text = "Gear 3 RPM"
+        '
+        'NUD_Gear2RPM
+        '
+        Me.NUD_Gear2RPM.Enabled = False
+        Me.NUD_Gear2RPM.Increment = New Decimal(New Integer() {100, 0, 0, 0})
+        Me.NUD_Gear2RPM.Location = New System.Drawing.Point(83, 101)
+        Me.NUD_Gear2RPM.Maximum = New Decimal(New Integer() {16000, 0, 0, 0})
+        Me.NUD_Gear2RPM.Minimum = New Decimal(New Integer() {2000, 0, 0, 0})
+        Me.NUD_Gear2RPM.Name = "NUD_Gear2RPM"
+        Me.NUD_Gear2RPM.Size = New System.Drawing.Size(60, 20)
+        Me.NUD_Gear2RPM.TabIndex = 6
+        Me.NUD_Gear2RPM.ThousandsSeparator = True
+        Me.NUD_Gear2RPM.Value = New Decimal(New Integer() {10500, 0, 0, 0})
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(6, 103)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(66, 13)
+        Me.Label21.TabIndex = 5
+        Me.Label21.Text = "Gear 2 RPM"
+        '
+        'NUD_Gear1RPM
+        '
+        Me.NUD_Gear1RPM.Enabled = False
+        Me.NUD_Gear1RPM.Increment = New Decimal(New Integer() {100, 0, 0, 0})
+        Me.NUD_Gear1RPM.Location = New System.Drawing.Point(83, 77)
+        Me.NUD_Gear1RPM.Maximum = New Decimal(New Integer() {16000, 0, 0, 0})
+        Me.NUD_Gear1RPM.Minimum = New Decimal(New Integer() {2000, 0, 0, 0})
+        Me.NUD_Gear1RPM.Name = "NUD_Gear1RPM"
+        Me.NUD_Gear1RPM.Size = New System.Drawing.Size(60, 20)
+        Me.NUD_Gear1RPM.TabIndex = 4
+        Me.NUD_Gear1RPM.ThousandsSeparator = True
+        Me.NUD_Gear1RPM.Value = New Decimal(New Integer() {10500, 0, 0, 0})
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(6, 79)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(66, 13)
+        Me.Label20.TabIndex = 3
+        Me.Label20.Text = "Gear 1 RPM"
+        '
+        'C_ShiftLightActive
+        '
+        Me.C_ShiftLightActive.AutoSize = True
+        Me.C_ShiftLightActive.Location = New System.Drawing.Point(6, 26)
+        Me.C_ShiftLightActive.Name = "C_ShiftLightActive"
+        Me.C_ShiftLightActive.Size = New System.Drawing.Size(126, 17)
+        Me.C_ShiftLightActive.TabIndex = 2
+        Me.C_ShiftLightActive.Text = "Shift Light Not Active"
+        Me.C_ShiftLightActive.UseVisualStyleBackColor = True
+        '
+        'NUD_LaunchRPM
+        '
+        Me.NUD_LaunchRPM.Enabled = False
+        Me.NUD_LaunchRPM.Increment = New Decimal(New Integer() {100, 0, 0, 0})
+        Me.NUD_LaunchRPM.Location = New System.Drawing.Point(83, 53)
+        Me.NUD_LaunchRPM.Maximum = New Decimal(New Integer() {16000, 0, 0, 0})
+        Me.NUD_LaunchRPM.Minimum = New Decimal(New Integer() {2000, 0, 0, 0})
+        Me.NUD_LaunchRPM.Name = "NUD_LaunchRPM"
+        Me.NUD_LaunchRPM.Size = New System.Drawing.Size(60, 20)
+        Me.NUD_LaunchRPM.TabIndex = 1
+        Me.NUD_LaunchRPM.ThousandsSeparator = True
+        Me.NUD_LaunchRPM.Value = New Decimal(New Integer() {8000, 0, 0, 0})
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(6, 55)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(70, 13)
+        Me.Label4.TabIndex = 0
+        Me.Label4.Text = "Launch RPM"
+        '
+        'NUD_LaunchRPMMax
+        '
+        Me.NUD_LaunchRPMMax.Enabled = False
+        Me.NUD_LaunchRPMMax.Increment = New Decimal(New Integer() {100, 0, 0, 0})
+        Me.NUD_LaunchRPMMax.Location = New System.Drawing.Point(155, 53)
+        Me.NUD_LaunchRPMMax.Maximum = New Decimal(New Integer() {16000, 0, 0, 0})
+        Me.NUD_LaunchRPMMax.Minimum = New Decimal(New Integer() {2000, 0, 0, 0})
+        Me.NUD_LaunchRPMMax.Name = "NUD_LaunchRPMMax"
+        Me.NUD_LaunchRPMMax.Size = New System.Drawing.Size(60, 20)
+        Me.NUD_LaunchRPMMax.TabIndex = 13
+        Me.NUD_LaunchRPMMax.ThousandsSeparator = True
+        Me.NUD_LaunchRPMMax.Value = New Decimal(New Integer() {8500, 0, 0, 0})
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Location = New System.Drawing.Point(144, 55)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(10, 13)
+        Me.Label25.TabIndex = 14
+        Me.Label25.Text = "-"
+        '
         'K8dragtools
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(527, 398)
+        Me.ClientSize = New System.Drawing.Size(749, 373)
+        Me.Controls.Add(Me.G_ShiftLight)
         Me.Controls.Add(Me.G_2step)
         Me.Controls.Add(Me.G_slewrate)
         Me.Controls.Add(Me.Linklabel_program_homepage)
@@ -434,6 +648,15 @@ Partial Class K8dragtools
         Me.G_slewrate.PerformLayout()
         Me.G_2step.ResumeLayout(False)
         Me.G_2step.PerformLayout()
+        Me.G_ShiftLight.ResumeLayout(False)
+        Me.G_ShiftLight.PerformLayout()
+        CType(Me.NUD_Gear5RPM, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NUD_Gear4RPM, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NUD_Gear3RPM, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NUD_Gear2RPM, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NUD_Gear1RPM, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NUD_LaunchRPM, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NUD_LaunchRPMMax, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -474,5 +697,21 @@ Partial Class K8dragtools
     Friend WithEvents Label19 As System.Windows.Forms.Label
     Friend WithEvents NTCLT As System.Windows.Forms.ComboBox
     Friend WithEvents Label18 As System.Windows.Forms.Label
+    Friend WithEvents G_ShiftLight As System.Windows.Forms.GroupBox
+    Friend WithEvents C_ShiftLightActive As System.Windows.Forms.CheckBox
+    Friend WithEvents NUD_LaunchRPM As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents NUD_Gear5RPM As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label24 As System.Windows.Forms.Label
+    Friend WithEvents NUD_Gear4RPM As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label23 As System.Windows.Forms.Label
+    Friend WithEvents NUD_Gear3RPM As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label22 As System.Windows.Forms.Label
+    Friend WithEvents NUD_Gear2RPM As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label21 As System.Windows.Forms.Label
+    Friend WithEvents NUD_Gear1RPM As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label20 As System.Windows.Forms.Label
+    Friend WithEvents Label25 As System.Windows.Forms.Label
+    Friend WithEvents NUD_LaunchRPMMax As System.Windows.Forms.NumericUpDown
 
 End Class

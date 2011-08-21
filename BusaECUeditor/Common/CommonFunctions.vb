@@ -10,6 +10,8 @@ Module CommonFunctions
     Public AdjustMap(9 * 9)
     Public ConfigBytes(256) As Integer
 
+    Public BoostFuelMode As Integer = 0
+
     Public DataLog(CInt(1000 / TimerInterval * MaxDataLog), 16) As Integer
     Public DataLogPointer As Integer
     Public DataLogLength As Integer

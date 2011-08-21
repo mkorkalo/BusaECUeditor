@@ -49,7 +49,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>ecueditor_prerelease.htm</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>55</ApplicationRevision>
+    <ApplicationRevision>56</ApplicationRevision>
     <ApplicationVersion>2.5.5.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -159,6 +159,12 @@
       <DependentUpon>BKingIgnitionMap.vb</DependentUpon>
     </Compile>
     <Compile Include="BKing\BKingIgnitionMap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8BoostFuelExtended.Designer.vb">
+      <DependentUpon>K8BoostFuelExtended.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8BoostFuelExtended.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="G2\K8EngineDataLogger.Designer.vb">
@@ -530,6 +536,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>AboutBox.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8BoostFuelExtended.resx">
+      <DependentUpon>K8BoostFuelExtended.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="G2\K8EngineDataLogger.resx">
       <DependentUpon>K8EngineDataLogger.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -625,9 +635,6 @@
     <None Include="Common\app.config" />
     <BaseApplicationManifest Include="My Project\app.manifest" />
     <None Include="Common\assemblykey.snk" />
-    <Content Include="ecu.bin\boostfuel.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="ecu.bin\BKing.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -714,6 +721,12 @@
     </Content>
     <Content Include="ecu.bin\DJ47SE10.bin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\BoostFuel.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\BoostFuelExtended.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
