@@ -298,6 +298,7 @@ Partial Class K8BoostFuelExtended
         'NUD_SensorVoltage1
         '
         Me.NUD_SensorVoltage1.DecimalPlaces = 1
+        Me.NUD_SensorVoltage1.Enabled = False
         Me.NUD_SensorVoltage1.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
         Me.NUD_SensorVoltage1.Location = New System.Drawing.Point(410, 8)
         Me.NUD_SensorVoltage1.Maximum = New Decimal(New Integer() {5, 0, 0, 0})
@@ -307,6 +308,7 @@ Partial Class K8BoostFuelExtended
         '
         'C_SensorType
         '
+        Me.C_SensorType.Enabled = False
         Me.C_SensorType.FormattingEnabled = True
         Me.C_SensorType.Items.AddRange(New Object() {"GM 3 Bar", "SSI 5 Bar", "Other"})
         Me.C_SensorType.Location = New System.Drawing.Point(323, 8)
@@ -317,6 +319,7 @@ Partial Class K8BoostFuelExtended
         'NUD_SensorPressure1
         '
         Me.NUD_SensorPressure1.DecimalPlaces = 1
+        Me.NUD_SensorPressure1.Enabled = False
         Me.NUD_SensorPressure1.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
         Me.NUD_SensorPressure1.Location = New System.Drawing.Point(483, 8)
         Me.NUD_SensorPressure1.Maximum = New Decimal(New Integer() {800, 0, 0, 0})
@@ -363,6 +366,7 @@ Partial Class K8BoostFuelExtended
         'NUD_SensorPressure2
         '
         Me.NUD_SensorPressure2.DecimalPlaces = 1
+        Me.NUD_SensorPressure2.Enabled = False
         Me.NUD_SensorPressure2.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
         Me.NUD_SensorPressure2.Location = New System.Drawing.Point(483, 37)
         Me.NUD_SensorPressure2.Maximum = New Decimal(New Integer() {800, 0, 0, 0})
@@ -373,6 +377,7 @@ Partial Class K8BoostFuelExtended
         'NUD_SensorVoltage2
         '
         Me.NUD_SensorVoltage2.DecimalPlaces = 1
+        Me.NUD_SensorVoltage2.Enabled = False
         Me.NUD_SensorVoltage2.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
         Me.NUD_SensorVoltage2.Location = New System.Drawing.Point(410, 37)
         Me.NUD_SensorVoltage2.Maximum = New Decimal(New Integer() {5, 0, 0, 0})
@@ -382,11 +387,12 @@ Partial Class K8BoostFuelExtended
         '
         'B_ApplySensorValues
         '
+        Me.B_ApplySensorValues.Enabled = False
         Me.B_ApplySensorValues.Location = New System.Drawing.Point(567, 34)
         Me.B_ApplySensorValues.Name = "B_ApplySensorValues"
         Me.B_ApplySensorValues.Size = New System.Drawing.Size(75, 23)
         Me.B_ApplySensorValues.TabIndex = 96
-        Me.B_ApplySensorValues.Text = "Apply"
+        Me.B_ApplySensorValues.Text = "Edit"
         Me.B_ApplySensorValues.UseVisualStyleBackColor = True
         '
         'C_BoostPressureDisplay
