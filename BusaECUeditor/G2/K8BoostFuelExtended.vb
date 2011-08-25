@@ -62,31 +62,31 @@ Public Class K8BoostFuelExtended
             i = ReadFlashWord(IDTAG)
 
             If i = 112 Then
+                LoadPreviousMap()
+                i = BOOSTFUELVERSION
+                MsgBox("Your Boost Fuel Map is from the previous version of this module and has been upgraded, please check values in the boost fuel map", MsgBoxStyle.Information, Nothing)
+            End If
 
-                MessageBox.Show("The current bin file uses an older version of Boost Fuel, you are able to continue using this version, To use the new extended version of Boost Fuel, deactivate the current version, close the Boost Fuel Window then re-open and activate the new version", "Boost Fuel", MessageBoxButtons.OK)
-                K8boostfuel.Show()
-                K8boostfuel.Focus()
-                Me.Close()
-
-            ElseIf (i <> BOOSTFUELVERSION) Then
+            If (i <> BOOSTFUELVERSION) Then
                 MsgBox("boostfuel code incompatible with this version, please reactivate the boostfuel on this map " & Str(ReadFlashWord(IDTAG)))
                 C_BoostfuelActivation.Checked = False
                 hide_boostfuel_settings()
             Else
                 C_BoostfuelActivation.Checked = True
+                B_ApplySensorValues.Enabled = True
                 read_boostfuel_settings()
                 generate_map_table()
             End If
 
-        End If
+            If Metric Then
+                G_boosttable.Text = "% add per each RPM/kPa range"
+            Else
+                G_boosttable.Text = "% add per each RPM/PSi range"
+            End If
 
-        If Metric Then
-            G_boosttable.Text = "% add per each RPM/kPa range"
-        Else
-            G_boosttable.Text = "% add per each RPM/PSi range"
-        End If
+            loading = False
 
-        loading = False
+        End If
 
     End Sub
 
@@ -99,14 +99,19 @@ Public Class K8BoostFuelExtended
 
     Private Sub C_BoostfuelActivation_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_BoostfuelActivation.CheckedChanged, C_BoostfuelActivation.CheckedChanged
         If C_BoostfuelActivation.Checked Then
+
+            B_ApplySensorValues.Enabled = True
             C_BoostfuelActivation.Text = "Code active"
+
             If (ReadFlashByte(ADJ) = &HFF) Then
                 modify_original_ECU_code(True)
                 boostfuel_code_in_memory(True, boostfuelcodelenght)
                 generate_map_table()
             End If
+
             read_boostfuel_settings()
         Else
+            B_ApplySensorValues.Enabled = False
             C_BoostfuelActivation.Text = "Code not active"
             modify_original_ECU_code(False)
             boostfuel_code_in_memory(False, boostfuelcodelenght)
@@ -311,6 +316,64 @@ Public Class K8BoostFuelExtended
             C_bleed.Checked = False
             C_bleed.Text = "Normally Closed"
         End If
+    End Sub
+
+    Private Sub LoadPreviousMap()
+
+        Dim previousColumns(16) As Integer
+        Dim previousMap(16, 16) As Integer
+        Dim previousColumnHeadingMap As Integer = &H55844
+        Dim previousEditingMap As Integer = &H55874 '&H55854
+
+        For column As Integer = 0 To 15
+
+            previousColumns(column) = ReadFlashByte(previousColumnHeadingMap + column)
+
+            For row As Integer = 0 To 15
+
+                previousMap(column, row) = ReadFlashByte(previousEditingMap + row * 16 + column)
+
+            Next
+        Next
+
+        modify_original_ECU_code(True)
+        boostfuel_code_in_memory(True, boostfuelcodelenght)
+
+        C_SensorType.SelectedIndex = 0
+        C_SensorType_SelectedIndexChanged(New Object(), New EventArgs())
+
+        Dim currentColumns(17) As Integer
+        currentColumns(0) = ConvertKPaToInt(101)
+
+        For count As Integer = 0 To 16
+            Dim kpa As Double = ConvertPSIToKPa(count * 2 + 1) + 101
+            currentColumns(count + 1) = ConvertKPaToInt(kpa)
+        Next
+
+        For index As Integer = 0 To 17
+
+            For previousIndex As Integer = 0 To 15
+
+                If previousColumns(previousIndex) = currentColumns(index) Then
+
+                    For row As Integer = 0 To 15
+                        WriteFlashByte(editing_map + row * 24 + index, previousMap(previousIndex, row))
+                    Next
+
+                ElseIf previousColumns(previousIndex) < currentColumns(index) And previousColumns(previousIndex + 1) > currentColumns(index) Then
+
+                    Dim percentage As Double = (currentColumns(index) - previousColumns(previousIndex)) / (previousColumns(previousIndex + 1) - previousColumns(previousIndex))
+
+                    For row As Integer = 0 To 15
+                        Dim value As Integer = previousMap(previousIndex, row) + (previousMap(previousIndex + 1, row) - previousMap(previousIndex, row)) * percentage
+                        WriteFlashByte(editing_map + row * 24 + index, value)
+                    Next
+
+                End If
+
+            Next
+        Next
+
     End Sub
 
     Private Sub generate_map_table()
@@ -1244,41 +1307,64 @@ Public Class K8BoostFuelExtended
 
     Private Sub B_ApplySensorValues_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_ApplySensorValues.Click
 
-        SaveSensorValues()
+        If B_ApplySensorValues.Text = "Edit" Then
 
-        Dim kpa = 101
-        Dim psi = 0
-        Dim value As Double = ConvertKPaToInt(101)
+            NUD_SensorPressure1.Enabled = True
+            NUD_SensorPressure2.Enabled = True
+            NUD_SensorVoltage1.Enabled = True
+            NUD_SensorVoltage2.Enabled = True
 
-        WriteFlashByte(columnheading_map, value)
+            C_SensorType.Enabled = True
 
-        For count As Integer = 0 To 22
+            B_ApplySensorValues.Text = "Save"
+        Else
 
-            psi = 1 + count * 2
-            kpa = 101 + (psi * KPA_PSI)
-            value = ConvertKPaToInt(kpa)
-            WriteFlashByte((count + 1) + columnheading_map, value)
-            WriteFlashByte((count + 1) + ignitionretard_columns, value)
+            SaveSensorValues()
 
-        Next
+            Dim kpa = 101
+            Dim psi = 0
+            Dim value As Double = ConvertKPaToInt(101)
 
-        Dim address As Integer = &H55814
+            WriteFlashByte(columnheading_map, value)
 
-        'Sensor Map
-        WriteFlashByte(address, ConvertKPaToInt(0))
-        WriteFlashByte(address + 1, ConvertKPaToInt(10))
-        WriteFlashByte(address + 2, ConvertKPaToInt(20))
-        WriteFlashByte(address + 3, ConvertKPaToInt(30))
-        WriteFlashByte(address + 4, ConvertKPaToInt(40))
-        WriteFlashByte(address + 5, ConvertKPaToInt(49))
-        WriteFlashByte(address + 6, ConvertKPaToInt(60))
-        WriteFlashByte(address + 7, ConvertKPaToInt(70))
-        WriteFlashByte(address + 8, ConvertKPaToInt(79))
-        WriteFlashByte(address + 9, ConvertKPaToInt(101))
-        WriteFlashByte(address + 10, ConvertKPaToInt(121))
-        WriteFlashByte(address + 11, ConvertKPaToInt(136))
+            For count As Integer = 0 To 22
 
-        generate_map_table()
+                psi = 1 + count * 2
+                kpa = 101 + (psi * KPA_PSI)
+                value = ConvertKPaToInt(kpa)
+                WriteFlashByte((count + 1) + columnheading_map, value)
+                WriteFlashByte((count + 1) + ignitionretard_columns, value)
+
+            Next
+
+            Dim address As Integer = &H55814
+
+            'Sensor Map
+            WriteFlashByte(address, ConvertKPaToInt(0))
+            WriteFlashByte(address + 1, ConvertKPaToInt(10))
+            WriteFlashByte(address + 2, ConvertKPaToInt(20))
+            WriteFlashByte(address + 3, ConvertKPaToInt(30))
+            WriteFlashByte(address + 4, ConvertKPaToInt(40))
+            WriteFlashByte(address + 5, ConvertKPaToInt(49))
+            WriteFlashByte(address + 6, ConvertKPaToInt(60))
+            WriteFlashByte(address + 7, ConvertKPaToInt(70))
+            WriteFlashByte(address + 8, ConvertKPaToInt(79))
+            WriteFlashByte(address + 9, ConvertKPaToInt(101))
+            WriteFlashByte(address + 10, ConvertKPaToInt(121))
+            WriteFlashByte(address + 11, ConvertKPaToInt(136))
+
+            generate_map_table()
+
+            NUD_SensorPressure1.Enabled = False
+            NUD_SensorPressure2.Enabled = False
+            NUD_SensorVoltage1.Enabled = False
+            NUD_SensorVoltage2.Enabled = False
+
+            C_SensorType.Enabled = False
+
+            B_ApplySensorValues.Text = "Edit"
+        End If
+        
 
     End Sub
 
