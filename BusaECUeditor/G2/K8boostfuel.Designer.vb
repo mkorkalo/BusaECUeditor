@@ -19,33 +19,32 @@ Partial Class K8boostfuel
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(K8boostfuel))
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Me.C_boostfuel_activation = New System.Windows.Forms.CheckBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.L_boostfuelver = New System.Windows.Forms.Label
-        Me.D_boostfuel = New System.Windows.Forms.DataGridView
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.LED_BOOST = New LxControl.LxLedControl
-        Me.D_duty = New System.Windows.Forms.DataGridView
-        Me.L_solenoid_control = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.C_solenoidcontrol = New System.Windows.Forms.CheckBox
-        Me.D_solenoidcontrol = New System.Windows.Forms.GroupBox
-        Me.C_bleed = New System.Windows.Forms.CheckBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.G_boosttable = New System.Windows.Forms.GroupBox
-        Me.B_rescale = New System.Windows.Forms.Button
-        Me.B_Apply_Map = New System.Windows.Forms.Button
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.T_overboost = New System.Windows.Forms.TextBox
+        Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.C_boostfuel_activation = New System.Windows.Forms.CheckBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.L_boostfuelver = New System.Windows.Forms.Label()
+        Me.D_boostfuel = New System.Windows.Forms.DataGridView()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.LED_BOOST = New LxControl.LxLedControl()
+        Me.D_duty = New System.Windows.Forms.DataGridView()
+        Me.L_solenoid_control = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.C_solenoidcontrol = New System.Windows.Forms.CheckBox()
+        Me.D_solenoidcontrol = New System.Windows.Forms.GroupBox()
+        Me.C_bleed = New System.Windows.Forms.CheckBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.G_boosttable = New System.Windows.Forms.GroupBox()
+        Me.B_rescale = New System.Windows.Forms.Button()
+        Me.B_Apply_Map = New System.Windows.Forms.Button()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.T_overboost = New System.Windows.Forms.TextBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.C_fueladd = New System.Windows.Forms.CheckBox
-        Me.Button1 = New System.Windows.Forms.Button
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.C_fueladd = New System.Windows.Forms.CheckBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.K8boostfuelBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.D_boostfuel, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LED_BOOST, System.ComponentModel.ISupportInitialize).BeginInit()
