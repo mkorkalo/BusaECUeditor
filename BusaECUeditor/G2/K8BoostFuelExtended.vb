@@ -979,8 +979,7 @@ Public Class K8BoostFuelExtended
     End Sub
 
     Private Sub T_overboost_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles T_overboost.KeyPress
-        Dim i As Integer
-
+        
         If ReadFlashByte(&H55400) = &HFF Then
             MsgBox("To use overboost limit you must have shifter code active")
             T_overboost.Enabled = False
@@ -996,17 +995,12 @@ Public Class K8BoostFuelExtended
             If Abs(Val(T_overboost.Text)) <= 5 Then T_overboost.Text = "5"
             If Abs(Val(T_overboost.Text)) > 250 Then T_overboost.Text = "250"
 
-            If Metric Then
-                WriteFlashWord(&H55802, (((14.7 * Int(T_overboost.Text) / 100) + 14.7) * 50.5 / 9.2))
+            If C_BoostPressureDisplay.SelectedIndex = 0 Then
+                WriteFlashWord(&H55802, ConvertPSIToInt(T_overboost.Text))
             Else
-                WriteFlashWord(&H55802, ((Int(T_overboost.Text) + 14.7) * 50.5 / 9.2))
+                WriteFlashWord(&H55802, ConvertKPaToInt(T_overboost.Text))
             End If
-
-            i = ReadFlashWord(&H55802)
-
-            'generate_map_table()
         End If
-
     End Sub
 
     Private Sub C_fueladd_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles C_fueladd.CheckedChanged
