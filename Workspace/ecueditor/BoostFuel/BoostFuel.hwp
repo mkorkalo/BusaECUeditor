@@ -110,26 +110,29 @@
 "DefaultSession" "D:\Projects\ecueditor\Workspace\ecueditor\BoostFuel\DefaultSession.hsf" 0 
 [GENERAL_DATA_SESSION_DefaultSession]
 [OPTIONS_Debug_Renesas M32R Assembler]
-"Assembly source file" "029d75c21cc5cc10" 2 
+"Assembly source file" "05a8b9ba2cc5cc10" 2 
 [OPTIONS_Debug_Renesas M32R C Compiler]
-"C source file" "029d75c21cc5cc10" 1 
-"C++ source file" "029d75c21cc5cc10" 1 
-"D:\Projects\ecueditor\Workspace\ecueditor\BoostFuel\BoostFuel.c" "029d75c21cc5cc10" 1 
+"C source file" "05a8b9ba2cc5cc10" 1 
+"C++ source file" "05a8b9ba2cc5cc10" 1 
+"D:\Projects\ecueditor\Workspace\ecueditor\BoostFuel\BoostFuel.c" "05a8b9ba2cc5cc10" 1 
 [OPTIONS_Debug_Renesas M32R Configurator]
 "Single Shot" "029d75c21cc5cc10" 6 
 [OPTIONS_Debug_Renesas M32R Librarian]
 "Single Shot" "029d75c21cc5cc10" 5 
 [OPTIONS_Debug_Renesas M32R Linker]
-"Single Shot" "029d75c21cc5cc10" 3 
+"Single Shot" "0a1fcc491ce5cc10" 3 
 [OPTIONS_Debug_Renesas M32R Stype Converter]
 "Single Shot" "029d75c21cc5cc10" 4 
 [OPTIONS_Debug]
 "" 0 
 "[V|VERSION|1] [B|COMMANDLINE|1] " 6 
+"[V|VERSION|1] [B|DEBUG|1] [S|LIST|^"$(CONFIGDIR)\$(FILELEAF).lst^"] [S|OUTPUT|^"$(CONFIGDIR)\$(FILELEAF).mo^"]
+" 2 
+"[V|VERSION|1] [S|INPUTLIBRARY|^"L=m32RcR.lib^"] [B|DEBUG|1] [S|MAP|^"$(CONFIGDIR)\$(PROJECTNAME).map^"] [S|OUTPUT|^"$(CONFIGDIR)\$(PROJECTNAME).abs^"] [S|SECTION_SEC|^"PARAMS=055800|PDUTY=055C00|BOOSTFUEL=055D00^"]
+" 3 
 "[V|VERSION|1] [S|MODE|CREATE] [S|OUTPUT|^"$(CONFIGDIR)\$(PROJECTNAME).lib^"] " 5 
-"[V|VERSION|1] [S|OUTPUT_TYPE|OBJECTCODE] [S|OUTPUT|^"$(CONFIGDIR)\$(FILELEAF).mo^"] [B|DEBUG|1] " 1 
-"[V|VERSION|1] [S|OUTPUT|^"$(CONFIGDIR)\$(FILELEAF).mo^"] [B|DEBUG|1] " 2 
-"[V|VERSION|1] [S|OUTPUT|^"$(CONFIGDIR)\$(PROJECTNAME).abs^"] [B|DEBUG|1] [S|INPUTLIBRARY|^"L=m32RcR.lib^"] " 3 
+"[V|VERSION|1] [S|OUTPUT_TYPE|OBJECTCODE_ASMCODE] [B|DEBUG|1] [S|OUTPUT|^"$(CONFIGDIR)\$(FILELEAF).mo^"] [S|OPTIMIZE_LEVEL|1] [B|OPTIMIZE_DISABLE|1] [S|MEMORYMODEL|SMALL] [S|EXCEPTION|DISABLE]
+" 1 
 "[V|VERSION|1] [S|OUTPUT|^"$(CONFIGDIR)\$(PROJECTNAME).mot^"] " 4 
 [EXCLUDED_FILES_Debug]
 [LINKAGE_ORDER_Debug]
