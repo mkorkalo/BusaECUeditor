@@ -1128,6 +1128,18 @@ skip_update:
             If File.Exists("C:\Program Files\Renesas\FDT4.06\" & "FDT.EXE") Then FDTpath = "C:\Program Files\Renesas\FDT4.06\"
             If File.Exists("C:\Program Files\Renesas\FDT4.1\" & "FDT.EXE") Then FDTpath = "C:\Program Files\Renesas\FDT4.1\"
             If File.Exists("C:\Program Files\Renesas\FDT4.10\" & "FDT.EXE") Then FDTpath = "C:\Program Files\Renesas\FDT4.10\"
+
+            If File.Exists("C:\Program Files (x86)\Renesas\FDT3.07\" & "FDT.EXE") Then FDTpath = "C:\Program Files (x86)\Renesas\FDT3.07\"
+            If File.Exists("C:\Program Files (x86)\Renesas\FDT4.00\" & "FDT.EXE") Then FDTpath = "C:\Program Files (x86)\Renesas\FDT4.00\"
+            If File.Exists("C:\Program Files (x86)\Renesas\FDT4.01\" & "FDT.EXE") Then FDTpath = "C:\Program Files (x86)\Renesas\FDT4.01\"
+            If File.Exists("C:\Program Files (x86)\Renesas\FDT4.02\" & "FDT.EXE") Then FDTpath = "C:\Program Files (x86)\Renesas\FDT4.02\"
+            If File.Exists("C:\Program Files (x86)\Renesas\FDT4.03\" & "FDT.EXE") Then FDTpath = "C:\Program Files (x86)\Renesas\FDT4.03\"
+            If File.Exists("C:\Program Files (x86)\Renesas\FDT4.04\" & "FDT.EXE") Then FDTpath = "C:\Program Files (x86)\Renesas\FDT4.04\"
+            If File.Exists("C:\Program Files (x86)\Renesas\FDT4.05\" & "FDT.EXE") Then FDTpath = "C:\Program Files (x86)\Renesas\FDT4.05\"
+            If File.Exists("C:\Program Files (x86)\Renesas\FDT4.06\" & "FDT.EXE") Then FDTpath = "C:\Program Files (x86)\Renesas\FDT4.06\"
+            If File.Exists("C:\Program Files (x86)\Renesas\FDT4.1\" & "FDT.EXE") Then FDTpath = "C:\Program Files (x86)\Renesas\FDT4.1\"
+            If File.Exists("C:\Program Files (x86)\Renesas\FDT4.10\" & "FDT.EXE") Then FDTpath = "C:\Program Files (x86)\Renesas\FDT4.10\"
+
             My.Settings.Item("FDTpath") = FDTpath ' store the latest know as the default_owner
         End If
 
