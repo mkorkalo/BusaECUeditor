@@ -148,9 +148,6 @@ in the top of the fuel and ignition map.
 Usually an active map, but you can set another map to 
 compare to with File, Set comparemap.</value>
   </data>
-  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>345, 17</value>
-  </metadata>
   <metadata name="R_tw.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
