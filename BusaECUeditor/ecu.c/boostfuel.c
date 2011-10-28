@@ -297,6 +297,7 @@ const unsigned char sensormap[] = {
 					);
 
 			}
+
 			ECU_IAP = (IAP_8bit  << 2); 			// back to 10bit value
 
 			if (PRESSURE  >= 0x52) 
