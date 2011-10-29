@@ -94,7 +94,7 @@ Partial Class K8BoostFuelExtended
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(754, 29)
+        Me.Label2.Location = New System.Drawing.Point(754, 18)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(162, 13)
         Me.Label2.TabIndex = 3
@@ -103,7 +103,7 @@ Partial Class K8BoostFuelExtended
         'L_boostfuelver
         '
         Me.L_boostfuelver.AutoSize = True
-        Me.L_boostfuelver.Location = New System.Drawing.Point(805, 30)
+        Me.L_boostfuelver.Location = New System.Drawing.Point(805, 19)
         Me.L_boostfuelver.Name = "L_boostfuelver"
         Me.L_boostfuelver.Size = New System.Drawing.Size(25, 13)
         Me.L_boostfuelver.TabIndex = 42
@@ -129,7 +129,7 @@ Partial Class K8BoostFuelExtended
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(701, 5)
+        Me.Label3.Location = New System.Drawing.Point(701, -3)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(259, 24)
         Me.Label3.TabIndex = 72
@@ -144,9 +144,9 @@ Partial Class K8BoostFuelExtended
         Me.LED_BOOST.FadedColor = System.Drawing.Color.Transparent
         Me.LED_BOOST.ForeColor = System.Drawing.Color.Black
         Me.LED_BOOST.HighlightOpaque = CType(50, Byte)
-        Me.LED_BOOST.Location = New System.Drawing.Point(770, 43)
+        Me.LED_BOOST.Location = New System.Drawing.Point(775, 34)
         Me.LED_BOOST.Name = "LED_BOOST"
-        Me.LED_BOOST.Size = New System.Drawing.Size(120, 55)
+        Me.LED_BOOST.Size = New System.Drawing.Size(120, 45)
         Me.LED_BOOST.TabIndex = 73
         Me.LED_BOOST.Text = "-"
         Me.LED_BOOST.TextAlignment = LxControl.LxLedControl.Alignment.Right
@@ -258,7 +258,7 @@ Partial Class K8BoostFuelExtended
         Me.T_overboost.Size = New System.Drawing.Size(48, 29)
         Me.T_overboost.TabIndex = 83
         Me.ToolTip1.SetToolTip(Me.T_overboost, "Sets the hardlimit for fuel and ignitioncut based on boost. Use + and - keys to a" & _
-                "djust. Requires shifter module being active.")
+        "djust. Requires shifter module being active.")
         Me.T_overboost.WordWrap = False
         '
         'ToolTip1
