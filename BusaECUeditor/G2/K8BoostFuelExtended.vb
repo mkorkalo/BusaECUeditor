@@ -860,11 +860,12 @@ Public Class K8BoostFuelExtended
 
             ' based on enginedata show the position on the map and trace which cell is being accessed by ecu (almost)
             D_BoostFuel.Item(cc, rr).Style.BackColor = Color.White
+            D_BoostIgnitionRetard.Item(cc, 0).Style.BackColor = Color.White
 
             Dim map_number_of_rows, map_number_of_columns As Integer
 
-            map_number_of_rows = 24
-            map_number_of_columns = 24
+            map_number_of_rows = D_BoostFuel.RowCount
+            map_number_of_columns = D_BoostFuel.ColumnCount
 
             ' Lets select the map based on MS switch position for tracing and make sure that the correct map is visible when tracing
             ' enable automatic map switching when tracing and datastream on
@@ -875,6 +876,7 @@ Public Class K8BoostFuelExtended
             ' Process RPM rows
             r = 0
             rr = 0
+
             Do While (r < map_number_of_rows - 1)
                 If RPM >= rr And RPM < Int(D_BoostFuel.Rows(r + 1).HeaderCell.Value) Then
                     rr = r
@@ -909,11 +911,14 @@ Public Class K8BoostFuelExtended
             If rr <> 0 Or cc <> 0 Then
                 If RPM >= 4000 Then
                     D_BoostFuel.Item(cc, rr).Style.BackColor = Color.Blue
+                    D_BoostIgnitionRetard.Item(cc, 0).Style.BackColor = Color.Blue
                 Else
                     D_BoostFuel.Item(cc, rr).Style.BackColor = Color.White
+                    D_BoostIgnitionRetard.Item(cc, 0).Style.BackColor = Color.White
                 End If
             Else
                 D_BoostFuel.Item(cc, rr).Style.BackColor = Color.White
+                D_BoostIgnitionRetard.Item(cc, 0).Style.BackColor = Color.White
             End If
         End If
 
