@@ -5641,8 +5641,9 @@ skip_update:
     End Sub
 
     Private Sub EcueditorcomHomepageToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EcueditorcomHomepageToolStripMenuItem.Click
-        ProgramHomepage.Show()
-        ProgramHomepage.Select()
+        'ProgramHomepage.Show()
+        'ProgramHomepage.Select()
+        Process.Start("http://www.ecueditor.com")
     End Sub
 
     Private Sub DonateForKeepingTheProgramFreeToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DonateForKeepingTheProgramFreeToolStripMenuItem.Click
@@ -6624,7 +6625,7 @@ skip_update:
     End Sub
 
     Private Sub ViewFAQFacebookToolStripMenuItem_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ViewFAQFacebookToolStripMenuItem.Click
-        Process.Start("http://www.facebook.com/topic.php?uid=133860313347043&topic=34")
+        Process.Start("http://www.WoolichRacing.com/ecueditor_help")
     End Sub
 
     Private Sub K8US37H10ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles K8US37H10ToolStripMenuItem.Click
@@ -6831,6 +6832,10 @@ skip_update:
         BlockPgm = True
 
 
+    End Sub
+
+    Private Sub GetInterfaceFromWoolichRacingcomToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles GetInterfaceFromWoolichRacingcomToolStripMenuItem.Click
+        Process.Start("http://www.WoolichRacing.com/Products.aspx")
     End Sub
 End Class
 

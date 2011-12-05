@@ -104,6 +104,7 @@ Partial Class main
         Me.tw_p = New System.Windows.Forms.PictureBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.GetInterfaceFromWoolichRacingcomToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -358,7 +359,7 @@ Partial Class main
         '
         'SetupToolStripMenuItem
         '
-        Me.SetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InstallFTDIDriversToolStripMenuItem, Me.SetupCOMPortToolStripMenuItem, Me.ToolStripSeparator5, Me.BuyInterfaceFromEBayToolStripMenuItem, Me.MakeAnDIYInterfaceToolStripMenuItem})
+        Me.SetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InstallFTDIDriversToolStripMenuItem, Me.SetupCOMPortToolStripMenuItem, Me.ToolStripSeparator5, Me.GetInterfaceFromWoolichRacingcomToolStripMenuItem, Me.BuyInterfaceFromEBayToolStripMenuItem, Me.MakeAnDIYInterfaceToolStripMenuItem})
         Me.SetupToolStripMenuItem.Name = "SetupToolStripMenuItem"
         Me.SetupToolStripMenuItem.Size = New System.Drawing.Size(90, 20)
         Me.SetupToolStripMenuItem.Text = "Bike Interface"
@@ -366,32 +367,32 @@ Partial Class main
         'InstallFTDIDriversToolStripMenuItem
         '
         Me.InstallFTDIDriversToolStripMenuItem.Name = "InstallFTDIDriversToolStripMenuItem"
-        Me.InstallFTDIDriversToolStripMenuItem.Size = New System.Drawing.Size(199, 22)
+        Me.InstallFTDIDriversToolStripMenuItem.Size = New System.Drawing.Size(280, 22)
         Me.InstallFTDIDriversToolStripMenuItem.Tag = "This will install the com port drivers that are needed to run the interface."
         Me.InstallFTDIDriversToolStripMenuItem.Text = "Install COM port drivers"
         '
         'SetupCOMPortToolStripMenuItem
         '
         Me.SetupCOMPortToolStripMenuItem.Name = "SetupCOMPortToolStripMenuItem"
-        Me.SetupCOMPortToolStripMenuItem.Size = New System.Drawing.Size(199, 22)
+        Me.SetupCOMPortToolStripMenuItem.Size = New System.Drawing.Size(280, 22)
         Me.SetupCOMPortToolStripMenuItem.Tag = resources.GetString("SetupCOMPortToolStripMenuItem.Tag")
         Me.SetupCOMPortToolStripMenuItem.Text = "Setup COM port"
         '
         'ToolStripSeparator5
         '
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
-        Me.ToolStripSeparator5.Size = New System.Drawing.Size(196, 6)
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(277, 6)
         '
         'BuyInterfaceFromEBayToolStripMenuItem
         '
         Me.BuyInterfaceFromEBayToolStripMenuItem.Name = "BuyInterfaceFromEBayToolStripMenuItem"
-        Me.BuyInterfaceFromEBayToolStripMenuItem.Size = New System.Drawing.Size(199, 22)
+        Me.BuyInterfaceFromEBayToolStripMenuItem.Size = New System.Drawing.Size(280, 22)
         Me.BuyInterfaceFromEBayToolStripMenuItem.Text = "Get interface from eBay"
         '
         'MakeAnDIYInterfaceToolStripMenuItem
         '
         Me.MakeAnDIYInterfaceToolStripMenuItem.Name = "MakeAnDIYInterfaceToolStripMenuItem"
-        Me.MakeAnDIYInterfaceToolStripMenuItem.Size = New System.Drawing.Size(199, 22)
+        Me.MakeAnDIYInterfaceToolStripMenuItem.Size = New System.Drawing.Size(280, 22)
         Me.MakeAnDIYInterfaceToolStripMenuItem.Text = "Make a D.I.Y interface"
         '
         'FlashToolStripMenuItem
@@ -407,8 +408,8 @@ Partial Class main
         Me.VerifyChecksumToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
         Me.VerifyChecksumToolStripMenuItem.Text = "Verify Checksum"
         Me.VerifyChecksumToolStripMenuItem.ToolTipText = "Verify checksum command is a fast way of ensuring that ecu has same image as in t" & _
-            "he computer memory, this only compares checksum and therefore result is not 100%" & _
-            " sure."
+    "he computer memory, this only compares checksum and therefore result is not 100%" & _
+    " sure."
         '
         'VerifyECUToolStripMenuItem
         '
@@ -423,8 +424,8 @@ Partial Class main
         Me.FullEraseToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
         Me.FullEraseToolStripMenuItem.Text = "Full Erase"
         Me.FullEraseToolStripMenuItem.ToolTipText = "Use full erase in case ecu becomes locked or flashing fails constantly. This is l" & _
-            "ike a format computer command that erases all data and allows full image being w" & _
-            "ritten."
+    "ike a format computer command that erases all data and allows full image being w" & _
+    "ritten."
         '
         'FlashTheECUToolStripMenuItem
         '
@@ -489,14 +490,14 @@ Partial Class main
         'ViewFAQFacebookToolStripMenuItem
         '
         Me.ViewFAQFacebookToolStripMenuItem.Name = "ViewFAQFacebookToolStripMenuItem"
-        Me.ViewFAQFacebookToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.ViewFAQFacebookToolStripMenuItem.Text = "View FAQ @ facebook"
+        Me.ViewFAQFacebookToolStripMenuItem.Size = New System.Drawing.Size(241, 22)
+        Me.ViewFAQFacebookToolStripMenuItem.Text = "View ecueditor.com online help"
         '
         'EcueditorcomfacebookToolStripMenuItem
         '
         Me.EcueditorcomfacebookToolStripMenuItem.Name = "EcueditorcomfacebookToolStripMenuItem"
-        Me.EcueditorcomfacebookToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.EcueditorcomfacebookToolStripMenuItem.Text = "Ecueditor.com@facebook"
+        Me.EcueditorcomfacebookToolStripMenuItem.Size = New System.Drawing.Size(241, 22)
+        Me.EcueditorcomfacebookToolStripMenuItem.Text = "ecueditor.com@facebook"
         '
         'B_Limiters
         '
@@ -516,7 +517,7 @@ Partial Class main
         Me.B_FlashECU.TabIndex = 24
         Me.B_FlashECU.Text = "Flash the ECU"
         Me.ToolTip1.SetToolTip(Me.B_FlashECU, "Flash the active map in memory to the ECU." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Requires a programming interface sw" & _
-                "hitch.")
+        "hitch.")
         Me.B_FlashECU.UseVisualStyleBackColor = True
         '
         'B_IgnitionMap
@@ -537,7 +538,7 @@ Partial Class main
         Me.B_AdvancedSettings.TabIndex = 26
         Me.B_AdvancedSettings.Text = "Advanced settings"
         Me.ToolTip1.SetToolTip(Me.B_AdvancedSettings, "Set various advanced settings including" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "fuel pressure, activation of window swit" & _
-                "ch solenoid etc...")
+        "ch solenoid etc...")
         Me.B_AdvancedSettings.UseVisualStyleBackColor = True
         '
         'L_File
@@ -588,7 +589,7 @@ Partial Class main
         Me.B_Shifter.TabIndex = 32
         Me.B_Shifter.Text = "Shifter"
         Me.ToolTip1.SetToolTip(Me.B_Shifter, "Activate shifter module and set shifter kill time." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Requires shifter hardware bei" & _
-                "ng connected")
+        "ng connected")
         Me.B_Shifter.UseVisualStyleBackColor = True
         '
         'GroupBox1
@@ -714,6 +715,12 @@ Partial Class main
         Me.Button1.TabIndex = 41
         Me.Button1.UseVisualStyleBackColor = False
         '
+        'GetInterfaceFromWoolichRacingcomToolStripMenuItem
+        '
+        Me.GetInterfaceFromWoolichRacingcomToolStripMenuItem.Name = "GetInterfaceFromWoolichRacingcomToolStripMenuItem"
+        Me.GetInterfaceFromWoolichRacingcomToolStripMenuItem.Size = New System.Drawing.Size(280, 22)
+        Me.GetInterfaceFromWoolichRacingcomToolStripMenuItem.Text = "Get interface from WoolichRacing.com"
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -834,5 +841,6 @@ Partial Class main
     Friend WithEvents K11EUToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents K11EUToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents H10ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents GetInterfaceFromWoolichRacingcomToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class
