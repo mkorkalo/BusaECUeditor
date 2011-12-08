@@ -38,10 +38,10 @@
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
-    <InstallUrl>http://macmadigan.no-ip.com/ecueditor2.5/</InstallUrl>
-    <UpdateUrl>http://macmadigan.no-ip.com/ecueditor2.5/</UpdateUrl>
-    <SupportUrl>http://www.ecueditor.info</SupportUrl>
-    <ErrorReportUrl>http://www.ecueditor.info</ErrorReportUrl>
+    <InstallUrl>http://ecueditorco.web713.discountasp.net/download/</InstallUrl>
+    <UpdateUrl>http://ecueditorco.web713.discountasp.net/download/</UpdateUrl>
+    <SupportUrl>http://www.ecueditor.com</SupportUrl>
+    <ErrorReportUrl>http://www.ecueditor.com</ErrorReportUrl>
     <TargetCulture>en</TargetCulture>
     <ProductName>ecueditor.com for Hayabusa K2-K7, K8-, BKing and Gixxer K7-</ProductName>
     <PublisherName>ecueditor.com</PublisherName>
@@ -49,7 +49,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>ecueditor_prerelease.htm</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>76</ApplicationRevision>
+    <ApplicationRevision>81</ApplicationRevision>
     <ApplicationVersion>2.5.5.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

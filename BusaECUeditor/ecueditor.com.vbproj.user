@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <PublishUrlHistory>D:\Projects\ecueditor_publish\|\\amd\wwwroot\ecueditor2.5\|\\amd\ecueditor2.5\|Y:\Ecu Editor\ecueditor_publish\|E:\Projects\Ecu Editor\ecueditor_publish\</PublishUrlHistory>
-    <InstallUrlHistory>http://macmadigan.no-ip.com/ecueditor2.5/|\\amd\wwwroot\ecueditor2.5\|http://www.ecueditor.net/|http://macmadigan.no-ip.com/ecueditor2.6/|http://macmadigan.no-ip.com/Ecueditor2.5/</InstallUrlHistory>
-    <SupportUrlHistory>http://www.ecueditor.info|http://www.ecueditor.com|http://www.activeboard.com/forum.spark%3fforumID=99460|http://www.busanistit.org</SupportUrlHistory>
+    <PublishUrlHistory>D:\Projects\ecueditor_publish\|ftp://ftp.ecueditorco.web713.discountasp.net/download/|ftp.ecueditorco.web713.discountasp.net\|\\amd\wwwroot\ecueditor2.5\|\\amd\ecueditor2.5\</PublishUrlHistory>
+    <InstallUrlHistory>http://ecueditorco.web713.discountasp.net/download/|http://macmadigan.no-ip.com/ecueditor2.5/|\\amd\wwwroot\ecueditor2.5\|http://www.ecueditor.net/|http://macmadigan.no-ip.com/ecueditor2.6/</InstallUrlHistory>
+    <SupportUrlHistory>http://www.ecueditor.com|http://www.ecueditor.info|http://www.activeboard.com/forum.spark%3fforumID=99460|http://www.busanistit.org</SupportUrlHistory>
     <UpdateUrlHistory>http://macmadigan.no-ip.com/ecueditor2.5/|http://www.ecueditor.net/|http://macmadigan.no-ip.com/ecueditor2.6/|http://macmadigan.no-ip.com/ecueditor2.4/|http://macmadigan.no-ip.com/ecueditor2.3/</UpdateUrlHistory>
     <BootstrapperUrlHistory>
     </BootstrapperUrlHistory>
@@ -11,7 +11,7 @@
     <VerifyUploadedFiles>true</VerifyUploadedFiles>
     <ProjectView>ShowAllFiles</ProjectView>
     <EnableSecurityDebugging>false</EnableSecurityDebugging>
-    <ErrorReportUrlHistory>http://www.ecueditor.info|http://bitbucket.org/ecueditor/ecueditor/issues%3fstatus=new</ErrorReportUrlHistory>
+    <ErrorReportUrlHistory>http://www.ecueditor.com|http://www.ecueditor.info|http://bitbucket.org/ecueditor/ecueditor/issues%3fstatus=new</ErrorReportUrlHistory>
     <ReferencePath>C:\Users\PetriK\Desktop\ecueditor2.4\BusaECUeditor\dlls\</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
