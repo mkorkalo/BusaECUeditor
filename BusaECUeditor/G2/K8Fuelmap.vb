@@ -43,7 +43,6 @@ Public Class K8Fuelmap
     Dim maxval As Integer = 400
     Dim minval As Integer = 5
 
-
     Private Sub Fuelmap_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         fuelmapvisible = False
     End Sub
@@ -63,7 +62,6 @@ Public Class K8Fuelmap
 
     End Sub
 
-
     Public Function fuelpw(ByVal pw As Integer)
         '
         ' change ecu values on values on the screen.
@@ -71,6 +69,7 @@ Public Class K8Fuelmap
         Return CInt(pw / 24)
 
     End Function
+
     Function fuelpw_toecuval(ByVal pw As Integer)
         '
         ' change screen values back to ecu values.
@@ -141,6 +140,7 @@ Public Class K8Fuelmap
         End Select
 
     End Sub
+
     Private Sub DecreaseSelectedCells()
         Dim c As Integer
         Dim r As Integer
@@ -208,6 +208,7 @@ Public Class K8Fuelmap
             i = i + 1
         Loop
     End Sub
+
     Private Sub MultiplySelectedCells()
         Dim c As Integer
         Dim r As Integer
@@ -276,6 +277,7 @@ Public Class K8Fuelmap
         Loop
 
     End Sub
+
     Private Sub setCellColour(ByVal c As Integer, ByVal r As Integer)
         '
         ' this subroutine compares the cell value to the value of the flash image initially read from the disk with open file
@@ -302,7 +304,6 @@ Public Class K8Fuelmap
 
 
     End Sub
-
 
     Private Sub SetFlashItem(ByVal c As Integer, ByVal r As Integer)
 
@@ -493,6 +494,7 @@ Public Class K8Fuelmap
 
 
     End Sub
+
     Public Sub loadmap(ByVal ms01 As Integer)
         '
         ' This function loads a map into a grid including map contents and heading information
@@ -580,7 +582,6 @@ Public Class K8Fuelmap
         Fuelmapgrid.SelectionMode = DataGridViewSelectionMode.CellSelect
 
     End Sub
-
 
     Public Sub tracemap()
         '
@@ -672,6 +673,7 @@ Public Class K8Fuelmap
         End If
 
     End Sub
+
     Private Sub B_TPSMAP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_TPS.Click
         selectmap(1)
     End Sub
@@ -689,7 +691,6 @@ Public Class K8Fuelmap
         End If
 
     End Sub
-
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Me.Close()
@@ -823,6 +824,7 @@ Public Class K8Fuelmap
         End Try
 
     End Sub
+
     Private Sub Fuelmapgrid_MouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Fuelmapgrid.MouseClick
         show_values()
     End Sub
@@ -1046,6 +1048,7 @@ Public Class K8Fuelmap
 
         End If
     End Sub
+
     Private Function eetopcvr(ByVal r As Integer) As Integer
         '
         ' ecueditor row to pcv row conversion table
@@ -1142,6 +1145,7 @@ Public Class K8Fuelmap
                 MsgBox("Error in converting pcv map column")
         End Select
     End Function
+
     Private Function eetobzr(ByVal r As Integer) As Integer
         '
         ' ecueditor row to bazzaz row conversion table
@@ -1291,7 +1295,6 @@ Public Class K8Fuelmap
         End If
     End Sub
 
-
     Private Sub B_MSIAP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_MSIAP.Click
 
         If FastMode() Then
@@ -1305,4 +1308,5 @@ Public Class K8Fuelmap
     Private Sub B_copy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_copy.Click
         copymaps(2)
     End Sub
+
 End Class
