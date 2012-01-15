@@ -79,6 +79,7 @@ Partial Class K8Advsettings
         Me.C_ABCmode = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.B_ResetBlocks = New System.Windows.Forms.Button()
+        Me.C_ExtendedBoostFuelLogging = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -94,14 +95,14 @@ Partial Class K8Advsettings
         '
         Me.GroupBox1.Controls.Add(Me.R_Normal)
         Me.GroupBox1.Controls.Add(Me.R_Flash)
-        Me.GroupBox1.Location = New System.Drawing.Point(332, 522)
+        Me.GroupBox1.Location = New System.Drawing.Point(332, 534)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(148, 67)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Flashing dynomode"
         Me.ToolTip1.SetToolTip(Me.GroupBox1, "Set flashing mode to flash the full maps area(normal) or just the main maps(fast)" & _
-                ".")
+        ".")
         '
         'R_Normal
         '
@@ -144,7 +145,7 @@ Partial Class K8Advsettings
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "ECU mode"
         Me.ToolTip1.SetToolTip(Me.GroupBox3, "Set flashing mode to flash the full maps area(normal) or just the main maps(fast)" & _
-                ".")
+        ".")
         '
         'C_ECU
         '
@@ -186,7 +187,7 @@ Partial Class K8Advsettings
         Me.R_IAT_normal.TabStop = True
         Me.R_IAT_normal.Text = "IAT normal"
         Me.ToolTip1.SetToolTip(Me.R_IAT_normal, "What is IAT dynomode normal ?" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "This feature will set your Intake Air Temperature " & _
-                "sensor back to normal operating state. See IAT dynomode for more information." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10))
+        "sensor back to normal operating state. See IAT dynomode for more information." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10))
         Me.R_IAT_normal.UseVisualStyleBackColor = True
         '
         'R_IAT_dynomode
@@ -262,7 +263,7 @@ Partial Class K8Advsettings
         Me.C_coolingfan.TabIndex = 7
         Me.C_coolingfan.Text = "Cooling fan normal"
         Me.ToolTip1.SetToolTip(Me.C_coolingfan, "With this setting you can disable the FI code from a missing cooling fan relay - " & _
-                "only for race purposes.")
+        "only for race purposes.")
         Me.C_coolingfan.UseVisualStyleBackColor = True
         '
         'C_secondaries
@@ -274,7 +275,7 @@ Partial Class K8Advsettings
         Me.C_secondaries.TabIndex = 8
         Me.C_secondaries.Text = "Secondaries FI normal"
         Me.ToolTip1.SetToolTip(Me.C_secondaries, "With this setting you can disable the FI code from missing secondaries - only for" & _
-                " race purposes.")
+        " race purposes.")
         Me.C_secondaries.UseVisualStyleBackColor = True
         '
         'C_IAPTPS
@@ -329,8 +330,8 @@ Partial Class K8Advsettings
         Me.C_PAIR.TabIndex = 3
         Me.C_PAIR.Text = "PAIR on/off"
         Me.ToolTip1.SetToolTip(Me.C_PAIR, "This setting allows you to activate/disable the pair functionality.  Disabling th" & _
-                "e pair is needed if:" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "1) Pair is removed" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2) Pair connector is used as a nitrous" & _
-                " controller or as a boost controller" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10))
+        "e pair is needed if:" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "1) Pair is removed" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2) Pair connector is used as a nitrous" & _
+        " controller or as a boost controller" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10))
         Me.C_PAIR.UseVisualStyleBackColor = True
         '
         'C_pair_voltage
@@ -342,8 +343,8 @@ Partial Class K8Advsettings
         Me.C_pair_voltage.TabIndex = 106
         Me.C_pair_voltage.Text = "PAIR voltage on/off"
         Me.ToolTip1.SetToolTip(Me.C_pair_voltage, "This setting allows you to set pair voltage permanently on to close the pair valv" & _
-                "e" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "fully for e.g. dyno sessions. This setting to work the PAIR setting must be s" & _
-                "et to normal.")
+        "e" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "fully for e.g. dyno sessions. This setting to work the PAIR setting must be s" & _
+        "et to normal.")
         Me.C_pair_voltage.UseVisualStyleBackColor = True
         '
         'B_ramairadjust
@@ -467,7 +468,7 @@ Partial Class K8Advsettings
         Me.GroupBox8.Controls.Add(Me.Label4)
         Me.GroupBox8.Controls.Add(Me.Label2)
         Me.GroupBox8.Controls.Add(Me.T_hexaddr)
-        Me.GroupBox8.Location = New System.Drawing.Point(17, 451)
+        Me.GroupBox8.Location = New System.Drawing.Point(17, 463)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(376, 65)
         Me.GroupBox8.TabIndex = 42
@@ -583,7 +584,7 @@ Partial Class K8Advsettings
         Me.GroupBox4.Controls.Add(Me.C_COV)
         Me.GroupBox4.Controls.Add(Me.Label6)
         Me.GroupBox4.Controls.Add(Me.C_secsize)
-        Me.GroupBox4.Location = New System.Drawing.Point(16, 522)
+        Me.GroupBox4.Location = New System.Drawing.Point(16, 534)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(295, 114)
         Me.GroupBox4.TabIndex = 45
@@ -592,6 +593,7 @@ Partial Class K8Advsettings
         '
         'GroupBox7
         '
+        Me.GroupBox7.Controls.Add(Me.C_ExtendedBoostFuelLogging)
         Me.GroupBox7.Controls.Add(Me.C_BkingGauges)
         Me.GroupBox7.Controls.Add(Me.Label13)
         Me.GroupBox7.Controls.Add(Me.C_fan)
@@ -607,7 +609,7 @@ Partial Class K8Advsettings
         Me.GroupBox7.Controls.Add(Me.C_ICS)
         Me.GroupBox7.Location = New System.Drawing.Point(16, 290)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(374, 146)
+        Me.GroupBox7.Size = New System.Drawing.Size(374, 167)
         Me.GroupBox7.TabIndex = 46
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Misc settings"
@@ -708,11 +710,21 @@ Partial Class K8Advsettings
         Me.B_ResetBlocks.Text = "Reset Blocks"
         Me.B_ResetBlocks.UseVisualStyleBackColor = True
         '
+        'C_ExtendedBoostFuelLogging
+        '
+        Me.C_ExtendedBoostFuelLogging.AutoSize = True
+        Me.C_ExtendedBoostFuelLogging.Location = New System.Drawing.Point(172, 144)
+        Me.C_ExtendedBoostFuelLogging.Name = "C_ExtendedBoostFuelLogging"
+        Me.C_ExtendedBoostFuelLogging.Size = New System.Drawing.Size(165, 17)
+        Me.C_ExtendedBoostFuelLogging.TabIndex = 106
+        Me.C_ExtendedBoostFuelLogging.Text = "Extended Boost Fuel Logging"
+        Me.C_ExtendedBoostFuelLogging.UseVisualStyleBackColor = True
+        '
         'K8Advsettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(398, 443)
+        Me.ClientSize = New System.Drawing.Size(398, 461)
         Me.Controls.Add(Me.B_ResetBlocks)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox7)
@@ -807,4 +819,5 @@ Partial Class K8Advsettings
     Friend WithEvents C_BkingGauges As System.Windows.Forms.CheckBox
     Friend WithEvents C_pair_voltage As System.Windows.Forms.CheckBox
     Friend WithEvents B_ResetBlocks As System.Windows.Forms.Button
+    Friend WithEvents C_ExtendedBoostFuelLogging As System.Windows.Forms.CheckBox
 End Class

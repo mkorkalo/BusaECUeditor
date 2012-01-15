@@ -101,7 +101,6 @@ Public Class K8EngineDataLogger
     Dim doneonce As Boolean
     Dim timerinterval, perferrorcounter, perferrorlimit As Integer
     Dim modeabc As Boolean
-    Dim duty As Integer
 
     Dim RPM As Integer
     Dim BOOST As Integer
@@ -129,7 +128,16 @@ Public Class K8EngineDataLogger
     Dim NT As Integer
     Dim MODE As Integer
 
-    Dim MTS_AFR As Double
+    Dim ECU_COV1 As Integer
+    Dim IAP_8bit As Integer
+    Dim PRESSURE As Integer
+    Dim ECU_AN15 As Integer
+    Dim DUTY As Integer
+    Dim TARGET_BOOST As Integer
+    Dim OVERBOOST As Integer
+    Dim GEAR_IGN_RETARD As Integer
+    Dim BOOST_IGN_RETARD As Integer
+    Dim TOTAL_IGN_RETARD As Integer
 
     Dim counter As Integer
 
@@ -1889,6 +1897,17 @@ Public Class K8EngineDataLogger
                 NT = (rxs(60) And 2)
                 HOX_ON = (rxs(60) And &H20)
 
+                ECU_COV1 = rxs(61)
+                IAP_8bit = rxs(23)
+                PRESSURE = rxs(22)
+                ECU_AN15 = rxs(34)
+                DUTY = rxs(37)
+                TARGET_BOOST = rxs(46)
+                OVERBOOST = rxs(54)
+                GEAR_IGN_RETARD = rxs(47)
+                BOOST_IGN_RETARD = rxs(55)
+                TOTAL_IGN_RETARD = rxs(52)
+
                 If _lastRPM = RPM And _lastTPS = TPS And _lastIAP = IAP And _lastHO2 = HO2 And _lastWideBand = WIDEBAND And _lastFuel1 = FUEL1 Then
 
                     _newData = False
@@ -1990,8 +2009,6 @@ Public Class K8EngineDataLogger
             logEntry.Append(",")
             logEntry.Append("HOX_ON")
             logEntry.Append(",")
-            logEntry.Append("MTS AFR")
-            logEntry.Append(",")
             logEntry.Append("New Data Rate %")
 
             LogFile.WriteLine(logEntry.ToString())
@@ -2048,8 +2065,28 @@ Public Class K8EngineDataLogger
             logEntry.Append(",")
             logEntry.Append("HOX_ON")
             logEntry.Append(",")
-            logEntry.Append("MTS AFR")
+
+            logEntry.Append("ECU_COV1")
             logEntry.Append(",")
+            logEntry.Append("IAP_8bit")
+            logEntry.Append(",")
+            logEntry.Append("PRESSURE")
+            logEntry.Append(",")
+            logEntry.Append("ECU_AN15")
+            logEntry.Append(",")
+            logEntry.Append("DUTY")
+            logEntry.Append(",")
+            logEntry.Append("TARGET_BOOST")
+            logEntry.Append(",")
+            logEntry.Append("OVERBOOST")
+            logEntry.Append(",")
+            logEntry.Append("GEAR_IGN_RETARD")
+            logEntry.Append(",")
+            logEntry.Append("BOOST_IGN_RETARD")
+            logEntry.Append(",")
+            logEntry.Append("TOTAL_IGN_RETARD")
+            logEntry.Append(",")
+
             logEntry.Append("New Data Rate %")
 
             LogFileRaw.WriteLine(logEntry.ToString())
@@ -2117,8 +2154,6 @@ Public Class K8EngineDataLogger
                 logEntry.Append(",")
                 logEntry.Append(CalculateHOXOn(HOX_ON))
                 logEntry.Append(",")
-                logEntry.Append(MTS_AFR.ToString("0.00"))
-                logEntry.Append(",")
                 logEntry.Append((_dataCount / (_dataCount + _dataCountRepeated) * 100).ToString("000.0"))
 
                 LogFile.WriteLine(logEntry.ToString())
@@ -2185,8 +2220,28 @@ Public Class K8EngineDataLogger
                 logEntry.Append(",")
                 logEntry.Append(HOX_ON)
                 logEntry.Append(",")
-                logEntry.Append(MTS_AFR.ToString("0.00"))
+
+                logEntry.Append(ECU_COV1)
                 logEntry.Append(",")
+                logEntry.Append(IAP_8bit)
+                logEntry.Append(",")
+                logEntry.Append(PRESSURE)
+                logEntry.Append(",")
+                logEntry.Append(ECU_AN15)
+                logEntry.Append(",")
+                logEntry.Append(DUTY)
+                logEntry.Append(",")
+                logEntry.Append(TARGET_BOOST)
+                logEntry.Append(",")
+                logEntry.Append(OVERBOOST)
+                logEntry.Append(",")
+                logEntry.Append(GEAR_IGN_RETARD)
+                logEntry.Append(",")
+                logEntry.Append(BOOST_IGN_RETARD)
+                logEntry.Append(",")
+                logEntry.Append(TOTAL_IGN_RETARD)
+                logEntry.Append(",")
+
                 logEntry.Append((_dataCount / (_dataCount + _dataCountRepeated) * 100).ToString("000.0"))
 
                 LogFileRaw.WriteLine(logEntry.ToString())

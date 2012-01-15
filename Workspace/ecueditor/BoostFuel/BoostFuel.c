@@ -248,7 +248,7 @@ const unsigned char ignitionretardmap[] = {
 			if (LR == 0) 	// Allow only when not active from previous run, other interrupts seem to break an ongoing
 				// AD conversion cycle causing LR to get lost.
 			{
-				IAP_8bit = (ECU_AN15 >> 2) ; // lets change to 8bit
+				IAP_8bit = (ECU_AN15 >> 2); // lets change to 8bit
 				BENR = (ECU_AN15 >> 2);
 				PRESSURE = (ECU_AN15 >> 2);
 

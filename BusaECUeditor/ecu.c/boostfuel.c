@@ -442,7 +442,6 @@ const unsigned char sensormap[] = {
 				{
 					if (solenoidtype == 0x00) {PORT1 = PORT1 | PAIR;}
 					else {PORT1 = PORT1 & (0xFF - PAIR);}	// turn port off
-
 				}
 
 				// here we add gear specific value to ignition retard
