@@ -151,6 +151,7 @@ Public Class K8boostfuel
             WriteFlashWord(&H41652, &H6818)
             WriteFlashWord(&H416D0, &H4400) ' + 0
             WriteFlashWord(&H416D2, &H5446) ' << 5
+
             ' set ignition retard to read the nitrouscontrol module variable
             WriteFlashByte(&H33C22, &H68)
             WriteFlashByte(&H33C23, &H56)
@@ -1079,6 +1080,7 @@ Public Class K8boostfuel
             Next
 
         End If
+
         duty_writemaptoflash()
 
     End Sub

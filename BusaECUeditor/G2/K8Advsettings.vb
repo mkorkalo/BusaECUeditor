@@ -395,6 +395,13 @@ Public Class K8Advsettings
             C_BkingGauges.Checked = True
         End If
 
+        'Check for Extended Boost Fuel Logging
+        If ReadFlashWord(&H52664) = &H7 Then
+            C_ExtendedBoostFuelLogging.Checked = False
+        Else
+            C_ExtendedBoostFuelLogging.Checked = True
+        End If
+
         loading = False
 
     End Sub
@@ -1419,6 +1426,89 @@ Public Class K8Advsettings
 
         BlockPgm = False
         ResetBlocks()
+
+    End Sub
+
+    Private Sub C_ExtendedBoostFuelLogging_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles C_ExtendedBoostFuelLogging.CheckedChanged
+
+        If loading = False Then
+
+            If C_ExtendedBoostFuelLogging.Checked = True Then
+
+                'Add extra KWP values to data packet 
+
+                'ECU_COV1REUSED
+                WriteFlashWord(&H52664, &H80)
+                WriteFlashWord(&H52666, &H6818)
+
+                'ECU_AN15
+                WriteFlashWord(&H525F8, &H80)
+                WriteFlashWord(&H525FA, &H682A)
+
+                'duty
+                WriteFlashWord(&H52604, &H80)
+                WriteFlashWord(&H52606, &H6830)
+
+                'targetboost
+                WriteFlashWord(&H52628, &H80)
+                WriteFlashWord(&H5262A, &H6834)
+
+                'ignretard
+                WriteFlashWord(&H5262C, &H80)
+                WriteFlashWord(&H5262E, &H6854)
+
+                'igncomp
+                WriteFlashWord(&H52640, &H80)
+                WriteFlashWord(&H52642, &H6856)
+
+                'overboost
+                WriteFlashWord(&H52648, &H80)
+                WriteFlashWord(&H5264A, &H6868)
+
+                'BOOST_IGN_RETARD
+                WriteFlashWord(&H5264C, &H80)
+                WriteFlashWord(&H5264E, &H686A)
+
+            Else
+
+                'ECU_COV1REUSED
+                WriteFlashWord(&H52664, &H7)
+                WriteFlashWord(&H52666, &HD11B)
+
+                'ECU_COV1REUSED
+                WriteFlashWord(&H52664, &H7)
+                WriteFlashWord(&H52666, &HD11B)
+
+                'ECU_AN15
+                WriteFlashWord(&H525F8, &H7)
+                WriteFlashWord(&H525FA, &HD11B)
+
+                'duty
+                WriteFlashWord(&H52604, &H7)
+                WriteFlashWord(&H52606, &HD11B)
+
+                'targetboost
+                WriteFlashWord(&H52628, &H7)
+                WriteFlashWord(&H5262A, &HD11B)
+
+                'ignretard
+                WriteFlashWord(&H5262C, &H7)
+                WriteFlashWord(&H5262E, &HD11B)
+
+                'igncomp
+                WriteFlashWord(&H52640, &H7)
+                WriteFlashWord(&H52642, &HD11B)
+
+                'overboost
+                WriteFlashWord(&H52648, &H7)
+                WriteFlashWord(&H5264A, &HD11B)
+
+                'BOOST_IGN_RETARD
+                WriteFlashWord(&H5264C, &H7)
+                WriteFlashWord(&H5264E, &HD11B)
+
+            End If
+        End If
 
     End Sub
 End Class
