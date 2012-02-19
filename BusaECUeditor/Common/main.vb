@@ -89,7 +89,7 @@ Public Class main
 
     Private Sub Main_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-        generate_tweets()
+        'generate_tweets()
 
         Me.Visible = False
         '

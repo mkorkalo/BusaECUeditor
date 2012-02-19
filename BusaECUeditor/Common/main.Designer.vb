@@ -64,6 +64,7 @@ Partial Class main
         Me.InstallFTDIDriversToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SetupCOMPortToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
+        Me.GetInterfaceFromWoolichRacingcomToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BuyInterfaceFromEBayToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MakeAnDIYInterfaceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FlashToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -104,7 +105,6 @@ Partial Class main
         Me.tw_p = New System.Windows.Forms.PictureBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.GetInterfaceFromWoolichRacingcomToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -383,6 +383,12 @@ Partial Class main
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
         Me.ToolStripSeparator5.Size = New System.Drawing.Size(277, 6)
         '
+        'GetInterfaceFromWoolichRacingcomToolStripMenuItem
+        '
+        Me.GetInterfaceFromWoolichRacingcomToolStripMenuItem.Name = "GetInterfaceFromWoolichRacingcomToolStripMenuItem"
+        Me.GetInterfaceFromWoolichRacingcomToolStripMenuItem.Size = New System.Drawing.Size(280, 22)
+        Me.GetInterfaceFromWoolichRacingcomToolStripMenuItem.Text = "Get interface from WoolichRacing.com"
+        '
         'BuyInterfaceFromEBayToolStripMenuItem
         '
         Me.BuyInterfaceFromEBayToolStripMenuItem.Name = "BuyInterfaceFromEBayToolStripMenuItem"
@@ -444,47 +450,47 @@ Partial Class main
         'ProgramInfoToolStripMenuItem
         '
         Me.ProgramInfoToolStripMenuItem.Name = "ProgramInfoToolStripMenuItem"
-        Me.ProgramInfoToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.ProgramInfoToolStripMenuItem.Size = New System.Drawing.Size(241, 22)
         Me.ProgramInfoToolStripMenuItem.Text = "Program info"
         '
         'VersionToolStripMenuItem
         '
         Me.VersionToolStripMenuItem.Name = "VersionToolStripMenuItem"
-        Me.VersionToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.VersionToolStripMenuItem.Size = New System.Drawing.Size(241, 22)
         Me.VersionToolStripMenuItem.Text = "Version"
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(208, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(238, 6)
         '
         'DonateForKeepingTheProgramFreeToolStripMenuItem
         '
         Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Name = "DonateForKeepingTheProgramFreeToolStripMenuItem"
-        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Size = New System.Drawing.Size(241, 22)
         Me.DonateForKeepingTheProgramFreeToolStripMenuItem.Text = "Donate with PayPal"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(208, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(238, 6)
         '
         'EcueditorcomHomepageToolStripMenuItem
         '
         Me.EcueditorcomHomepageToolStripMenuItem.Name = "EcueditorcomHomepageToolStripMenuItem"
-        Me.EcueditorcomHomepageToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.EcueditorcomHomepageToolStripMenuItem.Size = New System.Drawing.Size(241, 22)
         Me.EcueditorcomHomepageToolStripMenuItem.Text = "View ecueditor.com"
         '
         'ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem
         '
         Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Name = "ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem"
-        Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Size = New System.Drawing.Size(241, 22)
         Me.ViewLatestDevelopmentFromDeveloperSiteToolStripMenuItem.Text = "View version history"
         '
         'ReportABugToolStripMenuItem
         '
         Me.ReportABugToolStripMenuItem.Name = "ReportABugToolStripMenuItem"
-        Me.ReportABugToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.ReportABugToolStripMenuItem.Size = New System.Drawing.Size(241, 22)
         Me.ReportABugToolStripMenuItem.Text = "View and report bugs"
         '
         'ViewFAQFacebookToolStripMenuItem
@@ -702,7 +708,6 @@ Partial Class main
         '
         'Timer1
         '
-        Me.Timer1.Enabled = True
         Me.Timer1.Interval = 600000
         '
         'Button1
@@ -714,12 +719,6 @@ Partial Class main
         Me.Button1.Size = New System.Drawing.Size(25, 25)
         Me.Button1.TabIndex = 41
         Me.Button1.UseVisualStyleBackColor = False
-        '
-        'GetInterfaceFromWoolichRacingcomToolStripMenuItem
-        '
-        Me.GetInterfaceFromWoolichRacingcomToolStripMenuItem.Name = "GetInterfaceFromWoolichRacingcomToolStripMenuItem"
-        Me.GetInterfaceFromWoolichRacingcomToolStripMenuItem.Size = New System.Drawing.Size(280, 22)
-        Me.GetInterfaceFromWoolichRacingcomToolStripMenuItem.Text = "Get interface from WoolichRacing.com"
         '
         'main
         '

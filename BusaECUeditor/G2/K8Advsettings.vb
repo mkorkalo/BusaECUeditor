@@ -1438,42 +1438,46 @@ Public Class K8Advsettings
                 'Add extra KWP values to data packet 
 
                 'ECU_COV1REUSED
-                WriteFlashWord(&H52664, &H80)
+                WriteFlashWord(&H52664, &H80) '61
                 WriteFlashWord(&H52666, &H6818)
 
                 'ECU_AN15
-                WriteFlashWord(&H525F8, &H80)
+                WriteFlashWord(&H525F8, &H80) '34
                 WriteFlashWord(&H525FA, &H682A)
 
                 'duty
-                WriteFlashWord(&H52604, &H80)
+                WriteFlashWord(&H52604, &H80) '37
                 WriteFlashWord(&H52606, &H6830)
 
                 'targetboost
-                WriteFlashWord(&H52628, &H80)
+                WriteFlashWord(&H52628, &H80) '46
                 WriteFlashWord(&H5262A, &H6834)
 
                 'ignretard
-                WriteFlashWord(&H5262C, &H80)
+                WriteFlashWord(&H5262C, &H80) '47
                 WriteFlashWord(&H5262E, &H6854)
 
                 'igncomp
-                WriteFlashWord(&H52640, &H80)
+                WriteFlashWord(&H52640, &H80) '52
                 WriteFlashWord(&H52642, &H6856)
 
                 'overboost
-                WriteFlashWord(&H52648, &H80)
+                WriteFlashWord(&H52648, &H80) '54
                 WriteFlashWord(&H5264A, &H6868)
 
-                'BOOST_IGN_RETARD
-                WriteFlashWord(&H5264C, &H80)
+                'BOOST_IGN_RETARD 
+                WriteFlashWord(&H5264C, &H80) '55
                 WriteFlashWord(&H5264E, &H686A)
 
-            Else
+                'KWP_primaries_volume 
+                WriteFlashWord(&H525FC, &H80) '35
+                WriteFlashWord(&H525FE, &H641C)
 
-                'ECU_COV1REUSED
-                WriteFlashWord(&H52664, &H7)
-                WriteFlashWord(&H52666, &HD11B)
+                'KWP_secondaries_volume
+                WriteFlashWord(&H52600, &H80) '36
+                WriteFlashWord(&H52602, &H641E)
+
+            Else
 
                 'ECU_COV1REUSED
                 WriteFlashWord(&H52664, &H7)
@@ -1506,6 +1510,14 @@ Public Class K8Advsettings
                 'BOOST_IGN_RETARD
                 WriteFlashWord(&H5264C, &H7)
                 WriteFlashWord(&H5264E, &HD11B)
+
+                'KWP_primaries_volume
+                WriteFlashWord(&H525FC, &H80)
+                WriteFlashWord(&H5264E, &H673B)
+
+                'KWP_secondaries_volume
+                WriteFlashWord(&H52600, &H80)
+                WriteFlashWord(&H52602, &H673A)
 
             End If
         End If

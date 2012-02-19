@@ -139,6 +139,9 @@ Public Class K8EngineDataLogger
     Dim BOOST_IGN_RETARD As Integer
     Dim TOTAL_IGN_RETARD As Integer
 
+    Dim PRIMARY_INJ As Integer
+    Dim SECONDARY_INJ As Integer
+
     Dim counter As Integer
 
     Dim filePath As String
@@ -2086,6 +2089,10 @@ Public Class K8EngineDataLogger
             logEntry.Append(",")
             logEntry.Append("TOTAL_IGN_RETARD")
             logEntry.Append(",")
+            logEntry.Append("PRIMARY_INJ")
+            logEntry.Append(",")
+            logEntry.Append("SECONDARY_INJ")
+            logEntry.Append(",")
 
             logEntry.Append("New Data Rate %")
 
@@ -2240,6 +2247,10 @@ Public Class K8EngineDataLogger
                 logEntry.Append(BOOST_IGN_RETARD)
                 logEntry.Append(",")
                 logEntry.Append(TOTAL_IGN_RETARD)
+                logEntry.Append(",")
+                logEntry.Append(PRIMARY_INJ)
+                logEntry.Append(",")
+                logEntry.Append(SECONDARY_INJ)
                 logEntry.Append(",")
 
                 logEntry.Append((_dataCount / (_dataCount + _dataCountRepeated) * 100).ToString("000.0"))
@@ -2716,6 +2727,20 @@ Public Class K8EngineDataLogger
             CLUTCH = rx(59) And &H10 'b10000 is clutch switch signal
             NT = (rx(60) And 2)
             HOX_ON = (rx(60) And &H20)
+
+            ECU_COV1 = rxs(61)
+            IAP_8bit = rxs(23)
+            PRESSURE = rxs(22)
+            ECU_AN15 = rxs(34)
+            DUTY = rxs(37)
+            TARGET_BOOST = rxs(46)
+            OVERBOOST = rxs(54)
+            GEAR_IGN_RETARD = rxs(47)
+            BOOST_IGN_RETARD = rxs(55)
+            TOTAL_IGN_RETARD = rxs(52)
+
+            PRIMARY_INJ = rxs(35)
+            SECONDARY_INJ = rxs(36)
 
         End If
 
