@@ -28,7 +28,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
-    <PublishUrl>d:\Projects\ecueditor_publish\zip\</PublishUrl>
+    <PublishUrl>E:\Projects\Ecu Editor\Publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -37,7 +37,7 @@
     <UpdateIntervalUnits>Weeks</UpdateIntervalUnits>
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
+    <MapFileExtensions>false</MapFileExtensions>
     <InstallUrl>http://ecueditorco.web713.discountasp.net/download/</InstallUrl>
     <UpdateUrl>http://ecueditorco.web713.discountasp.net/download/</UpdateUrl>
     <SupportUrl>http://www.ecueditor.com</SupportUrl>
