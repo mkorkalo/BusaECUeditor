@@ -558,7 +558,7 @@ Public Class GixxerFuelmap
             Else
                 Fuelmapgrid.Columns.Item(c).HeaderText = CalcK8IAP(i)
             End If
-            Fuelmapgrid.Columns.Item(c).Width = 26
+            Fuelmapgrid.Columns.Item(c).Width = 32
             c = c + 1
         Loop
 
