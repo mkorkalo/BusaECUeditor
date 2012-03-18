@@ -138,6 +138,9 @@ Public Class K8nitrouscontrol
         For i = 5 To 15 Step 1
             C_RUNHZ.Items.Add(Str(i))
         Next
+
+        C_RUNHZ.Items.Add("25")
+
         C_RUNHZ.SelectedIndex = 0
         L_TPS.Text = CInt(100 * ReadFlashWord(&H55806) / &H370)
 
