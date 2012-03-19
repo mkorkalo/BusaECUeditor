@@ -327,7 +327,7 @@ Public Class K8EngineDataViewer
     Private Sub B_LoadDataFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_LoadDataFile.Click
 
         OpenFileDialog1.FileName = ""
-        OpenFileDialog1.Filter = "*Raw.csv;*.log|*Raw.csv;*.log"
+        OpenFileDialog1.Filter = "*Raw.csv;*.wrl|*Raw.csv;*.wrl"
 
         OpenFileDialog1.Multiselect = True
 
@@ -386,7 +386,7 @@ Public Class K8EngineDataViewer
 
             _filePath = filePath
 
-            If _filePath.ToLower().Contains(".log") = True Then
+            If _filePath.ToLower().Contains(".wrl") = True Then
                 OpenLogFile()
             Else
                 OpenFile()
@@ -400,7 +400,7 @@ Public Class K8EngineDataViewer
         For Each filePath As String In _filePaths
             _filePath = filePath
 
-            If _filePath.ToLower().Contains(".log") = True Then
+            If _filePath.ToLower().Contains(".wrl") = True Then
                 OpenLogFile()
             Else
                 OpenFile()
@@ -616,52 +616,62 @@ Public Class K8EngineDataViewer
                 Dim filePointer As Integer = 0
                 Dim buffer(69) As Byte
 
-                While reader.Read(buffer, filePointer, 70) = 70
+                If reader.Read(buffer, filePointer, 6) = 6 Then
 
-                    Dim logValue As New LogValue
+                    Dim Product As Byte = buffer(0)
+                    Dim VersionMajor As Byte = buffer(1)
+                    Dim VersionMinor As Byte = buffer(2)
+                    Dim VerionRevision As Byte = buffer(3)
+                    Dim DataLogType As Byte = buffer(4)
+                    Dim DataPacketSize As Byte = buffer(5)
 
-                    Dim timeSpan As New TimeSpan(0, buffer(64), buffer(65), buffer(66), buffer(67) * 100 + buffer(68) * 10 + buffer(69))
-                    logValue.LogTimeSpan = timeSpan
+                    While reader.Read(buffer, filePointer, 70) = 70
 
-                    logValue.RPM = CInt((((&HFF * buffer(24)) + buffer(24)) / 2.55) / 10) * 10
-                    logValue.TPS = K8EngineDataLogger.CalcTPSDouble(buffer(26))
-                    logValue.IAP = K8EngineDataLogger.CalcPressure(buffer(30)) - K8EngineDataLogger.CalcPressure(buffer(27))
-                    logValue.H02 = buffer(32)
-                    logValue.WIDEBAND = buffer(20) * 256 + buffer(21)
+                        Dim logValue As New LogValue
 
-                    If C_WidebandO2Sensor.Checked Then
-                        logValue.AFR = K8EngineDataLogger.CalcWidebandAFR(logValue.WIDEBAND)
-                    Else
-                        logValue.AFR = K8EngineDataLogger.CalcAFR(logValue.H02)
-                    End If
+                        Dim timeSpan As New TimeSpan(0, buffer(64), buffer(65), buffer(66), buffer(67) * 100 + buffer(68) * 10 + buffer(69))
+                        logValue.LogTimeSpan = timeSpan
 
-                    logValue.IGN = K8EngineDataLogger.CalcIgnDeg(buffer(49))
+                        logValue.RPM = CInt((((&HFF * buffer(24)) + buffer(24)) / 2.55) / 10) * 10
+                        logValue.TPS = K8EngineDataLogger.CalcTPSDouble(buffer(26))
+                        logValue.IAP = K8EngineDataLogger.CalcPressure(buffer(30)) - K8EngineDataLogger.CalcPressure(buffer(27))
+                        logValue.H02 = buffer(32)
+                        logValue.WIDEBAND = buffer(20) * 256 + buffer(21)
 
-                    logValue.STP = K8EngineDataLogger.CalcSTP(buffer(53))
-                    logValue.GEAR = buffer(33)
-                    logValue.CLUTCH = buffer(59) And &H10
+                        If C_WidebandO2Sensor.Checked Then
+                            logValue.AFR = K8EngineDataLogger.CalcWidebandAFR(logValue.WIDEBAND)
+                        Else
+                            logValue.AFR = K8EngineDataLogger.CalcAFR(logValue.H02)
+                        End If
 
-                    If (buffer(60) And 2 = 0) Then
-                        logValue.NT = False
-                    Else
-                        logValue.NT = True
-                    End If
+                        logValue.IGN = K8EngineDataLogger.CalcIgnDeg(buffer(49))
 
-                    'logValue.BOOST = K8EngineDataLogger.CalcBoost(values(11))
-                    logValue.IP = K8EngineDataLogger.CalcPressure(buffer(27))
-                    logValue.AP = K8EngineDataLogger.CalcPressure(buffer(30))
-                    logValue.CLT = K8EngineDataLogger.CalcTemp(buffer(28))
-                    logValue.IAT = K8EngineDataLogger.CalcTemp(buffer(29))
-                    logValue.BATT = K8EngineDataLogger.CalcBattDouble(buffer(31))
-                    logValue.PAIR = K8EngineDataLogger.CalcPair(buffer(58) & 1)
-                    logValue.FUEL1 = (256 * buffer(38)) + buffer(39)
-                    logValue.FUEL2 = (256 * buffer(40)) + buffer(41)
-                    logValue.FUEL3 = (256 * buffer(42)) + buffer(43)
-                    logValue.FUEL4 = (256 * buffer(44)) + buffer(45)
-                    
-                    logValues.Add(logValue)
+                        logValue.STP = K8EngineDataLogger.CalcSTP(buffer(53))
+                        logValue.GEAR = buffer(33)
+                        logValue.CLUTCH = buffer(59) And &H10
 
-                End While
+                        If logValue.GEAR = 0 Then
+                            logValue.NT = True
+                        Else
+                            logValue.NT = False
+                        End If
+
+                        'logValue.BOOST = K8EngineDataLogger.CalcBoost(values(11))
+                        logValue.IP = K8EngineDataLogger.CalcPressure(buffer(27))
+                        logValue.AP = K8EngineDataLogger.CalcPressure(buffer(30))
+                        logValue.CLT = K8EngineDataLogger.CalcTemp(buffer(28))
+                        logValue.IAT = K8EngineDataLogger.CalcTemp(buffer(29))
+                        logValue.BATT = K8EngineDataLogger.CalcBattDouble(buffer(31))
+                        logValue.PAIR = K8EngineDataLogger.CalcPair(buffer(58) & 1)
+                        logValue.FUEL1 = (256 * buffer(38)) + buffer(39)
+                        logValue.FUEL2 = (256 * buffer(40)) + buffer(41)
+                        logValue.FUEL3 = (256 * buffer(42)) + buffer(43)
+                        logValue.FUEL4 = (256 * buffer(44)) + buffer(45)
+
+                        logValues.Add(logValue)
+
+                    End While
+                End If
 
                 reader.Close()
 
