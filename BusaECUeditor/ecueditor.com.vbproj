@@ -1,0 +1,1045 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DA23D625-3816-42EC-942D-3A183506DCE6}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>ecueditor_25.My.MyApplication</StartupObject>
+    <RootNamespace>ecueditor_25</RootNamespace>
+    <AssemblyName>ecueditor.com</AssemblyName>
+    <MyType>WindowsForms</MyType>
+    <SignManifests>false</SignManifests>
+    <ManifestCertificateThumbprint>A971FC8EB684E9C5154FF7DA720E29BCC7ADB15B</ManifestCertificateThumbprint>
+    <ManifestKeyFile>BusaECUeditor_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>true</GenerateManifests>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetZone>LocalIntranet</TargetZone>
+    <SignAssembly>false</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>Common\assemblykey.snk</AssemblyOriginatorKeyFile>
+    <ApplicationIcon>Common\ecueditor.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+    <PublishUrl>E:\Projects\Ecu Editor\Publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Background</UpdateMode>
+    <UpdateInterval>2</UpdateInterval>
+    <UpdateIntervalUnits>Weeks</UpdateIntervalUnits>
+    <UpdatePeriodically>true</UpdatePeriodically>
+    <UpdateRequired>true</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://ecueditorco.web713.discountasp.net/download/</InstallUrl>
+    <UpdateUrl>http://ecueditorco.web713.discountasp.net/download/</UpdateUrl>
+    <SupportUrl>http://www.ecueditor.com</SupportUrl>
+    <ErrorReportUrl>http://www.ecueditor.com</ErrorReportUrl>
+    <TargetCulture>en</TargetCulture>
+    <ProductName>ecueditor.com for Hayabusa K2-K7, K8-, BKing and Gixxer K7-</ProductName>
+    <PublisherName>ecueditor.com</PublisherName>
+    <MinimumRequiredVersion>2.5.5.75</MinimumRequiredVersion>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>ecueditor_prerelease.htm</WebPage>
+    <TrustUrlParameters>true</TrustUrlParameters>
+    <ApplicationRevision>86</ApplicationRevision>
+    <ApplicationVersion>2.5.5.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>ecueditor.com.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>ecueditor.com.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AGauge, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dlls\AGauge.dll</HintPath>
+    </Reference>
+    <Reference Include="AquaGauge, Version=1.0.2800.27798, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>dlls\AquaGauge.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.ECHARTCONTROLLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=887bc6c162681cf2, processorArchitecture=MSIL">
+      <HintPath>dlls\AxInterop.ECHARTCONTROLLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Lxsoft.Controls.LedControl, Version=1.0.2755.28697, Culture=neutral, PublicKeyToken=ab1b2a8e4bff52ad, processorArchitecture=MSIL">
+      <HintPath>dlls\Lxsoft.Controls.LedControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TwitterVB, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dlls\TwitterVB.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="BKing\BKingFuelmap.Designer.vb">
+      <DependentUpon>BKingFuelmap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BKing\BKingFuelmap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BKing\BKingShifter.Designer.vb">
+      <DependentUpon>BKingShifter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BKing\BKingShifter.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BKing\BKingSTPMap.Designer.vb">
+      <DependentUpon>BKingSTPMap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Common\AboutBox.Designer.vb">
+      <DependentUpon>AboutBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Common\AboutBox.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BKing\BKingLimiters.Designer.vb">
+      <DependentUpon>BKingLimiters.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BKing\BKingLimiters.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BKing\BKingAdvSettings.Designer.vb">
+      <DependentUpon>BKingAdvSettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BKing\BKingAdvSettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BKing\BKingSTPMap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BKing\BKingInjectorBalanceMap.Designer.vb">
+      <DependentUpon>BKingInjectorBalanceMap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BKing\BKingInjectorBalanceMap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BKing\BKingIgnitionMap.Designer.vb">
+      <DependentUpon>BKingIgnitionMap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BKing\BKingIgnitionMap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8BoostFuelExtended.Designer.vb">
+      <DependentUpon>K8BoostFuelExtended.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8BoostFuelExtended.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8EngineDataLogger.Designer.vb">
+      <DependentUpon>K8EngineDataLogger.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8EngineDataLogger.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8EngineDataViewer.Designer.vb">
+      <DependentUpon>K8EngineDataViewer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8EngineDataViewer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\tw_username.Designer.vb">
+      <DependentUpon>tw_username.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Common\tw_username.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\tw_auth.Designer.vb">
+      <DependentUpon>tw_auth.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Common\tw_auth.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\LogValue.vb" />
+    <Compile Include="Common\Updateavail.Designer.vb">
+      <DependentUpon>Updateavail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Updateavail.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8dragtools.Designer.vb">
+      <DependentUpon>K8dragtools.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8dragtools.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8boostdiagram.Designer.vb">
+      <DependentUpon>K8boostdiagram.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8boostdiagram.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8dwellignition.Designer.vb">
+      <DependentUpon>K8dwellignition.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8dwellignition.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8EngineDataFilter.Designer.vb">
+      <DependentUpon>K8EngineDataFilter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8EngineDataFilter.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8injectorbalancemap.Designer.vb">
+      <DependentUpon>K8injectorbalancemap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8injectorbalancemap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8nitrouscontrol.Designer.vb">
+      <DependentUpon>K8nitrouscontrol.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8nitrouscontrol.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8ramair.Designer.vb">
+      <DependentUpon>K8ramair.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8ramair.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8STPmap.Designer.vb">
+      <DependentUpon>K8STPmap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8STPmap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\gen2printsummary.Designer.vb">
+      <DependentUpon>gen2printsummary.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\gen2printsummary.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8boostfuel.Designer.vb">
+      <DependentUpon>K8boostfuel.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8boostfuel.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8setupcomport.Designer.vb">
+      <DependentUpon>K8setupcomport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8setupcomport.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8enginedatalog.Designer.vb">
+      <DependentUpon>K8enginedatalog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8enginedatalog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8Shifter.Designer.vb">
+      <DependentUpon>K8Shifter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8Shifter.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8Advsettings.Designer.vb">
+      <DependentUpon>K8Advsettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8Advsettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8FlashStatus.Designer.vb">
+      <DependentUpon>K8FlashStatus.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8FlashStatus.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8Ignitionmap.Designer.vb">
+      <DependentUpon>K8Ignitionmap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8Ignitionmap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8Fuelmap.Designer.vb">
+      <DependentUpon>K8Fuelmap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8Fuelmap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8Datastream.Designer.vb">
+      <DependentUpon>K8Datastream.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8Datastream.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8Limiters.Designer.vb">
+      <DependentUpon>K8Limiters.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8Limiters.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G1\DataStream.Designer.vb">
+      <DependentUpon>DataStream.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G1\DataStream.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G1\DataLogger.Designer.vb">
+      <DependentUpon>DataLogger.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G1\DataLogger.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\AcceptTerms.Designer.vb">
+      <DependentUpon>AcceptTerms.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Common\AcceptTerms.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G1\InterfaceDialog.Designer.vb">
+      <DependentUpon>InterfaceDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G1\InterfaceDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\LoginForm.Designer.vb">
+      <DependentUpon>LoginForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Common\LoginForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G1\ShifterInstructions.Designer.vb">
+      <DependentUpon>ShifterInstructions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G1\ShifterInstructions.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\MapSharing.Designer.vb">
+      <DependentUpon>MapSharing.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Common\MapSharing.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G1\Shifter.Designer.vb">
+      <DependentUpon>Shifter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G1\Shifter.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G1\AdvSettings.Designer.vb">
+      <DependentUpon>AdvSettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G1\AdvSettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G1\IgnitionMap.Designer.vb">
+      <DependentUpon>IgnitionMap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G1\IgnitionMap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\ProgramHomepage.Designer.vb">
+      <DependentUpon>ProgramHomepage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ProgramHomepage.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G1\Limiters.Designer.vb">
+      <DependentUpon>Limiters.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G1\Limiters.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G1\ldGuage.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\ProgramUpdate.Designer.vb">
+      <DependentUpon>ProgramUpdate.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ProgramUpdate.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G1\FuelMapEditing.Designer.vb">
+      <DependentUpon>FuelMapEditing.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G1\FuelMapEditing.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\ECUNotSupported.Designer.vb">
+      <DependentUpon>ECUNotSupported.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ECUNotSupported.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\ErrorDialogue.Designer.vb">
+      <DependentUpon>ErrorDialogue.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ErrorDialogue.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\FileSaveNotice.Designer.vb">
+      <DependentUpon>FileSaveNotice.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Common\FileSaveNotice.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\Main.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\Main.Designer.vb">
+      <DependentUpon>Main.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G1\FuelMap.Designer.vb">
+      <DependentUpon>FuelMap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G1\FuelMap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\CommonFunctions.vb" />
+    <Compile Include="G2\K8gaugetools.Designer.vb">
+      <DependentUpon>K8gaugetools.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8gaugetools.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="G2\K8AutoTuneSettings.Designer.vb">
+      <DependentUpon>K8AutoTuneSettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="G2\K8AutoTuneSettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gixxer\Gixxersteeringdampenermap.Designer.vb">
+      <DependentUpon>Gixxersteeringdampenermap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Gixxer\Gixxersteeringdampenermap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gixxer\GixxerFuelGraph.Designer.vb">
+      <DependentUpon>GixxerFuelGraph.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Gixxer\GixxerFuelGraph.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gixxer\GixxerSTPmap.designer.vb">
+      <DependentUpon>GixxerSTPmap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Gixxer\GixxerSTPmap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gixxer\GixxerAdvSettings.Designer.vb">
+      <DependentUpon>GixxerAdvSettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Gixxer\GixxerAdvSettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gixxer\GixxerFuelmap.Designer.vb">
+      <DependentUpon>GixxerFuelmap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Gixxer\GixxerFuelmap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gixxer\GixxerLimiters.Designer.vb">
+      <DependentUpon>GixxerLimiters.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Gixxer\GixxerLimiters.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gixxer\GixxerIgnitionmap.Designer.vb">
+      <DependentUpon>GixxerIgnitionmap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Gixxer\GixxerIgnitionmap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gixxer\Gixxerinjectorbalancemap.Designer.vb">
+      <DependentUpon>Gixxerinjectorbalancemap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Gixxer\Gixxerinjectorbalancemap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gixxer\GixxerShifter.Designer.vb">
+      <DependentUpon>GixxerShifter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Gixxer\GixxerShifter.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gixxer\Gixxerramair.Designer.vb">
+      <DependentUpon>Gixxerramair.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Gixxer\Gixxerramair.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Common\UserBikeInfo.Designer.vb">
+      <DependentUpon>UserBikeInfo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Common\UserBikeInfo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\VerifyInProgress.Designer.vb">
+      <DependentUpon>VerifyInProgress.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Common\VerifyInProgress.vb">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Common\AboutBox.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AboutBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8BoostFuelExtended.resx">
+      <DependentUpon>K8BoostFuelExtended.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8EngineDataLogger.resx">
+      <DependentUpon>K8EngineDataLogger.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8EngineDataViewer.resx">
+      <DependentUpon>K8EngineDataViewer.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\tw_username.resx">
+      <DependentUpon>tw_username.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\tw_auth.resx">
+      <DependentUpon>tw_auth.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G1\DataStream.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DataStream.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G1\ldGuage.resx">
+      <DependentUpon>ldGuage.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\ProgramUpdate.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ProgramUpdate.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G1\FuelMapEditing.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FuelMapEditing.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\ECUNotSupported.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ECUNotSupported.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\ErrorDialogue.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ErrorDialogue.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Main.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Main.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G1\FuelMap.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FuelMap.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gixxer\Gixxersteeringdampenermap.resx">
+      <DependentUpon>Gixxersteeringdampenermap.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gixxer\GixxerFuelGraph.resx">
+      <DependentUpon>GixxerFuelGraph.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gixxer\GixxerSTPmap.resx">
+      <DependentUpon>GixxerSTPmap.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gixxer\GixxerAdvSettings.resx">
+      <DependentUpon>GixxerAdvSettings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gixxer\Gixxerinjectorbalancemap.resx">
+      <DependentUpon>Gixxerinjectorbalancemap.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gixxer\GixxerShifter.resx">
+      <DependentUpon>GixxerShifter.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gixxer\Gixxerramair.resx">
+      <DependentUpon>Gixxerramair.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\FileSaveNotice.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FileSaveNotice.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="750K11EU_DJF4SE00.bin" />
+    <None Include="app.config" />
+    <None Include="BusaECUeditor_TemporaryKey.pfx" />
+    <EmbeddedResource Include="dlls\TwitterVB.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Content Include="ecu.bin\shifterbking.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Common\app.config" />
+    <BaseApplicationManifest Include="My Project\app.manifest" />
+    <None Include="Common\assemblykey.snk" />
+    <Content Include="ecu.bin\BKing.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\BKingUS.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\K8.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\G1BusaEUdefault.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\G1BusaShifter2.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\G1BusaUSdefault.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\gen2tools.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Common\BaseTargetAFR.tafr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\dragtools.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\GixxerK7.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\GixxerK8.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\GixxerK7EU.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\gixxershifter.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\Gixxer21H00.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\gixxerk9.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\Gixxerk9US.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\Gixxer21H10.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\Gixxer21H70.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\BkingGauges.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\21H50_DJ0HSE01.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\G750K9.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\G750K9G.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\37H00_DJ55SE00.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\shiftergixxerk9.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\DJ0HSE70.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\DJ55SE10.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\DJF4SE00.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\DJE4SE01.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\DJ47SE10.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\BoostFuel.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\BoostFuelExtended.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="My Project\DataSources\GixxerFuelmap.datasource" />
+    <None Include="My Project\DataSources\K8boostfuel.datasource">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <Content Include="ecu.bin\nitrouscontrol.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ecu.bin\shiftergen2.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="G1\Limiters.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Limiters.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Common\AcceptTerms.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AcceptTerms.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8Shifter.resx">
+      <DependentUpon>K8Shifter.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8Advsettings.resx">
+      <DependentUpon>K8Advsettings.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8FlashStatus.resx">
+      <DependentUpon>K8FlashStatus.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8Ignitionmap.resx">
+      <DependentUpon>K8Ignitionmap.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8Fuelmap.resx">
+      <DependentUpon>K8Fuelmap.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8Datastream.resx">
+      <DependentUpon>K8Datastream.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8Limiters.resx">
+      <DependentUpon>K8Limiters.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G1\DataLogger.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DataLogger.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G1\InterfaceDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InterfaceDialog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G1\ShifterInstructions.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ShifterInstructions.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\MapSharing.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MapSharing.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G1\Shifter.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Shifter.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G1\AdvSettings.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AdvSettings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G1\IgnitionMap.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>IgnitionMap.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\ProgramHomepage.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ProgramHomepage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\UserBikeInfo.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UserBikeInfo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\VerifyInProgress.resx">
+      <DependentUpon>VerifyInProgress.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BKing\BKingShifter.resx">
+      <DependentUpon>BKingShifter.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BKing\BKingLimiters.resx">
+      <DependentUpon>BKingLimiters.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BKing\BKingAdvSettings.resx">
+      <DependentUpon>BKingAdvSettings.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BKing\BKingFuelmap.resx">
+      <DependentUpon>BKingFuelmap.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BKing\BKingSTPMap.resx">
+      <DependentUpon>BKingSTPMap.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BKing\BKingInjectorBalanceMap.resx">
+      <DependentUpon>BKingInjectorBalanceMap.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BKing\BKingIgnitionMap.resx">
+      <DependentUpon>BKingIgnitionMap.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Updateavail.resx">
+      <DependentUpon>Updateavail.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8dragtools.resx">
+      <DependentUpon>K8dragtools.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8boostdiagram.resx">
+      <DependentUpon>K8boostdiagram.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8dwellignition.resx">
+      <DependentUpon>K8dwellignition.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8EngineDataFilter.resx">
+      <DependentUpon>K8EngineDataFilter.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8injectorbalancemap.resx">
+      <DependentUpon>K8injectorbalancemap.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8nitrouscontrol.resx">
+      <DependentUpon>K8nitrouscontrol.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8ramair.resx">
+      <DependentUpon>K8ramair.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8STPmap.resx">
+      <DependentUpon>K8STPmap.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\gen2printsummary.resx">
+      <DependentUpon>gen2printsummary.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8boostfuel.resx">
+      <DependentUpon>K8boostfuel.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8setupcomport.resx">
+      <DependentUpon>K8setupcomport.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8enginedatalog.resx">
+      <DependentUpon>K8enginedatalog.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="Common\Copy of ecueditor.ico" />
+    <Content Include="Common\ecueditor.ico" />
+    <Content Include="Common\FTDI_CDM_2.04.16.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="dlls\AGauge.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlls\AquaGauge.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlls\AxInterop.ECHARTCONTROLLib.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlls\AxInterop.Graph.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlls\AxInterop.MTSSDKLib.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlls\AxInterop.NTGRAPH3DLib.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlls\AxInterop.XEDECTRLLib.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlls\Interop.Graph.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlls\Interop.MTSSDKLib.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlls\Interop.NTGRAPH3DLib.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlls\Interop.XEDECTRLLib.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlls\Lxsoft.Controls.LedControl.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlls\SpPerfChart.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Content Include="G2\shifter_dsm.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Gixxer\shifter.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Gixxer\shifter_dsm.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="gpl.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="G2\shifter.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Common\LoginForm.resx">
+      <DependentUpon>LoginForm.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8gaugetools.resx">
+      <DependentUpon>K8gaugetools.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="G2\K8AutoTuneSettings.resx">
+      <DependentUpon>K8AutoTuneSettings.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gixxer\GixxerFuelmap.resx">
+      <DependentUpon>GixxerFuelmap.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gixxer\GixxerLimiters.resx">
+      <DependentUpon>GixxerLimiters.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gixxer\GixxerIgnitionmap.resx">
+      <DependentUpon>GixxerIgnitionmap.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ecu.c\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
