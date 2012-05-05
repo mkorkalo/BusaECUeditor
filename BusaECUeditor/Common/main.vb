@@ -759,7 +759,6 @@ skip_update:
 
     End Sub
 
-
     Private Sub ProgramUpdateToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
         ProgramUpdate.Show()
@@ -4645,7 +4644,6 @@ skip_update:
 #End Region
 
 
-
     Private Sub FlashSerial_old()
 
         Dim path As String
@@ -5500,8 +5498,6 @@ skip_update:
 
 
     End Sub
-
-
 
     Private Sub RecoveryToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RecoveryToolStripMenuItem.Click
         ' Lets use OpenFileDialog to open a new flash image file
@@ -6836,6 +6832,12 @@ skip_update:
 
     Private Sub GetInterfaceFromWoolichRacingcomToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles GetInterfaceFromWoolichRacingcomToolStripMenuItem.Click
         Process.Start("http://www.WoolichRacing.com/Products.aspx")
+    End Sub
+
+    Private Sub WoolichRacingLogBoxConfigToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles WoolichRacingLogBoxConfigToolStripMenuItem.Click
+
+        LogBoxCfg.Show()
+
     End Sub
 End Class
 
