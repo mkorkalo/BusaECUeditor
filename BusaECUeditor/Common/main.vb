@@ -2092,7 +2092,7 @@ skip_update:
             ResetBlocks()
             BlockPgm = True
         Else
-            K8FlashStatus.fmode.Text = "Flash OK, turn switch to enginedata"
+            K8FlashStatus.fmode.Text = "Flash OK, turn switch to enginedata or click Close button below"
             ResetBlocks()
             BlockPgm = False
         End If
@@ -2107,12 +2107,22 @@ skip_update:
         FT_status = FT_ClrDtr(lngHandle) 'new for Interface V1.1
         System.Threading.Thread.Sleep(100)
         '****************************************************************************************************************************
+
+        'Enable the Close button on the K8 Flash Screen
+        K8FlashStatus.CloseEnabled = True
+
         FT_status = FT_GetModemStatus(lngHandle, modemstat)
+
         While ((modemstat = &H6000) Or (modemstat = &H6200))
+            If K8FlashStatus.ClosedStatus = True Then
+                Exit While
+            End If
+
             FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
             System.Threading.Thread.Sleep(200)
             FT_status = FT_GetModemStatus(lngHandle, modemstat)
         End While
+
         K8FlashStatus.Close()
         B_FlashECU.Enabled = True
 
