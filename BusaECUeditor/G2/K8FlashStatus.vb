@@ -29,6 +29,7 @@ Public Class K8FlashStatus
         End Get
         Set(value As Boolean)
             btnClose.Enabled = value
+            lblClose.Visible = value
         End Set
     End Property
 
@@ -37,6 +38,6 @@ Public Class K8FlashStatus
     End Sub
 
     Private Sub K8FlashStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        _closedStatus = False
+        CloseEnabled = False
     End Sub
 End Class
