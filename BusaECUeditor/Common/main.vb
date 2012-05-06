@@ -2092,7 +2092,7 @@ skip_update:
             ResetBlocks()
             BlockPgm = True
         Else
-            K8FlashStatus.fmode.Text = "Flash OK, turn switch to enginedata or click Close button below"
+            K8FlashStatus.fmode.Text = "Flash OK, turn switch to enginedata"
             ResetBlocks()
             BlockPgm = False
         End If
@@ -2114,12 +2114,17 @@ skip_update:
         FT_status = FT_GetModemStatus(lngHandle, modemstat)
 
         While ((modemstat = &H6000) Or (modemstat = &H6200))
+
+            Application.DoEvents()
+
             If K8FlashStatus.ClosedStatus = True Then
                 Exit While
             End If
 
             FT_status = FT_GetStatus(lngHandle, rxqueue, txqueue, eventstat)
             System.Threading.Thread.Sleep(200)
+
+            modemstat = 0
             FT_status = FT_GetModemStatus(lngHandle, modemstat)
         End While
 

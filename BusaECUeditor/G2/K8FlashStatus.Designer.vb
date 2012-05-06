@@ -27,6 +27,7 @@ Partial Class K8FlashStatus
         Me.fmode = New System.Windows.Forms.Label()
         Me.L_elapsedtime = New System.Windows.Forms.Label()
         Me.btnClose = New System.Windows.Forms.Button()
+        Me.lblClose = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Progressbar_Flashstatus
@@ -46,7 +47,7 @@ Partial Class K8FlashStatus
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(14, 20)
+        Me.Label1.Location = New System.Drawing.Point(14, 5)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(105, 22)
         Me.Label1.TabIndex = 1
@@ -57,7 +58,7 @@ Partial Class K8FlashStatus
         Me.fmode.AutoSize = True
         Me.fmode.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.fmode.ForeColor = System.Drawing.Color.Black
-        Me.fmode.Location = New System.Drawing.Point(125, 20)
+        Me.fmode.Location = New System.Drawing.Point(125, 5)
         Me.fmode.Name = "fmode"
         Me.fmode.Size = New System.Drawing.Size(70, 22)
         Me.fmode.TabIndex = 2
@@ -82,12 +83,25 @@ Partial Class K8FlashStatus
         Me.btnClose.Text = "Close"
         Me.btnClose.UseVisualStyleBackColor = True
         '
+        'lblClose
+        '
+        Me.lblClose.AutoSize = True
+        Me.lblClose.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblClose.ForeColor = System.Drawing.Color.Black
+        Me.lblClose.Location = New System.Drawing.Point(125, 27)
+        Me.lblClose.Name = "lblClose"
+        Me.lblClose.Size = New System.Drawing.Size(267, 22)
+        Me.lblClose.TabIndex = 5
+        Me.lblClose.Text = "or click the Close button below"
+        Me.lblClose.Visible = False
+        '
         'K8FlashStatus
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(449, 145)
         Me.ControlBox = False
+        Me.Controls.Add(Me.lblClose)
         Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.L_elapsedtime)
         Me.Controls.Add(Me.fmode)
@@ -110,5 +124,6 @@ Partial Class K8FlashStatus
     Friend WithEvents fmode As System.Windows.Forms.Label
     Friend WithEvents L_elapsedtime As System.Windows.Forms.Label
     Friend WithEvents btnClose As System.Windows.Forms.Button
+    Friend WithEvents lblClose As System.Windows.Forms.Label
 
 End Class
