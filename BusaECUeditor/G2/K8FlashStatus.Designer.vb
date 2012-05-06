@@ -22,10 +22,11 @@ Partial Class K8FlashStatus
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Progressbar_Flashstatus = New System.Windows.Forms.ProgressBar
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.fmode = New System.Windows.Forms.Label
-        Me.L_elapsedtime = New System.Windows.Forms.Label
+        Me.Progressbar_Flashstatus = New System.Windows.Forms.ProgressBar()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.fmode = New System.Windows.Forms.Label()
+        Me.L_elapsedtime = New System.Windows.Forms.Label()
+        Me.btnClose = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Progressbar_Flashstatus
@@ -71,12 +72,23 @@ Partial Class K8FlashStatus
         Me.L_elapsedtime.TabIndex = 3
         Me.L_elapsedtime.Text = "Elapsed time"
         '
+        'btnClose
+        '
+        Me.btnClose.Enabled = False
+        Me.btnClose.Location = New System.Drawing.Point(190, 119)
+        Me.btnClose.Name = "btnClose"
+        Me.btnClose.Size = New System.Drawing.Size(75, 23)
+        Me.btnClose.TabIndex = 4
+        Me.btnClose.Text = "Close"
+        Me.btnClose.UseVisualStyleBackColor = True
+        '
         'K8FlashStatus
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(449, 127)
+        Me.ClientSize = New System.Drawing.Size(449, 145)
         Me.ControlBox = False
+        Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.L_elapsedtime)
         Me.Controls.Add(Me.fmode)
         Me.Controls.Add(Me.Label1)
@@ -97,5 +109,6 @@ Partial Class K8FlashStatus
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents fmode As System.Windows.Forms.Label
     Friend WithEvents L_elapsedtime As System.Windows.Forms.Label
+    Friend WithEvents btnClose As System.Windows.Forms.Button
 
 End Class
