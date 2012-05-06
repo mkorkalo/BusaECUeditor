@@ -37,6 +37,7 @@ Partial Class K8EngineDataFilter
         Me.L_AutoTuneFilterTransitionsTPS = New System.Windows.Forms.Label()
         Me.NUD_AutoTuneFilterTransitionsIAP = New System.Windows.Forms.NumericUpDown()
         Me.NUD_AutoTuneFilterTransitionsTPS = New System.Windows.Forms.NumericUpDown()
+        Me.C_FilterZeroRPM = New System.Windows.Forms.CheckBox()
         CType(Me.NUD_FilterAFRGreaterThan, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_FilterAFRLessThan, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_AutoTuneFilterTransitionsIAP, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -94,7 +95,7 @@ Partial Class K8EngineDataFilter
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(9, 123)
+        Me.Label1.Location = New System.Drawing.Point(9, 144)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(115, 13)
         Me.Label1.TabIndex = 5
@@ -103,7 +104,7 @@ Partial Class K8EngineDataFilter
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(9, 100)
+        Me.Label2.Location = New System.Drawing.Point(9, 121)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(115, 13)
         Me.Label2.TabIndex = 6
@@ -112,7 +113,7 @@ Partial Class K8EngineDataFilter
         'NUD_FilterAFRGreaterThan
         '
         Me.NUD_FilterAFRGreaterThan.DecimalPlaces = 1
-        Me.NUD_FilterAFRGreaterThan.Location = New System.Drawing.Point(129, 121)
+        Me.NUD_FilterAFRGreaterThan.Location = New System.Drawing.Point(129, 142)
         Me.NUD_FilterAFRGreaterThan.Maximum = New Decimal(New Integer() {25, 0, 0, 0})
         Me.NUD_FilterAFRGreaterThan.Minimum = New Decimal(New Integer() {14, 0, 0, 0})
         Me.NUD_FilterAFRGreaterThan.Name = "NUD_FilterAFRGreaterThan"
@@ -123,7 +124,7 @@ Partial Class K8EngineDataFilter
         'NUD_FilterAFRLessThan
         '
         Me.NUD_FilterAFRLessThan.DecimalPlaces = 1
-        Me.NUD_FilterAFRLessThan.Location = New System.Drawing.Point(129, 98)
+        Me.NUD_FilterAFRLessThan.Location = New System.Drawing.Point(129, 119)
         Me.NUD_FilterAFRLessThan.Maximum = New Decimal(New Integer() {12, 0, 0, 0})
         Me.NUD_FilterAFRLessThan.Name = "NUD_FilterAFRLessThan"
         Me.NUD_FilterAFRLessThan.Size = New System.Drawing.Size(49, 20)
@@ -133,7 +134,7 @@ Partial Class K8EngineDataFilter
         'C_FilterIAPDecel
         '
         Me.C_FilterIAPDecel.AutoSize = True
-        Me.C_FilterIAPDecel.Location = New System.Drawing.Point(13, 79)
+        Me.C_FilterIAPDecel.Location = New System.Drawing.Point(13, 100)
         Me.C_FilterIAPDecel.Name = "C_FilterIAPDecel"
         Me.C_FilterIAPDecel.Size = New System.Drawing.Size(131, 17)
         Me.C_FilterIAPDecel.TabIndex = 9
@@ -143,7 +144,7 @@ Partial Class K8EngineDataFilter
         'C_FilterCellTransitions
         '
         Me.C_FilterCellTransitions.AutoSize = True
-        Me.C_FilterCellTransitions.Location = New System.Drawing.Point(13, 140)
+        Me.C_FilterCellTransitions.Location = New System.Drawing.Point(13, 161)
         Me.C_FilterCellTransitions.Name = "C_FilterCellTransitions"
         Me.C_FilterCellTransitions.Size = New System.Drawing.Size(122, 17)
         Me.C_FilterCellTransitions.TabIndex = 10
@@ -153,7 +154,7 @@ Partial Class K8EngineDataFilter
         'L_AutoTuneFilterTransitionsIAP
         '
         Me.L_AutoTuneFilterTransitionsIAP.AutoSize = True
-        Me.L_AutoTuneFilterTransitionsIAP.Location = New System.Drawing.Point(29, 161)
+        Me.L_AutoTuneFilterTransitionsIAP.Location = New System.Drawing.Point(29, 182)
         Me.L_AutoTuneFilterTransitionsIAP.Name = "L_AutoTuneFilterTransitionsIAP"
         Me.L_AutoTuneFilterTransitionsIAP.Size = New System.Drawing.Size(98, 13)
         Me.L_AutoTuneFilterTransitionsIAP.TabIndex = 11
@@ -162,7 +163,7 @@ Partial Class K8EngineDataFilter
         'L_AutoTuneFilterTransitionsTPS
         '
         Me.L_AutoTuneFilterTransitionsTPS.AutoSize = True
-        Me.L_AutoTuneFilterTransitionsTPS.Location = New System.Drawing.Point(29, 185)
+        Me.L_AutoTuneFilterTransitionsTPS.Location = New System.Drawing.Point(29, 206)
         Me.L_AutoTuneFilterTransitionsTPS.Name = "L_AutoTuneFilterTransitionsTPS"
         Me.L_AutoTuneFilterTransitionsTPS.Size = New System.Drawing.Size(102, 13)
         Me.L_AutoTuneFilterTransitionsTPS.TabIndex = 12
@@ -171,7 +172,7 @@ Partial Class K8EngineDataFilter
         'NUD_AutoTuneFilterTransitionsIAP
         '
         Me.NUD_AutoTuneFilterTransitionsIAP.DecimalPlaces = 1
-        Me.NUD_AutoTuneFilterTransitionsIAP.Location = New System.Drawing.Point(129, 159)
+        Me.NUD_AutoTuneFilterTransitionsIAP.Location = New System.Drawing.Point(129, 180)
         Me.NUD_AutoTuneFilterTransitionsIAP.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
         Me.NUD_AutoTuneFilterTransitionsIAP.Name = "NUD_AutoTuneFilterTransitionsIAP"
         Me.NUD_AutoTuneFilterTransitionsIAP.Size = New System.Drawing.Size(49, 20)
@@ -181,19 +182,30 @@ Partial Class K8EngineDataFilter
         'NUD_AutoTuneFilterTransitionsTPS
         '
         Me.NUD_AutoTuneFilterTransitionsTPS.DecimalPlaces = 1
-        Me.NUD_AutoTuneFilterTransitionsTPS.Location = New System.Drawing.Point(129, 183)
+        Me.NUD_AutoTuneFilterTransitionsTPS.Location = New System.Drawing.Point(129, 204)
         Me.NUD_AutoTuneFilterTransitionsTPS.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
         Me.NUD_AutoTuneFilterTransitionsTPS.Name = "NUD_AutoTuneFilterTransitionsTPS"
         Me.NUD_AutoTuneFilterTransitionsTPS.Size = New System.Drawing.Size(49, 20)
         Me.NUD_AutoTuneFilterTransitionsTPS.TabIndex = 14
         Me.NUD_AutoTuneFilterTransitionsTPS.Value = New Decimal(New Integer() {10, 0, 0, 0})
         '
+        'C_FilterZeroRPM
+        '
+        Me.C_FilterZeroRPM.AutoSize = True
+        Me.C_FilterZeroRPM.Location = New System.Drawing.Point(12, 77)
+        Me.C_FilterZeroRPM.Name = "C_FilterZeroRPM"
+        Me.C_FilterZeroRPM.Size = New System.Drawing.Size(128, 17)
+        Me.C_FilterZeroRPM.TabIndex = 15
+        Me.C_FilterZeroRPM.Text = "Filter out 0 RPM Data"
+        Me.C_FilterZeroRPM.UseVisualStyleBackColor = True
+        '
         'K8EngineDataFilter
         '
         Me.AcceptButton = Me.btnOk
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(407, 208)
+        Me.ClientSize = New System.Drawing.Size(412, 240)
+        Me.Controls.Add(Me.C_FilterZeroRPM)
         Me.Controls.Add(Me.NUD_AutoTuneFilterTransitionsTPS)
         Me.Controls.Add(Me.NUD_AutoTuneFilterTransitionsIAP)
         Me.Controls.Add(Me.L_AutoTuneFilterTransitionsTPS)
@@ -238,4 +250,5 @@ Partial Class K8EngineDataFilter
     Friend WithEvents L_AutoTuneFilterTransitionsTPS As System.Windows.Forms.Label
     Friend WithEvents NUD_AutoTuneFilterTransitionsIAP As System.Windows.Forms.NumericUpDown
     Friend WithEvents NUD_AutoTuneFilterTransitionsTPS As System.Windows.Forms.NumericUpDown
+    Friend WithEvents C_FilterZeroRPM As System.Windows.Forms.CheckBox
 End Class

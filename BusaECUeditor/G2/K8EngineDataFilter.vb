@@ -5,6 +5,7 @@
         C_FilterCLT80.Checked = My.Settings.FilterCLT80
         C_GearNeutral.Checked = My.Settings.FilterGearNeutral
         C_FilterClutchIn.Checked = My.Settings.FilterClutchIn
+        C_FilterZeroRPM.Checked = My.Settings.FilterZeroRPMData
         NUD_FilterAFRLessThan.Value = My.Settings.FilterAFRLessThan
         NUD_FilterAFRGreaterThan.Value = My.Settings.FilterAFRGreaterThan
         C_FilterIAPDecel.Checked = My.Settings.FilterIAPDecl
@@ -20,6 +21,7 @@
         My.Settings.FilterCLT80 = C_FilterCLT80.Checked
         My.Settings.FilterClutchIn = C_FilterClutchIn.Checked
         My.Settings.FilterGearNeutral = C_GearNeutral.Checked
+        My.Settings.FilterZeroRPMData = C_FilterZeroRPM.Checked
         My.Settings.FilterAFRLessThan = NUD_FilterAFRLessThan.Value
         My.Settings.FilterAFRGreaterThan = NUD_FilterAFRGreaterThan.Value
         My.Settings.FilterIAPDecl = C_FilterIAPDecel.Checked
@@ -29,7 +31,7 @@
         My.Settings.Save()
 
         K8EngineDataViewer.ClearData()
-        K8EngineDataViewer.OpenFile()
+        K8EngineDataViewer.OpenFiles()
 
         Me.Close()
 

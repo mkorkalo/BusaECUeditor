@@ -327,7 +327,7 @@ Public Class K8EngineDataViewer
     Private Sub B_LoadDataFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_LoadDataFile.Click
 
         OpenFileDialog1.FileName = ""
-        OpenFileDialog1.Filter = "*Raw.csv|*Raw.csv"
+        OpenFileDialog1.Filter = "*Raw.csv;*.wrl|*Raw.csv;*.wrl"
 
         OpenFileDialog1.Multiselect = True
 
@@ -336,6 +336,7 @@ Public Class K8EngineDataViewer
             _fileType = 1
 
             For Each fileName As String In OpenFileDialog1.FileNames
+
                 _filePath = fileName
 
                 If _filePaths.Contains(fileName) = False Then
@@ -381,8 +382,16 @@ Public Class K8EngineDataViewer
 
     Public Sub OpenFile(ByVal filePath As String)
 
-        _filePath = filePath
-        OpenFile()
+        If String.IsNullOrEmpty(filePath) = False Then
+
+            _filePath = filePath
+
+            If _filePath.ToLower().Contains(".wrl") = True Then
+                OpenLogFile()
+            Else
+                OpenFile()
+            End If
+        End If
 
     End Sub
 
@@ -390,7 +399,12 @@ Public Class K8EngineDataViewer
 
         For Each filePath As String In _filePaths
             _filePath = filePath
-            OpenFile()
+
+            If _filePath.ToLower().Contains(".wrl") = True Then
+                OpenLogFile()
+            Else
+                OpenFile()
+            End If
         Next
 
     End Sub
@@ -588,6 +602,208 @@ Public Class K8EngineDataViewer
 
     End Sub
 
+    Public Sub OpenLogFile()
+        Try
+            If String.IsNullOrEmpty(_filePath) = False Then
+
+                L_FileName.Text = _filePath
+
+                Dim reader As BinaryReader = New BinaryReader(File.OpenRead(_filePath))
+                Dim logValues As List(Of LogValue) = New List(Of LogValue)
+                Dim previousLogValue As New LogValue
+
+                Dim result As Integer = 0
+                Dim filePointer As Integer = 0
+                Dim buffer(69) As Byte
+
+                If reader.Read(buffer, filePointer, 6) = 6 Then
+
+                    Dim Product As Byte = buffer(0)
+                    Dim VersionMajor As Byte = buffer(1)
+                    Dim VersionMinor As Byte = buffer(2)
+                    Dim VerionRevision As Byte = buffer(3)
+                    Dim DataLogType As Byte = buffer(4)
+                    Dim DataPacketSize As Byte = buffer(5)
+
+                    While reader.Read(buffer, filePointer, 70) = 70
+
+                        Dim logValue As New LogValue
+
+                        Dim timeSpan As New TimeSpan(0, buffer(64), buffer(65), buffer(66), buffer(67) * 100 + buffer(68) * 10 + buffer(69))
+                        logValue.LogTimeSpan = timeSpan
+
+                        logValue.RPM = CInt((((&HFF * buffer(24)) + buffer(24)) / 2.55) / 10) * 10
+                        logValue.TPS = K8EngineDataLogger.CalcTPSDouble(buffer(26))
+                        logValue.IAP = K8EngineDataLogger.CalcPressure(buffer(30)) - K8EngineDataLogger.CalcPressure(buffer(27))
+                        logValue.H02 = buffer(32)
+                        logValue.WIDEBAND = buffer(20) * 256 + buffer(21)
+
+                        If C_WidebandO2Sensor.Checked Then
+                            logValue.AFR = K8EngineDataLogger.CalcWidebandAFR(logValue.WIDEBAND)
+                        Else
+                            logValue.AFR = K8EngineDataLogger.CalcAFR(logValue.H02)
+                        End If
+
+                        logValue.IGN = K8EngineDataLogger.CalcIgnDeg(buffer(49))
+
+                        logValue.STP = K8EngineDataLogger.CalcSTP(buffer(53))
+                        logValue.GEAR = buffer(33)
+                        logValue.CLUTCH = buffer(59) And &H10
+
+                        If logValue.GEAR = 0 Then
+                            logValue.NT = True
+                        Else
+                            logValue.NT = False
+                        End If
+
+                        'logValue.BOOST = K8EngineDataLogger.CalcBoost(values(11))
+                        logValue.IP = K8EngineDataLogger.CalcPressure(buffer(27))
+                        logValue.AP = K8EngineDataLogger.CalcPressure(buffer(30))
+                        logValue.CLT = K8EngineDataLogger.CalcTemp(buffer(28))
+                        logValue.IAT = K8EngineDataLogger.CalcTemp(buffer(29))
+                        logValue.BATT = K8EngineDataLogger.CalcBattDouble(buffer(31))
+                        logValue.PAIR = K8EngineDataLogger.CalcPair(buffer(58) & 1)
+                        logValue.FUEL1 = (256 * buffer(38)) + buffer(39)
+                        logValue.FUEL2 = (256 * buffer(40)) + buffer(41)
+                        logValue.FUEL3 = (256 * buffer(42)) + buffer(43)
+                        logValue.FUEL4 = (256 * buffer(44)) + buffer(45)
+
+                        logValues.Add(logValue)
+
+                    End While
+                End If
+
+                reader.Close()
+
+                ApplyExhaustGasOffset(logValues)
+
+                For Each logValue As LogValue In logValues
+
+                    If CheckEngineDataFilter(logValue, previousLogValue) = True Then
+
+                        Dim tpsIndex As Integer
+                        Dim iapIndex As Integer
+                        Dim rpmIndex As Integer
+                        Dim boostIndex As Integer = -1
+                        Dim boostRPMIndex As Integer = -1
+
+                        If logValue.RPM > _rpmList(_rpmList.Count - 1) Then
+
+                            rpmIndex = -1
+
+                        Else
+
+                            For index As Integer = 0 To _rpmList.Count - 1 Step 1
+
+                                If logValue.RPM <= _rpmList(index) + (_rpmList(index + 1) - _rpmList(index)) / 2 Then
+                                    rpmIndex = index
+                                    Exit For
+                                End If
+
+                            Next
+
+                        End If
+
+                        If logValue.TPS >= 99 Then
+                            tpsIndex = _tpsList.Count - 1
+                        ElseIf logValue.TPS >= 80 Then
+                            tpsIndex = _tpsList.Count - 2
+                        Else
+                            For index As Integer = 0 To _tpsList.Count - 1 Step 1
+
+                                If logValue.TPS <= _tpsList(index) + (_tpsList(index + 1) - _tpsList(index)) / 2 Then
+                                    tpsIndex = index
+                                    Exit For
+                                End If
+
+                            Next
+                        End If
+
+                        If logValue.IAP > _iapList(0) Then
+
+                            iapIndex = -1
+
+                        ElseIf logValue.IAP > 62.5 Then
+
+                            iapIndex = 0
+
+                        Else
+                            For index As Integer = _iapList.Count - 1 To 0 Step -1
+
+                                If logValue.IAP <= _iapList(index) + (_iapList(index - 1) - _iapList(index)) / 2 Then
+                                    iapIndex = index
+                                    Exit For
+                                End If
+
+                            Next
+
+                        End If
+
+                        For index As Integer = 0 To _boostList.Count - 1
+
+                            If logValue.BOOST <= _boostList(index) + 0.5 Then
+
+                                boostIndex = index
+                                Exit For
+
+                            End If
+
+                        Next
+
+                        If boostIndex = -1 Then
+                            boostIndex = _boostList.Count - 1
+                        End If
+
+                        For index As Integer = 1 To _boostRPMList.Count - 1
+
+                            If logValue.RPM <= _boostRPMList(index) Then
+
+                                boostRPMIndex = index
+                                Exit For
+
+                            End If
+
+                        Next
+
+                        If logValue.TPS < 11 And iapIndex > -1 And rpmIndex > -1 Then
+
+                            _iapValues(iapIndex, rpmIndex).Add(logValue)
+
+                        End If
+
+                        If rpmIndex > -1 Then
+
+                            If My.Settings.AutoTuneBoostTPSFilterEnabled = True Then
+                                If logValue.BOOST < My.Settings.AutoTuneBoostTPSFilterValue Then
+                                    _tpsValues(tpsIndex, rpmIndex).Add(logValue)
+                                End If
+                            Else
+                                _tpsValues(tpsIndex, rpmIndex).Add(logValue)
+                            End If
+
+                        End If
+
+                        If boostRPMIndex > -1 Then
+
+                            _boostValues(boostIndex, boostRPMIndex).Add(logValue)
+
+                        End If
+
+                    End If
+
+                    previousLogValue = logValue
+
+                Next
+
+                ShowMap()
+
+            End If
+
+        Catch ex As Exception
+            HandleException(ex)
+        End Try
+    End Sub
+
     Public Sub ApplyExhaustGasOffset(ByRef logValues As List(Of LogValue))
 
         If My.Settings.AutoTuneExhaustGasOffsetType = 1 Then
@@ -689,6 +905,12 @@ Public Class K8EngineDataViewer
 
         If My.Settings.FilterGearNeutral = True Then
             If logValue.NT = True Then
+                Return False
+            End If
+        End If
+
+        If My.Settings.FilterZeroRPMData = True Then
+            If logValue.RPM < 500 Then
                 Return False
             End If
         End If

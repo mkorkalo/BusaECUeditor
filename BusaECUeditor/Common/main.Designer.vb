@@ -105,6 +105,7 @@ Partial Class main
         Me.tw_p = New System.Windows.Forms.PictureBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.WoolichRacingLogBoxConfigToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -359,7 +360,7 @@ Partial Class main
         '
         'SetupToolStripMenuItem
         '
-        Me.SetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InstallFTDIDriversToolStripMenuItem, Me.SetupCOMPortToolStripMenuItem, Me.ToolStripSeparator5, Me.GetInterfaceFromWoolichRacingcomToolStripMenuItem, Me.BuyInterfaceFromEBayToolStripMenuItem, Me.MakeAnDIYInterfaceToolStripMenuItem})
+        Me.SetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InstallFTDIDriversToolStripMenuItem, Me.SetupCOMPortToolStripMenuItem, Me.ToolStripSeparator5, Me.GetInterfaceFromWoolichRacingcomToolStripMenuItem, Me.BuyInterfaceFromEBayToolStripMenuItem, Me.MakeAnDIYInterfaceToolStripMenuItem, Me.WoolichRacingLogBoxConfigToolStripMenuItem})
         Me.SetupToolStripMenuItem.Name = "SetupToolStripMenuItem"
         Me.SetupToolStripMenuItem.Size = New System.Drawing.Size(90, 20)
         Me.SetupToolStripMenuItem.Text = "Bike Interface"
@@ -720,6 +721,12 @@ Partial Class main
         Me.Button1.TabIndex = 41
         Me.Button1.UseVisualStyleBackColor = False
         '
+        'WoolichRacingLogBoxConfigToolStripMenuItem
+        '
+        Me.WoolichRacingLogBoxConfigToolStripMenuItem.Name = "WoolichRacingLogBoxConfigToolStripMenuItem"
+        Me.WoolichRacingLogBoxConfigToolStripMenuItem.Size = New System.Drawing.Size(280, 22)
+        Me.WoolichRacingLogBoxConfigToolStripMenuItem.Text = "Woolich Racing Log Box Config"
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -841,5 +848,6 @@ Partial Class main
     Friend WithEvents K11EUToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents H10ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents GetInterfaceFromWoolichRacingcomToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents WoolichRacingLogBoxConfigToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

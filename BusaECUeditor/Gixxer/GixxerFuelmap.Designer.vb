@@ -41,7 +41,6 @@ Partial Class GixxerFuelmap
         '
         Me.Fuelmapgrid.AllowUserToAddRows = False
         Me.Fuelmapgrid.AllowUserToDeleteRows = False
-        Me.Fuelmapgrid.AllowUserToResizeColumns = False
         Me.Fuelmapgrid.AllowUserToResizeRows = False
         Me.Fuelmapgrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.Fuelmapgrid.DataMember = "fuelmap_datamember"
@@ -53,7 +52,7 @@ Partial Class GixxerFuelmap
         Me.Fuelmapgrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
         Me.Fuelmapgrid.ShowEditingIcon = False
         Me.Fuelmapgrid.ShowRowErrors = False
-        Me.Fuelmapgrid.Size = New System.Drawing.Size(792, 675)
+        Me.Fuelmapgrid.Size = New System.Drawing.Size(820, 675)
         Me.Fuelmapgrid.TabIndex = 0
         '
         'Timer1
@@ -176,7 +175,7 @@ Partial Class GixxerFuelmap
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(5.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(796, 711)
+        Me.ClientSize = New System.Drawing.Size(824, 711)
         Me.Controls.Add(Me.B_copy)
         Me.Controls.Add(Me.B_MSIAP)
         Me.Controls.Add(Me.L_modeabc)

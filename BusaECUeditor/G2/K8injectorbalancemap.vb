@@ -56,8 +56,6 @@ Public Class K8injectorbalancemap
         Return CInt(&H8000 * i / 100)
     End Function
 
-
-
     Private Sub Fuelmap_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         fuelmapvisible = False
     End Sub
