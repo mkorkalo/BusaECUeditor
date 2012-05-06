@@ -782,6 +782,7 @@ Public Class FuelMap
         End Try
 
     End Sub
+
     Private Sub Fuelmapgrid_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles FuelMapGrid.KeyDown
 
         If (e.Control = True And e.KeyCode = Keys.V) Then
@@ -836,7 +837,6 @@ Public Class FuelMap
 
         End If
     End Sub
-
 
 #End Region
 

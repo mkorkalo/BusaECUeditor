@@ -93,6 +93,7 @@ Public Class K8STPmap
         LED_GEAR.Text = gear.ToString
 
     End Sub
+
     Private Sub parsecommands(ByVal comm As String)
         Dim c As Integer
         Dim r As Integer
@@ -199,12 +200,12 @@ Public Class K8STPmap
 
     End Sub
 
-
     Private Sub STPmapgrid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles STPmapgrid.KeyPress
 
         parsecommands(e.KeyChar)
 
     End Sub
+
     Private Sub DecreaseSelectedCells()
         Dim c As Integer
         Dim r As Integer
@@ -272,6 +273,7 @@ Public Class K8STPmap
             i = i + 1
         Loop
     End Sub
+
     Private Sub MultiplySelectedCells()
         Dim c As Integer
         Dim r As Integer
@@ -341,8 +343,6 @@ Public Class K8STPmap
 
     End Sub
 
-
-
     Private Sub SetFlashItem(ByVal c As Integer, ByVal r As Integer)
 
 
@@ -379,8 +379,6 @@ Public Class K8STPmap
 
     End Sub
 
-
-
     Public Sub selectmap()
         Dim i As Integer
 
@@ -406,6 +404,7 @@ Public Class K8STPmap
 
 
     End Sub
+
     Public Sub loadmap()
         '
         ' This function loads a map into a grid including map contents and heading information
@@ -499,15 +498,9 @@ Public Class K8STPmap
 
     End Sub
 
-
-
-
-
-
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Me.Close()
     End Sub
-
 
     Public Sub tracemap(ByVal g As Integer, ByVal ms As Integer, ByVal m As Integer)
         '
@@ -593,6 +586,7 @@ Public Class K8STPmap
         End If
 
     End Sub
+
     Private Sub STPMapgrid_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles STPmapgrid.KeyDown
 
         If (e.Control = True And e.KeyCode = Keys.V) Then

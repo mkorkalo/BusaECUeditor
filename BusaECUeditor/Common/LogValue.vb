@@ -1,4 +1,6 @@
-﻿Public Class LogValue
+﻿Imports System.Text
+
+Public Class LogValue
 
     Public LogTime As String
     Public RPM As Integer
@@ -27,7 +29,7 @@
     Public GroupNumber As Integer
     Public ExhaustGasOffsetApplied As Boolean = False
 
-    Public ReadOnly Property LogTimeSpan() As TimeSpan
+    Public Property LogTimeSpan() As TimeSpan
         Get
             If String.IsNullOrEmpty(LogTime) = False Then
 
@@ -45,6 +47,19 @@
 
             End If
         End Get
+        Set(value As TimeSpan)
+
+            Dim builder As New StringBuilder()
+            builder.Append(value.Hours.ToString("00"))
+            builder.Append(":")
+            builder.Append(value.Minutes.ToString("00"))
+            builder.Append(":")
+            builder.Append(value.Seconds.ToString("00"))
+            builder.Append(".")
+            builder.Append(value.Milliseconds.ToString("000"))
+            LogTime = builder.ToString()
+
+        End Set
     End Property
 
     Public Overrides Function ToString() As String
