@@ -1767,7 +1767,6 @@ skip_update:
                 End If
                 loopcount = loopcount + 1
             End While
-
         End If
 
 
@@ -3334,6 +3333,15 @@ skip_update:
                         ECUVersion = "gixxer"
                         Hayabusa.Text = "Gixxer K7- 32920-21H50"
                         Metric = True
+
+                        gixxer_wideband1_original = &H6
+                        gixxer_wideband2_original = &H2947
+                        gixxer_wideband3_original = &H80
+                        gixxer_wideband4_original = &H676D
+
+                        gixxer_wideband1 = &H5AB04
+                        gixxer_wideband2 = &H5AB34
+
                     Case &H36
                         ECUVersion = "gixxer"
                         Hayabusa.Text = "Gixxer K7- 32920-21H60"
@@ -3797,6 +3805,65 @@ skip_update:
                 ECUVersion = "gixxer"
 
                 gixxer_modelname = "ecueditor.com for gixxer 750 EU K9 (32920-38H00) "
+
+                gixxer_shifter_ADJ = 0
+                gixxer_shifter_FUELCODE = 0
+                gixxer_shifter_IGNCODE = 0
+                gixxer_shifter_jmp_to_fuelcode = 0        'last label at the end of function set_fuel_gear_type2hard
+                gixxer_shifter_jmp_to_igncode = 0         'last label at the end of function calculate_ignition_gear_limiters
+
+                gixxer_STP_map_first_table = 0            ' STP_gear06_ms01_modeabc_STP_map_list_
+                gixxer_STP_map_first_table_fuel = 0
+
+                gixxer_fuelmap_map_first = &H5AC68              'Fuel_IAP
+                gixxer_injectorbalance_map_first = 0      'injector_balancing_volume_
+
+                gixxer_ignition_map_first = &H5A7F4              ' ign_group_clutch_neutral
+                gixxer_ignition_use_clutch_map = &H743A4         ' use_clutch_map_if_0x1
+
+                gixxer_msmode = &H73E8F
+                gixxer_ecumode = &H73D2B
+
+                gixxer_ignition_rpm_limiter = &H74374          'ignition_rpm_limiter
+
+                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = &H3BD74 + 1 'sub set_ignition_limiters beginning the GPS_sensor_RAW address
+                gixxer_GPS_voltage_raw = &H80510D
+                gixxer_set_ign_default = &H7439F
+
+                gixxer_fuel_limiter_by_gear = &H74BE7            'fuelcut_by_gear
+                gixxer_RPM_limit_type1 = &H74A92                'RPM_limit_type1
+                gixxer_fuel_limiter_softcut_or_hardcut = &H74BE4 'fuel_limiter_softcut_or_hardcut
+                gixxer_baseline = 14500
+
+                gixxerramair_columnheader = 0
+                gixxerramair_map = 0
+
+                '
+                ' These do not need to be adjusted
+                '
+                gixxer_ignition_map_name = gixxer_modelname
+                gixxer_fuel_limiter_by_gear_softcut = gixxer_fuel_limiter_by_gear + 1
+                gixxer_injectorbalance_map_name = gixxer_modelname
+                gixxer_STP_modelname = gixxer_modelname
+                gixxer_fuelmap_map_bikename = gixxer_modelname
+
+                B_EngineData.Enabled = True
+                FlashToolStripMenuItem.Visible = Enabled
+                B_DataLogging.Enabled = True
+                SaveToolStripMenuItem.Enabled = True
+                B_FlashECU.Enabled = True
+                B_Limiters.Enabled = True
+                B_Shifter.Enabled = False
+                B_FuelMap.Enabled = True
+                B_IgnitionMap.Enabled = True
+                B_AdvancedSettings.Enabled = True
+
+            Case "DJ65SE10"
+                Hayabusa.Text = "Gixxer 750 US K9- 32920-38H00"
+                Metric = True
+                ECUVersion = "gixxer"
+
+                gixxer_modelname = "ecueditor.com for gixxer 750 EU K9 (32920-38H10) "
 
                 gixxer_shifter_ADJ = 0
                 gixxer_shifter_FUELCODE = 0
