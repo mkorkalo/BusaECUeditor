@@ -402,6 +402,16 @@ Public Class K8Advsettings
             C_ExtendedBoostFuelLogging.Checked = True
         End If
 
+        Dim idleRpm As Integer = ReadFlashWord(&H7CA68) / 2.56
+
+        For index As Integer = 0 To cbxIdleRpm.Items.Count - 1
+
+            If cbxIdleRpm.Items(index).ToString() = idleRpm.ToString() Then
+                cbxIdleRpm.SelectedIndex = index
+            End If
+
+        Next
+
         loading = False
 
     End Sub
@@ -1520,6 +1530,14 @@ Public Class K8Advsettings
                 WriteFlashWord(&H52602, &H673A)
 
             End If
+        End If
+
+    End Sub
+
+    Private Sub ComboBox1_SelectedIndexChanged_1(sender As System.Object, e As System.EventArgs) Handles cbxIdleRpm.SelectedIndexChanged
+
+        If loading = False Then
+            WriteFlashWord(&H7CA68, cbxIdleRpm.Text * 2.56)
         End If
 
     End Sub
