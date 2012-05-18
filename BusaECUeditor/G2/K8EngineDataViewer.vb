@@ -632,7 +632,7 @@ Public Class K8EngineDataViewer
                         Dim timeSpan As New TimeSpan(0, buffer(64), buffer(65), buffer(66), buffer(67) * 100 + buffer(68) * 10 + buffer(69))
                         logValue.LogTimeSpan = timeSpan
 
-                        logValue.RPM = CInt((((&HFF * buffer(24)) + buffer(24)) / 2.55) / 10) * 10
+                        logValue.RPM = CInt((((&HFF * buffer(24)) + buffer(25)) / 2.55) / 10) * 10
                         logValue.TPS = K8EngineDataLogger.CalcTPSDouble(buffer(26))
                         logValue.IAP = K8EngineDataLogger.CalcPressure(buffer(30)) - K8EngineDataLogger.CalcPressure(buffer(27))
                         logValue.H02 = buffer(32)
@@ -656,7 +656,7 @@ Public Class K8EngineDataViewer
                             logValue.NT = False
                         End If
 
-                        'logValue.BOOST = K8EngineDataLogger.CalcBoost(values(11))
+                        logValue.BOOST = K8EngineDataLogger.CalcBoost(buffer(22))
                         logValue.IP = K8EngineDataLogger.CalcPressure(buffer(27))
                         logValue.AP = K8EngineDataLogger.CalcPressure(buffer(30))
                         logValue.CLT = K8EngineDataLogger.CalcTemp(buffer(28))
