@@ -28,7 +28,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
-    <PublishUrl>E:\Projects\Ecu Editor\Publish\</PublishUrl>
+    <PublishUrl>D:\Projects\Ecu Editor\Publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
