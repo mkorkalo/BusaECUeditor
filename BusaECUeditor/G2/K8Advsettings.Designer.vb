@@ -69,8 +69,6 @@ Partial Class K8Advsettings
         Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
-        Me.cbxIdleSpeed = New System.Windows.Forms.ComboBox()
-        Me.Label14 = New System.Windows.Forms.Label()
         Me.C_ExtendedBoostFuelLogging = New System.Windows.Forms.CheckBox()
         Me.C_BkingGauges = New System.Windows.Forms.CheckBox()
         Me.Label13 = New System.Windows.Forms.Label()
@@ -82,6 +80,8 @@ Partial Class K8Advsettings
         Me.C_ABCmode = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.B_ResetBlocks = New System.Windows.Forms.Button()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.cbxIdleRpm = New System.Windows.Forms.ComboBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -284,7 +284,7 @@ Partial Class K8Advsettings
         '
         Me.C_IAPTPS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.C_IAPTPS.FormattingEnabled = True
-        Me.C_IAPTPS.Location = New System.Drawing.Point(62, 80)
+        Me.C_IAPTPS.Location = New System.Drawing.Point(62, 86)
         Me.C_IAPTPS.Name = "C_IAPTPS"
         Me.C_IAPTPS.Size = New System.Drawing.Size(73, 21)
         Me.C_IAPTPS.TabIndex = 8
@@ -595,7 +595,7 @@ Partial Class K8Advsettings
         '
         'GroupBox7
         '
-        Me.GroupBox7.Controls.Add(Me.cbxIdleSpeed)
+        Me.GroupBox7.Controls.Add(Me.cbxIdleRpm)
         Me.GroupBox7.Controls.Add(Me.Label14)
         Me.GroupBox7.Controls.Add(Me.C_ExtendedBoostFuelLogging)
         Me.GroupBox7.Controls.Add(Me.C_BkingGauges)
@@ -617,25 +617,6 @@ Partial Class K8Advsettings
         Me.GroupBox7.TabIndex = 46
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Misc settings"
-        '
-        'cbxIdleSpeed
-        '
-        Me.cbxIdleSpeed.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbxIdleSpeed.FormattingEnabled = True
-        Me.cbxIdleSpeed.Items.AddRange(New Object() {"1000", "1050", "1100", "1150", "1200", "1250", "1300", "1350", "1400", "1450", "1500", "1550", "1600", "1650", "1700", "1750", "1800"})
-        Me.cbxIdleSpeed.Location = New System.Drawing.Point(62, 37)
-        Me.cbxIdleSpeed.Name = "cbxIdleSpeed"
-        Me.cbxIdleSpeed.Size = New System.Drawing.Size(73, 21)
-        Me.cbxIdleSpeed.TabIndex = 108
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(2, 40)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(58, 13)
-        Me.Label14.TabIndex = 107
-        Me.Label14.Text = "Idle Speed"
         '
         'C_ExtendedBoostFuelLogging
         '
@@ -660,7 +641,7 @@ Partial Class K8Advsettings
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(6, 108)
+        Me.Label13.Location = New System.Drawing.Point(6, 114)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(54, 13)
         Me.Label13.TabIndex = 104
@@ -670,7 +651,7 @@ Partial Class K8Advsettings
         '
         Me.C_fan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.C_fan.FormattingEnabled = True
-        Me.C_fan.Location = New System.Drawing.Point(62, 105)
+        Me.C_fan.Location = New System.Drawing.Point(62, 111)
         Me.C_fan.Name = "C_fan"
         Me.C_fan.Size = New System.Drawing.Size(73, 21)
         Me.C_fan.TabIndex = 103
@@ -678,7 +659,7 @@ Partial Class K8Advsettings
         'C_TOS
         '
         Me.C_TOS.AutoSize = True
-        Me.C_TOS.Location = New System.Drawing.Point(7, 129)
+        Me.C_TOS.Location = New System.Drawing.Point(7, 135)
         Me.C_TOS.Name = "C_TOS"
         Me.C_TOS.Size = New System.Drawing.Size(128, 17)
         Me.C_TOS.TabIndex = 51
@@ -708,7 +689,7 @@ Partial Class K8Advsettings
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(10, 85)
+        Me.Label5.Location = New System.Drawing.Point(6, 89)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(50, 13)
         Me.Label5.TabIndex = 8
@@ -717,7 +698,7 @@ Partial Class K8Advsettings
         'C_ABCmode
         '
         Me.C_ABCmode.AutoSize = True
-        Me.C_ABCmode.Location = New System.Drawing.Point(7, 61)
+        Me.C_ABCmode.Location = New System.Drawing.Point(7, 40)
         Me.C_ABCmode.Name = "C_ABCmode"
         Me.C_ABCmode.Size = New System.Drawing.Size(94, 17)
         Me.C_ABCmode.TabIndex = 5
@@ -743,11 +724,30 @@ Partial Class K8Advsettings
         Me.B_ResetBlocks.Text = "Reset Blocks"
         Me.B_ResetBlocks.UseVisualStyleBackColor = True
         '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(5, 62)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(49, 13)
+        Me.Label14.TabIndex = 107
+        Me.Label14.Text = "Idle Rpm"
+        '
+        'cbxIdleRpm
+        '
+        Me.cbxIdleRpm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbxIdleRpm.FormattingEnabled = True
+        Me.cbxIdleRpm.Items.AddRange(New Object() {"1000", "1050", "1100", "1150", "1200", "1250", "1300", "1350", "1400", "1450", "1500", "1550", "1600", "1650", "1700", "1750", "1800"})
+        Me.cbxIdleRpm.Location = New System.Drawing.Point(62, 57)
+        Me.cbxIdleRpm.Name = "cbxIdleRpm"
+        Me.cbxIdleRpm.Size = New System.Drawing.Size(73, 21)
+        Me.cbxIdleRpm.TabIndex = 108
+        '
         'K8Advsettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(398, 450)
+        Me.ClientSize = New System.Drawing.Size(398, 461)
         Me.Controls.Add(Me.B_ResetBlocks)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox7)
@@ -844,5 +844,5 @@ Partial Class K8Advsettings
     Friend WithEvents B_ResetBlocks As System.Windows.Forms.Button
     Friend WithEvents C_ExtendedBoostFuelLogging As System.Windows.Forms.CheckBox
     Friend WithEvents Label14 As System.Windows.Forms.Label
-    Friend WithEvents cbxIdleSpeed As System.Windows.Forms.ComboBox
+    Friend WithEvents cbxIdleRpm As System.Windows.Forms.ComboBox
 End Class
