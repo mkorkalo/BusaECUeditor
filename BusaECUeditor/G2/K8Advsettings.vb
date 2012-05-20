@@ -938,8 +938,8 @@ Public Class K8Advsettings
                 WriteFlashByte(&H7CA17, &HFF)
             Else
                 C_HOX.Text = "HOX sensor OFF"
-                WriteFlashByte(&H73B5D, &H0)
-                WriteFlashByte(&H7CA17, &H80)
+                WriteFlashByte(&H73B5D, &H0)  '74BFA
+                WriteFlashByte(&H7CA17, &H80) '794AF
             End If
         End If
 

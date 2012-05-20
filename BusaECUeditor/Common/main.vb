@@ -3847,6 +3847,23 @@ skip_update:
                 gixxer_STP_modelname = gixxer_modelname
                 gixxer_fuelmap_map_bikename = gixxer_modelname
 
+                gixxer_hoxflag = &H74BFA
+                gixxer_hox1 = &H74BFA
+                gixxer_hox2 = &H794AF
+
+                Dim aaaa As Integer = &H13FD5
+                gixxer_baud_rate = aaaa
+                gixxer_baud_rate_timer1 = &H138EE
+                gixxer_baud_rate_timer2 = &H1396A
+
+                gixxer_wideband1_original = &H7
+                gixxer_wideband2_original = &H9BBF
+                gixxer_wideband3_original = &H80
+                gixxer_wideband4_original = &H6AC6
+
+                gixxer_wideband1 = &H5AFC4
+                gixxer_wideband2 = &H5AFF0
+
                 B_EngineData.Enabled = True
                 FlashToolStripMenuItem.Visible = Enabled
                 B_DataLogging.Enabled = True
@@ -3859,7 +3876,7 @@ skip_update:
                 B_AdvancedSettings.Enabled = True
 
             Case "DJ65SE10"
-                Hayabusa.Text = "Gixxer 750 US K9- 32920-38H00"
+                Hayabusa.Text = "Gixxer 750 US K9- 32920-38H10"
                 Metric = True
                 ECUVersion = "gixxer"
 
@@ -3905,6 +3922,23 @@ skip_update:
                 gixxer_injectorbalance_map_name = gixxer_modelname
                 gixxer_STP_modelname = gixxer_modelname
                 gixxer_fuelmap_map_bikename = gixxer_modelname
+
+                gixxer_hoxflag = &H74BFA
+                gixxer_hox1 = &H74BFA
+                gixxer_hox2 = &H794AF
+
+                Dim aaaa As Integer = &H13FD5
+                gixxer_baud_rate = aaaa
+                gixxer_baud_rate_timer1 = &H138EE
+                gixxer_baud_rate_timer2 = &H1396A
+
+                gixxer_wideband1_original = &H7
+                gixxer_wideband2_original = &H9BBF
+                gixxer_wideband3_original = &H80
+                gixxer_wideband4_original = &H6AC6
+
+                gixxer_wideband1 = &H5AFC4
+                gixxer_wideband2 = &H5AFF0
 
                 B_EngineData.Enabled = True
                 FlashToolStripMenuItem.Visible = Enabled
