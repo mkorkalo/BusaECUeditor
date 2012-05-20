@@ -1537,8 +1537,145 @@ Public Class K8Advsettings
     Private Sub ComboBox1_SelectedIndexChanged_1(sender As System.Object, e As System.EventArgs) Handles cbxIdleRpm.SelectedIndexChanged
 
         If loading = False Then
-            WriteFlashWord(&H7CA68, cbxIdleRpm.Text * 2.56)
-        End If
 
+            Dim IdleRpm As Integer = cbxIdleRpm.Text * 2.56
+
+            WriteFlashWord(&H7CA68, IdleRpm)
+
+            If cbxIdleRpm.Text = "1150" Then
+
+                WriteFlashByte(&H7CADC, &HFF)
+                WriteFlashWord(&H7CA6A, &H1400)
+
+                WriteFlashWord(&H7CD20, &HF9F)
+                WriteFlashWord(&H7CD22, &HF80)
+                WriteFlashWord(&H7CD24, &HF51)
+                WriteFlashWord(&H7CD26, &HED2)
+                WriteFlashWord(&H7CD28, &HE15)
+                WriteFlashWord(&H7CD2A, &HD1A)
+                WriteFlashWord(&H7CD2C, &HC00)
+                WriteFlashWord(&H7CD2E, &HB80)
+                WriteFlashWord(&H7CD30, &HB80)
+                WriteFlashWord(&H7CD32, &HB80)
+                WriteFlashWord(&H7CD34, &HB80)
+                WriteFlashWord(&H7CD36, &HB80)
+                WriteFlashWord(&H7CD38, &HB80)
+                WriteFlashWord(&H7CD3A, &HB80)
+
+                WriteFlashWord(&H7CD3C, &HF9F)
+                WriteFlashWord(&H7CD3E, &HF80)
+                WriteFlashWord(&H7CD40, &HF51)
+                WriteFlashWord(&H7CD42, &HED2)
+                WriteFlashWord(&H7CD44, &HE15)
+                WriteFlashWord(&H7CD46, &HD1A)
+                WriteFlashWord(&H7CD48, &HC00)
+                WriteFlashWord(&H7CD4A, &HB80)
+                WriteFlashWord(&H7CD4C, &HB80)
+                WriteFlashWord(&H7CD4E, &HB80)
+                WriteFlashWord(&H7CD50, &HB80)
+                WriteFlashWord(&H7CD52, &HB80)
+                WriteFlashWord(&H7CD54, &HB80)
+                WriteFlashWord(&H7CD56, &HB80)
+
+            Else
+
+                WriteFlashByte(&H7CADC, &H0)
+                WriteFlashWord(&H7CA6A, &H7800)
+
+                If IdleRpm < &HF9F Then
+                    WriteFlashWord(&H7CD20, &HF9F)
+                Else
+                    WriteFlashWord(&H7CD20, IdleRpm)
+                End If
+
+                If IdleRpm < &HF80 Then
+                    WriteFlashWord(&H7CD22, &HF80)
+                Else
+                    WriteFlashWord(&H7CD22, IdleRpm)
+                End If
+
+                If IdleRpm < &HF51 Then
+                    WriteFlashWord(&H7CD24, &HF51)
+                Else
+                    WriteFlashWord(&H7CD24, IdleRpm)
+                End If
+
+                If IdleRpm < &HED2 Then
+                    WriteFlashWord(&H7CD26, &HED2)
+                Else
+                    WriteFlashWord(&H7CD26, IdleRpm)
+                End If
+
+                If IdleRpm < &HE15 Then
+                    WriteFlashWord(&H7CD28, &HE15)
+                Else
+                    WriteFlashWord(&H7CD28, IdleRpm)
+                End If
+
+                If IdleRpm < &HD1A Then
+                    WriteFlashWord(&H7CD2A, &HD1A)
+                Else
+                    WriteFlashWord(&H7CD2A, IdleRpm)
+                End If
+
+                If IdleRpm < &HC00 Then
+                    WriteFlashWord(&H7CD2C, &HC00)
+                Else
+                    WriteFlashWord(&H7CD2C, IdleRpm)
+                End If
+
+                For index As Integer = &H7CD2E To &H7CD3A Step 2
+                    WriteFlashWord(index, IdleRpm)
+                Next
+
+                'Second Map
+                If IdleRpm < &HF9F Then
+                    WriteFlashWord(&H7CD3C, &HF9F)
+                Else
+                    WriteFlashWord(&H7CD3C, IdleRpm)
+                End If
+
+                If IdleRpm < &HF80 Then
+                    WriteFlashWord(&H7CD3E, &HF80)
+                Else
+                    WriteFlashWord(&H7CD3E, IdleRpm)
+                End If
+
+                If IdleRpm < &HF51 Then
+                    WriteFlashWord(&H7CD40, &HF51)
+                Else
+                    WriteFlashWord(&H7CD40, IdleRpm)
+                End If
+
+                If IdleRpm < &HED2 Then
+                    WriteFlashWord(&H7CD42, &HED2)
+                Else
+                    WriteFlashWord(&H7CD42, IdleRpm)
+                End If
+
+                If IdleRpm < &HE15 Then
+                    WriteFlashWord(&H7CD44, &HE15)
+                Else
+                    WriteFlashWord(&H7CD44, IdleRpm)
+                End If
+
+                If IdleRpm < &HD1A Then
+                    WriteFlashWord(&H7CD46, &HD1A)
+                Else
+                    WriteFlashWord(&H7CD46, IdleRpm)
+                End If
+
+                If IdleRpm < &HC00 Then
+                    WriteFlashWord(&H7CD48, &HC00)
+                Else
+                    WriteFlashWord(&H7CD48, IdleRpm)
+                End If
+
+                For index As Integer = &H7CD4A To &H7CD56 Step 2
+                    WriteFlashWord(index, IdleRpm)
+                Next
+
+            End If
+        End If
     End Sub
 End Class
