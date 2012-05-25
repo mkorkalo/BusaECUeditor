@@ -377,7 +377,7 @@ Public Class GixxerIgnitionmap
 
                     copy_to_map = ReadFlashLongWord(ReadFlashLongWord((map_structure_table + ((cylinder * 6) + (3 * ms01) + modeabc) * 4)) + 12)
                     If copy_to_map = 0 Then
-                        MsgBox("Error in ignition map definitions, please contact info@ecueditor.com. This program will now end just for safety")
+                        MsgBox("Error in ignition map definitions, please contact info@WoolichRacing.com. This program will now end just for safety")
                         End
                     End If
                     For cell = 0 To ((number_of_columns - 1) * (number_of_rows - 1))
