@@ -528,7 +528,7 @@ skip_update:
                     End If
 
                 End If
-                MsgBox("Somehow trying to save a .bin which is not gen1, gen2 or Gixxer. please save your bin and send it to info@ecueditor.com")
+                MsgBox("Somehow trying to save a .bin which is not gen1, gen2 or Gixxer. please save your bin and send it to info@WoolichRacing.com")
         End Select
 
     End Sub
@@ -767,16 +767,17 @@ skip_update:
     End Sub
 
     Private Sub InstallFTDIDriversToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InstallFTDIDriversToolStripMenuItem.Click
-        Dim s As String
-        s = Application.StartupPath
+        
+        Dim filepath As String = Application.StartupPath & "\common\CDM20814_Setup.exe"
 
-        If Not File.Exists(Application.StartupPath & "\common\FTDI_CDM_2.04.16.exe") Then
+        If File.Exists(filepath) = False Then
             MsgBox("FTDI driver is missing, can not be installed")
             Return
         Else
             If MsgBox("Install/reinstall the FTDI USB COM port drivers, press OK or Cancel", MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
-                Shell(Application.StartupPath & "\common\FTDI_CDM_2.04.16.exe", AppWinStyle.NormalFocus, True, -1)
-                MsgBox("When drivers are installed, now reboot your computer")
+                'Shell(filepath, AppWinStyle.NormalFocus, True, -1)
+                System.Diagnostics.Process.Start(filepath)
+                MsgBox("When drivers are installed, please reboot your computer")
             Else
                 MsgBox("Drivers not installed")
             End If
@@ -4356,7 +4357,7 @@ skip_update:
                 B_DataLogging.Enabled = True
                 B_FlashECU.Enabled = False
                 SaveToolStripMenuItem.Enabled = True
-                MsgBox("ECU read into memory, but not recognized. please save as" & ECUID.Text & ".bin and send to info@ecueditor.com with notes about the bike and model.")
+                MsgBox("ECU read into memory, but not recognized. please save as" & ECUID.Text & ".bin and send to info@WoolichRacing.com with notes about the bike and model.")
         End Select
 
         '
