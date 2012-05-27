@@ -2497,9 +2497,9 @@ Public Class K8EngineDataLogger
 
         B_StartStop_Click(sender, e)
 
-        If ECUVersion = "gixxer" Then
-            C_WidebandO2Sensor.Enabled = False
-        End If
+        'If ECUVersion = "gixxer" Then
+        'C_WidebandO2Sensor.Enabled = False
+        'End If
 
     End Sub
 
