@@ -4176,6 +4176,19 @@ skip_update:
                 gixxer_hox1 = gixxer_hoxflag
                 gixxer_hox2 = &H794AF
 
+                Dim aaaa As Integer = &H13FD5
+                gixxer_baud_rate = aaaa
+                gixxer_baud_rate_timer1 = &H138EE
+                gixxer_baud_rate_timer2 = &H1396A
+
+                gixxer_wideband1_original = &H7
+                gixxer_wideband2_original = &H9BBF
+                gixxer_wideband3_original = &H80
+                gixxer_wideband4_original = &H6AC6
+
+                gixxer_wideband1 = &H5AFB0
+                gixxer_wideband2 = &H5AFDC
+
                 '
                 ' These do not need to be adjusted
                 '
@@ -4300,6 +4313,19 @@ skip_update:
                 gixxer_hoxflag = &H74BFA
                 gixxer_hox1 = gixxer_hoxflag
                 gixxer_hox2 = &H794AF
+
+                Dim aaaa As Integer = &H13FD5
+                gixxer_baud_rate = aaaa
+                gixxer_baud_rate_timer1 = &H138EE
+                gixxer_baud_rate_timer2 = &H1396A
+
+                gixxer_wideband1_original = &H7
+                gixxer_wideband2_original = &H9BBF
+                gixxer_wideband3_original = &H80
+                gixxer_wideband4_original = &H6AC6
+
+                gixxer_wideband1 = &H5AFB0
+                gixxer_wideband2 = &H5AFDC
 
                 '
                 ' These do not need to be adjusted
