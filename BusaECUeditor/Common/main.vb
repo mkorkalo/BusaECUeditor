@@ -28,7 +28,7 @@ Imports System.Net.Mail
 Imports System.Deployment.Application
 Imports System.Net
 Imports System.Web
-Imports twittervb2
+Imports TwitterVB2
 
 
 
@@ -140,7 +140,7 @@ skip_update:
 #Region "Control Events"
 
     Private Sub B_FuelMap_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_FuelMap.Click
-        Select Case ECUversion
+        Select Case ECUVersion
             Case "gen1"
                 FuelMap.Show()
                 FuelMap.Select()
@@ -160,10 +160,10 @@ skip_update:
 
     Private Sub B_IgnitionMap_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_IgnitionMap.Click
 
-        Select Case ECUversion
+        Select Case ECUVersion
             Case "gen1"
-                Ignitionmap.Show()
-                Ignitionmap.Select()
+                IgnitionMap.Show()
+                IgnitionMap.Select()
             Case "gen2"
                 K8Ignitionmap.Show()
                 K8Ignitionmap.Select()
@@ -181,7 +181,7 @@ skip_update:
 
     Private Sub B_Limiters_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Limiters.Click
 
-        Select Case ECUversion
+        Select Case ECUVersion
             Case "gen1"
                 Limiters.Show()
                 Limiters.Select()
@@ -206,7 +206,7 @@ skip_update:
     End Sub
 
     Private Sub B_EngineData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_EngineData.Click
-        Select Case ECUversion
+        Select Case ECUVersion
             Case "gen1"
                 Datastream.Show()
                 Datastream.Select()
@@ -767,7 +767,7 @@ skip_update:
     End Sub
 
     Private Sub InstallFTDIDriversToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InstallFTDIDriversToolStripMenuItem.Click
-        
+
         Dim filepath As String = Application.StartupPath & "\common\CDM20814_Setup.exe"
 
         If File.Exists(filepath) = False Then
@@ -4451,7 +4451,7 @@ skip_update:
 
         End Select
 
-     
+
     End Sub
 
     Private Sub TestCheckSum()
@@ -6980,6 +6980,165 @@ skip_update:
     Private Sub WoolichRacingLogBoxConfigToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles WoolichRacingLogBoxConfigToolStripMenuItem.Click
 
         LogBoxCfg.Show()
+
+    End Sub
+
+    Private Sub ConvertwrlFileToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ConvertwrlFileToolStripMenuItem.Click
+
+        Me.Cursor = Cursors.WaitCursor
+        Dim writer As StreamWriter
+        Dim reader As BinaryReader
+        Dim completed As Boolean = False
+
+        Try
+
+            OpenFileDialog1.FileName = ""
+            OpenFileDialog1.Filter = "*.wrl|*.wrl"
+
+            OpenFileDialog1.Multiselect = True
+
+            If (OpenFileDialog1.ShowDialog() = DialogResult.OK) Then
+                For Each filename As String In OpenFileDialog1.FileNames
+                    Dim convertedFilename As String = filename.ToLower().Replace(".wrl", ".csv")
+                    Dim filePointer As Integer = 0
+                    Dim buffer(69) As Byte
+                    writer = New StreamWriter(convertedFilename)
+                    reader = New BinaryReader(File.OpenRead(filename))
+
+                    Dim header As StringBuilder = New StringBuilder()
+
+                    header.Append("Log Time")
+                    header.Append(",")
+                    header.Append("RPM")
+                    header.Append(",")
+                    header.Append("TPS")
+                    header.Append(",")
+                    header.Append("IAP")
+                    header.Append(",")
+                    header.Append("HO2")
+                    header.Append(",")
+                    header.Append("HO2 Wideband")
+                    header.Append(",")
+                    header.Append("IGN")
+                    header.Append(",")
+                    header.Append("STP")
+                    header.Append(",")
+                    header.Append("GEAR")
+                    header.Append(",")
+                    header.Append("CLUTCH")
+                    header.Append(",")
+                    header.Append("NT")
+                    header.Append(",")
+                    header.Append("BOOST")
+                    header.Append(",")
+                    header.Append("CLT")
+                    header.Append(",")
+                    header.Append("IAT")
+                    header.Append(",")
+                    header.Append("PAIR")
+                    header.Append(",")
+                    header.Append("FUEL1")
+                    header.Append(",")
+                    header.Append("FUEL2")
+                    header.Append(",")
+                    header.Append("FUEL3")
+                    header.Append(",")
+                    header.Append("FUEL4")
+
+                    writer.WriteLine(header)
+
+                    If reader.Read(buffer, filePointer, 6) = 6 Then
+                        While reader.Read(buffer, filePointer, 70) = 70
+
+                            Dim timeSpan As New TimeSpan(0, buffer(64), buffer(65), buffer(66), buffer(67) * 100 + buffer(68) * 10 + buffer(69))
+
+                            Dim stringBuilder As New StringBuilder()
+                            stringBuilder.Append(buffer(64).ToString("00"))
+                            stringBuilder.Append(":")
+                            stringBuilder.Append(buffer(65).ToString("00"))
+                            stringBuilder.Append(":")
+                            stringBuilder.Append(buffer(66).ToString("00"))
+                            stringBuilder.Append(".")
+                            stringBuilder.Append((buffer(67) * 100 + buffer(68) * 10 + buffer(69)).ToString("000"))
+                            stringBuilder.Append(",")
+
+                            Dim rpm As Integer = CInt((((&HFF * buffer(24)) + buffer(25S)) / 2.55) / 10) * 10
+                            stringBuilder.Append(rpm)
+                            stringBuilder.Append(",")
+
+                            stringBuilder.Append(K8EngineDataLogger.CalcTPS(buffer(26)))
+                            stringBuilder.Append(",")
+
+                            stringBuilder.Append(K8EngineDataLogger.CalcPressure(buffer(30) - buffer(27)).ToString("0.0"))
+                            stringBuilder.Append(",")
+
+                            stringBuilder.Append(K8EngineDataLogger.CalcAFR(buffer(32)).ToString("0.0"))
+                            stringBuilder.Append(",")
+
+                            Dim wideband As Integer = buffer(20) * 256 + buffer(21)
+                            stringBuilder.Append(K8EngineDataLogger.CalcWidebandAFR(wideband).ToString("0.0"))
+                            stringBuilder.Append(",")
+
+                            stringBuilder.Append(K8EngineDataLogger.CalcIgnDeg(buffer(49)))
+                            stringBuilder.Append(",")
+
+                            stringBuilder.Append(K8EngineDataLogger.CalcSTP(buffer(53)))
+                            stringBuilder.Append(",")
+
+                            stringBuilder.Append(buffer(33))
+                            stringBuilder.Append(",")
+
+                            stringBuilder.Append(K8EngineDataLogger.CalcClutch(buffer(59) And &H10))
+                            stringBuilder.Append(",")
+
+                            stringBuilder.Append(K8EngineDataLogger.CalcNeutral(buffer(60) And 2))
+                            stringBuilder.Append(",")
+
+                            stringBuilder.Append(K8EngineDataLogger.CalcPressure(buffer(22)))
+                            stringBuilder.Append(",")
+
+                            stringBuilder.Append(K8EngineDataLogger.CalcTemp(buffer(28)))
+                            stringBuilder.Append(",")
+
+                            stringBuilder.Append(K8EngineDataLogger.CalcTemp(buffer(29)))
+                            stringBuilder.Append(",")
+
+                            stringBuilder.Append(K8EngineDataLogger.CalcPair(buffer(58) And 1))
+                            stringBuilder.Append(",")
+
+                            stringBuilder.Append(buffer(38) * 256 + buffer(39))
+                            stringBuilder.Append(",")
+
+                            stringBuilder.Append(buffer(40) * 256 + buffer(41))
+                            stringBuilder.Append(",")
+
+                            stringBuilder.Append(buffer(42) * 256 + buffer(43))
+                            stringBuilder.Append(",")
+
+                            stringBuilder.Append(buffer(44) * 256 + buffer(45))
+
+                            writer.WriteLine(stringBuilder.ToString())
+
+                        End While
+                    End If
+
+                    writer.Close()
+                    reader.Close()
+
+                Next
+            End If
+
+            completed = True
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, ".wrl Convert", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        Me.Cursor = Cursors.Default
+
+        If completed = True Then
+            MessageBox.Show(".wrl files converted to .csv files", ".Wrl Convert", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
 
     End Sub
 End Class

@@ -60,6 +60,7 @@ Partial Class main
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.RecoveryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConvertwrlFileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.InstallFTDIDriversToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SetupCOMPortToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -67,6 +68,7 @@ Partial Class main
         Me.GetInterfaceFromWoolichRacingcomToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BuyInterfaceFromEBayToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MakeAnDIYInterfaceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.WoolichRacingLogBoxConfigToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FlashToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.VerifyChecksumToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.VerifyECUToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -105,7 +107,6 @@ Partial Class main
         Me.tw_p = New System.Windows.Forms.PictureBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.WoolichRacingLogBoxConfigToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -149,7 +150,7 @@ Partial Class main
         '
         'FileToolStripMenuItem
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem3, Me.ToolStripMenuItem1, Me.ToolStripMenuItem4, Me.ToolStripSeparator6, Me.EnginedataOnlyModeMetricToolStripMenuItem, Me.GixxerK5K6EnginedataOnlyToolStripMenuItem, Me.ToolStripSeparator2, Me.OpenToolStripMenuItem, Me.SaveToolStripMenuItem, Me.OpenComparemapToolStripMenuItem, Me.ExitToolStripMenuItem, Me.ToolStripSeparator1, Me.RecoveryToolStripMenuItem})
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem3, Me.ToolStripMenuItem1, Me.ToolStripMenuItem4, Me.ToolStripSeparator6, Me.EnginedataOnlyModeMetricToolStripMenuItem, Me.GixxerK5K6EnginedataOnlyToolStripMenuItem, Me.ToolStripSeparator2, Me.OpenToolStripMenuItem, Me.SaveToolStripMenuItem, Me.OpenComparemapToolStripMenuItem, Me.ExitToolStripMenuItem, Me.ToolStripSeparator1, Me.RecoveryToolStripMenuItem, Me.ConvertwrlFileToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
@@ -358,6 +359,12 @@ Partial Class main
         Me.RecoveryToolStripMenuItem.Size = New System.Drawing.Size(239, 22)
         Me.RecoveryToolStripMenuItem.Text = "Map recovery"
         '
+        'ConvertwrlFileToolStripMenuItem
+        '
+        Me.ConvertwrlFileToolStripMenuItem.Name = "ConvertwrlFileToolStripMenuItem"
+        Me.ConvertwrlFileToolStripMenuItem.Size = New System.Drawing.Size(239, 22)
+        Me.ConvertwrlFileToolStripMenuItem.Text = "Convert .wrl file to .csv"
+        '
         'SetupToolStripMenuItem
         '
         Me.SetupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InstallFTDIDriversToolStripMenuItem, Me.SetupCOMPortToolStripMenuItem, Me.ToolStripSeparator5, Me.GetInterfaceFromWoolichRacingcomToolStripMenuItem, Me.BuyInterfaceFromEBayToolStripMenuItem, Me.MakeAnDIYInterfaceToolStripMenuItem, Me.WoolichRacingLogBoxConfigToolStripMenuItem})
@@ -401,6 +408,12 @@ Partial Class main
         Me.MakeAnDIYInterfaceToolStripMenuItem.Name = "MakeAnDIYInterfaceToolStripMenuItem"
         Me.MakeAnDIYInterfaceToolStripMenuItem.Size = New System.Drawing.Size(280, 22)
         Me.MakeAnDIYInterfaceToolStripMenuItem.Text = "Make a D.I.Y interface"
+        '
+        'WoolichRacingLogBoxConfigToolStripMenuItem
+        '
+        Me.WoolichRacingLogBoxConfigToolStripMenuItem.Name = "WoolichRacingLogBoxConfigToolStripMenuItem"
+        Me.WoolichRacingLogBoxConfigToolStripMenuItem.Size = New System.Drawing.Size(280, 22)
+        Me.WoolichRacingLogBoxConfigToolStripMenuItem.Text = "Woolich Racing Log Box Config"
         '
         'FlashToolStripMenuItem
         '
@@ -721,12 +734,6 @@ Partial Class main
         Me.Button1.TabIndex = 41
         Me.Button1.UseVisualStyleBackColor = False
         '
-        'WoolichRacingLogBoxConfigToolStripMenuItem
-        '
-        Me.WoolichRacingLogBoxConfigToolStripMenuItem.Name = "WoolichRacingLogBoxConfigToolStripMenuItem"
-        Me.WoolichRacingLogBoxConfigToolStripMenuItem.Size = New System.Drawing.Size(280, 22)
-        Me.WoolichRacingLogBoxConfigToolStripMenuItem.Text = "Woolich Racing Log Box Config"
-        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -849,5 +856,6 @@ Partial Class main
     Friend WithEvents H10ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents GetInterfaceFromWoolichRacingcomToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents WoolichRacingLogBoxConfigToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ConvertwrlFileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class
