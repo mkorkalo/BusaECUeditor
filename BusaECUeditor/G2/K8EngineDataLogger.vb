@@ -2803,7 +2803,7 @@ Public Class K8EngineDataLogger
             L_IAP.Text = CalcPressure(IAP)
             L_GEAR.Text = GEAR
             L_Temp.Text = CalcTemp(CLT)
-            L_Boost.Text = CalcPressure(BOOST)
+            L_Boost.Text = CalcBoost(BOOST)
 
             If C_WidebandO2Sensor.Checked = True Then
                 _avgAFR = 0.25 * CalcWidebandAFR(WIDEBAND) + 0.75 * _avgAFR
