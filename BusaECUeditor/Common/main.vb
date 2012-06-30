@@ -6985,7 +6985,9 @@ skip_update:
 
     Private Sub ConvertwrlFileToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ConvertwrlFileToolStripMenuItem.Click
 
-        Me.Cursor = Cursors.WaitCursor
+        Cursor = Cursors.WaitCursor
+        Application.DoEvents()
+
         Dim writer As StreamWriter
         Dim reader As BinaryReader
         Dim completed As Boolean = False
@@ -7050,74 +7052,80 @@ skip_update:
                     If reader.Read(buffer, filePointer, 6) = 6 Then
                         While reader.Read(buffer, filePointer, 70) = 70
 
-                            Dim timeSpan As New TimeSpan(0, buffer(64), buffer(65), buffer(66), buffer(67) * 100 + buffer(68) * 10 + buffer(69))
+                            Try
 
-                            Dim stringBuilder As New StringBuilder()
-                            stringBuilder.Append(buffer(64).ToString("00"))
-                            stringBuilder.Append(":")
-                            stringBuilder.Append(buffer(65).ToString("00"))
-                            stringBuilder.Append(":")
-                            stringBuilder.Append(buffer(66).ToString("00"))
-                            stringBuilder.Append(".")
-                            stringBuilder.Append((buffer(67) * 100 + buffer(68) * 10 + buffer(69)).ToString("000"))
-                            stringBuilder.Append(",")
+                                Dim stringBuilder As New StringBuilder()
+                                stringBuilder.Append(buffer(64).ToString("00"))
+                                stringBuilder.Append(":")
+                                stringBuilder.Append(buffer(65).ToString("00"))
+                                stringBuilder.Append(":")
+                                stringBuilder.Append(buffer(66).ToString("00"))
+                                stringBuilder.Append(".")
+                                stringBuilder.Append((buffer(67) * 100 + buffer(68) * 10 + buffer(69)).ToString("000"))
+                                stringBuilder.Append(",")
 
-                            Dim rpm As Integer = CInt((((&HFF * buffer(24)) + buffer(25S)) / 2.55) / 10) * 10
-                            stringBuilder.Append(rpm)
-                            stringBuilder.Append(",")
+                                Dim rpm As Integer = CInt((((&HFF * buffer(24)) + buffer(25S)) / 2.55) / 10) * 10
+                                stringBuilder.Append(rpm)
+                                stringBuilder.Append(",")
 
-                            stringBuilder.Append(K8EngineDataLogger.CalcTPS(buffer(26)))
-                            stringBuilder.Append(",")
+                                stringBuilder.Append(K8EngineDataLogger.CalcTPS(buffer(26)))
+                                stringBuilder.Append(",")
 
-                            stringBuilder.Append(K8EngineDataLogger.CalcPressure(buffer(30) - buffer(27)).ToString("0.0"))
-                            stringBuilder.Append(",")
+                                Dim iap As Integer = buffer(30)
+                                iap = iap - buffer(27)
+                                stringBuilder.Append(K8EngineDataLogger.CalcPressure(iap).ToString("0.0"))
+                                stringBuilder.Append(",")
 
-                            stringBuilder.Append(K8EngineDataLogger.CalcAFR(buffer(32)).ToString("0.0"))
-                            stringBuilder.Append(",")
+                                stringBuilder.Append(K8EngineDataLogger.CalcAFR(buffer(32)).ToString("0.0"))
+                                stringBuilder.Append(",")
 
-                            Dim wideband As Integer = buffer(20) * 256 + buffer(21)
-                            stringBuilder.Append(K8EngineDataLogger.CalcWidebandAFR(wideband).ToString("0.0"))
-                            stringBuilder.Append(",")
+                                Dim wideband As Integer = buffer(20) * 256 + buffer(21)
+                                stringBuilder.Append(K8EngineDataLogger.CalcWidebandAFR(wideband).ToString("0.0"))
+                                stringBuilder.Append(",")
 
-                            stringBuilder.Append(K8EngineDataLogger.CalcIgnDeg(buffer(49)))
-                            stringBuilder.Append(",")
+                                stringBuilder.Append(K8EngineDataLogger.CalcIgnDeg(buffer(49)))
+                                stringBuilder.Append(",")
 
-                            stringBuilder.Append(K8EngineDataLogger.CalcSTP(buffer(53)))
-                            stringBuilder.Append(",")
+                                stringBuilder.Append(K8EngineDataLogger.CalcSTP(buffer(53)))
+                                stringBuilder.Append(",")
 
-                            stringBuilder.Append(buffer(33))
-                            stringBuilder.Append(",")
+                                stringBuilder.Append(buffer(33))
+                                stringBuilder.Append(",")
 
-                            stringBuilder.Append(K8EngineDataLogger.CalcClutch(buffer(59) And &H10))
-                            stringBuilder.Append(",")
+                                stringBuilder.Append(K8EngineDataLogger.CalcClutch(buffer(59) And &H10))
+                                stringBuilder.Append(",")
 
-                            stringBuilder.Append(K8EngineDataLogger.CalcNeutral(buffer(60) And 2))
-                            stringBuilder.Append(",")
+                                stringBuilder.Append(K8EngineDataLogger.CalcNeutral(buffer(60) And 2))
+                                stringBuilder.Append(",")
 
-                            stringBuilder.Append(K8EngineDataLogger.CalcPressure(buffer(22)))
-                            stringBuilder.Append(",")
+                                stringBuilder.Append(K8EngineDataLogger.CalcBoost(buffer(22)))
+                                stringBuilder.Append(",")
 
-                            stringBuilder.Append(K8EngineDataLogger.CalcTemp(buffer(28)))
-                            stringBuilder.Append(",")
+                                stringBuilder.Append(K8EngineDataLogger.CalcTemp(buffer(28)))
+                                stringBuilder.Append(",")
 
-                            stringBuilder.Append(K8EngineDataLogger.CalcTemp(buffer(29)))
-                            stringBuilder.Append(",")
+                                stringBuilder.Append(K8EngineDataLogger.CalcTemp(buffer(29)))
+                                stringBuilder.Append(",")
 
-                            stringBuilder.Append(K8EngineDataLogger.CalcPair(buffer(58) And 1))
-                            stringBuilder.Append(",")
+                                stringBuilder.Append(K8EngineDataLogger.CalcPair(buffer(58) And 1))
+                                stringBuilder.Append(",")
 
-                            stringBuilder.Append(buffer(38) * 256 + buffer(39))
-                            stringBuilder.Append(",")
+                                stringBuilder.Append(buffer(38) * 256 + buffer(39))
+                                stringBuilder.Append(",")
 
-                            stringBuilder.Append(buffer(40) * 256 + buffer(41))
-                            stringBuilder.Append(",")
+                                stringBuilder.Append(buffer(40) * 256 + buffer(41))
+                                stringBuilder.Append(",")
 
-                            stringBuilder.Append(buffer(42) * 256 + buffer(43))
-                            stringBuilder.Append(",")
+                                stringBuilder.Append(buffer(42) * 256 + buffer(43))
+                                stringBuilder.Append(",")
 
-                            stringBuilder.Append(buffer(44) * 256 + buffer(45))
+                                stringBuilder.Append(buffer(44) * 256 + buffer(45))
 
-                            writer.WriteLine(stringBuilder.ToString())
+                                writer.WriteLine(stringBuilder.ToString())
+
+                            Catch ex As Exception
+                                Dim message As String = ex.Message
+                            End Try
 
                         End While
                     End If
@@ -7134,7 +7142,7 @@ skip_update:
             MessageBox.Show(ex.Message, ".wrl Convert", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
 
         If completed = True Then
             MessageBox.Show(".wrl files converted to .csv files", ".Wrl Convert", MessageBoxButtons.OK, MessageBoxIcon.Information)

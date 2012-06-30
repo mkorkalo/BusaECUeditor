@@ -49,6 +49,7 @@ Partial Class LogBoxCfg
         '
         Me.nudLogStartDelay.Enabled = False
         Me.nudLogStartDelay.Location = New System.Drawing.Point(239, 8)
+        Me.nudLogStartDelay.Maximum = New Decimal(New Integer() {59, 0, 0, 0})
         Me.nudLogStartDelay.Name = "nudLogStartDelay"
         Me.nudLogStartDelay.Size = New System.Drawing.Size(88, 20)
         Me.nudLogStartDelay.TabIndex = 1
