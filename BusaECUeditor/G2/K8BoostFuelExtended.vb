@@ -453,9 +453,9 @@ Public Class K8BoostFuelExtended
         End If
 
         If C_BoostPressureDisplay.SelectedIndex = 0 Then
-            T_overboost.Text = ConvertIntToPSI(ReadFlashWord(&H55802)).ToString("0")
+            T_overboost.Text = (ConvertIntToPSI(ReadFlashWord(&H55802)) - 14.7).ToString("0")
         Else
-            T_overboost.Text = ConvertIntToKPa(ReadFlashWord(&H55802)).ToString("0")
+            T_overboost.Text = (ConvertIntToKPa(ReadFlashWord(&H55802)) - 101).ToString("0")
         End If
 
         ' Generate map contents into a grid
@@ -1001,9 +1001,9 @@ Public Class K8BoostFuelExtended
             If Abs(Val(T_overboost.Text)) > 250 Then T_overboost.Text = "250"
 
             If C_BoostPressureDisplay.SelectedIndex = 0 Then
-                WriteFlashWord(&H55802, ConvertPSIToInt(T_overboost.Text))
+                WriteFlashWord(&H55802, ConvertPSIToInt(T_overboost.Text + 14.7))
             Else
-                WriteFlashWord(&H55802, ConvertKPaToInt(T_overboost.Text))
+                WriteFlashWord(&H55802, ConvertKPaToInt(T_overboost.Text + 101))
             End If
         End If
     End Sub

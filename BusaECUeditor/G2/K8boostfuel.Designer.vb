@@ -20,8 +20,8 @@ Partial Class K8boostfuel
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.C_boostfuel_activation = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -101,9 +101,9 @@ Partial Class K8boostfuel
         Me.D_boostfuel.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.D_boostfuel.Location = New System.Drawing.Point(6, 17)
         Me.D_boostfuel.Name = "D_boostfuel"
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black
-        Me.D_boostfuel.RowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black
+        Me.D_boostfuel.RowsDefaultCellStyle = DataGridViewCellStyle3
         Me.D_boostfuel.Size = New System.Drawing.Size(624, 267)
         Me.D_boostfuel.TabIndex = 71
         '
@@ -144,9 +144,9 @@ Partial Class K8boostfuel
         Me.D_duty.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.D_duty.Location = New System.Drawing.Point(8, 46)
         Me.D_duty.Name = "D_duty"
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black
-        Me.D_duty.RowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black
+        Me.D_duty.RowsDefaultCellStyle = DataGridViewCellStyle4
         Me.D_duty.Size = New System.Drawing.Size(622, 156)
         Me.D_duty.TabIndex = 74
         '
@@ -230,7 +230,7 @@ Partial Class K8boostfuel
         Me.B_rescale.TabIndex = 87
         Me.B_rescale.Text = "GM3bar"
         Me.ToolTip1.SetToolTip(Me.B_rescale, "Rescale changes the pressure scale. If this button is used then the full map need" & _
-                "s to be retuned as the pressure columns are changed.")
+        "s to be retuned as the pressure columns are changed.")
         Me.B_rescale.UseVisualStyleBackColor = True
         '
         'B_Apply_Map
@@ -262,7 +262,7 @@ Partial Class K8boostfuel
         Me.T_overboost.Size = New System.Drawing.Size(48, 29)
         Me.T_overboost.TabIndex = 83
         Me.ToolTip1.SetToolTip(Me.T_overboost, "Sets the hardlimit for fuel and ignitioncut based on boost. Use + and - keys to a" & _
-                "djust. Requires shifter module being active.")
+        "djust. Requires shifter module being active.")
         Me.T_overboost.WordWrap = False
         '
         'ToolTip1

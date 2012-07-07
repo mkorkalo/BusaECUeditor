@@ -107,6 +107,7 @@ Partial Class main
         Me.tw_p = New System.Windows.Forms.PictureBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.K11US15J10ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -207,7 +208,7 @@ Partial Class main
         '
         'ToolStripMenuItem4
         '
-        Me.ToolStripMenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewStockGixxerK721H00ToolStripMenuItem, Me.ToolStripMenuItem2, Me.NewStockGixxerK721H50ToolStripMenuItem, Me.NewStockGixxerK721H60ToolStripMenuItem, Me.ToolStripMenuItem5, Me.K8EUAU21H50EarlyToolStripMenuItem, Me.NewStockGixxerK821H50ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem1, Me.K9EU38H00ToolStripMenuItem, Me.K9GR38HH0ToolStripMenuItem, Me.K11EUToolStripMenuItem, Me.K8EU37H00ToolStripMenuItem, Me.K8US37H10ToolStripMenuItem, Me.K11EUToolStripMenuItem1})
+        Me.ToolStripMenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewStockGixxerK721H00ToolStripMenuItem, Me.ToolStripMenuItem2, Me.NewStockGixxerK721H50ToolStripMenuItem, Me.NewStockGixxerK721H60ToolStripMenuItem, Me.ToolStripMenuItem5, Me.K8EUAU21H50EarlyToolStripMenuItem, Me.NewStockGixxerK821H50ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem, Me.NewStockGixxerK9K1147H10ToolStripMenuItem1, Me.K9EU38H00ToolStripMenuItem, Me.K9GR38HH0ToolStripMenuItem, Me.K11EUToolStripMenuItem, Me.K11US15J10ToolStripMenuItem, Me.K8EU37H00ToolStripMenuItem, Me.K8US37H10ToolStripMenuItem, Me.K11EUToolStripMenuItem1})
         Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
         Me.ToolStripMenuItem4.Size = New System.Drawing.Size(239, 22)
         Me.ToolStripMenuItem4.Text = "New/Stock Gixxer K7-K11"
@@ -734,6 +735,12 @@ Partial Class main
         Me.Button1.TabIndex = 41
         Me.Button1.UseVisualStyleBackColor = False
         '
+        'K11US15J10ToolStripMenuItem
+        '
+        Me.K11US15J10ToolStripMenuItem.Name = "K11US15J10ToolStripMenuItem"
+        Me.K11US15J10ToolStripMenuItem.Size = New System.Drawing.Size(221, 22)
+        Me.K11US15J10ToolStripMenuItem.Text = "750K11 US (15J10)"
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -857,5 +864,6 @@ Partial Class main
     Friend WithEvents GetInterfaceFromWoolichRacingcomToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents WoolichRacingLogBoxConfigToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ConvertwrlFileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents K11US15J10ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class
