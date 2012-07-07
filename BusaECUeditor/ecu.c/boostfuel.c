@@ -235,7 +235,6 @@ const unsigned char sensormap[] = {
 #pragma SECTION P BOOSTFUEL //0x55A00
 		void boostfuelmain(void)
 		{
-
 			if (initialized == 0)							// if not initialized then set initialized variable and run other initialization if needed
 			{
 				initialized = 1;

@@ -2137,7 +2137,7 @@ Public Class K8EngineDataLogger
                 logEntry.Append(",")
                 logEntry.Append(CalcNeutral(NT))
                 logEntry.Append(",")
-                logEntry.Append(CalcPressure(BOOST))
+                logEntry.Append(CalcBoost(BOOST))
                 logEntry.Append(",")
                 logEntry.Append(CalcPressure(IP))
                 logEntry.Append(",")
