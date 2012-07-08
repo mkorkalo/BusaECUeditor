@@ -4328,6 +4328,66 @@ skip_update:
                 B_IgnitionMap.Enabled = True
                 B_AdvancedSettings.Enabled = True
 
+            Case "DJE4SE10"
+                Hayabusa.Text = "Gixxer K11- EU 32920-14J10"
+                Metric = True
+                ECUVersion = "gixxer"
+
+                gixxer_modelname = "ecueditor.com for gixxer 600 K11- US (32920-14J10) "
+
+                gixxer_shifter_ADJ = 0
+                gixxer_shifter_FUELCODE = 0
+                gixxer_shifter_IGNCODE = 0
+                gixxer_shifter_jmp_to_fuelcode = 0        'last label at the end of function set_fuel_gear_type2hard
+                gixxer_shifter_jmp_to_igncode = 0         'last label at the end of function calculate_ignition_gear_limiters
+
+                gixxer_STP_map_first_table = 0            ' STP_gear06_ms01_modeabc_STP_map_list_
+                gixxer_STP_map_first_table_fuel = 0
+
+                gixxer_fuelmap_map_first = &H6026C            'Fuel_IAP
+                gixxer_injectorbalance_map_first = &H60254     'injector_balancing_volume_
+
+                gixxer_ignition_map_first = &H5FA4C              ' ign_group_clutch_neutral
+                gixxer_ignition_use_clutch_map = &H743A4         ' use_clutch_map_if_0x1
+
+                gixxer_msmode = &H73E8F
+                gixxer_ecumode = &H73D2B
+
+                gixxer_ignition_rpm_limiter = &H74374          'ignition_rpm_limiter
+
+                gixxer_GPS_AD_sensor_address_in_ignition_shiftkill = 0 '&H3BD60 + 1 'sub set_ignition_limiters beginning the GPS_sensor_RAW address
+                gixxer_GPS_voltage_raw = 0 '&H80510D
+                gixxer_set_ign_default = 0 '&H7439F
+
+                gixxer_fuel_limiter_by_gear = 0 '&H74BE7            'fuelcut_by_gear
+                gixxer_RPM_limit_type1 = 0 '&H74A92                'RPM_limit_type1
+                gixxer_fuel_limiter_softcut_or_hardcut = 0 '&H74BE4 'fuel_limiter_softcut_or_hardcut
+                gixxer_baseline = 15500
+
+                gixxerramair_columnheader = 0
+                gixxerramair_map = 0
+
+
+                '
+                ' These do not need to be adjusted
+                '
+                gixxer_ignition_map_name = gixxer_modelname
+                gixxer_fuel_limiter_by_gear_softcut = gixxer_fuel_limiter_by_gear + 1
+                gixxer_injectorbalance_map_name = gixxer_modelname
+                gixxer_STP_modelname = gixxer_modelname
+                gixxer_fuelmap_map_bikename = gixxer_modelname
+
+                B_EngineData.Enabled = True
+                FlashToolStripMenuItem.Visible = Enabled
+                B_DataLogging.Enabled = True
+                SaveToolStripMenuItem.Enabled = True
+                B_FlashECU.Enabled = True
+                B_Limiters.Enabled = True
+                B_Shifter.Enabled = False
+                B_FuelMap.Enabled = True
+                B_IgnitionMap.Enabled = True
+                B_AdvancedSettings.Enabled = True
+
             Case "DJ55SE10"
                 Hayabusa.Text = "Gixxer K8 EU 32920-37H10"
                 Metric = True
@@ -7215,7 +7275,6 @@ skip_update:
 
         CloseChildWindows()
 
-
         ' OK, so the file is found, now lets start processing it
         defpath = My.Application.Info.DirectoryPath & "\ecu.bin\DJF4SE10.bin"
 
@@ -7259,6 +7318,57 @@ skip_update:
         BlockPgm = True
 
     End Sub
+
+    Private Sub K11US14J10ToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles K11US14J10ToolStripMenuItem.Click
+
+        Dim defpath As String ' this is for this subroutine only
+
+        CloseChildWindows()
+
+        ' OK, so the file is found, now lets start processing it
+        defpath = My.Application.Info.DirectoryPath & "\ecu.bin\DJE4SE10.bin"
+
+        L_File.Text = ""
+        L_Comparefile.Text = ""
+        DisableButtons()
+
+        ' Open the stream and read it to global variable "Flash". 
+        fs = File.OpenRead(defpath)
+        Dim b(1) As Byte
+        Dim i As Integer
+        i = 0
+        Do While fs.Read(b, 0, 1) > 0
+            Flash(i) = b(0)
+            FlashCopy(i) = b(0)
+            i = i + 1
+        Loop
+        fs.Close()
+
+        ' Check that the binary lenght matches expected ecu
+        If i <> (262144 * 4) Then
+            ECUNotSupported.ShowDialog()
+        End If
+
+        ECUVersion = "gixxer"
+        '
+        ' Make sure the ECU id is supported type
+        '
+        i = 0
+        ECUID.Text = ""
+        Do While i < 8
+            ECUID.Text = ECUID.Text & Chr(Flash(&HFFFF0 + i))
+            i = i + 1
+        Loop
+
+        ' check the ecu id bytes and validate that the ecu flash image is supported
+        SetECUType()
+
+        MsgBox("A new Gixxer basemap is generated", MsgBoxStyle.Information)
+
+        BlockPgm = True
+
+    End Sub
+
 End Class
 
 
