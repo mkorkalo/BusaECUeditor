@@ -898,7 +898,7 @@ Public Class K8EngineDataViewer
         End If
 
         If My.Settings.FilterClutchIn = True Then
-            If logValue.CLUTCH = "In" Then
+            If logValue.CLUTCH <> 0 Then
                 Return False
             End If
         End If

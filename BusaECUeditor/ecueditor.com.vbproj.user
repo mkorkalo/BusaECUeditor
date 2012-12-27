@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <PublishUrlHistory>d:\Projects\Ecu Editor\Publish\|e:\Projects\Ecu Editor\Publish\|E:\Projects\Ecu Editor\Publish\|D:\Projects\Ecu Editor\Publish\|E:\Projects\Ecu Editor\Publish\publish for zip\</PublishUrlHistory>
+    <PublishUrlHistory>E:\Projects\Ecu Editor\Publish\|d:\Projects\Ecu Editor\Publish\|e:\Projects\Ecu Editor\Publish\|D:\Projects\Ecu Editor\Publish\|E:\Projects\Ecu Editor\Publish\publish for zip\</PublishUrlHistory>
     <InstallUrlHistory>http://ecueditorco.web713.discountasp.net/download/|http://macmadigan.no-ip.com/ecueditor2.5/|\\amd\wwwroot\ecueditor2.5\|http://www.ecueditor.net/|http://macmadigan.no-ip.com/ecueditor2.6/</InstallUrlHistory>
     <SupportUrlHistory>http://www.ecueditor.com|http://www.ecueditor.info|http://www.activeboard.com/forum.spark%3fforumID=99460|http://www.busanistit.org</SupportUrlHistory>
     <UpdateUrlHistory>http://macmadigan.no-ip.com/ecueditor2.5/|http://www.ecueditor.net/|http://macmadigan.no-ip.com/ecueditor2.6/|http://macmadigan.no-ip.com/ecueditor2.4/|http://macmadigan.no-ip.com/ecueditor2.3/</UpdateUrlHistory>
