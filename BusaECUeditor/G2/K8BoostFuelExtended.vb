@@ -1114,6 +1114,7 @@ Public Class K8BoostFuelExtended
             Next
 
         End If
+
         duty_writemaptoflash()
 
     End Sub

@@ -439,6 +439,7 @@ Public Class K8boostfuel
                 D_duty.Item(c, r).Value = 255
                 MsgBox("Max value exceeded, using max value")
             End If
+
             If (r = 0) Or (r = 1) Then
                 If metric Then
                     WriteFlashWord((i * 2) + &H559A0, (((14.7 * D_duty.Item(c, r).Value / 100) + 14.7) * 50.5 / 9.2))
@@ -824,9 +825,11 @@ Public Class K8boostfuel
             If (r = 0) Or (r = 1) Then
                 If B_rescale.Text.Contains("GM3") Then
                     If Metric Then
-                        D_duty.Item(c, r).Value = Int(((((ReadFlashWord((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7) / 14.7) * 100)
+                        'D_duty.Item(c, r).Value = Int(((((ReadFlashWord((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7) / 14.7) * 100)
+                        D_duty.Item(c, r).Value = Math.Round(((((ReadFlashWord((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7) / 14.7) * 100).ToString("0")
                     Else
-                        D_duty.Item(c, r).Value = Int(((((ReadFlashWord((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7)))
+                        'D_duty.Item(c, r).Value = Int(((((ReadFlashWord((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7)))
+                        D_duty.Item(c, r).Value = Math.Round((((ReadFlashWord((i * 2) + &H559A0) / 50.5) * 9.2) - 14.7)).ToString("0")
                     End If
                 Else
                     '
@@ -1051,8 +1054,6 @@ Public Class K8boostfuel
                     columnStartIndex = cell.ColumnIndex
                 End If
             Next
-
-
 
             rowIndex = D_duty.CurrentCell.RowIndex
 
