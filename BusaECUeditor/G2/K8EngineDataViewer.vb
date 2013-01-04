@@ -450,7 +450,13 @@ Public Class K8EngineDataViewer
                         logValue.IGN = K8EngineDataLogger.CalcIgnDeg(values(6))
                         logValue.STP = K8EngineDataLogger.CalcSTP(values(7))
                         logValue.GEAR = values(8)
-                        logValue.CLUTCH = values(9)
+
+                        If values(9) = "Out" Then
+                            logValue.CLUTCH = 0
+                        Else
+                            logValue.CLUTCH = 1
+                        End If
+
                         logValue.NT = Boolean.Parse(values(10))
                         logValue.BOOST = K8EngineDataLogger.CalcBoost(values(11))
                         logValue.IP = K8EngineDataLogger.CalcPressure(values(12))
