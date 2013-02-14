@@ -189,7 +189,7 @@ const unsigned char sensormap[] = {
 #pragma SECTION C PDUTY //0x559A0
 #define dcounter 								0x19			 // 0xA=21Hz, 0x10=14Hz, 0x19=10Hz divisor for AD conversion cycles
 		const unsigned char const10hz = 				dcounter;
-		const unsigned char fueladdmode = 				0xFF; /* 0x00 adding, 0xFF % of TPS) */
+		const unsigned char fueladdmode = 				0xFF; /* 0x00 adding, 0x10 % of TPS) */
 		const unsigned char dutyactive =				0xFF; /* 0xFF inactive, 0x00 active*/
 		const unsigned char solenoidtype = 				0xFF; /* 0xFF or 0x00 */
 
