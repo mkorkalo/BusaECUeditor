@@ -40,10 +40,6 @@ Public Class K8nitrouscontrol
     Dim loading As Boolean = True
     Dim dcounter As Integer = 250
 
-
-
-
-
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If (ReadFlashByte(ADJ) <> &HFF) Then
         End If
@@ -59,6 +55,7 @@ Public Class K8nitrouscontrol
             If (ReadFlashByte(ADJ) = &HFF) Then
                 modify_original_ECU_code(True)
                 nitrouscontrol_code_in_memory(True, nitrouscontrolcodelenght)
+                C_DSMSELECTED.Checked = True
             End If
         Else
             C_nitrouscontrol_activation.Text = "Code not active"
