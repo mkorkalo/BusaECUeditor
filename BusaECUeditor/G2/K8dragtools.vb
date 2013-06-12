@@ -145,7 +145,7 @@ Public Class K8dragtools
         i = ReadFlashWord(&H5A00E) / 2.56 ' this is the reference  that is stored in the system
         Me.C_ACTIVATION.Items.Add(i.ToString())
         i = 3000
-        Do While i < 8000
+        Do While i < 12000
             Me.C_ACTIVATION.Items.Add(i.ToString())
             i = i + 100
         Loop
