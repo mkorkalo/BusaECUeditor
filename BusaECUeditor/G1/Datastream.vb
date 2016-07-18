@@ -281,11 +281,15 @@ Public Class Datastream
     Private Sub CloseCsv()
         sw.Close()
     End Sub
+    Dim pc As PerformanceCounter = New PerformanceCounter("System", "System Up Time")
 
+    ' This call to NextValue gets the correct value
+    Dim logStarted As TimeSpan
     Private Sub OpenCsv(ByVal filename As String)
         sw = New StreamWriter(filename)
-        sw.WriteLine("RPM;Selected Map;TPS;IAP;AFR;Coolant Temp;Fuel pw;Ignition deg;Oxy Active;USR1")
-
+        pc.NextValue() 'first call might return a zero
+        sw.WriteLine("Seconds;Timestamp;RPM;Selected Map;TPS;IAP;AFR;Coolant Temp;Fuel pw;Ignition deg;Oxy Active;USR1")
+        logStarted = TimeSpan.FromSeconds(pc.NextValue())
     End Sub
 
     Dim csvN As Integer = 0
@@ -693,8 +697,9 @@ Public Class Datastream
         End If
 
         If chkCsvLogging.Checked Then
-            'RPM;Selected Map;TPS;IAP;AFR;Coolant Temp;Fuel pw;Ignition deg;Oxy Active;USR1
-
+            Dim elapsed As TimeSpan = TimeSpan.FromSeconds(pc.NextValue()) - logStarted
+            AddToCsv(Str(elapsed.TotalSeconds))
+            AddToCsv(DateTime.Now.ToString())
             AddToCsv(LED_RPM.Text)
             AddToCsv(T_MapSelected.Text)
             AddToCsv(LED_TPS.Text)
