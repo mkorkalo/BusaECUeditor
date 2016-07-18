@@ -20,6 +20,7 @@
 '    of the GNU licence.
 '
 Imports System.Management ' required by WMI queries
+Imports System.IO
 
 
 Public Class Datastream
@@ -103,7 +104,7 @@ Public Class Datastream
             MsgBox("Interface needs to be set. Connect valid interface cable and restart program. ", MsgBoxStyle.Information)
         End If
 
-        If (notvalidinterface(pvs)) Then
+        If (NotValidInterface(pvs)) Then
             MsgBox("Problems in configuring the Interface ", MsgBoxStyle.Critical)
             OKtoactivate = False
             End
@@ -135,13 +136,13 @@ Public Class Datastream
             TextBox1.Text = ex.Message
         End Try
 
-        B_Logging.Enabled = False
+        'B_Logging.Enabled = False
         C_Uservar1.Enabled = True
         TrackBar_Datalog.Enabled = False
         Timer2.Interval = TimerInterval
         Timer2.Enabled = False
         DataLogPointer = 0
-        _checksumerror = 0
+        _checkSumError = 0
 
         If OKtoactivate Then B_DataStreamOn_Click(Me, System.EventArgs.Empty)
 
@@ -197,7 +198,7 @@ Public Class Datastream
         If Timer2.Enabled Then
 
             B_DataStreamOn.Text = "Data OFF"
-            B_Logging.Enabled = True
+            'B_Logging.Enabled = True
             C_SerialPort.Enabled = False
             C_Uservar1.Enabled = False
             Try
@@ -206,7 +207,7 @@ Public Class Datastream
                 TextBox1.Text = ex.Message
                 If Not SerialPort1.IsOpen() Then
                     B_DataStreamOn.Text = "Data ON"
-                    B_Logging.Enabled = False
+                    'B_Logging.Enabled = False
                     _CLTHigh = False
                     C_SerialPort.Enabled = True
                     C_Uservar1.Enabled = True
@@ -216,7 +217,7 @@ Public Class Datastream
             End Try
         Else
             B_DataStreamOn.Text = "Data ON"
-            B_Logging.Enabled = False
+            'B_Logging.Enabled = False
             _CLTHigh = False
             C_SerialPort.Enabled = True
             C_Uservar1.Enabled = True
@@ -230,22 +231,7 @@ Public Class Datastream
         End If
     End Sub
 
-    Private Sub B_Logging_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles B_Logging.Click
-        If B_Logging.Text = "Logging ON" Then
-            B_Logging.Text = "Logging OFF"
-            DataLogPointer = 1
-            TrackBar_Datalog.Enabled = False
-            Datalogger.Show()
-        Else
-            B_Logging.Text = "Logging ON"
-            DataLogLength = DataLogPointer
-            DataLogPointer = 0
-            TrackBar_Datalog.Enabled = True
-            TrackBar_Datalog.Maximum = DataLogLength
-            TrackBar_Datalog.Value = DataLogLength
-            TextBox1.Text = Str(DataLogLength)
-            Datalogger.Close()
-        End If
+    Private Sub B_Logging_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
     End Sub
 
     Private Sub C_UserVar1_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles C_Uservar1.TextChanged
@@ -290,6 +276,31 @@ Public Class Datastream
         End If
 
     End Sub
+    Dim sw As StreamWriter
+
+    Private Sub CloseCsv()
+        sw.Close()
+    End Sub
+
+    Private Sub OpenCsv(ByVal filename As String)
+        sw = New StreamWriter(filename)
+        sw.WriteLine("RPM;Selected Map;TPS;IAP;AFR;Coolant Temp;Fuel pw;Ignition deg;Oxy Active;USR1")
+
+    End Sub
+
+    Dim csvN As Integer = 0
+    Private Sub AddToCsv(ByVal value As String)
+        If csvN > 0 Then
+            sw.Write(";")
+        End If
+        sw.Write(value.Replace(";", "").Trim)
+        csvN += 1
+    End Sub
+
+    Private Sub FinishCsvLine()
+        sw.WriteLine()
+        csvN = 0
+    End Sub
 
     Private Sub Timer2_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer2.Tick
         Dim d As Double
@@ -303,11 +314,11 @@ Public Class Datastream
             ReadProcessOnGoing = True
             ReadRamVar()
             ReadProcessOnGoing = False
-            If FuelMapVisible Then FuelMap.tracemap()
-            If IgnitionMapVisible Then Ignitionmap.tracemap()
+            If FuelMapVisible Then FuelMap.TraceMap()
+            If IgnitionMapVisible Then IgnitionMap.TraceMap()
         End If
 
-        If _checksumerror <> 0 Then
+        If _checkSumError <> 0 Then
             'sendreset()
             TextBox1.Text = "Checksum general error in program"
         Else
@@ -330,7 +341,7 @@ Public Class Datastream
                 DataLogPointer = DataLogPointer + 1
 
                 If DataLogPointer >= MaxDataLog Then
-                    B_Logging.Text = "Logging ON"
+                    'B_Logging.Text = "Logging ON"
                     DataLogLength = DataLogPointer
                     DataLogPointer = 0
                     TrackBar_Datalog.Enabled = True
@@ -343,11 +354,12 @@ Public Class Datastream
                 ' Lets show some fancy gauges here while datalogging
                 '
                 d = RPM
-                Datalogger.AxEChartCtl1.SetValue(d)
+                ' XXX DataLogger stuff here
+                'Datalogger.AxEChartCtl1.SetValue(d)
                 d = CalcTPS(TPS)
-                Datalogger.AxEChartCtl2.SetValue(d)
-                Datalogger.AxEChartCtl1.Update()
-                Datalogger.AxEChartCtl2.Update()
+                'Datalogger.AxEChartCtl2.SetValue(d)
+                'Datalogger.AxEChartCtl1.Update()
+                'Datalogger.AxEChartCtl2.Update()
                 Datalogger.L_capleft.Text = Str(Int(DataLogPointer * 100 / MaxDataLog)) & "%"
                 If ((DataLogPointer / MaxDataLog) * 100) > 90 Then
                     Datalogger.L_capleft.ForeColor = Color.Red
@@ -376,10 +388,10 @@ Public Class Datastream
         Fuel = DataLog(TrackBar_Datalog.Value, 8)
         IGN = DataLog(TrackBar_Datalog.Value, 9)
         AFR = DataLog(TrackBar_Datalog.Value, 10)
-        If FuelMapVisible Then FuelMap.tracemap()
-        If IgnitionMapVisible Then Ignitionmap.tracemap()
+        If FuelMapVisible Then FuelMap.TraceMap()
+        If IgnitionMapVisible Then IgnitionMap.TraceMap()
 
-        writelabels()
+        WriteLabels()
 
     End Sub
 
@@ -569,7 +581,7 @@ Public Class Datastream
         End Try
 
         If (b(l - 1) <> (256 - c)) Then
-            _checksumerror = 3
+            _checkSumError = 3
             TextBox1.Text = "Checksum error in sending gauge data"
         End If
 
@@ -615,7 +627,7 @@ Public Class Datastream
         End Try
 
         If (b(l - 1) <> (256 - c)) Then
-            _checksumerror = 3
+            _checkSumError = 3
             TextBox1.Text = "Checksum error in sending reset data"
         End If
 
@@ -680,7 +692,25 @@ Public Class Datastream
             LED_USR1.Text = Str(USR1)
         End If
 
+        If chkCsvLogging.Checked Then
+            'RPM;Selected Map;TPS;IAP;AFR;Coolant Temp;Fuel pw;Ignition deg;Oxy Active;USR1
 
+            AddToCsv(LED_RPM.Text)
+            AddToCsv(T_MapSelected.Text)
+            AddToCsv(LED_TPS.Text)
+            AddToCsv(LED_IAP.Text)
+            AddToCsv(Str(AFR))
+            AddToCsv(LED_CLT.Text)
+            AddToCsv(LED_FUEL.Text)
+            AddToCsv(LED_IGN.Text)
+            AddToCsv(R_OxySensor.Checked)
+            If C_Uservar1.Text <> "" Or LED_USR1.Text.ToLower <> "c00" Then
+                AddToCsv(LED_USR1.Text + " (" + C_Uservar1.Text + ")")
+            Else
+                AddToCsv("-")
+            End If
+            FinishCsvLine()
+        End If
     End Sub
 
     Private Function NotValidInterface(ByVal pvs As String) As Boolean
@@ -692,10 +722,31 @@ Public Class Datastream
 #Region "Not Used"
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        sendreset()
+        SendReset()
     End Sub
 
 #End Region
 
-   
+    Private Sub CheckBox1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCsvLogging.CheckedChanged
+        If chkCsvLogging.Checked Then
+            OpenCsv(txtCsvPath.Text)
+            DataLogLength = DataLogPointer
+            DataLogPointer = 0
+            TrackBar_Datalog.Enabled = True
+            TrackBar_Datalog.Maximum = DataLogLength
+            TrackBar_Datalog.Value = DataLogLength
+            TextBox1.Text = Str(DataLogLength)
+            'Datalogger.Close()
+            txtCsvPath.Enabled = False
+        Else
+            CloseCsv()
+            DataLogPointer = 1
+            TrackBar_Datalog.Enabled = False
+            txtCsvPath.Enabled = False
+            Dim strPath As String = System.IO.Path.GetFullPath(txtCsvPath.Text)
+            Process.Start(strPath)
+
+            'Datalogger.Show()
+        End If
+    End Sub
 End Class
