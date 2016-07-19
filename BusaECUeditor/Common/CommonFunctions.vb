@@ -3,7 +3,7 @@ Module CommonFunctions
 #Region "Variables"
 
     Private Const _timerInterval As Integer = 250
-    Private Const _maxDataLog As Integer = 4000
+    Private Const _maxDataLog As Integer = 40000
 
     Public Flash(262144 * 4) As Byte
     Public FlashCopy(262144 * 4) As Byte

@@ -297,6 +297,9 @@ Public Class Datastream
         If csvN > 0 Then
             sw.Write(";")
         End If
+        If value Is Nothing Then
+            value = ""
+        End If
         sw.Write(value.Replace(";", "").Trim)
         csvN += 1
     End Sub
@@ -732,9 +735,11 @@ Public Class Datastream
 
 #End Region
 
+    Dim csvPath As String
     Private Sub CheckBox1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCsvLogging.CheckedChanged
         If chkCsvLogging.Checked Then
-            OpenCsv(txtCsvPath.Text)
+            csvPath = txtCsvPath.Text.Replace("%TIMESTAMP%", DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss"))
+            OpenCsv(csvPath)
             DataLogLength = DataLogPointer
             DataLogPointer = 0
             TrackBar_Datalog.Enabled = True
@@ -744,11 +749,11 @@ Public Class Datastream
             'Datalogger.Close()
             txtCsvPath.Enabled = False
         Else
+            Dim strPath As String = System.IO.Path.GetFullPath(csvPath)
             CloseCsv()
             DataLogPointer = 1
             TrackBar_Datalog.Enabled = False
-            txtCsvPath.Enabled = False
-            Dim strPath As String = System.IO.Path.GetFullPath(txtCsvPath.Text)
+            txtCsvPath.Enabled = True
             Process.Start(strPath)
 
             'Datalogger.Show()

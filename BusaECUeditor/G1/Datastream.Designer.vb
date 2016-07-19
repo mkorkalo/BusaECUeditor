@@ -389,7 +389,7 @@ Partial Class Datastream
         Me.txtCsvPath.Name = "txtCsvPath"
         Me.txtCsvPath.Size = New System.Drawing.Size(167, 31)
         Me.txtCsvPath.TabIndex = 77
-        Me.txtCsvPath.Text = "ecueditor.csv"
+        Me.txtCsvPath.Text = "ecueditor_%TIMESTAMP%.csv"
         '
         'Datastream
         '
