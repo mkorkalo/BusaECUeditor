@@ -1,0 +1,35 @@
+* A button in the fuel map editor page for autotune based on CSV datalog
+* Opens a new window with file selection and configuration settings
+* Reads a CSV file with at least TPS, IAP, RPM, AFR and Selected Map information
+* Analyzes the CSV file, and generates correction suggestions based on the following configuration:
+** Required samples per correction (i.e. TPS/RPM slot), i.e. at least 50 hits in the TPS/RPM slot
+** Target AFR table for RPM/TPS and RPM/IAP
+** Minimum correction (don't do corrections when they are smaller than this), i.e. 0,2% change
+*** Avoids confusing the user with useless changes
+** Maximum correction (limit corrections to this value even when it looks like we should correct more), i.e. 5%
+
+* Corrections are always split between 4 cells based on the following algorithm:
+** Find two RPM slots where rpm >= lower_rpm and rpm < higher_rpm
+** rpm_range = higher_rpm - lower_rpm
+** rpm_val = higher_rpm - rpm
+** rpm_relative = rpm_val / rpm_range   // rpm relative %
+** rpm_lower_percent = rpm_relative	// how many % of correction goes to the lower rpm
+** rpm_higher_percent = 1 - rpm_relative	//how many % of correction goes to the higher rpm
+
+** Similar algorithm for splitting correction between IAP slots, when on IAP map
+** Similar algorithm for splitting correction between TPS slots, when on TPS map
+
+** Correction calculation:
+*** i.e. real_afr = 15.0, target_afr = 14.5
+*** correction_relative = (real_afr - target_afr) / real_afr
+*** i.e. (15.0 - 14.5) / 15.0 = ~0.033 = 3.3% --> make 3.3% richer
+*** that 3.3% is split between 4 cells based on the previous split algorithm, i.e.
+*** rpm = 3750
+*** lower_rpm = 3000
+*** higher_rpm = 4000
+*** tps = 17.5%
+*** lower_tps = 15%
+*** higher_rps = 20
+*** tps_relative = 50%
+*** rpm_relative = 50%
+*** --> split that 3.3% as 25%/25%/25%/25% = each cell goes 0.825% richer
